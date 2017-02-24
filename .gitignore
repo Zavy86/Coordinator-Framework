@@ -1,0 +1,16 @@
+/nbproject/
+config.inc.php
+
+/modules/*
+!/modules/accounts/
+!/modules/dashboards/
+!/modules/settings/
+
+/uploads/*
+!/uploads/framework/brand.default.jpg
+!/uploads/framework/favicon.default.ico
+!/uploads/accounts/avatar.jpg
+
+/tmp/*
+
+!index.php
