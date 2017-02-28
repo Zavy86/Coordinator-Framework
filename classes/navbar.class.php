@@ -89,10 +89,12 @@ class Navbar{
   $item=new stdClass();
   $item->label=$label;
   $item->url=$url;
-  $item->urlParsed=api_parse_url($url);
   $item->class=$class;
   $item->enabled=$enabled;
   $item->subItems_array=array();
+  // check, parse and convert
+  if(substr($item->url,0,1)=="?"){$item->url="index.php".$item->url;}
+  $item->urlParsed=api_parse_url($url);
   // add item to nav
   $this->current_item++;
   $this->navs_array[$this->current_nav]->items_array[$this->current_item]=$item;
