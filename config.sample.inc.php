@@ -12,19 +12,19 @@
  $develop=FALSE;
 
  // path and dir
- //$config->path="/var/www";
- $config->dir="/coordinator-framework/";
+ //$configuration->path="/var/www";
+ $configuration->dir="/coordinator-framework/";
 
  // interface title  /** @todo move to database */
- $config->title="Coordinator";
- $config->default_module="dashboards";
+ $configuration->title="Coordinator";
+ $configuration->default_module="dashboards";
 
  // database parameters
- $config->db_type="mysql";
- $config->db_host="localhost";
- $config->db_port="3306";
- $config->db_name="rasmotic_manager";
- $config->db_user="root";
- $config->db_pass="root";
+ $configuration->db_type="mysql";
+ $configuration->db_host="localhost";
+ $configuration->db_port="3306";
+ $configuration->db_name="rasmotic_manager";
+ $configuration->db_user="root";
+ $configuration->db_pass="root";
 
 ?>

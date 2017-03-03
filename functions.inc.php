@@ -46,6 +46,7 @@
 
  // defines constants
  define('DIR',$configuration->dir);
+ define('URL',(isset($_SERVER['HTTPS'])?"https":"http")."://".$_SERVER['HTTP_HOST'].$GLOBALS['configuration']->dir);
  define('ROOT',realpath(dirname(__FILE__))."/");
  define('HELPERS',DIR."helpers/");
  define('MODULE',$r_module);
@@ -199,7 +200,10 @@ function api_link($url,$label,$title=NULL,$class=NULL,$popup=FALSE,$confirm=NULL
  return $return;
 }
 
-
+function api_sendmail($recipient,$subject,$message){
+  /** @todo fare funzione con phpmailer */
+ mail($recipient,$subject,$message);
+}
 
 
 
