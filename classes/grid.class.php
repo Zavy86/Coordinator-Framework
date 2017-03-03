@@ -85,7 +85,7 @@ class Grid{
    foreach($row->cols_array as $col){
     // renderize grid row cols
     $return.="  <!-- grid-row-col -->\n";
-    $return.="  <div class='".$col->class."'>\n";
+    $return.="  <div class='".$col->class."'>\n\n";
     $return.=$col->content."\n";
     $return.="  </div><!-- /grid-row-col -->\n";
    }

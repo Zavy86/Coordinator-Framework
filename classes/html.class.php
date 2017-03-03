@@ -10,7 +10,7 @@
 /**
  * HTML class
  *
- * @todo check phpdoc
+ *                                                               @todo add custom script
  */
 class HTML{
  /** @var string $title HTML page title */
@@ -180,7 +180,7 @@ class HTML{
   foreach($this->styleSheets_array as $styleSheet_url){$return.="  <link href='".$styleSheet_url."' rel='stylesheet'>\n";}
   // renderize scripts
   $return.="  <!-- scrips -->\n";
-  foreach($this->scripts_array as $script_url){$return.="  <script src='".$script_url."'></script>\n";}
+  foreach($this->scripts_array as $script_url){$return.="  <script src='".$script_url."'></script>\n";} /** @vedere se spostando al fondo non da problemi */
   $return.="\n </head>\n\n";
   // renderize body
   $return.=" <body>\n\n";

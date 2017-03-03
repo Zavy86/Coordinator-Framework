@@ -1,0 +1,67 @@
+/*
+#debug pre{font-size:9pt;}
+#debug code.log{color:#000;}
+#debug code.warn{color:#EA0;}
+#debug code.error{color:#F00;}
+*/
+/*.navbar-static-top {
+  margin-bottom: 19px;
+}*/
+
+/*div.br{
+ display:block;
+ margin:9px 0 0 0;
+}*/
+
+/*a span{
+ color:#333333;
+}*/
+
+/*.page_title{
+ margin-top:-6px;
+ text-align:center;
+}*/
+/*
+.alerts{
+  z-index:99999;
+  position:absolute;
+  top:60px;
+  left:14px;
+  right:14px;
+  opacity:0.95;
+}
+
+.alerts .alert{
+  opacity:0.95;
+}*/
+
+.nowrap{
+ white-space:nowrap;
+}
+
+.control-label{
+ font-weight:normal;
+}
+
+footer{
+ color:#999999;
+ font-size:12px;
+ padding-top:10px;
+ border-top:1px solid #DDDDDD;
+}
+
+/*col{background-color:#ccc;}*/
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th{
+ font-size:11px;
+ text-transform:uppercase;
+ border-bottom:0;
+}
+
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+ font-size:14px;
+}

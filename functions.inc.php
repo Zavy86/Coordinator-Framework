@@ -58,10 +58,11 @@
  require_once(ROOT."classes/settings.class.php");
  require_once(ROOT."classes/session.class.php");
  require_once(ROOT."classes/html.class.php");
- require_once(ROOT."classes/form.class.php");
  require_once(ROOT."classes/grid.class.php");
  require_once(ROOT."classes/nav.class.php");
  require_once(ROOT."classes/navbar.class.php");
+ require_once(ROOT."classes/table.class.php");
+ require_once(ROOT."classes/form.class.php");
 
  // load modules  /** @todo fare funzione */
  require_once(ROOT."modules/accounts/functions.inc.php");

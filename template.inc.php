@@ -11,13 +11,14 @@
  $this->setMetaTag("copyright","2009-".date("Y")." &copy; Coordinator [www.coordinator.it]");
  $this->setMetaTag("description","Coordinator is an Open Source Modular Framework");
  // add style sheets
- $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.5.min.css");
+ $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7.min.css");
+ $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme.min.css");
  /** @todo add some helpders here */
- $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-custom.css");
+ $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-custom.css");
  // add scripts
  $this->addScript(HELPERS."jquery/jquery-1.12.0.min.js");
  /** @todo add some helpders here */
- $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.5.min.js");
+ $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.7.min.js");
 
  // build header navbar object
  $header_navbar=new Navbar("Coordinator","navbar-default navbar-static-top");

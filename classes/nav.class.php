@@ -20,19 +20,19 @@ class Nav{
  /** @var integer $current_item Current item index */
  protected $current_item;
 
- /**
-  * Debug
-  *
-  * @return object Nav object
-  */
+/**
+ * Debug
+ *
+ * @return object Nav object
+ */
  public function debug(){return $this;}
 
- /**
-  * Nav class
-  *
-  * @param string $class CSS class (nav-tabs|nav-pills)
-  * @return boolean
-  */
+/**
+ * Nav class
+ *
+ * @param string $class CSS class (nav-tabs|nav-pills)
+ * @return boolean
+ */
  public function __construct($class="nav-tabs"){
   $this->class=$class;
   $this->current_nav=0;
@@ -41,15 +41,15 @@ class Nav{
   return TRUE;
  }
 
- /**
-  * Add Item
-  *
-  * @param string $label Label
-  * @param string $url URL
-  * @param string $class CSS class
-  * @param boolean $enabled Enabled
-  * @return boolean
-  */
+/**
+ * Add Item
+ *
+ * @param string $label Label
+ * @param string $url URL
+ * @param string $class CSS class
+ * @param boolean $enabled Enabled
+ * @return boolean
+ */
  public function addItem($label,$url="#",$class=NULL,$enabled=TRUE){
   $item=new stdClass();
   $item->label=$label;
@@ -64,15 +64,15 @@ class Nav{
   return TRUE;
  }
 
- /**
-  * Add Sub Item
-  *
-  * @param string $label Label
-  * @param string $url URL
-  * @param string $class CSS class
-  * @param boolean $enabled Enabled
-  * @return boolean
-  */
+/**
+ * Add Sub Item
+ *
+ * @param string $label Label
+ * @param string $url URL
+ * @param string $class CSS class
+ * @param boolean $enabled Enabled
+ * @return boolean
+ */
  public function addSubItem($label,$url,$class=NULL,$enabled=TRUE){
   if(!$this->current_item){echo "ERROR - Nav->addSubItem - No item defined";return FALSE;}
   $subItem=new stdClass();
@@ -87,12 +87,12 @@ class Nav{
   return TRUE;
  }
 
- /**
-  * Add Sub Separator
-  *
-  * @param string $class CSS class
-  * @return boolean
-  */
+/**
+ * Add Sub Separator
+ *
+ * @param string $class CSS class
+ * @return boolean
+ */
  public function addSubSeparator($class=NULL){
   if(!$this->current_item){echo "ERROR - Nav->addSubSeparator - No item defined";return FALSE;}
   $subSeparator=new stdClass();
@@ -103,13 +103,13 @@ class Nav{
   return TRUE;
  }
 
- /**
-  * Add Sub Header
-  *
-  * @param string $label Label
-  * @param string $class CSS class
-  * @return boolean
-  */
+/**
+ * Add Sub Header
+ *
+ * @param string $label Label
+ * @param string $class CSS class
+ * @return boolean
+ */
  public function addSubHeader($label,$class=NULL){
   if(!$this->current_item){echo "ERROR - Nav->addSubHeader - No item defined";return FALSE;}
   $subHeader=new stdClass();
@@ -121,12 +121,12 @@ class Nav{
   return TRUE;
  }
 
- /**
-  * Renderize Nav object
-  *
-  * @param boolean $echo Echo Nav source code or return
-  * @return boolean|string Nav source code
-  */
+/**
+ * Renderize Nav object
+ *
+ * @param boolean $echo Echo Nav source code or return
+ * @return boolean|string Nav source code
+ */
  public function render($echo=TRUE){
   // renderize nav
   $return="<!-- nav container -->\n";
