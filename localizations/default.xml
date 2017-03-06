@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<locale>
+
+ <code>en_EN</code>
+ <localization>English</localization>
+
+ <text key="yes">Yes</text>
+ <text key="no">No</text>
+
+</locale>

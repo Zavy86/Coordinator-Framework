@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<locale>
+
+ <code>it_IT</code>
+ <localization>Italiano</localization>
+
+ <text key="yes">Sì</text>
+ <text key="no">No</text>
+
+ <text key="parama">Ciao {0} {1}</text>
+
+</locale>
