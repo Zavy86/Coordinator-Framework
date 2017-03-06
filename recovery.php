@@ -20,7 +20,7 @@
  // build grid object
  $grid=new Grid();
  $grid->addRow();
- $grid->addCol($form->render(),"col-xs-12"); /* col-sm-offset-3 col-sm-6 col-sm-offset-3 */
+ $grid->addCol($form->render(),"col-xs-12");
  // add content to html
  $html->addContent($grid->render(FALSE));
  // renderize html page

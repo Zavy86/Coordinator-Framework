@@ -17,7 +17,7 @@
  $form_source.="<h2>Coordinator</h2>\n"; /** @todo prendere il titolo dal database */
  $form_source.="<form class=\"\" action=\"index.php?mod=accounts&scr=submit&act=user_login\" method=\"POST\" id=\"form_login\">\n";
  $form_source.=" <div class=\"form-group\">\n";
- $form_source.="  <input type=\"text\" name=\"username\" class=\"form-control\" id=\"form_login_input_username\" placeholder=\"Account\" required>\n";
+ $form_source.="  <input type=\"text\" name=\"username\" class=\"form-control\" id=\"form_login_input_username\" placeholder=\"Account\" required autofocus>\n";
  $form_source.=" </div><!-- /form-group -->\n";
  $form_source.=" <div class=\"form-group\">\n";
  $form_source.="  <input type=\"password\" name=\"password\" class=\"form-control\" id=\"form_login_input_password\" placeholder=\"Password\" required>\n";
@@ -35,7 +35,6 @@
  $html->addContent($grid->render(FALSE));
  // renderize html page
  $html->render();
-
  // debug
  if($debug){
   api_dump($_SESSION["coordinator_session_id"],"session_id");

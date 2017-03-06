@@ -51,7 +51,7 @@ class Form{
   $this->method=$method;
   $this->class=$class;
   $this->splitted=FALSE;
-  if($id){$this->id="table_".$id;}else{$this->id="form_".md5(rand(1,99999));}
+  if($id){$this->id="form_".$id;}else{$this->id="form_".md5(rand(1,99999));}
   $this->current_field=0;
   $this->fields_array=array();
   return TRUE;
@@ -187,9 +187,10 @@ class Form{
  /**
   * Renderize Form object
   *
+  * @param integer scaleFactor Scale factor
   * @return string HTML source code
   */
- public function render(){
+ public function render($scaleFactor=NULL){
   // renderize form
   $return.="<!-- form -->\n";
   $return.="<form class=\"form-horizontal ".$this->class."\" action=\"".$this->action."\" method=\"".$this->method."\" id=\"".$this->id."\">\n";
@@ -228,8 +229,8 @@ class Form{
    }
    // form field
    $return.=$split_identation." <div class=\"form-group\">\n";
-   $return.=$split_identation."  <label for=\"".$this->id."_input_".$field->name."\" class=\"control-label col-sm-".($this->splitted?4:2)."\">".$field->label."</label>\n";
-   $return.=$split_identation."  <div class=\"col-sm-".($this->splitted?$field->size-2:$field->size)."\">\n";
+   $return.=$split_identation."  <label for=\"".$this->id."_input_".$field->name."\" class=\"control-label col-sm-".(($this->splitted?4:2)+$scaleFactor)."\">".$field->label."</label>\n";
+   $return.=$split_identation."  <div class=\"col-sm-".(($this->splitted?$field->size-2:$field->size)-$scaleFactor)."\">\n";
    // input addons
    if($field->addon_prepend||$field->addon_append){
     $return.=$split_identation."   <div class=\"input-group\">\n";
@@ -297,7 +298,7 @@ class Form{
     $split_identation=substr($split_identation,0,-1);
     $return.=$split_identation."   </div><!-- input-group -->\n";
    }
-   $return.=$split_identation."  </div><!-- /col-sm-".$field->size." -->\n";
+   $return.=$split_identation."  </div><!-- /col-sm-".(($this->splitted?$field->size-2:$field->size)-$scaleFactor)." -->\n";
    $return.=$split_identation." </div><!-- /form-group -->\n";
   }
   // check for split
@@ -308,7 +309,7 @@ class Form{
   // form controls
   if(count($this->controls_array)){
    $return.=$split_identation." <div class=\"form-group\">\n";
-   $return.=$split_identation."  <div class=\"col-sm-offset-2 col-sm-10\">\n";
+   $return.=$split_identation."  <div class=\"col-sm-offset-".(($this->splitted?4:2)+$scaleFactor)." col-sm-".(($this->splitted?8:10)-$scaleFactor)."\">\n";
    // cycle all controls
    foreach($this->controls_array as $control_id=>$control){
     // make control tags
@@ -324,7 +325,7 @@ class Form{
      case "button":$return.="   <a role=\"button\" href=\"".$control->url."\"".$control_tags.">".$control->label."</a>\n";break;
     }
    }
-   $return.=$split_identation."  </div><!-- /col-sm-10 -->\n";
+   $return.=$split_identation."  </div><!-- /col-sm-offset-".(($this->splitted?4:2)+$scaleFactor)." col-sm-".(($this->splitted?8:10)-$scaleFactor)." -->\n";
    $return.=$split_identation." </div><!-- /form-group -->\n";
   }
   // renderize closures

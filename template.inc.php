@@ -33,7 +33,7 @@
   $header_navbar->addSubItem("Accounts","?mod=accounts");
   // account and settings
   $header_navbar->addNav("navbar-right");
-  $header_navbar->addItem("<img alt='Brand' src='".DIR."uploads/accounts/avatar.jpg' height='20'>");
+  $header_navbar->addItem(api_image($GLOBALS['session']->user->avatar,NULL,20,20,FALSE,"alt='Brand'"));
   $header_navbar->addSubHeader("Firstname Lastname","text-right");
   $header_navbar->addSubItem("Profilo personale","?mod=accounts&scr=users_profile","text-right");
   $header_navbar->addSubSeparator();

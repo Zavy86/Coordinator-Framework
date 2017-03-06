@@ -13,6 +13,7 @@
  global $debug;
  global $develop;
  global $configuration;
+ global $localization;
  global $database;
  global $settings;
  global $session;
@@ -55,6 +56,7 @@
  if($r_action){define("ACTION",$r_action);}
 
  // include classes
+ require_once(ROOT."classes/localization.class.php");
  require_once(ROOT."classes/database.class.php");
  require_once(ROOT."classes/settings.class.php");
  require_once(ROOT."classes/session.class.php");
@@ -67,6 +69,9 @@
 
  // load modules  /** @todo fare funzione */
  require_once(ROOT."modules/accounts/functions.inc.php");
+
+ // build localization instance
+ $localization=new Localization();
 
  // build database instance
  $database=new Database();
@@ -121,32 +126,79 @@
 
 
 /**
-* Datetime Now
-*
-* @return current datetime
-*/
- function api_datetime_now(){
-  return date("Y-m-d H:i:s");
+ * Link
+ * @param string $url URL
+ * @param string $label Label
+ * @param string $title Title
+ * @param string $class CSS class
+ * @param booelan $popup Show popup title
+ * @param string $confirm Show confirm alert box
+ * @param string $style Style tags
+ * @param string $target Target window
+ * @param string $id Link ID or random created
+ * @return string link
+ */
+ function api_link($url,$label,$title=NULL,$class=NULL,$popup=FALSE,$confirm=NULL,$style=NULL,$target="_self",$id=NULL){
+  if($url==NULL){return FALSE;}
+  if($id==NULL){$id="link_".rand(1,999);}
+  if(substr($url,0,1)=="?"){$url="index.php".$url;}
+  $return="<a id=\"".$id."\" href=\"".$url."\" class='".$class."' style=\"".$style."\"";
+  if($popup && $title){
+   $return.=" data-toggle='popover' data-placement='top' data-content=\"".$title."\"";
+  }elseif($title){
+   $return.=" title=\"".$title."\"";
+  }
+  if($confirm){
+   $return.=" onClick=\"return confirm('".addslashes($confirm)."')\"";
+  }
+  $return.=" target='".$target."'>".$label."</a>";
+  return $return;
  }
 
 
 /**
-* Timestamp Format
-*
-* @param integer $timestamp Unix timestamp
-* @param string $format Date Time format (see php.net/manual/en/function.date.php)
-* @return string|boolean Formatted timestamp or false
-*/
- function api_timestamp_format($timestamp,$format="Y-m-d H:i:s",$timezone=NULL){
-  if(!is_numeric($timestamp)){return FALSE;}
-  if(!$timezone){$timezone=$GLOBALS['session']->user->timezone;}
-  // build date time object
-  $datetime=new DateTime("@".$timestamp);
-  // set date time timezone
-  $datetime->setTimeZone(new DateTimeZone($timezone));
-  // return date time formatted
-  return $datetime->format($format);
- }
+ * Image
+ *
+ * @param string $path Image path
+ * @param string $class CSS class
+ * @param string $width Width
+ * @param string $height Height
+ * @param booelan $refresh Add random string for cache refresh
+ * @param string $tags HTML tags
+ * @return string|boolean Image html source code or false
+ */
+function api_image($path,$class=NULL,$width=NULL,$height=NULL,$refresh=FALSE,$tags=NULL){
+ if(!$path){return false;}
+ if($refresh){$refresh="?".rand(1,99999);}
+ $return="<img src=\"".$path.$refresh."\"";
+ if($class){$return.=" class=\"".$class."\"";}
+ if($width){$return.=" width=\"".$width."\"";}
+ if($height){$return.=" height=\"".$height."\"";}
+ if($tags){$return.=" ".$tags;}
+ $return.=">";
+ return $return;
+}
+
+
+/**
+ * Text
+ *
+ * @param string $key Text key
+ * @param array $parameters[] Array of parameters
+ * @return string|boolean Localized text with parameters or false
+ */
+function api_text($key,$parameters=NULL,$localization=NULL){
+ if(!$key){return false;}
+ if(!is_array($parameters)){if(!$parameters){$parameters=array();}else{$parameters=array($parameters);}}
+ // get text by key from locale array
+ $text=$GLOBALS['localization']->getString($key,$localization);
+ // if key not found
+ if(!$text){$text=str_replace("|}","}","{".$key."|".implode("|",$parameters)."}");}
+ // replace parameters
+ foreach($parameters as $key=>$parameter){$text=str_replace("{".$key."}",$parameter,$text);}
+ // return
+ return $text;
+}
 
 
 /**
@@ -171,39 +223,38 @@
 
 
 /**
-* Link
-* @param string $url URL
-* @param string $label Label
-* @param string $title Title
-* @param string $class CSS class
-* @param booelan $popup Show popup title
-* @param string $confirm Show confirm alert box
-* @param string $style Style tags
-* @param string $target Target window
-* @param string $id Link ID or random created
-* @return string link
-*/
-function api_link($url,$label,$title=NULL,$class=NULL,$popup=FALSE,$confirm=NULL,$style=NULL,$target="_self",$id=NULL){
- if($url==NULL){return FALSE;}
- if($id==NULL){$id="link_".rand(1,999);}
- if(substr($url,0,1)=="?"){$url="index.php".$url;}
- $return="<a id=\"".$id."\" href=\"".$url."\" class='".$class."' style=\"".$style."\"";
- if($popup && $title){
-  $return.=" data-toggle='popover' data-placement='top' data-content=\"".$title."\"";
- }elseif($title){
-  $return.=" title=\"".$title."\"";
- }
- if($confirm){
-  $return.=" onClick=\"return confirm('".addslashes($confirm)."')\"";
- }
- $return.=" target='".$target."'>".$label."</a>";
- return $return;
-}
+ * Datetime Now
+ *
+ * @return current datetime
+ */
+ /*function api_datetime_now(){
+  return date("Y-m-d H:i:s");
+ }*/
 
-function api_sendmail($recipient,$subject,$message){
-  /** @todo fare funzione con phpmailer */
- mail($recipient,$subject,$message);
-}
+
+/**
+ * Timestamp Format
+ *
+ * @param integer $timestamp Unix timestamp
+ * @param string $format Date Time format (see php.net/manual/en/function.date.php)
+ * @return string|boolean Formatted timestamp or false
+ */
+ function api_timestamp_format($timestamp,$format="Y-m-d H:i:s",$timezone=NULL){
+  if(!is_numeric($timestamp)){return FALSE;}
+  if(!$timezone){$timezone=$GLOBALS['session']->user->timezone;}
+  // build date time object
+  $datetime=new DateTime("@".$timestamp);
+  // set date time timezone
+  $datetime->setTimeZone(new DateTimeZone($timezone));
+  // return date time formatted
+  return $datetime->format($format);
+ }
+
+
+            function api_sendmail($recipient,$subject,$message){
+              /** @todo fare funzione con phpmailer */
+             mail($recipient,$subject,$message);
+            }
 
 
 
