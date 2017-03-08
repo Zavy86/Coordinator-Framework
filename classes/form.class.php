@@ -230,7 +230,7 @@ class Form{
    // form field
    $return.=$split_identation." <div class=\"form-group\">\n";
    $return.=$split_identation."  <label for=\"".$this->id."_input_".$field->name."\" class=\"control-label col-sm-".(($this->splitted?4:2)+$scaleFactor)."\">".$field->label."</label>\n";
-   $return.=$split_identation."  <div class=\"col-sm-".(($this->splitted?$field->size-2:$field->size)-$scaleFactor)."\">\n";
+   $return.=$split_identation."  <div class=\"col-sm-".(($this->splitted && $field->size>8?$field->size-2:$field->size)-$scaleFactor)."\">\n";
    // input addons
    if($field->addon_prepend||$field->addon_append){
     $return.=$split_identation."   <div class=\"input-group\">\n";
@@ -248,16 +248,16 @@ class Form{
     case "checkbox":
      // cycle all field options
      foreach($field->options_array as $option_id=>$option){
-      $return.=$split_identation."   <div class=\"".$field->typology." ".$field->class."\">";
-      $return.="<label><input type=\"".$field->typology."\" name=\"".$field->name."\"";
-      if($option->class){$return.=" class=\"".$option->class."\"";}
-      if($option->value){$return.=" value=\"".$option->value."\"";}
+      $return.=$split_identation."   ";
+      if(!strpos($field->class,"-inline")){$return.="<div class=\"".$field->typology." ".$field->class."\">";}
+      $return.="<label class=\"".$field->class."\"><input type=\"".$field->typology."\" name=\"".$field->name."\" value=\"".$option->value."\"";
       if($option->value==$field->value){$return.=" checked=\"checked\"";}
+      if($option->class){$return.=" class=\"".$option->class."\"";}
       if($option->style){$return.=" style=\"".$option->style."\"";}
       if($option->tags){$return.=" ".$option->tags;}
       if(!$option->enabled){$return.=" disabled=\"disabled\"";}
       $return.=" id=\"".$this->id."_input_".$field->name."_option_".$option_id."\">".$option->label."</label>";
-      $return.="</div>\n";
+      if(!strpos($field->class,"-inline")){$return.="</div>\n";}else{$return.="\n";}
      }
      break;
     // select box
@@ -298,7 +298,7 @@ class Form{
     $split_identation=substr($split_identation,0,-1);
     $return.=$split_identation."   </div><!-- input-group -->\n";
    }
-   $return.=$split_identation."  </div><!-- /col-sm-".(($this->splitted?$field->size-2:$field->size)-$scaleFactor)." -->\n";
+   $return.=$split_identation."  </div><!-- /col-sm-".(($this->splitted && $field->size>8?$field->size-2:$field->size)-$scaleFactor)." -->\n";
    $return.=$split_identation." </div><!-- /form-group -->\n";
   }
   // check for split
@@ -309,7 +309,7 @@ class Form{
   // form controls
   if(count($this->controls_array)){
    $return.=$split_identation." <div class=\"form-group\">\n";
-   $return.=$split_identation."  <div class=\"col-sm-offset-".(($this->splitted?4:2)+$scaleFactor)." col-sm-".(($this->splitted?8:10)-$scaleFactor)."\">\n";
+   $return.=$split_identation."  <div class=\"col-sm-offset-".(2+$scaleFactor)." col-sm-".(10-$scaleFactor)."\">\n";
    // cycle all controls
    foreach($this->controls_array as $control_id=>$control){
     // make control tags
@@ -325,7 +325,7 @@ class Form{
      case "button":$return.="   <a role=\"button\" href=\"".$control->url."\"".$control_tags.">".$control->label."</a>\n";break;
     }
    }
-   $return.=$split_identation."  </div><!-- /col-sm-offset-".(($this->splitted?4:2)+$scaleFactor)." col-sm-".(($this->splitted?8:10)-$scaleFactor)." -->\n";
+   $return.=$split_identation."  </div><!-- /col-sm-offset-".(2+$scaleFactor)." col-sm-".(10-$scaleFactor)." -->\n";
    $return.=$split_identation." </div><!-- /form-group -->\n";
   }
   // renderize closures

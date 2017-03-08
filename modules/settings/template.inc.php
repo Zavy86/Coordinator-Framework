@@ -10,7 +10,8 @@
  $html=new HTML($module_name);
  // build navbar object
  $nav=new Nav("nav-tabs");
- $nav->addItem("Settings","?mod=settings&scr=settings_framework");
+ $nav->addItem(api_text("settings_framework"),"?mod=settings&scr=settings_framework");
+ $nav->addItem(api_text("settings_plugins"),"?mod=settings&scr=settings_plugins");
  // add nav to html
  $html->addContent($nav->render(FALSE));
 ?>

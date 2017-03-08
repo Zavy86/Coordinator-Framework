@@ -10,6 +10,7 @@
  $this->setMetaTag("author","Manuel Zavatta [www.zavynet.org]");
  $this->setMetaTag("copyright","2009-".date("Y")." &copy; Coordinator [www.coordinator.it]");
  $this->setMetaTag("description","Coordinator is an Open Source Modular Framework");
+ $this->setMetaTag("owner",$GLOBALS['settings']->owner);
  // add style sheets
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7.min.css");
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme.min.css");
@@ -21,7 +22,7 @@
  $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.7.min.js");
 
  // build header navbar object
- $header_navbar=new Navbar("Coordinator","navbar-default navbar-static-top");
+ $header_navbar=new Navbar($GLOBALS['settings']->title,"navbar-default navbar-static-top");
  $header_navbar->addNav("navclass");
 
  // check session
@@ -52,4 +53,5 @@
  $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; Coordinator - All Rights Reserved".($GLOBALS['debug']?" [ Queries: ".$GLOBALS['database']->query_counter." | Execution time: ~".number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs ]":NULL),"col-xs-12 text-right");
  // set footer
  $this->setFooter($footer_grid->render(FALSE));
+
 ?>
