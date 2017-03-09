@@ -11,7 +11,7 @@
  // build navbar object
  $nav=new Nav("nav-tabs");
  $nav->addItem(api_text("settings_framework"),"?mod=settings&scr=settings_framework");
- $nav->addItem(api_text("settings_plugins"),"?mod=settings&scr=settings_plugins");
+ $nav->addItem(api_text("settings_modules"),"?mod=settings&scr=settings_modules");
  // add nav to html
  $html->addContent($nav->render(FALSE));
 ?>
