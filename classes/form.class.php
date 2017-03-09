@@ -109,16 +109,44 @@ class Form{
   *
   * @param string $content Addon content
   * @param string $position Addon position ( append | prepend )
-  * @param string $class CSS class
-  * @param string $style Custom CSS
-  * @param string $tags Custom HTML tags
-  * @param boolean $enabled Enabled
+       * @param string $class CSS class
+       * @param string $style Custom CSS
+       * @param string $tags Custom HTML tags
   * @return boolean
   */
  public function addFieldAddon($content,$position="append"){
   if(!in_array($position,array("append","prepend"))){return FALSE;}
   $addon_field="addon_".$position;
   $this->fields_array[$this->current_field]->$addon_field=$content;
+  return TRUE;
+ }
+
+ /**
+  * Add Form Field Addon Button
+  *
+  * @param string $url URL content
+  * @param string $label Label
+  * @param string $class CSS class
+  * @param string $style Custom CSS
+  * @param string $tags Custom HTML tags
+  * @param boolean $enabled Enabled
+  * @return boolean
+  */
+ public function addFieldAddonButton($url,$label,$class=NULL,$style=NULL,$tags=NULL,$enabled=TRUE){
+  if($this->fields_array[$this->current_field]->addon_button->url){return FALSE;}
+  if(!$url || !$label){return FALSE;}
+  // build button object
+  $button=new stdClass();
+  $button->url=$url;
+  $button->label=$label;
+  $button->class=$class;
+  $button->style=$style;
+  $button->tags=$tags;
+  $button->enabled=$enabled;
+  // checks
+  if(!$button->class){$button->class="btn-default";}
+  // add button to field
+  $this->fields_array[$this->current_field]->addon_button=$button;
   return TRUE;
  }
 
@@ -232,7 +260,7 @@ class Form{
    $return.=$split_identation."  <label for=\"".$this->id."_input_".$field->name."\" class=\"control-label col-sm-".(($this->splitted?4:2)+$scaleFactor)."\">".$field->label."</label>\n";
    $return.=$split_identation."  <div class=\"col-sm-".(($this->splitted && $field->size>8?$field->size-2:$field->size)-$scaleFactor)."\">\n";
    // input addons
-   if($field->addon_prepend||$field->addon_append){
+   if($field->addon_prepend||$field->addon_append||$field->addon_button->url){
     $return.=$split_identation."   <div class=\"input-group\">\n";
     $split_identation=$split_identation." ";
     if($field->addon_prepend){$return.=$split_identation."   <div class=\"input-group-addon\">".$field->addon_prepend."</div>\n";}
@@ -293,8 +321,18 @@ class Form{
      break;
    }
    // check for addons
-   if($field->addon_prepend||$field->addon_append){
+   if($field->addon_prepend||$field->addon_append||$field->addon_button->url){
+    // addon append
     if($field->addon_append){$return.=$split_identation."   <div class=\"input-group-addon\">".$field->addon_append."</div>\n";}
+    // addon button
+    if($field->addon_button->url){
+     $addon_button_tags=" class=\"btn ".$field->addon_button->class."\" id=\"".$this->id."_input_".$field->name."_button\"";
+     if($field->addon_button->style){$addon_button_tags.=" style=\"".$field->addon_button->style."\"";}
+     if($field->addon_button->tags){$addon_button_tags.=" ".$field->addon_button->tags;}
+     if(!$field->addon_button->enabled){$addon_button_tags.=" disabled=\"disabled\"";}
+     $return.=$split_identation."   <div class=\"input-group-btn\">";
+     $return.="<a role=\"button\" href=\"".$field->addon_button->url."\"".$addon_button_tags.">".$field->addon_button->label."</a></div>\n";
+    }
     $split_identation=substr($split_identation,0,-1);
     $return.=$split_identation."   </div><!-- input-group -->\n";
    }

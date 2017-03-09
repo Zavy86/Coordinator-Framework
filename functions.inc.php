@@ -129,6 +129,27 @@
 
 
 /**
+ * Text
+ *
+ * @param string $key Text key
+ * @param array $parameters[] Array of parameters
+ * @return string|boolean Localized text with parameters or false
+ */
+function api_text($key,$parameters=NULL,$localization=NULL){
+ if(!$key){return false;}
+ if(!is_array($parameters)){if(!$parameters){$parameters=array();}else{$parameters=array($parameters);}}
+ // get text by key from locale array
+ $text=$GLOBALS['localization']->getString($key,$localization);
+ // if key not found
+ if(!$text){$text=str_replace("|}","}","{".$key."|".implode("|",$parameters)."}");}
+ // replace parameters
+ foreach($parameters as $key=>$parameter){$text=str_replace("{".$key."}",$parameter,$text);}
+ // return
+ return $text;
+}
+
+
+/**
  * Link
  * @param string $url URL
  * @param string $label Label
@@ -184,23 +205,25 @@ function api_image($path,$class=NULL,$width=NULL,$height=NULL,$refresh=FALSE,$ta
 
 
 /**
- * Text
+ * Icon
  *
- * @param string $key Text key
- * @param array $parameters[] Array of parameters
- * @return string|boolean Localized text with parameters or false
+ * @param string $icon Glyphs
+ * @param string $title Title
+ * @param string $class CSS class
+ * @param string $style Custom CSS
+ * @param string $tags Custom HTML tags
+ * @return string|boolean Icon html source code or false
  */
-function api_text($key,$parameters=NULL,$localization=NULL){
- if(!$key){return false;}
- if(!is_array($parameters)){if(!$parameters){$parameters=array();}else{$parameters=array($parameters);}}
- // get text by key from locale array
- $text=$GLOBALS['localization']->getString($key,$localization);
- // if key not found
- if(!$text){$text=str_replace("|}","}","{".$key."|".implode("|",$parameters)."}");}
- // replace parameters
- foreach($parameters as $key=>$parameter){$text=str_replace("{".$key."}",$parameter,$text);}
- // return
- return $text;
+function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
+ if($icon==NULL){return FALSE;}
+ if(substr($icon,0,2)=="fa"){$icon="fa ".$icon;}
+ else{$icon="glyphicon glyphicon-".$icon;}
+ $return="<i class='".$icon." ".$class."'";
+ if($title){$return.="title='".$title."'";}
+ if($style){$return.="style='".$style."'";}
+ if($tags){$return.=" ".$tags."";}
+ $return.=" aria-hidden='true'></i>";
+ return $return;
 }
 
 
