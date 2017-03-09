@@ -105,7 +105,7 @@ class HTML{
   */
  public function setTitle($title=NULL){
   if(!$title){return FALSE;}
-  $this->title=$title;
+  $this->title=$title." - ".$GLOBALS['settings']->title;
   return TRUE;
  }
 

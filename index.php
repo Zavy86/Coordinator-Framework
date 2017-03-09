@@ -18,8 +18,9 @@
  if(file_exists(MODULE_PATH."functions.inc.php")){require_once(MODULE_PATH."functions.inc.php");}else{echo "WARNING LOADING MODULE: File modules/".MODULE."/functions.inc.php was not found";}
  $localization->load(MODULE); /** rifare bene con moduli required ecc.. */
 
- // check script contant or set to default
+ // check script and tab constants or set to default
  if(!defined('SCRIPT')){if($module_default_script){define('SCRIPT',$module_default_script);}else{die("ERROR LOADING MODULE: Default scipt was not defined");}}
+ if(!defined('TAB')){if($module_default_tab){define('TAB',$module_default_tab);}}
 
  // load script if exist
  if(file_exists(MODULE_PATH.SCRIPT.".php")){require_once(MODULE_PATH.SCRIPT.".php");}else{die("ERROR LOADING MODULE: File ".MODULE."/".SCRIPT.".php was not found");}

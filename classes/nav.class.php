@@ -137,10 +137,14 @@ class Nav{
   foreach($this->items_array as $item){
    // check for active
    $active=FALSE;
-   //if($item->urlParsed->query_array['mod']==$urlParsed->query_array['mod']&&$item->urlParsed->query_array['view']==$urlParsed->query_array['view']){$active=TRUE;}
-   if($item->urlParsed->query_array['mod']==MODULE&&$item->urlParsed->query_array['scr']==SCRIPT){$active=TRUE;}
-   //elseif(count($item->subItems_array)){foreach($item->subItems_array as $subItem){if($subItem->urlParsed->query_array['mod']==$urlParsed->query_array['mod']&&$subItem->urlParsed->query_array['view']==$urlParsed->query_array['view']){$active=TRUE;break;}}}
-   elseif(count($item->subItems_array)){foreach($item->subItems_array as $subItem){if($subItem->urlParsed->query_array['mod']==MODULE&&$subItem->urlParsed->query_array['scr']==SCRIPT){$active=TRUE;break;}}}
+   if($item->urlParsed->query_array['mod']==MODULE && $item->urlParsed->query_array['scr']==SCRIPT){$active=TRUE;}
+   if(is_int(strpos("nav-pills",$this->class)) && defined('TAB') && $item->urlParsed->query_array['tab']!=TAB){$active=FALSE;}
+   if(count($item->subItems_array)){
+    foreach($item->subItems_array as $subItem){
+     if($subItem->urlParsed->query_array['mod']==MODULE && $subItem->urlParsed->query_array['scr']==SCRIPT){$active=TRUE;}
+     if(is_int(strpos("nav-pills",$this->class)) && defined('TAB') && $subItem->urlParsed->query_array['tab']!=TAB){$active=FALSE;}
+    }
+   }
    // lock url if active or disabled
    if($active||!$item->enabled){$item->url="#";}
    // check for sub items
@@ -153,8 +157,9 @@ class Nav{
     // cycle all sub items
     foreach($item->subItems_array as $subItem){
      // check for sub active
-     //if($subItem->urlParsed->query_array['mod']==$urlParsed->query_array['mod']&&$subItem->urlParsed->query_array['view']==$urlParsed->query_array['view']){$sub_active=TRUE;}else{$sub_active=FALSE;}
-     if($subItem->urlParsed->query_array['mod']==MODULE&&$subItem->urlParsed->query_array['scr']==SCRIPT){$sub_active=TRUE;}else{$sub_active=FALSE;}
+     $sub_active=FALSE;
+     if($subItem->urlParsed->query_array['mod']==MODULE && $subItem->urlParsed->query_array['scr']==SCRIPT){$sub_active=TRUE;}
+     if(is_int(strpos("nav-pills",$this->class)) && defined('TAB') && $subItem->urlParsed->query_array['tab']!=TAB){$sub_active=FALSE;}
      // lock url if disabled
      if($sub_active||!$subItem->enabled){$subItem->url="#";}
      // switch sub item typology
@@ -170,7 +175,9 @@ class Nav{
   }
   // renderize closures
   $return.=" </ul><!-- /nav -->\n";
-  $return.="</div><br><!-- /container -->\n\n";
+  if(is_int(strpos("nav-tabs",$this->class))){$return.="<br>\n";}
+  if(is_int(strpos("nav-pills",$this->class))){$return.="<div class='row'><div class='col-xs-12'><hr></div></div>\n";}
+  $return.="</div><!-- /container -->\n\n";
   // echo or return
   if($echo){echo $return;return TRUE;}else{return $return;}
  }

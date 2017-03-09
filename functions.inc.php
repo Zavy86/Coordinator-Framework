@@ -44,6 +44,8 @@
  if(!$r_script){$r_script=NULL;}
  $r_action=$_REQUEST['act'];
  if(!$r_action){$r_action=NULL;}
+ $r_tab=$_REQUEST['tab'];
+ if(!$r_tab){$r_tab=NULL;}
 
  // defines constants
  define('DIR',$configuration->dir);
@@ -54,6 +56,7 @@
  define('MODULE_PATH',ROOT."modules/".MODULE."/");
  if($r_script){define("SCRIPT",$r_script);}
  if($r_action){define("ACTION",$r_action);}
+ if($r_tab){define("TAB",$r_tab);}
 
  // include classes
  require_once(ROOT."classes/localization.class.php");
