@@ -6,9 +6,7 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
-
  session_start();
-
  // definitions
  global $debug;
  global $develop;
@@ -85,15 +83,14 @@
  // build session instance
  $session=new Session();
 
-
-/**
- * Renderize a variable dump into a pre tag
- *
- * @param string $variable variable to dump
- * @param string $label dump label
- * @param API_DUMP_PRINTR|API_DUMP_VARDUMP $function dump function
- * @param string $class pre dump class
- */
+ /**
+  * Renderize a variable dump into a pre tag
+  *
+  * @param string $variable variable to dump
+  * @param string $label dump label
+  * @param API_DUMP_PRINTR|API_DUMP_VARDUMP $function dump function
+  * @param string $class pre dump class
+  */
  function api_dump($variable,$label=NULL,$function=API_DUMP_PRINTR,$class=NULL){
   echo "\n\n<!-- dump -->\n";
   echo "<pre class='".$class."'>\n";
@@ -106,27 +103,24 @@
   }
   echo "</pre>\n<!-- /dump -->\n\n";
  }
-
-/**
- * api_dump contants
- *
- * @const API_DUMP_PRINTR dump with print_r()
- * @const API_DUMP_VARDUMP dump with var_dump()
- */
+ /**
+  * api_dump contants
+  *
+  * @const API_DUMP_PRINTR dump with print_r()
+  * @const API_DUMP_VARDUMP dump with var_dump()
+  */
  define('API_DUMP_PRINTR',1);
  define('API_DUMP_VARDUMP',2);
 
-
-/**
- * Redirect
- *
- * @param string $location Location URL
- */
+ /**
+  * Redirect
+  *
+  * @param string $location Location URL
+  */
  function api_redirect($location){
   if($GLOBALS['debug']){die(api_link($location,$location));}
   exit(header("location: ".$location));
  }
-
 
 /**
  * Text
@@ -148,20 +142,19 @@ function api_text($key,$parameters=NULL,$localization=NULL){
  return $text;
 }
 
-
-/**
- * Link
- * @param string $url URL
- * @param string $label Label
- * @param string $title Title
- * @param string $class CSS class
- * @param booelan $popup Show popup title
- * @param string $confirm Show confirm alert box
- * @param string $style Style tags
- * @param string $target Target window
- * @param string $id Link ID or random created
- * @return string link
- */
+ /**
+  * Link
+  * @param string $url URL
+  * @param string $label Label
+  * @param string $title Title
+  * @param string $class CSS class
+  * @param booelan $popup Show popup title
+  * @param string $confirm Show confirm alert box
+  * @param string $style Style tags
+  * @param string $target Target window
+  * @param string $id Link ID or random created
+  * @return string link
+  */
  function api_link($url,$label,$title=NULL,$class=NULL,$popup=FALSE,$confirm=NULL,$style=NULL,$target="_self",$id=NULL){
   if($url==NULL){return FALSE;}
   if($id==NULL){$id="link_".rand(1,999);}
@@ -178,7 +171,6 @@ function api_text($key,$parameters=NULL,$localization=NULL){
   $return.=" target='".$target."'>".$label."</a>";
   return $return;
  }
-
 
 /**
  * Image
@@ -203,7 +195,6 @@ function api_image($path,$class=NULL,$width=NULL,$height=NULL,$refresh=FALSE,$ta
  return $return;
 }
 
-
 /**
  * Icon
  *
@@ -226,13 +217,12 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
  return $return;
 }
 
-
-/**
- * Parse URL to standard class                  @todo modificare nome qui e in nav class
- *
- * @param string $url URL to parse
- * @return object Parsed
- */
+ /**
+  * Parse URL to standard class                  @todo modificare nome qui e in nav class
+  *
+  * @param string $url URL to parse
+  * @return object Parsed
+  */
  function api_parse_url($url=NULL){
   // check url
   if(!$url){$url=(isset($_SERVER['HTTPS'])?"https":"http")."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];}
@@ -247,24 +237,22 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
   return $return;
  }
 
-
-/**
- * Datetime Now
- *
- * @return current datetime
- */
+ /**
+  * Datetime Now
+  *
+  * @return current datetime
+  */
  /*function api_datetime_now(){
   return date("Y-m-d H:i:s");
  }*/
 
-
-/**
- * Timestamp Format
- *
- * @param integer $timestamp Unix timestamp
- * @param string $format Date Time format (see php.net/manual/en/function.date.php)
- * @return string|boolean Formatted timestamp or false
- */
+ /**
+  * Timestamp Format
+  *
+  * @param integer $timestamp Unix timestamp
+  * @param string $format Date Time format (see php.net/manual/en/function.date.php)
+  * @return string|boolean Formatted timestamp or false
+  */
  function api_timestamp_format($timestamp,$format="Y-m-d H:i:s",$timezone=NULL){
   if(!is_numeric($timestamp)){return FALSE;}
   if(!$timezone){$timezone=$GLOBALS['session']->user->timezone;}
@@ -276,26 +264,24 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
   return $datetime->format($format);
  }
 
+             /**
+              *
+              * @param type $recipient
+              * @param type $subject
+              * @param type $message
+              */
+             function api_sendmail($recipient,$subject,$message){
+               /** @todo fare funzione con phpmailer */
+              mail($recipient,$subject,$message);
+             }
 
-            function api_sendmail($recipient,$subject,$message){
-              /** @todo fare funzione con phpmailer */
-             mail($recipient,$subject,$message);
-            }
-
-
-
-
-
-
-
-
-            /**
-             * Alerts Add
-             *
-             * @param string $message alert message
-             * @param string $class alert class
-             * @return boolean alert saved status
-             */
+             /**
+              * Alerts Add
+              *
+              * @param string $message alert message
+              * @param string $class alert class
+              * @return boolean alert saved status
+              */
              function api_alerts_add($message,$class="info"){
               // checks
               if(!$message){return FALSE;}
