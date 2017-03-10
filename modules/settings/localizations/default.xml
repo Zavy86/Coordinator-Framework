@@ -3,7 +3,7 @@
 <locale>
 
  <!-- settings -->
- <text key="settings">Impostazioni</text>
+ <text key="settings">Framework</text>
 
  <!-- settings_framework -->
  <text key="settings_framework">Impostazioni Framework</text>

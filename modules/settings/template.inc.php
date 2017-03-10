@@ -7,7 +7,7 @@
  * @link    http://www.zavynet.org
  */
  // build html object
- $html=new HTML($module_name);
+ $html=new HTML($module_title);
  // build navbar object
  $nav=new Nav("nav-tabs");
 
