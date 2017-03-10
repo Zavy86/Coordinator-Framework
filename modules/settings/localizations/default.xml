@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<locale>
+
+ <!-- settings -->
+ <text key="settings">Impostazioni</text>
+
+ <!-- settings_framework -->
+ <text key="settings_framework">Impostazioni Framework</text>
+
+ <text key="settings_framework-general">Generali</text>
+ <text key="settings_framework-maintenance">Manutenzione</text>
+ <text key="settings_framework-maintenance-lock">Accesso bloccato</text>
+ <text key="settings_framework-online">Online</text>
+ <text key="settings_framework-online-counter">{0} utenti ({1} sessioni)</text>
+ <text key="settings_framework-online-reset">Resetta sessioni</text>
+ <text key="settings_framework-online-reset-confirm">Confermi di voler resettare le sessioni? Tutti gli utenti verranno sloggati.</text>
+ <text key="settings_framework-title">Titolo</text>
+ <text key="settings_framework-title-placeholder">Titolo del framework</text>
+ <text key="settings_framework-owner">Proprietario</text>
+ <text key="settings_framework-owner-placeholder">Proprietario del framework</text>
+ <text key="settings_framework-logo">Framework logo</text>
+ <text key="settings_framework-show">Visualizza</text>
+ <text key="settings_framework-show-logo_title">Logo e titolo</text>
+ <text key="settings_framework-show-logo">Logo</text>
+ <text key="settings_framework-show-title">Titolo</text>
+
+ <text key="settings_framework-sessions">Sessioni e autenticazione</text>
+ <text key="settings_framework-sessions_authentication_method">Autenticazione</text>
+ <text key="settings_framework-sessions_authentication_method-standard">Standard</text>
+ <text key="settings_framework-sessions_authentication_method-ldap">LDAP</text>
+ <text key="settings_framework-sessions_multiple">Sessioni multiple</text>
+ <text key="settings_framework-sessions_multiple-allowed">Permesse</text>
+ <text key="settings_framework-sessions_idle_timeout">Timeout inattività</text>
+ <text key="settings_framework-sessions_idle_timeout-placeholder">Seleziona un timeout..</text>
+ <text key="settings_framework-sessions_idle_timeout-15m">15 minuti</text>
+ <text key="settings_framework-sessions_idle_timeout-1h">1 ora</text>
+ <text key="settings_framework-sessions_idle_timeout-4h">4 ore</text>
+ <text key="settings_framework-sessions_idle_timeout-8h">8 ore</text>
+ <text key="settings_framework-sessions_idle_timeout-24h">24 ore</text>
+ <text key="settings_framework-sessions_ldap_hostname">Server LDAP</text>
+ <text key="settings_framework-sessions_ldap_hostname-placeholder">Hostname indirizzo IP del server LDAP</text>
+ <text key="settings_framework-sessions_ldap_dn">DN</text>
+ <text key="settings_framework-sessions_ldap_dn-placeholder">DC=DOMAIN,DC=TLD</text>
+ <text key="settings_framework-sessions_ldap_domain">Domain</text>
+ <text key="settings_framework-sessions_ldap_domain-placeholder">@DOMAIN.TLD</text>
+ <text key="settings_framework-sessions_ldap_userfield">UserField</text>
+ <text key="settings_framework-sessions_ldap_userfield-placeholder">SamAccountName</text>
+ <text key="settings_framework-sessions_ldap_groups">Gruppi</text>
+ <text key="settings_framework-sessions_ldap_groups-placeholder">Member of groups query</text>
+ <text key="settings_framework-sessions_ldap_cache">Cache</text>
+ <text key="settings_framework-sessions_ldap_cache-allowed">Password caching abilitato</text>
+
+ <text key="settings_framework-sendmail">Mail</text>
+ <text key="settings_framework-sendmail_from_name">Mittente</text>
+ <text key="settings_framework-sendmail_from_name-placeholder">Nome del mittente predefinito</text>
+ <text key="settings_framework-sendmail_from_mail">Indirizzo mail</text>
+ <text key="settings_framework-sendmail_from_mail-placeholder">Indirizzo mail del mittente predefinito</text>
+ <text key="settings_framework-sendmail_asynchronous">Invio mail asincrono</text>
+ <text key="settings_framework-sendmail_asynchronous-enabled">Abilitato (Richiesto Cron {0})</text>
+ <text key="settings_framework-sendmail_method">Metodo di invio</text>
+ <text key="settings_framework-sendmail_method-standard">Standard</text>
+ <text key="settings_framework-sendmail_method-smtp">SMTP</text>
+ <text key="settings_framework-sendmail_smtp_hostname">Server SMTP</text>
+ <text key="settings_framework-sendmail_smtp_hostname-placeholder">Hostname indirizzo IP del server SMTP</text>
+ <text key="settings_framework-sendmail_smtp_username">Nome utente</text>
+ <text key="settings_framework-sendmail_smtp_username-placeholder">Nome utente per l'autenticazione SMTP</text>
+ <text key="settings_framework-sendmail_smtp_password">Password</text>
+ <text key="settings_framework-sendmail_smtp_password-placeholder">Compilare solo se si desidera modificare la password</text>
+ <text key="settings_framework-sendmail_smtp_encryption">Cifratura</text>
+ <text key="settings_framework-sendmail_smtp_encryption-none">Nessuna</text>
+ <text key="settings_framework-sendmail_smtp_encryption-tls">TLS</text>
+ <text key="settings_framework-sendmail_smtp_encryption-ssl">SSL</text>
+
+ <text key="settings_framework-token">Tokens</text>
+ <text key="settings_framework-token_cron">CRON Token</text>
+ <text key="settings_framework-token_cron-placeholder">Randomly created cron job token</text>
+ <text key="settings_framework-token_cron-randomize">Rigenera</text>
+ <text key="settings_framework-token_cron-randomize-confirm">Attenzione, generando un nuovo token dovrai modificarlo manualmente nel cron job del server. Confermi di voler generare un nuobo token?</text>
+
+ <text key="settings_framework-submit">Salva</text>
+ <text key="settings_framework-reset">Reset</text>
+ <text key="settings_framework-cancel">Annulla</text>
+
+ <!-- users_list -->
+ <text key="users_list">Utenti</text>
+ <text key="users_list-tr-unvalued">Non sono presenti utenti da mostrare..</text>
+ <text key="users_list-th-fullname">Utente</text>
+ <text key="users_list-th-mail">Indirizzo mail</text>
+ <text key="users_list-th-session">Stato</text>
+ <text key="users_list-td-session-online">Online</text>
+ <text key="users_list-td-session-offline">Offline</text>
+
+ <!-- users_add -->
+ <text key="users_add">Nuovo utente</text>
+ <text key="users_add-"></text>
+
+ <!-- sessions_list -->
+ <text key="sessions_list">Sessioni</text>
+ <text key="sessions_list-tr-unvalued">Non sono presenti sessioni da mostrare..</text>
+ <text key="sessions_list-th-fullname">Utente</text>
+ <text key="sessions_list-th-idle">Tempo di inattività</text>
+ <text key="sessions_list-th-start">Accesso</text>
+ <text key="sessions_list-th-ipAddress">Indirizzo IP</text>
+ <text key="sessions_list-th-id">ID Session</text>
+ <text key="sessions_list-th-destroy">Termina tutte le sessioni</text>
+ <text key="sessions_list-th-destroy-confirm">Confermi di voler terminare tutte le sessioni?</text>
+ <text key="sessions_list-td-destroy">Termina sessione</text>
+ <text key="sessions_list-td-destroy-confirm">Confermi di voler terminare questa sessione?</text>
+
+</locale>

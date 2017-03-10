@@ -4,10 +4,10 @@
  // check permissions
  /** @todo check permissions */
  // set html title
- $html->setTitle(api_text("users_lists"));
+ $html->setTitle(api_text("users_list"));
 
  // build grid object
- $table=new Table(api_text("accounts_lists-tr-unvalued"));
+ $table=new Table(api_text("users_list-tr-unvalued"));
 
  //$table->addHeader("&nbsp;",NULL,16);
  $table->addHeader("&nbsp;",NULL,16);

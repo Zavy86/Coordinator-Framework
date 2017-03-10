@@ -31,6 +31,7 @@
   api_dump($session->debug(),"session");
   api_dump($settings->debug(),"settings");
   api_dump(get_defined_constants(true)["user"],"contants");
+  api_dump($localization->debug(),"localization");
   api_dump($_SESSION["coordinator_logs"],"logs");
  }
 

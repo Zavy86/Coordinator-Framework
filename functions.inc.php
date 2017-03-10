@@ -65,13 +65,13 @@
  require_once(ROOT."classes/session.class.php");
  require_once(ROOT."classes/html.class.php");
  require_once(ROOT."classes/grid.class.php");
- require_once(ROOT."classes/nav.class.php");
+ require_once(ROOT."classes/nav.class.php"); /** fare classe tabs/tabbable per copia - e integrare tab nella nav */
  require_once(ROOT."classes/navbar.class.php");
  require_once(ROOT."classes/table.class.php");
  require_once(ROOT."classes/form.class.php");
+ require_once(ROOT."classes/user.class.php");
 
  // load modules  /** @todo fare funzione */
- require_once(ROOT."modules/accounts/functions.inc.php");
 
  // build localization instance
  $localization=new Localization();
