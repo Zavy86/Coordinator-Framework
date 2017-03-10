@@ -34,6 +34,10 @@
   $form->addFieldOption(1,api_text("settings_framework-maintenance-lock"));
   $form->addField("splitter");
   $form->addField("file","logo",api_text("settings_framework-logo"));
+  $form->addField("radio","show",api_text("settings_framework-show"),$settings->show,NULL,NULL,"radio-inline"); /** @todo spostare in impostazioni menu */
+  $form->addFieldOption("logo_title",api_text("settings_framework-show-logo_title"));
+  $form->addFieldOption("logo",api_text("settings_framework-show-logo"));
+  $form->addFieldOption("title",api_text("settings_framework-show-title"));
   $form->addField("static",NULL,NULL,api_image($settings->logo,"img-thumbnail",80));
 
  }

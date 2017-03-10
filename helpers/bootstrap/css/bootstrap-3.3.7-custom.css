@@ -39,6 +39,15 @@
  white-space:nowrap;
 }
 
+i.glyphicon{
+ top:3px;
+ color:#000000;
+}
+
+a i.glyphicon{
+ /** @todo nel caso si vogliano colorati integrare il colore qui e non sopra */
+}
+
 .control-label{
  font-weight:normal;
 }
@@ -50,7 +59,12 @@ footer{
  border-top:1px solid #DDDDDD;
 }
 
-/*col{background-color:#ccc;}*/
+.nav-tabs li.title,.nav-pills li.title{
+ padding:12px;
+ margin-right:2px;
+ line-height:18px;
+ font-size:20px;
+}
 
 .table > thead > tr > th,
 .table > tbody > tr > th,
