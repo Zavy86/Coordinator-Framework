@@ -20,6 +20,7 @@
  $this->addScript(HELPERS."jquery/jquery-1.12.0.min.js");
  /** @todo add some helpders here */
  $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.7.min.js");
+ $this->addScript(HELPERS."bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js");
 
  // build header navbar object
  $header_navbar=new Navbar($GLOBALS['settings']->title,"navbar-default navbar-static-top");

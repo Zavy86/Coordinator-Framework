@@ -185,7 +185,7 @@ class Navbar{
   $return.="    <span class='icon-bar'></span>\n";
   $return.="   </button>\n";
   /** @todo verificare logo e titolo */
-  $return.="   <a class='navbar-brand' id='nav_brand_logo' href='#'><img alt='Brand' src='".DIR."uploads/framework/brand.default.png' height='20'></a>\n";
+  $return.="   <a class='navbar-brand' id='nav_brand_logo' href='#'><img alt='Brand logo' src='".$GLOBALS['settings']->logo."' height='20'></a>\n";
   $return.="   <a class='navbar-brand' id='nav_brand_title' href='index.php'>".$this->title."</a>\n";
   $return.="  </div><!--/navbar-header -->\n";
 

@@ -12,10 +12,8 @@
  /** @todo check permissions */
  // set html title
  $html->setTitle(api_text("settings_framework"));
-
  // check actions
  if(ACTION=="token_cron_randomize"||!$settings->token_cron){$settings->token_cron=md5(date("YmdHis").rand(1,99999));}
-
  // script tabs
  $tabs=new Nav("nav-pills");
  $tabs->addItem(api_text("settings_framework-general"),"?mod=settings&scr=settings_framework&tab=general");
@@ -29,12 +27,15 @@
   */
  if(TAB=="general"){
   $form->addField("static",NULL,api_text("settings_framework-online"),api_text("settings_framework-online-counter",array($session->countOnlineUsers(),$session->countAllSessions()))." &rarr; ".api_link("?mod=accounts&scr=submit&act=user_logout_forced",api_text("settings_framework-reset"),NULL,NULL,FALSE,api_text("settings_framework-online-reset-confirm")));
+  $form->addField("text","title",api_text("settings_framework-title"),$settings->title,api_text("settings_framework-title-placeholder"));
+  $form->addField("text","owner",api_text("settings_framework-owner"),$settings->owner,api_text("settings_framework-owner-placeholder"));
   $form->addField("radio","maintenance",api_text("settings_framework-maintenance"),$settings->maintenance,NULL,NULL,"radio-inline");
   $form->addFieldOption(0,api_text("no"));
   $form->addFieldOption(1,api_text("settings_framework-maintenance-lock"));
-  $form->addField("separator");
-  $form->addField("text","title",api_text("settings_framework-title"),$settings->title,api_text("settings_framework-title-placeholder"));
-  $form->addField("text","owner",api_text("settings_framework-owner"),$settings->owner,api_text("settings_framework-owner-placeholder"));
+  $form->addField("splitter");
+  $form->addField("file","logo",api_text("settings_framework-logo"));
+  $form->addField("static",NULL,NULL,api_image($settings->logo,"img-thumbnail",80));
+
  }
  /**
   * Sessions

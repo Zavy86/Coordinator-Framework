@@ -8,6 +8,7 @@
  <text key="yes">Sì</text>
  <text key="no">No</text>
 
- <text key="parama">Ciao {0} {1}</text>
+ <!-- forms -->
+ <text key="form-input-file-placeholder">Seleziona un file..</text>
 
 </locale>

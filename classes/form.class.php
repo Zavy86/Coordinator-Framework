@@ -98,6 +98,11 @@ class Form{
   // checks
   if($field->typology=="datetime"){$field->typology="datetime-local";}
   if($field->size<1 || $field->size>10){$field->size=10;}
+  if($field->typology=="file"){
+   $field->class="filestyle ".$field->class;
+   $field->tags="data-buttonText=\"\" data-iconName=\"glyphicon glyphicon-folder-open\" data-placeholder=\"".api_text("form-input-file-placeholder")."\" ".$field->tags; /** @todo modificare con font-awesome icon */
+   if(!$field->enabled){$field->tags="data-disabled=\"true\" ".$field->tags;}
+  }
   // add field to form
   $this->current_field++;
   $this->fields_array[$this->current_field]=$field;
@@ -221,7 +226,7 @@ class Form{
  public function render($scaleFactor=NULL){
   // renderize form
   $return.="<!-- form -->\n";
-  $return.="<form class=\"form-horizontal ".$this->class."\" action=\"".$this->action."\" method=\"".$this->method."\" id=\"".$this->id."\">\n";
+  $return.="<form class=\"form-horizontal ".$this->class."\" action=\"".$this->action."\" method=\"".$this->method."\" id=\"".$this->id."\" enctype=\"multipart/form-data\">\n";
   // check for split
   if($this->splitted){
    $split_identation="  ";
@@ -317,6 +322,7 @@ class Form{
     case "color":
     case "checkbox":
     case "radio":
+    case "file":
      $return.=$split_identation."   <span class=\"help-block\">".$field->placeholder."</span>\n";
      break;
    }

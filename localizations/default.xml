@@ -8,4 +8,7 @@
  <text key="yes">Yes</text>
  <text key="no">No</text>
 
+ <!-- forms -->
+ <text key="form-input-file-placeholder">Select a file..</text>
+
 </locale>
