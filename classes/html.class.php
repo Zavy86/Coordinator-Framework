@@ -55,8 +55,6 @@ class HTML{
   $this->metaTags_array["viewport"]="width=device-width, initial-scale=1";
   $this->styleSheets_array=array();
   $this->scripts_array=array();
-  // load default template
-  require_once(ROOT."template.inc.php");
   return TRUE;
  }
 
@@ -162,6 +160,8 @@ class HTML{
   * @return boolean|string HTML source code
   */
  public function render($echo=TRUE){
+  // load default template
+  require_once(ROOT."template.inc.php");
   // renderize html
   $return="<!DOCTYPE html>\n";
   $return.="<html lang='".$this->language."'>\n\n";
