@@ -11,7 +11,7 @@
  require_once("functions.inc.php");
 
  // check session
- if(!$session->validity && !(MODULE=="accounts" && SCRIPT=="submit" && ACTION=="user_login")){api_redirect("login.php");}
+ if(!$session->validity && !(MODULE=="settings" && SCRIPT=="submit" && ACTION=="user_login")){api_redirect("login.php");}
 
  // load module
  if(file_exists(MODULE_PATH."module.inc.php")){require_once(MODULE_PATH."module.inc.php");}else{die("ERROR LOADING MODULE: File modules/".MODULE."/module.inc.php was not found");}
