@@ -20,6 +20,12 @@
   $nav->addItem(api_text("settings_framework"),"?mod=settings&scr=settings_framework");
  }
 
+ // own
+ if(substr(SCRIPT,0,3)=="own"){
+  $nav->addItem(api_text("own_profile"),"?mod=settings&scr=own_profile");
+  $nav->addItem(api_text("own_password"),"?mod=settings&scr=own_password"); /** @todo if auth is standard */
+ }
+
  // users
  if(substr(SCRIPT,0,5)=="users"){
   // lists

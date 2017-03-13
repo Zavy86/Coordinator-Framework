@@ -82,6 +82,34 @@
  <text key="settings_framework-reset">Reset</text>
  <text key="settings_framework-cancel">Annulla</text>
 
+ <!-- own_profile -->
+ <text key="own_profile">Profilo personale</text>
+ <text key="own_profile-mail">Indirizzo mail</text>
+ <text key="own_profile-firstname">Nome</text>
+ <text key="own_profile-lastname">Cognome</text>
+ <text key="own_profile-localization">Lingua</text>
+ <text key="own_profile-localization-select">Seleziona una lingua..</text>
+ <text key="own_profile-timezone">Fuso orario</text>
+ <text key="own_profile-timezone-select">Seleziona un fuso orario..</text>
+ <text key="own_profile-avatar">Avatar</text>
+ <text key="own_profile-submit">Salva</text>
+ <text key="own_profile-own_password">Modifica password</text>
+
+ <text key="own_profile-groups-unvalued">Non sono presenti gruppi da mostrare..</text>
+ <text key="own_profile-groups-th-group">Gruppo</text>
+ <text key="own_profile-groups-th-level">Livello</text>
+
+ <!-- own_password -->
+ <text key="own_password">Modifica password</text>
+ <text key="own_password-password">Vecchia password</text>
+ <text key="own_password-password-placeholder">Inserisci la tua password attuale..</text>
+ <text key="own_password-password_new">Nuova password</text>
+ <text key="own_password-password_new-placeholder">Scegli una nuova password..</text>
+ <text key="own_password-password_confirm">Conferma</text>
+ <text key="own_password-password_confirm-placeholder">Conferma la nuova password..</text>
+ <text key="own_password-submit">Salva</text>
+ <text key="own_password-cancel">Annulla</text>
+
  <!-- users_list -->
  <text key="users_list">Utenti</text>
  <text key="users_list-tr-unvalued">Non sono presenti utenti da mostrare..</text>
@@ -103,9 +131,9 @@
  <text key="sessions_list-th-start">Accesso</text>
  <text key="sessions_list-th-ipAddress">Indirizzo IP</text>
  <text key="sessions_list-th-id">ID Session</text>
- <text key="sessions_list-th-destroy">Termina tutte le sessioni</text>
- <text key="sessions_list-th-destroy-confirm">Confermi di voler terminare tutte le sessioni?</text>
- <text key="sessions_list-td-destroy">Termina sessione</text>
- <text key="sessions_list-td-destroy-confirm">Confermi di voler terminare questa sessione?</text>
+ <text key="sessions_list-th-terminate">Termina tutte le sessioni</text>
+ <text key="sessions_list-th-terminate-confirm">Confermi di voler terminare tutte le sessioni?</text>
+ <text key="sessions_list-td-terminate">Termina sessione</text>
+ <text key="sessions_list-td-terminate-confirm">Confermi di voler terminare questa sessione?</text>
 
 </locale>

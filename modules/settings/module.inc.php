@@ -9,6 +9,6 @@
  $module_name="settings";
  $module_title="Settings";
  $module_description="Settings";
- $module_default_script="settings_framework";
+ //$module_default_script="settings_framework";
  $module_default_tab="general";
 ?>

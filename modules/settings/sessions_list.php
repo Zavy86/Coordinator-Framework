@@ -13,7 +13,7 @@
  $table->addHeader(api_text("sessions_list-th-start"),"nowrap");
  $table->addHeader(api_text("sessions_list-th-ipAddress"),"nowrap");
  $table->addHeader(api_text("sessions_list-th-id"),"nowrap","100%");
- $table->addHeader(api_link("?mod=settings&scr=submit&act=session_destroy_all",api_icon("remove",api_text("sessions_list-th-destroy")),NULL,NULL,FALSE,api_text("sessions_list-th-destroy-confirm")),"text-center",16);
+ $table->addHeader(api_link("?mod=settings&scr=submit&act=sessions_terminate_all",api_icon("remove",api_text("sessions_list-th-terminate")),NULL,NULL,FALSE,api_text("sessions_list-th-terminate-confirm")),"text-center",16);
  // definitions
  $users_array=array();
  // acquire sessions
@@ -39,7 +39,7 @@
    $table->addRowField($session_r->ipAddress,"nowrap");
    $table->addRowField($session_r->id,"nowrap");
    /** @todo nome decente per session destroy */
-   $table->addRowField(api_link("?mod=settings&scr=submit&act=session_destroy&idSession=".$session_r->id,api_icon("remove",api_text("sessions_list-td-destroy")),NULL,NULL,FALSE,api_text("sessions_list-td-destroy-confirm")));
+   $table->addRowField(api_link("?mod=settings&scr=submit&act=sessions_terminate&idSession=".$session_r->id,api_icon("remove",api_text("sessions_list-td-terminate")),NULL,NULL,FALSE,api_text("sessions_list-td-terminate-confirm")));
   }
  }
  // build grid object

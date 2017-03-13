@@ -17,10 +17,13 @@ switch(ACTION){
  // users
  case "user_login":user_login();break;
  case "user_logout":user_logout();break;
- case "user_logout_forced":user_logout_forced();break;
  case "user_recovery":user_recovery();break;
  case "user_profile_update":user_profile_update();break;
  case "user_password_update":user_password_update();break;
+
+ // sessions
+ case "sessions_terminate":sessions_terminate();break;
+ case "sessions_terminate_all":sessions_terminate_all();break;
 
  // default
  default:
@@ -135,19 +138,6 @@ function user_logout(){
 }
 
 /**
- * User Logout Forced
- */
-function user_logout_forced(){   /* @todo valutare dove metterlo */
- $idAccount=$_REQUEST['idAccount'];
- // check for single account
- if($idAccount){$query_where=" AND `fkAccount`='".$idAccount."'";}
- // delete sessions
- $GLOBALS['database']->queryExecute("DELETE FROM `coordinator_sessions` WHERE 1".$query_where);
- // redirect
- api_redirect(DIR."index.php");
-}
-
-/**
  * User Recovery
  */
 function user_recovery(){
@@ -238,5 +228,26 @@ function user_password_update(){
  api_redirect("?mod=settings&scr=users_profile&alert=userProfileUpdated"); /** @todo sistemare error alert */
 }
 
+
+/**
+ * Sessions Terminate
+ */
+function sessions_terminate(){
+ $idSession=$_REQUEST['idSession'];
+ if(!$idSession){api_redirect(DIR."index.php?alert=sessionNotFound");} /** @todo sistemare error alert */
+ // delete session
+ $GLOBALS['database']->queryExecute("DELETE FROM `coordinator_sessions` WHERE `id`='".$idSession."'");
+ // redirect
+ api_redirect("?mod=settings&scr=sessions_list&alert=sessionTerminated");
+}
+/**
+ * Sessions Terminate All
+ */
+function sessions_terminate_all(){
+ // delete all sessions
+ $GLOBALS['database']->queryExecute("DELETE FROM `coordinator_sessions`");
+ // redirect
+ api_redirect(DIR."index.php");
+}
 
 ?>

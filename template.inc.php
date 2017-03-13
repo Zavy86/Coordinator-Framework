@@ -30,17 +30,16 @@
  if($GLOBALS['session']->validity){
   $header_navbar->addItem("Dashboard","?mod=dashboards");
   /** @todo load menu from database */
+  $header_navbar->addItem("Settings","?mod=settings");
   $header_navbar->addItem("Test","?mod=test");
-  $header_navbar->addItem("Drop","#","dropitemclass");
-  $header_navbar->addSubItem("Accounts","?mod=accounts");
   // account and settings
   $header_navbar->addNav("navbar-right");
   $header_navbar->addItem(api_image($GLOBALS['session']->user->avatar,NULL,20,20,FALSE,"alt='Brand'"));
-  $header_navbar->addSubHeader("Firstname Lastname","text-right");
-  $header_navbar->addSubItem("Profilo personale","?mod=accounts&scr=users_profile","text-right");
+  $header_navbar->addSubHeader($GLOBALS['session']->user->fullname,"text-right");
+  $header_navbar->addSubItem("Profilo personale","?mod=settings&scr=users_profile","text-right");
   $header_navbar->addSubSeparator();
-  $header_navbar->addSubItem("Settings","?mod=settings","text-right");
-  $header_navbar->addSubItem("Logout","?mod=accounts&scr=submit&act=user_logout","text-right");
+  $header_navbar->addSubItem("Settings","?mod=settings&scr=dashboard","text-right");
+  $header_navbar->addSubItem("Logout","?mod=settings&scr=submit&act=user_logout","text-right");
 
  }else{
 
