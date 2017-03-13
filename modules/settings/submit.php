@@ -18,8 +18,10 @@ switch(ACTION){
  case "user_login":user_login();break;
  case "user_logout":user_logout();break;
  case "user_recovery":user_recovery();break;
- case "user_profile_update":user_profile_update();break;
- case "user_password_update":user_password_update();break;
+
+// own
+ case "own_profile_update":own_profile_update();break;
+ case "own_password_update":own_password_update();break;
 
  // sessions
  case "sessions_terminate":sessions_terminate();break;
@@ -112,8 +114,11 @@ function user_login(){
 
  // switch authentication method
  switch($GLOBALS['settings']->sessions_authentication_method){
+  case "ldap":
+   /** @todo ldap auth */
+   break;
   default:
-   // default authentication
+   // standard authentication
    $authentication_result=user_authentication($r_username,$r_password);
  }
  // check authentication result
@@ -138,7 +143,7 @@ function user_logout(){
 }
 
 /**
- * User Recovery
+ * User Recovery   /** @todo rename in own ?
  */
 function user_recovery(){
  // acquire variables
@@ -149,7 +154,7 @@ function user_recovery(){
  // check user
  if(!$user_obj->id){api_redirect(DIR."login.php?error=userNotFound");} /** @todo sistemare error alert */
  // remove all user sessions
- $GLOBALS['database']->queryExecute("DELETE FROM `coordinator_sessions` WHERE `fkAccount`='".$user_obj->id."'");
+ $GLOBALS['database']->queryExecute("DELETE FROM `coordinator_sessions` WHERE `fkUser`='".$user_obj->id."'");
  // check for secret
  if(!$r_secret){
   // generate new secret code and save into database
@@ -166,7 +171,7 @@ function user_recovery(){
   // generate new password
   $f_password=substr(md5(date("Y-m-d H:i:s").rand(1,99999)),0,8);
   // update password and reset secret
-  $GLOBALS['database']->queryExecute("UPDATE `accounts_users` SET `password`='".md5($f_password)."',`secret`=NULL WHERE `id`='".$user_obj->id."'");
+  $GLOBALS['database']->queryExecute("UPDATE `accounts_users` SET `password`='".md5($f_password)."',`secret`=NULL,`pwdTimestamp`=NULL WHERE `id`='".$user_obj->id."'");
   // send new password
   api_sendmail($r_mail,"Coordinator new password",$f_password); /** @todo fare mail come si deve */
   // redirect
@@ -175,9 +180,9 @@ function user_recovery(){
 }
 
 /**
- * User Profile Update
+ * Own Profile Update
  */
-function user_profile_update(){
+function own_profile_update(){
  // build user objects
  $user=new stdClass();
  $user->id=$GLOBALS['session']->user->id;
@@ -186,6 +191,8 @@ function user_profile_update(){
  $user->lastname=$_REQUEST['lastname'];
  $user->localization=$_REQUEST['localization'];
  $user->timezone=$_REQUEST['timezone'];
+ $user->updTimestamp=time();
+ $user->updFkUser=$GLOBALS['session']->user->id;
  // debug
  api_dump($user);
  // update user
@@ -197,13 +204,13 @@ function user_profile_update(){
   if(is_uploaded_file($_FILES['avatar']['tmp_name'])){move_uploaded_file($_FILES['avatar']['tmp_name'],ROOT."uploads/accounts/users/avatar_".$user->id.".jpg");}
  }
  // redirect
- api_redirect("?mod=settings&scr=users_profile&alert=userProfileUpdated"); /** @todo sistemare error alert */
+ api_redirect("?mod=settings&scr=own_profile&alert=userProfileUpdated"); /** @todo sistemare error alert */
 }
 
 /**
- * User Password Update
+ * Own Password Update
  */
-function user_password_update(){
+function own_password_update(){
  // retrieve user object
  $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `accounts_users` WHERE `id`='".$GLOBALS['session']->user->id."'",$GLOBALS['debug']);
  // check
@@ -213,19 +220,20 @@ function user_password_update(){
  $r_password_new=$_REQUEST['password_new'];
  $r_password_confirm=$_REQUEST['password_confirm'];
  // check old password
- if(md5($r_password)!==$user_obj->password){api_redirect("?mod=settings&scr=users_password&alert=userPasswordIncorrect");} /** @todo sistemare error alert */
+ if(md5($r_password)!==$user_obj->password){api_redirect("?mod=settings&scr=own_password&alert=userPasswordIncorrect");} /** @todo sistemare error alert */
  // check new password
- if(!$r_password_new||$r_password_new!==$r_password_confirm){api_redirect("?mod=settings&scr=users_password&alert=userPasswordNotMatch");} /** @todo sistemare error alert */
+ if(!$r_password_new||$r_password_new!==$r_password_confirm){api_redirect("?mod=settings&scr=own_password&alert=userPasswordNotMatch");} /** @todo sistemare error alert */
  // build user objects
  $user=new stdClass();
  $user->id=$user_obj->id;
  $user->password=md5($r_password_new);
+ $user->pwdTimestamp=time();
  // debug
  api_dump($user);
  // insert user to database
  $GLOBALS['database']->queryUpdate("accounts_users",$user);
  // redirect
- api_redirect("?mod=settings&scr=users_profile&alert=userProfileUpdated"); /** @todo sistemare error alert */
+ api_redirect("?mod=settings&scr=own_profile&alert=userProfileUpdated"); /** @todo sistemare error alert */
 }
 
 
