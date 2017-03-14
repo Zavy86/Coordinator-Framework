@@ -187,12 +187,13 @@ class Form{
   * @param string $label Label
   * @param string $url Link URL
   * @param string $class CSS class
+  * @param string $confirm Show confirm alert box
   * @param string $style Custom CSS
   * @param string $tags Custom HTML tags
   * @param boolean $enabled Enabled
   * @return boolean
   */
- public function addControl($typology,$label,$url=NULL,$class=NULL,$style=NULL,$tags=NULL,$enabled=TRUE){
+ public function addControl($typology,$label,$url=NULL,$class=NULL,$confirm=NULL,$style=NULL,$tags=NULL,$enabled=TRUE){
   if(!in_array($typology,array("submit","reset","button"))){return FALSE;}
   // build field object
   $control=new stdClass();
@@ -200,6 +201,7 @@ class Form{
   $control->label=$label;
   $control->url=$url;
   $control->class=$class;
+  $control->confirm=$confirm;
   $control->style=$style;
   $control->tags=$tags;
   $control->enabled=$enabled;
@@ -359,6 +361,7 @@ class Form{
     // make control tags
     if($control->typology=="button"){$button_id.="_".$control_id;}
     $control_tags=" class=\"btn ".$control->class."\" id=\"".$this->id."_control_".$control->typology.$button_id."\"";
+    if($control->confirm){$control_tags.=" onClick=\"return confirm('".addslashes($control->confirm)."')\"";}
     if($control->style){$control_tags.=" style=\"".$control->style."\"";}
     if($control->tags){$control_tags.=" ".$control->tags;}
     if(!$control->enabled){$control_tags.=" disabled=\"disabled\"";}

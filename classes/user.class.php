@@ -26,6 +26,7 @@ class User{
  protected $enabled;
  protected $addTimestamp; /** @todo ? teniamo cosi? */
  protected $pwdExpired;
+ protected $deleted;
 
  /**
   * Debug
@@ -49,12 +50,13 @@ class User{
   $this->mail=stripslashes($user->mail);
   $this->firstname=stripslashes($user->firstname);
   $this->lastname=stripslashes($user->lastname);
-  $this->fullname=$this->firstname." ".$this->lastname;
+  $this->fullname=$this->lastname." ".$this->firstname;
   $this->localization=$user->localization;
   $this->timezone=$user->timezone;
   $this->avatar=DIR."uploads/accounts/users/avatar_".$this->id.".jpg";
   $this->enabled=(bool)$user->enabled;
   $this->addTimestamp=$user->addTimestamp;
+  $this->deleted=(bool)$user->deleted;
   // check avatar
   if(!file_exists(ROOT.str_replace(DIR,"",$this->avatar))){$this->avatar=DIR."uploads/accounts/users/avatar.jpg";}
   /** @todo check for password expiration */
@@ -81,6 +83,8 @@ class User{
    case "avatar":return $this->avatar;
    case "enabled":return $this->enabled;
    case "addTimestamp":return $this->addTimestamp;
+   case "pwdExpired":return $this->pwdExpired;
+   case "deleted":return $this->deleted;
    default:return FALSE;
   }
  }

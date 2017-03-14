@@ -121,7 +121,38 @@
 
  <!-- users_add -->
  <text key="users_add">Nuovo utente</text>
- <text key="users_add-"></text>
+ <text key="users_add-mail">Indirizzo mail</text>
+ <text key="users_add-mail-placeholder">Indirizzo mail dell'utente</text>
+ <text key="users_add-firstname">Nome</text>
+ <text key="users_add-firstname-placeholder">Nome dell'utente</text>
+ <text key="users_add-lastname">Cognome</text>
+ <text key="users_add-lastname-placeholder">Cognome dell'utente</text>
+ <text key="users_add-localization">Lingua</text>
+ <text key="users_add-localization-placeholder">Seleziona una lingua..</text>
+ <text key="users_add-timezone">Fuso orario</text>
+ <text key="users_add-timezone-placeholder">Seleziona un fuso orario..</text>
+ <text key="users_add-submit">Salva</text>
+ <text key="users_add-cancel">Annulla</text>
+
+ <!-- users_edit -->
+ <text key="users_edit">Modifica utente</text>
+ <text key="users_edit-enabled">Abilitato</text>
+ <text key="users_edit-mail">Indirizzo mail</text>
+ <text key="users_edit-mail-placeholder">Indirizzo mail dell'utente</text>
+ <text key="users_edit-firstname">Nome</text>
+ <text key="users_edit-firstname-placeholder">Nome dell'utente</text>
+ <text key="users_edit-lastname">Cognome</text>
+ <text key="users_edit-lastname-placeholder">Cognome dell'utente</text>
+ <text key="users_edit-localization">Lingua</text>
+ <text key="users_edit-localization-placeholder">Seleziona una lingua..</text>
+ <text key="users_edit-timezone">Fuso orario</text>
+ <text key="users_edit-timezone-placeholder">Seleziona un fuso orario..</text>
+ <text key="users_edit-submit">Salva</text>
+ <text key="users_edit-cancel">Annulla</text>
+ <text key="users_edit-delete">Elimina</text>
+ <text key="users_edit-delete-confirm">Confermi di voler eliminare questo account?</text>
+ <text key="users_edit-undelete">Ripristina</text>
+ <text key="users_edit-interpret">Interpreta</text>
 
  <!-- sessions_list -->
  <text key="sessions_list">Sessioni</text>

@@ -8,16 +8,20 @@
  */
 // check for actions
 if(!defined('ACTION')){die("ERROR EXECUTING SCRIPT: The action was not defined");}
-
 // switch action
 switch(ACTION){
  // settings
  case "settings_framework":settings_framework();break;
 
- // users
+ // users old
  case "user_login":user_login();break;
  case "user_logout":user_logout();break;
  case "user_recovery":user_recovery();break;
+
+// users
+ case "user_add":user_add();break;
+ case "user_edit":user_edit();break;
+ case "user_group_add":user_group_add();break;
 
 // own
  case "own_profile_update":own_profile_update();break;
@@ -180,6 +184,63 @@ function user_recovery(){
 }
 
 /**
+ * User Add
+ */
+function user_add(){
+ // make password
+ $v_password=substr(md5(date("Y-m-d H:i:s").rand(1,99999)),0,8);
+ // build user objects
+ $user=new stdClass();
+ // acquire variables
+ $user->mail=$_REQUEST['mail'];
+ $user->firstname=$_REQUEST['firstname'];
+ $user->lastname=$_REQUEST['lastname'];
+ $user->localization=$_REQUEST['localization'];
+ $user->timezone=$_REQUEST['timezone'];
+ $user->password=md5($v_password);
+ $user->enabled=1;
+ $user->addTimestamp=time();
+ $user->addFkUser=$GLOBALS['session']->user->id;
+ // debug
+ api_dump($_REQUEST);
+ api_dump($user);
+ // update user
+ $user->id=$GLOBALS['database']->queryInsert("accounts_users",$user);
+ // check user
+ if(!$user->id){api_redirect("?mod=settings&scr=users_list&alert=userError");} /** @todo sistemare error alert */
+ // send password to user
+ api_sendmail($user->mail,"Coordinator new user welcome",$v_password); /** @todo fare mail come si deve */
+ // redirect
+ api_redirect("?mod=settings&scr=users_edit&idUser=".$user->id."&alert=userAdded"); /** @todo sistemare error alert */
+}
+/**
+ * User Edit
+ */
+function user_edit(){
+ // build user objects
+ $user=new stdClass();
+ // acquire variables
+ $user->id=$_REQUEST['idUser'];
+ $user->enabled=$_REQUEST['enabled'];
+ $user->mail=$_REQUEST['mail'];
+ $user->firstname=$_REQUEST['firstname'];
+ $user->lastname=$_REQUEST['lastname'];
+ $user->localization=$_REQUEST['localization'];
+ $user->timezone=$_REQUEST['timezone'];
+ $user->updTimestamp=time();
+ $user->updFkUser=$GLOBALS['session']->user->id;
+ // debug
+ api_dump($_REQUEST);
+ api_dump($user);
+ // check
+ if(!$user->id){api_redirect("?mod=settings&scr=users_list&alert=userNotFound");} /** @todo sistemare error alert */
+ // update user
+ $GLOBALS['database']->queryUpdate("accounts_users",$user);
+ // redirect
+ api_redirect("?mod=settings&scr=users_edit&idUser=".$user->id."&alert=userUpdated"); /** @todo sistemare error alert */
+}
+
+/**
  * Own Profile Update
  */
 function own_profile_update(){
@@ -204,9 +265,8 @@ function own_profile_update(){
   if(is_uploaded_file($_FILES['avatar']['tmp_name'])){move_uploaded_file($_FILES['avatar']['tmp_name'],ROOT."uploads/accounts/users/avatar_".$user->id.".jpg");}
  }
  // redirect
- api_redirect("?mod=settings&scr=own_profile&alert=userProfileUpdated"); /** @todo sistemare error alert */
+ api_redirect("?mod=settings&scr=own_profile&alert=ownProfileUpdated"); /** @todo sistemare error alert */
 }
-
 /**
  * Own Password Update
  */
@@ -233,9 +293,8 @@ function own_password_update(){
  // insert user to database
  $GLOBALS['database']->queryUpdate("accounts_users",$user);
  // redirect
- api_redirect("?mod=settings&scr=own_profile&alert=userProfileUpdated"); /** @todo sistemare error alert */
+ api_redirect("?mod=settings&scr=own_profile&alert=ownPasswordUpdated"); /** @todo sistemare error alert */
 }
-
 
 /**
  * Sessions Terminate

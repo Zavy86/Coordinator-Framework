@@ -16,7 +16,7 @@
  $user=new User($_REQUEST['idUser']);
  if(!$user->id){die("USER NOT FOUND");} /** @todo rifare alert come si deve */
  // build profile form
- $form=new Form("?mod=accounts&scr=submit&act=user_profile_update","POST",null,"users_edit");
+ $form=new Form("?mod=settings&scr=submit&act=user_edit&idUser=".$user->id,"POST",null,"users_edit");
  $form->addField("static",NULL,$user->fullname,api_image($user->avatar,"img-thumbnail",128));
  $form->addField("checkbox","enabled","&nbsp;",$user->enabled);
  $form->addFieldOption(1,api_text("users_edit-enabled"),$user->enabled);
@@ -29,7 +29,8 @@
  foreach(timezone_identifiers_list() as $timezone){$form->addFieldOption($timezone,$timezone." (".api_timestamp_format(time(),"H:i",$timezone).")");}
  $form->addControl("submit",api_text("users_edit-submit"));
  $form->addControl("button",api_text("users_edit-cancel"),"?mod=settings&scr=users_list");
- $form->addControl("button",api_text("users_edit-delete"),"?mod=settings&scr=submit&act=users_delete&idUser=".$user->id,"btn-danger"); /** @todo fare undelete */
+ if(!$user->deleted){$form->addControl("button",api_text("users_edit-delete"),"?mod=settings&scr=submit&act=users_delete&idUser=".$user->id,"btn-danger",api_text("users_edit-delete-confirm"));}
+  else{$form->addControl("button",api_text("users_edit-undelete"),"?mod=settings&scr=submit&act=users_undelete&idUser=".$user->id,"btn-warning");}
  $form->addControl("button",api_text("users_edit-interpret"),"?mod=settings&scr=submit&act=users_interpret&idUser=".$user->id,"btn-success"); /** @todo check intepret permissions */
  // build comapnies table
  $companies_table=new Table(api_text("users_edit-companies-unvalued"));
@@ -54,4 +55,6 @@
  $html->addContent($grid->render(FALSE));
  // renderize html page
  $html->render();
+ // debug
+ if($GLOBALS['debug']){api_dump($user,"user");}
 ?>
