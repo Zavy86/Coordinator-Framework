@@ -53,12 +53,12 @@ class User{
   $this->fullname=$this->lastname." ".$this->firstname;
   $this->localization=$user->localization;
   $this->timezone=$user->timezone;
-  $this->avatar=DIR."uploads/accounts/users/avatar_".$this->id.".jpg";
+  $this->avatar=DIR."uploads/framework/users/avatar_".$this->id.".jpg";
   $this->enabled=(bool)$user->enabled;
   $this->addTimestamp=$user->addTimestamp;
   $this->deleted=(bool)$user->deleted;
   // check avatar
-  if(!file_exists(ROOT.str_replace(DIR,"",$this->avatar))){$this->avatar=DIR."uploads/accounts/users/avatar.jpg";}
+  if(!file_exists(ROOT.str_replace(DIR,"",$this->avatar))){$this->avatar=DIR."uploads/framework/users/avatar.jpg";}
   /** @todo check for password expiration */
   $this->pwdExpired=FALSE;
   return TRUE;

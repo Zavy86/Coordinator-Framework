@@ -260,9 +260,9 @@ function own_profile_update(){
  $GLOBALS['database']->queryUpdate("framework_users",$user);
  // upload avatar
  if(intval($_FILES['avatar']['size'])>0 && $_FILES['avatar']['error']==UPLOAD_ERR_OK){
-  if(!is_dir(ROOT."uploads/accounts/users")){mkdir(ROOT."uploads/accounts/users",0777,TRUE);}
-  if(file_exists(ROOT."uploads/accounts/users/avatar_".$user->id.".jpg")){unlink(ROOT."uploads/accounts/users/avatar_".$user->id.".jpg");}
-  if(is_uploaded_file($_FILES['avatar']['tmp_name'])){move_uploaded_file($_FILES['avatar']['tmp_name'],ROOT."uploads/accounts/users/avatar_".$user->id.".jpg");}
+  if(!is_dir(ROOT."uploads/framework/users")){mkdir(ROOT."uploads/framework/users",0777,TRUE);}
+  if(file_exists(ROOT."uploads/framework/users/avatar_".$user->id.".jpg")){unlink(ROOT."uploads/framework/users/avatar_".$user->id.".jpg");}
+  if(is_uploaded_file($_FILES['avatar']['tmp_name'])){move_uploaded_file($_FILES['avatar']['tmp_name'],ROOT."uploads/framework/users/avatar_".$user->id.".jpg");}
  }
  // redirect
  api_redirect("?mod=settings&scr=own_profile&alert=ownProfileUpdated"); /** @todo sistemare error alert */
