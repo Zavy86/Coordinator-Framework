@@ -26,7 +26,6 @@
   * Generals
   */
  if(TAB=="general"){
-  $form->addField("static",NULL,api_text("settings_framework-online"),api_text("settings_framework-online-counter",array($session->countOnlineUsers(),$session->countAllSessions()))." &rarr; ".api_link("?mod=accounts&scr=submit&act=user_logout_forced",api_text("settings_framework-reset"),NULL,NULL,FALSE,api_text("settings_framework-online-reset-confirm")));
   $form->addField("text","title",api_text("settings_framework-title"),$settings->title,api_text("settings_framework-title-placeholder"));
   $form->addField("text","owner",api_text("settings_framework-owner"),$settings->owner,api_text("settings_framework-owner-placeholder"));
   $form->addField("radio","maintenance",api_text("settings_framework-maintenance"),$settings->maintenance,NULL,NULL,"radio-inline");
@@ -39,7 +38,6 @@
   $form->addFieldOption("logo",api_text("settings_framework-show-logo"));
   $form->addFieldOption("title",api_text("settings_framework-show-title"));
   $form->addField("static",NULL,NULL,api_image($settings->logo,"img-thumbnail",80));
-
  }
  /**
   * Sessions

@@ -43,7 +43,7 @@ class User{
   */
  public function __construct($user){
   // get object
-  if(is_numeric($user)){$user=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `accounts_users` WHERE `id`='".$user."'",$GLOBALS['debug']);}
+  if(is_numeric($user)){$user=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_users` WHERE `id`='".$user."'",$GLOBALS['debug']);}
   if(!$user->id){return FALSE;}
   // set properties
   $this->id=(int)$user->id;

@@ -16,7 +16,7 @@
  $table->addHeader("&nbsp;",NULL,16);
 
  $users_array=array();
- $users_results=$GLOBALS['database']->queryObjects("SELECT * FROM `accounts_users` ORDER BY `lastname`,`firstname`",$GLOBALS['debug']);
+ $users_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_users` ORDER BY `lastname`,`firstname`",$GLOBALS['debug']);
  foreach($users_results as $user){$users_array[$user->id]=new User($user);}
 
  foreach($users_array as $user){

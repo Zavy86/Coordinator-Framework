@@ -74,7 +74,7 @@ function settings_framework(){
  // cycle all settings
  foreach($settings_array as $setting=>$value){
   // buil setting query
-  $query="INSERT INTO `settings_settings` (`setting`,`value`) VALUES ('".$setting."','".$value."') ON DUPLICATE KEY UPDATE `setting`='".$setting."',`value`='".$value."'";
+  $query="INSERT INTO `framework_settings` (`setting`,`value`) VALUES ('".$setting."','".$value."') ON DUPLICATE KEY UPDATE `setting`='".$setting."',`value`='".$value."'";
   // execute setting query
   $GLOBALS['database']->queryExecute($query,$GLOBALS['debug']);
   api_dump($query);
@@ -99,7 +99,7 @@ function settings_framework(){
  */
 function user_authentication($username,$password){
  // retrieve user object
- $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `accounts_users` WHERE `mail`='".$username."'",$GLOBALS['debug']);
+ $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_users` WHERE `mail`='".$username."'",$GLOBALS['debug']);
  if(!$user_obj->id){return -1;}
  if(md5($password)!==$user_obj->password){return -2;}
  return $user_obj->id;
@@ -154,16 +154,16 @@ function user_recovery(){
  $r_mail=$_REQUEST['mail'];
  $r_secret=$_REQUEST['secret'];
  // retrieve user object
- $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `accounts_users` WHERE `mail`='".$r_mail."'",$GLOBALS['debug']);
+ $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_users` WHERE `mail`='".$r_mail."'",$GLOBALS['debug']);
  // check user
  if(!$user_obj->id){api_redirect(DIR."login.php?error=userNotFound");} /** @todo sistemare error alert */
  // remove all user sessions
- $GLOBALS['database']->queryExecute("DELETE FROM `coordinator_sessions` WHERE `fkUser`='".$user_obj->id."'");
+ $GLOBALS['database']->queryExecute("DELETE FROM `framework_sessions` WHERE `fkUser`='".$user_obj->id."'");
  // check for secret
  if(!$r_secret){
   // generate new secret code and save into database
   $f_secret=md5(date("Y-m-d H:i:s").rand(1,99999));
-  $GLOBALS['database']->queryExecute("UPDATE `accounts_users` SET `secret`='".$f_secret."' WHERE `id`='".$user_obj->id."'");
+  $GLOBALS['database']->queryExecute("UPDATE `framework_users` SET `secret`='".$f_secret."' WHERE `id`='".$user_obj->id."'");
   $recoveryLink=URL."index.php?mod=settings&scr=submit&act=user_recovery&mail=".$r_mail."&secret=".$f_secret;
   // send recovery link
   api_sendmail($r_mail,"Coordinator password recovery",$recoveryLink); /** @todo fare mail come si deve */
@@ -175,7 +175,7 @@ function user_recovery(){
   // generate new password
   $f_password=substr(md5(date("Y-m-d H:i:s").rand(1,99999)),0,8);
   // update password and reset secret
-  $GLOBALS['database']->queryExecute("UPDATE `accounts_users` SET `password`='".md5($f_password)."',`secret`=NULL,`pwdTimestamp`=NULL WHERE `id`='".$user_obj->id."'");
+  $GLOBALS['database']->queryExecute("UPDATE `framework_users` SET `password`='".md5($f_password)."',`secret`=NULL,`pwdTimestamp`=NULL WHERE `id`='".$user_obj->id."'");
   // send new password
   api_sendmail($r_mail,"Coordinator new password",$f_password); /** @todo fare mail come si deve */
   // redirect
@@ -205,7 +205,7 @@ function user_add(){
  api_dump($_REQUEST);
  api_dump($user);
  // update user
- $user->id=$GLOBALS['database']->queryInsert("accounts_users",$user);
+ $user->id=$GLOBALS['database']->queryInsert("framework_users",$user);
  // check user
  if(!$user->id){api_redirect("?mod=settings&scr=users_list&alert=userError");} /** @todo sistemare error alert */
  // send password to user
@@ -235,7 +235,7 @@ function user_edit(){
  // check
  if(!$user->id){api_redirect("?mod=settings&scr=users_list&alert=userNotFound");} /** @todo sistemare error alert */
  // update user
- $GLOBALS['database']->queryUpdate("accounts_users",$user);
+ $GLOBALS['database']->queryUpdate("framework_users",$user);
  // redirect
  api_redirect("?mod=settings&scr=users_edit&idUser=".$user->id."&alert=userUpdated"); /** @todo sistemare error alert */
 }
@@ -257,7 +257,7 @@ function own_profile_update(){
  // debug
  api_dump($user);
  // update user
- $GLOBALS['database']->queryUpdate("accounts_users",$user);
+ $GLOBALS['database']->queryUpdate("framework_users",$user);
  // upload avatar
  if(intval($_FILES['avatar']['size'])>0 && $_FILES['avatar']['error']==UPLOAD_ERR_OK){
   if(!is_dir(ROOT."uploads/accounts/users")){mkdir(ROOT."uploads/accounts/users",0777,TRUE);}
@@ -272,7 +272,7 @@ function own_profile_update(){
  */
 function own_password_update(){
  // retrieve user object
- $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `accounts_users` WHERE `id`='".$GLOBALS['session']->user->id."'",$GLOBALS['debug']);
+ $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_users` WHERE `id`='".$GLOBALS['session']->user->id."'",$GLOBALS['debug']);
  // check
  if(!$user_obj->id){api_redirect(DIR."index.php?alert=userNotFound");} /** @todo sistemare error alert */
  // acquire variables
@@ -291,7 +291,7 @@ function own_password_update(){
  // debug
  api_dump($user);
  // insert user to database
- $GLOBALS['database']->queryUpdate("accounts_users",$user);
+ $GLOBALS['database']->queryUpdate("framework_users",$user);
  // redirect
  api_redirect("?mod=settings&scr=own_profile&alert=ownPasswordUpdated"); /** @todo sistemare error alert */
 }
@@ -303,7 +303,7 @@ function sessions_terminate(){
  $idSession=$_REQUEST['idSession'];
  if(!$idSession){api_redirect(DIR."index.php?alert=sessionNotFound");} /** @todo sistemare error alert */
  // delete session
- $GLOBALS['database']->queryExecute("DELETE FROM `coordinator_sessions` WHERE `id`='".$idSession."'");
+ $GLOBALS['database']->queryExecute("DELETE FROM `framework_sessions` WHERE `id`='".$idSession."'");
  // redirect
  api_redirect("?mod=settings&scr=sessions_list&alert=sessionTerminated");
 }
@@ -312,7 +312,7 @@ function sessions_terminate(){
  */
 function sessions_terminate_all(){
  // delete all sessions
- $GLOBALS['database']->queryExecute("DELETE FROM `coordinator_sessions`");
+ $GLOBALS['database']->queryExecute("DELETE FROM `framework_sessions`");
  // redirect
  api_redirect(DIR."index.php");
 }

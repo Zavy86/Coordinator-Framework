@@ -11,10 +11,6 @@
  <text key="settings_framework-general">Generali</text>
  <text key="settings_framework-maintenance">Manutenzione</text>
  <text key="settings_framework-maintenance-lock">Accesso bloccato</text>
- <text key="settings_framework-online">Online</text>
- <text key="settings_framework-online-counter">{0} utenti ({1} sessioni)</text>
- <text key="settings_framework-online-reset">Resetta sessioni</text>
- <text key="settings_framework-online-reset-confirm">Confermi di voler resettare le sessioni? Tutti gli utenti verranno sloggati.</text>
  <text key="settings_framework-title">Titolo</text>
  <text key="settings_framework-title-placeholder">Titolo del framework</text>
  <text key="settings_framework-owner">Proprietario</text>
