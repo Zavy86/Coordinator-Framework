@@ -93,11 +93,7 @@
  <text key="own_profile-timezone-select">Seleziona un fuso orario..</text>
  <text key="own_profile-avatar">Avatar</text>
  <text key="own_profile-submit">Salva</text>
- <text key="own_profile-own_password">Modifica password</text>
-
- <text key="own_profile-groups-unvalued">Non sono presenti gruppi da mostrare..</text>
- <text key="own_profile-groups-th-group">Gruppo</text>
- <text key="own_profile-groups-th-level">Livello</text>
+ <text key="own_profile-cancel">Annulla</text>
 
  <!-- own_password -->
  <text key="own_password">Modifica password</text>

@@ -26,21 +26,11 @@
  foreach(timezone_identifiers_list() as $timezone){$form->addFieldOption($timezone,$timezone." (".api_timestamp_format(time(),"H:i",$timezone).")");}
  $form->addField("file","avatar",api_text("own_profile-avatar"));
  $form->addControl("submit",api_text("own_profile-submit"));
- // build comapnies table
- $companies_table=new Table(api_text("own_profile-companies-unvalued"));
- $companies_table->addHeader(api_text("own_profile-companies-th-company"));
- $companies_table->addHeader(api_text("own_profile-companies-th-level"));
- $companies_table->addHeader("&nbsp;");
- // build groups table
- $groups_table=new Table(api_text("own_profile-groups-unvalued"));
- $groups_table->addHeader(api_text("own_profile-groups-th-group"));
- $groups_table->addHeader(api_text("own_profile-groups-th-level"),"text-right");
- $groups_table->addHeader("&nbsp;");
+ $form->addControl("button",api_text("own_profile-cancel"),"?mod=dashboards");
  // build grid object
  $grid=new Grid();
  $grid->addRow();
  $grid->addCol($form->render("2"),"col-xs-12 col-sm-6");
- $grid->addCol($companies_table->render().$groups_table->render(),"col-xs-12 col-sm-6");
  // add content to html
  $html->addContent($grid->render(FALSE));
  // renderize html page
