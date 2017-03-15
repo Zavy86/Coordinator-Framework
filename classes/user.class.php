@@ -25,6 +25,7 @@ class User{
  protected $avatar;
  protected $enabled;
  protected $addTimestamp; /** @todo ? teniamo cosi? */
+ protected $pwdExpiration;
  protected $pwdExpired;
  protected $deleted;
 
@@ -60,7 +61,8 @@ class User{
   // check avatar
   if(!file_exists(ROOT.str_replace(DIR,"",$this->avatar))){$this->avatar=DIR."uploads/framework/users/avatar.jpg";}
   /** @todo check for password expiration */
-  $this->pwdExpired=FALSE;
+  $this->pwdExpiration=$GLOBALS['settings']->users_password_expiration-(time()-$user->pwdTimestamp);
+  if($this->pwdExpiration<0){$this->pwdExpired=TRUE;}
   return TRUE;
  }
 
@@ -83,6 +85,7 @@ class User{
    case "avatar":return $this->avatar;
    case "enabled":return $this->enabled;
    case "addTimestamp":return $this->addTimestamp;
+   case "pwdExpiration":return $this->pwdExpiration;
    case "pwdExpired":return $this->pwdExpired;
    case "deleted":return $this->deleted;
    default:return FALSE;

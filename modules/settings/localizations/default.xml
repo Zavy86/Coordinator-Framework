@@ -68,6 +68,14 @@
  <text key="settings_framework-sendmail_smtp_encryption-tls">TLS</text>
  <text key="settings_framework-sendmail_smtp_encryption-ssl">SSL</text>
 
+ <text key="settings_framework-users">Utenti</text>
+ <text key="settings_framework-users_password_expiration">Scadenza password</text>
+ <text key="settings_framework-users_password_expiration-placeholder">Seleziona una scadenza..</text>
+ <text key="settings_framework-users_password_expiration-never">Mai</text>
+ <text key="settings_framework-users_password_expiration-30days">30 giorni</text>
+ <text key="settings_framework-users_password_expiration-60days">60 giorni</text>
+ <text key="settings_framework-users_password_expiration-90days">90 giorni</text>
+
  <text key="settings_framework-token">Tokens</text>
  <text key="settings_framework-token_cron">CRON Token</text>
  <text key="settings_framework-token_cron-placeholder">Randomly created cron job token</text>

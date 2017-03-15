@@ -19,6 +19,7 @@
  $tabs->addItem(api_text("settings_framework-general"),"?mod=settings&scr=settings_framework&tab=general");
  $tabs->addItem(api_text("settings_framework-sessions"),"?mod=settings&scr=settings_framework&tab=sessions");
  $tabs->addItem(api_text("settings_framework-sendmail"),"?mod=settings&scr=settings_framework&tab=sendmail");
+ $tabs->addItem(api_text("settings_framework-users"),"?mod=settings&scr=settings_framework&tab=users");
  $tabs->addItem(api_text("settings_framework-token"),"?mod=settings&scr=settings_framework&tab=token");
  // build settings form
  $form=new Form("?mod=settings&scr=submit&act=settings_framework&tab=".TAB,"POST",NULL,"settings_framework");
@@ -87,11 +88,20 @@
   $form->addFieldOption("ssl",api_text("settings_framework-sendmail_smtp_encryption-ssl"));
  }
  /**
+  * Users
+  */
+ if(TAB=="users"){
+  $form->addField("select","users_password_expiration",api_text("settings_framework-users_password_expiration"),$settings->users_password_expiration,api_text("settings_framework-users_password_expiration-placeholder"));
+  $form->addFieldOption(-1,api_text("settings_framework-users_password_expiration-never"));
+  $form->addFieldOption(2592000,api_text("settings_framework-users_password_expiration-30days"));
+  $form->addFieldOption(5184000,api_text("settings_framework-users_password_expiration-60days"));
+  $form->addFieldOption(7776000,api_text("settings_framework-users_password_expiration-90days"));
+ }
+ /**
   * Tokens
   */
  if(TAB=="token"){
   $form->addField("text","token_cron",api_text("settings_framework-token_cron"),$settings->token_cron,api_text("settings_framework-token_cron-placeholder"));
-  //$form->addFieldAddonButton("#",api_text("settings_framework-token_cron-randomize"),NULL,NULL,"onClick=\"$('#form_settings_framework_input_token_cron').val(Math.random().toString(36).slice(2));\"");
   $form->addFieldAddonButton("?mod=settings&scr=settings_framework&tab=token&act=token_cron_randomize",api_text("settings_framework-token_cron-randomize"));
  }
  // form controls

@@ -57,6 +57,8 @@ function settings_framework(){
   /* sendmail */
   "sendmail_from_name","sendmail_from_mail","sendmail_asynchronous","sendmail_method",
   "sendmail_smtp_hostname","sendmail_smtp_username","sendmail_smtp_encryption",
+  /* users */
+  "users_password_expiration",
   /* tokens */
   "token_cron"
  );
@@ -283,6 +285,8 @@ function own_password_update(){
  if(md5($r_password)!==$user_obj->password){api_redirect("?mod=settings&scr=own_password&alert=userPasswordIncorrect");} /** @todo sistemare error alert */
  // check new password
  if(!$r_password_new||$r_password_new!==$r_password_confirm){api_redirect("?mod=settings&scr=own_password&alert=userPasswordNotMatch");} /** @todo sistemare error alert */
+ // check if new password is equal to oldest password
+ if(md5($r_password_new)===$user_obj->password){api_redirect("?mod=settings&scr=own_password&alert=userPasswordOldest");} /** @todo sistemare error alert */
  // build user objects
  $user=new stdClass();
  $user->id=$user_obj->id;
