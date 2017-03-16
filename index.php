@@ -33,6 +33,10 @@
 
  // debug
  if($debug){
+
+  /** @todo cancellare dopo i test */
+  require_once("cron.php");
+
   //api_dump($session->debug(),"session",API_DUMP_VARDUMP);
   api_dump($session->debug(),"session");
   api_dump($settings->debug(),"settings");
