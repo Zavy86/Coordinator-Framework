@@ -81,7 +81,7 @@ footer{
 }
 
 .nav-responsive{
- overflow-x:auto;
+ /*overflow-x:auto; @todo verificare per dropdown mobile */
  min-height:0.01%;
 }
 
@@ -92,9 +92,10 @@ footer{
   overflow-y:hidden;
   -ms-overflow-style:-ms-autohiding-scrollbar;
  }
- .nav-tabs,
- .nav-pills{
-  /* size of div */
-  /*min-width:999px;*/
- }
+}
+
+.dl-horizontal dt{
+ width:195px;
+ padding-right:25px;
+ font-weight:normal;
 }
