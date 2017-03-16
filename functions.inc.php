@@ -264,6 +264,27 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
   return $datetime->format($format);
  }
 
+ /**
+  * Alerts Add
+  *
+  * @param string $message alert message
+  * @param string $class alert class
+  * @return boolean alert saved status
+  */
+ function api_alerts_add($message,$class="info"){
+  // checks
+  if(!$message){return FALSE;}
+  if(!is_array($_SESSION['coordinator_alerts'])){$_SESSION['coordinator_alerts']=array();}
+  // build alert object
+  $alert=new stdClass();
+  $alert->timestamp=time();
+  $alert->message=$message;
+  $alert->class=$class;
+  $_SESSION['coordinator_alerts'][]=$alert;
+  // return
+  return TRUE;
+ }
+
              /**
               *
               * @param type $recipient
@@ -273,27 +294,6 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
              function api_sendmail($recipient,$subject,$message){
                /** @todo fare funzione con phpmailer */
               mail($recipient,$subject,$message);
-             }
-
-             /**
-              * Alerts Add
-              *
-              * @param string $message alert message
-              * @param string $class alert class
-              * @return boolean alert saved status
-              */
-             function api_alerts_add($message,$class="info"){
-              // checks
-              if(!$message){return FALSE;}
-              if(!is_array($_SESSION['alerts'])){$_SESSION['alerts']=array();}
-              // build alert object
-              $alert=new stdClass();
-              $alert->timestamp=api_datetime_now();
-              $alert->message=$message;
-              $alert->class=$class;
-              $_SESSION['alerts'][]=$alert;
-              // return
-              return TRUE;
              }
 
 ?>

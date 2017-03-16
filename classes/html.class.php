@@ -192,10 +192,32 @@ class HTML{
   }
   // renderize content
   $return.="  <content>\n\n";
-  //$return.="   <!-- container -->\n";
-  //$return.="   <div class='container'>\n\n";
+  // show alerts
+  if(count($_SESSION['coordinator_alerts'])){
+   $return.="<!-- grid container -->\n";
+   $return.="<div class=\"container\">\n";
+   $return.=" <!-- grid-row -->\n";
+   $return.=" <div class=\"row\">\n";
+   $return.="  <!-- grid-row-col -->\n";
+   $return.="  <div class=\"col-xs-12\">\n";
+   $return.="   <!-- alert -->\n";
+   $return.="   <div class=\"alerts\">\n";
+   // cycle all alerts
+   foreach($_SESSION['coordinator_alerts'] as $alert){
+    $return.="   <div class=\"alert alert-dismissible alert-".$alert->class."\" role=\"alert\">\n";
+    $return.="    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n";
+    $return.="    <span>".$alert->message."</span>\n";
+    $return.="   </div>\n";
+   }
+   $return.="   </div><!-- /alert -->\n";
+   $return.="  </div><!-- /grid-row-col -->\n";
+   $return.=" </div><!-- /grid-row -->\n";
+   $return.="</div><!-- /grid container -->\n";
+   // reset session alerts
+   $_SESSION['coordinator_alerts']=array();
+  }
+  // show content
   $return.=$this->content;
-  //$return.="   </div><!-- /container -->\n\n";
   $return.="  </content>\n\n";
   // renderize footer
   if($this->footer){
