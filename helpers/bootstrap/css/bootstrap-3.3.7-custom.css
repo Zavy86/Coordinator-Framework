@@ -79,3 +79,22 @@ footer{
 .table > tfoot > tr > td {
  font-size:14px;
 }
+
+.nav-responsive{
+ overflow-x:auto;
+ min-height:0.01%;
+}
+
+@media screen and (max-width:767px){
+ .nav-responsive{
+  width:99%;
+  margin-bottom:15px;
+  overflow-y:hidden;
+  -ms-overflow-style:-ms-autohiding-scrollbar;
+ }
+ .nav-tabs,
+ .nav-pills{
+  /* size of div */
+  /*min-width:999px;*/
+ }
+}

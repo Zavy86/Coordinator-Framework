@@ -13,9 +13,11 @@
  * @todo check phpdoc
  */
 class Nav{
- /** @var string $class Nav class */
+ /** @var string $title Title */
+ protected $title;
+ /** @var string $class CSS class */
  protected $class;
- /** @var string $navs_array Array of nav items */
+ /** @var string $navs_array Array of items */
  protected $items_array;
  /** @var integer $current_item Current item index */
  protected $current_item;
@@ -38,6 +40,17 @@ class Nav{
   $this->current_nav=0;
   $this->current_item=0;
   $this->items_array=array();
+  return TRUE;
+ }
+
+/**
+ * Set Title
+ *
+ * @return boolean
+ */
+ public function setTitle($title){
+  if(!$title){return FALSE;}
+  $this->title=$title;
   return TRUE;
  }
 
@@ -128,11 +141,21 @@ class Nav{
  * @return boolean|string Nav source code
  */
  public function render($echo=TRUE){
+  // calcualte responsive min-width
+  $min_width=strlen($this->title)*16;
+  foreach($this->items_array as $item){
+   if(substr($item->label,0,2)=="<i"){$min_width+=45;}
+   else{$min_width+=(strlen($item->label)*7)+32;}
+  }
   // renderize nav
   $return="<!-- nav container -->\n";
   $return.="<div class='container'>\n";
-  $return.=" <!-- nav -->\n";
-  $return.=" <ul class='nav ".$this->class."'>\n";
+  $return.=" <!-- nav-responsive -->\n";
+  $return.=" <div class='nav-responsive'>\n";
+  $return.="  <!-- nav -->\n";
+  $return.="  <ul class='nav ".$this->class."' style=\"min-width:".$min_width."px;\">\n";
+  // title
+  if($this->title){$return.="   <li class='title'>".$this->title."</li>\n";}
   // cycle all items
   foreach($this->items_array as $item){
    // check for active
@@ -149,11 +172,11 @@ class Nav{
    if($active||!$item->enabled){$item->url="#";}
    // check for sub items
    if(!count($item->subItems_array)){
-    $return.="  <li class='".($active?"active ":NULL).($item->enabled?NULL:"disabled ").$item->class."'><a href=\"".$item->url."\">".$item->label."</a></li>\n";
+    $return.="   <li class='".($active?"active ":NULL).($item->enabled?NULL:"disabled ").$item->class."'><a href=\"".$item->url."\">".$item->label."</a></li>\n";
    }else{
-    $return.="  <li class='dropdown ".($active?"active ":NULL).($item->enabled?NULL:"disabled ").$item->class."'>\n";
-    $return.="   <a href='#' class='dropdown-toggle ".$item->class."' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>".$item->label." <span class='caret'></span></a>\n";
-    $return.="   <ul class='dropdown-menu ".$item->class."'>\n";
+    $return.="   <li class='dropdown ".($active?"active ":NULL).($item->enabled?NULL:"disabled ").$item->class."'>\n";
+    $return.="    <a href='#' class='dropdown-toggle ".$item->class."' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>".$item->label." <span class='caret'></span></a>\n";
+    $return.="    <ul class='dropdown-menu ".$item->class."'>\n";
     // cycle all sub items
     foreach($item->subItems_array as $subItem){
      // check for sub active
@@ -164,17 +187,18 @@ class Nav{
      if($sub_active||!$subItem->enabled){$subItem->url="#";}
      // switch sub item typology
      switch($subItem->typology){
-      case "item":$return.="    <li class='".($sub_active?"active ":NULL).($subItem->enabled?NULL:"disabled ").$subItem->class."'><a href=\"".$subItem->url."\">".$subItem->label."</a></li>\n";break;
-      case "separator":$return.="    <li class='divider ".$subItem->class."' role='separator'><a href=\"".$subItem->url."\">".$subItem->label."</a></li>\n";break;
-      case "header":$return.="    <li class='dropdown-header".$subItem->class."'>".$subItem->label."</li>\n";break;
+      case "item":$return.="     <li class='".($sub_active?"active ":NULL).($subItem->enabled?NULL:"disabled ").$subItem->class."'><a href=\"".$subItem->url."\">".$subItem->label."</a></li>\n";break;
+      case "separator":$return.="     <li class='divider ".$subItem->class."' role='separator'><a href=\"".$subItem->url."\">".$subItem->label."</a></li>\n";break;
+      case "header":$return.="     <li class='dropdown-header".$subItem->class."'>".$subItem->label."</li>\n";break;
      }
     }
-    $return.="   </ul><!-- dropdown -->\n";
-    $return.="  </li>\n";
+    $return.="    </ul><!-- dropdown -->\n";
+    $return.="   </li>\n";
    }
   }
   // renderize closures
-  $return.=" </ul><!-- /nav -->\n";
+  $return.="  </ul><!-- /nav -->\n";
+  $return.=" </div><!-- /nav-responsive -->\n";
   if(is_int(strpos("nav-tabs",$this->class))){$return.="<br>\n";}
   if(is_int(strpos("nav-pills",$this->class))){$return.="<div class='row'><div class='col-xs-12'><hr></div></div>\n";}
   $return.="</div><!-- /container -->\n\n";
