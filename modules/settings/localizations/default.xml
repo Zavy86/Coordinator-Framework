@@ -5,6 +5,25 @@
  <!-- settings -->
  <text key="settings">Framework</text>
 
+ <!-- alerts -->
+ <text key="settings_alert_settingsUpdated">Le impostazioni sono state aggiornate</text>
+
+ <text key="settings_alert_userNotFound">L'utente non è stato trovato</text>
+ <text key="settings_alert_userError">Si è verificato un errore durante il salvaraggio dell'utente</text>
+ <text key="settings_alert_userCreated">L'utente è stato creato</text>
+ <text key="settings_alert_userUpdated">L'utente è stato aggiornato</text>
+
+ <text key="settings_alert_ownProfileUpdated">Il tuo profilo è stato aggiornato</text>
+ <text key="settings_alert_ownPasswordIncorrect">La password attuale inserita non è corretta</text>
+ <text key="settings_alert_ownPasswordNotMatch">Le nuove password non coincidono</text>
+ <text key="settings_alert_ownPasswordWeak">La nuova password non ha superato il livello minimo di sicurezza</text>
+ <text key="settings_alert_ownPasswordOldest">La nuova password coincide con la vecchia password</text>
+ <text key="settings_alert_ownPasswordUpdated">La tua password è stata aggiornata</text>
+
+ <text key="settings_alert_sessionNotFound">La sessione non è stata trovata</text>
+ <text key="settings_alert_sessionTerminated">La sessione è stata terminata</text>
+ <text key="settings_alert_sessionTerminatedAll">Tutte le sessioni sono state terminate</text>
+
  <!-- settings_framework -->
  <text key="settings_framework">Impostazioni Framework</text>
 
@@ -101,7 +120,7 @@
 
  <!-- own_password -->
  <text key="own_password">Modifica password</text>
- <text key="own_password-password">Vecchia password</text>
+ <text key="own_password-password">Password attuale</text>
  <text key="own_password-password-placeholder">Inserisci la tua password attuale..</text>
  <text key="own_password-password_new">Nuova password</text>
  <text key="own_password-password_new-placeholder">Scegli una nuova password..</text>

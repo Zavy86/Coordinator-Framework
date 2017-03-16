@@ -8,6 +8,10 @@
  <text key="yes">Yes</text>
  <text key="no">No</text>
 
+ <!-- alerts -->
+ <text key="alert_authenticationFailed">Nome utente o password non corretti</text>
+ <text key="alert_submitFunctionNotFound">La funzione "{2}" non è stata trovata nello script "{1}" del modulo "{0}"</text>
+
  <!-- forms -->
  <text key="form-input-file-placeholder">Select a file..</text>
 

@@ -11,7 +11,7 @@
  // check permissions
  /** @todo check permissions */
  // set html title
- $html->setTitle(api_text("own_password-title"));
+ $html->setTitle(api_text("own_password"));
  // build profile form
  $form=new Form("?mod=settings&scr=submit&act=own_password_update","POST",null,"own_password");
  $form->addField("password","password",api_text("own_password-password"),NULL,api_text("own_password-password-placeholder"));

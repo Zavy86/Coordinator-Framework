@@ -33,10 +33,8 @@ switch(ACTION){
 
  // default
  default:
-  /** @todo alerts */
-  /*$alert="?alert=submitFunctionNotFound&alert_class=alert-warning&act=".$act;
-  exit(header("location: ".DIR."index.php".$alert));*/
-  die("ERROR EXECUTING SCRIPT: The action ".ACTION." was not found");
+  api_alerts_add(api_text("alert_submitFunctionNotFound",array(MODULE,SCRIPT,ACTION)),"danger");
+  api_redirect("?mod=".MODULE);
 }
 
 /**
@@ -82,7 +80,8 @@ function settings_framework(){
   api_dump($query);
  }
  // redirect
- api_redirect("?mod=settings&scr=settings_framework&tab=".$r_tab."&alert=settingsFrameworkUpdated"); /** @todo rifare alert */
+ api_alerts_add(api_text("settings_alert_settingsUpdated"),"success");
+ api_redirect("?mod=settings&scr=settings_framework&tab=".$r_tab);
 }
 
 
@@ -128,7 +127,7 @@ function user_login(){
    $authentication_result=user_authentication($r_username,$r_password);
  }
  // check authentication result
- if($authentication_result<1){api_redirect(DIR."login.php?alert=authenticationFailed");} /** @todo fare bene l'alert */
+ if($authentication_result<1){api_alerts_add(api_text("alert_authenticationFailed"),"warning");api_redirect(DIR."login.php");}
  // try to authenticate user
  $GLOBALS['session']->build($authentication_result);
  //
@@ -185,6 +184,12 @@ function user_recovery(){
  }
 }
 
+
+
+
+
+
+
 /**
  * User Add
  */
@@ -209,11 +214,12 @@ function user_add(){
  // update user
  $user->id=$GLOBALS['database']->queryInsert("framework_users",$user);
  // check user
- if(!$user->id){api_redirect("?mod=settings&scr=users_list&alert=userError");} /** @todo sistemare error alert */
+ if(!$user->id){api_alerts_add(api_text("settings_alert_userError"),"danger");api_redirect("?mod=settings&scr=users_list");}
  // send password to user
  api_sendmail($user->mail,"Coordinator new user welcome",$v_password); /** @todo fare mail come si deve */
  // redirect
- api_redirect("?mod=settings&scr=users_edit&idUser=".$user->id."&alert=userAdded"); /** @todo sistemare error alert */
+ api_alerts_add(api_text("settings_alert_userCreated"),"success");
+ api_redirect("?mod=settings&scr=users_edit&idUser=".$user->id);
 }
 /**
  * User Edit
@@ -235,11 +241,12 @@ function user_edit(){
  api_dump($_REQUEST);
  api_dump($user);
  // check
- if(!$user->id){api_redirect("?mod=settings&scr=users_list&alert=userNotFound");} /** @todo sistemare error alert */
+ if(!$user->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=settings&scr=users_list");}
  // update user
  $GLOBALS['database']->queryUpdate("framework_users",$user);
  // redirect
- api_redirect("?mod=settings&scr=users_edit&idUser=".$user->id."&alert=userUpdated"); /** @todo sistemare error alert */
+ api_alerts_add(api_text("settings_alert_userUpdated"),"success");
+ api_redirect("?mod=settings&scr=users_edit&idUser=".$user->id);
 }
 
 /**
@@ -267,7 +274,8 @@ function own_profile_update(){
   if(is_uploaded_file($_FILES['avatar']['tmp_name'])){move_uploaded_file($_FILES['avatar']['tmp_name'],ROOT."uploads/framework/users/avatar_".$user->id.".jpg");}
  }
  // redirect
- api_redirect("?mod=settings&scr=own_profile&alert=ownProfileUpdated"); /** @todo sistemare error alert */
+ api_alerts_add(api_text("settings_alert_ownProfileUpdated"),"success");
+ api_redirect("?mod=settings&scr=own_profile");
 }
 /**
  * Own Password Update
@@ -276,17 +284,18 @@ function own_password_update(){
  // retrieve user object
  $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_users` WHERE `id`='".$GLOBALS['session']->user->id."'",$GLOBALS['debug']);
  // check
- if(!$user_obj->id){api_redirect(DIR."index.php?alert=userNotFound");} /** @todo sistemare error alert */
+ if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect(DIR."index.php");}
  // acquire variables
  $r_password=$_REQUEST['password'];
  $r_password_new=$_REQUEST['password_new'];
  $r_password_confirm=$_REQUEST['password_confirm'];
  // check old password
- if(md5($r_password)!==$user_obj->password){api_redirect("?mod=settings&scr=own_password&alert=userPasswordIncorrect");} /** @todo sistemare error alert */
+ if(md5($r_password)!==$user_obj->password){api_alerts_add(api_text("settings_alert_ownPasswordIncorrect"),"danger");api_redirect("?mod=settings&scr=own_password");}
  // check new password
- if(!$r_password_new||$r_password_new!==$r_password_confirm){api_redirect("?mod=settings&scr=own_password&alert=userPasswordNotMatch");} /** @todo sistemare error alert */
+ if($r_password_new!==$r_password_confirm){api_alerts_add(api_text("settings_alert_ownPasswordNotMatch"),"danger");api_redirect("?mod=settings&scr=own_password");}
+ if(strlen($r_password_new)<8){api_alerts_add(api_text("settings_alert_ownPasswordWeak"),"danger");api_redirect("?mod=settings&scr=own_password");}
  // check if new password is equal to oldest password
- if(md5($r_password_new)===$user_obj->password){api_redirect("?mod=settings&scr=own_password&alert=userPasswordOldest");} /** @todo sistemare error alert */
+ if(md5($r_password_new)===$user_obj->password){api_alerts_add(api_text("settings_alert_ownPasswordOldest"),"danger");api_redirect("?mod=settings&scr=own_password");}
  // build user objects
  $user=new stdClass();
  $user->id=$user_obj->id;
@@ -297,7 +306,8 @@ function own_password_update(){
  // insert user to database
  $GLOBALS['database']->queryUpdate("framework_users",$user);
  // redirect
- api_redirect("?mod=settings&scr=own_profile&alert=ownPasswordUpdated"); /** @todo sistemare error alert */
+ api_alerts_add(api_text("settings_alert_ownPasswordUpdated"),"success");
+ api_redirect("?mod=settings&scr=own_profile");
 }
 
 /**
@@ -305,11 +315,12 @@ function own_password_update(){
  */
 function sessions_terminate(){
  $idSession=$_REQUEST['idSession'];
- if(!$idSession){api_redirect(DIR."index.php?alert=sessionNotFound");} /** @todo sistemare error alert */
+ if(!$idSession){api_alerts_add(api_text("settings_alert_sessionNotFound"),"danger");api_redirect("?mod=settings&scr=sessions_list");}
  // delete session
  $GLOBALS['database']->queryExecute("DELETE FROM `framework_sessions` WHERE `id`='".$idSession."'");
  // redirect
- api_redirect("?mod=settings&scr=sessions_list&alert=sessionTerminated");
+ api_alerts_add(api_text("settings_alert_sessionTerminated"),"warning");
+ api_redirect("?mod=settings&scr=sessions_list");
 }
 /**
  * Sessions Terminate All
@@ -318,6 +329,7 @@ function sessions_terminate_all(){
  // delete all sessions
  $GLOBALS['database']->queryExecute("DELETE FROM `framework_sessions`");
  // redirect
+ api_alerts_add(api_text("settings_alert_sessionTerminatedAll"),"warning");
  api_redirect(DIR."index.php");
 }
 
