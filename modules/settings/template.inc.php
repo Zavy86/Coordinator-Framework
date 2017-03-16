@@ -32,7 +32,7 @@
   $nav->addItem(api_text("users_list"),"?mod=settings&scr=users_list");
   // template operations
   if(in_array(SCRIPT,array("users_view","users_edit")) && $_REQUEST['idUser']){
-   $nav->addItem(api_text("nav-operations"));
+   $nav->addItem(api_text("nav-operations"),NULL,"active");
    $nav->addSubItem(api_text("users_edit"),"?mod=settings&scr=users_edit&idUser=".$_REQUEST['idUser']);
    $nav->addSubItem(api_text("users_interpret"),"?mod=settings&scr=users_interpret&idUser=".$_REQUEST['idUser'],NULL,api_text("users_interpret-confirm"));
   }else{

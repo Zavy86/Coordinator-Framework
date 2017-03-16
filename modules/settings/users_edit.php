@@ -14,7 +14,7 @@
  $html->setTitle(api_text("users_edit"));
  // get objects
  $user=new User($_REQUEST['idUser']);
- if(!$user->id){die("USER NOT FOUND");} /** @todo rifare alert come si deve */
+ if(!$user->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=settings&scr=users_list");}
  // build profile form
  $form=new Form("?mod=settings&scr=submit&act=user_edit&idUser=".$user->id,"POST",null,"users_edit");
  $form->addField("static",NULL,$user->fullname,api_image($user->avatar,"img-thumbnail",128));
@@ -28,7 +28,7 @@
  $form->addField("select","timezone",api_text("users_edit-timezone"),$user->timezone,api_text("users_edit-timezone-placeholder"),NULL,NULL,NULL,"required");
  foreach(timezone_identifiers_list() as $timezone){$form->addFieldOption($timezone,$timezone." (".api_timestamp_format(time(),"H:i",$timezone).")");}
  $form->addControl("submit",api_text("users_edit-submit"));
- $form->addControl("button",api_text("users_edit-cancel"),"?mod=settings&scr=users_list");
+ $form->addControl("button",api_text("users_edit-cancel"),"?mod=settings&scr=users_view&idUser=".$user->id);
  if(!$user->deleted){$form->addControl("button",api_text("users_edit-delete"),"?mod=settings&scr=submit&act=users_delete&idUser=".$user->id,"btn-danger",api_text("users_edit-delete-confirm"));}
   else{$form->addControl("button",api_text("users_edit-undelete"),"?mod=settings&scr=submit&act=users_undelete&idUser=".$user->id,"btn-warning");}
  $form->addControl("button",api_text("users_edit-interpret"),"?mod=settings&scr=submit&act=users_interpret&idUser=".$user->id,"btn-success"); /** @todo check intepret permissions */
