@@ -13,7 +13,7 @@
 
  $nav->setTitle(api_text("settings"));
 
- $nav->addItem(api_icon("gift"),"?mod=settings&scr=dashboard");
+ $nav->addItem(api_icon("fa-th-large",NULL,"test hidden-link"),"?mod=settings&scr=dashboard");
 
  // settings
  if(substr(SCRIPT,0,8)=="settings"){
@@ -34,7 +34,9 @@
   if(in_array(SCRIPT,array("users_view","users_edit")) && $_REQUEST['idUser']){
    $nav->addItem(api_text("nav-operations"),NULL,"active");
    $nav->addSubItem(api_text("users_edit"),"?mod=settings&scr=users_edit&idUser=".$_REQUEST['idUser']);
-   $nav->addSubItem(api_text("users_interpret"),"?mod=settings&scr=users_interpret&idUser=".$_REQUEST['idUser'],NULL,api_text("users_interpret-confirm"));
+   if(1){ /** @todo check administrators permission */
+    $nav->addSubItem(api_text("nav-users_interpret"),"?mod=settings&scr=users_interpret&idUser=".$_REQUEST['idUser'],NULL,api_text("nav-users_interpret-confirm"));
+   }
   }else{
    // users add
    $nav->addItem(api_text("users_add"),"?mod=settings&scr=users_add");

@@ -48,6 +48,10 @@ a i.glyphicon{
  /** @todo nel caso si vogliano colorati integrare il colore qui e non sopra */
 }
 
+.hidden-link{
+ color:#333333;
+}
+
 .control-label{
  font-weight:normal;
 }
@@ -95,7 +99,10 @@ footer{
 }
 
 .dl-horizontal dt{
- width:195px;
- padding-right:25px;
+ width:165px;
  font-weight:normal;
+}
+
+.dl-horizontal dd{
+ margin-left:195px;
 }

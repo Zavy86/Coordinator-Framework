@@ -22,11 +22,11 @@
  foreach($users_array as $user){
   $table->addRow();
   //$table->addRowField(api_link("?mod=settings&scr=users_view&idUser=".$user->id,api_icon("search",api_text("show"))));
-  $table->addRowField(api_image($user->avatar,NULL,18));
+  $table->addRowField(api_link("?mod=settings&scr=users_view&idUser=".$user->id,api_image($user->avatar,NULL,18),api_text("users_list-td-view")));
   $table->addRowField($user->fullname,"nowrap");
   $table->addRowField($user->mail);
   $table->addRowField($session_td,"text-right nowrap");
-  $table->addRowField(api_link("?mod=settings&scr=users_edit&idUser=".$user->id,api_icon("edit",api_text("show"))));
+  $table->addRowField(api_link("?mod=settings&scr=users_edit&idUser=".$user->id,api_icon("fa-edit",api_text("users_list-td-edit"),"hidden-link")));
  }
 
  // build grid object

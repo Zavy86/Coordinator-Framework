@@ -14,6 +14,8 @@
  // add style sheets
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7.min.css");
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme.min.css");
+ $this->addStylesheet(HELPERS."font-awesome/css/font-awesome.min.css");
+ $this->addStylesheet(HELPERS."font-awesome-animation/css/font-awesome-animation.min.css");
  /** @todo add some helpders here */
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-custom.css");
  // add scripts

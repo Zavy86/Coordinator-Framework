@@ -24,6 +24,10 @@
  <text key="settings_alert_sessionTerminated">La sessione è stata terminata</text>
  <text key="settings_alert_sessionTerminatedAll">Tutte le sessioni sono state terminate</text>
 
+ <!-- navigation -->
+ <text key="nav-users_interpret">Interpreta utente</text>
+ <text key="nav-users_interpret-confirm">Confermi di voler interpretare questo utente?</text>
+
  <!-- settings_framework -->
  <text key="settings_framework">Impostazioni Framework</text>
 
@@ -135,8 +139,16 @@
  <text key="users_list-th-fullname">Utente</text>
  <text key="users_list-th-mail">Indirizzo mail</text>
  <text key="users_list-th-session">Stato</text>
- <text key="users_list-td-session-online">Online</text>
- <text key="users_list-td-session-offline">Offline</text>
+ <text key="users_list-td-view">Visualizza utente</text>
+ <text key="users_list-td-edit">Modifica utente</text>
+
+ <!-- users_view -->
+ <text key="users_view">Visualizza utente</text>
+ <text key="users_view-enabled">Abilitato</text>
+ <text key="users_view-disabled">Disabilitato</text>
+ <text key="users_view-mail">Indirizzo mail</text>
+ <text key="users_view-localization">Lingua</text>
+ <text key="users_view-timezone">Fuso orario</text>
 
  <!-- users_add -->
  <text key="users_add">Nuovo utente</text>

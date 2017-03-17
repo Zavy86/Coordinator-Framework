@@ -22,19 +22,19 @@ class Nav{
  /** @var integer $current_item Current item index */
  protected $current_item;
 
-/**
- * Debug
- *
- * @return object Nav object
- */
+ /**
+  * Debug
+  *
+  * @return object Nav object
+  */
  public function debug(){return $this;}
 
-/**
- * Nav class
- *
- * @param string $class CSS class (nav-tabs|nav-pills)
- * @return boolean
- */
+ /**
+  * Nav class
+  *
+  * @param string $class CSS class (nav-tabs|nav-pills)
+  * @return boolean
+  */
  public function __construct($class="nav-tabs"){
   $this->class=$class;
   $this->current_nav=0;
@@ -43,26 +43,26 @@ class Nav{
   return TRUE;
  }
 
-/**
- * Set Title
- *
- * @return boolean
- */
+ /**
+  * Set Title
+  *
+  * @return boolean
+  */
  public function setTitle($title){
   if(!$title){return FALSE;}
   $this->title=$title;
   return TRUE;
  }
 
-/**
- * Add Item
- *
- * @param string $label Label
- * @param string $url URL
- * @param string $class CSS class
- * @param boolean $enabled Enabled
- * @return boolean
- */
+ /**
+  * Add Item
+  *
+  * @param string $label Label
+  * @param string $url URL
+  * @param string $class CSS class
+  * @param boolean $enabled Enabled
+  * @return boolean
+  */
  public function addItem($label,$url="#",$class=NULL,$enabled=TRUE){
   $item=new stdClass();
   $item->label=$label;
@@ -77,16 +77,17 @@ class Nav{
   return TRUE;
  }
 
-/**
- * Add Sub Item
- *
- * @param string $label Label
- * @param string $url URL
- * @param string $class CSS class
- * @param boolean $enabled Enabled
- * @return boolean
- */
- public function addSubItem($label,$url,$class=NULL,$enabled=TRUE){
+ /**
+  * Add Sub Item
+  *
+  * @param string $label Label
+  * @param string $url URL
+  * @param string $class CSS class
+  * @param string $confirm Show confirm alert box
+  * @param boolean $enabled Enabled
+  * @return boolean
+  */
+ public function addSubItem($label,$url,$class=NULL,$confirm=NULL,$enabled=TRUE){
   if(!$this->current_item){echo "ERROR - Nav->addSubItem - No item defined";return FALSE;}
   $subItem=new stdClass();
   $subItem->typology="item";
@@ -94,18 +95,19 @@ class Nav{
   $subItem->url=$url;
   $subItem->urlParsed=api_parse_url($url);
   $subItem->class=$class;
+  $subItem->confirm=$confirm;
   $subItem->enabled=$enabled;
   // add sub item to item
   $this->items_array[$this->current_item]->subItems_array[]=$subItem;
   return TRUE;
  }
 
-/**
- * Add Sub Separator
- *
- * @param string $class CSS class
- * @return boolean
- */
+ /**
+  * Add Sub Separator
+  *
+  * @param string $class CSS class
+  * @return boolean
+  */
  public function addSubSeparator($class=NULL){
   if(!$this->current_item){echo "ERROR - Nav->addSubSeparator - No item defined";return FALSE;}
   $subSeparator=new stdClass();
@@ -116,13 +118,13 @@ class Nav{
   return TRUE;
  }
 
-/**
- * Add Sub Header
- *
- * @param string $label Label
- * @param string $class CSS class
- * @return boolean
- */
+ /**
+  * Add Sub Header
+  *
+  * @param string $label Label
+  * @param string $class CSS class
+  * @return boolean
+  */
  public function addSubHeader($label,$class=NULL){
   if(!$this->current_item){echo "ERROR - Nav->addSubHeader - No item defined";return FALSE;}
   $subHeader=new stdClass();
@@ -134,12 +136,12 @@ class Nav{
   return TRUE;
  }
 
-/**
- * Renderize Nav object
- *
- * @param boolean $echo Echo Nav source code or return
- * @return boolean|string Nav source code
- */
+ /**
+  * Renderize Nav object
+  *
+  * @param boolean $echo Echo Nav source code or return
+  * @return boolean|string Nav source code
+  */
  public function render($echo=TRUE){
   // calcualte responsive min-width
   $min_width=strlen($this->title)*16;
@@ -187,9 +189,9 @@ class Nav{
      if($sub_active||!$subItem->enabled){$subItem->url="#";}
      // switch sub item typology
      switch($subItem->typology){
-      case "item":$return.="     <li class='".($sub_active?"active ":NULL).($subItem->enabled?NULL:"disabled ").$subItem->class."'><a href=\"".$subItem->url."\">".$subItem->label."</a></li>\n";break;
-      case "separator":$return.="     <li class='divider ".$subItem->class."' role='separator'><a href=\"".$subItem->url."\">".$subItem->label."</a></li>\n";break;
-      case "header":$return.="     <li class='dropdown-header".$subItem->class."'>".$subItem->label."</li>\n";break;
+      case "item":$return.="     <li class=\"".($sub_active?"active ":NULL).($subItem->enabled?NULL:"disabled ").$subItem->class."\"><a href=\"".$subItem->url."\"".($subItem->confirm?" onClick=\"return confirm('".addslashes($subItem->confirm)."')\"":NULL).">".$subItem->label."</a></li>\n";break;
+      case "separator":$return.="     <li class=\"divider ".$subItem->class."\" role=\"separator\"><a href=\"".$subItem->url."\">".$subItem->label."</a></li>\n";break;
+      case "header":$return.="     <li class=\"dropdown-header".$subItem->class."\">".$subItem->label."</li>\n";break;
      }
     }
     $return.="    </ul><!-- dropdown -->\n";

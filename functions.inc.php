@@ -208,8 +208,9 @@ function api_image($path,$class=NULL,$width=NULL,$height=NULL,$refresh=FALSE,$ta
  */
 function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
  if($icon==NULL){return FALSE;}
- if(substr($icon,0,2)=="fa"){$icon="fa ".$icon;}
+ if(substr($icon,0,2)=="fa"){$icon="fa fa-fw ".$icon;}
  else{$icon="glyphicon glyphicon-".$icon;}
+ if(strpos($class,"hidden-link")!==FALSE){$icon.=" faa-tada animated-hover";}
  $return="<i class='".$icon." ".$class."'";
  if($title){$return.="title='".$title."'";}
  if($style){$return.="style='".$style."'";}
