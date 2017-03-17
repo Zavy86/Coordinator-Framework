@@ -299,4 +299,31 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
               mail($recipient,$subject,$message);
              }
 
+
+
+             /** @todo check */
+
+            /**
+             * Tree to array
+             *
+             * @param type $return Array for results
+             * @param type $function User function for tree branch
+             * @param type $idField Branch field ID
+             * @param type $fkId Foreign key ID
+             * @param type $nesting Nesting level
+             */
+            function api_tree_to_array(&$return,$function,$idField,$fkId=NULL,$nesting=0){
+             // call user funciton with foreign key id
+             $results=call_user_func($function,$fkId);
+             // cycle all branch results
+             foreach($results as $result){
+              // add level to result
+              $result->nesting=$nesting;
+              // add result to results array
+              $return[$result->$idField]=$result;
+              // recursive call with incremented level
+              api_tree_to_array($return,$function,$idField,$result->$idField,($nesting+1));
+             }
+            }
+
 ?>
