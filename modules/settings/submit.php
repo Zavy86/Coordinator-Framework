@@ -17,13 +17,21 @@ switch(ACTION){
  case "user_login":user_login();break;
  case "user_logout":user_logout();break;
  case "user_recovery":user_recovery();break;
+ /** @todo ^ check */
 
-// users
+ // users
  case "user_add":user_add();break;
  case "user_edit":user_edit();break;
+ /** @todo delete */
+ /** @todo undelete */
  case "user_group_add":user_group_add();break;
 
-// own
+ // groups
+ case "group_save":group_save();break;
+ /** @todo delete */
+ /** @todo undelete */
+
+ // own
  case "own_profile_update":own_profile_update();break;
  case "own_password_update":own_password_update();break;
 
@@ -277,6 +285,35 @@ function own_profile_update(){
  api_alerts_add(api_text("settings_alert_ownProfileUpdated"),"success");
  api_redirect("?mod=settings&scr=own_profile");
 }
+
+/**
+ * Group Save
+ */
+function group_save(){
+ // build group objects
+ $group=new stdClass();
+ // acquire variables
+ $group->id=$_REQUEST['idGroup'];
+ $group->fkGroup=$_REQUEST['fkGroup'];
+ $group->name=$_REQUEST['name'];
+ $group->description=$_REQUEST['description'];
+ $group->updTimestamp=time();
+ $group->updFkUser=$GLOBALS['session']->user->id;
+ // debug
+ api_dump($group);
+ // check group
+ if($group->id){
+  // update user
+  $GLOBALS['database']->queryUpdate("framework_groups",$group);
+ }else{
+  // update user
+  $GLOBALS['database']->queryInsert("framework_groups",$group);
+ }
+ // redirect
+ api_alerts_add(api_text("settings_alert_groupUpdated"),"success");
+ api_redirect("?mod=settings&scr=groups_list");
+}
+
 /**
  * Own Password Update
  */
