@@ -96,8 +96,14 @@ class Database{
 
 
  public function queryInsert($table,$object){
+  $fields_array=array();
+  $results=$this->connection->query("SHOW COLUMNS FROM `".$table."`");
+  foreach($results->fetchAll(PDO::FETCH_OBJ) as $field){$fields_array[$field->Field]=$field;}
   $sql="INSERT INTO `".$table."` (";
-  foreach(array_keys(get_object_vars($object)) as $key){$sql.="`".$key."`,";}
+  foreach(array_keys(get_object_vars($object)) as $key){
+   if(!array_key_exists($key,$fields_array) || $object->$key==""){unset($object->$key);continue;}
+   $sql.="`".$key."`,";
+  }
   $sql=substr($sql,0,-1).") VALUES (";
   foreach(array_keys(get_object_vars($object)) as $key){$sql.=":".$key.",";}
   $sql=substr($sql,0,-1).")";
@@ -122,6 +128,7 @@ class Database{
   $sql="UPDATE `".$table."` SET ";
   foreach(array_keys(get_object_vars($object)) as $key){
    if(!array_key_exists($key,$fields_array)){unset($object->$key);continue;}
+   if($object->$key==""){$object->$key=NULL;}
    if($key<>$idKey){$sql.="`".$key."`=:".$key.",";}
   }
   $sql=substr($sql,0,-1)." WHERE `".$idKey."`=:".$idKey."";
