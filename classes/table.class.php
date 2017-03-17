@@ -129,7 +129,7 @@ class Table{
  */
  function addRowField($content,$class=NULL,$style=NULL,$tags=NULL){
   if(!$this->current_row){echo "ERROR - Table->addRowField - No row defined";return FALSE;}
-  if(!$content){return FALSE;}
+  if(!$content){$content="&nbsp;";}
   // build field object
   $td=new stdClass();
   $td->content=$content;
