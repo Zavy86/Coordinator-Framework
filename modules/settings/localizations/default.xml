@@ -185,6 +185,29 @@
  <text key="users_edit-undelete">Ripristina</text>
  <text key="users_edit-interpret">Interpreta</text>
 
+ <!-- groups_list -->
+ <text key="groups_list">Gruppi</text>
+ <text key="groups_list-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
+ <text key="groups_list-th-name">Gruppo</text>
+ <text key="groups_list-th-description">Descrizione</text>
+ <text key="groups_list-td-view">Visualizza gruppo</text>
+ <text key="groups_list-td-edit">Modifica gruppo</text>
+
+ <!-- groups_edit -->
+ <text key="groups_add">Nuovo gruppo</text>
+ <text key="groups_edit">Modifica gruppo</text>
+ <text key="groups_edit-fkGroup">Gruppo</text>
+ <text key="groups_edit-fkGroup-main">Gruppo principale</text>
+ <text key="groups_edit-name">Nome</text>
+ <text key="groups_edit-name-placeholder">Nome del gruppo</text>
+ <text key="groups_edit-description">Descrizione</text>
+ <text key="groups_edit-description-placeholder">Breve descrizione del gruppo</text>
+ <text key="groups_edit-submit">Salva</text>
+ <text key="groups_edit-cancel">Annulla</text>
+ <text key="groups_edit-delete">Elimina</text>
+ <text key="groups_edit-delete-confirm">Confermi di voler eliminare questo gruppo?</text>
+ <text key="groups_edit-undelete">Ripristina</text>
+
  <!-- sessions_list -->
  <text key="sessions_list">Sessioni</text>
  <text key="sessions_list-tr-unvalued">Non sono presenti sessioni da mostrare..</text>

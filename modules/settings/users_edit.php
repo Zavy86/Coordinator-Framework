@@ -1,8 +1,8 @@
 <?php
 /**
- * Accounts - Users Profile
+ * Settings - Users Edit
  *
- * @package Coordinator\Modules\Accounts
+ * @package Coordinator\Modules\Settings
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
@@ -46,10 +46,6 @@
  $grid->addRow();
  $grid->addCol($form->render("2"),"col-xs-12 col-sm-6");
  $grid->addCol($companies_table->render().$groups_table->render(),"col-xs-12 col-sm-6");
- /*api_dump(time(),"time()");
- api_dump(api_timestamp_format(time(),"Y-m-d H:i:s","Europe/Rome"),"Europe/Rome");
- api_dump(api_timestamp_format(time(),"Y-m-d H:i:s","America/Los_Angeles"),"America/Los_Angeles");
- api_dump(api_timestamp_format(time(),"Y-m-d H:i:s","Asia/Shanghai"),"Asia/Shanghai");*/
  // add content to html
  $html->addContent($grid->render(FALSE));
  // renderize html page

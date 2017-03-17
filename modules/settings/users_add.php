@@ -1,8 +1,8 @@
 <?php
 /**
- * Accounts - Users Profile
+ * Settings - Users Add
  *
- * @package Coordinator\Modules\Accounts
+ * @package Coordinator\Modules\Settings
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
