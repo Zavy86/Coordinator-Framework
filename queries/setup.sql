@@ -92,6 +92,13 @@ CREATE TABLE IF NOT EXISTS `framework_users` (
   UNIQUE KEY `mail` (`mail`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `framework_users`
+--
+
+INSERT INTO `framework_users` (`id`, `mail`, `firstname`, `lastname`, `localization`, `timezone`, `password`, `secret`, `enabled`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`, `pwdTimestamp`, `deleted`) VALUES
+(1, 'you@domain.tdl', 'Administrator', 'Coordinator', 'en_EN', 'Europe/London', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 1, 1483228800, 1, NULL, NULL, NULL, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -117,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `framework_groups` (
 --
 
 INSERT INTO `framework_groups` (`id`, `fkGroup`, `name`, `description`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`, `deleted`) VALUES
-(1, NULL, 'Administrators', 'Coordinator Administrators', 1483225200, 1, NULL, NULL, 0);
+(1, NULL, 'Administrators', 'Coordinator Administrators', 1483228800, 1, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 

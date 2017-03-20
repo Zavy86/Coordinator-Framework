@@ -6,8 +6,6 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
-
-print_r($_REQUEST);
  // errors configuration
  ini_set("display_errors",TRUE);
  error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
@@ -19,10 +17,13 @@ print_r($_REQUEST);
  // die if configuration already exist
  if(file_exists(ROOT."config.inc.php")){die("Coordinator Framework is already configured..");}
  // include classes
+ require_once(ROOT."classes/localization.class.php");
  require_once(ROOT."classes/html.class.php");
  require_once(ROOT."classes/grid.class.php");
  require_once(ROOT."classes/navbar.class.php");
  require_once(ROOT."classes/form.class.php");
+ // build localization instance
+ $localization=new Localization();
  // build settings instance
  $settings=new stdClass();
  $settings->title="Coordinator Framework";
@@ -39,6 +40,15 @@ print_r($_REQUEST);
   // setup form
   $form->addField("hidden","setup_action",NULL,"check");
   $form->addField("text","dir","Directory",substr($_SERVER['SCRIPT_NAME'],0,-9),"Framework directory with trailing slash",NULL,NULL,NULL,"required");
+  $form->addField("text","firstname","Firstname",NULL,"Administrator firstname",NULL,NULL,NULL,"required");
+  $form->addField("text","lastname","Lastname",NULL,"Administrator lastname",NULL,NULL,NULL,"required");
+  $form->addField("email","mail","Mail address",NULL,"Administrator e-mail address",NULL,NULL,NULL,"required");
+  $form->addField("text","password","Password",NULL,"Administrator password",NULL,NULL,NULL,"required");
+  $form->addField("select","localization","Localization",NULL,"Select a localization..",NULL,NULL,NULL,"required");
+  foreach($localization->available_localizations as $code=>$language){$form->addFieldOption($code,$language." (".$code.")");}
+  $form->addField("select","timezone","Timezone",NULL,"Select a time zone",NULL,NULL,NULL,"required");
+  foreach(timezone_identifiers_list() as $timezone){$form->addFieldOption($timezone,$timezone);}
+  $form->addField("splitter");
   $form->addField("select","db_type","Database typology","mysql","Select one database..",NULL,NULL,NULL,"required");
   $form->addFieldOption("mysql","MySQL");
   $form->addField("text","db_host","Host",NULL,"Hostname or IP Address",NULL,NULL,NULL,"required");
@@ -59,6 +69,8 @@ print_r($_REQUEST);
   $configuration->db_user=$_REQUEST['db_user'];
   $configuration->db_pass=$_REQUEST['db_pass'];
   // check parameters
+  if(!substr($configuration->dir,-1)=="/"){$configuration->dir.="/";}
+  // try database connection
   try{
    $connection=new PDO($configuration->db_type.":host=".$configuration->db_host.";port=".$configuration->db_port.";dbname=".$configuration->db_name.";charset=utf8",$configuration->db_user,$configuration->db_pass);
    $connection->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND,"SET NAMES utf8");
@@ -67,6 +79,8 @@ print_r($_REQUEST);
   }catch(PDOException $e){
    die("PDO connection: ".$e->getMessage());
   }
+  // check administrator parameters
+  if(!$_REQUEST['firstname'] || !$_REQUEST['lastname'] || !$_REQUEST['mail'] || !$_REQUEST['password'] || !$_REQUEST['localization'] || !$_REQUEST['timezone']){die("Parameters errors..");}
   // check writable permission
   $fh=fopen(ROOT."config.inc.php","w");
   if(!$fh){die("Error writing configuration file: ".ROOT."config.inc.php");}
@@ -106,13 +120,23 @@ print_r($_REQUEST);
      try{
       $query=$connection->prepare($sql_query);
       $query->execute();
-     }catch(PDOException $e){
-      die("PDO queryError: ".$e->getMessage());
-     }
+     }catch(PDOException $e){die("PDO queryError: ".$e->getMessage());}
      // reset query
      $sql_query="";
     }
    }
+   // update admin user
+   $sql_update="UPDATE `framework_users` SET
+    `mail`='".$_REQUEST['mail']."',
+    `firstname`='".$_REQUEST['firstname']."',
+    `lastname`='".$_REQUEST['lastname']."',
+    `localization`='".$_REQUEST['localization']."',
+    `timezone`='".$_REQUEST['timezone']."',
+    `password`='".md5($_REQUEST['password'])."',
+    `pwdTimestamp`='".time()."'
+    WHERE `id`='1'";
+   $query=$connection->prepare($sql_update);
+   $query->execute();
    // setup complete form
    $form->addField("hidden","setup_action",NULL,"completed");
    $form->addField("static",NULL,"Setup","<i class='fa fa-check'></i> Completed");
@@ -126,6 +150,12 @@ print_r($_REQUEST);
    $form->addField("hidden","db_name",NULL,$configuration->db_name);
    $form->addField("hidden","db_user",NULL,$configuration->db_user);
    $form->addField("hidden","db_pass",NULL,$configuration->db_pass);
+   $form->addField("hidden","firstname",NULL,$_REQUEST['firstname']);
+   $form->addField("hidden","lastname",NULL,$_REQUEST['lastname']);
+   $form->addField("hidden","mail",NULL,$_REQUEST['mail']);
+   $form->addField("hidden","localization",NULL,$_REQUEST['localization']);
+   $form->addField("hidden","timezone",NULL,$_REQUEST['timezone']);
+   $form->addField("hidden","password",NULL,$_REQUEST['password']);
    $form->addField("static",NULL,"Check permissions","<i class='fa fa-check'></i> Ok");
    $form->addField("static",NULL,"Check parameters","<i class='fa fa-check'></i> Ok");
    $form->addControl("submit","Setup");
