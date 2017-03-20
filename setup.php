@@ -6,6 +6,8 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
+
+print_r($_REQUEST);
  // errors configuration
  ini_set("display_errors",TRUE);
  error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
@@ -69,6 +71,7 @@
   $fh=fopen(ROOT."config.inc.php","w");
   if(!$fh){die("Error writing configuration file: ".ROOT."config.inc.php");}
   fclose($fh);
+  unlink(ROOT."config.inc.php");
   // check setup action
   if($_REQUEST['setup_action']=="setup"){
    // build configuration file
@@ -100,8 +103,12 @@
     // search for query end signal
     if(substr(trim($line),-1,1)==';'){
      // execute query
-     $query=$connection->prepare($sql_query);
-     $query->execute();
+     try{
+      $query=$connection->prepare($sql_query);
+      $query->execute();
+     }catch(PDOException $e){
+      die("PDO queryError: ".$e->getMessage());
+     }
      // reset query
      $sql_query="";
     }
