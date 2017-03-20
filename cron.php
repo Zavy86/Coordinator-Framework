@@ -19,8 +19,9 @@
 
  // debug
  if($debug){
-  api_dump($GLOBALS['settings']->debug(),"settings");
+  /*api_dump($GLOBALS['settings']->debug(),"settings");
   api_dump(get_defined_constants(true)["user"],"contants");
-  api_dump($_SESSION["coordinator_logs"],"logs");
+  api_dump($_SESSION["coordinator_logs"],"logs");*/
+  /** @todo attivare dopo i test */
  }
 ?>

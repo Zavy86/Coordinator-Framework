@@ -61,8 +61,10 @@ class User{
   // check avatar
   if(!file_exists(ROOT.str_replace(DIR,"",$this->avatar))){$this->avatar=DIR."uploads/framework/users/avatar.jpg";}
   /** @todo check for password expiration */
-  $this->pwdExpiration=$GLOBALS['settings']->users_password_expiration-(time()-$user->pwdTimestamp);
-  if($this->pwdExpiration<0){$this->pwdExpired=TRUE;}
+  if($GLOBALS['settings']->users_password_expiration>-1){
+   $this->pwdExpiration=$GLOBALS['settings']->users_password_expiration-(time()-$user->pwdTimestamp);
+   if($this->pwdExpiration<0){$this->pwdExpired=TRUE;}
+  }
   return TRUE;
  }
 
