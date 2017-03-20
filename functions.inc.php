@@ -15,26 +15,23 @@
  global $database;
  global $settings;
  global $session;
-
  // reset session logs
  $_SESSION['coordinator_logs']=NULL;
-
+ // check for configuration file
+ if(!file_exists(realpath(dirname(__FILE__))."/config.inc.php")){die("Coordinator Framework is not configured..<br><br>".api_link("setup.php","Setup"));}
  // include configuration file
  $configuration=new stdClass();
  require_once("config.inc.php");
-
  // check for debug from session and parameters
  if($_SESSION['coordinator_debug']){$debug=TRUE;}
  if(isset($_GET['debug'])){
   if($_GET['debug']==1){$debug=TRUE;$_SESSION['coordinator_debug']=TRUE;}
   else{$debug=FALSE;$_SESSION['coordinator_debug']=FALSE;}
  }
-
  // errors configuration
  ini_set("display_errors",($debug||$develop?TRUE:FALSE));
  if($develop){error_reporting(E_ALL & ~E_NOTICE);}
  else{error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);}
-
  // module variables
  $r_module=$_REQUEST['mod'];
  if(!$r_module){$r_module="dashboards";}
@@ -44,8 +41,7 @@
  if(!$r_action){$r_action=NULL;}
  $r_tab=$_REQUEST['tab'];
  if(!$r_tab){$r_tab=NULL;}
-
- // defines constants
+ // constants definitions
  define('DIR',$configuration->dir);
  define('URL',(isset($_SERVER['HTTPS'])?"https":"http")."://".$_SERVER['HTTP_HOST'].$GLOBALS['configuration']->dir);
  define('ROOT',realpath(dirname(__FILE__))."/");
@@ -55,7 +51,6 @@
  if($r_script){define("SCRIPT",$r_script);}
  if($r_action){define("ACTION",$r_action);}
  if($r_tab){define("TAB",$r_tab);}
-
  // include classes
  require_once(ROOT."classes/localization.class.php");
  require_once(ROOT."classes/database.class.php");
