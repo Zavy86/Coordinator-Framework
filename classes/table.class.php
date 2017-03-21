@@ -136,6 +136,8 @@ class Table{
   $td->class=$class;
   $td->style=$style;
   $td->tags=$tags;
+  // checks
+  if(strpos($td->class,"truncate-ellipsis")!==FALSE){$td->content="<span>".$td->content."</span>";}
   // add field to row
   $this->rows_array[$this->current_row]->fields_array[]=$td;
   return TRUE;

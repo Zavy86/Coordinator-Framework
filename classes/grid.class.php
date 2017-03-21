@@ -69,10 +69,9 @@ class Grid{
  /**
   * Renderize Grid object
   *
-  * @param boolean $echo Echo HTML source code or return
-  * @return boolean|string HTML source code
+  * @return string HTML source code
   */
- public function render($echo=TRUE){
+ public function render(){
   // renderize grid
   $return="<!-- grid container -->\n";
   $return.="<div class='container ".$this->class."'>\n";
@@ -92,8 +91,8 @@ class Grid{
    $return.=" </div><br><!-- /grid-row -->\n";
   }
   $return.="</div><!-- /grid container -->\n\n";
-  // echo or return
-  if($echo){echo $return;return TRUE;}else{return $return;}
+  // return
+  return $return;
  }
 
 }

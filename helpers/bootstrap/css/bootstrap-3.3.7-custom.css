@@ -84,6 +84,23 @@ footer{
  font-size:14px;
 }
 
+.table td.truncate-ellipsis {
+ display:table;
+ table-layout:fixed;
+ width:100%;
+}
+
+.table td.truncate-ellipsis > * {
+ overflow:hidden;
+ white-space:nowrap;
+ display:table-cell;
+ overflow:hidden;
+ text-overflow:ellipsis;
+ padding:5px;
+ line-height:1.42857143;
+ vertical-align:top;
+}
+
 .nav-responsive{
  /*overflow-x:auto; @todo verificare per dropdown mobile */
  min-height:0.01%;

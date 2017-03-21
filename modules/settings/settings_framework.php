@@ -114,7 +114,7 @@
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html
  $html->addContent($tabs->render(FALSE));
- $html->addContent($grid->render(FALSE));
+ $html->addContent($grid->render());
  // renderize html page
  $html->render();
 ?>

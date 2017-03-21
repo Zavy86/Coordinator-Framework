@@ -19,10 +19,10 @@
  /** @todo add some helpders here */
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-custom.css");
  // add scripts
- $this->addScript(HELPERS."jquery/jquery-1.12.0.min.js");
+ $this->addScript(HELPERS."jquery/jquery-1.12.0.min.js",TRUE);
  /** @todo add some helpders here */
- $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.7.min.js");
- $this->addScript(HELPERS."bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js");
+ $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.7.min.js",TRUE);
+ $this->addScript(HELPERS."bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",TRUE);
 
  // build header navbar object
  $header_navbar=new Navbar($GLOBALS['settings']->title,"navbar-default navbar-static-top");
@@ -55,5 +55,8 @@
  $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; Coordinator - All Rights Reserved".($GLOBALS['debug']?" [ Queries: ".$GLOBALS['database']->query_counter." | Execution time: ~".number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs ]":NULL),"col-xs-12 text-right");
  // set footer
  $this->setFooter($footer_grid->render(FALSE));
+
+ // jQuery scripts
+ $this->addScript("/* Popover Script */\n$(function(){\$(\"[data-toggle='popover']\").popover({'trigger':'hover'});});");
 
 ?>

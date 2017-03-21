@@ -56,7 +56,7 @@
  $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render(FALSE));
+ $html->addContent($grid->render());
  // renderize html
  $html->render();
 ?>

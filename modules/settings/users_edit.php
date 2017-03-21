@@ -30,24 +30,13 @@
  $form->addControl("submit",api_text("users_edit-submit"));
  $form->addControl("button",api_text("users_edit-cancel"),"?mod=settings&scr=users_view&idUser=".$user->id);
  if(!$user->deleted){$form->addControl("button",api_text("users_edit-delete"),"?mod=settings&scr=submit&act=users_delete&idUser=".$user->id,"btn-danger",api_text("users_edit-delete-confirm"));}
-  else{$form->addControl("button",api_text("users_edit-undelete"),"?mod=settings&scr=submit&act=users_undelete&idUser=".$user->id,"btn-warning");}
- // build comapnies table
- $companies_table=new Table(api_text("users_edit-companies-unvalued"));
- $companies_table->addHeader(api_text("users_edit-companies-th-company"));
- $companies_table->addHeader(api_text("users_edit-companies-th-level"));
- $companies_table->addHeader("&nbsp;");
- // build groups table
- $groups_table=new Table(api_text("users_edit-groups-unvalued"));
- $groups_table->addHeader(api_text("users_edit-groups-th-group"));
- $groups_table->addHeader(api_text("users_edit-groups-th-level"),"text-right");
- $groups_table->addHeader("&nbsp;");
+ else{$form->addControl("button",api_text("users_edit-undelete"),"?mod=settings&scr=submit&act=users_undelete&idUser=".$user->id,"btn-warning");}
  // build grid object
  $grid=new Grid();
  $grid->addRow();
  $grid->addCol($form->render("2"),"col-xs-12 col-sm-6");
- $grid->addCol($companies_table->render().$groups_table->render(),"col-xs-12 col-sm-6");
  // add content to html
- $html->addContent($grid->render(FALSE));
+ $html->addContent($grid->render());
  // renderize html page
  $html->render();
  // debug

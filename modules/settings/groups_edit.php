@@ -38,7 +38,6 @@
  $form->addFieldOption(NULL,api_text("groups_edit-fkGroup-main"));
  //api_groups_tree2selectOption($form,$group->id);
 
- $groups_array=array();
  api_tree_to_array($groups_array,"api_settings_groups","id");
  foreach($groups_array as $group_option){
   if($group_option->id==$group->id){continue;}
@@ -57,7 +56,7 @@
  $grid->addRow();
  $grid->addCol($form->render("2"),"col-xs-12 col-sm-6");
  // add content to html
- $html->addContent($grid->render(FALSE));
+ $html->addContent($grid->render());
  // renderize html page
  $html->render();
  // debug

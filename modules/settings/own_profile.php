@@ -32,7 +32,7 @@
  $grid->addRow();
  $grid->addCol($form->render("2"),"col-xs-12 col-sm-6");
  // add content to html
- $html->addContent($grid->render(FALSE));
+ $html->addContent($grid->render());
  // renderize html page
  $html->render();
 ?>

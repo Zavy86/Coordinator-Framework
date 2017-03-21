@@ -24,6 +24,13 @@ class DescriptionList{
  protected $elements_array;
 
  /**
+  * Debug
+  *
+  * @return object DescriptionList object
+  */
+ public function debug(){return $this;}
+
+ /**
   * Description List
   *
   * @param string $separator Default elements separator ( null | hr | br )

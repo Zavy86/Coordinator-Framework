@@ -25,6 +25,8 @@ class HTML{
  protected $styleSheets_array;
  /** @var string $scripts_array Array of scripts */
  protected $scripts_array;
+ /** @var string $modals_array Array of modal windows */
+ protected $modals_array;
  /** @var string $header Body header */
  protected $header;
  /** @var string $content Body content */
@@ -55,6 +57,7 @@ class HTML{
   $this->metaTags_array["viewport"]="width=device-width, initial-scale=1";
   $this->styleSheets_array=array();
   $this->scripts_array=array();
+  $this->modals_array=array();
   return TRUE;
  }
 
@@ -86,12 +89,32 @@ class HTML{
  /**
   * Add Script
   *
-  * @param string $url URL of script
+  * @param string $source Source code or URL
+  * @param booelan $url True if source is an URL
   * @return boolean
   */
- public function addScript($url){
-  if(!$url){return FALSE;}
-  $this->scripts_array[]=$url;
+ public function addScript($source=NULL,$url=FALSE){
+  if(!$source && !$url){return FALSE;}
+  // build script class
+  $script=new stdClass();
+  $script->url=(bool)$url;
+  $script->source=$source;
+  // add script to scripts array
+  $this->scripts_array[]=$script;
+  return TRUE;
+ }
+
+ /**
+  * Add Modal
+  *
+  * @param string $modal Modal window object
+  * @param booelan $url True if source is an URL
+  * @return boolean
+  */
+ public function addModal($modal){
+  if(!is_a($modal,Modal)){return FALSE;}
+  // add modal to modals array
+  $this->modals_array[$modal->id]=$modal;
   return TRUE;
  }
 
@@ -164,23 +187,20 @@ class HTML{
   require_once(ROOT."template.inc.php");
   // renderize html
   $return="<!DOCTYPE html>\n";
-  $return.="<html lang='".$this->language."'>\n\n";
+  $return.="<html lang=\"".$this->language."\">\n\n";
   // renderize head
   $return.=" <head>\n\n";
   // renderize title
   $return.="  <title>".$this->title."</title>\n";
   // rendrizer favicon
-  $return.="  <link rel='icon' href='".DIR."uploads/framework/favicon.default.ico'>\n";
+  $return.="  <link rel=\"icon\" href=\"".DIR."uploads/framework/favicon.default.ico\">\n";
   // renderize meta tags
   $return.="  <!-- meta tags -->\n";
-  $return.="  <meta charset='".$this->charset."'>\n";
-  foreach($this->metaTags_array as $name=>$content){$return.="  <meta name='".$name."' content='".$content."'>\n";}
+  $return.="  <meta charset=\"".$this->charset."\">\n";
+  foreach($this->metaTags_array as $name=>$content){$return.="  <meta name=\"".$name."\" content=\"".$content."\">\n";}
   // renderize style sheets
   $return.="  <!-- style sheets -->\n";
-  foreach($this->styleSheets_array as $styleSheet_url){$return.="  <link href='".$styleSheet_url."' rel='stylesheet'>\n";}
-  // renderize scripts
-  $return.="  <!-- scrips -->\n";
-  foreach($this->scripts_array as $script_url){$return.="  <script src='".$script_url."'></script>\n";} /** @vedere se spostando al fondo non da problemi */
+  foreach($this->styleSheets_array as $styleSheet_url){$return.="  <link href=\"".$styleSheet_url."\" rel=\"stylesheet\">\n";}
   $return.="\n </head>\n\n";
   // renderize body
   $return.=" <body>\n\n";
@@ -225,6 +245,20 @@ class HTML{
    $return.=$this->footer;
    $return.="  </footer>\n\n";
   }
+  // renderize modals
+  if(count($this->modals_array)){
+   $return.="<!-- modal-windows -->\n\n";
+   foreach($this->modals_array as $modal){$return.=$modal->render()."\n";}
+   $return.="<!-- /modal-windows -->\n\n";
+  }
+  // renderize scripts
+  $return.="<!-- external-scripts -->\n";
+  foreach($this->scripts_array as $script){if($script->url){$return.="<script type=\"text/javascript\" src=\"".$script->source."\"></script>\n";}} /** @vedere se spostando al fondo non da problemi */
+  $return.="<!-- /external-scripts -->\n\n";
+  $return.="<!-- internal-scripts -->\n";
+  $return.="<script type=\"text/javascript\">\n\n";
+  foreach($this->scripts_array as $script){if(!$script->url){$return.=$script->source."\n\n";}}
+  $return.="</script><!-- /internal-scripts -->\n\n";
   // renderize closures
   $return.=" </body>\n\n";
   $return.="</html>";

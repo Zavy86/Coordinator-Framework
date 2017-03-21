@@ -32,7 +32,7 @@
  api_dump(api_timestamp_format(time(),"Y-m-d H:i:s","America/Los_Angeles"),"America/Los_Angeles");
  api_dump(api_timestamp_format(time(),"Y-m-d H:i:s","Asia/Shanghai"),"Asia/Shanghai");*/
  // add content to html
- $html->addContent($grid->render(FALSE));
+ $html->addContent($grid->render());
  // renderize html page
  $html->render();
 ?>
