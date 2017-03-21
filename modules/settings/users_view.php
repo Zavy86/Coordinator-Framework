@@ -28,21 +28,21 @@
  $companies_table->addHeader(api_text("users_add-companies-th-level"));
  $companies_table->addHeader("&nbsp;");
  // build groups table
- $groups_table=new Table(api_text("users_add-groups-tr-unvalued"));
+ $groups_table=new Table(api_text("users_add-groups_table-tr-unvalued"));
  $groups_table->addHeader("&nbsp;",NULL,16);
- $groups_table->addHeader(api_text("users_add-groups-th-name"),"nowrap","100%");
+ $groups_table->addHeader(api_text("users_add-groups_table-th-name"),"nowrap","100%");
  if(1){$groups_table->addHeader("&nbsp;",NULL,16);} /** @todo check permission */
  // cycle user groups
  foreach($user->groups_array as $group){
   // make delete and mainize td
-  $delete_td=api_link("?mod=settings&scr=submit&act=user_group_remove&idUser=".$user->id."&idGroup=".$group->id,api_icon("fa-trash",api_text("users_add-groups-td-delete"),"hidden-link"),NULL,NULL,FALSE,api_text("users_add-groups-td-delete-confirm"));
+  $delete_td=api_link("?mod=settings&scr=submit&act=user_group_remove&idUser=".$user->id."&idGroup=".$group->id,api_icon("fa-trash",api_text("users_add-groups_table-td-delete"),"hidden-link"),NULL,NULL,FALSE,api_text("users_add-groups_table-td-delete-confirm"));
   if($group->id==$user->groups_main){
-   $mainize_td=api_icon("fa-star",api_text("users_add-groups-td-main"));
+   $mainize_td=api_icon("fa-star",api_text("users_add-groups_table-td-main"));
    if(count($user->groups_array)>1){$delete_td=NULL;}
   }else{
    /** @todo check permission */
    if(!(1)){$mainize_td=api_icon("fa-star-o");}
-   else{$mainize_td=api_link("?mod=settings&scr=submit&act=user_group_mainize&idUser=".$user->id."&idGroup=".$group->id,api_icon("fa-star-o",api_text("users_add-groups-td-mainize"),"hidden-link"),NULL,NULL,FALSE,api_text("users_add-groups-td-mainize-confirm"));}
+   else{$mainize_td=api_link("?mod=settings&scr=submit&act=user_group_mainize&idUser=".$user->id."&idGroup=".$group->id,api_icon("fa-star-o",api_text("users_add-groups_table-td-mainize"),"hidden-link"),NULL,NULL,FALSE,api_text("users_add-groups_table-td-mainize-confirm"));}
   }
   // add group row
   $groups_table->addRow();
@@ -53,19 +53,19 @@
  // check for action group_add
  if(ACTION=="group_add"){
   // build group add form
-  $group_add_form=new Form("?mod=settings&scr=submit&act=user_group_add&idUser=".$user->id,"POST",NULL,"users_add-group_add_modal");
-  $group_add_form->addField("select","fkGroup",api_text("users_add-group_add_modal-ff-group"),NULL,api_text("users_add-group_add_modal-ff-group-placeholder"),NULL,NULL,NULL,"required");
+  $group_add_form=new Form("?mod=settings&scr=submit&act=user_group_add&idUser=".$user->id,"POST",NULL,"users_add-groups_modal");
+  $group_add_form->addField("select","fkGroup",api_text("users_add-groups_modal-ff-group"),NULL,api_text("users_add-groups_modal-ff-group-placeholder"),NULL,NULL,NULL,"required");
   api_tree_to_array($groups_array,"api_settings_groups","id");
   foreach($groups_array as $group_option){$group_add_form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->fullname);}
-  $group_add_form->addControl("submit",api_text("users_add-group_add_modal-fc-submit"));
-  $group_add_form->addControl("button",api_text("users_add-group_add_modal-fc-cancel"),"#",NULL,NULL,NULL,"data-dismiss='modal'");
+  $group_add_form->addControl("submit",api_text("users_add-groups_modal-fc-submit"));
+  $group_add_form->addControl("button",api_text("users_add-groups_modal-fc-cancel"),"#",NULL,NULL,NULL,"data-dismiss='modal'");
   // build group add modal window
-  $group_add_modal=new Modal(api_text("users_add-group_add_modal-title"),NULL,"users_add-group_add_modal");
-  $group_add_modal->setBody($group_add_form->render());
+  $groups_modal=new Modal(api_text("users_add-groups_modal-title"),NULL,"users_add-groups_modal");
+  $groups_modal->setBody($group_add_form->render());
   // add modal to html object
-  $html->addModal($group_add_modal);
+  $html->addModal($groups_modal);
   // jQuery scripts
-  $html->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_users_add-group_add_modal\").modal('show');});");
+  $html->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_users_add-groups_modal\").modal('show');});");
  }
  // build grid object
  $grid=new Grid();

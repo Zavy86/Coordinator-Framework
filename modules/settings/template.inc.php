@@ -72,6 +72,12 @@
   $nav->addItem(api_text("sessions_list"),"?mod=settings&scr=sessions_list");
  }
 
+ // updates
+ if(substr(SCRIPT,0,7)=="updates"){
+  $nav->addItem(api_text("updates_framework"),"?mod=settings&scr=updates_framework");
+  $nav->addItem(api_text("updates_modules"),"?mod=settings&scr=updates_modules");
+ }
+
  // add nav to html
  $html->addContent($nav->render(FALSE));
 ?>

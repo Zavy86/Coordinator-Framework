@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `framework_settings` (
 --
 
 INSERT INTO `framework_settings` (`setting`, `value`) VALUES
+('version', '1.0.0'),
 ('maintenance', '0'),
 ('owner', 'Company name'),
 ('sendmail_asynchronous', '0'),

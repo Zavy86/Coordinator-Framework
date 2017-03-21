@@ -4,9 +4,9 @@
  // check permissions
  /** @todo check permissions */
  // set html title
- $html->setTitle(api_text("sessions_lists"));
+ $html->setTitle(api_text("sessions_list"));
  // build grid object
- $table=new Table(api_text("accounts_lists-tr-unvalued"));
+ $table=new Table(api_text("accounts_list-tr-unvalued"));
  $table->addHeader("&nbsp;",NULL,16);
  $table->addHeader(api_text("sessions_list-th-fullname"),NULL,"100%");
  $table->addHeader(api_text("sessions_list-th-idle"),"nowrap text-right");

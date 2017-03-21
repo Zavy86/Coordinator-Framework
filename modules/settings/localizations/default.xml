@@ -3,15 +3,19 @@
 <locale>
 
  <!-- settings -->
- <text key="settings">Framework</text>
+ <text key="settings">Impostazioni</text>
 
  <!-- alerts -->
  <text key="settings_alert_settingsUpdated">Le impostazioni sono state aggiornate</text>
 
- <text key="settings_alert_userNotFound">L'utente non è stato trovato</text>
  <text key="settings_alert_userError">Si è verificato un errore durante il salvaraggio dell'utente</text>
+ <text key="settings_alert_userNotFound">L'utente non è stato trovato</text>
  <text key="settings_alert_userCreated">L'utente è stato creato</text>
  <text key="settings_alert_userUpdated">L'utente è stato aggiornato</text>
+ <text key="settings_alert_userGroupError">Si è verificato un errore durante il salvataggio del gruppo dell'utente</text>
+ <text key="settings_alert_userGroupNotFound">Il gruppo dell'utente non è stato trovato</text>
+ <text key="settings_alert_userGroupAdded">Il gruppo è stato aggiunto all'utente</text>
+ <text key="settings_alert_userGroupRemoved">Il gruppo è stato rimosso dall'utente</text>
 
  <text key="settings_alert_ownProfileUpdated">Il tuo profilo è stato aggiornato</text>
  <text key="settings_alert_ownPasswordIncorrect">La password attuale inserita non è corretta</text>
@@ -20,6 +24,8 @@
  <text key="settings_alert_ownPasswordOldest">La nuova password coincide con la vecchia password</text>
  <text key="settings_alert_ownPasswordUpdated">La tua password è stata aggiornata</text>
 
+ <text key="settings_alert_groupError">Si è verificato un errore durante il salvataggio del gruppo</text>
+ <text key="settings_alert_groupNotFound">Il gruppo non è stato trovato</text>
  <text key="settings_alert_groupCreated">Il gruppo è stato creato</text>
  <text key="settings_alert_groupUpdated">Il gruppo è stato aggiornato</text>
 
@@ -170,19 +176,19 @@
  <text key="users_add-submit">Salva</text>
  <text key="users_add-cancel">Annulla</text>
 
- <text key="users_add-groups-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
- <text key="users_add-groups-th-name">Gruppi</text>
- <text key="users_add-groups-td-delete">Rimuovi gruppo</text>
- <text key="users_add-groups-td-delete-confirm">Confermi di voler rimuovere il gruppo dall'utente?</text>
- <text key="users_add-groups-td-main">Gruppo principale</text>
- <text key="users_add-groups-td-mainize">Rendi principale</text>
- <text key="users_add-groups-td-mainize-confirm">Confermi di voler rendere questo gruppo principale per l'utente?</text>
+ <text key="users_add-groups_table-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
+ <text key="users_add-groups_table-th-name">Gruppi</text>
+ <text key="users_add-groups_table-td-delete">Rimuovi gruppo</text>
+ <text key="users_add-groups_table-td-delete-confirm">Confermi di voler rimuovere il gruppo dall'utente?</text>
+ <text key="users_add-groups_table-td-main">Gruppo principale</text>
+ <text key="users_add-groups_table-td-mainize">Rendi principale</text>
+ <text key="users_add-groups_table-td-mainize-confirm">Confermi di voler rendere questo gruppo principale per l'utente?</text>
 
- <text key="users_add-group_add_modal-title">Aggiungi un gruppo all'utente</text>
- <text key="users_add-group_add_modal-ff-group">Gruppo</text>
- <text key="users_add-group_add_modal-ff-group-placeholder">Seleziona un gruppo..</text>
- <text key="users_add-group_add_modal-fc-submit">Aggiungi</text>
- <text key="users_add-group_add_modal-fc-cancel">Annulla</text>
+ <text key="users_add-groups_modal-title">Aggiungi un gruppo all'utente</text>
+ <text key="users_add-groups_modal-ff-group">Gruppo</text>
+ <text key="users_add-groups_modal-ff-group-placeholder">Seleziona un gruppo..</text>
+ <text key="users_add-groups_modal-fc-submit">Aggiungi</text>
+ <text key="users_add-groups_modal-fc-cancel">Annulla</text>
 
  <!-- users_edit -->
  <text key="users_edit">Modifica utente</text>
@@ -197,6 +203,13 @@
  <text key="users_edit-localization-placeholder">Seleziona una lingua..</text>
  <text key="users_edit-timezone">Fuso orario</text>
  <text key="users_edit-timezone-placeholder">Seleziona un fuso orario..</text>
+
+ <text key="users_edit-gender">Genere</text>
+ <text key="users_edit-gender-none">Non dichiarato</text>
+ <text key="users_edit-gender-man">Uomo</text>
+ <text key="users_edit-gender-woman">Donna</text>
+ <text key="users_edit-birthday">Data di nascita</text>
+
  <text key="users_edit-submit">Salva</text>
  <text key="users_edit-cancel">Annulla</text>
  <text key="users_edit-delete">Elimina</text>
@@ -239,5 +252,21 @@
  <text key="sessions_list-th-terminate-confirm">Confermi di voler terminare tutte le sessioni?</text>
  <text key="sessions_list-td-terminate">Termina sessione</text>
  <text key="sessions_list-td-terminate-confirm">Confermi di voler terminare questa sessione?</text>
+
+ <!-- updates_framework -->
+ <text key="updates_framework">Aggiornamento framework</text>
+ <text key="updates_framework-version">Versione installata</text>
+ <text key="updates_framework-repository">Ultima versione</text>
+ <text key="updates_framework-pull">Aggiorna</text>
+ <text key="updates_framework-pull-confirm">Confermi di voler eseguire l'aggiornamento tramite Git?</text>
+ <text key="updates_framework-link">Aggiorna manualmente</text>
+
+ <!-- updates_modules -->
+ <text key="updates_modules">Aggiornamento moduli</text>
+ <text key="updates_modules-tr-unvalued">Non sono presenti moduli da mostrare..</text>
+ <text key="updates_modules-th-name">Modulo</text>
+ <text key="updates_modules-th-description">Descrizione</text>
+ <text key="updates_modules-th-version">Versione</text>
+ <text key="updates_modules-th-repository">Ultima versione</text>
 
 </locale>
