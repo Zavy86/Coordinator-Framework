@@ -25,6 +25,7 @@ switch(ACTION){
  /** @todo delete */
  /** @todo undelete */
  case "user_group_add":user_group_add();break;
+ case "user_group_remove":user_group_remove();break;
 
  // groups
  case "group_save":group_save();break;
@@ -255,6 +256,68 @@ function user_edit(){
  // redirect
  api_alerts_add(api_text("settings_alert_userUpdated"),"success");
  api_redirect("?mod=settings&scr=users_edit&idUser=".$user->id);
+}
+/**
+ * User Group Add
+ */
+function user_group_add(){
+ // build user objects
+ $user_obj=new User($_REQUEST['idUser']);
+ // check objects
+ if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=settings&scr=users_list");}
+ // check for duplicates
+ if(array_key_exists($_REQUEST['fkGroup'],$user_obj->groups_array)){api_alerts_add(api_text("settings_alert_userGroupDuplicated"),"warning");api_redirect("?mod=settings&scr=users_view&idUser=".$user_obj->id);}
+ // build user join group query object
+ $user_join_group_qobj=new stdClass();
+ $user_join_group_qobj->fkUser=$user_obj->id;
+ $user_join_group_qobj->fkGroup=$_REQUEST['fkGroup'];
+ $user_join_group_qobj->main=(count($user_obj->groups_array)?0:1);
+ // build user query object
+ $user_qobj=new stdClass();
+ $user_qobj->id=$user_obj->id;
+ $user_qobj->updTimestamp=time();
+ $user_qobj->updFkUser=$GLOBALS['session']->user->id;
+ // debug
+ api_dump($_REQUEST,"_REQUEST");
+ api_dump($user_obj,"user_obj");
+ api_dump($user_join_group_qobj,"user_join_group_qobj");
+ api_dump($user_qobj,"user_qobj");
+ // insert group
+ $GLOBALS['database']->queryInsert("framework_users_join_groups",$user_join_group_qobj);
+ // update user
+ $GLOBALS['database']->queryUpdate("framework_users",$user_qobj);
+ // redirect
+ api_alerts_add(api_text("settings_alert_userGroupAdded"),"success");
+ api_redirect("?mod=settings&scr=users_view&idUser=".$user_obj->id);
+}
+/**
+ * User Group Remove
+ */
+function user_group_remove(){
+ // build user objects
+ $user_obj=new User($_REQUEST['idUser']);
+ // check objects
+ if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=settings&scr=users_list");}
+ // check if user is in request group
+ if(!array_key_exists($_REQUEST['idGroup'],$user_obj->groups_array)){api_alerts_add(api_text("settings_alert_userGroupNotFound"),"danger");api_redirect("?mod=settings&scr=users_view&idUser=".$user_obj->id);}
+ // check if request group is main for user and not only
+ if(count($user_obj->groups_array)>1 && $user_obj->groups_main==$_REQUEST['idGroup']){api_alerts_add(api_text("settings_alert_userGroupError"),"danger");api_redirect("?mod=settings&scr=users_view&idUser=".$user_obj->id);}
+ // build user query object
+ $user_qobj=new stdClass();
+ $user_qobj->id=$user_obj->id;
+ $user_qobj->updTimestamp=time();
+ $user_qobj->updFkUser=$GLOBALS['session']->user->id;
+ // debug
+ api_dump($_REQUEST,"_REQUEST");
+ api_dump($user_obj,"user_obj");
+ api_dump($user_qobj,"user_qobj");
+ // delete group
+ $GLOBALS['database']->queryExecute("DELETE FROM `framework_users_join_groups` WHERE `fkUser`='".$user_obj->id."' AND `fkGroup`='".$_REQUEST['idGroup']."'");
+ // update user
+ $GLOBALS['database']->queryUpdate("framework_users",$user_qobj);
+ // redirect
+ api_alerts_add(api_text("settings_alert_userGroupRemoved"),"warning");
+ api_redirect("?mod=settings&scr=users_view&idUser=".$user_obj->id);
 }
 
 /**

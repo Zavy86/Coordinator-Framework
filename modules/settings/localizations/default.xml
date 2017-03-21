@@ -24,9 +24,11 @@
  <text key="settings_alert_sessionTerminated">La sessione è stata terminata</text>
  <text key="settings_alert_sessionTerminatedAll">Tutte le sessioni sono state terminate</text>
 
- <!-- navigation -->
- <text key="nav-users_interpret">Interpreta utente</text>
- <text key="nav-users_interpret-confirm">Confermi di voler interpretare questo utente?</text>
+ <!-- operations -->
+ <text key="nav-operations-user_edit">Modifica utente</text>
+ <text key="nav-operations-user_group_add">Aggiungi gruppo</text>
+ <text key="nav-operations-user_interpret">Interpreta utente</text>
+ <text key="nav-operations-user_interpret-confirm">Confermi di voler interpretare questo utente?</text>
 
  <!-- settings_framework -->
  <text key="settings_framework">Impostazioni Framework</text>
@@ -184,6 +186,21 @@
  <text key="users_edit-delete-confirm">Confermi di voler eliminare questo account?</text>
  <text key="users_edit-undelete">Ripristina</text>
  <text key="users_edit-interpret">Interpreta</text>
+ 
+ <text key="users_edit-groups-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
+ <text key="users_edit-groups-th-name">Gruppo</text>
+ <text key="users_edit-groups-th-description">Descrizione</text>
+ <text key="users_edit-groups-td-delete">Rimuovi dal gruppo</text>
+ <text key="users_edit-groups-td-delete-confirm">Confermi di voler rimuovere l'utente da questo gruppo?</text>
+ <text key="users_edit-groups-td-main">Gruppo principale</text>
+ <text key="users_edit-groups-td-mainize">Rendi principale</text>
+ <text key="users_edit-groups-td-mainize-confirm">Confermi di voler rendere questo gruppo principale per l'utente?</text>
+
+ <text key="users_edit-group_add_modal-title">Aggiungi gruppo all'utente</text>
+ <text key="users_edit-group_add_modal-ff-group">Gruppo</text>
+ <text key="users_edit-group_add_modal-ff-group-placeholder">Seleziona un gruppo..</text>
+ <text key="users_edit-group_add_modal-fc-submit">Aggiungi</text>
+ <text key="users_edit-group_add_modal-fc-cancel">Annulla</text>
 
  <!-- groups_list -->
  <text key="groups_list">Gruppi</text>

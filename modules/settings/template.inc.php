@@ -33,9 +33,19 @@
   // template operations
   if(in_array(SCRIPT,array("users_view","users_edit")) && $_REQUEST['idUser']){
    $nav->addItem(api_text("nav-operations"),NULL,"active");
-   $nav->addSubItem(api_text("users_edit"),"?mod=settings&scr=users_edit&idUser=".$_REQUEST['idUser']);
-   if(1){ /** @todo check administrators permission */
-    $nav->addSubItem(api_text("nav-users_interpret"),"?mod=settings&scr=users_interpret&idUser=".$_REQUEST['idUser'],NULL,api_text("nav-users_interpret-confirm"));
+   // users view operations
+   if(in_array(SCRIPT,array("users_view"))){
+    if(1){ /** @todo check administrators permission */
+     $nav->addSubItem(api_text("nav-operations-user_interpret"),"?mod=settings&scr=submit&act=user_interpret&idUser=".$_REQUEST['idUser'],NULL,api_text("nav-operations-user_interpret-confirm"));
+     $nav->addSubSeparator();
+    }
+    /** @todo check permissions */
+    $nav->addSubItem(api_text("nav-operations-user_edit"),"?mod=settings&scr=users_edit&idUser=".$_REQUEST['idUser']);
+    $nav->addSubItem(api_text("nav-operations-user_group_add"),"?mod=settings&scr=users_view&idUser=".$_REQUEST['idUser']."&act=group_add");
+   }
+   // users edit operations
+   if(in_array(SCRIPT,array("users_edit"))){
+
    }
   }else{
    // users add
