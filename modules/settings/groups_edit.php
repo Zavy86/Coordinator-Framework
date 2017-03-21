@@ -41,7 +41,7 @@
  api_tree_to_array($groups_array,"api_settings_groups","id");
  foreach($groups_array as $group_option){
   if($group_option->id==$group->id){continue;}
-  $form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->name);
+  $form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->fullname);
  }
 
  $form->addField("text","name",api_text("groups_edit-name"),$group->name,api_text("groups_edit-name-placeholder"),NULL,NULL,NULL,"required");

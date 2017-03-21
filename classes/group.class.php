@@ -19,6 +19,7 @@ class Group{
  protected $fkGroup;
  protected $name;
  protected $description;
+ protected $fullname;
  protected $addTimestamp; /** @todo teniamo cosi? */
  protected $addFkUser;
  protected $updTimestamp;
@@ -52,6 +53,9 @@ class Group{
   $this->updTimestamp=$group->updTimestamp;
   $this->updFkUser=$group->updFkUser;
   $this->deleted=(bool)$group->deleted;
+  // make fullname
+  $this->fullname=$group->name;
+  if($this->description){$this->fullname.=" - ".$group->description;}
   return TRUE;
  }
 
@@ -68,6 +72,7 @@ class Group{
    case "fkGroup":return $this->fkGroup;
    case "name":return $this->name;
    case "description":return $this->description;
+   case "fullname":return $this->fullname;
    case "addTimestamp":return $this->addTimestamp;
    case "addFkUser":return $this->addFkUser;
    case "updTimestamp":return $this->updTimestamp;

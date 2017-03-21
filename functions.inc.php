@@ -160,8 +160,8 @@ function api_text($key,$parameters=NULL,$localization=NULL){
   if(!$id){$id=rand(1,99999);}
   if(substr($url,0,1)=="?"){$url="index.php".$url;}
   $return="<a id=\"link_".$id."\" href=\"".$url."\"";
-  if($class){$return=" class=\"".$class."\"";}
-  if($style){$return=" style=\"".$style."\"";}
+  if($class){$return.=" class=\"".$class."\"";}
+  if($style){$return.=" style=\"".$style."\"";}
   if($title){
    if($popup){$return.=" data-toggle=\"popover\" data-placement=\"top\" data-content=\"".$title."\"";}
    else{$return.=" title=\"".$title."\"";}

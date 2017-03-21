@@ -20,6 +20,9 @@
  <text key="settings_alert_ownPasswordOldest">La nuova password coincide con la vecchia password</text>
  <text key="settings_alert_ownPasswordUpdated">La tua password è stata aggiornata</text>
 
+ <text key="settings_alert_groupCreated">Il gruppo è stato creato</text>
+ <text key="settings_alert_groupUpdated">Il gruppo è stato aggiornato</text>
+
  <text key="settings_alert_sessionNotFound">La sessione non è stata trovata</text>
  <text key="settings_alert_sessionTerminated">La sessione è stata terminata</text>
  <text key="settings_alert_sessionTerminatedAll">Tutte le sessioni sono state terminate</text>
@@ -186,7 +189,7 @@
  <text key="users_edit-delete-confirm">Confermi di voler eliminare questo account?</text>
  <text key="users_edit-undelete">Ripristina</text>
  <text key="users_edit-interpret">Interpreta</text>
- 
+
  <text key="users_edit-groups-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
  <text key="users_edit-groups-th-name">Gruppo</text>
  <text key="users_edit-groups-th-description">Descrizione</text>

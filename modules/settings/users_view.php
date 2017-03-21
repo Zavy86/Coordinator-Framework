@@ -30,8 +30,7 @@
  // build groups table
  $groups_table=new Table(api_text("users_edit-groups-tr-unvalued"));
  $groups_table->addHeader("&nbsp;",NULL,16);
- $groups_table->addHeader(api_text("users_edit-groups-th-name"),"nowrap");
- $groups_table->addHeader(api_text("users_edit-groups-th-description"),NULL,"100%");
+ $groups_table->addHeader(api_text("users_edit-groups-th-name"),"nowrap","100%");
  if(1){$groups_table->addHeader("&nbsp;",NULL,16);} /** @todo check permission */
  // cycle user groups
  foreach($user->groups_array as $group){
@@ -48,8 +47,7 @@
   // add group row
   $groups_table->addRow();
   $groups_table->addRowField($mainize_td);
-  $groups_table->addRowField($group->name,"nowrap");
-  $groups_table->addRowField($group->description,"truncate-ellipsis");
+  $groups_table->addRowField(api_link("?mod=settings&scr=groups_view&idGroup=".$group->id,$group->fullname,NULL,"hidden-link",FALSE,NULL,NULL,NULL,"_blank"),"truncate-ellipsis");
   if(1){$groups_table->addRowField($delete_td);} /** @todo check permission */
  }
  // check for action group_add
@@ -58,7 +56,7 @@
   $group_add_form=new Form("?mod=settings&scr=submit&act=user_group_add&idUser=".$user->id,"POST",NULL,"users_edit-group_add_modal");
   $group_add_form->addField("select","fkGroup",api_text("users_edit-group_add_modal-ff-group"),NULL,api_text("users_edit-group_add_modal-ff-group-placeholder"),NULL,NULL,NULL,"required");
   api_tree_to_array($groups_array,"api_settings_groups","id");
-  foreach($groups_array as $group_option){$group_add_form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->name);}
+  foreach($groups_array as $group_option){$group_add_form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->fullname);}
   $group_add_form->addControl("submit",api_text("users_edit-group_add_modal-fc-submit"));
   $group_add_form->addControl("button",api_text("users_edit-group_add_modal-fc-cancel"),"#",NULL,NULL,NULL,"data-dismiss='modal'");
   // build group add modal window

@@ -368,12 +368,13 @@ function group_save(){
  if($group->id){
   // update user
   $GLOBALS['database']->queryUpdate("framework_groups",$group);
+  api_alerts_add(api_text("settings_alert_groupUpdated"),"success");
  }else{
   // update user
   $GLOBALS['database']->queryInsert("framework_groups",$group);
+  api_alerts_add(api_text("settings_alert_groupCreated"),"success");
  }
  // redirect
- api_alerts_add(api_text("settings_alert_groupUpdated"),"success");
  api_redirect("?mod=settings&scr=groups_list");
 }
 
