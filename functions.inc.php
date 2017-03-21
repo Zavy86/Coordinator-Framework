@@ -64,6 +64,7 @@
  require_once(ROOT."classes/navbar.class.php");
  require_once(ROOT."classes/table.class.php");
  require_once(ROOT."classes/form.class.php");
+ require_once(ROOT."classes/modal.class.php");
  require_once(ROOT."classes/dl.class.php");
 
  // load modules  /** @todo fare funzione */
@@ -148,24 +149,26 @@ function api_text($key,$parameters=NULL,$localization=NULL){
   * @param booelan $popup Show popup title
   * @param string $confirm Show confirm alert box
   * @param string $style Style tags
+  * @param string $tags Custom HTML tags
   * @param string $target Target window
   * @param string $id Link ID or random created
   * @return string link
   */
- function api_link($url,$label,$title=NULL,$class=NULL,$popup=FALSE,$confirm=NULL,$style=NULL,$target="_self",$id=NULL){
-  if($url==NULL){return FALSE;}
-  if($id==NULL){$id="link_".rand(1,999);}
+ function api_link($url,$label,$title=NULL,$class=NULL,$popup=FALSE,$confirm=NULL,$style=NULL,$tags=NULL,$target="_self",$id=NULL){
+  if(!$url){return FALSE;}
+  if(!$label){return FALSE;}
+  if(!$id){$id=rand(1,99999);}
   if(substr($url,0,1)=="?"){$url="index.php".$url;}
-  $return="<a id=\"".$id."\" href=\"".$url."\" class='".$class."' style=\"".$style."\"";
-  if($popup && $title){
-   $return.=" data-toggle='popover' data-placement='top' data-content=\"".$title."\"";
-  }elseif($title){
-   $return.=" title=\"".$title."\"";
+  $return="<a id=\"link_".$id."\" href=\"".$url."\"";
+  if($class){$return=" class=\"".$class."\"";}
+  if($style){$return=" style=\"".$style."\"";}
+  if($title){
+   if($popup){$return.=" data-toggle=\"popover\" data-placement=\"top\" data-content=\"".$title."\"";}
+   else{$return.=" title=\"".$title."\"";}
   }
-  if($confirm){
-   $return.=" onClick=\"return confirm('".addslashes($confirm)."')\"";
-  }
-  $return.=" target='".$target."'>".$label."</a>";
+  if($confirm){$return.=" onClick=\"return confirm('".addslashes($confirm)."')\"";}
+  if($tags){$return.=" ".$tags;}
+  $return.=" target=\"".$target."\">".$label."</a>";
   return $return;
  }
 
@@ -308,6 +311,8 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
              * @param type $nesting Nesting level
              */
             function api_tree_to_array(&$return,$function,$idField,$fkId=NULL,$nesting=0){
+             // check for array
+             if(!is_array($return)){$return=array();}
              // call user funciton with foreign key id
              $results=call_user_func($function,$fkId);
              // cycle all branch results

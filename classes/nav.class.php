@@ -182,14 +182,14 @@ class Nav{
     // cycle all sub items
     foreach($item->subItems_array as $subItem){
      // check for sub active
-     $sub_active=FALSE;
+     /*$sub_active=FALSE;
      if($subItem->urlParsed->query_array['mod']==MODULE && $subItem->urlParsed->query_array['scr']==SCRIPT){$sub_active=TRUE;}
-     if(is_int(strpos("nav-pills",$this->class)) && defined('TAB') && $subItem->urlParsed->query_array['tab']!=TAB){$sub_active=FALSE;}
+     if(is_int(strpos("nav-pills",$this->class)) && defined('TAB') && $subItem->urlParsed->query_array['tab']!=TAB){$sub_active=FALSE;}*/
      // lock url if disabled
      if($sub_active||!$subItem->enabled){$subItem->url="#";}
      // switch sub item typology
      switch($subItem->typology){
-      case "item":$return.="     <li class=\"".($sub_active?"active ":NULL).($subItem->enabled?NULL:"disabled ").$subItem->class."\"><a href=\"".$subItem->url."\"".($subItem->confirm?" onClick=\"return confirm('".addslashes($subItem->confirm)."')\"":NULL).">".$subItem->label."</a></li>\n";break;
+      case "item":$return.="     <li class=\""./*($sub_active?"active ":NULL).*/($subItem->enabled?NULL:"disabled ").$subItem->class."\"><a href=\"".$subItem->url."\"".($subItem->confirm?" onClick=\"return confirm('".addslashes($subItem->confirm)."')\"":NULL).">".$subItem->label."</a></li>\n";break;
       case "separator":$return.="     <li class=\"divider ".$subItem->class."\" role=\"separator\"><a href=\"".$subItem->url."\">".$subItem->label."</a></li>\n";break;
       case "header":$return.="     <li class=\"dropdown-header".$subItem->class."\">".$subItem->label."</li>\n";break;
      }

@@ -28,6 +28,8 @@ class User{
  protected $pwdExpiration;
  protected $pwdExpired;
  protected $deleted;
+ protected $groups_main;
+ protected $groups_array;
 
  /**
   * Debug
@@ -65,6 +67,13 @@ class User{
    $this->pwdExpiration=$GLOBALS['settings']->users_password_expiration-(time()-$user->pwdTimestamp);
    if($this->pwdExpiration<0){$this->pwdExpired=TRUE;}
   }
+  // get user groups
+  $this->groups_array=array();
+  $groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_users_join_groups` WHERE `fkUser`='".$user->id."' ORDER BY `main` DESC",$GLOBALS['debug']);
+  foreach($groups_results as $group){
+   $this->groups_array[$group->fkGroup]=new Group($group->fkGroup);
+   if($group->main){$this->groups_main=$group->fkGroup;}
+  }
   return TRUE;
  }
 
@@ -76,7 +85,7 @@ class User{
  */
  public function __get($property){
   // switch
-  switch($property){
+  /*switch($property){
    case "id":return $this->id;
    case "mail":return $this->mail;
    case "firstname":return $this->firstname;
@@ -90,8 +99,11 @@ class User{
    case "pwdExpiration":return $this->pwdExpiration;
    case "pwdExpired":return $this->pwdExpired;
    case "deleted":return $this->deleted;
+   case "groups_main":return $this->groups_main;
+   case "groups_array":return $this->groups_array;
    default:return FALSE;
-  }
+  }*/
+  return $this->$property;
  }
 
 }
