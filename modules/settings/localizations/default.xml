@@ -170,6 +170,20 @@
  <text key="users_add-submit">Salva</text>
  <text key="users_add-cancel">Annulla</text>
 
+ <text key="users_add-groups-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
+ <text key="users_add-groups-th-name">Gruppi</text>
+ <text key="users_add-groups-td-delete">Rimuovi gruppo</text>
+ <text key="users_add-groups-td-delete-confirm">Confermi di voler rimuovere il gruppo dall'utente?</text>
+ <text key="users_add-groups-td-main">Gruppo principale</text>
+ <text key="users_add-groups-td-mainize">Rendi principale</text>
+ <text key="users_add-groups-td-mainize-confirm">Confermi di voler rendere questo gruppo principale per l'utente?</text>
+
+ <text key="users_add-group_add_modal-title">Aggiungi un gruppo all'utente</text>
+ <text key="users_add-group_add_modal-ff-group">Gruppo</text>
+ <text key="users_add-group_add_modal-ff-group-placeholder">Seleziona un gruppo..</text>
+ <text key="users_add-group_add_modal-fc-submit">Aggiungi</text>
+ <text key="users_add-group_add_modal-fc-cancel">Annulla</text>
+
  <!-- users_edit -->
  <text key="users_edit">Modifica utente</text>
  <text key="users_edit-enabled">Abilitato</text>
@@ -189,21 +203,6 @@
  <text key="users_edit-delete-confirm">Confermi di voler eliminare questo account?</text>
  <text key="users_edit-undelete">Ripristina</text>
  <text key="users_edit-interpret">Interpreta</text>
-
- <text key="users_edit-groups-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
- <text key="users_edit-groups-th-name">Gruppo</text>
- <text key="users_edit-groups-th-description">Descrizione</text>
- <text key="users_edit-groups-td-delete">Rimuovi dal gruppo</text>
- <text key="users_edit-groups-td-delete-confirm">Confermi di voler rimuovere l'utente da questo gruppo?</text>
- <text key="users_edit-groups-td-main">Gruppo principale</text>
- <text key="users_edit-groups-td-mainize">Rendi principale</text>
- <text key="users_edit-groups-td-mainize-confirm">Confermi di voler rendere questo gruppo principale per l'utente?</text>
-
- <text key="users_edit-group_add_modal-title">Aggiungi gruppo all'utente</text>
- <text key="users_edit-group_add_modal-ff-group">Gruppo</text>
- <text key="users_edit-group_add_modal-ff-group-placeholder">Seleziona un gruppo..</text>
- <text key="users_edit-group_add_modal-fc-submit">Aggiungi</text>
- <text key="users_edit-group_add_modal-fc-cancel">Annulla</text>
 
  <!-- groups_list -->
  <text key="groups_list">Gruppi</text>
