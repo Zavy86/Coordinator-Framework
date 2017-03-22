@@ -38,11 +38,11 @@
 
   //
   if($source_updated){
-   $action_btn=api_link("?mod=settings&scr=submit&act=module_update_database&module=".$module->module,api_text("modules_list-td-update_database",$module->source_version),NULL,"btn btn-warning btn-xs");
+   $action_btn=api_link("?mod=framework&scr=submit&act=module_update_database&module=".$module->module,api_text("modules_list-td-update_database",$module->source_version),NULL,"btn btn-warning btn-xs");
   }elseif($repository_updated){
    // check for git
    if(file_exists($module->source_path."/.git/config")){
-    $action_btn=api_link("?mod=settings&scr=submit&act=module_update_source&module=".$module->module,api_text("modules_list-td-update_source"),NULL,"btn btn-success btn-xs",FALSE,api_text("modules_list-td-update_source-confirm"));
+    $action_btn=api_link("?mod=framework&scr=submit&act=module_update_source&module=".$module->module,api_text("modules_list-td-update_source"),NULL,"btn btn-success btn-xs",FALSE,api_text("modules_list-td-update_source-confirm"));
    }else{
     $action_btn=api_link("@todo module url".$module->url,api_text("modules_list-td-update_source-manual"),NULL,"btn btn-info btn-xs",FALSE,NULL,NULL,NULL,"_blank");
    }
@@ -52,7 +52,7 @@
 
   //
   $table->addRow();
-  $table->addRowField(api_link("?mod=settings&scr=modules_view&idUser=".$module->id,api_icon("search",api_text("show"))));
+  $table->addRowField(api_link("?mod=framework&scr=modules_view&idUser=".$module->id,api_icon("search",api_text("show"))));
   $table->addRowField($module->name,"nowrap");
   $table->addRowField(api_tag("span",$module->version,"label ".($source_updated?"label-warning":"label-default")),"nowrap text-right");
   $table->addRowField(api_tag("span",$repository_version,"label ".($repository_updated?"label-success":"label-default")),"nowrap text-right");

@@ -11,12 +11,12 @@
  require_once("functions.inc.php");
 
  // check session
- if(!$session->validity && !(MODULE=="settings" && SCRIPT=="submit" && ACTION=="user_login")){api_redirect("login.php");}
+ if(!$session->validity && !(MODULE=="framework" && SCRIPT=="submit" && ACTION=="user_login")){api_redirect("login.php");}
 
  // check for password expired
  if($settings->sessions_authentication_method=="standard" && $session->user->pwdExpired &&
-  !((MODULE=="settings" && SCRIPT=="own_password") || (MODULE=="settings" && SCRIPT=="submit" && ACTION=="own_password_update")))
-  {api_redirect("?mod=settings&scr=own_password");}
+  !((MODULE=="framework" && SCRIPT=="own_password") || (MODULE=="framework" && SCRIPT=="submit" && ACTION=="own_password_update")))
+  {api_redirect("?mod=framework&scr=own_password");}
 
  // load module
  if(file_exists(MODULE_PATH."module.inc.php")){require_once(MODULE_PATH."module.inc.php");}else{die("ERROR LOADING MODULE: File modules/".MODULE."/module.inc.php was not found");}

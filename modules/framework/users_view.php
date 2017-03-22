@@ -14,7 +14,7 @@
  $html->setTitle(api_text("users_view"));
  // get objects
  $user=new User($_REQUEST['idUser']);
- if(!$user->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=settings&scr=users_list");}
+ if(!$user->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // make status
  if($user->deleted){
   api_alerts_add(api_text("users_view-deleted-alert"),"warning");
@@ -43,25 +43,25 @@
  // cycle user groups
  foreach($user->groups_array as $group){
   // make delete and mainize td
-  $delete_td=api_link("?mod=settings&scr=submit&act=user_group_remove&idUser=".$user->id."&idGroup=".$group->id,api_icon("fa-trash",api_text("users_add-groups_table-td-delete"),"hidden-link"),NULL,NULL,FALSE,api_text("users_add-groups_table-td-delete-confirm"));
+  $delete_td=api_link("?mod=framework&scr=submit&act=user_group_remove&idUser=".$user->id."&idGroup=".$group->id,api_icon("fa-trash",api_text("users_add-groups_table-td-delete"),"hidden-link"),NULL,NULL,FALSE,api_text("users_add-groups_table-td-delete-confirm"));
   if($group->id==$user->groups_main){
    $mainize_td=api_icon("fa-star",api_text("users_add-groups_table-td-main"));
    if(count($user->groups_array)>1){$delete_td=NULL;}
   }else{
    /** @todo check permission */
    if(!(1)){$mainize_td=api_icon("fa-star-o");}
-   else{$mainize_td=api_link("?mod=settings&scr=submit&act=user_group_mainize&idUser=".$user->id."&idGroup=".$group->id,api_icon("fa-star-o",api_text("users_add-groups_table-td-mainize"),"hidden-link"),NULL,NULL,FALSE,api_text("users_add-groups_table-td-mainize-confirm"));}
+   else{$mainize_td=api_link("?mod=framework&scr=submit&act=user_group_mainize&idUser=".$user->id."&idGroup=".$group->id,api_icon("fa-star-o",api_text("users_add-groups_table-td-mainize"),"hidden-link"),NULL,NULL,FALSE,api_text("users_add-groups_table-td-mainize-confirm"));}
   }
   // add group row
   $groups_table->addRow();
   $groups_table->addRowField($mainize_td);
-  $groups_table->addRowField(api_link("?mod=settings&scr=groups_view&idGroup=".$group->id,$group->fullname,NULL,"hidden-link",FALSE,NULL,NULL,NULL,"_blank"),"truncate-ellipsis");
+  $groups_table->addRowField(api_link("?mod=framework&scr=groups_view&idGroup=".$group->id,$group->fullname,NULL,"hidden-link",FALSE,NULL,NULL,NULL,"_blank"),"truncate-ellipsis");
   if(1){$groups_table->addRowField($delete_td);} /** @todo check permission */
  }
  // check for action group_add
  if(ACTION=="group_add"){
   // build group add form
-  $group_add_form=new Form("?mod=settings&scr=submit&act=user_group_add&idUser=".$user->id,"POST",NULL,"users_add-groups_modal");
+  $group_add_form=new Form("?mod=framework&scr=submit&act=user_group_add&idUser=".$user->id,"POST",NULL,"users_add-groups_modal");
   $group_add_form->addField("select","fkGroup",api_text("users_add-groups_modal-ff-group"),NULL,api_text("users_add-groups_modal-ff-group-placeholder"),NULL,NULL,NULL,"required");
   api_tree_to_array($groups_array,"api_settings_groups","id");
   foreach($groups_array as $group_option){$group_add_form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->fullname);}

@@ -16,13 +16,13 @@
  if(ACTION=="token_cron_randomize"||!$settings->token_cron){$settings->token_cron=md5(date("YmdHis").rand(1,99999));}
  // script tabs
  $tabs=new Nav("nav-pills");
- $tabs->addItem(api_text("settings_framework-general"),"?mod=settings&scr=settings_framework&tab=general");
- $tabs->addItem(api_text("settings_framework-sessions"),"?mod=settings&scr=settings_framework&tab=sessions");
- $tabs->addItem(api_text("settings_framework-sendmail"),"?mod=settings&scr=settings_framework&tab=sendmail");
- $tabs->addItem(api_text("settings_framework-users"),"?mod=settings&scr=settings_framework&tab=users");
- $tabs->addItem(api_text("settings_framework-token"),"?mod=settings&scr=settings_framework&tab=token");
+ $tabs->addItem(api_text("settings_framework-general"),"?mod=framework&scr=settings_framework&tab=general");
+ $tabs->addItem(api_text("settings_framework-sessions"),"?mod=framework&scr=settings_framework&tab=sessions");
+ $tabs->addItem(api_text("settings_framework-sendmail"),"?mod=framework&scr=settings_framework&tab=sendmail");
+ $tabs->addItem(api_text("settings_framework-users"),"?mod=framework&scr=settings_framework&tab=users");
+ $tabs->addItem(api_text("settings_framework-token"),"?mod=framework&scr=settings_framework&tab=token");
  // build settings form
- $form=new Form("?mod=settings&scr=submit&act=settings_framework&tab=".TAB,"POST",NULL,"settings_framework");
+ $form=new Form("?mod=framework&scr=submit&act=settings_framework&tab=".TAB,"POST",NULL,"settings_framework");
  /**
   * Generals
   */
@@ -102,12 +102,12 @@
   */
  if(TAB=="token"){
   $form->addField("text","token_cron",api_text("settings_framework-token_cron"),$settings->token_cron,api_text("settings_framework-token_cron-placeholder"));
-  $form->addFieldAddonButton("?mod=settings&scr=settings_framework&tab=token&act=token_cron_randomize",api_text("settings_framework-token_cron-randomize"));
+  $form->addFieldAddonButton("?mod=framework&scr=settings_framework&tab=token&act=token_cron_randomize",api_text("settings_framework-token_cron-randomize"));
  }
  // form controls
  $form->addControl("submit",api_text("settings_framework-submit"));
  $form->addControl("reset",api_text("settings_framework-reset"));
- $form->addControl("button",api_text("settings_framework-cancel"),"?mod=settings&scr=settings_framework");
+ $form->addControl("button",api_text("settings_framework-cancel"),"?mod=framework&scr=settings_framework");
  // build grid object
  $grid=new Grid();
  $grid->addRow();

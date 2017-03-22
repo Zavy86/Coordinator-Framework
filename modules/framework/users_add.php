@@ -13,7 +13,7 @@
  // set html title
  $html->setTitle(api_text("users_add"));
  // build profile form
- $form=new Form("?mod=settings&scr=submit&act=user_add","POST",null,"users_add");
+ $form=new Form("?mod=framework&scr=submit&act=user_add","POST",null,"users_add");
  $form->addField("text","mail",api_text("users_add-mail"),$user->mail,api_text("users_add-mail-placeholder"),NULL,NULL,8,"required");
  $form->addField("text","firstname",api_text("users_add-firstname"),$user->firstname,api_text("users_add-firstname-placeholder"),NULL,NULL,8,"required");
  $form->addField("text","lastname",api_text("users_add-lastname"),$user->lastname,api_text("users_add-lastname-placeholder"),NULL,NULL,NULL,"required");
@@ -22,7 +22,7 @@
  $form->addField("select","timezone",api_text("users_add-timezone"),$session->user->timezone,api_text("users_add-timezone-placeholder"),NULL,NULL,NULL,"required");
  foreach(timezone_identifiers_list() as $timezone){$form->addFieldOption($timezone,$timezone." (".api_timestamp_format(time(),"H:i",$timezone).")");}
  $form->addControl("submit",api_text("users_add-submit"));
- $form->addControl("button",api_text("users_add-cancel"),"?mod=settings&scr=users_list");
+ $form->addControl("button",api_text("users_add-cancel"),"?mod=framework&scr=users_list");
  // build grid object
  $grid=new Grid();
  $grid->addRow();

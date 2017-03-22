@@ -33,7 +33,7 @@
  }*/
 
  // build profile form
- $form=new Form("?mod=settings&scr=submit&act=group_save&idGroup=".$group->id,"POST",null,"groups_edit");
+ $form=new Form("?mod=framework&scr=submit&act=group_save&idGroup=".$group->id,"POST",null,"groups_edit");
  $form->addField("select","fkGroup",api_text("groups_edit-fkGroup"),$group->fkGroup);
  $form->addFieldOption(NULL,api_text("groups_edit-fkGroup-main"));
  //api_groups_tree2selectOption($form,$group->id);
@@ -47,10 +47,10 @@
  $form->addField("text","name",api_text("groups_edit-name"),$group->name,api_text("groups_edit-name-placeholder"),NULL,NULL,NULL,"required");
  $form->addField("textarea","description",api_text("groups_edit-description"),$group->description,api_text("groups_edit-description-placeholder"));
  $form->addControl("submit",api_text("groups_edit-submit"));
- $form->addControl("button",api_text("groups_edit-cancel"),"?mod=settings&scr=groups_list");
+ $form->addControl("button",api_text("groups_edit-cancel"),"?mod=framework&scr=groups_list");
 
- if(!$group->deleted){$form->addControl("button",api_text("groups_edit-delete"),"?mod=settings&scr=submit&act=groups_delete&idUser=".$group->id,"btn-danger",api_text("groups_edit-delete-confirm"));}
-  else{$form->addControl("button",api_text("groups_edit-undelete"),"?mod=settings&scr=submit&act=groups_undelete&idUser=".$group->id,"btn-warning");}
+ if(!$group->deleted){$form->addControl("button",api_text("groups_edit-delete"),"?mod=framework&scr=submit&act=groups_delete&idUser=".$group->id,"btn-danger",api_text("groups_edit-delete-confirm"));}
+  else{$form->addControl("button",api_text("groups_edit-undelete"),"?mod=framework&scr=submit&act=groups_undelete&idUser=".$group->id,"btn-warning");}
  // build grid object
  $grid=new Grid();
  $grid->addRow();

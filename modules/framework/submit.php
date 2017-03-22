@@ -94,7 +94,7 @@ function settings_framework(){
  }
  // redirect
  api_alerts_add(api_text("settings_alert_settingsUpdated"),"success");
- api_redirect("?mod=settings&scr=settings_framework&tab=".$r_tab);
+ api_redirect("?mod=framework&scr=settings_framework&tab=".$r_tab);
 }
 
 
@@ -178,7 +178,7 @@ function user_recovery(){
   // generate new secret code and save into database
   $f_secret=md5(date("Y-m-d H:i:s").rand(1,99999));
   $GLOBALS['database']->queryExecute("UPDATE `framework_users` SET `secret`='".$f_secret."' WHERE `id`='".$user_obj->id."'");
-  $recoveryLink=URL."index.php?mod=settings&scr=submit&act=user_recovery&mail=".$r_mail."&secret=".$f_secret;
+  $recoveryLink=URL."index.php?mod=framework&scr=submit&act=user_recovery&mail=".$r_mail."&secret=".$f_secret;
   // send recovery link
   api_sendmail($r_mail,"Coordinator password recovery",$recoveryLink); /** @todo fare mail come si deve */
   // redirect
@@ -227,12 +227,12 @@ function user_add(){
  // update user
  $user->id=$GLOBALS['database']->queryInsert("framework_users",$user);
  // check user
- if(!$user->id){api_alerts_add(api_text("settings_alert_userError"),"danger");api_redirect("?mod=settings&scr=users_list");}
+ if(!$user->id){api_alerts_add(api_text("settings_alert_userError"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // send password to user
  api_sendmail($user->mail,"Coordinator new user welcome",$v_password); /** @todo fare mail come si deve */
  // redirect
  api_alerts_add(api_text("settings_alert_userCreated"),"success");
- api_redirect("?mod=settings&scr=users_edit&idUser=".$user->id);
+ api_redirect("?mod=framework&scr=users_edit&idUser=".$user->id);
 }
 /**
  * User Edit
@@ -254,12 +254,12 @@ function user_edit(){
  api_dump($_REQUEST);
  api_dump($user);
  // check
- if(!$user->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=settings&scr=users_list");}
+ if(!$user->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // update user
  $GLOBALS['database']->queryUpdate("framework_users",$user);
  // redirect
  api_alerts_add(api_text("settings_alert_userUpdated"),"success");
- api_redirect("?mod=settings&scr=users_edit&idUser=".$user->id);
+ api_redirect("?mod=framework&scr=users_edit&idUser=".$user->id);
 }
 /**
  * User Deleted
@@ -270,7 +270,7 @@ function user_deleted($deleted){
  // get objects
  $user_obj=new User($_REQUEST['idUser']);
  // check
- if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=settings&scr=users_list");}
+ if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // build user query objects
  $user_qobj=new stdClass();
  $user_qobj->id=$user_obj->id;
@@ -288,7 +288,7 @@ function user_deleted($deleted){
  if($deleted){api_alerts_add(api_text("settings_alert_userDeleted"),"warning");}
  else{api_alerts_add(api_text("settings_alert_userUndeleted"),"success");}
  // redirect
- api_redirect("?mod=settings&scr=users_view&idUser=".$user_obj->id);
+ api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
 }
 /**
  * User Group Add
@@ -297,9 +297,9 @@ function user_group_add(){
  // get objects
  $user_obj=new User($_REQUEST['idUser']);
  // check objects
- if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=settings&scr=users_list");}
+ if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // check for duplicates
- if(array_key_exists($_REQUEST['fkGroup'],$user_obj->groups_array)){api_alerts_add(api_text("settings_alert_userGroupDuplicated"),"warning");api_redirect("?mod=settings&scr=users_view&idUser=".$user_obj->id);}
+ if(array_key_exists($_REQUEST['fkGroup'],$user_obj->groups_array)){api_alerts_add(api_text("settings_alert_userGroupDuplicated"),"warning");api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);}
  // build user join group query object
  $user_join_group_qobj=new stdClass();
  $user_join_group_qobj->fkUser=$user_obj->id;
@@ -321,7 +321,7 @@ function user_group_add(){
  $GLOBALS['database']->queryUpdate("framework_users",$user_qobj);
  // redirect
  api_alerts_add(api_text("settings_alert_userGroupAdded"),"success");
- api_redirect("?mod=settings&scr=users_view&idUser=".$user_obj->id);
+ api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
 }
 /**
  * User Group Remove
@@ -330,11 +330,11 @@ function user_group_remove(){
  // get objects
  $user_obj=new User($_REQUEST['idUser']);
  // check objects
- if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=settings&scr=users_list");}
+ if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // check if user is in request group
- if(!array_key_exists($_REQUEST['idGroup'],$user_obj->groups_array)){api_alerts_add(api_text("settings_alert_userGroupNotFound"),"danger");api_redirect("?mod=settings&scr=users_view&idUser=".$user_obj->id);}
+ if(!array_key_exists($_REQUEST['idGroup'],$user_obj->groups_array)){api_alerts_add(api_text("settings_alert_userGroupNotFound"),"danger");api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);}
  // check if request group is main for user and not only
- if(count($user_obj->groups_array)>1 && $user_obj->groups_main==$_REQUEST['idGroup']){api_alerts_add(api_text("settings_alert_userGroupError"),"danger");api_redirect("?mod=settings&scr=users_view&idUser=".$user_obj->id);}
+ if(count($user_obj->groups_array)>1 && $user_obj->groups_main==$_REQUEST['idGroup']){api_alerts_add(api_text("settings_alert_userGroupError"),"danger");api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);}
  // build user query object
  $user_qobj=new stdClass();
  $user_qobj->id=$user_obj->id;
@@ -350,7 +350,7 @@ function user_group_remove(){
  $GLOBALS['database']->queryUpdate("framework_users",$user_qobj);
  // redirect
  api_alerts_add(api_text("settings_alert_userGroupRemoved"),"warning");
- api_redirect("?mod=settings&scr=users_view&idUser=".$user_obj->id);
+ api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
 }
 
 /**
@@ -379,7 +379,7 @@ function own_profile_update(){
  }
  // redirect
  api_alerts_add(api_text("settings_alert_ownProfileUpdated"),"success");
- api_redirect("?mod=settings&scr=own_profile");
+ api_redirect("?mod=framework&scr=own_profile");
 }
 
 /**
@@ -408,7 +408,7 @@ function group_save(){
   api_alerts_add(api_text("settings_alert_groupCreated"),"success");
  }
  // redirect
- api_redirect("?mod=settings&scr=groups_list");
+ api_redirect("?mod=framework&scr=groups_list");
 }
 
 /**
@@ -424,12 +424,12 @@ function own_password_update(){
  $r_password_new=$_REQUEST['password_new'];
  $r_password_confirm=$_REQUEST['password_confirm'];
  // check old password
- if(md5($r_password)!==$user_obj->password){api_alerts_add(api_text("settings_alert_ownPasswordIncorrect"),"danger");api_redirect("?mod=settings&scr=own_password");}
+ if(md5($r_password)!==$user_obj->password){api_alerts_add(api_text("settings_alert_ownPasswordIncorrect"),"danger");api_redirect("?mod=framework&scr=own_password");}
  // check new password
- if($r_password_new!==$r_password_confirm){api_alerts_add(api_text("settings_alert_ownPasswordNotMatch"),"danger");api_redirect("?mod=settings&scr=own_password");}
- if(strlen($r_password_new)<8){api_alerts_add(api_text("settings_alert_ownPasswordWeak"),"danger");api_redirect("?mod=settings&scr=own_password");}
+ if($r_password_new!==$r_password_confirm){api_alerts_add(api_text("settings_alert_ownPasswordNotMatch"),"danger");api_redirect("?mod=framework&scr=own_password");}
+ if(strlen($r_password_new)<8){api_alerts_add(api_text("settings_alert_ownPasswordWeak"),"danger");api_redirect("?mod=framework&scr=own_password");}
  // check if new password is equal to oldest password
- if(md5($r_password_new)===$user_obj->password){api_alerts_add(api_text("settings_alert_ownPasswordOldest"),"danger");api_redirect("?mod=settings&scr=own_password");}
+ if(md5($r_password_new)===$user_obj->password){api_alerts_add(api_text("settings_alert_ownPasswordOldest"),"danger");api_redirect("?mod=framework&scr=own_password");}
  // build user objects
  $user=new stdClass();
  $user->id=$user_obj->id;
@@ -441,7 +441,7 @@ function own_password_update(){
  $GLOBALS['database']->queryUpdate("framework_users",$user);
  // redirect
  api_alerts_add(api_text("settings_alert_ownPasswordUpdated"),"success");
- api_redirect("?mod=settings&scr=own_profile");
+ api_redirect("?mod=framework&scr=own_profile");
 }
 
 /**
@@ -449,12 +449,12 @@ function own_password_update(){
  */
 function sessions_terminate(){
  $idSession=$_REQUEST['idSession'];
- if(!$idSession){api_alerts_add(api_text("settings_alert_sessionNotFound"),"danger");api_redirect("?mod=settings&scr=sessions_list");}
+ if(!$idSession){api_alerts_add(api_text("settings_alert_sessionNotFound"),"danger");api_redirect("?mod=framework&scr=sessions_list");}
  // delete session
  $GLOBALS['database']->queryExecute("DELETE FROM `framework_sessions` WHERE `id`='".$idSession."'");
  // redirect
  api_alerts_add(api_text("settings_alert_sessionTerminated"),"warning");
- api_redirect("?mod=settings&scr=sessions_list");
+ api_redirect("?mod=framework&scr=sessions_list");
 }
 /**
  * Sessions Terminate All
@@ -472,11 +472,11 @@ function sessions_terminate_all(){
  */
 function module_update_source(){
  // disabled for localhost and 127.0.0.1
- if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdatesGitLocalhost"),"danger");api_redirect("?mod=settings&scr=modules_list");}
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdatesGitLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  // acquire variables
  $module_obj=new Module($_REQUEST['module']);
  // check objects
- if(!$module_obj->module){api_alerts_add(api_text("settings_alert_moduleNotFound"),"danger");api_redirect("?mod=settings&scr=modules_list");}
+ if(!$module_obj->module){api_alerts_add(api_text("settings_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  /** @todo cycle all selected modules (multiselect in table) */
  // exec shell commands
  $shell_output=exec('whoami')."@".exec('hostname').":".shell_exec("cd ".$module_obj->source_path." ; pwd ; git stash ; git stash clear ; git pull ; chmod 755 -R ./");
@@ -487,19 +487,19 @@ function module_update_source(){
  elseif(strpos(strtolower($shell_output),"abort")){api_alerts_add(api_text("settings_alert_moduleUpdatesSourceAborted"),"danger");}
  else{api_alerts_add(api_text("settings_alert_moduleUpdateScourceUpdated"),"warning");}
  // redirect
- api_redirect("?mod=settings&scr=modules_list");
+ api_redirect("?mod=framework&scr=modules_list");
 }
 /**
  * Module Updates Database
  */
 function module_update_database(){
  // disabled for localhost and 127.0.0.1
- if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdatesGitLocalhost"),"danger");api_redirect("?mod=settings&scr=modules_list");}
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdatesGitLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  /** @todo execute .sql file and update version in database */
  // alert
  api_alerts_add(api_text("settings_alert_moduleUpdateDatabaseUpdated"),"success");
  // redirect
- api_redirect("?mod=settings&scr=modules_list");
+ api_redirect("?mod=framework&scr=modules_list");
 }
 
 

@@ -14,9 +14,9 @@
  $html->setTitle(api_text("users_edit"));
  // get objects
  $user=new User($_REQUEST['idUser']);
- if(!$user->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=settings&scr=users_list");}
+ if(!$user->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // build profile form
- $form=new Form("?mod=settings&scr=submit&act=user_edit&idUser=".$user->id,"POST",null,"users_edit");
+ $form=new Form("?mod=framework&scr=submit&act=user_edit&idUser=".$user->id,"POST",null,"users_edit");
  $form->addField("static",NULL,$user->fullname,api_image($user->avatar,"img-thumbnail",128));
  $form->addField("checkbox","enabled","&nbsp;",$user->enabled);
  $form->addFieldOption(1,api_text("users_edit-enabled"),$user->enabled);
@@ -37,9 +37,9 @@
  $form->addField("date","birthday",api_text("users_edit-birthday"),$user->birthday);
 
  $form->addControl("submit",api_text("users_edit-submit"));
- $form->addControl("button",api_text("users_edit-cancel"),"?mod=settings&scr=users_view&idUser=".$user->id);
- if(!$user->deleted){$form->addControl("button",api_text("users_edit-delete"),"?mod=settings&scr=submit&act=user_delete&idUser=".$user->id,"btn-danger",api_text("users_edit-delete-confirm"));}
- else{$form->addControl("button",api_text("users_edit-undelete"),"?mod=settings&scr=submit&act=user_undelete&idUser=".$user->id,"btn-warning");}
+ $form->addControl("button",api_text("users_edit-cancel"),"?mod=framework&scr=users_view&idUser=".$user->id);
+ if(!$user->deleted){$form->addControl("button",api_text("users_edit-delete"),"?mod=framework&scr=submit&act=user_delete&idUser=".$user->id,"btn-danger",api_text("users_edit-delete-confirm"));}
+ else{$form->addControl("button",api_text("users_edit-undelete"),"?mod=framework&scr=submit&act=user_undelete&idUser=".$user->id,"btn-warning");}
  // build grid object
  $grid=new Grid();
  $grid->addRow();

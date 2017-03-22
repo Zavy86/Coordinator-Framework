@@ -15,7 +15,7 @@
  // get objects
  $user=$session->user;
  // build profile form
- $form=new Form("?mod=settings&scr=submit&act=own_profile_update","POST",null,"own_profile");
+ $form=new Form("?mod=framework&scr=submit&act=own_profile_update","POST",null,"own_profile");
  $form->addField("static",NULL,$user->fullname,api_image($user->avatar,"img-thumbnail",128));
  $form->addField("static",NULL,api_text("own_profile-mail"),$user->mail);
  $form->addField("text","firstname",api_text("own_profile-firstname"),$user->firstname,api_text("own_profile-firstname-placeholder"),NULL,NULL,8,"required");

@@ -22,14 +22,14 @@
  if(api_check_version($local_version,$repository_version)){
   // check for git
   if(file_exists(ROOT.".git/config")){
-   $download_btn="&nbsp;&nbsp;&nbsp;".api_link("?mod=settings&scr=submit&act=update_source",api_text("updates_framework-pull"),NULL,"btn btn-success btn-xs",FALSE,api_text("updates_framework-pull-confirm"));
+   $download_btn="&nbsp;&nbsp;&nbsp;".api_link("?mod=framework&scr=submit&act=update_source",api_text("updates_framework-pull"),NULL,"btn btn-success btn-xs",FALSE,api_text("updates_framework-pull-confirm"));
   }else{
    $download_btn="&nbsp;&nbsp;&nbsp;".api_link("https://github.com/Zavy86/Coordinator-Framework",api_text("updates_framework-link"),NULL,"btn btn-warning btn-xs",FALSE,NULL,NULL,NULL,"_blank");
   }
  }
  // check for database update
  if(api_check_version($settings->version,$local_version)){
-  $update_btn="&nbsp;&nbsp;&nbsp;".api_link("?mod=settings&scr=submit&act=update_database",api_text("updates_framework-update",$settings->version),NULL,"btn btn-warning btn-xs");
+  $update_btn="&nbsp;&nbsp;&nbsp;".api_link("?mod=framework&scr=submit&act=update_database",api_text("updates_framework-update",$settings->version),NULL,"btn btn-warning btn-xs");
  }
  // build description list
  $dl=new DescriptionList("br","dl-horizontal");

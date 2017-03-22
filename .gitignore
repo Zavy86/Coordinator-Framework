@@ -3,7 +3,7 @@ config.inc.php
 
 /modules/*
 !/modules/dashboards/
-!/modules/settings/
+!/modules/framework/
 
 /uploads/*
 !/uploads/framework/brand.default.jpg

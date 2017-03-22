@@ -15,7 +15,7 @@
  // build login form manually
  $form_source="<!-- form -->\n";
  $form_source.="<h2>Coordinator</h2>\n"; /** @todo prendere il titolo dal database */
- $form_source.="<form class=\"\" action=\"index.php?mod=settings&scr=submit&act=user_login\" method=\"POST\" id=\"form_login\">\n";
+ $form_source.="<form class=\"\" action=\"index.php?mod=framework&scr=submit&act=user_login\" method=\"POST\" id=\"form_login\">\n";
  $form_source.=" <div class=\"form-group\">\n";
  $form_source.="  <input type=\"text\" name=\"username\" class=\"form-control\" id=\"form_login_input_username\" placeholder=\"Account\" required autofocus>\n";
  $form_source.=" </div><!-- /form-group -->\n";

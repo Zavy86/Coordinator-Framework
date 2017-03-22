@@ -27,7 +27,7 @@
    $table->addRowField(api_link("#",api_icon("fa-search",api_text("groups_list-td-view"),"hidden-link")));
    $table->addRowField(str_repeat("&nbsp;&nbsp;&nbsp;",$level).$group->name,"nowrap");
    $table->addRowField($group->description);
-   $table->addRowField(api_link("?mod=settings&scr=groups_edit&idGroup=".$group->id,api_icon("fa-edit",api_text("groups_list-td-edit"),"hidden-link")));
+   $table->addRowField(api_link("?mod=framework&scr=groups_edit&idGroup=".$group->id,api_icon("fa-edit",api_text("groups_list-td-edit"),"hidden-link")));
    api_groups_tree2table($table,$group->id,($level+1));
   }
  }*/
@@ -48,7 +48,7 @@
   $table->addRowField(api_link("#",api_icon("fa-search",api_text("groups_list-td-view"),"hidden-link")));
   $table->addRowField(str_repeat("&nbsp;&nbsp;&nbsp;",$group->nesting).$group->name,"nowrap");
   $table->addRowField($group->description);
-  $table->addRowField(api_link("?mod=settings&scr=groups_edit&idGroup=".$group->id,api_icon("fa-edit",api_text("groups_list-td-edit"),"hidden-link")));
+  $table->addRowField(api_link("?mod=framework&scr=groups_edit&idGroup=".$group->id,api_icon("fa-edit",api_text("groups_list-td-edit"),"hidden-link")));
  }
 
  // build grid object
