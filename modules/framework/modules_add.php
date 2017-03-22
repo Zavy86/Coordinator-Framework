@@ -15,7 +15,7 @@
  // build profile form
  $form=new Form("?mod=framework&scr=submit&act=module_add","POST",null,"modules_add");
  $form->addField("text","url",api_text("modules_add-url"),NULL,api_text("modules_add-url-placeholder"),NULL,NULL,NULL,"required");
- $form->addField("radio","method",api_text("modules_add-method"),NULL,NULL,NULL,"radio-inline",NULL,"required");
+ $form->addField("radio","method",api_text("modules_add-method"),NULL,NULL,NULL,"radio-inline");
  $form->addFieldOption("git",api_text("modules_add-method-git"));
  $form->addFieldOption("zip",api_text("modules_add-method-zip"));
  $form->addControl("submit",api_text("modules_add-submit"));
