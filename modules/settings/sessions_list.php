@@ -1,4 +1,11 @@
 <?php
+/**
+ * Settings - Sessions List
+ *
+ * @package Coordinator\Modules\Settings
+ * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
+ * @link    http://www.zavynet.org
+ */
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // check permissions

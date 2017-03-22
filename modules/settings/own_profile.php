@@ -1,6 +1,6 @@
 <?php
 /**
- * Settings - Users Profile
+ * Settings - Own Profile
  *
  * @package Coordinator\Modules\Settings
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>

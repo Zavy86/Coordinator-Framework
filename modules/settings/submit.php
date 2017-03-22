@@ -2,7 +2,7 @@
 /**
  * Settings - Submit
  *
- * @package Coordinator\Modules\Accounts
+ * @package Coordinator\Modules\Settings
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
@@ -22,8 +22,8 @@ switch(ACTION){
  // users
  case "user_add":user_add();break;
  case "user_edit":user_edit();break;
- /** @todo delete */
- /** @todo undelete */
+ case "user_delete":user_deleted(TRUE);break;
+ case "user_undelete":user_deleted(FALSE);break;
  case "user_group_add":user_group_add();break;
  case "user_group_remove":user_group_remove();break;
 
@@ -39,6 +39,10 @@ switch(ACTION){
  // sessions
  case "sessions_terminate":sessions_terminate();break;
  case "sessions_terminate_all":sessions_terminate_all();break;
+
+ // updates
+ case "update_source":update_source();break;
+ case "update_database":update_database();break;
 
  // default
  default:
@@ -258,10 +262,39 @@ function user_edit(){
  api_redirect("?mod=settings&scr=users_edit&idUser=".$user->id);
 }
 /**
+ * User Deleted
+ *
+ * @param boolean $deleted Deleted or Undeleted
+ */
+function user_deleted($deleted){
+ // get objects
+ $user_obj=new User($_REQUEST['idUser']);
+ // check
+ if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=settings&scr=users_list");}
+ // build user query objects
+ $user_qobj=new stdClass();
+ $user_qobj->id=$user_obj->id;
+ $user_qobj->deleted=($deleted?1:0);
+ if($deleted){$user_qobj->enabled=0;}
+ $user_qobj->updTimestamp=time();
+ $user_qobj->updFkUser=$GLOBALS['session']->user->id;
+ // debug
+ api_dump($_REQUEST);
+ api_dump($user_obj);
+ api_dump($user_qobj);
+ // update user
+ $GLOBALS['database']->queryUpdate("framework_users",$user_qobj);
+ // alert
+ if($deleted){api_alerts_add(api_text("settings_alert_userDeleted"),"warning");}
+ else{api_alerts_add(api_text("settings_alert_userUndeleted"),"success");}
+ // redirect
+ api_redirect("?mod=settings&scr=users_view&idUser=".$user_obj->id);
+}
+/**
  * User Group Add
  */
 function user_group_add(){
- // build user objects
+ // get objects
  $user_obj=new User($_REQUEST['idUser']);
  // check objects
  if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=settings&scr=users_list");}
@@ -294,7 +327,7 @@ function user_group_add(){
  * User Group Remove
  */
 function user_group_remove(){
- // build user objects
+ // get objects
  $user_obj=new User($_REQUEST['idUser']);
  // check objects
  if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=settings&scr=users_list");}
@@ -433,5 +466,48 @@ function sessions_terminate_all(){
  api_alerts_add(api_text("settings_alert_sessionTerminatedAll"),"warning");
  api_redirect(DIR."index.php");
 }
+
+/**
+ * Update Source
+ */
+function update_source(){
+ // disabled for localhost and 127.0.0.1
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_updatesGitLocalhost"),"danger");api_redirect("?mod=settings&scr=updates_framework");}
+ // acquire variables
+ $r_module=$_REQUEST['module'];
+ // make module path
+ if($r_module){$module_path="";}
+ /** @todo cycle all selected modules (multiselect in table) */
+ // exec shell commands
+ $shell_output=exec('whoami')."@".exec('hostname').":".shell_exec("cd ".ROOT.$module_path." ; pwd ; git stash ; git stash clear ; git pull ; chmod 755 -R ./");
+ // debug
+ api_dump($shell_output);
+ // alert
+ if(strpos(strtolower($shell_output),"up-to-date")){api_alerts_add(api_text("settings_alert_updateScourceAlready"),"success");}
+ elseif(strpos(strtolower($shell_output),"abort")){api_alerts_add(api_text("settings_alert_updatesSourceAborted"),"danger");}
+ else{api_alerts_add(api_text("settings_alert_updateScourceUpdated"),"warning");}
+ // redirect
+ api_redirect("?mod=settings&scr=updates_framework");
+}
+/**
+ * Updates Database
+ */
+function update_database(){
+ // disabled for localhost and 127.0.0.1
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_updatesGitLocalhost"),"warning");api_redirect("?mod=settings&scr=updates_framework");}
+ /** @todo execute .sql file and update version in database */
+ // alert
+ api_alerts_add(api_text("settings_alert_updateDatabaseUpdated"),"success");
+ // redirect
+ api_redirect("?mod=settings&scr=updates_framework");
+}
+
+
+
+
+
+
+
+
 
 ?>

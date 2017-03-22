@@ -101,6 +101,10 @@ footer{
  vertical-align:top;
 }
 
+.table tr.deleted td{
+ text-decoration:line-through;
+}
+
 .nav-responsive{
  /*overflow-x:auto; @todo verificare per dropdown mobile */
  min-height:0.01%;

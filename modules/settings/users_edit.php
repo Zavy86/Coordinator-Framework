@@ -38,8 +38,8 @@
 
  $form->addControl("submit",api_text("users_edit-submit"));
  $form->addControl("button",api_text("users_edit-cancel"),"?mod=settings&scr=users_view&idUser=".$user->id);
- if(!$user->deleted){$form->addControl("button",api_text("users_edit-delete"),"?mod=settings&scr=submit&act=users_delete&idUser=".$user->id,"btn-danger",api_text("users_edit-delete-confirm"));}
- else{$form->addControl("button",api_text("users_edit-undelete"),"?mod=settings&scr=submit&act=users_undelete&idUser=".$user->id,"btn-warning");}
+ if(!$user->deleted){$form->addControl("button",api_text("users_edit-delete"),"?mod=settings&scr=submit&act=user_delete&idUser=".$user->id,"btn-danger",api_text("users_edit-delete-confirm"));}
+ else{$form->addControl("button",api_text("users_edit-undelete"),"?mod=settings&scr=submit&act=user_undelete&idUser=".$user->id,"btn-warning");}
  // build grid object
  $grid=new Grid();
  $grid->addRow();

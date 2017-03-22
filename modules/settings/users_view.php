@@ -1,8 +1,8 @@
 <?php
 /**
- * Accounts - Users Profile
+ * Settings - Users View
  *
- * @package Coordinator\Modules\Accounts
+ * @package Coordinator\Modules\Settings
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
@@ -15,10 +15,18 @@
  // get objects
  $user=new User($_REQUEST['idUser']);
  if(!$user->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=settings&scr=users_list");}
+ // make status
+ if($user->deleted){
+  api_alerts_add(api_text("users_view-deleted-alert"),"warning");
+  $status_td=api_icon("fa-trash")." ".api_text("users_view-deleted");
+ }else{
+  if($user->enabled){$status_td=api_icon("fa-check")." ".api_text("users_view-enabled");}
+  else{$status_td=api_icon("fa-remove")." ".api_text("users_view-disabled");}
+ }
  // build user description list
  $dl=new DescriptionList("br","dl-horizontal");
  $dl->addElement($user->fullname,api_image($user->avatar,"img-thumbnail",128));
- $dl->addElement("&nbsp;",($user->enabled?api_icon("fa-check")." ".api_text("users_view-enabled"):api_icon("fa-remove")." ".api_text("users_view-disabled")));
+ $dl->addElement("&nbsp;",$status_td);
  $dl->addElement(api_text("users_view-mail"),$user->mail);
  $dl->addElement(api_text("users_view-localization"),$localization->available_localizations[$user->localization]);
  $dl->addElement(api_text("users_view-timezone"),$user->timezone);

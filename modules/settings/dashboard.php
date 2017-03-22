@@ -1,6 +1,6 @@
 <?php
 /**
- * Settings - Plugins settings
+ * Settings - Dashboard
  *
  * @package Rasmotic\Modules\Settings
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>

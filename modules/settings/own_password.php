@@ -1,6 +1,6 @@
 <?php
 /**
- * Settings - Users Password
+ * Settings - Own Password
  *
  * @package Coordinator\Modules\Settings
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
