@@ -2,8 +2,9 @@
 
 <locale>
 
- <!-- settings -->
- <text key="settings">Impostazioni</text>
+ <!-- framework -->
+ <text key="framework">Coordinator</text>
+ <text key="framework-description">Coordinator framework</text>
 
  <!-- alerts -->
  <text key="settings_alert_settingsUpdated">Le impostazioni sono state aggiornate</text>
@@ -12,6 +13,8 @@
  <text key="settings_alert_userNotFound">L'utente non è stato trovato</text>
  <text key="settings_alert_userCreated">L'utente è stato creato</text>
  <text key="settings_alert_userUpdated">L'utente è stato aggiornato</text>
+ <text key="settings_alert_userDeleted">L'utente è stato eliminato</text>
+ <text key="settings_alert_userUndeleted">L'utente è stato ripristinato</text>
  <text key="settings_alert_userGroupError">Si è verificato un errore durante il salvataggio del gruppo dell'utente</text>
  <text key="settings_alert_userGroupNotFound">Il gruppo dell'utente non è stato trovato</text>
  <text key="settings_alert_userGroupAdded">Il gruppo è stato aggiunto all'utente</text>
@@ -32,6 +35,14 @@
  <text key="settings_alert_sessionNotFound">La sessione non è stata trovata</text>
  <text key="settings_alert_sessionTerminated">La sessione è stata terminata</text>
  <text key="settings_alert_sessionTerminatedAll">Tutte le sessioni sono state terminate</text>
+
+ <text key="settings_alert_moduleUpdatesGitLocalhost">Aggiornamento Git bloccato su localhost</text>
+ <text key="settings_alert_moduleUpdatesSourceAborted">Si è verificato un errore durante il tentativo di aggiornamento tramite Git</text>
+ <text key="settings_alert_moduleUpdateScourceAlready">La versione dei sorgenti installata non necessita di ulteriori aggiornamenti</text>
+ <text key="settings_alert_moduleUpdateScourceUpdated">L'aggiornamento dei sorgenti tramite Git è avvenuto correttamente</text>
+
+ <text key="settings_alert_moduleUpdateDatabaseError">Si è verificato un errore durante il tentativo di aggiornamento del database</text>
+ <text key="settings_alert_moduleUpdateDatabaseUpdated">L'aggiornamento del database è avvenuto correttamente</text>
 
  <!-- operations -->
  <text key="nav-operations-user_edit">Modifica utente</text>
@@ -157,6 +168,8 @@
  <text key="users_view">Visualizza utente</text>
  <text key="users_view-enabled">Abilitato</text>
  <text key="users_view-disabled">Disabilitato</text>
+ <text key="users_view-deleted">Eliminato</text>
+ <text key="users_view-deleted-alert">Questo utente è stato eliminato</text>
  <text key="users_view-mail">Indirizzo mail</text>
  <text key="users_view-localization">Lingua</text>
  <text key="users_view-timezone">Fuso orario</text>
@@ -255,18 +268,31 @@
 
  <!-- updates_framework -->
  <text key="updates_framework">Aggiornamento framework</text>
- <text key="updates_framework-version">Versione installata</text>
- <text key="updates_framework-repository">Ultima versione</text>
- <text key="updates_framework-pull">Aggiorna</text>
- <text key="updates_framework-pull-confirm">Confermi di voler eseguire l'aggiornamento tramite Git?</text>
- <text key="updates_framework-link">Aggiorna manualmente</text>
+
+ <text key="updates_framework-repository">Versione rilasciata</text>
+ <text key="updates_framework-installed">Versione installata</text>
+
+ <text key="updates_framework-pull">Ottieni</text>
+ <text key="updates_framework-pull-confirm">Confermi di voler eseguire il download dell'aggiornamento tramite Git?</text>
+
+ <text key="updates_framework-update">Aggiorna da {0}</text>
 
  <!-- updates_modules -->
  <text key="updates_modules">Aggiornamento moduli</text>
  <text key="updates_modules-tr-unvalued">Non sono presenti moduli da mostrare..</text>
  <text key="updates_modules-th-name">Modulo</text>
  <text key="updates_modules-th-description">Descrizione</text>
- <text key="updates_modules-th-version">Versione</text>
- <text key="updates_modules-th-repository">Ultima versione</text>
+
+ <!-- modules_list -->
+ <text key="modules_list">Moduli</text>
+ <text key="modules_list-tr-unvalued">Non sono presenti moduli da mostrare..</text>
+ <text key="modules_list-th-name">Modulo</text>
+ <text key="modules_list-th-installed">Installata</text>
+ <text key="modules_list-th-repository">Rilasciata</text>
+ <text key="modules_list-th-description">Descrizione</text>
+ <text key="modules_list-td-update_database">Aggiorna da {0}</text>
+ <text key="modules_list-td-update_source">Ottieni tramite Git</text>
+ <text key="modules_list-td-update_source-confirm">Confermi di voler eseguire il download dell'aggiornamento tramite Git?</text>
+ <text key="modules_list-td-update_source-manual">Aggiorna manualmente</text>
 
 </locale>

@@ -56,6 +56,7 @@
  require_once(ROOT."classes/database.class.php");
  require_once(ROOT."classes/settings.class.php");
  require_once(ROOT."classes/session.class.php");
+ require_once(ROOT."classes/module.class.php");
  require_once(ROOT."classes/user.class.php");
  require_once(ROOT."classes/group.class.php");
  require_once(ROOT."classes/html.class.php");
@@ -118,6 +119,27 @@
  function api_redirect($location){
   if($GLOBALS['debug']){die(api_link($location,$location));}
   exit(header("location: ".$location));
+ }
+
+ /**
+  * Tag
+  *
+  * @param string $tag HTML Tag
+  * @param string $text Content
+  * @param string $class CSS class
+  * @param string $style Style tags
+  * @param string $tags Custom HTML tags
+ * @return string|boolean Tag HTML source code or false
+  */
+ function api_tag($tag,$text,$class=NULL,$style=NULL,$tags=NULL){
+  if(!$text){return FALSE;}
+  if(!$tag){return $text;}
+  $html="<".$tag;
+  if($class){$html.=" class=\"".$class."\"";}
+  if($style){$html.=" style=\"".$class."\"";}
+  if($tags){$html.=" ".$tag;}
+  $html.=">".$text."</".$tag.">";
+  return $html;
  }
 
 /**
@@ -286,6 +308,34 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
   return TRUE;
  }
 
+ /**
+  * Check Version
+  *
+  * @param type $current Version to check
+  * @param type $new New version for check
+  * @return int -1 oldest,
+  *              0 equal,
+  *              1 new major,
+  *              2 new minor version,
+  *              3 new hotfix,
+  */
+ function api_check_version($current,$new){
+  $current_t=explode(".",$current);
+  $new_t=explode(".",$new);
+  // check major version
+  if($new_t[0]>$current_t[0]){return 1;}
+  if($new_t[0]<$current_t[0]){return -1;}
+  // check minor version
+  if($new_t[1]>$current_t[1]){return 2;}
+  if($new_t[1]<$current_t[1]){return -1;}
+  // check hotfix
+  if($new_t[2]>$current_t[2]){return 3;}
+  if($new_t[2]<$current_t[2]){return -1;}
+  // same version
+  return 0;
+ }
+
+
              /**
               *
               * @param type $recipient
@@ -296,7 +346,6 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
                /** @todo fare funzione con phpmailer */
               mail($recipient,$subject,$message);
              }
-
 
 
              /** @todo check */

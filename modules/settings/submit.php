@@ -40,9 +40,9 @@ switch(ACTION){
  case "sessions_terminate":sessions_terminate();break;
  case "sessions_terminate_all":sessions_terminate_all();break;
 
- // updates
- case "update_source":update_source();break;
- case "update_database":update_database();break;
+ // modules
+ case "module_update_source":module_update_source();break;
+ case "module_update_database":module_update_database();break;
 
  // default
  default:
@@ -468,38 +468,38 @@ function sessions_terminate_all(){
 }
 
 /**
- * Update Source
+ * Module Update Source
  */
-function update_source(){
+function module_update_source(){
  // disabled for localhost and 127.0.0.1
- if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_updatesGitLocalhost"),"danger");api_redirect("?mod=settings&scr=updates_framework");}
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdatesGitLocalhost"),"danger");api_redirect("?mod=settings&scr=modules_list");}
  // acquire variables
- $r_module=$_REQUEST['module'];
- // make module path
- if($r_module){$module_path="";}
+ $module_obj=new Module($_REQUEST['module']);
+ // check objects
+ if(!$module_obj->module){api_alerts_add(api_text("settings_alert_moduleNotFound"),"danger");api_redirect("?mod=settings&scr=modules_list");}
  /** @todo cycle all selected modules (multiselect in table) */
  // exec shell commands
- $shell_output=exec('whoami')."@".exec('hostname').":".shell_exec("cd ".ROOT.$module_path." ; pwd ; git stash ; git stash clear ; git pull ; chmod 755 -R ./");
+ $shell_output=exec('whoami')."@".exec('hostname').":".shell_exec("cd ".$module_obj->source_path." ; pwd ; git stash ; git stash clear ; git pull ; chmod 755 -R ./");
  // debug
  api_dump($shell_output);
  // alert
- if(strpos(strtolower($shell_output),"up-to-date")){api_alerts_add(api_text("settings_alert_updateScourceAlready"),"success");}
- elseif(strpos(strtolower($shell_output),"abort")){api_alerts_add(api_text("settings_alert_updatesSourceAborted"),"danger");}
- else{api_alerts_add(api_text("settings_alert_updateScourceUpdated"),"warning");}
+ if(strpos(strtolower($shell_output),"up-to-date")){api_alerts_add(api_text("settings_alert_moduleUpdateScourceAlready"),"success");}
+ elseif(strpos(strtolower($shell_output),"abort")){api_alerts_add(api_text("settings_alert_moduleUpdatesSourceAborted"),"danger");}
+ else{api_alerts_add(api_text("settings_alert_moduleUpdateScourceUpdated"),"warning");}
  // redirect
- api_redirect("?mod=settings&scr=updates_framework");
+ api_redirect("?mod=settings&scr=modules_list");
 }
 /**
- * Updates Database
+ * Module Updates Database
  */
-function update_database(){
+function module_update_database(){
  // disabled for localhost and 127.0.0.1
- if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_updatesGitLocalhost"),"warning");api_redirect("?mod=settings&scr=updates_framework");}
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdatesGitLocalhost"),"danger");api_redirect("?mod=settings&scr=modules_list");}
  /** @todo execute .sql file and update version in database */
  // alert
- api_alerts_add(api_text("settings_alert_updateDatabaseUpdated"),"success");
+ api_alerts_add(api_text("settings_alert_moduleUpdateDatabaseUpdated"),"success");
  // redirect
- api_redirect("?mod=settings&scr=updates_framework");
+ api_redirect("?mod=settings&scr=modules_list");
 }
 
 

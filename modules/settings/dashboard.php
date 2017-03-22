@@ -21,7 +21,7 @@
  $index.=api_link("?mod=settings&scr=users_list","<h3>Gestione Utenti</h3>")."<br>\n";
  $index.=api_link("?mod=settings&scr=groups_list","<h3>Gestione Gruppi</h3>")."<br>\n";
  $index.=api_link("?mod=settings&scr=sessions_list","<h3>Sessioni</h3>")."<br>\n";
- $index.=api_link("?mod=settings&scr=updates_framework","<h3>Aggiornamenti</h3>")."<br>\n";
+ $index.=api_link("?mod=settings&scr=modules_list","<h3>Gestione Moduli</h3>")."<br>\n";
  // build grid object
  $grid=new Grid();
  $grid->addRow();

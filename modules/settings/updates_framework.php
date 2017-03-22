@@ -1,6 +1,6 @@
 <?php
 /**
- * Settings - Update Git
+ * Settings - Update Framework
  *
  * @package Coordinator\Modules\Settings
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -12,26 +12,29 @@
  /** @todo check permissions */
  // set html title
  $html->setTitle(api_text("updates_framework"));
-
+ // get local version
+ $local_version=file_get_contents(ROOT."VERSION.txt");
  // get last released version from GitHub
  //$repository_version=file_get_contents("https://raw.githubusercontent.com/Zavy86/Coordinator-Framework/master/VERSION.txt");
- $repository_version="1.0.1";
+ $repository_version="1.0.2";
  /** ^ @todo modificare con url dopo il release della 1.0 */
-
- // check for update
- if($repository_version>$settings->version){
+ // check for source update
+ if(api_check_version($local_version,$repository_version)){
   // check for git
   if(file_exists(ROOT.".git/config")){
-   $repository_version.="&nbsp;&nbsp;&nbsp;".api_link("?mod=settings&scr=submit&act=updates_git",api_text("updates_framework-pull"),NULL,"btn btn-default btn-xs",FALSE,api_text("updates_framework-pull-confirm"));
+   $download_btn="&nbsp;&nbsp;&nbsp;".api_link("?mod=settings&scr=submit&act=update_source",api_text("updates_framework-pull"),NULL,"btn btn-success btn-xs",FALSE,api_text("updates_framework-pull-confirm"));
   }else{
-   $repository_version.="&nbsp;&nbsp;&nbsp;".api_link("https://github.com/Zavy86/Coordinator-Framework",api_text("updates_framework-link"),NULL,"btn btn-default btn-xs",FALSE,NULL,NULL,NULL,"_blank");
+   $download_btn="&nbsp;&nbsp;&nbsp;".api_link("https://github.com/Zavy86/Coordinator-Framework",api_text("updates_framework-link"),NULL,"btn btn-warning btn-xs",FALSE,NULL,NULL,NULL,"_blank");
   }
  }
-
+ // check for database update
+ if(api_check_version($settings->version,$local_version)){
+  $update_btn="&nbsp;&nbsp;&nbsp;".api_link("?mod=settings&scr=submit&act=update_database",api_text("updates_framework-update",$settings->version),NULL,"btn btn-warning btn-xs");
+ }
  // build description list
  $dl=new DescriptionList("br","dl-horizontal");
- $dl->addElement(api_text("updates_framework-version"),$settings->version);
- $dl->addElement(api_text("updates_framework-repository"),$repository_version);
+ $dl->addElement(api_text("updates_framework-repository"),$repository_version.$download_btn);
+ $dl->addElement(api_text("updates_framework-installed"),$local_version.$update_btn);
 
  // build grid object
  $grid=new Grid();

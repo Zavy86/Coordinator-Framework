@@ -26,7 +26,6 @@ CREATE TABLE IF NOT EXISTS `framework_settings` (
 --
 
 INSERT INTO `framework_settings` (`setting`, `value`) VALUES
-('version', '1.0.0'),
 ('maintenance', '0'),
 ('owner', 'Company name'),
 ('sendmail_asynchronous', '0'),
@@ -140,6 +139,32 @@ CREATE TABLE IF NOT EXISTS `framework_groups` (
 
 INSERT INTO `framework_groups` (`id`, `fkGroup`, `name`, `description`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`, `deleted`) VALUES
 (1, NULL, 'Administrators', 'Coordinator Administrators', 1483228800, 1, NULL, NULL, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `framework_modules`
+--
+
+CREATE TABLE IF NOT EXISTS `framework_modules` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `module` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `version` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `enabled` tinyint(1) unsigned NOT NULL,
+  `addTimestamp` int(11) unsigned NOT NULL,
+  `addFkUser` int(11) unsigned NOT NULL,
+  `updTimestamp` int(11) unsigned DEFAULT NULL,
+  `updFkUser` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `mail` (`module`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `framework_modules`
+--
+
+INSERT INTO `framework_modules` (`id`, `module`, `version`, `enabled`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`) VALUES
+(1, 'framework', '1.0.0', 1, 1483228800, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
