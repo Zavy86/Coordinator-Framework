@@ -49,12 +49,14 @@ class Module{
   $this->updTimestamp=$module->updTimestamp;
   $this->updFkUser=$module->updFkUser;
   $this->enabled=(bool)$module->enabled;
+  // load localization
+  $GLOBALS['localization']->load($this->module);
   // make name and description
   $this->name=api_text($module->module);
   $this->description=api_text($module->module."-description");
   // get source version
-  $this->source_path=ROOT."modules/".$module->module."/";
-  if($module->module=="framework"){$this->source_path=ROOT;}
+  $this->source_path=ROOT."modules/".$this->module."/";
+  if($this->module=="framework"){$this->source_path=ROOT;}
   $this->source_version=file_get_contents($this->source_path."VERSION.txt");
   return TRUE;
  }
