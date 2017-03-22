@@ -1,6 +1,6 @@
 <?php
 /**
- * Settings - Framework
+ * Framework - Framework
  *
  * @package Rasmotic\Modules\Settings
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>

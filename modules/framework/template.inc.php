@@ -1,6 +1,6 @@
 <?php
 /**
- * Settings - Template
+ * Framework - Template
  *
  * @package Rasmotic\Modules\Settings
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -75,6 +75,7 @@
  // modules
  if(substr(SCRIPT,0,7)=="modules"){
   $nav->addItem(api_text("modules_list"),"?mod=framework&scr=modules_list");
+  $nav->addItem(api_text("modules_add"),"?mod=framework&scr=modules_add");
  }
 
  // add nav to html

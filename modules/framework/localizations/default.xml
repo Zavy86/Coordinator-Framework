@@ -266,23 +266,6 @@
  <text key="sessions_list-td-terminate">Termina sessione</text>
  <text key="sessions_list-td-terminate-confirm">Confermi di voler terminare questa sessione?</text>
 
- <!-- updates_framework -->
- <text key="updates_framework">Aggiornamento framework</text>
-
- <text key="updates_framework-repository">Versione rilasciata</text>
- <text key="updates_framework-installed">Versione installata</text>
-
- <text key="updates_framework-pull">Ottieni</text>
- <text key="updates_framework-pull-confirm">Confermi di voler eseguire il download dell'aggiornamento tramite Git?</text>
-
- <text key="updates_framework-update">Aggiorna da {0}</text>
-
- <!-- updates_modules -->
- <text key="updates_modules">Aggiornamento moduli</text>
- <text key="updates_modules-tr-unvalued">Non sono presenti moduli da mostrare..</text>
- <text key="updates_modules-th-name">Modulo</text>
- <text key="updates_modules-th-description">Descrizione</text>
-
  <!-- modules_list -->
  <text key="modules_list">Moduli</text>
  <text key="modules_list-tr-unvalued">Non sono presenti moduli da mostrare..</text>
@@ -294,5 +277,15 @@
  <text key="modules_list-td-update_source">Ottieni tramite Git</text>
  <text key="modules_list-td-update_source-confirm">Confermi di voler eseguire il download dell'aggiornamento tramite Git?</text>
  <text key="modules_list-td-update_source-manual">Aggiorna manualmente</text>
+
+ <!-- modules_add -->
+ <text key="modules_add">Nuovo modulo</text>
+ <text key="modules_add-url">URL Modulo</text>
+ <text key="modules_add-url-placeholder">https://github.com/Zavy86/Coordinator-Framework.git</text>
+ <text key="modules_add-method">Metodo</text>
+ <text key="modules_add-method-git">Git</text>
+ <text key="modules_add-method-zip">Zip</text>
+ <text key="modules_add-submit">Installa</text>
+ <text key="modules_add-cancel">Annulla</text>
 
 </locale>

@@ -1,8 +1,8 @@
 <?php
 /**
- * Settings - Users Edit
+ * Framework - Users Edit
  *
- * @package Coordinator\Modules\Settings
+ * @package Coordinator\Modules\Framework
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
