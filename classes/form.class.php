@@ -284,7 +284,7 @@ class Form{
      // cycle all field options
      foreach($field->options_array as $option_id=>$option){
       $return.=$split_identation."   ";
-      if(!strpos($field->class,"-inline")){$return.="<div class=\"".$field->typology." ".$field->class."\">";}
+      if(!is_int(strpos($field->class,"-inline"))){$return.="<div class=\"".$field->typology." ".$field->class."\">";}
       $return.="<label class=\"".$field->class."\"><input type=\"".$field->typology."\" name=\"".$field->name."\" value=\"".$option->value."\"";
       if($option->value==$field->value){$return.=" checked=\"checked\"";}
       if($option->class){$return.=" class=\"".$option->class."\"";}
@@ -292,7 +292,7 @@ class Form{
       if($option->tags){$return.=" ".$option->tags;}
       if(!$option->enabled){$return.=" disabled=\"disabled\"";}
       $return.=" id=\"".$this->id."_input_".$field->name."_option_".$option_id."\">".$option->label."</label>";
-      if(!strpos($field->class,"-inline")){$return.="</div>\n";}else{$return.="\n";}
+      if(!is_int(strpos($field->class,"-inline"))){$return.="</div>\n";}else{$return.="\n";}
      }
      break;
     // select box

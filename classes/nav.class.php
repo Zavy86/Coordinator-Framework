@@ -17,6 +17,8 @@ class Nav{
  protected $title;
  /** @var string $class CSS class */
  protected $class;
+ /** @var string $container Renderize container */
+ protected $container;
  /** @var string $navs_array Array of items */
  protected $items_array;
  /** @var integer $current_item Current item index */
@@ -32,11 +34,13 @@ class Nav{
  /**
   * Nav class
   *
-  * @param string $class CSS class (nav-tabs|nav-pills)
+  * @param string $class CSS class ( nav-tabs | nav-pills | nav-stacked )
+  * @param boolean $container Renderize container
   * @return boolean
   */
- public function __construct($class="nav-tabs"){
+ public function __construct($class="nav-tabs",$container=TRUE){
   $this->class=$class;
+  $this->container=$container;
   $this->current_nav=0;
   $this->current_item=0;
   $this->items_array=array();
@@ -150,60 +154,69 @@ class Nav{
    else{$min_width+=(strlen($item->label)*7)+32;}
   }
   // renderize nav
-  $return="<!-- nav container -->\n";
-  $return.="<div class='container'>\n";
-  $return.=" <!-- nav-responsive -->\n";
-  $return.=" <div class='nav-responsive'>\n";
-  $return.="  <!-- nav -->\n";
-  $return.="  <ul class='nav ".$this->class."' style=\"min-width:".$min_width."px;\">\n";
+  $return=NULL;
+  // check for container
+  if($this->container){
+   $return.="<!-- nav container -->\n";
+   $return.="<div class='container'>\n";
+   $return.=" <!-- nav-responsive -->\n";
+   $return.=" <div class='nav-responsive'>\n";
+   $ident="  ";
+  }
+  $return.=$ident."<!-- nav -->\n";
+  $return.=$ident."<ul class='nav ".$this->class."' style=\"min-width:".$min_width."px;\">\n";
   // title
-  if($this->title){$return.="   <li class='title'>".$this->title."</li>\n";}
+  if($this->title){$return.=$ident." <li class='title'>".$this->title."</li>\n";}
   // cycle all items
   foreach($this->items_array as $item){
    // check for active
    $active=FALSE;
    if($item->urlParsed->query_array['mod']==MODULE && $item->urlParsed->query_array['scr']==SCRIPT){$active=TRUE;}
-   if(is_int(strpos("nav-pills",$this->class)) && defined('TAB') && $item->urlParsed->query_array['tab']!=TAB){$active=FALSE;}
+   if(is_int(strpos($this->class,"nav-pills")) && defined('TAB') && $item->urlParsed->query_array['tab']!=TAB){$active=FALSE;}
    if(count($item->subItems_array)){
     foreach($item->subItems_array as $subItem){
      if($subItem->urlParsed->query_array['mod']==MODULE && $subItem->urlParsed->query_array['scr']==SCRIPT){$active=TRUE;}
-     if(is_int(strpos("nav-pills",$this->class)) && defined('TAB') && $subItem->urlParsed->query_array['tab']!=TAB){$active=FALSE;}
+     if(is_int(strpos($this->class,"nav-pills")) && defined('TAB') && $subItem->urlParsed->query_array['tab']!=TAB){$active=FALSE;}
     }
    }
    // lock url if active or disabled
    if($active||!$item->enabled){$item->url="#";}
    // check for sub items
    if(!count($item->subItems_array)){
-    $return.="   <li class='".($active?"active ":NULL).($item->enabled?NULL:"disabled ").$item->class."'><a href=\"".$item->url."\">".$item->label."</a></li>\n";
+    $return.=$ident." <li class='".($active?"active ":NULL).($item->enabled?NULL:"disabled ").$item->class."'><a href=\"".$item->url."\">".$item->label."</a></li>\n";
    }else{
-    $return.="   <li class='dropdown ".($active?"active ":NULL).($item->enabled?NULL:"disabled ").$item->class."'>\n";
-    $return.="    <a href='#' class='dropdown-toggle ".$item->class."' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>".$item->label." <span class='caret'></span></a>\n";
-    $return.="    <ul class='dropdown-menu ".$item->class."'>\n";
+    $return.=$ident." <li class='dropdown ".($active?"active ":NULL).($item->enabled?NULL:"disabled ").$item->class."'>\n";
+    $return.=$ident."  <a href='#' class='dropdown-toggle ".$item->class."' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>".$item->label." <span class='caret'></span></a>\n";
+    $return.=$ident."  <ul class='dropdown-menu ".$item->class."'>\n";
     // cycle all sub items
     foreach($item->subItems_array as $subItem){
      // check for sub active
      /*$sub_active=FALSE;
      if($subItem->urlParsed->query_array['mod']==MODULE && $subItem->urlParsed->query_array['scr']==SCRIPT){$sub_active=TRUE;}
-     if(is_int(strpos("nav-pills",$this->class)) && defined('TAB') && $subItem->urlParsed->query_array['tab']!=TAB){$sub_active=FALSE;}*/
+     if(is_int(strpos($this->class,"nav-pills")) && defined('TAB') && $subItem->urlParsed->query_array['tab']!=TAB){$sub_active=FALSE;}*/
      // lock url if disabled
-     if($sub_active||!$subItem->enabled){$subItem->url="#";}
+     //if($sub_active||!$subItem->enabled){$subItem->url="#";}
+     if(!$subItem->enabled){$subItem->url="#";}
      // switch sub item typology
      switch($subItem->typology){
-      case "item":$return.="     <li class=\""./*($sub_active?"active ":NULL).*/($subItem->enabled?NULL:"disabled ").$subItem->class."\"><a href=\"".$subItem->url."\"".($subItem->confirm?" onClick=\"return confirm('".addslashes($subItem->confirm)."')\"":NULL).">".$subItem->label."</a></li>\n";break;
-      case "separator":$return.="     <li class=\"divider ".$subItem->class."\" role=\"separator\"><a href=\"".$subItem->url."\">".$subItem->label."</a></li>\n";break;
-      case "header":$return.="     <li class=\"dropdown-header".$subItem->class."\">".$subItem->label."</li>\n";break;
+      case "item":$return.=$ident."   <li class=\""./*($sub_active?"active ":NULL).*/($subItem->enabled?NULL:"disabled ").$subItem->class."\"><a href=\"".$subItem->url."\"".($subItem->confirm?" onClick=\"return confirm('".addslashes($subItem->confirm)."')\"":NULL).">".$subItem->label."</a></li>\n";break;
+      case "separator":$return.=$ident."   <li class=\"divider ".$subItem->class."\" role=\"separator\"><a href=\"".$subItem->url."\">".$subItem->label."</a></li>\n";break;
+      case "header":$return.=$ident."   <li class=\"dropdown-header".$subItem->class."\">".$subItem->label."</li>\n";break;
      }
     }
-    $return.="    </ul><!-- dropdown -->\n";
-    $return.="   </li>\n";
+    $return.=$ident."  </ul><!-- dropdown -->\n";
+    $return.=$ident." </li>\n";
    }
   }
   // renderize closures
-  $return.="  </ul><!-- /nav -->\n";
-  $return.=" </div><!-- /nav-responsive -->\n";
-  if(is_int(strpos("nav-tabs",$this->class))){$return.="<br>\n";}
-  if(is_int(strpos("nav-pills",$this->class))){$return.="<div class='row'><div class='col-xs-12'><hr></div></div>\n";}
-  $return.="</div><!-- /container -->\n\n";
+  $return.=$ident."</ul><!-- /nav -->\n";
+  // check for container
+  if($this->container){
+   $return.=" </div><!-- /nav-responsive -->\n";
+   if(is_int(strpos($this->class,"nav-tabs"))){$return.="<br><!-- line break -->\n";}
+   if(is_int(strpos($this->class,"nav-pills"))){$return.="<!-- thematic break -->\n<div class='row'><div class='col-xs-12'><hr></div></div>\n";}
+   $return.="</div><!-- /container -->\n\n";
+  }
   // echo or return
   if($echo){echo $return;return TRUE;}else{return $return;}
  }
