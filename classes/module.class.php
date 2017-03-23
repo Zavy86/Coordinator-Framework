@@ -17,12 +17,14 @@ class Module{
  protected $version;
  protected $enabled;
  protected $name;
+ protected $description;
  protected $addTimestamp;
  protected $addFkUser;
  protected $updTimestamp;
  protected $updFkUser;
  protected $source_path;
  protected $source_version;
+ protected $authorizations_array;
 
  /**
   * Debug
@@ -58,6 +60,10 @@ class Module{
   $this->source_path=ROOT."modules/".$this->module."/";
   if($this->module=="framework"){$this->source_path=ROOT;}
   $this->source_version=file_get_contents($this->source_path."VERSION.txt");
+  // get authorizations
+  $this->authorizations_array=array();
+  $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_modules_authorizations` WHERE `module`='".$this->module."'"); /** @todo in che ordine?? ORDER BY `action` */
+  foreach($authorizations_results as $authorization){$this->authorizations_array[$authorization->id]=New authorization($authorization);}
   return TRUE;
  }
 
