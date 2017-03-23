@@ -8,8 +8,8 @@
  */
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // check permissions
- /** @todo check permissions */
+ // check authorizations
+ /** @todo check authorizations */
  // get objects
  $group=new Group($_REQUEST['idGroup']);
  // set html title

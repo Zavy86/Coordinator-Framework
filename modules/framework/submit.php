@@ -526,8 +526,8 @@ function module_update_source(){
  // debug
  api_dump($shell_output);
  // alert
- if(strpos(strtolower($shell_output),"up-to-date")){api_alerts_add(api_text("settings_alert_moduleUpdateScourceAlready"),"success");}
- elseif(strpos(strtolower($shell_output),"abort")){api_alerts_add(api_text("settings_alert_moduleUpdatesSourceAborted"),"danger");}
+ if(is_int(strpos(strtolower($shell_output),"up-to-date"))){api_alerts_add(api_text("settings_alert_moduleUpdateScourceAlready"),"success");}
+ elseif(is_int(strpos(strtolower($shell_output),"abort"))){api_alerts_add(api_text("settings_alert_moduleUpdatesSourceAborted"),"danger");}
  else{api_alerts_add(api_text("settings_alert_moduleUpdateScourceUpdated"),"warning");}
  // redirect
  api_redirect("?mod=framework&scr=modules_list");

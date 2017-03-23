@@ -8,8 +8,8 @@
  */
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // check permissions
- /** @todo check permissions */
+ // check authorizations
+ /** @todo check authorizations */
  // set html title
  $html->setTitle(api_text("users_view"));
  // get objects
@@ -39,7 +39,7 @@
  $groups_table=new Table(api_text("users_add-groups_table-tr-unvalued"));
  $groups_table->addHeader("&nbsp;",NULL,16);
  $groups_table->addHeader(api_text("users_add-groups_table-th-name"),"nowrap","100%");
- if(1){$groups_table->addHeader("&nbsp;",NULL,16);} /** @todo check permission */
+ if(1){$groups_table->addHeader("&nbsp;",NULL,16);} /** @todo check authorization */
  // cycle user groups
  foreach($user->groups_array as $group){
   // make delete and mainize td
@@ -48,7 +48,7 @@
    $mainize_td=api_icon("fa-star",api_text("users_add-groups_table-td-main"));
    if(count($user->groups_array)>1){$delete_td=NULL;}
   }else{
-   /** @todo check permission */
+   /** @todo check authorization */
    if(!(1)){$mainize_td=api_icon("fa-star-o");}
    else{$mainize_td=api_link("?mod=framework&scr=submit&act=user_group_mainize&idUser=".$user->id."&idGroup=".$group->id,api_icon("fa-star-o",api_text("users_add-groups_table-td-mainize"),"hidden-link"),NULL,NULL,FALSE,api_text("users_add-groups_table-td-mainize-confirm"));}
   }
@@ -56,7 +56,7 @@
   $groups_table->addRow();
   $groups_table->addRowField($mainize_td);
   $groups_table->addRowField(api_link("?mod=framework&scr=groups_view&idGroup=".$group->id,$group->fullname,NULL,"hidden-link",FALSE,NULL,NULL,NULL,"_blank"),"truncate-ellipsis");
-  if(1){$groups_table->addRowField($delete_td);} /** @todo check permission */
+  if(1){$groups_table->addRowField($delete_td);} /** @todo check authorization */
  }
  // check for action group_add
  if(ACTION=="group_add"){

@@ -35,11 +35,11 @@
    $nav->addItem(api_text("nav-operations"),NULL,"active");
    // users view operations
    if(in_array(SCRIPT,array("users_view"))){
-    if(1){ /** @todo check administrators permission */
+    if(1){ /** @todo check administrators authorization */
      $nav->addSubItem(api_text("nav-operations-user_interpret"),"?mod=framework&scr=submit&act=user_interpret&idUser=".$_REQUEST['idUser'],NULL,api_text("nav-operations-user_interpret-confirm"));
      $nav->addSubSeparator();
     }
-    /** @todo check permissions */
+    /** @todo check authorizations */
     $nav->addSubItem(api_text("nav-operations-user_edit"),"?mod=framework&scr=users_edit&idUser=".$_REQUEST['idUser']);
     $nav->addSubItem(api_text("nav-operations-user_group_add"),"?mod=framework&scr=users_view&idUser=".$_REQUEST['idUser']."&act=group_add");
    }
@@ -75,6 +75,7 @@
  // modules
  if(substr(SCRIPT,0,7)=="modules"){
   $nav->addItem(api_text("modules_list"),"?mod=framework&scr=modules_list");
+  $nav->addItem(api_text("modules_authorizations"),"?mod=framework&scr=modules_authorizations&tab=framework");
   $nav->addItem(api_text("modules_add"),"?mod=framework&scr=modules_add");
  }
 

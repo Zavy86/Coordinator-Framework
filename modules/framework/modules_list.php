@@ -8,8 +8,8 @@
  */
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // check permissions
- /** @todo check permissions */
+ // check authorizations
+ /** @todo check authorizations */
  // set html title
  $html->setTitle(api_text("modules_list"));
  // build grid object
@@ -22,10 +22,10 @@
  $table->addHeader("&nbsp;",NULL,16);
  // get module objects
  $modules_array=array();
- $modules_array[]=new Module("framework");
- $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_modules` ORDER BY `module`");
- foreach($modules_results as $module){$modules_array[$module->id]=new Module($module);}
- // cycle all users
+ $modules_array["framework"]=new Module("framework");
+ $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_modules` WHERE `module`!='framework' ORDER BY `module`");
+ foreach($modules_results as $module){$modules_array[$module->module]=new Module($module);}
+ // cycle all modules
  foreach($modules_array as $module){
   // get last released version from GitHub
   //$repository_version=file_get_contents("https://raw.githubusercontent.com/Zavy86/Coordinator-Framework/master/VERSION.txt");
@@ -52,7 +52,7 @@
 
   //
   $table->addRow();
-  $table->addRowField(api_link("?mod=framework&scr=modules_view&idUser=".$module->id,api_icon("search",api_text("show"))));
+  $table->addRowField(api_link("?mod=framework&scr=modules_view&module=".$module->module,api_icon("search",api_text("show"))));
   $table->addRowField($module->name,"nowrap");
   $table->addRowField(api_tag("span",$module->version,"label ".($source_updated?"label-warning":"label-default")),"nowrap text-right");
   $table->addRowField(api_tag("span",$repository_version,"label ".($repository_updated?"label-success":"label-default")),"nowrap text-right");

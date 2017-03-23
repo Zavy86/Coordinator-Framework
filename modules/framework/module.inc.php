@@ -8,5 +8,5 @@
  */
  $module_name="settings";
  //$module_default_script="settings_framework";
- $module_default_tab="general";
+ //$module_default_tab="general";
 ?>
