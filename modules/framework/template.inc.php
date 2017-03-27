@@ -74,9 +74,32 @@
 
  // modules
  if(substr(SCRIPT,0,7)=="modules"){
+  // lists
   $nav->addItem(api_text("modules_list"),"?mod=framework&scr=modules_list");
-  $nav->addItem(api_text("modules_authorizations"),"?mod=framework&scr=modules_authorizations&tab=framework");
-  $nav->addItem(api_text("modules_add"),"?mod=framework&scr=modules_add");
+  // module operations
+  if(in_array(SCRIPT,array("modules_view")) && $_REQUEST['module']){
+   $nav->addItem(api_text("nav-operations"),NULL,"active");
+   // get module object
+   $module_obj=new Module($_REQUEST['module']);
+   // check enabled
+   if($module_obj->enabled){$nav->addSubItem(api_text("nav-operations-module_disable"),"?mod=framework&scr=submit&act=xxx&module=".$_REQUEST['module'],NULL,api_text("nav-operations-module_disable-confirm"));}
+   else{$nav->addSubItem(api_text("nav-operations-module_enable"),"?mod=framework&scr=submit&act=xxx&module=".$_REQUEST['module']);}
+   // authorizations
+   if(count($module_obj->authorizations_array)){
+    $nav->addSubSeparator();
+    $nav->addSubHeader(api_text("nav-operations-module_authorizations"));
+    $nav->addSubItem(api_text("nav-operations-module_authorizations_group_add"),"?mod=framework&scr=modules_view&act=module_authorizations_group_add&module=".$_REQUEST['module']);
+    $nav->addSubItem(api_text("nav-operations-module_authorizations_reset"),"?mod=framework&scr=submit&act=module_authorizations_reset&module=".$_REQUEST['module'],NULL,api_text("nav-operations-module_authorizations_reset-confirm"));
+   }
+  }else{
+
+   // add module
+   $nav->addItem(api_text("modules_add"),"?mod=framework&scr=modules_add");
+
+   /** @todo decidere se tenere (mi sa di no) */
+   $nav->addItem(api_text("modules_authorizations"),"?mod=framework&scr=modules_authorizations&tab=framework");
+   
+  }
  }
 
  // add nav to html
