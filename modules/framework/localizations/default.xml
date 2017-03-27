@@ -3,7 +3,7 @@
 <locale>
 
  <!-- framework -->
- <text key="framework">Coordinator</text>
+ <text key="framework">Framework</text>
  <text key="framework-description">Coordinator framework</text>
 
  <!-- authorizations -->
@@ -62,6 +62,15 @@
  <text key="nav-operations-user_group_add">Aggiungi gruppo</text>
  <text key="nav-operations-user_interpret">Interpreta utente</text>
  <text key="nav-operations-user_interpret-confirm">Confermi di voler interpretare questo utente?</text>
+
+ <text key="nav-operations-module_enable">Abilita modulo</text>
+ <text key="nav-operations-module_disable">Disabilita modulo</text>
+ <text key="nav-operations-module_disable-confirm">Confermi di voler disabilitare questo modulo?</text>
+
+ <text key="nav-operations-module_authorizations">Autorizzazioni</text>
+ <text key="nav-operations-module_authorizations_group_add">Aggiungi gruppo</text>
+ <text key="nav-operations-module_authorizations_reset">Reset</text>
+ <text key="nav-operations-module_authorizations_reset-confirm">Confermi di voler eliminare tutti gruppi dalle autorizzazioni?</text>
 
  <!-- settings_framework -->
  <text key="settings_framework">Impostazioni Framework</text>
@@ -291,12 +300,35 @@
  <text key="modules_list-td-update_source-confirm">Confermi di voler eseguire il download dell'aggiornamento tramite Git?</text>
  <text key="modules_list-td-update_source-manual">Aggiorna manualmente</text>
 
+ <!-- modules_view -->
+ <text key="modules_view">Modulo {0}</text>
+ <text key="modules_view-dt-name">Modulo</text>
+ <text key="modules_view-dt-description">Descrizione</text>
+ <text key="modules_view-dt-version">Versione</text>
+ <text key="modules_view-dd-version-repository_update">Aggiornamento disponibile {0}</text>
+ <text key="modules_view-dd-version-source_update">Aggiornamento database necessario</text>
+ <text key="modules_view-dt-status">Stato</text>
+ <text key="modules_view-dd-enabled">Abilitato</text>
+ <text key="modules_view-dd-disabled">Disabilitato</text>
+ <text key="modules_view-authorizations-tr-unvalued">Non sono presenti autorizzazioni da mostrare..</text>
+ <text key="modules_view-authorizations-th-authorization">Autorizzazione</text>
+ <text key="modules_view-authorizations-th-groups">Gruppi abilitati</text>
+ <text key="modules_view-authorizations-td-groups-none">Nessun gruppo abilitato..</text>
+ <text key="modules_view-authorizations-td-delete">Rimuovi gruppo</text>
+ <text key="modules_view-authorizations-td-delete-confirm">Confermi di voler rimuovere questo gruppo dall'autorizzazione?</text>
+
+ <text key="modules_view-authorizations_modal-title">Aggiungi un gruppo alle autorizzazioni</text>
+ <text key="modules_view-authorizations_modal-ff-group">Gruppo</text>
+ <text key="modules_view-authorizations_modal-ff-group-placeholder">Seleziona un gruppo..</text>
+ <text key="modules_view-authorizations_modal-ff-authorizations">Autorizzazioni</text>
+ <text key="modules_view-authorizations_modal-fc-submit">Salva</text>
+ <text key="modules_view-authorizations_modal-fc-cancel">Annulla</text>
+
  <!-- modules_authorizations -->
  <text key="modules_authorizations">Permessi</text>
  <text key="modules_authorizations-tr-unvalued">Non sono presenti autorizzazioni da mostare..</text>
  <text key="modules_authorizations-th-authorization">Autorizzazione</text>
  <text key="modules_authorizations-th-groups">Gruppi abilitati</text>
-
 
  <!-- modules_add -->
  <text key="modules_add">Nuovo modulo</text>

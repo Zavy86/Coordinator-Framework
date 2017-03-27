@@ -52,6 +52,10 @@ a i.glyphicon{
  color:#333333;
 }
 
+a.hidden-link{
+ text-decoration:none;
+}
+
 .control-label{
  font-weight:normal;
 }
@@ -126,4 +130,14 @@ footer{
 
 .dl-horizontal dd{
  margin-left:195px;
+}
+
+span.disabled{
+ color:#666666;
+}
+
+form label{
+ overflow:hidden;
+ white-space:nowrap;
+ text-overflow:ellipsis;
 }

@@ -30,7 +30,7 @@
  $dl->addElement(api_text("users_view-mail"),$user->mail);
  $dl->addElement(api_text("users_view-localization"),$localization->available_localizations[$user->localization]);
  $dl->addElement(api_text("users_view-timezone"),$user->timezone);
- // build comapnies table
+ // build companies table
  $companies_table=new Table(api_text("users_add-companies-unvalued"));
  $companies_table->addHeader(api_text("users_add-companies-th-company"));
  $companies_table->addHeader(api_text("users_add-companies-th-level"));
