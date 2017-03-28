@@ -20,6 +20,20 @@
   $nav->addItem(api_text("settings_framework"),"?mod=framework&scr=settings_framework");
  }
 
+ // menus
+ if(substr(SCRIPT,0,5)=="menus"){
+  // lists
+  $nav->addItem(api_text("menus_list"),"?mod=framework&scr=menus_list");
+  // menu edit
+  if(in_array(SCRIPT,array("menus_edit")) && $_REQUEST['idMenu']){
+   $nav->addItem(api_text("nav-operations"));
+   $nav->addSubItem(api_text("menus_edit"),"?mod=framework&scr=menus_edit&idMenu=".$_REQUEST['idMenu']);
+  }else{
+   // menu add
+   $nav->addItem(api_text("menus_add"),"?mod=framework&scr=menus_edit");
+  }
+ }
+
  // own
  if(substr(SCRIPT,0,3)=="own"){
   $nav->addItem(api_text("own_profile"),"?mod=framework&scr=own_profile");

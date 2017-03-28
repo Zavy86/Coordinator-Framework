@@ -63,7 +63,7 @@
   // build group add form
   $group_add_form=new Form("?mod=framework&scr=submit&act=user_group_add&idUser=".$user->id,"POST",NULL,"users_add-groups_modal");
   $group_add_form->addField("select","fkGroup",api_text("users_add-groups_modal-ff-group"),NULL,api_text("users_add-groups_modal-ff-group-placeholder"),NULL,NULL,NULL,"required");
-  api_tree_to_array($groups_array,"api_settings_groups","id");
+  api_tree_to_array($groups_array,"api_framework_groups","id");
   foreach($groups_array as $group_option){$group_add_form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->fullname);}
   $group_add_form->addControl("submit",api_text("users_add-groups_modal-fc-submit"));
   $group_add_form->addControl("button",api_text("users_add-groups_modal-fc-cancel"),"#",NULL,NULL,NULL,"data-dismiss='modal'");

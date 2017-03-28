@@ -13,11 +13,18 @@ switch(ACTION){
  // settings
  case "settings_framework":settings_framework();break;
 
+ // menus
+ case "menu_save":menu_save();break;
+
  // users old
  case "user_login":user_login();break;
  case "user_logout":user_logout();break;
  case "user_recovery":user_recovery();break;
  /** @todo ^ check */
+
+ // own
+ case "own_profile_update":own_profile_update();break;
+ case "own_password_update":own_password_update();break;
 
  // users
  case "user_add":user_add();break;
@@ -26,10 +33,6 @@ switch(ACTION){
  case "user_undelete":user_deleted(FALSE);break;
  case "user_group_add":user_group_add();break;
  case "user_group_remove":user_group_remove();break;
-
- // own
- case "own_profile_update":own_profile_update();break;
- case "own_password_update":own_password_update();break;
 
  // groups
  case "group_save":group_save();break;
@@ -106,6 +109,84 @@ function settings_framework(){
  api_redirect("?mod=framework&scr=settings_framework&tab=".$r_tab);
 }
 
+/**
+ * Menu Save
+ */
+function menu_save(){
+ // get menu object
+ $menu_obj=new Menu($_REQUEST['idMenu']);
+ // acquire variables
+ $r_fkMenu=$_REQUEST['fkMenu'];
+ $r_typology=$_REQUEST['typology'];
+ $r_label=$_REQUEST['label'];
+ $r_title=$_REQUEST['title'];
+ $r_url=$_REQUEST['url'];
+ $r_module=$_REQUEST['module'];
+ $r_script=$_REQUEST['script'];
+ $r_tab=$_REQUEST['tab'];
+ $r_action=$_REQUEST['action'];
+ $r_target=$_REQUEST['target'];
+ // build menu query objects
+ $menu_qobj=new stdClass();
+ $menu_qobj->id=$menu_obj->id;
+ $menu_qobj->fkMenu=$r_fkMenu;
+  // switch menu typology
+ switch($r_typology){
+  // link
+  case "link":
+   $menu_qobj->label=$r_label;
+   $menu_qobj->title=$r_title;
+   $menu_qobj->url=$r_url;
+   $menu_qobj->module=NULL;
+   $menu_qobj->script=NULL;
+   $menu_qobj->tab=NULL;
+   $menu_qobj->action=NULL;
+   $menu_qobj->target=NULL;
+   break;
+  // module
+  case "module":
+   $menu_qobj->label="{".$r_module."}";
+   $menu_qobj->title="{".$r_module."-description}";
+   $menu_qobj->url=NULL;
+   $menu_qobj->module=$r_module;
+   $menu_qobj->script=$r_script;
+   $menu_qobj->tab=$r_tab;
+   $menu_qobj->action=$r_action;
+   $menu_qobj->target=$r_target;
+   break;
+ }
+ // make order
+ if(!$menu_obj->id || $menu_qobj->fkMenu<>$menu_obj->fkMenu){
+  if($menu_qobj->fkMenu){$order_query_where="`fkMenu`='".$menu_qobj->fkMenu."'";}else{$order_query_where="`fkMenu` IS NULL";}
+  $v_order=$GLOBALS['database']->queryUniqueValue("SELECT `order` FROM `framework_menus` WHERE ".$order_query_where." ORDER BY `order` DESC");
+  $menu_qobj->order=($v_order+1);
+ }
+ // debug
+ api_dump($menu_qobj);
+ // check menu
+ if($menu_obj->id){
+  // update menu
+  $menu_qobj->updTimestamp=time();
+  $menu_qobj->updFkUser=$GLOBALS['session']->user->id;
+  $GLOBALS['database']->queryUpdate("framework_menus",$menu_qobj);
+  // check if parent menu is changed
+  if($menu_qobj->fkMenu<>$menu_obj->fkMenu){
+   // rebase other menus
+   if($menu_obj->fkMenu){$order_query_where="`fkMenu`='".$menu_obj->fkMenu."'";}else{$order_query_where="`fkMenu` IS NULL";}
+   api_dump("UPDATE `framework_menus` SET `order`=`order`-'1' WHERE `order`>'".$menu_obj->order."' AND ".$order_query_where." ORDER BY `order` ASC");
+   $GLOBALS['database']->queryExecute("UPDATE `framework_menus` SET `order`=`order`-'1' WHERE `order`>'".$menu_obj->order."' AND ".$order_query_where." ORDER BY `order` ASC");
+  }
+  api_alerts_add(api_text("settings_alert_menuUpdated"),"success");
+ }else{
+  // insert menu
+  $menu_qobj->addTimestamp=time();
+  $menu_qobj->addFkUser=$GLOBALS['session']->user->id;
+  $GLOBALS['database']->queryInsert("framework_menus",$menu_qobj);
+  api_alerts_add(api_text("settings_alert_menuCreated"),"success");
+ }
+ // redirect
+ api_redirect("?mod=framework&scr=menus_list");
+}
 
 
 
@@ -211,6 +292,66 @@ function user_recovery(){
 
 
 
+/**
+ * Own Profile Update
+ */
+function own_profile_update(){
+ // build user objects
+ $user=new stdClass();
+ $user->id=$GLOBALS['session']->user->id;
+ // acquire variables
+ $user->firstname=$_REQUEST['firstname'];
+ $user->lastname=$_REQUEST['lastname'];
+ $user->localization=$_REQUEST['localization'];
+ $user->timezone=$_REQUEST['timezone'];
+ $user->updTimestamp=time();
+ $user->updFkUser=$GLOBALS['session']->user->id;
+ // debug
+ api_dump($user);
+ // update user
+ $GLOBALS['database']->queryUpdate("framework_users",$user);
+ // upload avatar
+ if(intval($_FILES['avatar']['size'])>0 && $_FILES['avatar']['error']==UPLOAD_ERR_OK){
+  if(!is_dir(ROOT."uploads/framework/users")){mkdir(ROOT."uploads/framework/users",0777,TRUE);}
+  if(file_exists(ROOT."uploads/framework/users/avatar_".$user->id.".jpg")){unlink(ROOT."uploads/framework/users/avatar_".$user->id.".jpg");}
+  if(is_uploaded_file($_FILES['avatar']['tmp_name'])){move_uploaded_file($_FILES['avatar']['tmp_name'],ROOT."uploads/framework/users/avatar_".$user->id.".jpg");}
+ }
+ // redirect
+ api_alerts_add(api_text("settings_alert_ownProfileUpdated"),"success");
+ api_redirect("?mod=framework&scr=own_profile");
+}
+/**
+ * Own Password Update
+ */
+function own_password_update(){
+ // retrieve user object
+ $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_users` WHERE `id`='".$GLOBALS['session']->user->id."'",$GLOBALS['debug']);
+ // check
+ if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect(DIR."index.php");}
+ // acquire variables
+ $r_password=$_REQUEST['password'];
+ $r_password_new=$_REQUEST['password_new'];
+ $r_password_confirm=$_REQUEST['password_confirm'];
+ // check old password
+ if(md5($r_password)!==$user_obj->password){api_alerts_add(api_text("settings_alert_ownPasswordIncorrect"),"danger");api_redirect("?mod=framework&scr=own_password");}
+ // check new password
+ if($r_password_new!==$r_password_confirm){api_alerts_add(api_text("settings_alert_ownPasswordNotMatch"),"danger");api_redirect("?mod=framework&scr=own_password");}
+ if(strlen($r_password_new)<8){api_alerts_add(api_text("settings_alert_ownPasswordWeak"),"danger");api_redirect("?mod=framework&scr=own_password");}
+ // check if new password is equal to oldest password
+ if(md5($r_password_new)===$user_obj->password){api_alerts_add(api_text("settings_alert_ownPasswordOldest"),"danger");api_redirect("?mod=framework&scr=own_password");}
+ // build user objects
+ $user=new stdClass();
+ $user->id=$user_obj->id;
+ $user->password=md5($r_password_new);
+ $user->pwdTimestamp=time();
+ // debug
+ api_dump($user);
+ // insert user to database
+ $GLOBALS['database']->queryUpdate("framework_users",$user);
+ // redirect
+ api_alerts_add(api_text("settings_alert_ownPasswordUpdated"),"success");
+ api_redirect("?mod=framework&scr=own_profile");
+}
 
 /**
  * User Add
@@ -360,67 +501,6 @@ function user_group_remove(){
  // redirect
  api_alerts_add(api_text("settings_alert_userGroupRemoved"),"warning");
  api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
-}
-
-/**
- * Own Profile Update
- */
-function own_profile_update(){
- // build user objects
- $user=new stdClass();
- $user->id=$GLOBALS['session']->user->id;
- // acquire variables
- $user->firstname=$_REQUEST['firstname'];
- $user->lastname=$_REQUEST['lastname'];
- $user->localization=$_REQUEST['localization'];
- $user->timezone=$_REQUEST['timezone'];
- $user->updTimestamp=time();
- $user->updFkUser=$GLOBALS['session']->user->id;
- // debug
- api_dump($user);
- // update user
- $GLOBALS['database']->queryUpdate("framework_users",$user);
- // upload avatar
- if(intval($_FILES['avatar']['size'])>0 && $_FILES['avatar']['error']==UPLOAD_ERR_OK){
-  if(!is_dir(ROOT."uploads/framework/users")){mkdir(ROOT."uploads/framework/users",0777,TRUE);}
-  if(file_exists(ROOT."uploads/framework/users/avatar_".$user->id.".jpg")){unlink(ROOT."uploads/framework/users/avatar_".$user->id.".jpg");}
-  if(is_uploaded_file($_FILES['avatar']['tmp_name'])){move_uploaded_file($_FILES['avatar']['tmp_name'],ROOT."uploads/framework/users/avatar_".$user->id.".jpg");}
- }
- // redirect
- api_alerts_add(api_text("settings_alert_ownProfileUpdated"),"success");
- api_redirect("?mod=framework&scr=own_profile");
-}
-/**
- * Own Password Update
- */
-function own_password_update(){
- // retrieve user object
- $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_users` WHERE `id`='".$GLOBALS['session']->user->id."'",$GLOBALS['debug']);
- // check
- if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect(DIR."index.php");}
- // acquire variables
- $r_password=$_REQUEST['password'];
- $r_password_new=$_REQUEST['password_new'];
- $r_password_confirm=$_REQUEST['password_confirm'];
- // check old password
- if(md5($r_password)!==$user_obj->password){api_alerts_add(api_text("settings_alert_ownPasswordIncorrect"),"danger");api_redirect("?mod=framework&scr=own_password");}
- // check new password
- if($r_password_new!==$r_password_confirm){api_alerts_add(api_text("settings_alert_ownPasswordNotMatch"),"danger");api_redirect("?mod=framework&scr=own_password");}
- if(strlen($r_password_new)<8){api_alerts_add(api_text("settings_alert_ownPasswordWeak"),"danger");api_redirect("?mod=framework&scr=own_password");}
- // check if new password is equal to oldest password
- if(md5($r_password_new)===$user_obj->password){api_alerts_add(api_text("settings_alert_ownPasswordOldest"),"danger");api_redirect("?mod=framework&scr=own_password");}
- // build user objects
- $user=new stdClass();
- $user->id=$user_obj->id;
- $user->password=md5($r_password_new);
- $user->pwdTimestamp=time();
- // debug
- api_dump($user);
- // insert user to database
- $GLOBALS['database']->queryUpdate("framework_users",$user);
- // redirect
- api_alerts_add(api_text("settings_alert_ownPasswordUpdated"),"success");
- api_redirect("?mod=framework&scr=own_profile");
 }
 
 /**

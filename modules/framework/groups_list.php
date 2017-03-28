@@ -21,7 +21,7 @@
   * @param integer $level Identation level
   */
  /*function api_groups_tree2table(&$table,$idGroup=NULL,$level=0){
-  $groups_tree=api_settings_groups($idGroup);
+  $groups_tree=api_framework_groups($idGroup);
   foreach($groups_tree as $group){
    $table->addRow();
    $table->addRowField(api_link("#",api_icon("fa-search",api_text("groups_list-td-view"),"hidden-link")));
@@ -42,7 +42,7 @@
  //api_groups_tree2table($table);
 
  $groups_array=array();
- api_tree_to_array($groups_array,"api_settings_groups","id");
+ api_tree_to_array($groups_array,"api_framework_groups","id");
  foreach($groups_array as $group){
   $table->addRow();
   $table->addRowField(api_link("#",api_icon("fa-search",api_text("groups_list-td-view"),"hidden-link")));

@@ -66,7 +66,7 @@
   // build authorization join form
   $authorizations_join_form=new Form("?mod=framework&scr=submit&act=module_authorizations_group_add&module=".$module_obj->module,"POST",NULL,"modules_view-authorizations_modal");
   $authorizations_join_form->addField("select","fkGroup",api_text("modules_view-authorizations_modal-ff-group"),NULL,api_text("modules_view-authorizations_modal-ff-group-placeholder"),NULL,NULL,NULL,"required");
-  api_tree_to_array($groups_array,"api_settings_groups","id");
+  api_tree_to_array($groups_array,"api_framework_groups","id");
   foreach($groups_array as $group_option){$authorizations_join_form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->fullname);}
 
   $authorizations_join_form->addField("checkbox","fkAuthorizations[]",api_text("modules_view-authorizations_modal-ff-authorizations"),NULL,NULL,NULL,NULL,NULL,"required");

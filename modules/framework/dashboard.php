@@ -16,11 +16,12 @@
  /** @todo da rifare bene */
 
  // make index
- $index.=api_link("?mod=framework&scr=settings_framework&tab=general","<h3>Impostazioni</h3>")."<br>\n";
- $index.=api_link("?mod=framework&scr=modules_list","<h3>Moduli</h3>")."<br>\n";
- $index.=api_link("?mod=framework&scr=users_list","<h3>Utenti</h3>")."<br>\n";
- $index.=api_link("?mod=framework&scr=groups_list","<h3>Gruppi</h3>")."<br>\n";
- $index.=api_link("?mod=framework&scr=sessions_list","<h3>Sessioni</h3>")."<br>\n";
+ $index.=api_link("?mod=framework&scr=settings_framework&tab=general",api_tag("h3",api_text("settings_framework")))."<br>\n";
+ $index.=api_link("?mod=framework&scr=menus_list",api_tag("h3",api_text("menus_list")))."<br>\n";
+ $index.=api_link("?mod=framework&scr=modules_list",api_tag("h3",api_text("modules_list")))."<br>\n";
+ $index.=api_link("?mod=framework&scr=users_list",api_tag("h3",api_text("users_list")))."<br>\n";
+ $index.=api_link("?mod=framework&scr=groups_list",api_tag("h3",api_text("groups_list")))."<br>\n";
+ $index.=api_link("?mod=framework&scr=sessions_list",api_tag("h3",api_text("sessions_list")))."<br>\n";
  // build grid object
  $grid=new Grid();
  $grid->addRow();

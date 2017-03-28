@@ -24,7 +24,7 @@
   * @param integer $level Identation level
   */
  /*function api_groups_tree2selectOption(&$form,$skip=NULL,$idGroup=NULL,$level=0){
-  $groups_tree=api_settings_groups($idGroup);
+  $groups_tree=api_framework_groups($idGroup);
   foreach($groups_tree as $group){
    if($group->id==$skip){continue;}
    $form->addFieldOption($group->id,str_repeat("&nbsp;&nbsp;&nbsp;",$level).$group->name);
@@ -38,7 +38,7 @@
  $form->addFieldOption(NULL,api_text("groups_edit-fkGroup-main"));
  //api_groups_tree2selectOption($form,$group->id);
 
- api_tree_to_array($groups_array,"api_settings_groups","id");
+ api_tree_to_array($groups_array,"api_framework_groups","id");
  foreach($groups_array as $group_option){
   if($group_option->id==$group->id){continue;}
   $form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->fullname);
@@ -49,8 +49,8 @@
  $form->addControl("submit",api_text("groups_edit-submit"));
  $form->addControl("button",api_text("groups_edit-cancel"),"?mod=framework&scr=groups_list");
 
- if(!$group->deleted){$form->addControl("button",api_text("groups_edit-delete"),"?mod=framework&scr=submit&act=groups_delete&idUser=".$group->id,"btn-danger",api_text("groups_edit-delete-confirm"));}
-  else{$form->addControl("button",api_text("groups_edit-undelete"),"?mod=framework&scr=submit&act=groups_undelete&idUser=".$group->id,"btn-warning");}
+ if(!$group->deleted){$form->addControl("button",api_text("groups_edit-delete"),"?mod=framework&scr=submit&act=groups_delete&idGroup=".$group->id,"btn-danger",api_text("groups_edit-delete-confirm"));}
+  else{$form->addControl("button",api_text("groups_edit-undelete"),"?mod=framework&scr=submit&act=groups_undelete&idGroup=".$group->id,"btn-warning");}
  // build grid object
  $grid=new Grid();
  $grid->addRow();

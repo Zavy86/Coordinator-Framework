@@ -57,6 +57,7 @@
  require_once(ROOT."classes/settings.class.php");
  require_once(ROOT."classes/session.class.php");
  require_once(ROOT."classes/module.class.php");
+ require_once(ROOT."classes/menu.class.php");
  require_once(ROOT."classes/authorization.class.php");
  require_once(ROOT."classes/user.class.php");
  require_once(ROOT."classes/group.class.php");

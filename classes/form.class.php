@@ -263,7 +263,7 @@ class Form{
     continue;
    }
    // form field
-   $return.=$split_identation." <div class=\"form-group\">\n";
+   $return.=$split_identation." <div class=\"form-group\" id=\"".$this->id."_input_".$field->name."_form_group\">\n";
    $return.=$split_identation."  <label for=\"".$this->id."_input_".$field->name."\" class=\"control-label col-sm-".(($this->splitted?4:2)+$scaleFactor)."\">".$field->label."</label>\n";
    $return.=$split_identation."  <div class=\"col-sm-".(($this->splitted && $field->size>8?$field->size-2:$field->size)-$scaleFactor)."\">\n";
    // input addons
@@ -354,7 +354,7 @@ class Form{
   }
   // form controls
   if(count($this->controls_array)){
-   $return.=$split_identation." <div class=\"form-group\">\n";
+   $return.=$split_identation." <div class=\"form-group\" id=\"".$this->id."_controls_form_group\">\n";
    $return.=$split_identation."  <div class=\"col-sm-offset-".(2+$scaleFactor)." col-sm-".(10-$scaleFactor)."\">\n";
    // cycle all controls
    foreach($this->controls_array as $control_id=>$control){

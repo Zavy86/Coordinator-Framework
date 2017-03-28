@@ -169,7 +169,34 @@ INSERT INTO `framework_modules` (`id`, `module`, `version`, `enabled`, `addTimes
 -- --------------------------------------------------------
 
 --
--- Constraints for dumped tables
+-- Table structure for table `framework_modules_authorizations`
+--
+
+CREATE TABLE IF NOT EXISTS `framework_modules_authorizations` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `module` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `action` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `module` (`module`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `framework_modules_authorizations_join_groups`
+--
+
+CREATE TABLE IF NOT EXISTS `framework_modules_authorizations_join_groups` (
+  `fkAuthorization` int(11) unsigned NOT NULL,
+  `fkGroup` int(11) unsigned NOT NULL,
+  KEY `fkAuthorization` (`fkAuthorization`),
+  KEY `fkGroup` (`fkGroup`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Constraints
 --
 
 --
@@ -184,5 +211,18 @@ ALTER TABLE `framework_sessions`
 ALTER TABLE `framework_users_join_groups`
   ADD CONSTRAINT `framework_users_join_groups_ibfk_1` FOREIGN KEY (`fkUser`) REFERENCES `framework_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `framework_users_join_groups_ibfk_2` FOREIGN KEY (`fkGroup`) REFERENCES `framework_groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `framework_modules_authorizations`
+--
+ALTER TABLE `framework_modules_authorizations`
+  ADD CONSTRAINT `framework_modules_authorizations_ibfk_1` FOREIGN KEY (`module`) REFERENCES `framework_modules` (`module`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `framework_modules_authorizations_join_groups`
+--
+ALTER TABLE `framework_modules_authorizations_join_groups`
+  ADD CONSTRAINT `framework_modules_authorizations_join_groups_ibfk_1` FOREIGN KEY (`fkAuthorization`) REFERENCES `framework_modules_authorizations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `framework_modules_authorizations_join_groups_ibfk_2` FOREIGN KEY (`fkGroup`) REFERENCES `framework_groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- --------------------------------------------------------
