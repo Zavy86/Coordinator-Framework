@@ -14,7 +14,6 @@
  */
 class User{
  /** @var string $settings_array[] User array */
-
  protected $id;
  protected $mail;
  protected $firstname;
@@ -22,9 +21,16 @@ class User{
  protected $fullname;
  protected $localization;
  protected $timezone;
+ protected $gender;
+ protected $birthday;
  protected $avatar;
  protected $enabled;
- protected $addTimestamp; /** @todo ? teniamo cosi? */
+ protected $superuser;
+ protected $level;
+ protected $addTimestamp;
+ protected $addFkUser;
+ protected $updTimestamp;
+ protected $updFkUser;
  protected $pwdExpiration;
  protected $pwdExpired;
  protected $deleted;
@@ -56,12 +62,25 @@ class User{
   $this->fullname=$this->lastname." ".$this->firstname;
   $this->localization=$user->localization;
   $this->timezone=$user->timezone;
+  $this->gender=$user->gender;
+  $this->birthday=$user->birthday;
   $this->avatar=DIR."uploads/framework/users/avatar_".$this->id.".jpg";
   $this->enabled=(bool)$user->enabled;
-  $this->addTimestamp=$user->addTimestamp;
+  $this->superuser=(bool)$user->superuser;
+  $this->level=(int)$user->level;
+  $this->addTimestamp=(int)$user->addTimestamp;
+  $this->addFkUser=(int)$user->addFkUser;
+  $this->updTimestamp=(int)$user->updTimestamp;
+  $this->updFkUser=(int)$user->updFkUser;
   $this->deleted=(bool)$user->deleted;
-  // check avatar
-  if(!file_exists(ROOT.str_replace(DIR,"",$this->avatar))){$this->avatar=DIR."uploads/framework/users/avatar.jpg";}
+  // make avatar
+  if(!file_exists(ROOT.str_replace(DIR,"",$this->avatar))){
+   switch($this->gender){
+    case "man":$this->avatar=DIR."uploads/framework/users/avatar_man.jpg";break;
+    case "woman":$this->avatar=DIR."uploads/framework/users/avatar_woman.jpg";break;
+    default:$this->avatar=DIR."uploads/framework/users/avatar.jpg";
+   }
+  }
   /** @todo check for password expiration */
   if($GLOBALS['settings']->users_password_expiration>-1){
    $this->pwdExpiration=$GLOBALS['settings']->users_password_expiration-(time()-$user->pwdTimestamp);
@@ -104,6 +123,25 @@ class User{
    default:return FALSE;
   }*/
   return $this->$property;
+ }
+
+ /**
+  * Get Gender
+  *
+  * @param boolean $showIcon show icon
+  * @param boolean $showText show text
+  * @return string gender text and icon
+  */
+ public function getGender($showIcon=TRUE,$showText=TRUE){
+  // switch gender
+  switch($this->gender){
+   case "man":$icon=api_icon("fa-male",api_text("user-gender-man"));$text=api_text("user-gender-man");break;
+   case "woman":$icon=api_icon("fa-female",api_text("user-gender-woman"));$text=api_text("user-gender-woman");break;
+   default:return NULL;
+  }
+  // return
+  if($showIcon){if($showText){$return.=$icon." ".$text;}else{$return=$icon;}}else{$return=$text;}
+  return $return;
  }
 
 }

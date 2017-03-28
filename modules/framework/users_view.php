@@ -30,6 +30,9 @@
  $dl->addElement(api_text("users_view-mail"),$user->mail);
  $dl->addElement(api_text("users_view-localization"),$localization->available_localizations[$user->localization]);
  $dl->addElement(api_text("users_view-timezone"),$user->timezone);
+ $dl->addElement(api_text("users_view-level"),api_text("users_view-level-level",$user->level));
+ if($user->gender){$dl->addElement(api_text("users_view-gender"),$user->getGender(FALSE));}
+ if($user->birthday){$dl->addElement(api_text("users_view-birthday"),api_timestamp_format(strtotime($user->birthday),api_text("date")));}
  // build companies table
  $companies_table=new Table(api_text("users_add-companies-unvalued"));
  $companies_table->addHeader(api_text("users_add-companies-th-company"));

@@ -78,7 +78,7 @@ function settings_framework(){
   "sendmail_from_name","sendmail_from_mail","sendmail_asynchronous","sendmail_method",
   "sendmail_smtp_hostname","sendmail_smtp_username","sendmail_smtp_encryption",
   /* users */
-  "users_password_expiration",
+  "users_password_expiration","users_level_max",
   /* tokens */
   "token_cron"
  );
@@ -101,6 +101,9 @@ function settings_framework(){
   $GLOBALS['database']->queryExecute($query,$GLOBALS['debug']);
   api_dump($query);
  }
+
+ // downgrade user level out of limit
+ if(isset($settings_array["users_level_max"])){$GLOBALS['database']->queryExecute("UPDATE `framework_users` SET `level`='".$settings_array["users_level_max"]."' WHERE `level`>'".$settings_array["users_level_max"]."'");}
 
  /** @todo caricamento logo */
 
@@ -364,56 +367,63 @@ function user_add(){
  // make password
  $v_password=substr(md5(date("Y-m-d H:i:s").rand(1,99999)),0,8);
  // build user objects
- $user=new stdClass();
+ $user_obj=new stdClass();
  // acquire variables
- $user->mail=$_REQUEST['mail'];
- $user->firstname=$_REQUEST['firstname'];
- $user->lastname=$_REQUEST['lastname'];
- $user->localization=$_REQUEST['localization'];
- $user->timezone=$_REQUEST['timezone'];
- $user->password=md5($v_password);
- $user->enabled=1;
- $user->addTimestamp=time();
- $user->addFkUser=$GLOBALS['session']->user->id;
+ $user_obj->mail=$_REQUEST['mail'];
+ $user_obj->firstname=$_REQUEST['firstname'];
+ $user_obj->lastname=$_REQUEST['lastname'];
+ $user_obj->localization=$_REQUEST['localization'];
+ $user_obj->timezone=$_REQUEST['timezone'];
+ $user_obj->level=$_REQUEST['level'];
+ $user_obj->password=md5($v_password);
+ $user_obj->enabled=1;
+ $user_obj->addTimestamp=time();
+ $user_obj->addFkUser=$GLOBALS['session']->user->id;
  // debug
  api_dump($_REQUEST);
- api_dump($user);
+ api_dump($user_obj);
  // update user
- $user->id=$GLOBALS['database']->queryInsert("framework_users",$user);
+ $user_obj->id=$GLOBALS['database']->queryInsert("framework_users",$user_obj);
  // check user
- if(!$user->id){api_alerts_add(api_text("settings_alert_userError"),"danger");api_redirect("?mod=framework&scr=users_list");}
+ if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userError"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // send password to user
- api_sendmail($user->mail,"Coordinator new user welcome",$v_password); /** @todo fare mail come si deve */
+ api_sendmail($user_obj->mail,"Coordinator new user welcome","Your access password is:\n\n".$v_password); /** @todo fare mail come si deve */
  // redirect
  api_alerts_add(api_text("settings_alert_userCreated"),"success");
- api_redirect("?mod=framework&scr=users_edit&idUser=".$user->id);
+ api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
 }
 /**
  * User Edit
  */
 function user_edit(){
- // build user objects
- $user=new stdClass();
+ // get objects
+ $user_obj=new User($_REQUEST['idUser']);
+ // check objects
+ if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
+ // build user query objects
+ $user_qobj=new stdClass();
  // acquire variables
- $user->id=$_REQUEST['idUser'];
- $user->enabled=$_REQUEST['enabled'];
- $user->mail=$_REQUEST['mail'];
- $user->firstname=$_REQUEST['firstname'];
- $user->lastname=$_REQUEST['lastname'];
- $user->localization=$_REQUEST['localization'];
- $user->timezone=$_REQUEST['timezone'];
- $user->updTimestamp=time();
- $user->updFkUser=$GLOBALS['session']->user->id;
+ $user_qobj->id=$user_obj->id;
+ $user_qobj->enabled=$_REQUEST['enabled'];
+ $user_qobj->mail=$_REQUEST['mail'];
+ $user_qobj->firstname=$_REQUEST['firstname'];
+ $user_qobj->lastname=$_REQUEST['lastname'];
+ $user_qobj->localization=$_REQUEST['localization'];
+ $user_qobj->timezone=$_REQUEST['timezone'];
+ $user_qobj->level=$_REQUEST['level'];
+ $user_qobj->superuser=$_REQUEST['superuser'];
+ $user_qobj->gender=$_REQUEST['gender'];
+ $user_qobj->birthday=$_REQUEST['birthday'];
+ $user_qobj->updTimestamp=time();
+ $user_qobj->updFkUser=$GLOBALS['session']->user->id;
  // debug
- api_dump($_REQUEST);
- api_dump($user);
- // check
- if(!$user->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
+ api_dump($_REQUEST,"_REQUEST");
+ api_dump($user_qobj,"user_qobj");
  // update user
- $GLOBALS['database']->queryUpdate("framework_users",$user);
+ $GLOBALS['database']->queryUpdate("framework_users",$user_qobj);
  // redirect
  api_alerts_add(api_text("settings_alert_userUpdated"),"success");
- api_redirect("?mod=framework&scr=users_edit&idUser=".$user->id);
+ api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
 }
 /**
  * User Deleted
@@ -434,7 +444,6 @@ function user_deleted($deleted){
  $user_qobj->updFkUser=$GLOBALS['session']->user->id;
  // debug
  api_dump($_REQUEST);
- api_dump($user_obj);
  api_dump($user_qobj);
  // update user
  $GLOBALS['database']->queryUpdate("framework_users",$user_qobj);

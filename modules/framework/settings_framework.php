@@ -96,6 +96,8 @@
   $form->addFieldOption(2592000,api_text("settings_framework-users_password_expiration-30days"));
   $form->addFieldOption(5184000,api_text("settings_framework-users_password_expiration-60days"));
   $form->addFieldOption(7776000,api_text("settings_framework-users_password_expiration-90days"));
+  $form->addField("splitter");
+  $form->addField("text","users_level_max",api_text("settings_framework-users_level_max"),$settings->users_level_max,api_text("settings_framework-users_level_max-placeholder"));
  }
  /**
   * Tokens

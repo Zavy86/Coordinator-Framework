@@ -48,6 +48,7 @@ INSERT INTO `framework_settings` (`setting`, `value`) VALUES
 ('sessions_multiple', '1'),
 ('title', 'Coordinator Framework'),
 ('token_cron', ''),
+('users_level_max', '8');
 ('users_password_expiration', '-1');
 
 -- --------------------------------------------------------
@@ -60,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `framework_menus` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fkMenu` int(11) unsigned DEFAULT NULL,
   `order` int(11) unsigned NOT NULL,
-  `icon` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `icon` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `label` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -86,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `framework_menus` (
 CREATE TABLE IF NOT EXISTS `framework_sessions` (
   `id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `fkUser` int(11) unsigned NOT NULL,
-  `ipAddress` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `ipAddress` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   `startTimestamp` int(11) unsigned NOT NULL,
   `lastTimestamp` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`),
@@ -104,10 +105,12 @@ CREATE TABLE IF NOT EXISTS `framework_users` (
   `mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `firstname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lastname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `localization` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `localization` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
   `timezone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `secret` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `genre` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'undefined, male, female',
+  `birthday` date DEFAULT NULL,
   `enabled` tinyint(1) unsigned NOT NULL,
   `addTimestamp` int(11) unsigned NOT NULL,
   `addFkUser` int(11) unsigned NOT NULL,
@@ -174,7 +177,6 @@ INSERT INTO `framework_groups` (`id`, `fkGroup`, `name`, `description`, `addTime
 --
 
 CREATE TABLE IF NOT EXISTS `framework_modules` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `module` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `version` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `enabled` tinyint(1) unsigned NOT NULL,
@@ -182,16 +184,15 @@ CREATE TABLE IF NOT EXISTS `framework_modules` (
   `addFkUser` int(11) unsigned NOT NULL,
   `updTimestamp` int(11) unsigned DEFAULT NULL,
   `updFkUser` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `mail` (`module`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+  PRIMARY KEY (`module`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `framework_modules`
 --
 
-INSERT INTO `framework_modules` (`id`, `module`, `version`, `enabled`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`) VALUES
-(1, 'framework', '1.0.0', 1, 1483228800, 1, NULL, NULL);
+INSERT INTO `framework_modules` (`module`, `version`, `enabled`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`) VALUES
+('framework', '1.0.0', 1, 1483228800, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 

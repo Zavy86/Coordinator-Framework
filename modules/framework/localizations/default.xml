@@ -78,6 +78,10 @@
  <text key="nav-operations-module_authorizations_reset">Reset</text>
  <text key="nav-operations-module_authorizations_reset-confirm">Confermi di voler eliminare tutti gruppi dalle autorizzazioni?</text>
 
+ <!-- user genders -->
+ <text key="user-gender-man">Uomo</text>
+ <text key="user-gender-woman">Donna</text>
+
  <!-- settings_framework -->
  <text key="settings_framework">Impostazioni Framework</text>
 
@@ -148,6 +152,8 @@
  <text key="settings_framework-users_password_expiration-30days">30 giorni</text>
  <text key="settings_framework-users_password_expiration-60days">60 giorni</text>
  <text key="settings_framework-users_password_expiration-90days">90 giorni</text>
+ <text key="settings_framework-users_level_max">Livelli</text>
+ <text key="settings_framework-users_level_max-placeholder">Numero massimo di livelli</text>
 
  <text key="settings_framework-token">Tokens</text>
  <text key="settings_framework-token_cron">CRON Token</text>
@@ -240,6 +246,10 @@
  <text key="users_view-mail">Indirizzo mail</text>
  <text key="users_view-localization">Lingua</text>
  <text key="users_view-timezone">Fuso orario</text>
+ <text key="users_view-level">Livello</text>
+ <text key="users_view-level-level">{0}° livello</text>
+ <text key="users_view-gender">Genere</text>
+ <text key="users_view-birthday">Data di nascita</text>
 
  <!-- users_add -->
  <text key="users_add">Nuovo utente</text>
@@ -253,6 +263,9 @@
  <text key="users_add-localization-placeholder">Seleziona una lingua..</text>
  <text key="users_add-timezone">Fuso orario</text>
  <text key="users_add-timezone-placeholder">Seleziona un fuso orario..</text>
+ <text key="users_add-level">Livello</text>
+ <text key="users_add-level-placeholder">Seleziona un livello..</text>
+ <text key="users_add-level-level">{0}° livello</text>
  <text key="users_add-submit">Salva</text>
  <text key="users_add-cancel">Annulla</text>
 
@@ -283,6 +296,11 @@
  <text key="users_edit-localization-placeholder">Seleziona una lingua..</text>
  <text key="users_edit-timezone">Fuso orario</text>
  <text key="users_edit-timezone-placeholder">Seleziona un fuso orario..</text>
+ <text key="users_edit-level">Livello</text>
+ <text key="users_edit-level-placeholder">Seleziona un livello..</text>
+ <text key="users_edit-level-level">{0}° livello</text>
+ <text key="users_edit-superuser">Amministratore di sistema</text>
+ <text key="users_edit-superuser-alert">Attenzione, stai per concedere pieni poteri a questo utente!</text>
 
  <text key="users_edit-gender">Genere</text>
  <text key="users_edit-gender-none">Non dichiarato</text>
