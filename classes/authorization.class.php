@@ -19,6 +19,7 @@ class authorization{
  protected $name;
  protected $description;
  protected $groups_array;
+ protected $groups_level_array;
 
  /**
   * Debug
@@ -48,8 +49,12 @@ class authorization{
   $this->description=api_text($authorization->action."-description");
   // get groups
   $this->groups_array=array();
+  $this->groups_level_array=array();
   $groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_modules_authorizations_join_groups` WHERE `fkAuthorization`='".$this->id."'"); /** @todo in che ordine?? ORDER BY `name` */
-  foreach($groups_results as $group){$this->groups_array[$group->fkGroup]=new Group($group->fkGroup);} /** @todo caricare l'oggetto gruppo? */
+  foreach($groups_results as $group){
+   $this->groups_array[$group->fkGroup]=new Group($group->fkGroup);
+   $this->groups_level_array[$group->fkGroup]=$group->level;
+  }
   return TRUE;
  }
 

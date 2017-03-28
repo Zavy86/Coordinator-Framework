@@ -109,14 +109,16 @@ CREATE TABLE IF NOT EXISTS `framework_users` (
   `timezone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `secret` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `genre` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'undefined, male, female',
+  `gender` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'undefined, man, woman',
   `birthday` date DEFAULT NULL,
-  `enabled` tinyint(1) unsigned NOT NULL,
+  `enabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `superuser` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `level` tinyint(2) unsigned NOT NULL DEFAULT '0',
   `addTimestamp` int(11) unsigned NOT NULL,
   `addFkUser` int(11) unsigned NOT NULL,
   `updTimestamp` int(11) unsigned DEFAULT NULL,
   `updFkUser` int(11) unsigned DEFAULT NULL,
-  `pwdTimestamp` int(11) DEFAULT NULL,
+  `pwdTimestamp` int(11) unsigned DEFAULT NULL,
   `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `mail` (`mail`)
@@ -217,6 +219,7 @@ CREATE TABLE IF NOT EXISTS `framework_modules_authorizations` (
 CREATE TABLE IF NOT EXISTS `framework_modules_authorizations_join_groups` (
   `fkAuthorization` int(11) unsigned NOT NULL,
   `fkGroup` int(11) unsigned NOT NULL,
+  `level` tinyint(2) NOT NULL,
   KEY `fkAuthorization` (`fkAuthorization`),
   KEY `fkGroup` (`fkGroup`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

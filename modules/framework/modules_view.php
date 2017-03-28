@@ -39,7 +39,7 @@
  // build description list
  $dl=new DescriptionList("br","dl-horizontal");
  $dl->addElement(api_text("modules_view-dt-name"),api_tag("strong",$module_obj->name));
- $dl->addElement(api_text("modules_view-dt-description"),$module_obj->description);
+ $dl->addElement(api_text("modules_view-dt-description"),nl2br($module_obj->description));
  $dl->addElement(api_text("modules_view-dt-version"),$version_td);
  $dl->addElement(api_text("modules_view-dt-status"),$status_dd);
 
@@ -53,7 +53,7 @@
  foreach($module_obj->authorizations_array as $authorization){
   // make groups
   $groups_td=NULL;
-  foreach($authorization->groups_array as $group){$groups_td.=api_link("?mod=framework&scr=submit&act=module_authorizations_group_remove&module=".$module_obj->module."&fkAuthorization=".$authorization->id."&fkGroup=".$group->id,api_icon("fa-trash",api_text("modules_view-authorizations-td-delete"),"hidden-link"),NULL,NULL,FALSE,api_text("modules_view-authorizations-td-delete-confirm"))." ".$group->fullname."<br>";}
+  foreach($authorization->groups_array as $group){$groups_td.=api_link("?mod=framework&scr=submit&act=module_authorizations_group_remove&module=".$module_obj->module."&fkAuthorization=".$authorization->id."&fkGroup=".$group->id,api_icon("fa-trash",api_text("modules_view-authorizations-td-delete"),"hidden-link"),NULL,NULL,FALSE,api_text("modules_view-authorizations-td-delete-confirm"))." ".$group->fullname." (".$authorization->groups_level_array[$group->id]."+)<br>";}
   if(!$groups_td){$groups_td=api_tag("span",api_text("modules_view-authorizations-td-groups-none"),"disabled")."<br>";}
   // add authorization row
   $table->addRow();
@@ -68,6 +68,9 @@
   $authorizations_join_form->addField("select","fkGroup",api_text("modules_view-authorizations_modal-ff-group"),NULL,api_text("modules_view-authorizations_modal-ff-group-placeholder"),NULL,NULL,NULL,"required");
   api_tree_to_array($groups_array,"api_framework_groups","id");
   foreach($groups_array as $group_option){$authorizations_join_form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->fullname);}
+
+  $authorizations_join_form->addField("select","level",api_text("modules_view-authorizations_modal-ff-level"),$user->level,api_text("modules_view-authorizations_modal-ff-level-placeholder"),NULL,NULL,NULL,"required");
+  for($level=1;$level<=$GLOBALS['settings']->users_level_max;$level++){$authorizations_join_form->addFieldOption($level,api_text("modules_view-authorizations_modal-ff-level-fo-level",$level));}
 
   $authorizations_join_form->addField("checkbox","fkAuthorizations[]",api_text("modules_view-authorizations_modal-ff-authorizations"),NULL,NULL,NULL,NULL,NULL,"required");
   foreach($module_obj->authorizations_array as $authorization){$authorizations_join_form->addFieldOption($authorization->id,$authorization->name."<br>".$authorization->description);}

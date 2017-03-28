@@ -104,11 +104,12 @@
    // load setup dump
    $queries=file(ROOT."queries/setup.sql");
    // check for update queries
-   if(file_exists(ROOT."queries/update.sql")){
+   /** @todo farlo meglio */
+   /*if(file_exists(ROOT."queries/update.sql")){
     // load update queries and add to queries
     $queries_update=file(ROOT."queries/update.sql");
     $queries=array_merge($queries,$queries_update);
-   }
+   }*/
    // cycle all queries
    foreach($queries as $line){
     // skip comments

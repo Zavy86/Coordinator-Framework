@@ -681,6 +681,7 @@ function module_authorizations_group_add(){
  if(!$module_obj->module){api_alerts_add(api_text("settings_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  // acquire variables
  $r_fkGroup=$_REQUEST['fkGroup'];
+ $r_level=$_REQUEST['level'];
  $r_fkAuthorizations_array=$_REQUEST['fkAuthorizations'];
  // debug
  api_dump($_REQUEST);
@@ -695,8 +696,11 @@ function module_authorizations_group_add(){
   $authorization_join_group_qobj=new stdClass();
   $authorization_join_group_qobj->fkAuthorization=$fkAuthorization;
   $authorization_join_group_qobj->fkGroup=$r_fkGroup;
+  $authorization_join_group_qobj->level=$r_level;
   // debug
   api_dump($authorization_join_group_qobj);
+  // remove previous group authorization
+  $GLOBALS['database']->queryExecute("DELETE FROM `framework_modules_authorizations_join_groups` WHERE `fkAuthorization`='".$fkAuthorization."' AND `fkGroup`='".$r_fkGroup."'");
   // insert group
   $GLOBALS['database']->queryInsert("framework_modules_authorizations_join_groups",$authorization_join_group_qobj);
  }
