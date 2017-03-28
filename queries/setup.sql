@@ -53,6 +53,33 @@ INSERT INTO `framework_settings` (`setting`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `framework_menus`
+--
+
+CREATE TABLE IF NOT EXISTS `framework_menus` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `fkMenu` int(11) unsigned DEFAULT NULL,
+  `order` int(11) unsigned NOT NULL,
+  `icon` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `label` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `module` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `script` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tab` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `action` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `target` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `addTimestamp` int(11) unsigned NOT NULL,
+  `addFkUser` int(11) unsigned NOT NULL,
+  `updTimestamp` int(11) unsigned DEFAULT NULL,
+  `updFkUser` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fkMenu` (`fkMenu`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `framework_sessions`
 --
 
@@ -198,6 +225,12 @@ CREATE TABLE IF NOT EXISTS `framework_modules_authorizations_join_groups` (
 --
 -- Constraints
 --
+
+--
+-- Constraints for table `framework_menus`
+--
+ALTER TABLE `framework_menus`
+  ADD CONSTRAINT `framework_menus_ibfk_1` FOREIGN KEY (`fkMenu`) REFERENCES `framework_menus` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `framework_sessions`
