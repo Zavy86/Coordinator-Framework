@@ -27,14 +27,14 @@ switch(ACTION){
  case "user_group_add":user_group_add();break;
  case "user_group_remove":user_group_remove();break;
 
+ // own
+ case "own_profile_update":own_profile_update();break;
+ case "own_password_update":own_password_update();break;
+
  // groups
  case "group_save":group_save();break;
  /** @todo delete */
  /** @todo undelete */
-
- // own
- case "own_profile_update":own_profile_update();break;
- case "own_password_update":own_password_update();break;
 
  // sessions
  case "sessions_terminate":sessions_terminate();break;
@@ -42,6 +42,8 @@ switch(ACTION){
 
  // modules
  case "module_add":module_add();break;
+ case "module_enable":module_enable(TRUE);break;
+ case "module_disable":module_enable(FALSE);break;
  case "module_update_source":module_update_source();break;
  case "module_update_database":module_update_database();break;
  case "module_authorizations_group_add":module_authorizations_group_add();break;
@@ -96,6 +98,9 @@ function settings_framework(){
   $GLOBALS['database']->queryExecute($query,$GLOBALS['debug']);
   api_dump($query);
  }
+
+ /** @todo caricamento logo */
+
  // redirect
  api_alerts_add(api_text("settings_alert_settingsUpdated"),"success");
  api_redirect("?mod=framework&scr=settings_framework&tab=".$r_tab);
@@ -385,36 +390,6 @@ function own_profile_update(){
  api_alerts_add(api_text("settings_alert_ownProfileUpdated"),"success");
  api_redirect("?mod=framework&scr=own_profile");
 }
-
-/**
- * Group Save
- */
-function group_save(){
- // build group objects
- $group=new stdClass();
- // acquire variables
- $group->id=$_REQUEST['idGroup'];
- $group->fkGroup=$_REQUEST['fkGroup'];
- $group->name=$_REQUEST['name'];
- $group->description=$_REQUEST['description'];
- $group->updTimestamp=time();
- $group->updFkUser=$GLOBALS['session']->user->id;
- // debug
- api_dump($group);
- // check group
- if($group->id){
-  // update user
-  $GLOBALS['database']->queryUpdate("framework_groups",$group);
-  api_alerts_add(api_text("settings_alert_groupUpdated"),"success");
- }else{
-  // update user
-  $GLOBALS['database']->queryInsert("framework_groups",$group);
-  api_alerts_add(api_text("settings_alert_groupCreated"),"success");
- }
- // redirect
- api_redirect("?mod=framework&scr=groups_list");
-}
-
 /**
  * Own Password Update
  */
@@ -446,6 +421,35 @@ function own_password_update(){
  // redirect
  api_alerts_add(api_text("settings_alert_ownPasswordUpdated"),"success");
  api_redirect("?mod=framework&scr=own_profile");
+}
+
+/**
+ * Group Save
+ */
+function group_save(){
+ // build group objects
+ $group=new stdClass();
+ // acquire variables
+ $group->id=$_REQUEST['idGroup'];
+ $group->fkGroup=$_REQUEST['fkGroup'];
+ $group->name=$_REQUEST['name'];
+ $group->description=$_REQUEST['description'];
+ $group->updTimestamp=time();
+ $group->updFkUser=$GLOBALS['session']->user->id;
+ // debug
+ api_dump($group);
+ // check group
+ if($group->id){
+  // update user
+  $GLOBALS['database']->queryUpdate("framework_groups",$group);
+  api_alerts_add(api_text("settings_alert_groupUpdated"),"success");
+ }else{
+  // update user
+  $GLOBALS['database']->queryInsert("framework_groups",$group);
+  api_alerts_add(api_text("settings_alert_groupCreated"),"success");
+ }
+ // redirect
+ api_redirect("?mod=framework&scr=groups_list");
 }
 
 /**
@@ -509,16 +513,43 @@ function module_add(){
  }
 
  // alert
+ api_alerts_add(api_text("settings_alert_moduleAdded"),"success");
 
  // redirect
  api_redirect("?mod=framework&scr=modules_list");
+}
+/**
+ * Module Enable
+ *
+ * param boolean $enable Enable status
+ */
+function module_enable($enable){
+ // get objects
+ $module_obj=new Module($_REQUEST['module']);
+ // check objects
+ if(!$module_obj->module){api_alerts_add(api_text("settings_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ // build module query object
+ $module_qobj=new stdClass();
+ $module_qobj->module=$module_obj->module;
+ $module_qobj->enabled=($enable?1:0);
+ $module_qobj->updTimestamp=time();
+ $module_qobj->updFkUser=$GLOBALS['session']->user->id;
+ // debug
+ api_dump($module_qobj,"module query object");
+ // update module
+ $GLOBALS['database']->queryUpdate("framework_modules",$module_qobj,"module");
+ // alert
+ if($enable){api_alerts_add(api_text("settings_alert_moduleEnabled"),"success");}
+ else{api_alerts_add(api_text("settings_alert_moduleDisabled"),"warning");}
+ // redirect
+ api_redirect("?mod=framework&scr=modules_view&module=".$module_obj->module);
 }
 /**
  * Module Update Source
  */
 function module_update_source(){
  // disabled for localhost and 127.0.0.1
- if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdatesGitLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdateGitLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  // get objects
  $module_obj=new Module($_REQUEST['module']);
  // check objects
@@ -529,9 +560,9 @@ function module_update_source(){
  // debug
  api_dump($shell_output);
  // alert
- if(is_int(strpos(strtolower($shell_output),"up-to-date"))){api_alerts_add(api_text("settings_alert_moduleUpdateScourceAlready"),"success");}
- elseif(is_int(strpos(strtolower($shell_output),"abort"))){api_alerts_add(api_text("settings_alert_moduleUpdatesSourceAborted"),"danger");}
- else{api_alerts_add(api_text("settings_alert_moduleUpdateScourceUpdated"),"warning");}
+ if(is_int(strpos(strtolower($shell_output),"up-to-date"))){api_alerts_add(api_text("settings_alert_moduleUpdateSourceAlready"),"success");}
+ elseif(is_int(strpos(strtolower($shell_output),"abort"))){api_alerts_add(api_text("settings_alert_moduleUpdateSourceAborted"),"danger");}
+ else{api_alerts_add(api_text("settings_alert_moduleUpdateSourceUpdated"),"warning");}
  // redirect
  api_redirect("?mod=framework&scr=modules_list");
 }
@@ -540,7 +571,7 @@ function module_update_source(){
  */
 function module_update_database(){
  // disabled for localhost and 127.0.0.1
- if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdatesGitLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdateGitLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  /** @todo execute .sql file and update version in database */
  // alert
  api_alerts_add(api_text("settings_alert_moduleUpdateDatabaseUpdated"),"success");
@@ -578,15 +609,15 @@ function module_authorizations_group_add(){
  }
  // build module query object
  $module_qobj=new stdClass();
- $module_qobj->id=$module_obj->id;
+ $module_qobj->module=$module_obj->module;
  $module_qobj->updTimestamp=time();
  $module_qobj->updFkUser=$GLOBALS['session']->user->id;
  // debug
  api_dump($module_qobj);
  // update module
- $GLOBALS['database']->queryUpdate("framework_modules",$module_qobj);
+ $GLOBALS['database']->queryUpdate("framework_modules",$module_qobj,"module");
  // alert
- api_alerts_add(api_text("settings_alert_moduleAuthorizationsJoined"),"success");
+ api_alerts_add(api_text("settings_alert_moduleAuthorizationGroupAdded"),"success");
  // redirect
  api_redirect("?mod=framework&scr=modules_view&module=".$module_obj->module);
 }
@@ -609,13 +640,13 @@ function module_authorizations_group_remove(){
  $GLOBALS['database']->queryExecute("DELETE FROM `framework_modules_authorizations_join_groups` WHERE `fkAuthorization`='".$r_fkAuthorization."' AND `fkGroup`='".$r_fkGroup."'");
  // build module query object
  $module_qobj=new stdClass();
- $module_qobj->id=$module_obj->id;
+ $module_qobj->module=$module_obj->module;
  $module_qobj->updTimestamp=time();
  $module_qobj->updFkUser=$GLOBALS['session']->user->id;
  // debug
  api_dump($module_qobj);
  // update module
- $GLOBALS['database']->queryUpdate("framework_modules",$module_qobj);
+ $GLOBALS['database']->queryUpdate("framework_modules",$module_qobj,"module");
  // alert
  api_alerts_add(api_text("settings_alert_moduleAuthorizationGroupRemoved"),"warning");
  // redirect
@@ -638,13 +669,13 @@ function module_authorizations_reset(){
  }
  // build module query object
  $module_qobj=new stdClass();
- $module_qobj->id=$module_obj->id;
+ $module_qobj->module=$module_obj->module;
  $module_qobj->updTimestamp=time();
  $module_qobj->updFkUser=$GLOBALS['session']->user->id;
  // debug
  api_dump($module_qobj);
  // update module
- $GLOBALS['database']->queryUpdate("framework_modules",$module_qobj);
+ $GLOBALS['database']->queryUpdate("framework_modules",$module_qobj,"module");
  // alert
  api_alerts_add(api_text("settings_alert_moduleAuthorizationResetted"),"warning");
  // redirect

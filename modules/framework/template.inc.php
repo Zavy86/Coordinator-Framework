@@ -82,8 +82,10 @@
    // get module object
    $module_obj=new Module($_REQUEST['module']);
    // check enabled
-   if($module_obj->enabled){$nav->addSubItem(api_text("nav-operations-module_disable"),"?mod=framework&scr=submit&act=xxx&module=".$_REQUEST['module'],NULL,api_text("nav-operations-module_disable-confirm"));}
-   else{$nav->addSubItem(api_text("nav-operations-module_enable"),"?mod=framework&scr=submit&act=xxx&module=".$_REQUEST['module']);}
+   if($module_obj->module<>"framework"){
+    if($module_obj->enabled){$nav->addSubItem(api_text("nav-operations-module_disable"),"?mod=framework&scr=submit&act=module_disable&module=".$_REQUEST['module'],NULL,api_text("nav-operations-module_disable-confirm"));}
+    else{$nav->addSubItem(api_text("nav-operations-module_enable"),"?mod=framework&scr=submit&act=module_enable&module=".$_REQUEST['module']);}
+   }
    // authorizations
    if(count($module_obj->authorizations_array)){
     $nav->addSubSeparator();
@@ -98,7 +100,7 @@
 
    /** @todo decidere se tenere (mi sa di no) */
    $nav->addItem(api_text("modules_authorizations"),"?mod=framework&scr=modules_authorizations&tab=framework");
-   
+
   }
  }
 
