@@ -250,6 +250,18 @@
  <text key="users_view-level-level">{0}° livello</text>
  <text key="users_view-gender">Genere</text>
  <text key="users_view-birthday">Data di nascita</text>
+ <text key="users_view-groups">Gruppi</text>
+ <text key="users_view-groups_table-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
+ <text key="users_view-groups_table-td-delete">Rimuovi gruppo</text>
+ <text key="users_view-groups_table-td-delete-confirm">Confermi di voler rimuovere il gruppo dall'utente?</text>
+ <text key="users_view-groups_table-td-main">Gruppo principale</text>
+ <text key="users_view-groups_table-td-mainize">Rendi principale</text>
+ <text key="users_view-groups_table-td-mainize-confirm">Confermi di voler rendere questo gruppo principale per l'utente?</text>
+ <text key="users_view-groups_modal-title">Aggiungi un gruppo all'utente</text>
+ <text key="users_view-groups_modal-ff-group">Gruppo</text>
+ <text key="users_view-groups_modal-ff-group-placeholder">Seleziona un gruppo..</text>
+ <text key="users_view-groups_modal-fc-submit">Aggiungi</text>
+ <text key="users_view-groups_modal-fc-cancel">Annulla</text>
 
  <!-- users_add -->
  <text key="users_add">Nuovo utente</text>
@@ -268,20 +280,6 @@
  <text key="users_add-level-level">{0}° livello</text>
  <text key="users_add-submit">Salva</text>
  <text key="users_add-cancel">Annulla</text>
-
- <text key="users_add-groups_table-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
- <text key="users_add-groups_table-th-name">Gruppi</text>
- <text key="users_add-groups_table-td-delete">Rimuovi gruppo</text>
- <text key="users_add-groups_table-td-delete-confirm">Confermi di voler rimuovere il gruppo dall'utente?</text>
- <text key="users_add-groups_table-td-main">Gruppo principale</text>
- <text key="users_add-groups_table-td-mainize">Rendi principale</text>
- <text key="users_add-groups_table-td-mainize-confirm">Confermi di voler rendere questo gruppo principale per l'utente?</text>
-
- <text key="users_add-groups_modal-title">Aggiungi un gruppo all'utente</text>
- <text key="users_add-groups_modal-ff-group">Gruppo</text>
- <text key="users_add-groups_modal-ff-group-placeholder">Seleziona un gruppo..</text>
- <text key="users_add-groups_modal-fc-submit">Aggiungi</text>
- <text key="users_add-groups_modal-fc-cancel">Annulla</text>
 
  <!-- users_edit -->
  <text key="users_edit">Modifica utente</text>

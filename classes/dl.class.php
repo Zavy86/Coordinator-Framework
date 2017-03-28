@@ -95,6 +95,9 @@ class DescriptionList{
   * @return string HTML source code
   */
  public function render(){
+  // check for elements
+  if(!count($this->elements_array)){return NULL;}
+  // renderize description list
   $return="<!-- description-list -->\n";
   $return.="<dl class=\"".$this->class."\">\n";
   foreach($this->elements_array as $index=>$element){
