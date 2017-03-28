@@ -31,9 +31,15 @@
  // check session
  if($GLOBALS['session']->validity){
   $header_navbar->addItem("Dashboard","?mod=dashboards");
-  /** @todo load menu from database */
-  $header_navbar->addItem("Settings","?mod=framework");
-  $header_navbar->addItem("Test","?mod=test");
+  // cycle all menus
+  foreach(api_framework_menus(NULL) as $menu_obj){
+   if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=NULL;}
+   $header_navbar->addItem($icon_source.$menu_obj->label,$menu_obj->url); /** @todo link target and title */
+   foreach(api_framework_menus($menu_obj->id) as $submenu_obj){
+    if($submenu_obj->icon){$icon_source=api_icon($submenu_obj->icon)." ";}else{$icon_source=NULL;}
+    $header_navbar->addSubItem($icon_source.$submenu_obj->label,$submenu_obj->url); /** @todo link target and title */
+   }
+  }
   // account and settings
   $header_navbar->addNav("navbar-right");
   $header_navbar->addItem(api_image($GLOBALS['session']->user->avatar,NULL,20,20,FALSE,"alt='Brand'"));

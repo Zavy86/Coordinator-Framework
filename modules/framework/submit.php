@@ -118,18 +118,22 @@ function menu_save(){
  // acquire variables
  $r_fkMenu=$_REQUEST['fkMenu'];
  $r_typology=$_REQUEST['typology'];
- $r_label=$_REQUEST['label'];
- $r_title=$_REQUEST['title'];
- $r_url=$_REQUEST['url'];
- $r_module=$_REQUEST['module'];
- $r_script=$_REQUEST['script'];
- $r_tab=$_REQUEST['tab'];
- $r_action=$_REQUEST['action'];
- $r_target=$_REQUEST['target'];
+ $r_icon=addslashes($_REQUEST['icon']);
+ $r_label=addslashes($_REQUEST['label']);
+ $r_title=addslashes($_REQUEST['title']);
+ $r_url=addslashes($_REQUEST['url']);
+ $r_module=addslashes($_REQUEST['module']);
+ $r_script=addslashes($_REQUEST['script']);
+ $r_tab=addslashes($_REQUEST['tab']);
+ $r_action=addslashes($_REQUEST['action']);
+ $r_target=addslashes($_REQUEST['target']);
+ // check variables
+ if(!$r_url){$r_url="#";}
  // build menu query objects
  $menu_qobj=new stdClass();
  $menu_qobj->id=$menu_obj->id;
  $menu_qobj->fkMenu=$r_fkMenu;
+ $menu_qobj->icon=$r_icon;
   // switch menu typology
  switch($r_typology){
   // link

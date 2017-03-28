@@ -27,6 +27,7 @@
  $form->addFieldOption("link",api_text("menus_edit-typology-link"));
  $form->addFieldOption("module",api_text("menus_edit-typology-module"));
  // link typology
+ $form->addField("text","icon",api_text("menus_edit-icon"),$menu_obj->icon,api_text("menus_edit-icon-placeholder"));
  $form->addField("text","label",api_text("menus_edit-label"),$menu_obj->label,api_text("menus_edit-label-placeholder"));
  $form->addField("textarea","title",api_text("menus_edit-title"),$menu_obj->title,api_text("menus_edit-title-placeholder"));
  $form->addField("text","url",api_text("menus_edit-url"),$menu_obj->url,api_text("menus_edit-url-placeholder"));

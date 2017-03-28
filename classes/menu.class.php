@@ -18,6 +18,7 @@ class Menu{
  protected $id;
  protected $fkMenu;
  protected $order;
+ protected $icon;
  protected $label;
  protected $title;
  protected $module;
@@ -51,6 +52,7 @@ class Menu{
   $this->id=(int)$menu->id;
   $this->fkMenu=$menu->fkMenu;
   $this->order=$menu->order;
+  $this->icon=stripslashes($menu->icon);
   $this->label=stripslashes($menu->label);
   $this->title=stripslashes($menu->title);
   $this->module=stripslashes($menu->module);
@@ -62,7 +64,8 @@ class Menu{
   $this->addFkUser=$menu->addFkUser;
   $this->updTimestamp=$menu->updTimestamp;
   $this->updFkUser=$menu->updFkUser;
-  //
+  // make module url
+  if($this->module){$this->url="?mod=".$this->module."&scr=".$this->script."&tab=".$this->tab."&act=".$this->action;}
 
   return TRUE;
  }
