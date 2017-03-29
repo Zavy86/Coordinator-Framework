@@ -14,9 +14,9 @@
  $html->setTitle("Login");
  // build recovery form
  $form=new Form("?mod=accounts&scr=submit&act=user_recovery");
- $form->addField("email","mail","Indirizzo mail",NULL,"Inserisci il tuo idirizzo mail..",NULL,NULL,NULL,"required");
- $form->addControl("submit","Send recovery link");
- $form->addControl("button","Cancel","login.php");
+ $form->addField("email","mail",api_text("recovery-ff-account"),NULL,api_text("recovery-ff-account-placeholder"),NULL,NULL,NULL,"required");
+ $form->addControl("submit",api_text("recovery-fc-submit"));
+ $form->addControl("button",api_text("form-cancel"),"login.php");
  // build grid object
  $grid=new Grid();
  $grid->addRow();

@@ -18,16 +18,32 @@
  <text key="alert_submitFunctionNotFound">La funzione "{2}" non è stata trovata nello script "{1}" del modulo "{0}"</text>
 
  <!-- nav -->
+ <text key="nav-dashboard">Bacheca</text>
+ <text key="nav-own-profile">Profilo personale</text>
+ <text key="nav-settings">Impostazioni</text>
+ <text key="nav-logout">Esci</text>
  <text key="nav-operations">Operazioni</text>
 
  <!-- forms -->
  <text key="form-submit">Salva</text>
  <text key="form-cancel">Annulla</text>
+ <text key="form-reset">Reset</text>
  <text key="form-input-file-placeholder">Seleziona un file..</text>
  <text key="form-input-text_localized-default">Principale</text>
  <text key="form-input-text_localized-default-placeholder">Inserisci la traduzione principale</text>
  <text key="form-input-text_localized-language-placeholder">Inserisci la traduzione in {0}</text>
  <text key="form-input-text_localized-translate">Inserisci traduzione</text>
  <text key="form-input-text_localized-alert">La traduzione principale è richiesta!</text>
+
+ <!-- login -->
+ <text key="login-ff-account">Account</text>
+ <text key="login-ff-password">Password</text>
+ <text key="login-fc-login">Accedi</text>
+ <text key="login-fc-recovery">Password dimenticata?</text>
+
+ <!-- recovery -->
+ <text key="recovery-ff-account">Account</text>
+ <text key="recovery-ff-account-placeholder">Inserisci il tuo indirizzo mail..</text>
+ <text key="recovery-fc-submit">Invia link di ripristino</text>
 
 </locale>

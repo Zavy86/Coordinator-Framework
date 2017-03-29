@@ -14,17 +14,17 @@
  $html->setTitle("Login");
  // build login form manually
  $form_source="<!-- form -->\n";
- $form_source.="<h2>Coordinator</h2>\n"; /** @todo prendere il titolo dal database */
+ $form_source.="<h2>".$settings->title."</h2>\n"; /** @todo prendere il titolo dal database */
  $form_source.="<form class=\"\" action=\"index.php?mod=framework&scr=submit&act=user_login\" method=\"POST\" id=\"form_login\">\n";
  $form_source.=" <div class=\"form-group\">\n";
- $form_source.="  <input type=\"text\" name=\"username\" class=\"form-control\" id=\"form_login_input_username\" placeholder=\"Account\" required autofocus>\n";
+ $form_source.="  <input type=\"text\" name=\"username\" class=\"form-control\" id=\"form_login_input_username\" placeholder=\"".api_text("login-ff-account")."\" required autofocus>\n";
  $form_source.=" </div><!-- /form-group -->\n";
  $form_source.=" <div class=\"form-group\">\n";
- $form_source.="  <input type=\"password\" name=\"password\" class=\"form-control\" id=\"form_login_input_password\" placeholder=\"Password\" required>\n";
+ $form_source.="  <input type=\"password\" name=\"password\" class=\"form-control\" id=\"form_login_input_password\" placeholder=\"".api_text("login-ff-password")."\" required>\n";
  $form_source.=" </div><!-- /form-group -->\n";
  $form_source.=" <div class=\"form-group\">\n";
- $form_source.="  <button type=\"submit\" class=\"btn btn-primary\" id=\"form_login_control_submit\">Login</button>\n";
- $form_source.="  <a href=\"recovery.php\" class=\"btn btn-link\" id=\"form_login_control_recovery\">Forgot password?</a>\n";
+ $form_source.="  <button type=\"submit\" class=\"btn btn-primary\" id=\"form_login_control_submit\">".api_text("login-fc-login")."</button>\n";
+ $form_source.="  <a href=\"recovery.php\" class=\"btn btn-link\" id=\"form_login_control_recovery\">".api_text("login-fc-recovery")."</a>\n";
  $form_source.=" </div><!-- /form-group -->\n";
  $form_source.="</form><!-- /form -->\n";
  // build grid object
@@ -36,12 +36,5 @@
  // renderize html page
  $html->render();
  // debug
- if($debug){
-  api_dump($_SESSION["coordinator_session_id"],"session_id");
-  //api_dump($session->debug(),"session",API_DUMP_VARDUMP);
-  api_dump($session->debug(),"session");
-  api_dump($settings->debug(),"settings");
-  api_dump(get_defined_constants(true)["user"],"contants");
-  api_dump($_SESSION["coordinator_logs"],"logs");
- }
+ api_debug();
 ?>

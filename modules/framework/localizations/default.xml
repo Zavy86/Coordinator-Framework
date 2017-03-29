@@ -387,12 +387,6 @@
  <text key="modules_view-authorizations_modal-fc-submit">Salva</text>
  <text key="modules_view-authorizations_modal-fc-cancel">Annulla</text>
 
- <!-- modules_authorizations -->
- <text key="modules_authorizations">Permessi</text>
- <text key="modules_authorizations-tr-unvalued">Non sono presenti autorizzazioni da mostare..</text>
- <text key="modules_authorizations-th-authorization">Autorizzazione</text>
- <text key="modules_authorizations-th-groups">Gruppi abilitati</text>
-
  <!-- modules_add -->
  <text key="modules_add">Nuovo modulo</text>
  <text key="modules_add-url">URL Modulo</text>

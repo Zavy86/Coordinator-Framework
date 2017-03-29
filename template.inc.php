@@ -30,7 +30,7 @@
 
  // check session
  if($GLOBALS['session']->validity){
-  $header_navbar->addItem("Dashboard","?mod=dashboards");
+  $header_navbar->addItem(api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover"),"?mod=dashboards");
   // cycle all menus
   foreach(api_framework_menus(NULL) as $menu_obj){
    if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=NULL;}
@@ -44,10 +44,10 @@
   $header_navbar->addNav("navbar-right");
   $header_navbar->addItem(api_image($GLOBALS['session']->user->avatar,NULL,20,20,FALSE,"alt='Brand'"));
   $header_navbar->addSubHeader($GLOBALS['session']->user->fullname,"text-right");
-  $header_navbar->addSubItem("Profilo personale","?mod=framework&scr=own_profile","text-right");
+  $header_navbar->addSubItem(api_text("nav-own-profile"),"?mod=framework&scr=own_profile","text-right");
   $header_navbar->addSubSeparator();
-  $header_navbar->addSubItem("Settings","?mod=framework&scr=dashboard","text-right");
-  $header_navbar->addSubItem("Logout","?mod=framework&scr=submit&act=user_logout","text-right");
+  $header_navbar->addSubItem(api_text("nav-settings"),"?mod=framework&scr=dashboard","text-right");
+  $header_navbar->addSubItem(api_text("nav-logout"),"?mod=framework&scr=submit&act=user_logout","text-right");
 
  }else{
 

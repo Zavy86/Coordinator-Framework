@@ -27,6 +27,10 @@
  $form->addField("text","icon",api_text("menus_edit-icon"),$menu_obj->icon,api_text("menus_edit-icon-placeholder"));
  $form->addField("text_localized","label_localizations",api_text("menus_edit-label"),$menu_obj->label_localizations,api_text("menus_edit-label-placeholder"));
  $form->addField("text_localized","title_localizations",api_text("menus_edit-title"),$menu_obj->title_localizations,api_text("menus_edit-title-placeholder"));
+ $form->addField("radio","target",api_text("menus_edit-target"),$menu_obj->target,NULL,NULL,"radio-inline");
+ $form->addFieldOption("",api_text("menus_edit-target-standard"));
+ $form->addFieldOption("_blank",api_text("menus_edit-target-blank"));
+ $form->addField("splitter");
  // typologies
  $form->addField("radio","typology",api_text("menus_edit-typology"),($menu_obj->module?"module":"link"),NULL,NULL,"radio-inline");
  $form->addFieldOption("link",api_text("menus_edit-typology-link"));
@@ -39,9 +43,6 @@
  $form->addField("text","script",api_text("menus_edit-script"),$menu_obj->script,api_text("menus_edit-script-placeholder"));
  $form->addField("text","tab",api_text("menus_edit-tab"),$menu_obj->tab,api_text("menus_edit-tab-placeholder"));
  $form->addField("text","action",api_text("menus_edit-action"),$menu_obj->action,api_text("menus_edit-action-placeholder"));
- $form->addField("radio","target",api_text("menus_edit-target"),$menu_obj->target,NULL,NULL,"radio-inline");
- $form->addFieldOption("",api_text("menus_edit-target-standard"));
- $form->addFieldOption("_blank",api_text("menus_edit-target-blank"));
  // controls
  $form->addControl("submit",api_text("menus_edit-submit"));
  $form->addControl("button",api_text("menus_edit-cancel"),"?mod=framework&scr=menus_list");
@@ -77,7 +78,7 @@ EOT;
  // build grid object
  $grid=new Grid();
  $grid->addRow();
- $grid->addCol($form->render("2"),"col-xs-12 col-sm-6");
+ $grid->addCol($form->render(),"col-xs-12");
  // add content to html
  $html->addContent($grid->render());
  // add script to html

@@ -31,18 +31,10 @@
  // load script if exist
  if(file_exists(MODULE_PATH.SCRIPT.".php")){require_once(MODULE_PATH.SCRIPT.".php");}else{die("ERROR LOADING MODULE: File ".MODULE."/".SCRIPT.".php was not found");}
 
+ /** @todo cancellare dopo i test */
+ if($debug){require_once("cron.php");}
+
  // debug
- if($debug){
-
-  /** @todo cancellare dopo i test */
-  require_once("cron.php");
-
-  //api_dump($session->debug(),"session",API_DUMP_VARDUMP);
-  api_dump($session->debug(),"session");
-  api_dump($settings->debug(),"settings");
-  api_dump(get_defined_constants(true)["user"],"contants");
-  api_dump($localization->debug(),"localization");
-  api_dump($_SESSION["coordinator_logs"],"logs");
- }
+ api_debug();
 
 ?>

@@ -108,13 +108,8 @@
     $nav->addSubItem(api_text("nav-operations-module_authorizations_reset"),"?mod=framework&scr=submit&act=module_authorizations_reset&module=".$_REQUEST['module'],NULL,api_text("nav-operations-module_authorizations_reset-confirm"));
    }
   }else{
-
    // add module
    $nav->addItem(api_text("modules_add"),"?mod=framework&scr=modules_add");
-
-   /** @todo decidere se tenere (mi sa di no) */
-   $nav->addItem(api_text("modules_authorizations"),"?mod=framework&scr=modules_authorizations&tab=framework");
-
   }
  }
 
