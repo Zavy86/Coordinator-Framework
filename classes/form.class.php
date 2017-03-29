@@ -323,7 +323,9 @@ class Form{
      // show standard form field
      $return.=$split_identation."   <input type=\"text\"".$field_tags.">\n";
      // add an hidden form field with required name
-     $return.=$split_identation."   <input type=\"hidden\" name=\"".substr($field->name,0,-10)."\" id=\"".$this->id."_input_".substr($field->name,0,-10)."\">\n";
+     $value_localizations=htmlspecialchars(json_encode($field->value_localizations));
+     if($value_localizations=="null"){$value_localizations=NULL;}
+     $return.=$split_identation."   <input type=\"hidden\" name=\"".substr($field->name,0,-10)."\" id=\"".$this->id."_input_".substr($field->name,0,-10)."\" value=\"".$value_localizations."\">\n";
      // build translation form
      $translation_form=new Form("#","POST",NULL,$this->id."_input_".$field->name);
      foreach($GLOBALS['localization']->available_localizations as $code=>$language){
@@ -331,7 +333,7 @@ class Form{
       else{$label=$language;$text_key="language";}
       $translation_form->addField("text",substr($field->name,0,-10)."_lang_".$code,$label,$field->value_localizations[$code],api_text("form-input-text_localized-".$text_key."-placeholder",$language));
      }
-     $translation_form->addControl("button",api_text("form-submit"),"#","btn-primary",NULL,NULL,"onClick=\"".$this->id."_input_".$field->name."_encoder();return false;\"");
+     $translation_form->addControl("submit",api_text("form-submit"),"#","btn-primary",NULL,NULL,"onClick=\"".$this->id."_input_".$field->name."_encoder();return false;\"");
      $translation_form->addControl("button",api_text("form-cancel"),"#",NULL,NULL,NULL,"data-dismiss='modal'");
      // build translation modal window
      $translation_modal=new Modal($field->label,NULL,$this->id."_input_".$field->name);

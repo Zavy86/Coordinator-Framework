@@ -23,13 +23,15 @@
   if($menu_option_obj->id==$menu_obj->id){continue;}
   $form->addFieldOption($menu_option_obj->id,str_repeat("&nbsp;&nbsp;&nbsp;",$menu_option_obj->nesting).$menu_option_obj->label);
  }
+ // icon, label and title
+ $form->addField("text","icon",api_text("menus_edit-icon"),$menu_obj->icon,api_text("menus_edit-icon-placeholder"));
+ $form->addField("text_localized","label_localizations",api_text("menus_edit-label"),$menu_obj->label_localizations,api_text("menus_edit-label-placeholder"));
+ $form->addField("text_localized","title_localizations",api_text("menus_edit-title"),$menu_obj->title_localizations,api_text("menus_edit-title-placeholder"));
+ // typologies
  $form->addField("radio","typology",api_text("menus_edit-typology"),($menu_obj->module?"module":"link"),NULL,NULL,"radio-inline");
  $form->addFieldOption("link",api_text("menus_edit-typology-link"));
  $form->addFieldOption("module",api_text("menus_edit-typology-module"));
  // link typology
- $form->addField("text","icon",api_text("menus_edit-icon"),$menu_obj->icon,api_text("menus_edit-icon-placeholder"));
- $form->addField("text_localized","label_localizations",api_text("menus_edit-label"),$menu_obj->label_localizations,api_text("menus_edit-label-placeholder"));
- $form->addField("text_localized","title_localizations",api_text("menus_edit-title"),$menu_obj->title_localizations,api_text("menus_edit-title-placeholder"));
  $form->addField("text","url",api_text("menus_edit-url"),$menu_obj->url,api_text("menus_edit-url-placeholder"));
  // module typology
  $form->addField("select","module",api_text("menus_edit-module"),$menu_obj->module,api_text("menus_edit-module-placeholder"));
@@ -51,8 +53,6 @@ function menus_edit_toggle_typology() {
  switch($("input[name='typology']:checked").val()){
   // link
   case "link":
-   $("#form_menus_edit_input_label_form_group").show();
-   $("#form_menus_edit_input_title_form_group").show();
    $("#form_menus_edit_input_url_form_group").show();
    $("#form_menus_edit_input_module_form_group").hide();
    $("#form_menus_edit_input_script_form_group").hide();
@@ -61,8 +61,6 @@ function menus_edit_toggle_typology() {
    break;
   // module
   case "module":
-   $("#form_menus_edit_input_label_form_group").hide();
-   $("#form_menus_edit_input_title_form_group").hide();
    $("#form_menus_edit_input_url_form_group").hide();
    $("#form_menus_edit_input_module_form_group").show();
    $("#form_menus_edit_input_script_form_group").show();

@@ -21,11 +21,12 @@ class Menu{
  protected $icon;
  protected $label;
  protected $title;
+ protected $url;
  protected $module;
  protected $script;
  protected $tab;
  protected $action;
- protected $url;
+ protected $target;
  protected $addTimestamp;
  protected $addFkUser;
  protected $updTimestamp;
@@ -57,11 +58,12 @@ class Menu{
   $this->icon=stripslashes($menu->icon);
   $this->label_localizations=json_decode($menu->label_localizations,TRUE);
   $this->title_localizations=json_decode($menu->title_localizations,TRUE);
+  $this->url=stripslashes($menu->url);
   $this->module=stripslashes($menu->module);
   $this->script=stripslashes($menu->script);
   $this->tab=stripslashes($menu->tab);
   $this->action=stripslashes($menu->action);
-  $this->url=stripslashes($menu->url);
+  $this->target=stripslashes($menu->target);
   $this->addTimestamp=$menu->addTimestamp;
   $this->addFkUser=$menu->addFkUser;
   $this->updTimestamp=$menu->updTimestamp;
@@ -73,7 +75,6 @@ class Menu{
   if(!$this->title){$this->title=$this->title_localizations["en_EN"];}
   // make module url
   if($this->module){$this->url="?mod=".$this->module."&scr=".$this->script."&tab=".$this->tab."&act=".$this->action;}
-
   return TRUE;
  }
 

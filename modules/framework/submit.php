@@ -137,29 +137,26 @@ function menu_save(){
  $menu_qobj->id=$menu_obj->id;
  $menu_qobj->fkMenu=$r_fkMenu;
  $menu_qobj->icon=$r_icon;
+ $menu_qobj->label_localizations=$r_label_localizations;
+ $menu_qobj->title_localizations=$r_title_localizations;
+   $menu_qobj->target=$r_target;
   // switch menu typology
  switch($r_typology){
   // link
   case "link":
-   $menu_qobj->label_localizations=$r_label_localizations;
-   $menu_qobj->title_localizations=$r_title_localizations;
    $menu_qobj->url=$r_url;
    $menu_qobj->module=NULL;
    $menu_qobj->script=NULL;
    $menu_qobj->tab=NULL;
    $menu_qobj->action=NULL;
-   $menu_qobj->target=NULL;
    break;
   // module
   case "module":
-   $menu_qobj->label_localizations="{".$r_module."}";
-   $menu_qobj->title_localizations="{".$r_module."-description}";
    $menu_qobj->url=NULL;
    $menu_qobj->module=$r_module;
    $menu_qobj->script=$r_script;
    $menu_qobj->tab=$r_tab;
    $menu_qobj->action=$r_action;
-   $menu_qobj->target=$r_target;
    break;
  }
  // make order
