@@ -122,8 +122,8 @@ function menu_save(){
  $r_fkMenu=$_REQUEST['fkMenu'];
  $r_typology=$_REQUEST['typology'];
  $r_icon=addslashes($_REQUEST['icon']);
- $r_label=addslashes($_REQUEST['label']);
- $r_title=addslashes($_REQUEST['title']);
+ $r_label_localizations=$_REQUEST['label_localizations'];
+ $r_title_localizations=$_REQUEST['title_localizations'];
  $r_url=addslashes($_REQUEST['url']);
  $r_module=addslashes($_REQUEST['module']);
  $r_script=addslashes($_REQUEST['script']);
@@ -141,8 +141,8 @@ function menu_save(){
  switch($r_typology){
   // link
   case "link":
-   $menu_qobj->label=$r_label;
-   $menu_qobj->title=$r_title;
+   $menu_qobj->label_localizations=$r_label_localizations;
+   $menu_qobj->title_localizations=$r_title_localizations;
    $menu_qobj->url=$r_url;
    $menu_qobj->module=NULL;
    $menu_qobj->script=NULL;
@@ -152,8 +152,8 @@ function menu_save(){
    break;
   // module
   case "module":
-   $menu_qobj->label="{".$r_module."}";
-   $menu_qobj->title="{".$r_module."-description}";
+   $menu_qobj->label_localizations="{".$r_module."}";
+   $menu_qobj->title_localizations="{".$r_module."-description}";
    $menu_qobj->url=NULL;
    $menu_qobj->module=$r_module;
    $menu_qobj->script=$r_script;

@@ -30,6 +30,8 @@ class Menu{
  protected $addFkUser;
  protected $updTimestamp;
  protected $updFkUser;
+ protected $label_localizations;
+ protected $title_localizations;
 
  /**
   * Debug
@@ -53,8 +55,8 @@ class Menu{
   $this->fkMenu=$menu->fkMenu;
   $this->order=$menu->order;
   $this->icon=stripslashes($menu->icon);
-  $this->label=stripslashes($menu->label);
-  $this->title=stripslashes($menu->title);
+  $this->label_localizations=json_decode($menu->label_localizations,TRUE);
+  $this->title_localizations=json_decode($menu->title_localizations,TRUE);
   $this->module=stripslashes($menu->module);
   $this->script=stripslashes($menu->script);
   $this->tab=stripslashes($menu->tab);
@@ -64,6 +66,11 @@ class Menu{
   $this->addFkUser=$menu->addFkUser;
   $this->updTimestamp=$menu->updTimestamp;
   $this->updFkUser=$menu->updFkUser;
+  // make label and title localized
+  $this->label=$this->label_localizations[$GLOBALS['session']->user->localization];
+  if(!$this->label){$this->label=$this->label_localizations["en_EN"];}
+  $this->title=$this->title_localizations[$GLOBALS['session']->user->localization];
+  if(!$this->title){$this->title=$this->title_localizations["en_EN"];}
   // make module url
   if($this->module){$this->url="?mod=".$this->module."&scr=".$this->script."&tab=".$this->tab."&act=".$this->action;}
 

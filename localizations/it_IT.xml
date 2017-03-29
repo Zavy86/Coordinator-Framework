@@ -21,6 +21,13 @@
  <text key="nav-operations">Operazioni</text>
 
  <!-- forms -->
+ <text key="form-submit">Salva</text>
+ <text key="form-cancel">Annulla</text>
  <text key="form-input-file-placeholder">Seleziona un file..</text>
+ <text key="form-input-text_localized-default">Principale</text>
+ <text key="form-input-text_localized-default-placeholder">Inserisci la traduzione principale</text>
+ <text key="form-input-text_localized-language-placeholder">Inserisci la traduzione in {0}</text>
+ <text key="form-input-text_localized-translate">Inserisci traduzione</text>
+ <text key="form-input-text_localized-alert">La traduzione principale è richiesta!</text>
 
 </locale>

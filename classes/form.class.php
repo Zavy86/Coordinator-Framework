@@ -64,7 +64,7 @@ class Form{
   *                                    text | password | date | datetime | time |
   *                                    month | week | number | email | url | search |
   *                                    tel | color | checkbox | radio | select |
-  *                                    textarea | file ) /** @todo list of availables
+  *                                    textarea | file | text_localized ) /** @todo list of availables
   * @param string $name Name
   * @param string $label Label
   * @param string $value Default value
@@ -77,7 +77,7 @@ class Form{
   * @return boolean
   */
  public function addField($typology,$name=NULL,$label=NULL,$value=NULL,$placeholder=NULL,$size=10,$class=NULL,$style=NULL,$tags=NULL,$enabled=TRUE){
-  if(!in_array($typology,array("static","separator","splitter","hidden","text","password","date","datetime","time","month","week","number","email","url","search","tel","color","checkbox","radio","select","textarea","file"))){return FALSE;}
+  if(!in_array($typology,array("static","separator","splitter","hidden","text","password","date","datetime","time","month","week","number","email","url","search","tel","color","checkbox","radio","select","textarea","file","text_localized"))){return FALSE;}
   if(!in_array($typology,array("static","separator","splitter")) && !$name){return FALSE;}
   if($typology=="splitter"){if($this->splitted){return FALSE;}else{$this->splitted=TRUE;}}
   // build field object
@@ -102,6 +102,15 @@ class Form{
    $field->class="filestyle ".$field->class;
    $field->tags="data-buttonText=\"\" data-iconName=\"glyphicon glyphicon-folder-open\" data-placeholder=\"".api_text("form-input-file-placeholder")."\" ".$field->tags; /** @todo modificare con font-awesome icon */
    if(!$field->enabled){$field->tags="data-disabled=\"true\" ".$field->tags;}
+  }
+  // text localized
+  if($field->typology=="text_localized"){
+   $field->name.="_localized";
+   $field->value_localizations=$field->value;
+   if(!is_array($this->value_localizations)){$this->value_localizations=array();}
+   $field->value=$field->value_localizations[$GLOBALS['session']->user->localization];
+   if(!$field->value){$field->value=$field->value_localizations["en_EN"];}
+   $field->addon_prepend=api_icon("fa-flag-o");
   }
   // add field to form
   $this->current_field++;
@@ -309,6 +318,49 @@ class Form{
      }
      $return.=$split_identation."   </select>\n";
      break;
+    // text localized
+    case "text_localized":
+     // show standard form field
+     $return.=$split_identation."   <input type=\"text\"".$field_tags.">\n";
+     // add an hidden form field with required name
+     $return.=$split_identation."   <input type=\"hidden\" name=\"".substr($field->name,0,-10)."\" id=\"".$this->id."_input_".substr($field->name,0,-10)."\">\n";
+     // build translation form
+     $translation_form=new Form("#","POST",NULL,$this->id."_input_".$field->name);
+     foreach($GLOBALS['localization']->available_localizations as $code=>$language){
+      if($code=="en_EN"){$language="Default";$label=api_text("form-input-text_localized-default");$text_key="default";}
+      else{$label=$language;$text_key="language";}
+      $translation_form->addField("text",substr($field->name,0,-10)."_lang_".$code,$label,$field->value_localizations[$code],api_text("form-input-text_localized-".$text_key."-placeholder",$language));
+     }
+     $translation_form->addControl("button",api_text("form-submit"),"#","btn-primary",NULL,NULL,"onClick=\"".$this->id."_input_".$field->name."_encoder();return false;\"");
+     $translation_form->addControl("button",api_text("form-cancel"),"#",NULL,NULL,NULL,"data-dismiss='modal'");
+     // build translation modal window
+     $translation_modal=new Modal($field->label,NULL,$this->id."_input_".$field->name);
+     $translation_modal->SetBody($translation_form->render());
+     // add translation modal window to html
+     $GLOBALS['html']->addModal($translation_modal);
+     // text localized jQuery script
+     $jquery="/* Localized Text Field Modal Focus Trigger */\n";
+     $jquery.="$(\"#".$this->id."_input_".$field->name."\").focus(function(){\$(\"#modal_".$this->id."_input_".$field->name."\").modal('show');});\n";
+     $jquery.="/* Localized Text Field Encoder */\n";
+     $jquery.="function ".$this->id."_input_".$field->name."_encoder(){\n";
+     $jquery.=" var lang_texts={};\n";
+     foreach(array_keys($GLOBALS['localization']->available_localizations) as $language_code){
+      $jquery.=" if($(\"#form_".$this->id."_input_".$field->name."_input_".substr($field->name,0,-10)."_lang_".$language_code."\").val()){\n";
+      $jquery.="  lang_texts[\"".$language_code."\"]=$(\"#form_".$this->id."_input_".$field->name."_input_".substr($field->name,0,-10)."_lang_".$language_code."\").val();\n";
+      $jquery.=" }\n";
+     }
+     $jquery.=" var lang_json=JSON.stringify(lang_texts);\n";
+     $jquery.=" var lang_show=lang_texts[\"".$GLOBALS['session']->user->localization."\"];\n";
+     $jquery.=" if(lang_show==null){lang_show=lang_texts[\"en_EN\"];}\n";
+     $jquery.=" if(lang_texts[\"en_EN\"]!=null){\n";
+     $jquery.="  $(\"#".$this->id."_input_".substr($field->name,0,-10)."\").val(lang_json);\n";
+     $jquery.="  $(\"#".$this->id."_input_".$field->name."\").val(lang_show);\n";
+     $jquery.="  $(\"#modal_".$this->id."_input_".$field->name."\").modal('hide');";
+     $jquery.=" }else{alert(\"".api_text("form-input-text_localized-alert")."\");}\n";
+     $jquery.="}";
+     // add script to html
+     $GLOBALS['html']->addScript($jquery);
+     break;
     // others
     default:
      $return.=$split_identation."   <input type=\"".$field->typology."\"".$field_tags.">\n";
@@ -359,7 +411,7 @@ class Form{
    // cycle all controls
    foreach($this->controls_array as $control_id=>$control){
     // make control tags
-    if($control->typology=="button"){$button_id.="_".$control_id;}
+    if($control->typology=="button"){$button_id="_".$control_id;}
     $control_tags=" class=\"btn ".$control->class."\" id=\"".$this->id."_control_".$control->typology.$button_id."\"";
     if($control->confirm){$control_tags.=" onClick=\"return confirm('".addslashes($control->confirm)."')\"";}
     if($control->style){$control_tags.=" style=\"".$control->style."\"";}
