@@ -71,6 +71,7 @@ class Nav{
   $item=new stdClass();
   $item->label=$label;
   $item->url=$url;
+  $item->urlParsed=api_parse_url($url);
   $item->enabled=$enabled;
   $item->class=$class;
   $item->style=$style;
@@ -101,6 +102,7 @@ class Nav{
   $subItem->url=$url;
   $subItem->urlParsed=api_parse_url($url);
   $subItem->enabled=$enabled;
+  $subItem->confirm=$confirm;
   $subItem->class=$class;
   $subItem->style=$style;
   $subItem->tags=$tags;
