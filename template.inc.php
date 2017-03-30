@@ -34,10 +34,10 @@
   // cycle all menus
   foreach(api_framework_menus(NULL) as $menu_obj){
    if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=NULL;}
-   $header_navbar->addItem($icon_source.$menu_obj->label,$menu_obj->url); /** @todo link target and title */
+   $header_navbar->addItem($icon_source.$menu_obj->label,$menu_obj->url,TRUE,NULL,NULL,NULL,$menu_obj->target);
    foreach(api_framework_menus($menu_obj->id) as $submenu_obj){
     if($submenu_obj->icon){$icon_source=api_icon($submenu_obj->icon)." ";}else{$icon_source=NULL;}
-    $header_navbar->addSubItem($icon_source.$submenu_obj->label,$submenu_obj->url); /** @todo link target and title */
+    $header_navbar->addSubItem($icon_source.$submenu_obj->label,$submenu_obj->url,TRUE,NULL,NULL,NULL,$submenu_obj->target);
    }
   }
   // account and settings

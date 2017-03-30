@@ -46,11 +46,11 @@
   $nav->addItem(api_text("users_list"),"?mod=framework&scr=users_list");
   // template operations
   if(in_array(SCRIPT,array("users_view","users_edit")) && $_REQUEST['idUser']){
-   $nav->addItem(api_text("nav-operations"),NULL,"active");
+   $nav->addItem(api_text("nav-operations"),NULL,NULL,"active");
    // users view operations
    if(in_array(SCRIPT,array("users_view"))){
     if(1){ /** @todo check administrators authorization */
-     $nav->addSubItem(api_text("nav-operations-user_interpret"),"?mod=framework&scr=submit&act=user_interpret&idUser=".$_REQUEST['idUser'],NULL,api_text("nav-operations-user_interpret-confirm"));
+     $nav->addSubItem(api_text("nav-operations-user_interpret"),"?mod=framework&scr=submit&act=user_interpret&idUser=".$_REQUEST['idUser'],TRUE,api_text("nav-operations-user_interpret-confirm"));
      $nav->addSubSeparator();
     }
     /** @todo check authorizations */
@@ -92,12 +92,12 @@
   $nav->addItem(api_text("modules_list"),"?mod=framework&scr=modules_list");
   // module operations
   if(in_array(SCRIPT,array("modules_view")) && $_REQUEST['module']){
-   $nav->addItem(api_text("nav-operations"),NULL,"active");
+   $nav->addItem(api_text("nav-operations"),NULL,NULL,"active");
    // get module object
    $module_obj=new Module($_REQUEST['module']);
    // check enabled
    if($module_obj->module<>"framework"){
-    if($module_obj->enabled){$nav->addSubItem(api_text("nav-operations-module_disable"),"?mod=framework&scr=submit&act=module_disable&module=".$_REQUEST['module'],NULL,api_text("nav-operations-module_disable-confirm"));}
+    if($module_obj->enabled){$nav->addSubItem(api_text("nav-operations-module_disable"),"?mod=framework&scr=submit&act=module_disable&module=".$_REQUEST['module'],TRUE,api_text("nav-operations-module_disable-confirm"));}
     else{$nav->addSubItem(api_text("nav-operations-module_enable"),"?mod=framework&scr=submit&act=module_enable&module=".$_REQUEST['module']);}
    }
    // authorizations
@@ -105,7 +105,7 @@
     $nav->addSubSeparator();
     $nav->addSubHeader(api_text("nav-operations-module_authorizations"));
     $nav->addSubItem(api_text("nav-operations-module_authorizations_group_add"),"?mod=framework&scr=modules_view&act=module_authorizations_group_add&module=".$_REQUEST['module']);
-    $nav->addSubItem(api_text("nav-operations-module_authorizations_reset"),"?mod=framework&scr=submit&act=module_authorizations_reset&module=".$_REQUEST['module'],NULL,api_text("nav-operations-module_authorizations_reset-confirm"));
+    $nav->addSubItem(api_text("nav-operations-module_authorizations_reset"),"?mod=framework&scr=submit&act=module_authorizations_reset&module=".$_REQUEST['module'],TRUE,api_text("nav-operations-module_authorizations_reset-confirm"));
    }
   }else{
    // add module
