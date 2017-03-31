@@ -69,6 +69,7 @@
  require_once(ROOT."classes/form.class.php");
  require_once(ROOT."classes/modal.class.php");
  require_once(ROOT."classes/dl.class.php");
+ require_once(ROOT."classes/operations-button.class.php");
 
  // load modules  /** @todo fare funzione */
 
@@ -440,8 +441,12 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
              if(!is_array($return)){$return=array();}
              // call user funciton with foreign key id
              $results=call_user_func($function,$fkId);
+             // last nesting item
+             $last_id=NULL;
              // cycle all branch results
              foreach($results as $result){
+              // increment last nesting
+              $last_id=$result->$idField;
               // add level to result
               $result->nesting=$nesting;
               // add result to results array
@@ -449,6 +454,7 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
               // recursive call with incremented level
               api_tree_to_array($return,$function,$idField,$result->$idField,($nesting+1));
              }
+             if($last_id){$return[$last_id]->nesting_last=TRUE;}
             }
 
 ?>

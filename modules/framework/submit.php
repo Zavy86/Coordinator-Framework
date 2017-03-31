@@ -15,6 +15,9 @@ switch(ACTION){
 
  // menus
  case "menu_save":menu_save();break;
+ case "menu_move_left":menu_move("left");break;
+ case "menu_move_up":menu_move("up");break;
+ case "menu_move_down":menu_move("down");break;
 
  // users old
  case "user_login":user_login();break;
@@ -159,10 +162,11 @@ function menu_save(){
    $menu_qobj->action=$r_action;
    break;
  }
- // make order
+ // get last order of new fkMenu
  if(!$menu_obj->id || $menu_qobj->fkMenu<>$menu_obj->fkMenu){
   if($menu_qobj->fkMenu){$order_query_where="`fkMenu`='".$menu_qobj->fkMenu."'";}else{$order_query_where="`fkMenu` IS NULL";}
-  $v_order=$GLOBALS['database']->queryUniqueValue("SELECT `order` FROM `framework_menus` WHERE ".$order_query_where." ORDER BY `order` DESC");
+  api_dump($order_query="SELECT `order` FROM `framework_menus` WHERE ".$order_query_where." ORDER BY `order` DESC","order_query");
+  $v_order=$GLOBALS['database']->queryUniqueValue($order_query);
   $menu_qobj->order=($v_order+1);
  }
  // debug
@@ -176,9 +180,9 @@ function menu_save(){
   // check if parent menu is changed
   if($menu_qobj->fkMenu<>$menu_obj->fkMenu){
    // rebase other menus
-   if($menu_obj->fkMenu){$order_query_where="`fkMenu`='".$menu_obj->fkMenu."'";}else{$order_query_where="`fkMenu` IS NULL";}
-   api_dump("UPDATE `framework_menus` SET `order`=`order`-'1' WHERE `order`>'".$menu_obj->order."' AND ".$order_query_where." ORDER BY `order` ASC");
-   $GLOBALS['database']->queryExecute("UPDATE `framework_menus` SET `order`=`order`-'1' WHERE `order`>'".$menu_obj->order."' AND ".$order_query_where." ORDER BY `order` ASC");
+   if($menu_obj->fkMenu){$rebase_query_where="`fkMenu`='".$menu_obj->fkMenu."'";}else{$rebase_query_where="`fkMenu` IS NULL";}
+   api_dump($rebase_query="UPDATE `framework_menus` SET `order`=`order`-'1' WHERE `order`>'".$menu_obj->order."' AND ".$rebase_query_where." ORDER BY `order` ASC");
+   $GLOBALS['database']->queryExecute($rebase_query);
   }
   api_alerts_add(api_text("settings_alert_menuUpdated"),"success");
  }else{
@@ -189,10 +193,77 @@ function menu_save(){
   api_alerts_add(api_text("settings_alert_menuCreated"),"success");
  }
  // redirect
- api_redirect("?mod=framework&scr=menus_list");
+ api_redirect("?mod=framework&scr=menus_list&idMenu=".$menu_obj->id);
 }
-
-
+/**
+ * Menu Move
+ *
+ * @param string direction
+ */
+function menu_move($direction){
+ // get objects
+ $menu_obj=new Menu($_REQUEST['idMenu']);
+ // check objects
+ if(!$menu_obj->id){api_alerts_add(api_text("settings_alert_menuNotFound"),"danger");api_redirect("?mod=framework&scr=menus_list");}
+ // check parameters
+ if(!in_array(strtolower($direction),array("left","up","down"))){api_alerts_add(api_text("settings_alert_menuError"),"warning");api_redirect("?mod=framework&scr=menus_list&idMenu=".$menu_obj->id);}
+ // build menu query objects
+ $menu_qobj=new stdClass();
+ $menu_qobj->id=$menu_obj->id;
+ //switch direction
+ switch(strtolower($direction)){
+  // left -> fkGroup -1
+  case "left":
+   // check for fkGroup
+   if(!$menu_obj->fkMenu){api_alerts_add(api_text("settings_alert_menuError"),"warning");api_redirect("?mod=framework&scr=menus_list&idMenu=".$menu_obj->id);}
+   // get fkMenu of menu fkMenu
+   $fkMenu_obj=new Menu($menu_obj->fkMenu);
+   $menu_qobj->fkMenu=$fkMenu_obj->fkMenu;
+   // set last order of new fkMenu
+   if($menu_qobj->fkMenu){$order_query_where="`fkMenu`='".$menu_qobj->fkMenu."'";}else{$order_query_where="`fkMenu` IS NULL";}
+   api_dump($order_query="SELECT `order` FROM `framework_menus` WHERE ".$order_query_where." ORDER BY `order` DESC","order_query");
+   $v_order=$GLOBALS['database']->queryUniqueValue($order_query);
+   $menu_qobj->order=($v_order+1);
+   // update menu
+   $GLOBALS['database']->queryUpdate("framework_menus",$menu_qobj);
+   // rebase other menus
+   if($menu_obj->fkMenu){$rebase_query_where="`fkMenu`='".$menu_obj->fkMenu."'";}else{$rebase_query_where="`fkMenu` IS NULL";}
+   api_dump($rebase_query="UPDATE `framework_menus` SET `order`=`order`-'1' WHERE `order`>'".$menu_obj->order."' AND ".$rebase_query_where." ORDER BY `order` ASC","rebase_query");
+   $GLOBALS['database']->queryExecute($rebase_query);
+   break;
+  // up -> order -1
+  case "up":
+   // set previous order
+   $menu_qobj->order=$menu_obj->order-1;
+   // check for order
+   if($menu_qobj->order<1){api_alerts_add(api_text("settings_alert_menuError"),"warning");api_redirect("?mod=framework&scr=menus_list&idMenu=".$menu_obj->id);}
+   // update menu
+   $GLOBALS['database']->queryUpdate("framework_menus",$menu_qobj);
+   // rebase other menus
+   if($menu_obj->fkMenu){$rebase_query_where="`fkMenu`='".$menu_obj->fkMenu."'";}else{$rebase_query_where="`fkMenu` IS NULL";}
+   api_dump($rebase_query="UPDATE `framework_menus` SET `order`=`order`+'1' WHERE `order`<'".$menu_obj->order."' AND `order`>='".$menu_qobj->order."' AND `order`<>'0' AND `id`!='".$menu_obj->id."' AND ".$rebase_query_where,"rebase_query");
+   $GLOBALS['database']->queryExecute($rebase_query);
+   break;
+  // down -> order +1
+  case "down":
+   // set following order
+   $menu_qobj->order=$menu_obj->order+1;
+   // update menu
+   $GLOBALS['database']->queryUpdate("framework_menus",$menu_qobj);
+   // rebase other menus
+   if($menu_obj->fkMenu){$rebase_query_where="`fkMenu`='".$menu_obj->fkMenu."'";}else{$rebase_query_where="`fkMenu` IS NULL";}
+   api_dump($rebase_query="UPDATE `framework_menus` SET `order`=`order`-'1' WHERE `order`>'".$menu_obj->order."' AND `order`<='".$menu_qobj->order."' AND `order`<>'0' AND `id`!='".$menu_obj->id."' AND ".$rebase_query_where,"rebase_query");
+   $GLOBALS['database']->queryExecute($rebase_query);
+   break;
+ }
+ // debug
+ api_dump($_REQUEST,"_REQUEST");
+ api_dump($direction,"direction");
+ api_dump($menu_obj,"menu_obj");
+ api_dump($menu_qobj,"menu_qobj");
+ // redirect
+ api_redirect("?mod=framework&scr=menus_list&idMenu=".$menu_obj->id);
+}
 
 
 

@@ -21,6 +21,19 @@
  <!-- alerts -->
  <text key="settings_alert_settingsUpdated">Le impostazioni sono state aggiornate</text>
 
+ <text key="settings_alert_menuError">Si è verificato un errore durante il salvaraggio del menu</text>
+ <text key="settings_alert_menuNotFound">Il menu non è stato trovato</text>
+ <text key="settings_alert_menuCreated">Il menu è stato creato</text>
+ <text key="settings_alert_menuUpdated">Il menu è stato aggiornato</text>
+ <text key="settings_alert_menuNesting">Sono presenti menu ad un sotto-livello non renderizzabile</text>
+
+ <text key="settings_alert_ownProfileUpdated">Il tuo profilo è stato aggiornato</text>
+ <text key="settings_alert_ownPasswordIncorrect">La password attuale inserita non è corretta</text>
+ <text key="settings_alert_ownPasswordNotMatch">Le nuove password non coincidono</text>
+ <text key="settings_alert_ownPasswordWeak">La nuova password non ha superato il livello minimo di sicurezza</text>
+ <text key="settings_alert_ownPasswordOldest">La nuova password coincide con la vecchia password</text>
+ <text key="settings_alert_ownPasswordUpdated">La tua password è stata aggiornata</text>
+
  <text key="settings_alert_userError">Si è verificato un errore durante il salvaraggio dell'utente</text>
  <text key="settings_alert_userNotFound">L'utente non è stato trovato</text>
  <text key="settings_alert_userCreated">L'utente è stato creato</text>
@@ -31,13 +44,6 @@
  <text key="settings_alert_userGroupNotFound">Il gruppo dell'utente non è stato trovato</text>
  <text key="settings_alert_userGroupAdded">Il gruppo è stato aggiunto all'utente</text>
  <text key="settings_alert_userGroupRemoved">Il gruppo è stato rimosso dall'utente</text>
-
- <text key="settings_alert_ownProfileUpdated">Il tuo profilo è stato aggiornato</text>
- <text key="settings_alert_ownPasswordIncorrect">La password attuale inserita non è corretta</text>
- <text key="settings_alert_ownPasswordNotMatch">Le nuove password non coincidono</text>
- <text key="settings_alert_ownPasswordWeak">La nuova password non ha superato il livello minimo di sicurezza</text>
- <text key="settings_alert_ownPasswordOldest">La nuova password coincide con la vecchia password</text>
- <text key="settings_alert_ownPasswordUpdated">La tua password è stata aggiornata</text>
 
  <text key="settings_alert_groupError">Si è verificato un errore durante il salvataggio del gruppo</text>
  <text key="settings_alert_groupNotFound">Il gruppo non è stato trovato</text>
@@ -171,6 +177,9 @@
  <text key="menus_list-th-label">Menu</text>
  <text key="menus_list-th-title">Descrizione</text>
  <text key="menus_list-td-edit">Modifica menu</text>
+ <text key="menus_list-td-move-left">Sposta nel livello superiore</text>
+ <text key="menus_list-td-move-up">Sposta in alto</text>
+ <text key="menus_list-td-move-down">Sposta in basso</text>
 
  <!-- menus_edit -->
  <text key="menus_add">Nuovo menu</text>

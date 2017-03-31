@@ -13,19 +13,20 @@
  $this->setMetaTag("owner",$GLOBALS['settings']->owner);
  // add style sheets
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7.min.css");
- $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme.min.css");
+ //$this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme.min.css"); /** @todo definire temi "giovanniani" */
  $this->addStylesheet(HELPERS."font-awesome/css/font-awesome.min.css");
  $this->addStylesheet(HELPERS."font-awesome-animation/css/font-awesome-animation.min.css");
  /** @todo add some helpders here */
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-custom.css");
  // add scripts
  $this->addScript(HELPERS."jquery/jquery-1.12.0.min.js",TRUE);
+ $this->addScript(HELPERS."jquery-sortable/jquery-sortable-0.9.13.min.js",TRUE);
  /** @todo add some helpders here */
  $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.7.min.js",TRUE);
  $this->addScript(HELPERS."bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",TRUE);
 
  // build header navbar object
- $header_navbar=new Navbar($GLOBALS['settings']->title,"navbar-default navbar-static-top");
+ $header_navbar=new Navbar($GLOBALS['settings']->title,"navbar-default navbar-fixed-top");
  $header_navbar->addNav("navclass");
 
  // check session
@@ -64,5 +65,6 @@
 
  // jQuery scripts
  $this->addScript("/* Popover Script */\n$(function(){\$(\"[data-toggle='popover']\").popover({'trigger':'hover'});});");
+ $this->addScript("/* Current Row Timeout Script */\n$(function(){setTimeout(function(){\$('.currentrow').removeClass('info');},5000);});");
 
 ?>
