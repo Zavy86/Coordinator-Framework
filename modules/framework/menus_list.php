@@ -32,7 +32,7 @@
   $ob->addElement("?mod=framework&scr=submit&act=menu_move_left&idMenu=".$menu->id,"fa-arrow-left",api_text("menus_list-td-move-left"),($menu->fkMenu?TRUE:FALSE));
   $ob->addElement("?mod=framework&scr=submit&act=menu_move_up&idMenu=".$menu->id,"fa-arrow-up",api_text("menus_list-td-move-up"),($menu->order>1?TRUE:FALSE));
   $ob->addElement("?mod=framework&scr=submit&act=menu_move_down&idMenu=".$menu->id,"fa-arrow-down",api_text("menus_list-td-move-down"),(!$menu->nesting_last?TRUE:FALSE));
-  $ob->addElement("?mod=framework&scr=menus_edit&idMenu=".$menu->id,"fa-edit",api_text("menus_list-td-edit"));
+  $ob->addElement("?mod=framework&scr=menus_edit&idMenu=".$menu->id,"fa-pencil",api_text("menus_list-td-edit"));
   // build menu row
   $table->addRow($tr_class);
   $table->addRowField(str_repeat("&nbsp;&nbsp;&nbsp;",$menu->nesting).api_icon("fa-caret-right").$menu->label,"nowrap");

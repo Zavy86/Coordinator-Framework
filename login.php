@@ -23,7 +23,7 @@
  $form_source.="  <input type=\"password\" name=\"password\" class=\"form-control\" id=\"form_login_input_password\" placeholder=\"".api_text("login-ff-password")."\" required>\n";
  $form_source.=" </div><!-- /form-group -->\n";
  $form_source.=" <div class=\"form-group\">\n";
- $form_source.="  <button type=\"submit\" class=\"btn btn-primary\" id=\"form_login_control_submit\">".api_text("login-fc-login")."</button>\n";
+ $form_source.="  <button type=\"submit\" class=\"btn btn-primary\" id=\"form_login_control_submit\">".api_text("login-fc-login")." ".api_icon("fa-sign-in")."</button>\n";
  $form_source.="  <a href=\"recovery.php\" class=\"btn btn-link\" id=\"form_login_control_recovery\">".api_text("login-fc-recovery")."</a>\n";
  $form_source.=" </div><!-- /form-group -->\n";
  $form_source.="</form><!-- /form -->\n";

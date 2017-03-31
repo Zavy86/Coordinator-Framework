@@ -45,10 +45,10 @@
   $header_navbar->addNav("navbar-right");
   $header_navbar->addItem(api_image($GLOBALS['session']->user->avatar,NULL,20,20,FALSE,"alt='Brand'"));
   $header_navbar->addSubHeader($GLOBALS['session']->user->fullname,"text-right");
-  $header_navbar->addSubItem(api_text("nav-own-profile"),"?mod=framework&scr=own_profile","text-right");
+  $header_navbar->addSubItem(api_text("nav-own-profile"),"?mod=framework&scr=own_profile",TRUE,"text-right");
   $header_navbar->addSubSeparator();
-  $header_navbar->addSubItem(api_text("nav-settings"),"?mod=framework&scr=dashboard","text-right");
-  $header_navbar->addSubItem(api_text("nav-logout"),"?mod=framework&scr=submit&act=user_logout","text-right");
+  $header_navbar->addSubItem(api_text("nav-settings"),"?mod=framework&scr=dashboard",TRUE,"text-right");
+  $header_navbar->addSubItem(api_text("nav-logout"),"?mod=framework&scr=submit&act=user_logout",TRUE,"text-right");
 
  }else{
 
