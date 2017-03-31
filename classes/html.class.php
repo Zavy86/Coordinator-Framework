@@ -201,6 +201,8 @@ class HTML{
   // renderize style sheets
   $return.="  <!-- style sheets -->\n";
   foreach($this->styleSheets_array as $styleSheet_url){$return.="  <link href=\"".$styleSheet_url."\" rel=\"stylesheet\">\n";}
+  // navbar-fixed-top specific class
+  if(strpos($this->header,"navbar-fixed-top")){$return.="  <style>body{padding-top:70px;}</style>\n";}
   $return.="\n </head>\n\n";
   // renderize body
   $return.=" <body>\n\n";
