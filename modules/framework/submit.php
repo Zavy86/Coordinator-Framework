@@ -28,10 +28,13 @@ switch(ACTION){
  // own
  case "own_profile_update":own_profile_update();break;
  case "own_password_update":own_password_update();break;
+ case "own_avatar_remove":own_avatar_remove();break;
 
  // users
  case "user_add":user_add();break;
  case "user_edit":user_edit();break;
+ case "user_enable":user_enabled(TRUE);break;
+ case "user_disable":user_enabled(FALSE);break;
  case "user_delete":user_deleted(TRUE);break;
  case "user_undelete":user_deleted(FALSE);break;
  case "user_group_add":user_group_add();break;
@@ -379,6 +382,8 @@ function own_profile_update(){
  $user->lastname=$_REQUEST['lastname'];
  $user->localization=$_REQUEST['localization'];
  $user->timezone=$_REQUEST['timezone'];
+ $user->gender=$_REQUEST['gender'];
+ $user->birthday=$_REQUEST['birthday'];
  $user->updTimestamp=time();
  $user->updFkUser=$GLOBALS['session']->user->id;
  // debug
@@ -427,6 +432,16 @@ function own_password_update(){
  api_alerts_add(api_text("settings_alert_ownPasswordUpdated"),"success");
  api_redirect("?mod=framework&scr=own_profile");
 }
+/**
+ * Own Avatar Remove
+ */
+function own_avatar_remove(){
+ // remove avatar if exist
+ if(file_exists(ROOT."uploads/framework/users/avatar_".$GLOBALS['session']->user->id.".jpg")){unlink(ROOT."uploads/framework/users/avatar_".$GLOBALS['session']->user->id.".jpg");}
+ // redirect
+ api_alerts_add(api_text("settings_alert_ownAvatarRemoved"),"success");
+ api_redirect("?mod=framework&scr=own_profile");
+}
 
 /**
  * User Add
@@ -472,8 +487,8 @@ function user_edit(){
  $user_qobj=new stdClass();
  // acquire variables
  $user_qobj->id=$user_obj->id;
- $user_qobj->enabled=$_REQUEST['enabled'];
- $user_qobj->mail=$_REQUEST['mail'];
+ //$user_qobj->enabled=$_REQUEST['enabled'];
+ //$user_qobj->mail=$_REQUEST['mail'];
  $user_qobj->firstname=$_REQUEST['firstname'];
  $user_qobj->lastname=$_REQUEST['lastname'];
  $user_qobj->localization=$_REQUEST['localization'];
@@ -494,6 +509,34 @@ function user_edit(){
  api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
 }
 /**
+ * User Enabled
+ *
+ * @param boolean $enabled Enabled or Disabled
+ */
+function user_enabled($enabled){
+ // get objects
+ $user_obj=new User($_REQUEST['idUser']);
+ // check
+ if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
+ // build user query objects
+ $user_qobj=new stdClass();
+ $user_qobj->id=$user_obj->id;
+ $user_qobj->enabled=($enabled?1:0);
+ if(!$enabled){$user_qobj->superuser=0;}
+ $user_qobj->updTimestamp=time();
+ $user_qobj->updFkUser=$GLOBALS['session']->user->id;
+ // debug
+ api_dump($_REQUEST);
+ api_dump($user_qobj);
+ // update user
+ $GLOBALS['database']->queryUpdate("framework_users",$user_qobj);
+ // alert
+ if($enabled){api_alerts_add(api_text("settings_alert_userEnabled"),"success");}
+ else{api_alerts_add(api_text("settings_alert_userDisabled"),"warning");}
+ // redirect
+ api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
+}
+/**
  * User Deleted
  *
  * @param boolean $deleted Deleted or Undeleted
@@ -507,7 +550,10 @@ function user_deleted($deleted){
  $user_qobj=new stdClass();
  $user_qobj->id=$user_obj->id;
  $user_qobj->deleted=($deleted?1:0);
- if($deleted){$user_qobj->enabled=0;}
+ if($deleted){
+  $user_qobj->enabled=0;
+  $user_qobj->superuser=0;
+ }
  $user_qobj->updTimestamp=time();
  $user_qobj->updFkUser=$GLOBALS['session']->user->id;
  // debug
@@ -519,6 +565,22 @@ function user_deleted($deleted){
  if($deleted){api_alerts_add(api_text("settings_alert_userDeleted"),"warning");}
  else{api_alerts_add(api_text("settings_alert_userUndeleted"),"success");}
  // redirect
+ api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
+}
+/**
+ * User Avatar Remove
+ */
+function user_avatar_remove(){
+ // check authorizations
+ /** @todo check authorizations */
+ // get objects
+ $user_obj=new User($_REQUEST['idUser']);
+ // check
+ if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
+ // remove avatar if exist
+ if(file_exists(ROOT."uploads/framework/users/avatar_".$user_obj->id.".jpg")){unlink(ROOT."uploads/framework/users/avatar_".$user_obj->id.".jpg");}
+ // redirect
+ api_alerts_add(api_text("settings_alert_userAvatarRemoved"),"success");
  api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
 }
 /**

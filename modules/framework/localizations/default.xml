@@ -38,6 +38,8 @@
  <text key="settings_alert_userNotFound">L'utente non è stato trovato</text>
  <text key="settings_alert_userCreated">L'utente è stato creato</text>
  <text key="settings_alert_userUpdated">L'utente è stato aggiornato</text>
+ <text key="settings_alert_userEnabled">L'utente è stato abilitato</text>
+ <text key="settings_alert_userDisabled">L'utente è stato disabilitato</text>
  <text key="settings_alert_userDeleted">L'utente è stato eliminato</text>
  <text key="settings_alert_userUndeleted">L'utente è stato ripristinato</text>
  <text key="settings_alert_userGroupError">Si è verificato un errore durante il salvataggio del gruppo dell'utente</text>
@@ -70,10 +72,14 @@
  <text key="settings_alert_moduleAuthorizationResetted">Le autorizzazioni del gruppo sono state ripristinate</text>
 
  <!-- operations -->
- <text key="nav-operations-user_edit">Modifica utente</text>
- <text key="nav-operations-user_group_add">Aggiungi gruppo</text>
  <text key="nav-operations-user_interpret">Interpreta utente</text>
  <text key="nav-operations-user_interpret-confirm">Confermi di voler interpretare questo utente?</text>
+ <text key="nav-operations-user_edit">Modifica utente</text>
+ <text key="nav-operations-user_enable">Abilita utente</text>
+ <text key="nav-operations-user_disable">Disabilita utente</text>
+ <text key="nav-operations-user_group_add">Aggiungi gruppo</text>
+ <text key="nav-operations-user_undelete">Ripristina utente</text>
+ <text key="nav-operations-user_undelete-confirm">Confermi di voler ripristinare questo utente?</text>
 
  <text key="nav-operations-module_enable">Abilita modulo</text>
  <text key="nav-operations-module_disable">Disabilita modulo</text>
@@ -83,6 +89,12 @@
  <text key="nav-operations-module_authorizations_group_add">Aggiungi gruppo</text>
  <text key="nav-operations-module_authorizations_reset">Reset</text>
  <text key="nav-operations-module_authorizations_reset-confirm">Confermi di voler eliminare tutti gruppi dalle autorizzazioni?</text>
+
+ <!-- user status -->
+ <text key="user-status-enabled">Abilitato</text>
+ <text key="user-status-disabled">Disabilitato</text>
+ <text key="user-status-superuser">Amministratore di sistema</text>
+ <text key="user-status-deleted">Eliminato</text>
 
  <!-- user genders -->
  <text key="user-gender-man">Uomo</text>
@@ -222,7 +234,14 @@
  <text key="own_profile-localization-select">Seleziona una lingua..</text>
  <text key="own_profile-timezone">Fuso orario</text>
  <text key="own_profile-timezone-select">Seleziona un fuso orario..</text>
+ <text key="own_profile-gender">Genere</text>
+ <text key="own_profile-gender-none">Non dichiarato</text>
+ <text key="own_profile-gender-man">Uomo</text>
+ <text key="own_profile-gender-woman">Donna</text>
+ <text key="own_profile-birthday">Data di nascita</text>
  <text key="own_profile-avatar">Avatar</text>
+ <text key="own_profile-avatar-delete">Elimina avatar</text>
+ <text key="own_profile-avatar-delete-confirm">Confermi di voler eliminare definitivamente questa immagine?</text>
  <text key="own_profile-submit">Salva</text>
  <text key="own_profile-cancel">Annulla</text>
 
@@ -245,13 +264,24 @@
  <text key="users_list-th-session">Stato</text>
  <text key="users_list-td-view">Visualizza utente</text>
  <text key="users_list-td-edit">Modifica utente</text>
+ <text key="users_list-td-enable">Abilita utente</text>
+ <text key="users_list-td-enable-confirm">Confermi di voler abilitare questo utente?</text>
+ <text key="users_list-td-disable">Disabilita utente</text>
+ <text key="users_list-td-disable-confirm">Confermi di voler disabilitare questo utente?</text>
+ <text key="users_list-td-delete">Elimina utente</text>
+ <text key="users_list-td-delete-confirm">Confermi di voler eliminare questo utente?</text>
+ <text key="users_list-td-undelete">Ripristina utente</text>
+ <text key="users_list-td-undelete-confirm">Confermi di voler ripristinare questo utente?</text>
 
  <!-- users_view -->
  <text key="users_view">Visualizza utente</text>
+ <text key="users_view-superuser">Amministratore di sistema</text>
  <text key="users_view-enabled">Abilitato</text>
  <text key="users_view-disabled">Disabilitato</text>
  <text key="users_view-deleted">Eliminato</text>
  <text key="users_view-deleted-alert">Questo utente è stato eliminato</text>
+ <text key="users_view-avatar-delete">Elimina avatar</text>
+ <text key="users_view-avatar-delete-confirm">Confermi di voler eliminare definitivamente questa immagine?</text>
  <text key="users_view-mail">Indirizzo mail</text>
  <text key="users_view-localization">Lingua</text>
  <text key="users_view-timezone">Fuso orario</text>

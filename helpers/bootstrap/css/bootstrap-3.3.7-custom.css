@@ -49,6 +49,10 @@ footer{
  font-size:20px;
 }
 
+.text-vtop{
+ vertical-align:top;
+}
+
 .table > thead > tr > th,
 .table > tbody > tr > th,
 .table > tfoot > tr > th{
@@ -125,4 +129,14 @@ td .btn{
 
 .operationButton:hover{
  background-color:#fff;
+}
+
+.fa-ul{
+ padding-left:10px;
+}
+
+.fa-ul .fa-li{
+ padding-top:6px;
+ font-size:8px;
+ color:#999;
 }

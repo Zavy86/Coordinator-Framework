@@ -44,23 +44,28 @@
  if(substr(SCRIPT,0,5)=="users"){
   // lists
   $nav->addItem(api_text("users_list"),"?mod=framework&scr=users_list");
-  // template operations
-  if(in_array(SCRIPT,array("users_view","users_edit")) && $_REQUEST['idUser']){
-   $nav->addItem(api_text("nav-operations"),NULL,NULL,"active");
+  // users view or edit
+  if(in_array(SCRIPT,array("users_view","users_edit"))){
    // users view operations
-   if(in_array(SCRIPT,array("users_view"))){
-    if(1){ /** @todo check administrators authorization */
-     $nav->addSubItem(api_text("nav-operations-user_interpret"),"?mod=framework&scr=submit&act=user_interpret&idUser=".$_REQUEST['idUser'],TRUE,api_text("nav-operations-user_interpret-confirm"));
-     $nav->addSubSeparator();
+   if(SCRIPT=="users_view"){  /** @todo check authorizations */
+    $nav->addItem(api_text("nav-operations"),NULL,NULL,"active");
+    // check for deleted
+    if($user_obj->deleted){
+     $nav->addSubItem(api_text("nav-operations-user_undelete"),"?mod=framework&scr=submit&act=user_undelete&idUser=".$user_obj->id,TRUE,api_text("nav-operations-user_undelete-confirm"));
+    }else{
+     // check superuser authorization
+     if($GLOBALS['session']->user->superuser && $user_obj->id!=$GLOBALS['session']->user->id){
+      $nav->addSubItem(api_text("nav-operations-user_interpret"),"?mod=framework&scr=submit&act=user_interpret&idUser=".$user_obj->id,TRUE,api_text("nav-operations-user_interpret-confirm"));
+      $nav->addSubSeparator();
+     }
+     $nav->addSubItem(api_text("nav-operations-user_edit"),"?mod=framework&scr=users_edit&idUser=".$user_obj->id);
+     if($user_obj->enabled){$nav->addSubItem(api_text("nav-operations-user_disable"),"?mod=framework&scr=submit&act=user_disable&idUser=".$user_obj->id);}
+     else{$nav->addSubItem(api_text("nav-operations-user_enable"),"?mod=framework&scr=submit&act=user_enable&idUser=".$user_obj->id);}
+     $nav->addSubItem(api_text("nav-operations-user_group_add"),"?mod=framework&scr=users_view&idUser=".$user_obj->id."&act=group_add");
     }
-    /** @todo check authorizations */
-    $nav->addSubItem(api_text("nav-operations-user_edit"),"?mod=framework&scr=users_edit&idUser=".$_REQUEST['idUser']);
-    $nav->addSubItem(api_text("nav-operations-user_group_add"),"?mod=framework&scr=users_view&idUser=".$_REQUEST['idUser']."&act=group_add");
    }
-   // users edit operations
-   if(in_array(SCRIPT,array("users_edit"))){
-
-   }
+   // users edit
+   if(SCRIPT=="users_edit"){$nav->addItem(api_text("users_edit"),"?mod=framework&scr=users_edit");}
   }else{
    // users add
    $nav->addItem(api_text("users_add"),"?mod=framework&scr=users_add");

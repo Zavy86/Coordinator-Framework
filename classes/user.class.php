@@ -126,6 +126,36 @@ class User{
  }
 
  /**
+  * Get Status
+  *
+  * @param boolean $showIcon show icon
+  * @param boolean $showText show text
+  * @return string status text and icon
+  */
+ public function getStatus($showIcon=TRUE,$showText=TRUE){
+  if($this->deleted){
+   $icon=api_icon("fa-trash",api_text("user-status-deleted"));
+   $text=api_text("user-status-deleted");
+  }else{
+   if($this->enabled){
+    if($this->superuser){
+     $icon=api_icon("fa-diamond",api_text("user-status-superuser"));
+     $text=api_text("user-status-superuser");
+    }else{
+     $icon=api_icon("fa-check",api_text("user-status-enabled"));
+     $text=api_text("user-status-enabled");
+    }
+   }else{
+    $icon=api_icon("fa-remove",api_text("user-status-disabled"));
+    $text=api_text("user-status-disabled");
+   }
+  }
+  // return
+  if($showIcon){if($showText){$return.=$icon." ".$text;}else{$return=$icon;}}else{$return=$text;}
+  return $return;
+ }
+
+ /**
   * Get Gender
   *
   * @param boolean $showIcon show icon

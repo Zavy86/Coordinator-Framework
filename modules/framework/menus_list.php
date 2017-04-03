@@ -20,7 +20,6 @@
  // get menus tree array
  $menus_array=array();
  api_tree_to_array($menus_array,"api_framework_menus","id");
-
  // cycle all menus
  foreach($menus_array as $menu){
   // check selected

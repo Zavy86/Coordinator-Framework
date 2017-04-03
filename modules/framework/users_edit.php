@@ -6,23 +6,26 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
- // include module template
- require_once(MODULE_PATH."template.inc.php");
+
  // check authorizations
  /** @todo check authorizations */
- // set html title
- $html->setTitle(api_text("users_edit"));
+
  // get objects
  $user=new User($_REQUEST['idUser']);
  if(!$user->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
+
+ // include module template
+ require_once(MODULE_PATH."template.inc.php");
+
+ // set html title
+ $html->setTitle(api_text("users_edit"));
  // build profile form
  $form=new Form("?mod=framework&scr=submit&act=user_edit&idUser=".$user->id,"POST",null,"users_edit");
- $form->addField("static",NULL,$user->fullname,api_image($user->avatar,"img-thumbnail",128));
- if(!$user->deleted){
+ /*if(!$user->deleted){
   $form->addField("checkbox","enabled","&nbsp;",$user->enabled);
   $form->addFieldOption(1,api_text("users_edit-enabled"));
- }
- $form->addField("text","mail",api_text("users_edit-mail"),$user->mail,api_text("users_edit-firstname-placeholder"),NULL,NULL,8,"required readonly");
+ }*/
+ $form->addField("static",NULL,api_text("users_edit-mail"),$user->mail);
  $form->addField("text","firstname",api_text("users_edit-firstname"),$user->firstname,api_text("users_edit-firstname-placeholder"),NULL,NULL,8,"required");
  $form->addField("text","lastname",api_text("users_edit-lastname"),$user->lastname,api_text("users_edit-lastname-placeholder"),NULL,NULL,NULL,"required");
  $form->addField("select","localization",api_text("users_edit-localization"),$user->localization,api_text("users_edit-localization-placeholder"),NULL,NULL,NULL,"required");
