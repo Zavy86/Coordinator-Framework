@@ -9,10 +9,10 @@
 
 /**
  * Module class
- *
- * @todo check phpdoc
  */
 class Module{
+
+ /** Properties */
  protected $module;
  protected $version;
  protected $enabled;
@@ -28,8 +28,6 @@ class Module{
 
  /**
   * Debug
-  *
-  * @return object Module object
   */
  public function debug(){return $this;}
 
@@ -63,24 +61,17 @@ class Module{
   // get authorizations
   $this->authorizations_array=array();
   $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_modules_authorizations` WHERE `module`='".$this->module."'"); /** @todo in che ordine?? ORDER BY `action` */
-  foreach($authorizations_results as $authorization){$this->authorizations_array[$authorization->id]=New authorization($authorization);}
+  foreach($authorizations_results as $authorization){$this->authorizations_array[$authorization->id]=New cAuthorization($authorization);}
   return TRUE;
  }
 
-/**
- * Get
- *
- * @param string $property Property name
- * @return string Property value
- */
- public function __get($property){
-  // switch
-  /*switch($property){
-   case "module":return $this->module;
-   default:return FALSE;
-  }*/
-  return $this->$property;
- }
+ /**
+  * Get
+  *
+  * @param string $property Property name
+  * @return string Property value
+  */
+ public function __get($property){return $this->$property;}
 
 }
 ?>

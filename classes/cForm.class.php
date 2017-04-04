@@ -10,28 +10,22 @@
 /**
  * Form class
  */
-class Form{
+class cForm{
 
- /** @var string $id Form ID */
+ /** Properties */
  protected $id;
- /** @var string $class CSS class */
  protected $class;
- /** @var boolean $splitted Split form in two columns */
  protected $splitted;
- /** @var string $fields_array[] Array of form fields */
  protected $fields_array;
- /** @var string $control_array[] Array of form controls */
  protected $control_array;
- /** @var integer $current_field Current field index */
  protected $current_field;
- /** @var integer $current_control Current control index */
  protected $current_control;
 
-/**
- * Debug
- *
- * @return object Form object
- */
+ /**
+  * Debug
+  *
+  * @return object Form object
+  */
  public function debug(){return $this;}
 
  /**
@@ -175,7 +169,7 @@ class Form{
   * @param boolean $enabled Enabled
   * @return boolean
   */
- function addFieldOption($value,$label,$class=NULL,$style=NULL,$tags=NULL,$enabled=TRUE){
+ public function addFieldOption($value,$label,$class=NULL,$style=NULL,$tags=NULL,$enabled=TRUE){
   if(!$label){return FALSE;}
   // build field option object
   $fieldOption=new stdClass();
@@ -327,7 +321,7 @@ class Form{
      if($value_localizations=="null"){$value_localizations=NULL;}
      $return.=$split_identation."   <input type=\"hidden\" name=\"".substr($field->name,0,-10)."\" id=\"".$this->id."_input_".substr($field->name,0,-10)."\" value=\"".$value_localizations."\">\n";
      // build translation form
-     $translation_form=new Form("#","POST",NULL,$this->id."_input_".$field->name);
+     $translation_form=new cForm("#","POST",NULL,$this->id."_input_".$field->name);
      foreach($GLOBALS['localization']->available_localizations as $code=>$language){
       if($code=="en_EN"){$language="Default";$label=api_text("form-input-text_localized-default");$text_key="default";}
       else{$label=$language;$text_key="language";}
@@ -336,10 +330,10 @@ class Form{
      $translation_form->addControl("submit",api_text("form-submit"),"#","btn-primary",NULL,NULL,"onClick=\"".$this->id."_input_".$field->name."_encoder();return false;\"");
      $translation_form->addControl("button",api_text("form-cancel"),"#",NULL,NULL,NULL,"data-dismiss='modal'");
      // build translation modal window
-     $translation_modal=new Modal($field->label,NULL,$this->id."_input_".$field->name);
+     $translation_modal=new cModal($field->label,NULL,$this->id."_input_".$field->name);
      $translation_modal->SetBody($translation_form->render());
      // add translation modal window to html
-     $GLOBALS['html']->addModal($translation_modal);
+     $GLOBALS['html']->addcModal($translation_modal);
      // text localized jQuery script
      $jquery="/* Localized Text Field Modal Focus Trigger */\n";
      $jquery.="$(\"#".$this->id."_input_".$field->name."\").focus(function(){\$(\"#modal_".$this->id."_input_".$field->name."\").modal('show');});\n";

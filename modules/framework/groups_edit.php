@@ -10,7 +10,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // get objects
- $group=new Group($_REQUEST['idGroup']);
+ $group=new cGroup($_REQUEST['idGroup']);
  // set html title
  $html->setTitle(($group->id?api_text("groups_edit"):api_text("groups_add")));
 
@@ -32,7 +32,7 @@
  }*/
 
  // build profile form
- $form=new Form("?mod=framework&scr=submit&act=group_save&idGroup=".$group->id,"POST",null,"groups_edit");
+ $form=new cForm("?mod=framework&scr=submit&act=group_save&idGroup=".$group->id,"POST",null,"groups_edit");
  $form->addField("select","fkGroup",api_text("groups_edit-fkGroup"),$group->fkGroup);
  $form->addFieldOption(NULL,api_text("groups_edit-fkGroup-main"));
  //api_groups_tree2selectOption($form,$group->id);
@@ -51,7 +51,7 @@
  if(!$group->deleted){$form->addControl("button",api_text("groups_edit-delete"),"?mod=framework&scr=submit&act=groups_delete&idGroup=".$group->id,"btn-danger",api_text("groups_edit-delete-confirm"));}
   else{$form->addControl("button",api_text("groups_edit-undelete"),"?mod=framework&scr=submit&act=groups_undelete&idGroup=".$group->id,"btn-warning");}
  // build grid object
- $grid=new Grid();
+ $grid=new cGrid();
  $grid->addRow();
  $grid->addCol($form->render("2"),"col-xs-12 col-sm-6");
  // add content to html

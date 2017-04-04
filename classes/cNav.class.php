@@ -9,19 +9,14 @@
 
 /**
  * Nav class
- *
- * @todo check phpdoc
  */
-class Nav{
- /** @var string $title Title */
+class cNav{
+
+ /** Properties */
  protected $title;
- /** @var string $class CSS class */
  protected $class;
- /** @var string $container Renderize container */
  protected $container;
- /** @var string $navs_array Array of items */
  protected $items_array;
- /** @var integer $current_item Current item index */
  protected $current_item;
 
  /**

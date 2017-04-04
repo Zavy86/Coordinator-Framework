@@ -480,7 +480,7 @@ function user_add(){
  */
 function user_edit(){
  // get objects
- $user_obj=new User($_REQUEST['idUser']);
+ $user_obj=new cUser($_REQUEST['idUser']);
  // check objects
  if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // build user query objects
@@ -515,7 +515,7 @@ function user_edit(){
  */
 function user_enabled($enabled){
  // get objects
- $user_obj=new User($_REQUEST['idUser']);
+ $user_obj=new cUser($_REQUEST['idUser']);
  // check
  if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // build user query objects
@@ -543,7 +543,7 @@ function user_enabled($enabled){
  */
 function user_deleted($deleted){
  // get objects
- $user_obj=new User($_REQUEST['idUser']);
+ $user_obj=new cUser($_REQUEST['idUser']);
  // check
  if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // build user query objects
@@ -574,7 +574,7 @@ function user_avatar_remove(){
  // check authorizations
  /** @todo check authorizations */
  // get objects
- $user_obj=new User($_REQUEST['idUser']);
+ $user_obj=new cUser($_REQUEST['idUser']);
  // check
  if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // remove avatar if exist
@@ -588,7 +588,7 @@ function user_avatar_remove(){
  */
 function user_group_add(){
  // get objects
- $user_obj=new User($_REQUEST['idUser']);
+ $user_obj=new cUser($_REQUEST['idUser']);
  // check objects
  if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // check for duplicates
@@ -621,7 +621,7 @@ function user_group_add(){
  */
 function user_group_remove(){
  // get objects
- $user_obj=new User($_REQUEST['idUser']);
+ $user_obj=new cUser($_REQUEST['idUser']);
  // check objects
  if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // check if user is in request group
@@ -748,7 +748,7 @@ function module_add(){
  */
 function module_enable($enable){
  // get objects
- $module_obj=new Module($_REQUEST['module']);
+ $module_obj=new cModule($_REQUEST['module']);
  // check objects
  if(!$module_obj->module){api_alerts_add(api_text("settings_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  // build module query object
@@ -774,7 +774,7 @@ function module_update_source(){
  // disabled for localhost and 127.0.0.1
  if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdateGitLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  // get objects
- $module_obj=new Module($_REQUEST['module']);
+ $module_obj=new cModule($_REQUEST['module']);
  // check objects
  if(!$module_obj->module){api_alerts_add(api_text("settings_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  /** @todo cycle all selected modules (multiselect in table) */
@@ -806,7 +806,7 @@ function module_update_database(){
  */
 function module_authorizations_group_add(){
  // get objects
- $module_obj=new Module($_REQUEST['module']);
+ $module_obj=new cModule($_REQUEST['module']);
  // check objects
  if(!$module_obj->module){api_alerts_add(api_text("settings_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  // acquire variables
@@ -853,7 +853,7 @@ function module_authorizations_group_add(){
  */
 function module_authorizations_group_remove(){
  // get objects
- $module_obj=new Module($_REQUEST['module']);
+ $module_obj=new cModule($_REQUEST['module']);
  // check objects
  if(!$module_obj->module){api_alerts_add(api_text("settings_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  // acquire variables
@@ -884,7 +884,7 @@ function module_authorizations_group_remove(){
  */
 function module_authorizations_reset(){
  // get objects
- $module_obj=new Module($_REQUEST['module']);
+ $module_obj=new cModule($_REQUEST['module']);
  // check objects
  if(!$module_obj->module){api_alerts_add(api_text("settings_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  // debug

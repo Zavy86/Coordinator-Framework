@@ -12,7 +12,7 @@
  // set html title
  $html->setTitle(api_text("modules_list"));
  // build grid object
- $table=new Table(api_text("modules_list-tr-unvalued"));
+ $table=new cTable(api_text("modules_list-tr-unvalued"));
  $table->addHeader("&nbsp;",NULL,16);
  $table->addHeader(api_text("modules_list-th-name"),"nowrap");
  $table->addHeader(api_text("modules_list-th-installed"),"nowrap text-right");
@@ -21,9 +21,9 @@
  $table->addHeader("&nbsp;",NULL,16);
  // get module objects
  $modules_array=array();
- $modules_array["framework"]=new Module("framework");
+ $modules_array["framework"]=new cModule("framework");
  $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_modules` WHERE `module`!='framework' ORDER BY `module`");
- foreach($modules_results as $module){$modules_array[$module->module]=new Module($module);}
+ foreach($modules_results as $module){$modules_array[$module->module]=new cModule($module);}
  // cycle all modules
  foreach($modules_array as $module){
   // get last released version from GitHub
@@ -61,7 +61,7 @@
 
  }
  // build grid object
- $grid=new Grid();
+ $grid=new cGrid();
  $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
  // add content to html

@@ -14,14 +14,14 @@
  // check actions
  if(ACTION=="token_cron_randomize"||!$settings->token_cron){$settings->token_cron=md5(date("YmdHis").rand(1,99999));}
  // script tabs
- $tabs=new Nav("nav-pills");
+ $tabs=new cNav("nav-pills");
  $tabs->addItem(api_text("settings_edit-general"),"?mod=framework&scr=settings_edit&tab=general");
  $tabs->addItem(api_text("settings_edit-sessions"),"?mod=framework&scr=settings_edit&tab=sessions");
  $tabs->addItem(api_text("settings_edit-sendmail"),"?mod=framework&scr=settings_edit&tab=sendmail");
  $tabs->addItem(api_text("settings_edit-users"),"?mod=framework&scr=settings_edit&tab=users");
  $tabs->addItem(api_text("settings_edit-token"),"?mod=framework&scr=settings_edit&tab=token");
  // build settings form
- $form=new Form("?mod=framework&scr=submit&act=settings_edit&tab=".TAB,"POST",NULL,"settings_edit");
+ $form=new cForm("?mod=framework&scr=submit&act=settings_edit&tab=".TAB,"POST",NULL,"settings_edit");
  /**
   * Generals
   */
@@ -110,7 +110,7 @@
  $form->addControl("reset",api_text("settings_edit-reset"));
  $form->addControl("button",api_text("settings_edit-cancel"),"?mod=framework&scr=dashboard");
  // build grid object
- $grid=new Grid();
+ $grid=new cGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html

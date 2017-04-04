@@ -9,12 +9,10 @@
 
 /**
  * Group class
- *
- * @todo check phpdoc
  */
-class Group{
- /** @var string $settings_array[] Group array */
+class cGroup{
 
+ /** Properties */
  protected $id;
  protected $fkGroup;
  protected $name;

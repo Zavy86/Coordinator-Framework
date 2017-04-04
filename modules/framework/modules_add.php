@@ -12,7 +12,7 @@
  // set html title
  $html->setTitle(api_text("users_add"));
  // build profile form
- $form=new Form("?mod=framework&scr=submit&act=module_add","POST",null,"modules_add");
+ $form=new cForm("?mod=framework&scr=submit&act=module_add","POST",null,"modules_add");
  $form->addField("text","url",api_text("modules_add-url"),NULL,api_text("modules_add-url-placeholder"),NULL,NULL,NULL,"required");
  $form->addField("radio","method",api_text("modules_add-method"),NULL,NULL,NULL,"radio-inline");
  $form->addFieldOption("git",api_text("modules_add-method-git"));
@@ -20,7 +20,7 @@
  $form->addControl("submit",api_text("modules_add-submit"));
  $form->addControl("button",api_text("modules_add-cancel"),"?mod=framework&scr=modules_list");
  // build grid object
- $grid=new Grid();
+ $grid=new cGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html

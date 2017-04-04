@@ -9,15 +9,12 @@
 
 /**
  * Grid structure class
- *
- * @todo check phpdoc
  */
-class Grid{
- /** @var string $class Dashbaord css class */
+class cGrid{
+
+ /** Properties */
  protected $class;
- /** @var string $current_row Current row counter */
  protected $current_row;
- /** @var string $elements_array Array of rows */
  protected $rows_array;
 
  /**

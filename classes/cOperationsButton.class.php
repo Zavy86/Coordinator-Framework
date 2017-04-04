@@ -2,7 +2,7 @@
 /**
  * Operations Button
  *
- * Coordinator Structure Class OperationsButton
+ * Coordinator Structure Class Operations Button
  *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -11,10 +11,10 @@
 
 /**
  * Operations Button
- *
- * @todo check phpdoc
  */
-class OperationsButton{
+class cOperationsButton{
+
+ /** Properties */
  protected $id;
  protected $icon;
  protected $label;
@@ -95,37 +95,29 @@ class OperationsButton{
   // renderize description list
   $return="<!-- operations-button -->\n";
   $return.="<div id='".$this->id."' class=\"operationButton btn btn-xs btn-default faa-parent animated-hover ".$this->class."\">\n";
-
   // make icon
   $icon.=" <i class=\"fa ".$this->icon." fa-fw hidden-link\" aria-hidden=\"true\"></i>".($this->label?" ".$this->label:NULL)."\n";
-
   // make operations
   $operations=" <span id=\"".$this->id."_operations\" style=\"display:none\">\n";
   // cycle all elements
   foreach($this->elements_array as $element){
-
    $operations.="  &nbsp;";
    if($element->enabled){
     $operations.="<a href=\"".$element->url."\"".($element->confirm?" onClick=\"return confirm('".addslashes($element->confirm)."')\"":NULL).">";
     $operations.="<i class='fa ".$element->icon." fa-fw faa-tada animated-hover hidden-link' aria-hidden='true' title=\"".str_ireplace('"',"''",$element->title)."\"></i>";
     $operations.="</a>\n";
    }else{$operations.="<i class='fa ".$element->icon." disabled' aria-hidden='true'></i>\n";}
-
   }
-
   // conclude operations
   if(strtolower($this->direction)=="left"){$operations.="  &nbsp;\n";}
   $operations.=" </span>\n";
-
   // switch direction
   switch(strtolower($this->direction)){
    case "left":$return.=$operations.$icon;break;
    case "right":$return.=$icon.$operations;break;
   }
-
   // conclude operations button
   $return.="</div><!-- /operations-button -->\n";
-
   // script
   $jQuery="/* Operations Button Hover Script */\n$(\"#".$this->id."\").hover(function(){\$(this).find(\"span\").show();},function(){\$(this).find(\"span\").hide();});";
   // add script to html

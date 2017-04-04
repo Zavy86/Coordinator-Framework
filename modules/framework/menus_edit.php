@@ -14,7 +14,7 @@
  // set html title
  $html->setTitle(($menu_obj->id?api_text("menus_edit"):api_text("menus_add")));
  // build profile form
- $form=new Form("?mod=framework&scr=submit&act=menu_save&idMenu=".$menu_obj->id,"POST",null,"menus_edit");
+ $form=new cForm("?mod=framework&scr=submit&act=menu_save&idMenu=".$menu_obj->id,"POST",null,"menus_edit");
  $form->addField("select","fkMenu",api_text("menus_edit-fkMenu"),$menu_obj->fkMenu);
  $form->addFieldOption(NULL,api_text("menus_edit-fkMenu-main"));
  // cycle all first level menus
@@ -75,7 +75,7 @@ $(window).load(function(){menus_edit_toggle_typology();});
 $(function(){\$("input[name='typology']").change(function(){menus_edit_toggle_typology();});});
 EOT;
  // build grid object
- $grid=new Grid();
+ $grid=new cGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html

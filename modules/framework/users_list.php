@@ -12,7 +12,7 @@
  // set html title
  $html->setTitle(api_text("users_list"));
  // build grid object
- $table=new Table(api_text("users_list-tr-unvalued"));
+ $table=new cTable(api_text("users_list-tr-unvalued"));
  $table->addHeader("&nbsp;",NULL,16);
  $table->addHeader(api_text("users_list-th-fullname"),"nowrap");
  $table->addHeader("&nbsp;",NULL,16);
@@ -21,11 +21,11 @@
  // get user objects
  $users_array=array();
  $users_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_users` ORDER BY `lastname`,`firstname`",$GLOBALS['debug']);
- foreach($users_results as $user){$users_array[$user->id]=new User($user);}
+ foreach($users_results as $user){$users_array[$user->id]=new cUser($user);}
  // cycle all users
  foreach($users_array as $user_obj){
   // build operation button
-  $ob=new OperationsButton();
+  $ob=new cOperationsButton();
   $ob->addElement("?mod=framework&scr=users_edit&idUser=".$user_obj->id,"fa-pencil",api_text("users_list-td-edit"));
   if($user_obj->deleted){$ob->addElement("?mod=framework&scr=submit&act=user_undelete&idUser=".$user_obj->id,"fa-trash-o",api_text("users_list-td-undelete"),true,api_text("users_list-td-undelete-confirm"));}
   else{
@@ -44,7 +44,7 @@
   $table->addRowField($ob->render(),"text-right");
  }
  // build grid object
- $grid=new Grid();
+ $grid=new cGrid();
  $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
  // add content to html

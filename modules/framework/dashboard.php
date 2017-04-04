@@ -21,7 +21,7 @@
  $list->addElement(api_link("?mod=framework&scr=groups_list",api_text("groups_list")));
  $list->addElement(api_link("?mod=framework&scr=sessions_list",api_text("sessions_list")));
  // build grid object
- $grid=new Grid();
+ $grid=new cGrid();
  $grid->addRow();
  $grid->addCol($list->render(),"col-xs-12");
  // add content to html

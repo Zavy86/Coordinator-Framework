@@ -9,12 +9,10 @@
 
 /**
  * Menu class
- *
- * @todo check phpdoc
  */
 class Menu{
- /** @var string $settings_array[] Menu array */
 
+ /** Properties */
  protected $id;
  protected $fkMenu;
  protected $order;
@@ -84,14 +82,7 @@ class Menu{
  * @param string $property Property name
  * @return string Property value
  */
- public function __get($property){
-  // switch properties
-  /*switch($property){
-   case "id":return $this->id;
-   default:return FALSE;
-  }*/
-  return $this->$property;
- }
+ public function __get($property){return $this->$property;}
 
 }
 ?>

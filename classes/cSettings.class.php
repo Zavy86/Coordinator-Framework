@@ -9,11 +9,10 @@
 
 /**
  * Settings class
- *
- * @todo check phpdoc
  */
-class Settings{
- /** @var string $settings_array[] Settings array */
+class cSettings{
+
+ /** Properties */
  protected $settings_array;
 
  /**

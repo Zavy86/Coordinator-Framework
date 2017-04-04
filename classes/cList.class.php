@@ -11,8 +11,6 @@
 
 /**
  * List
- *
- * @todo check phpdoc
  */
 class cList{
  protected $id;

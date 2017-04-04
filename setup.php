@@ -23,18 +23,18 @@
  require_once(ROOT."classes/navbar.class.php");
  require_once(ROOT."classes/form.class.php");
  // build localization instance
- $localization=new Localization();
+ $localization=new cLocalization();
  // build settings instance
  $settings=new stdClass();
  $settings->title="Coordinator Framework";
  $settings->owner="Manuel Zavatta";
  $settings->logo=DIR."uploads/framework/logo.default.png";
  // build html object
- $html=new HTML("Setup");
+ $html=new cHTML("Setup");
  // set html title
  $html->setTitle("Setup");
  // build setup form
- $form=new Form("setup.php","POST",NULL,"setup");
+ $form=new cForm("setup.php","POST",NULL,"setup");
  // check for submit
  if(!$_REQUEST['setup_action']){
   // setup form
@@ -163,7 +163,7 @@
   }
  }
  // build grid object
- $grid=new Grid();
+ $grid=new cGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html

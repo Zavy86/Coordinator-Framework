@@ -26,8 +26,8 @@
  $this->addScript(HELPERS."bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",TRUE);
 
  // build header navbar object
- $header_navbar=new Navbar($GLOBALS['settings']->title,"navbar-default navbar-fixed-top");
- $header_navbar->addNav("navclass");
+ $header_navbar=new cNavbar($GLOBALS['settings']->title,"navbar-default navbar-fixed-top");
+ $header_navbar->addcNav("navclass");
 
  // check session
  if($GLOBALS['session']->validity){
@@ -42,7 +42,7 @@
    }
   }
   // account and settings
-  $header_navbar->addNav("navbar-right");
+  $header_navbar->addcNav("navbar-right");
   $header_navbar->addItem(api_image($GLOBALS['session']->user->avatar,NULL,20,20,FALSE,"alt='Brand'"));
   $header_navbar->addSubHeader($GLOBALS['session']->user->fullname,"text-right");
   $header_navbar->addSubItem(api_text("nav-own-profile"),"?mod=framework&scr=own_profile",TRUE,"text-right");
@@ -57,7 +57,7 @@
  // set header
  $this->setHeader($header_navbar->render(FALSE));
  // build footer grid
- $footer_grid=new Grid();
+ $footer_grid=new cGrid();
  $footer_grid->addRow();
  $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; Coordinator - All Rights Reserved".($GLOBALS['debug']?" [ Queries: ".$GLOBALS['database']->query_counter." | Execution time: ~".number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs ]":NULL),"col-xs-12 text-right");
  // set footer

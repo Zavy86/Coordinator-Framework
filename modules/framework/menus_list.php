@@ -12,7 +12,7 @@
  // set html title
  $html->setTitle(api_text("menus_list"));
  // build grid object
- $table=new Table(api_text("menus_list-tr-unvalued"));
+ $table=new cTable(api_text("menus_list-tr-unvalued"));
  $table->addHeader(api_text("menus_list-th-label"),"nowrap");
  $table->addHeader(api_text("menus_list-th-title"),NULL,"100%");
  $table->addHeader("&nbsp;",NULL,16);
@@ -26,7 +26,7 @@
   // check nesting
   if($menu->nesting>1){$tr_class.=" warning";$nesting_alert=TRUE;}
   // build operation button
-  $ob=new OperationsButton();
+  $ob=new cOperationsButton();
   $ob->addElement("?mod=framework&scr=submit&act=menu_move_left&idMenu=".$menu->id,"fa-arrow-left",api_text("menus_list-td-move-left"),($menu->fkMenu?TRUE:FALSE));
   $ob->addElement("?mod=framework&scr=submit&act=menu_move_up&idMenu=".$menu->id,"fa-arrow-up",api_text("menus_list-td-move-up"),($menu->order>1?TRUE:FALSE));
   $ob->addElement("?mod=framework&scr=submit&act=menu_move_down&idMenu=".$menu->id,"fa-arrow-down",api_text("menus_list-td-move-down"),(!$menu->nesting_last?TRUE:FALSE));
@@ -42,7 +42,7 @@
  // check nesting alert
  if($nesting_alert){api_alerts_add(api_text("settings_alert_menuNesting"),"warning");}
  // build grid object
- $grid=new Grid();
+ $grid=new cGrid();
  $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
  // add content to html

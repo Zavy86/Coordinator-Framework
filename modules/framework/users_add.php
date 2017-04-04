@@ -12,7 +12,7 @@
  // set html title
  $html->setTitle(api_text("users_add"));
  // build profile form
- $form=new Form("?mod=framework&scr=submit&act=user_add","POST",null,"users_add");
+ $form=new cForm("?mod=framework&scr=submit&act=user_add","POST",null,"users_add");
  $form->addField("text","mail",api_text("users_add-mail"),$user->mail,api_text("users_add-mail-placeholder"),NULL,NULL,8,"required");
  $form->addField("text","firstname",api_text("users_add-firstname"),$user->firstname,api_text("users_add-firstname-placeholder"),NULL,NULL,8,"required");
  $form->addField("text","lastname",api_text("users_add-lastname"),$user->lastname,api_text("users_add-lastname-placeholder"),NULL,NULL,NULL,"required");
@@ -25,7 +25,7 @@
  $form->addControl("submit",api_text("users_add-submit"));
  $form->addControl("button",api_text("users_add-cancel"),"?mod=framework&scr=users_list");
  // build grid object
- $grid=new Grid();
+ $grid=new cGrid();
  $grid->addRow();
  $grid->addCol($form->render("2"),"col-xs-12 col-sm-6");
  /*api_dump(time(),"time()");

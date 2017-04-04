@@ -9,40 +9,18 @@
 
 /**
  * Table class
- *
- * @todo check phpdoc
  */
-class Table{
+class cTable{
 
- /** @var string $id Table ID */
+ /** Properties */
  protected $id;
- /** @var string $unvalued Text to show if no results */
  protected $emptyrow;
- /** @var string $caption Table caption */
  protected $caption;
- /** @var string $class CSS class */
  protected $class;
- /** @var array $tr_array[] Array of table rows (Row 0 is header) */
  protected $rows_array;
- /** @var integer $current_row Current row index */
- protected $current_row=0;
+ protected $current_row;
 
-             /** @var boolean $sortable Show headers sortable link */
-             protected $sortable;
-             /** @var boolean $checkboxes Selectable rows */
-             protected $checkboxes;
-             /** @var string $get Additional get parameters for sortable link */
-             protected $get;
-             /** @var boolean $movable Movable rows */
-             protected $movable;
-             /** @var string $move_table Table name for move function */
-             protected $move_table;
-             /** @var string $position_field Field name for position */
-             protected $position_field;
-             /** @var string $grouping_field Field name for grouping position */
-             protected $grouping_field;
-             /** @var array $checkboxes_actions Array of checkboxes actions */
-             protected $checkboxes_actions;
+ /** @todo fare funzioni aggiuntive ( sortable, checkboxes, movable */
 
 /**
  * Debug
@@ -61,10 +39,10 @@ class Table{
  * @return boolean
  */
  public function __construct($emptyrow=NULL,$class=NULL,$caption=NULL,$id=NULL){
+  if($id){$this->id="table_".$id;}else{$this->id="table_".md5(rand(1,99999));}
   $this->emptyrow=$emptyrow;
   $this->class=$class;
   $this->caption=$caption;
-  if($id){$this->id="table_".$id;}else{$this->id="table_".md5(rand(1,99999));}
   $this->current_row=0;
   $this->rows_array=array();
   // initialize headers row array
@@ -122,7 +100,7 @@ class Table{
  * Add Table Row Field
  *
  * @param string $content Content data
- * @param string $class CDD class
+ * @param string $class CSS class
  * @param string $style Custom CSS
  * @param string $tags Custom HTML tags
  * @return boolean
@@ -143,8 +121,30 @@ class Table{
   return TRUE;
  }
 
-
-
+/**
+ * Add Table Row Field Action
+ *
+ * @param string $url Action URL
+ * @param string $label Button label
+ * @param string $class CSS class
+ * @param string $style Custom CSS
+ * @param string $tags Custom HTML tags
+ * @return boolean
+ */
+ function addRowFieldAction($url,$label,$class=NULL,$style=NULL,$tags=NULL){
+  if(!$this->current_row){echo "ERROR - Table->addRowFieldAction - No row defined";return FALSE;}
+  if(!$url){echo "ERROR - Table->addRowFieldAction - URL is required";return FALSE;}
+  if(!$label){$label="&nbsp;";}
+  // build field object
+  $td=new stdClass();
+  $td->content=api_link($url,$label,NULL,"btn btn-default btn-xs");
+  $td->class=$class;
+  $td->style=$style;
+  $td->tags=$tags;
+  // add field to row
+  $this->rows_array[$this->current_row]->fields_array[]=$td;
+  return TRUE;
+ }
 
 /**
  * Renderize table object

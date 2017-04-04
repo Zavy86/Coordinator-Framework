@@ -10,9 +10,9 @@
  if($authorization){if(!api_checkAuthorization(MODULE,$authorization)){api_alerts_add(api_text("alert_unauthorized",array(MODULE,$authorization)),"danger");api_redirect("?mod=framework&scr=dashboard");}}
 
  // build html object
- $html=new HTML($module_title);
+ $html=new cHTML($module_title);
  // build navbar object
- $nav=new Nav("nav-tabs");
+ $nav=new cNav("nav-tabs");
 
  $nav->setTitle(api_text("framework"));
 
@@ -102,7 +102,7 @@
   if(in_array(SCRIPT,array("modules_view")) && $_REQUEST['module']){
    $nav->addItem(api_text("nav-operations"),NULL,NULL,"active");
    // get module object
-   $module_obj=new Module($_REQUEST['module']);
+   $module_obj=new cModule($_REQUEST['module']);
    // check enabled
    if($module_obj->module<>"framework"){
     if($module_obj->enabled){$nav->addSubItem(api_text("nav-operations-module_disable"),"?mod=framework&scr=submit&act=module_disable&module=".$_REQUEST['module'],TRUE,api_text("nav-operations-module_disable-confirm"));}

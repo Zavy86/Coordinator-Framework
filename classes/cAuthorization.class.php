@@ -1,6 +1,6 @@
 <?php
 /**
- * authorization
+ * Authorization
  *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -8,11 +8,9 @@
  */
 
 /**
- * authorization class
- *
- * @todo check phpdoc
+ * Authorization class
  */
-class authorization{
+class cAuthorization{
  protected $id;
  protected $module;
  protected $action;
@@ -29,9 +27,9 @@ class authorization{
  public function debug(){return $this;}
 
  /**
-  * authorization class
+  * Authorization class
   *
-  * @param integer $authorization authorization object or ID
+  * @param integer $authorization Authorization object or ID
   * @return boolean
   */
  public function __construct($authorization){
@@ -52,7 +50,7 @@ class authorization{
   $this->groups_level_array=array();
   $groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_modules_authorizations_join_groups` WHERE `fkAuthorization`='".$this->id."'"); /** @todo in che ordine?? ORDER BY `name` */
   foreach($groups_results as $group){
-   $this->groups_array[$group->fkGroup]=new Group($group->fkGroup);
+   $this->groups_array[$group->fkGroup]=new cGroup($group->fkGroup);
    $this->groups_level_array[$group->fkGroup]=$group->level;
   }
   return TRUE;
@@ -64,14 +62,7 @@ class authorization{
  * @param string $property Property name
  * @return string Property value
  */
- public function __get($property){
-  // switch
-  /*switch($property){
-   case "authorization":return $this->authorization;
-   default:return FALSE;
-  }*/
-  return $this->$property;
- }
+ public function __get($property){return $this->$property;}
 
 }
 ?>

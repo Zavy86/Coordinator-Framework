@@ -9,19 +9,14 @@
 
 /**
  * Session class
- *
- * @todo check phpdoc
  */
-class Session{
- /** @var string $id Session ID */
+class cSession{
+
+ /** Properties */
  protected $id;
- /** @var boolean $valid Session validity */
  protected $validity;
- /** @var boolean $duration Session duration */
  protected $duration;
- /** @var boolean $idle Session idle */
  protected $idle;
- /** @var \User $user Account User class */
  protected $user;
 
  /**
@@ -86,17 +81,14 @@ class Session{
   $this->validity=TRUE;
   // update last timestamp
   $GLOBALS['database']->queryExecute("UPDATE `framework_sessions` SET `lastTimestamp`='".time()."' WHERE `id`='".$this->id."'");
-
   // build user object
-  $this->user=new User($session_obj->fkUser,TRUE);
-
+  $this->user=new cUser($session_obj->fkUser,TRUE);
   // check maintenance
   if($GLOBALS['settings']->maintenance){ /** @ and user not administrator */
    unset($_SESSION['coordinator_session_id']);
    api_redirect(DIR."login.php?alert=maintenance");
    return FALSE;
   }
-
   return TRUE;
  }
 
@@ -140,16 +132,18 @@ class Session{
  /**
   * Count all Sessions
   */
- public function countAllSessions(){ /** @todo cercare un nome decente.. */
+ /*public function countAllSessions(){
+  /** @todo cercare un nome decente..
   return $GLOBALS['database']->queryUniqueValue("SELECT COUNT(`id`) FROM `framework_sessions`");
- }
+ }*/
 
  /**
   * Count Online Users
   */
- public function countOnlineUsers(){ /** @todo cercare un nome decente.. */
+ /*public function countOnlineUsers(){
+  /** @todo cercare un nome decente..
   return $GLOBALS['database']->queryUniqueValue("SELECT COUNT(DISTINCT(`fkUser`)) FROM `framework_sessions`");
- }
+ }*/
 
 }
 ?>

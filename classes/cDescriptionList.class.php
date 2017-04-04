@@ -11,16 +11,12 @@
 
 /**
  * Description List
- *
- * @todo check phpdoc
  */
-class DescriptionList{
+class cDescriptionList{
 
- /** @var string $separator Default elements separator */
+ /** Properties */
  protected $separator;
- /** @var string $class CSS class */
  protected $class;
- /** @var string $elements_array[] Array of elements */
  protected $elements_array;
 
  /**

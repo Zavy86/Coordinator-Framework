@@ -12,7 +12,7 @@
  // set html title
  $html->setTitle(api_text("sessions_list"));
  // build grid object
- $table=new Table(api_text("accounts_list-tr-unvalued"));
+ $table=new cTable(api_text("accounts_list-tr-unvalued"));
  $table->addHeader("&nbsp;",NULL,16);
  $table->addHeader(api_text("sessions_list-th-fullname"),NULL,"100%");
  $table->addHeader(api_text("sessions_list-th-idle"),"nowrap text-right");
@@ -26,7 +26,7 @@
  $sessions_results=$GLOBALS['database']->queryObjects("SELECT `framework_sessions`.* FROM `framework_sessions` JOIN `framework_users` ON `framework_users`.`id`=`framework_sessions`.`fkUser` ORDER BY `lastname`,`firstname`,`lastTimestamp`",$GLOBALS['debug']);
  foreach($sessions_results as $session_r){
   if(!array_key_exists($session_r->fkUser,$users_array)){
-   $users_array[$session_r->fkUser]=new User($session_r->fkUser);
+   $users_array[$session_r->fkUser]=new cUser($session_r->fkUser);
    $users_array[$session_r->fkUser]->sessions=array();
   }
   // add session to user
@@ -49,7 +49,7 @@
   }
  }
  // build grid object
- $grid=new Grid();
+ $grid=new cGrid();
  $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
  // add content to html

@@ -9,16 +9,16 @@
  // include functions
  require_once("functions.inc.php");
  // build html object
- $html=new HTML($module_name);
+ $html=new cHTML($module_name);
  // set html title
  $html->setTitle("Login");
  // build recovery form
- $form=new Form("?mod=accounts&scr=submit&act=user_recovery");
+ $form=new cForm("?mod=accounts&scr=submit&act=user_recovery");
  $form->addField("email","mail",api_text("recovery-ff-account"),NULL,api_text("recovery-ff-account-placeholder"),NULL,NULL,NULL,"required");
  $form->addControl("submit",api_text("recovery-fc-submit"));
  $form->addControl("button",api_text("form-cancel"),"login.php");
  // build grid object
- $grid=new Grid();
+ $grid=new cGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html

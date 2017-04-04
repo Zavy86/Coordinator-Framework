@@ -8,15 +8,12 @@
  */
 
 /**
- * Localization structure class
- *
- * @todo check phpdoc
+ * Localization class
  */
-class Localization{
- /** @var array $available_localizations[] Array of available localizations */
- protected $available_localizations;
+class cLocalization{
 
- /** @var array $localized_strings_array[] Array of localized strings */
+ /** Properties */
+ protected $available_localizations;
  protected $localized_strings_array;
 
  /**
@@ -67,33 +64,20 @@ class Localization{
   return TRUE;
  }
 
-/**
- * Get
- *
- * @param string $property Property name
- * @return mixed value
- */
- public function __get($property){
-  // switch properties
-  switch($property){
-   case "available_localizations":return $this->available_localizations;
-   default:return FALSE;
-  }
- }
+ /**
+  * Get
+  *
+  * @param string $property Property name
+  * @return mixed value
+  */
+ public function __get($property){return $this->$property;}
 
-/**
- * Available Localizations
- *
- * @return array of available localizations
- */
- //public function available_localizations(){return $this->available_localizations;}
-
-/**
- * Get Localized String
- *
- * @param string $property Property name
- * @return mixed value
- */
+ /**
+  * Get Localized String
+  *
+  * @param string $property Property name
+  * @return mixed value
+  */
  public function getString($key,$localization_code=NULL){
   if(!$localization_code){$localization_code=$GLOBALS['session']->user->localization;}
   $return=$this->localized_strings_array[$localization_code][$key];

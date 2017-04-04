@@ -9,11 +9,10 @@
 
 /**
  * User class
- *
- * @todo check phpdoc
  */
-class User{
- /** @var string $settings_array[] User array */
+class cUser{
+
+ /** Properties */
  protected $id;
  protected $mail;
  protected $firstname;
@@ -91,7 +90,7 @@ class User{
   $this->groups_array=array();
   $groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_users_join_groups` WHERE `fkUser`='".$user->id."' ORDER BY `main` DESC",$GLOBALS['debug']);
   foreach($groups_results as $group){
-   $this->groups_array[$group->fkGroup]=new Group($group->fkGroup);
+   $this->groups_array[$group->fkGroup]=new cGroup($group->fkGroup);
    if($group->main){$this->groups_main=$group->fkGroup;}
   }
   // load authorizations
@@ -105,28 +104,7 @@ class User{
  * @param string $property Property name
  * @return string Property value
  */
- public function __get($property){
-  // switch
-  /*switch($property){
-   case "id":return $this->id;
-   case "mail":return $this->mail;
-   case "firstname":return $this->firstname;
-   case "lastname":return $this->lastname;
-   case "fullname":return $this->fullname;
-   case "localization":return $this->localization;
-   case "timezone":return $this->timezone;
-   case "avatar":return $this->avatar;
-   case "enabled":return $this->enabled;
-   case "addTimestamp":return $this->addTimestamp;
-   case "pwdExpiration":return $this->pwdExpiration;
-   case "pwdExpired":return $this->pwdExpired;
-   case "deleted":return $this->deleted;
-   case "groups_main":return $this->groups_main;
-   case "groups_array":return $this->groups_array;
-   default:return FALSE;
-  }*/
-  return $this->$property;
- }
+ public function __get($property){return $this->$property;}
 
  /**
   * Get Status

@@ -13,7 +13,7 @@
  // set html title
  $html->setTitle("Dashboard");
  // build grid object
- $grid=new Grid();
+ $grid=new cGrid();
  $grid->addRow();
  $grid->addCol("Dashboard","col-xs-12");
  // add content to html

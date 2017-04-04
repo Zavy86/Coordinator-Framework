@@ -8,30 +8,20 @@
  */
 
 /**
- * HTML class
- *
- *                                                               @todo add custom script
+ * HTML class            @todo add custom script
  */
-class HTML{
- /** @var string $title HTML page title */
+class cHTML{
+
+ /** Properties */
  protected $title;
- /** @var string $language HTML page language */
  protected $language;
- /** @var string $charset HTML page charset */
  protected $charset;
- /** @var string $metaTags_array Array of meta tags */
  protected $metaTags_array;
- /** @var string $styleSheets_array Array of style sheets */
  protected $styleSheets_array;
- /** @var string $scripts_array Array of scripts */
  protected $scripts_array;
- /** @var string $modals_array Array of modal windows */
  protected $modals_array;
- /** @var string $header Body header */
  protected $header;
- /** @var string $content Body content */
  protected $content;
- /** @var string $footer Body footer */
  protected $footer;
 
  /**
@@ -111,7 +101,7 @@ class HTML{
   * @param booelan $url True if source is an URL
   * @return boolean
   */
- public function addModal($modal){
+ public function addcModal($modal){
   if(!is_a($modal,Modal)){return FALSE;}
   // add modal to modals array
   $this->modals_array[$modal->id]=$modal;

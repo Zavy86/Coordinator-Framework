@@ -7,11 +7,11 @@
  * @link    http://www.zavynet.org
  */
  // build html object
- $html=new HTML($module_name);
+ $html=new cHTML($module_name);
  // load html template
  //$html->loadTemplate();
  // build navbar object
- $nav=new Nav("nav-tabs");
+ $nav=new cNav("nav-tabs");
  $nav->addItem("Dashboard","?mod=dashboards&scr=dashboards_view");
  $nav->addItem("Customize","?mod=dashboards&scr=dashboards_customize");
  // add nav to html

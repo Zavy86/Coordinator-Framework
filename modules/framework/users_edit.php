@@ -8,7 +8,7 @@
  */
  $authorization="framework-users_manage";
  // get objects
- $user=new User($_REQUEST['idUser']);
+ $user=new cUser($_REQUEST['idUser']);
  if(!$user->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
 
  // include module template
@@ -17,7 +17,7 @@
  // set html title
  $html->setTitle(api_text("users_edit"));
  // build profile form
- $form=new Form("?mod=framework&scr=submit&act=user_edit&idUser=".$user->id,"POST",null,"users_edit");
+ $form=new cForm("?mod=framework&scr=submit&act=user_edit&idUser=".$user->id,"POST",null,"users_edit");
  /*if(!$user->deleted){
   $form->addField("checkbox","enabled","&nbsp;",$user->enabled);
   $form->addFieldOption(1,api_text("users_edit-enabled"));
@@ -51,7 +51,7 @@
  // jQuery script
  $jquery="/* Superuser Alert */$(function(){\$(\"input[name='superuser']\").change(function(){if($(\"input[name='superuser']:checked\").val()){alert(\"".api_text("users_edit-superuser-alert")."\");}});});";
  // build grid object
- $grid=new Grid();
+ $grid=new cGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html

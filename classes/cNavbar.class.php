@@ -9,19 +9,14 @@
 
 /**
  * Navbar class
- *
- * @todo check phpdoc
  */
-class Navbar{
- /** @var string $title Navbar page title */
+class cNavbar{
+
+ /** Properties */
  protected $title;
- /** @var string $title Navbar class */
  protected $class;
- /** @var string $navs_array Array of navbar items */
  protected $navs_array;
- /** @var integer $current_nav Current nav index */
  protected $current_nav;
- /** @var integer $current_item Current item index */
  protected $current_item;
 
  /**
@@ -65,7 +60,7 @@ class Navbar{
   * @param string $class Item css class
   * @return boolean
   */
- public function addNav($class=NULL){
+ public function addcNav($class=NULL){
   $nav=new stdClass();
   $nav->class=$class;
   $nav->items_array=array();

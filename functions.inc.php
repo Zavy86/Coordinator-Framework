@@ -52,39 +52,39 @@
  if($r_action){define("ACTION",$r_action);}
  if($r_tab){define("TAB",$r_tab);}
  // include classes
- require_once(ROOT."classes/localization.class.php");
- require_once(ROOT."classes/database.class.php");
- require_once(ROOT."classes/settings.class.php");
- require_once(ROOT."classes/session.class.php");
- require_once(ROOT."classes/module.class.php");
- require_once(ROOT."classes/menu.class.php");
- require_once(ROOT."classes/authorization.class.php");
- require_once(ROOT."classes/user.class.php");
- require_once(ROOT."classes/group.class.php");
- require_once(ROOT."classes/html.class.php");
- require_once(ROOT."classes/grid.class.php");
- require_once(ROOT."classes/nav.class.php"); /** fare classe tabs/tabbable per copia - e integrare tab nella nav */
- require_once(ROOT."classes/navbar.class.php");
- require_once(ROOT."classes/table.class.php");
- require_once(ROOT."classes/form.class.php");
- require_once(ROOT."classes/modal.class.php");
- require_once(ROOT."classes/dl.class.php");
- require_once(ROOT."classes/operations-button.class.php");
+ require_once(ROOT."classes/cLocalization.class.php");
+ require_once(ROOT."classes/cDatabase.class.php");
+ require_once(ROOT."classes/cSettings.class.php");
+ require_once(ROOT."classes/cSession.class.php");
+ require_once(ROOT."classes/cModule.class.php");
+ require_once(ROOT."classes/cMenu.class.php");
+ require_once(ROOT."classes/cAuthorization.class.php");
+ require_once(ROOT."classes/cUser.class.php");
+ require_once(ROOT."classes/cGroup.class.php");
+ require_once(ROOT."classes/cHTML.class.php");
+ require_once(ROOT."classes/cGrid.class.php");
+ require_once(ROOT."classes/cNav.class.php"); /** fare classe tabs/tabbable per copia - e integrare tab nella nav */
+ require_once(ROOT."classes/cNavbar.class.php");
+ require_once(ROOT."classes/cTable.class.php");
+ require_once(ROOT."classes/cForm.class.php");
+ require_once(ROOT."classes/cModal.class.php");
+ require_once(ROOT."classes/cDescriptionList.class.php");
+ require_once(ROOT."classes/cOperationsButton.class.php");
  require_once(ROOT."classes/cList.class.php");
 
  // load modules  /** @todo fare funzione */
 
  // build localization instance
- $localization=new Localization();
+ $localization=new cLocalization();
 
  // build database instance
  $database=new Database();
 
  // build settings instance
- $settings=new Settings();
+ $settings=new cSettings();
 
  // build session instance
- $session=new Session();
+ $session=new cSession();
 
  /**
   * Renderize a variable dump into a pre tag
@@ -389,9 +389,9 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
   // definitions
   $return=array();
   // execute query
-  $return["framework"]=new Module("framework");
+  $return["framework"]=new cModule("framework");
   $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_modules` WHERE `module`!='framework' ORDER BY `module`");
-  foreach($modules_results as $module){$return[$module->module]=new Module($module);}
+  foreach($modules_results as $module){$return[$module->module]=new cModule($module);}
   // return modules
   return $return;
  }
@@ -427,7 +427,7 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
   if(!$idGroup){$query_where="`fkGroup` IS NULL";}else{$query_where="`fkGroup`='".$idGroup."'";}
   // execute query
   $groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_groups` WHERE ".$query_where." ORDER BY `name` ASC");
-  foreach($groups_results as $group){$return[$group->id]=new Group($group);}
+  foreach($groups_results as $group){$return[$group->id]=new cGroup($group);}
   // return groups
   return $return;
  }

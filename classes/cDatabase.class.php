@@ -7,10 +7,13 @@
  * @link    http://www.coordinator.it
  */
 
+/**
+ * Database class
+ */
 class Database{
 
+ /** Properties */
  private $connection;
-
  public $query_counter;
 
  public function __construct(){
