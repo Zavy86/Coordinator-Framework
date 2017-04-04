@@ -80,7 +80,7 @@
   $authorizations_modal=new cModal(api_text("modules_view-authorizations_modal-title"),NULL,"modules_view-authorizations_modal");
   $authorizations_modal->setBody($authorizations_join_form->render());
   // add modal to html object
-  $html->addcModal($authorizations_modal);
+  $html->addModal($authorizations_modal);
   // jQuery scripts
   $html->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_modules_view-authorizations_modal\").modal('show');});");
  }

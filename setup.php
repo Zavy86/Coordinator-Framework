@@ -140,6 +140,7 @@
     WHERE `id`='1'";
    $query=$connection->prepare($sql_update);
    $query->execute();
+   /** @todo settare un random cron token */
    // setup complete form
    $form->addField("hidden","setup_action",NULL,"completed");
    $form->addField("static",NULL,"Setup","<i class='fa fa-check'></i> Completed");

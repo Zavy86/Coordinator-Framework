@@ -24,6 +24,7 @@ class cModule{
  protected $updFkUser;
  protected $source_path;
  protected $source_version;
+ protected $repository_version_url;
  protected $authorizations_array;
 
  /**
@@ -58,6 +59,9 @@ class cModule{
   $this->source_path=ROOT."modules/".$this->module."/";
   if($this->module=="framework"){$this->source_path=ROOT;}
   $this->source_version=file_get_contents($this->source_path."VERSION.txt");
+  // get repository version url
+  require(ROOT."modules/".$this->module."/module.inc.php");
+  $this->repository_version_url=$module_repository_version_url;
   // get authorizations
   $this->authorizations_array=array();
   $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_modules_authorizations` WHERE `module`='".$this->module."'"); /** @todo in che ordine?? nuovo campo order? ORDER BY `action` */

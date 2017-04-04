@@ -101,8 +101,8 @@ class cHTML{
   * @param booelan $url True if source is an URL
   * @return boolean
   */
- public function addcModal($modal){
-  if(!is_a($modal,Modal)){return FALSE;}
+ public function addModal($modal){
+  if(!is_a($modal,cModal)){return FALSE;}
   // add modal to modals array
   $this->modals_array[$modal->id]=$modal;
   return TRUE;

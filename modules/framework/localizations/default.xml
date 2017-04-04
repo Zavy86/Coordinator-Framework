@@ -397,7 +397,7 @@
  <text key="modules_list-th-installed">Installata</text>
  <text key="modules_list-th-repository">Rilasciata</text>
  <text key="modules_list-th-description">Descrizione</text>
- <text key="modules_list-td-update_database">Aggiorna da {0}</text>
+ <text key="modules_list-td-update_database">Aggiorna a {0}</text>
  <text key="modules_list-td-update_source">Ottieni tramite Git</text>
  <text key="modules_list-td-update_source-confirm">Confermi di voler eseguire il download dell'aggiornamento tramite Git?</text>
  <text key="modules_list-td-update_source-manual">Aggiorna manualmente</text>

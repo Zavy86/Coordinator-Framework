@@ -27,14 +27,13 @@
  // cycle all modules
  foreach($modules_array as $module){
   // get last released version from GitHub
-  //$repository_version=file_get_contents("https://raw.githubusercontent.com/Zavy86/Coordinator-Framework/master/VERSION.txt");
-  $repository_version="1.0.2";
-
+  $repository_version=NULL;
+  if($module->repository_version_url){$repository_version=file_get_contents($module->repository_version_url);}
+  if(!is_numeric(substr($repository_version,0,1))){$repository_version=NULL;}
   // check if repository version is updated among source version
   if(api_check_version($module->source_version,$repository_version)>0){$repository_updated=TRUE;}else{$repository_updated=FALSE;}
   // check if source version is updated among installed version
   if(api_check_version($module->version,$module->source_version)>0){$source_updated=TRUE;}else{$source_updated=FALSE;}
-
   //
   if($source_updated){
    $action_btn=api_link("?mod=framework&scr=submit&act=module_update_database&module=".$module->module,api_text("modules_list-td-update_database",$module->source_version),NULL,"btn btn-warning btn-xs");
@@ -48,7 +47,6 @@
   }else{
    $action_btn=NULL;
   }
-
   //
   $table->addRow();
   $table->addRowField(api_link("?mod=framework&scr=modules_view&module=".$module->module,api_icon("search",api_text("show"))));
@@ -57,8 +55,6 @@
   $table->addRowField(api_tag("span",$repository_version,"label ".($repository_updated?"label-info":"label-success")),"nowrap text-right");
   $table->addRowField($module->description,"truncate-ellipsis");
   $table->addRowField($action_btn,"nowrap text-right");
-
-
  }
  // build grid object
  $grid=new cGrid();

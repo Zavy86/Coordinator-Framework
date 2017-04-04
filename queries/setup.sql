@@ -146,6 +146,13 @@ CREATE TABLE IF NOT EXISTS `framework_users_join_groups` (
   KEY `fkGroup` (`fkGroup`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `framework_users_join_groups`
+--
+
+INSERT INTO `framework_users_join_groups` (`fkUser`, `fkGroup`, `main`) VALUES
+(1, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -195,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `framework_modules` (
 --
 
 INSERT INTO `framework_modules` (`module`, `version`, `enabled`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`) VALUES
-('framework', '1.0.0', 1, 1483228800, 1, NULL, NULL);
+('framework', '0.0.1', 1, 1483228800, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -211,6 +218,18 @@ CREATE TABLE IF NOT EXISTS `framework_modules_authorizations` (
   UNIQUE KEY `action` (`action`),
   KEY `module` (`module`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `framework_modules_authorizations`
+--
+
+INSERT INTO `framework_modules_authorizations` (`id`, `module`, `action`) VALUES
+(1, 'framework', 'framework-settings_manage'),
+(2, 'framework', 'framework-menus_manage'),
+(3, 'framework', 'framework-modules_manage'),
+(4, 'framework', 'framework-users_manage'),
+(5, 'framework', 'framework-groups_manage'),
+(6, 'framework', 'framework-sessions_manage');
 
 -- --------------------------------------------------------
 
