@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<locale>
+
+ <code>en_EN</code>
+ <localization>English</localization>
+
+ <text key="yes">Yes</text>
+ <text key="no">No</text>
+
+ <!-- datetimes -->
+ <text key="date">m-d-Y</text>
+ <text key="datetime">m-d-Y H:i</text>
+ <text key="datetimesec">m-d-Y H:i:s</text>
+
+ <!-- alerts -->
+ <text key="alert_unauthorized">Your account is not authorized to perform the "{1}" action in the "{0}" module</text>
+ <text key="alert_authenticationFailed">Incorrect username or password</text>
+ <text key="alert_submitFunctionNotFound">The function "{2}" was not found in script "{1}" of module "{0}"</text>
+
+ <!-- nav -->
+ <text key="nav-dashboard">Dashboard</text>
+ <text key="nav-own-profile">Personal profile</text>
+ <text key="nav-settings">Settings</text>
+ <text key="nav-logout">Logout</text>
+ <text key="nav-operations">Operations</text>
+
+ <!-- forms -->
+ <text key="form-submit">Submit</text>
+ <text key="form-cancel">Cancel</text>
+ <text key="form-reset">Reset</text>
+ <text key="form-input-file-placeholder">Select a file..</text>
+ <text key="form-input-text_localized-default">Default</text>
+ <text key="form-input-text_localized-default-placeholder">Insert default translation</text>
+ <text key="form-input-text_localized-language-placeholder">Insert the {0} translation</text>
+ <text key="form-input-text_localized-translate">Insert translations</text>
+ <text key="form-input-text_localized-alert">Default translation is required!</text>
+
+ <!-- login -->
+ <text key="login-ff-account">Account</text>
+ <text key="login-ff-password">Password</text>
+ <text key="login-fc-login">Login</text>
+ <text key="login-fc-recovery">Forgot password?</text>
+
+ <!-- recovery -->
+ <text key="recovery-ff-account">Account</text>
+ <text key="recovery-ff-account-placeholder">Insert your mail address..</text>
+ <text key="recovery-fc-submit">Send recovery link</text>
+
+</locale>

@@ -1,0 +1,142 @@
+/*
+#debug pre{font-size:9pt;}
+#debug code.log{color:#000;}
+#debug code.warn{color:#EA0;}
+#debug code.error{color:#F00;}
+*/
+
+/*div.br{
+ display:block;
+ margin:9px 0 0 0;
+}*/
+
+.nowrap{
+ white-space:nowrap;
+}
+
+i.glyphicon{
+ top:3px;
+ color:#000;
+}
+
+a i.glyphicon{
+ /** @todo nel caso si vogliano colorati integrare il colore qui e non sopra */
+}
+
+.hidden-link{
+ color:#333;
+}
+
+a.hidden-link{
+ text-decoration:none;
+}
+
+.control-label{
+ font-weight:normal;
+}
+
+footer{
+ color:#999;
+ font-size:12px;
+ padding-top:10px;
+ border-top:1px solid #ddd;
+}
+
+.nav-tabs li.title,.nav-pills li.title{
+ padding:12px;
+ margin-right:2px;
+ line-height:18px;
+ font-size:20px;
+}
+
+.text-vtop{
+ vertical-align:top;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th{
+ font-size:11px;
+ text-transform:uppercase;
+ border-bottom:0;
+}
+
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+ font-size:14px;
+}
+
+.table td.truncate-ellipsis {
+ display:table;
+ table-layout:fixed;
+ width:100%;
+}
+
+.table td.truncate-ellipsis > * {
+ overflow:hidden;
+ white-space:nowrap;
+ display:table-cell;
+ overflow:hidden;
+ text-overflow:ellipsis;
+ padding:5px;
+ line-height:1.42857143;
+ vertical-align:top;
+}
+
+.table tr.deleted td{
+ text-decoration:line-through;
+}
+
+.nav-responsive{
+ /*overflow-x:auto; @todo @bug verificare per dropdown mobile */
+ min-height:0.01%;
+}
+
+@media screen and (max-width:767px){
+ .nav-responsive{
+  width:99%;
+  margin-bottom:15px;
+  overflow-y:hidden;
+  -ms-overflow-style:-ms-autohiding-scrollbar;
+ }
+}
+
+.dl-horizontal dt{
+ width:165px;
+ margin-right:30px;
+ font-weight:normal;
+}
+
+span.disabled{
+ color:#666;
+}
+
+i.disabled{
+ color:#999;
+}
+
+form label{
+ overflow:hidden;
+ white-space:nowrap;
+ text-overflow:ellipsis;
+}
+
+td .btn{
+ margin-top:-3px;
+ margin-bottom:-1px;
+}
+
+.operationButton:hover{
+ background-color:#fff;
+}
+
+.fa-ul{
+ padding-left:10px;
+}
+
+.fa-ul .fa-li{
+ padding-top:6px;
+ font-size:8px;
+ color:#999;
+}

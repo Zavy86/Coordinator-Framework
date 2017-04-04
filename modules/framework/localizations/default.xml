@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<locale>
+
+ <!-- framework -->
+ <text key="framework">Framework</text>
+ <text key="framework-description">Coordinator framework</text>
+
+ <!-- authorizations -->
+ <text key="framework-settings_manage">Gestione impostazioni</text>
+ <text key="framework-settings_manage-description">Gestione delle impostazioni del framework</text>
+ <text key="framework-menus_manage">Gestione menu</text>
+ <text key="framework-menus_manage-description">Gestione dei menu del framework</text>
+ <text key="framework-modules_manage">Gestione moduli</text>
+ <text key="framework-modules_manage-description">Gestione dei moduli del framework</text>
+ <text key="framework-users_manage">Gestione utenti</text>
+ <text key="framework-users_manage-description">Gestione degli utenti del framework</text>
+ <text key="framework-groups_manage">Gestione gruppi</text>
+ <text key="framework-groups_manage-description">Gestione dei gruppi del framework</text>
+ <text key="framework-sessions_manage">Gestione sessioni</text>
+ <text key="framework-sessions_manage-description">Gestione delle sessioni degli utenti nel framework</text>
+
+ <!-- alerts -->
+ <text key="settings_alert_settingsUpdated">Le impostazioni sono state aggiornate</text>
+
+ <text key="settings_alert_menuError">Si è verificato un errore durante il salvaraggio del menu</text>
+ <text key="settings_alert_menuNotFound">Il menu non è stato trovato</text>
+ <text key="settings_alert_menuCreated">Il menu è stato creato</text>
+ <text key="settings_alert_menuUpdated">Il menu è stato aggiornato</text>
+ <text key="settings_alert_menuNesting">Sono presenti menu ad un sotto-livello non renderizzabile</text>
+
+ <text key="settings_alert_ownProfileUpdated">Il tuo profilo è stato aggiornato</text>
+ <text key="settings_alert_ownPasswordIncorrect">La password attuale inserita non è corretta</text>
+ <text key="settings_alert_ownPasswordNotMatch">Le nuove password non coincidono</text>
+ <text key="settings_alert_ownPasswordWeak">La nuova password non ha superato il livello minimo di sicurezza</text>
+ <text key="settings_alert_ownPasswordOldest">La nuova password coincide con la vecchia password</text>
+ <text key="settings_alert_ownPasswordUpdated">La tua password è stata aggiornata</text>
+
+ <text key="settings_alert_userError">Si è verificato un errore durante il salvaraggio dell'utente</text>
+ <text key="settings_alert_userNotFound">L'utente non è stato trovato</text>
+ <text key="settings_alert_userCreated">L'utente è stato creato</text>
+ <text key="settings_alert_userUpdated">L'utente è stato aggiornato</text>
+ <text key="settings_alert_userEnabled">L'utente è stato abilitato</text>
+ <text key="settings_alert_userDisabled">L'utente è stato disabilitato</text>
+ <text key="settings_alert_userDeleted">L'utente è stato eliminato</text>
+ <text key="settings_alert_userUndeleted">L'utente è stato ripristinato</text>
+ <text key="settings_alert_userGroupError">Si è verificato un errore durante il salvataggio del gruppo dell'utente</text>
+ <text key="settings_alert_userGroupNotFound">Il gruppo dell'utente non è stato trovato</text>
+ <text key="settings_alert_userGroupAdded">Il gruppo è stato aggiunto all'utente</text>
+ <text key="settings_alert_userGroupRemoved">Il gruppo è stato rimosso dall'utente</text>
+
+ <text key="settings_alert_groupError">Si è verificato un errore durante il salvataggio del gruppo</text>
+ <text key="settings_alert_groupNotFound">Il gruppo non è stato trovato</text>
+ <text key="settings_alert_groupCreated">Il gruppo è stato creato</text>
+ <text key="settings_alert_groupUpdated">Il gruppo è stato aggiornato</text>
+
+ <text key="settings_alert_sessionNotFound">La sessione non è stata trovata</text>
+ <text key="settings_alert_sessionTerminated">La sessione è stata terminata</text>
+ <text key="settings_alert_sessionTerminatedAll">Tutte le sessioni sono state terminate</text>
+
+ <text key="settings_alert_moduleError">Si è verificato un errore durante il salvataggio del modulo</text>
+ <text key="settings_alert_moduleNotFound">Il modulo non è stato trovato</text>
+ <text key="settings_alert_moduleAdded">Il modulo è stato scaricato</text>
+ <text key="settings_alert_moduleEnabled">Il modulo è stato abilitato</text>
+ <text key="settings_alert_moduleDisabled">Il modulo è stato disabilitato</text>
+ <text key="settings_alert_moduleUpdateGitLocalhost">Aggiornamento Git bloccato su localhost</text>
+ <text key="settings_alert_moduleUpdateSourceAborted">Si è verificato un errore durante il tentativo di aggiornamento tramite Git</text>
+ <text key="settings_alert_moduleUpdateSourceAlready">La versione dei sorgenti installata non necessita di ulteriori aggiornamenti</text>
+ <text key="settings_alert_moduleUpdateSourceUpdated">L'aggiornamento dei sorgenti tramite Git è avvenuto correttamente</text>
+ <text key="settings_alert_moduleUpdateDatabaseError">Si è verificato un errore durante il tentativo di aggiornamento del database</text>
+ <text key="settings_alert_moduleUpdateDatabaseUpdated">L'aggiornamento del database è avvenuto correttamente</text>
+ <text key="settings_alert_moduleAuthorizationGroupAdded">Il gruppo è stato aggiunto alle autorizzazioni del modulo</text>
+ <text key="settings_alert_moduleAuthorizationGroupRemoved">Il gruppo è stato rimosso dalle autorizzazioni del modulo</text>
+ <text key="settings_alert_moduleAuthorizationResetted">Le autorizzazioni del gruppo sono state ripristinate</text>
+
+ <!-- operations -->
+ <text key="nav-operations-user_interpret">Interpreta utente</text>
+ <text key="nav-operations-user_interpret-confirm">Confermi di voler interpretare questo utente?</text>
+ <text key="nav-operations-user_edit">Modifica utente</text>
+ <text key="nav-operations-user_enable">Abilita utente</text>
+ <text key="nav-operations-user_disable">Disabilita utente</text>
+ <text key="nav-operations-user_group_add">Aggiungi gruppo</text>
+ <text key="nav-operations-user_undelete">Ripristina utente</text>
+ <text key="nav-operations-user_undelete-confirm">Confermi di voler ripristinare questo utente?</text>
+
+ <text key="nav-operations-module_enable">Abilita modulo</text>
+ <text key="nav-operations-module_disable">Disabilita modulo</text>
+ <text key="nav-operations-module_disable-confirm">Confermi di voler disabilitare questo modulo?</text>
+
+ <text key="nav-operations-module_authorizations">Autorizzazioni</text>
+ <text key="nav-operations-module_authorizations_group_add">Aggiungi gruppo</text>
+ <text key="nav-operations-module_authorizations_reset">Reset</text>
+ <text key="nav-operations-module_authorizations_reset-confirm">Confermi di voler eliminare tutti gruppi dalle autorizzazioni?</text>
+
+ <!-- user status -->
+ <text key="user-status-enabled">Abilitato</text>
+ <text key="user-status-disabled">Disabilitato</text>
+ <text key="user-status-superuser">Amministratore di sistema</text>
+ <text key="user-status-deleted">Eliminato</text>
+
+ <!-- user genders -->
+ <text key="user-gender-man">Uomo</text>
+ <text key="user-gender-woman">Donna</text>
+
+ <!-- settings_edit -->
+ <text key="settings_edit">Impostazioni</text>
+
+ <text key="settings_edit-general">Generali</text>
+ <text key="settings_edit-maintenance">Manutenzione</text>
+ <text key="settings_edit-maintenance-lock">Accesso bloccato</text>
+ <text key="settings_edit-owner">Proprietario</text>
+ <text key="settings_edit-owner-placeholder">Proprietario del framework</text>
+ <text key="settings_edit-title">Titolo</text>
+ <text key="settings_edit-title-placeholder">Titolo del framework</text>
+ <text key="settings_edit-show">Visualizza</text>
+ <text key="settings_edit-show-logo_title">Logo e titolo</text>
+ <text key="settings_edit-show-logo">Logo</text>
+ <text key="settings_edit-show-title">Titolo</text>
+ <text key="settings_edit-logo">Logo</text>
+
+ <text key="settings_edit-sessions">Sessioni e autenticazione</text>
+ <text key="settings_edit-sessions_authentication_method">Autenticazione</text>
+ <text key="settings_edit-sessions_authentication_method-standard">Standard</text>
+ <text key="settings_edit-sessions_authentication_method-ldap">LDAP</text>
+ <text key="settings_edit-sessions_multiple">Sessioni multiple</text>
+ <text key="settings_edit-sessions_multiple-allowed">Permesse</text>
+ <text key="settings_edit-sessions_idle_timeout">Timeout inattività</text>
+ <text key="settings_edit-sessions_idle_timeout-placeholder">Seleziona un timeout..</text>
+ <text key="settings_edit-sessions_idle_timeout-15m">15 minuti</text>
+ <text key="settings_edit-sessions_idle_timeout-1h">1 ora</text>
+ <text key="settings_edit-sessions_idle_timeout-4h">4 ore</text>
+ <text key="settings_edit-sessions_idle_timeout-8h">8 ore</text>
+ <text key="settings_edit-sessions_idle_timeout-24h">24 ore</text>
+ <text key="settings_edit-sessions_ldap_hostname">Server LDAP</text>
+ <text key="settings_edit-sessions_ldap_hostname-placeholder">Hostname indirizzo IP del server LDAP</text>
+ <text key="settings_edit-sessions_ldap_dn">DN</text>
+ <text key="settings_edit-sessions_ldap_dn-placeholder">DC=DOMAIN,DC=TLD</text>
+ <text key="settings_edit-sessions_ldap_domain">Domain</text>
+ <text key="settings_edit-sessions_ldap_domain-placeholder">@DOMAIN.TLD</text>
+ <text key="settings_edit-sessions_ldap_userfield">UserField</text>
+ <text key="settings_edit-sessions_ldap_userfield-placeholder">SamAccountName</text>
+ <text key="settings_edit-sessions_ldap_groups">Gruppi</text>
+ <text key="settings_edit-sessions_ldap_groups-placeholder">Member of groups query</text>
+ <text key="settings_edit-sessions_ldap_cache">Cache</text>
+ <text key="settings_edit-sessions_ldap_cache-allowed">Password caching abilitato</text>
+
+ <text key="settings_edit-sendmail">Mail</text>
+ <text key="settings_edit-sendmail_from_name">Mittente</text>
+ <text key="settings_edit-sendmail_from_name-placeholder">Nome del mittente predefinito</text>
+ <text key="settings_edit-sendmail_from_mail">Indirizzo mail</text>
+ <text key="settings_edit-sendmail_from_mail-placeholder">Indirizzo mail del mittente predefinito</text>
+ <text key="settings_edit-sendmail_asynchronous">Invio mail asincrono</text>
+ <text key="settings_edit-sendmail_asynchronous-enabled">Abilitato (Richiesto Cron {0})</text>
+ <text key="settings_edit-sendmail_method">Metodo di invio</text>
+ <text key="settings_edit-sendmail_method-standard">Standard</text>
+ <text key="settings_edit-sendmail_method-smtp">SMTP</text>
+ <text key="settings_edit-sendmail_smtp_hostname">Server SMTP</text>
+ <text key="settings_edit-sendmail_smtp_hostname-placeholder">Hostname indirizzo IP del server SMTP</text>
+ <text key="settings_edit-sendmail_smtp_username">Nome utente</text>
+ <text key="settings_edit-sendmail_smtp_username-placeholder">Nome utente per l'autenticazione SMTP</text>
+ <text key="settings_edit-sendmail_smtp_password">Password</text>
+ <text key="settings_edit-sendmail_smtp_password-placeholder">Compilare solo se si desidera modificare la password</text>
+ <text key="settings_edit-sendmail_smtp_encryption">Cifratura</text>
+ <text key="settings_edit-sendmail_smtp_encryption-none">Nessuna</text>
+ <text key="settings_edit-sendmail_smtp_encryption-tls">TLS</text>
+ <text key="settings_edit-sendmail_smtp_encryption-ssl">SSL</text>
+
+ <text key="settings_edit-users">Utenti</text>
+ <text key="settings_edit-users_password_expiration">Scadenza password</text>
+ <text key="settings_edit-users_password_expiration-placeholder">Seleziona una scadenza..</text>
+ <text key="settings_edit-users_password_expiration-never">Mai</text>
+ <text key="settings_edit-users_password_expiration-30days">30 giorni</text>
+ <text key="settings_edit-users_password_expiration-60days">60 giorni</text>
+ <text key="settings_edit-users_password_expiration-90days">90 giorni</text>
+ <text key="settings_edit-users_level_max">Livelli</text>
+ <text key="settings_edit-users_level_max-placeholder">Numero massimo di livelli</text>
+
+ <text key="settings_edit-token">Tokens</text>
+ <text key="settings_edit-token_cron">CRON Token</text>
+ <text key="settings_edit-token_cron-placeholder">Randomly created cron job token</text>
+ <text key="settings_edit-token_cron-randomize">Rigenera</text>
+ <text key="settings_edit-token_cron-randomize-confirm">Attenzione, generando un nuovo token dovrai modificarlo manualmente nel cron job del server. Confermi di voler generare un nuobo token?</text>
+
+ <text key="settings_edit-submit">Salva</text>
+ <text key="settings_edit-reset">Reset</text>
+ <text key="settings_edit-cancel">Annulla</text>
+
+ <!-- menus_list -->
+ <text key="menus_list">Menu</text>
+ <text key="menus_list-tr-unvalued">Non sono presenti menu da mostrare..</text>
+ <text key="menus_list-th-label">Menu</text>
+ <text key="menus_list-th-title">Descrizione</text>
+ <text key="menus_list-td-edit">Modifica menu</text>
+ <text key="menus_list-td-move-left">Sposta nel livello superiore</text>
+ <text key="menus_list-td-move-up">Sposta in alto</text>
+ <text key="menus_list-td-move-down">Sposta in basso</text>
+
+ <!-- menus_edit -->
+ <text key="menus_add">Nuovo menu</text>
+ <text key="menus_edit">Modifica menu</text>
+ <text key="menus_edit-fkMenu">Menu</text>
+ <text key="menus_edit-fkMenu-main">Menu principale</text>
+ <text key="menus_edit-typology">Tipologia</text>
+ <text key="menus_edit-typology-link">Link</text>
+ <text key="menus_edit-typology-module">Modulo</text>
+ <text key="menus_edit-icon">Icona</text>
+ <text key="menus_edit-icon-placeholder">Icona del menu</text>
+ <text key="menus_edit-label">Etichetta</text>
+ <text key="menus_edit-label-placeholder">Etichetta del menu</text>
+ <text key="menus_edit-title">Descrizione</text>
+ <text key="menus_edit-title-placeholder">Breve descrizione del menu</text>
+ <text key="menus_edit-url">URL</text>
+ <text key="menus_edit-url-placeholder">http://www.url.tdl</text>
+ <text key="menus_edit-module">Modulo</text>
+ <text key="menus_edit-module-placeholder">Seleziona un modulo..</text>
+ <text key="menus_edit-script">Script</text>
+ <text key="menus_edit-script-placeholder">Script da lanciare</text>
+ <text key="menus_edit-tab">Tab</text>
+ <text key="menus_edit-tab-placeholder">Tab da visualizzare</text>
+ <text key="menus_edit-action">Azione</text>
+ <text key="menus_edit-action-placeholder">Azione da eseguire</text>
+ <text key="menus_edit-target">Target</text>
+ <text key="menus_edit-target-standard">Standard</text>
+ <text key="menus_edit-target-blank">Nuova finestra</text>
+ <text key="menus_edit-submit">Salva</text>
+ <text key="menus_edit-cancel">Annulla</text>
+ <text key="menus_edit-delete">Elimina</text>
+ <text key="menus_edit-delete-confirm">Confermi di voler eliminare questo menu?</text>
+
+ <!-- own_profile -->
+ <text key="own_profile">Profilo personale</text>
+ <text key="own_profile-mail">Indirizzo mail</text>
+ <text key="own_profile-firstname">Nome</text>
+ <text key="own_profile-lastname">Cognome</text>
+ <text key="own_profile-localization">Lingua</text>
+ <text key="own_profile-localization-select">Seleziona una lingua..</text>
+ <text key="own_profile-timezone">Fuso orario</text>
+ <text key="own_profile-timezone-select">Seleziona un fuso orario..</text>
+ <text key="own_profile-gender">Genere</text>
+ <text key="own_profile-gender-none">Non dichiarato</text>
+ <text key="own_profile-gender-man">Uomo</text>
+ <text key="own_profile-gender-woman">Donna</text>
+ <text key="own_profile-birthday">Data di nascita</text>
+ <text key="own_profile-avatar">Avatar</text>
+ <text key="own_profile-avatar-delete">Elimina avatar</text>
+ <text key="own_profile-avatar-delete-confirm">Confermi di voler eliminare definitivamente questa immagine?</text>
+ <text key="own_profile-submit">Salva</text>
+ <text key="own_profile-cancel">Annulla</text>
+
+ <!-- own_password -->
+ <text key="own_password">Modifica password</text>
+ <text key="own_password-password">Password attuale</text>
+ <text key="own_password-password-placeholder">Inserisci la tua password attuale..</text>
+ <text key="own_password-password_new">Nuova password</text>
+ <text key="own_password-password_new-placeholder">Scegli una nuova password..</text>
+ <text key="own_password-password_confirm">Conferma</text>
+ <text key="own_password-password_confirm-placeholder">Conferma la nuova password..</text>
+ <text key="own_password-submit">Salva</text>
+ <text key="own_password-cancel">Annulla</text>
+
+ <!-- users_list -->
+ <text key="users_list">Utenti</text>
+ <text key="users_list-tr-unvalued">Non sono presenti utenti da mostrare..</text>
+ <text key="users_list-th-fullname">Utente</text>
+ <text key="users_list-th-mail">Indirizzo mail</text>
+ <text key="users_list-th-session">Stato</text>
+ <text key="users_list-td-view">Visualizza utente</text>
+ <text key="users_list-td-edit">Modifica utente</text>
+ <text key="users_list-td-enable">Abilita utente</text>
+ <text key="users_list-td-enable-confirm">Confermi di voler abilitare questo utente?</text>
+ <text key="users_list-td-disable">Disabilita utente</text>
+ <text key="users_list-td-disable-confirm">Confermi di voler disabilitare questo utente?</text>
+ <text key="users_list-td-delete">Elimina utente</text>
+ <text key="users_list-td-delete-confirm">Confermi di voler eliminare questo utente?</text>
+ <text key="users_list-td-undelete">Ripristina utente</text>
+ <text key="users_list-td-undelete-confirm">Confermi di voler ripristinare questo utente?</text>
+
+ <!-- users_view -->
+ <text key="users_view">Visualizza utente</text>
+ <text key="users_view-superuser">Amministratore di sistema</text>
+ <text key="users_view-enabled">Abilitato</text>
+ <text key="users_view-disabled">Disabilitato</text>
+ <text key="users_view-deleted">Eliminato</text>
+ <text key="users_view-deleted-alert">Questo utente è stato eliminato</text>
+ <text key="users_view-avatar-delete">Elimina avatar</text>
+ <text key="users_view-avatar-delete-confirm">Confermi di voler eliminare definitivamente questa immagine?</text>
+ <text key="users_view-mail">Indirizzo mail</text>
+ <text key="users_view-localization">Lingua</text>
+ <text key="users_view-timezone">Fuso orario</text>
+ <text key="users_view-level">Livello</text>
+ <text key="users_view-level-level">{0}° livello</text>
+ <text key="users_view-gender">Genere</text>
+ <text key="users_view-birthday">Data di nascita</text>
+ <text key="users_view-groups">Gruppi</text>
+ <text key="users_view-groups_table-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
+ <text key="users_view-groups_table-td-delete">Rimuovi gruppo</text>
+ <text key="users_view-groups_table-td-delete-confirm">Confermi di voler rimuovere il gruppo dall'utente?</text>
+ <text key="users_view-groups_table-td-main">Gruppo principale</text>
+ <text key="users_view-groups_table-td-mainize">Rendi principale</text>
+ <text key="users_view-groups_table-td-mainize-confirm">Confermi di voler rendere questo gruppo principale per l'utente?</text>
+ <text key="users_view-groups_modal-title">Aggiungi un gruppo all'utente</text>
+ <text key="users_view-groups_modal-ff-group">Gruppo</text>
+ <text key="users_view-groups_modal-ff-group-placeholder">Seleziona un gruppo..</text>
+ <text key="users_view-groups_modal-fc-submit">Aggiungi</text>
+ <text key="users_view-groups_modal-fc-cancel">Annulla</text>
+
+ <!-- users_add -->
+ <text key="users_add">Nuovo utente</text>
+ <text key="users_add-mail">Indirizzo mail</text>
+ <text key="users_add-mail-placeholder">Indirizzo mail dell'utente</text>
+ <text key="users_add-firstname">Nome</text>
+ <text key="users_add-firstname-placeholder">Nome dell'utente</text>
+ <text key="users_add-lastname">Cognome</text>
+ <text key="users_add-lastname-placeholder">Cognome dell'utente</text>
+ <text key="users_add-localization">Lingua</text>
+ <text key="users_add-localization-placeholder">Seleziona una lingua..</text>
+ <text key="users_add-timezone">Fuso orario</text>
+ <text key="users_add-timezone-placeholder">Seleziona un fuso orario..</text>
+ <text key="users_add-level">Livello</text>
+ <text key="users_add-level-placeholder">Seleziona un livello..</text>
+ <text key="users_add-level-level">{0}° livello</text>
+ <text key="users_add-submit">Salva</text>
+ <text key="users_add-cancel">Annulla</text>
+
+ <!-- users_edit -->
+ <text key="users_edit">Modifica utente</text>
+ <text key="users_edit-enabled">Abilitato</text>
+ <text key="users_edit-mail">Indirizzo mail</text>
+ <text key="users_edit-mail-placeholder">Indirizzo mail dell'utente</text>
+ <text key="users_edit-firstname">Nome</text>
+ <text key="users_edit-firstname-placeholder">Nome dell'utente</text>
+ <text key="users_edit-lastname">Cognome</text>
+ <text key="users_edit-lastname-placeholder">Cognome dell'utente</text>
+ <text key="users_edit-localization">Lingua</text>
+ <text key="users_edit-localization-placeholder">Seleziona una lingua..</text>
+ <text key="users_edit-timezone">Fuso orario</text>
+ <text key="users_edit-timezone-placeholder">Seleziona un fuso orario..</text>
+ <text key="users_edit-level">Livello</text>
+ <text key="users_edit-level-placeholder">Seleziona un livello..</text>
+ <text key="users_edit-level-level">{0}° livello</text>
+ <text key="users_edit-superuser">Amministratore di sistema</text>
+ <text key="users_edit-superuser-alert">Attenzione, stai per concedere pieni poteri a questo utente!</text>
+
+ <text key="users_edit-gender">Genere</text>
+ <text key="users_edit-gender-none">Non dichiarato</text>
+ <text key="users_edit-gender-man">Uomo</text>
+ <text key="users_edit-gender-woman">Donna</text>
+ <text key="users_edit-birthday">Data di nascita</text>
+
+ <text key="users_edit-submit">Salva</text>
+ <text key="users_edit-cancel">Annulla</text>
+ <text key="users_edit-delete">Elimina</text>
+ <text key="users_edit-delete-confirm">Confermi di voler eliminare questo account?</text>
+ <text key="users_edit-undelete">Ripristina</text>
+ <text key="users_edit-interpret">Interpreta</text>
+
+ <!-- groups_list -->
+ <text key="groups_list">Gruppi</text>
+ <text key="groups_list-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
+ <text key="groups_list-th-name">Gruppo</text>
+ <text key="groups_list-th-description">Descrizione</text>
+ <text key="groups_list-td-view">Visualizza gruppo</text>
+ <text key="groups_list-td-edit">Modifica gruppo</text>
+
+ <!-- groups_edit -->
+ <text key="groups_add">Nuovo gruppo</text>
+ <text key="groups_edit">Modifica gruppo</text>
+ <text key="groups_edit-fkGroup">Gruppo</text>
+ <text key="groups_edit-fkGroup-main">Gruppo principale</text>
+ <text key="groups_edit-name">Nome</text>
+ <text key="groups_edit-name-placeholder">Nome del gruppo</text>
+ <text key="groups_edit-description">Descrizione</text>
+ <text key="groups_edit-description-placeholder">Breve descrizione del gruppo</text>
+ <text key="groups_edit-submit">Salva</text>
+ <text key="groups_edit-cancel">Annulla</text>
+ <text key="groups_edit-delete">Elimina</text>
+ <text key="groups_edit-delete-confirm">Confermi di voler eliminare questo gruppo?</text>
+ <text key="groups_edit-undelete">Ripristina</text>
+
+ <!-- sessions_list -->
+ <text key="sessions_list">Sessioni</text>
+ <text key="sessions_list-tr-unvalued">Non sono presenti sessioni da mostrare..</text>
+ <text key="sessions_list-th-fullname">Utente</text>
+ <text key="sessions_list-th-idle">Tempo di inattività</text>
+ <text key="sessions_list-th-start">Accesso</text>
+ <text key="sessions_list-th-ipAddress">Indirizzo IP</text>
+ <text key="sessions_list-th-id">ID Session</text>
+ <text key="sessions_list-th-terminate">Termina tutte le sessioni</text>
+ <text key="sessions_list-th-terminate-confirm">Confermi di voler terminare tutte le sessioni?</text>
+ <text key="sessions_list-td-terminate">Termina sessione</text>
+ <text key="sessions_list-td-terminate-confirm">Confermi di voler terminare questa sessione?</text>
+
+ <!-- modules_list -->
+ <text key="modules_list">Moduli</text>
+ <text key="modules_list-tr-unvalued">Non sono presenti moduli da mostrare..</text>
+ <text key="modules_list-th-name">Modulo</text>
+ <text key="modules_list-th-installed">Installata</text>
+ <text key="modules_list-th-repository">Rilasciata</text>
+ <text key="modules_list-th-description">Descrizione</text>
+ <text key="modules_list-td-update_database">Aggiorna da {0}</text>
+ <text key="modules_list-td-update_source">Ottieni tramite Git</text>
+ <text key="modules_list-td-update_source-confirm">Confermi di voler eseguire il download dell'aggiornamento tramite Git?</text>
+ <text key="modules_list-td-update_source-manual">Aggiorna manualmente</text>
+
+ <!-- modules_view -->
+ <text key="modules_view">Modulo {0}</text>
+ <text key="modules_view-dt-name">Modulo</text>
+ <text key="modules_view-dt-description">Descrizione</text>
+ <text key="modules_view-dt-version">Versione</text>
+ <text key="modules_view-dd-version-repository_update">Aggiornamento disponibile {0}</text>
+ <text key="modules_view-dd-version-source_update">Aggiornamento database necessario</text>
+ <text key="modules_view-dt-status">Stato</text>
+ <text key="modules_view-dd-enabled">Abilitato</text>
+ <text key="modules_view-dd-disabled">Disabilitato</text>
+ <text key="modules_view-authorizations-tr-unvalued">Non sono presenti autorizzazioni da mostrare..</text>
+ <text key="modules_view-authorizations-th-authorization">Autorizzazione</text>
+ <text key="modules_view-authorizations-th-groups">Gruppi abilitati</text>
+ <text key="modules_view-authorizations-td-groups-none">Nessun gruppo abilitato..</text>
+ <text key="modules_view-authorizations-td-delete">Rimuovi gruppo</text>
+ <text key="modules_view-authorizations-td-delete-confirm">Confermi di voler rimuovere questo gruppo dall'autorizzazione?</text>
+ <text key="modules_view-authorizations_modal-title">Aggiungi un gruppo alle autorizzazioni</text>
+ <text key="modules_view-authorizations_modal-ff-group">Gruppo</text>
+ <text key="modules_view-authorizations_modal-ff-group-placeholder">Seleziona un gruppo..</text>
+ <text key="modules_view-authorizations_modal-ff-level">Livello</text>
+ <text key="modules_view-authorizations_modal-ff-level-placeholder">Seleziona un livello minimo..</text>
+ <text key="modules_view-authorizations_modal-ff-level-fo-level">{0}° livello o superiore</text>
+ <text key="modules_view-authorizations_modal-ff-authorizations">Autorizzazioni</text>
+ <text key="modules_view-authorizations_modal-fc-submit">Salva</text>
+ <text key="modules_view-authorizations_modal-fc-cancel">Annulla</text>
+
+ <!-- modules_add -->
+ <text key="modules_add">Nuovo modulo</text>
+ <text key="modules_add-url">URL Modulo</text>
+ <text key="modules_add-url-placeholder">https://github.com/Zavy86/Coordinator-Framework.git</text>
+ <text key="modules_add-method">Metodo</text>
+ <text key="modules_add-method-git">Git</text>
+ <text key="modules_add-method-zip">Zip</text>
+ <text key="modules_add-submit">Installa</text>
+ <text key="modules_add-cancel">Annulla</text>
+
+</locale>
