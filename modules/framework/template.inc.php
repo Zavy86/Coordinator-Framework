@@ -20,7 +20,7 @@
 
  // settings
  if(substr(SCRIPT,0,8)=="settings"){
-  $nav->addItem(api_text("settings_framework"),"?mod=framework&scr=settings_framework");
+  $nav->addItem(api_text("settings_edit"),"?mod=framework&scr=settings_edit");
  }
 
  // menus

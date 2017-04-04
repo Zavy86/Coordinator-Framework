@@ -28,6 +28,8 @@ CREATE TABLE IF NOT EXISTS `framework_settings` (
 INSERT INTO `framework_settings` (`setting`, `value`) VALUES
 ('maintenance', '0'),
 ('owner', 'Company name'),
+('title', 'Coordinator Framework'),
+('show', 'logo_title'),
 ('sendmail_asynchronous', '0'),
 ('sendmail_from_mail', 'company@domain.tdl'),
 ('sendmail_from_name', 'Coordinator'),
@@ -46,10 +48,9 @@ INSERT INTO `framework_settings` (`setting`, `value`) VALUES
 ('sessions_ldap_hostname', ''),
 ('sessions_ldap_userfield', ''),
 ('sessions_multiple', '1'),
-('title', 'Coordinator Framework'),
-('token_cron', ''),
-('users_level_max', '8');
-('users_password_expiration', '-1');
+('users_level_max', '8'),
+('users_password_expiration', '-1'),
+('token_cron', '');
 
 -- --------------------------------------------------------
 
@@ -207,6 +208,7 @@ CREATE TABLE IF NOT EXISTS `framework_modules_authorizations` (
   `module` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `action` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `action` (`action`),
   KEY `module` (`module`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

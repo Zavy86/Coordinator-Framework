@@ -361,14 +361,19 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
   * @return boolean authorized or not
   */
  function api_checkAuthorization($module,$action,$inherited=TRUE,$superuser=TRUE){
-  // check superuser
-  //if($superuser && $GLOBALS['session']->user->superuser){api_dump("Check permission [".$module."][".$action."] = SUPERUSER");return TRUE;}
+  /** @todo levare gli alert e i dump */
   // check authorization
   $authorization=$GLOBALS['session']->user->authorizations_array[$module][$action];
-  if($authorization=="authorized"){api_dump("Check permission [".$module."][".$action."] = AUTORIZED");return TRUE;}
-  if($inherited && $authorization=="inherited"){api_dump("Check permission [".$module."][".$action."] = HINERITED");return TRUE;}
+  if($authorization=="authorized"){/*api_dump("Check permission [".$module."][".$action."] = AUTORIZED");*/return TRUE;}
+  if($inherited && $authorization=="inherited"){/*api_dump("Check permission [".$module."][".$action."] = HINERITED");*/return TRUE;}
+  // check superuser
+  if($superuser && $GLOBALS['session']->user->superuser){
+   api_alerts_add("Check permission [".$module."][".$action."] = SUPERUSER","warning");
+   return TRUE;
+  }
   // unauthorized
-  api_dump("Check permission [".$module."][".$action."] = NOT");return FALSE;
+  /*api_dump("Check permission [".$module."][".$action."] = NOT");*/
+  return FALSE;
  }
 
 

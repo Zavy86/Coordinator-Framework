@@ -11,7 +11,7 @@ if(!defined('ACTION')){die("ERROR EXECUTING SCRIPT: The action was not defined")
 // switch action
 switch(ACTION){
  // settings
- case "settings_framework":settings_framework();break;
+ case "settings_edit":settings_edit();break;
 
  // menus
  case "menu_save":menu_save();break;
@@ -68,14 +68,14 @@ switch(ACTION){
 /**
  * Settings Framework
  */
-function settings_framework(){
+function settings_edit(){
  // acquire variables
  $r_tab=$_REQUEST['tab'];
  // definitions
  $settings_array=array();
  $availables_settings_array=array(
   /* general */
-  "maintenance","title","owner",
+  "maintenance","owner","title","show",
   /* sessions */
   "sessions_authentication_method","sessions_multiple","sessions_idle_timeout",
   "sessions_ldap_hostname","sessions_ldap_dn","sessions_ldap_domain",
@@ -115,7 +115,7 @@ function settings_framework(){
 
  // redirect
  api_alerts_add(api_text("settings_alert_settingsUpdated"),"success");
- api_redirect("?mod=framework&scr=settings_framework&tab=".$r_tab);
+ api_redirect("?mod=framework&scr=settings_edit&tab=".$r_tab);
 }
 
 /**

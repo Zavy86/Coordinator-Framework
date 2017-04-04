@@ -14,7 +14,7 @@
  $html->setTitle(api_text("framework"));
  // build list object
  $list=new cList();
- $list->addElement(api_link("?mod=framework&scr=settings_framework&tab=general",api_text("settings_framework")));
+ $list->addElement(api_link("?mod=framework&scr=settings_edit&tab=general",api_text("settings_edit")));
  $list->addElement(api_link("?mod=framework&scr=menus_list",api_text("menus_list")));
  $list->addElement(api_link("?mod=framework&scr=modules_list",api_text("modules_list")));
  $list->addElement(api_link("?mod=framework&scr=users_list",api_text("users_list")));
