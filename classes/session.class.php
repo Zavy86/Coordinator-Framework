@@ -88,7 +88,7 @@ class Session{
   $GLOBALS['database']->queryExecute("UPDATE `framework_sessions` SET `lastTimestamp`='".time()."' WHERE `id`='".$this->id."'");
 
   // build user object
-  $this->user=new User($session_obj->fkUser);
+  $this->user=new User($session_obj->fkUser,TRUE);
 
   // check maintenance
   if($GLOBALS['settings']->maintenance){ /** @ and user not administrator */

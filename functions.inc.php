@@ -70,6 +70,7 @@
  require_once(ROOT."classes/modal.class.php");
  require_once(ROOT."classes/dl.class.php");
  require_once(ROOT."classes/operations-button.class.php");
+ require_once(ROOT."classes/cList.class.php");
 
  // load modules  /** @todo fare funzione */
 
@@ -350,6 +351,25 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
   return 0;
  }
 
+ /**
+  * Check Authorization
+  *
+  * @param string $module Module
+  * @param string $action Action
+  * @param booelan $inherited If true check also in hinerited permissions
+  * @param booelan $superuser If true return true if user is superuser
+  * @return boolean authorized or not
+  */
+ function api_checkAuthorization($module,$action,$inherited=TRUE,$superuser=TRUE){
+  // check superuser
+  //if($superuser && $GLOBALS['session']->user->superuser){api_dump("Check permission [".$module."][".$action."] = SUPERUSER");return TRUE;}
+  // check authorization
+  $authorization=$GLOBALS['session']->user->authorizations_array[$module][$action];
+  if($authorization=="authorized"){api_dump("Check permission [".$module."][".$action."] = AUTORIZED");return TRUE;}
+  if($inherited && $authorization=="inherited"){api_dump("Check permission [".$module."][".$action."] = HINERITED");return TRUE;}
+  // unauthorized
+  api_dump("Check permission [".$module."][".$action."] = NOT");return FALSE;
+ }
 
 
 

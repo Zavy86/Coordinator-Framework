@@ -14,6 +14,7 @@
  <text key="datetimesec">d-m-Y H:i:s</text>
 
  <!-- alerts -->
+ <text key="alert_unauthorized">Il tuo account non è autorizzato ad eseguire l'azione "{1}" nel modulo "{0}"</text>
  <text key="alert_authenticationFailed">Nome utente o password non corretti</text>
  <text key="alert_submitFunctionNotFound">La funzione "{2}" non è stata trovata nello script "{1}" del modulo "{0}"</text>
 
