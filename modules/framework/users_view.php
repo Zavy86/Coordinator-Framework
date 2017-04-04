@@ -6,8 +6,7 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
- // check authorizations
- /** @todo check authorizations */
+ $authorization="framework-users_manage";
  // get objects
  $user_obj=new User($_REQUEST['idUser']);
  if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}

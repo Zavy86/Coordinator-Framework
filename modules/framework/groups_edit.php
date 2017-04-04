@@ -6,10 +6,9 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
+ $authorization="framework-groups_manage";
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // check authorizations
- /** @todo check authorizations */
  // get objects
  $group=new Group($_REQUEST['idGroup']);
  // set html title

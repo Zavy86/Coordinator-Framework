@@ -6,10 +6,9 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
+ $authorization="framework-settings_manage";
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // check authorizations
- /** @todo check authorizations */
  // set html title
  $html->setTitle(api_text("settings_framework"));
  // check actions
@@ -109,7 +108,7 @@
  // form controls
  $form->addControl("submit",api_text("settings_framework-submit"));
  $form->addControl("reset",api_text("settings_framework-reset"));
- $form->addControl("button",api_text("settings_framework-cancel"),"?mod=framework&scr=settings_framework");
+ $form->addControl("button",api_text("settings_framework-cancel"),"?mod=framework&scr=dashboard");
  // build grid object
  $grid=new Grid();
  $grid->addRow();

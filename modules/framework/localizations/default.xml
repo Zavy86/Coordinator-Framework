@@ -9,6 +9,8 @@
  <!-- authorizations -->
  <text key="framework-settings_manage">Gestione impostazioni</text>
  <text key="framework-settings_manage-description">Gestione delle impostazioni del framework</text>
+ <text key="framework-menus_manage">Gestione menu</text>
+ <text key="framework-menus_manage-description">Gestione dei menu del framework</text>
  <text key="framework-modules_manage">Gestione moduli</text>
  <text key="framework-modules_manage-description">Gestione dei moduli del framework</text>
  <text key="framework-users_manage">Gestione utenti</text>

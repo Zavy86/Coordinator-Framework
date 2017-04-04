@@ -8,8 +8,6 @@
  */
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // check authorizations
- /** @todo check authorizations */
  // set html title
  $html->setTitle(api_text("own_password"));
  // build profile form

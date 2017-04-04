@@ -6,6 +6,9 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
+ // check authorizations
+ if($authorization){if(!api_checkAuthorization(MODULE,$authorization)){api_alerts_add(api_text("alert_unauthorized",array(MODULE,$authorization)),"danger");api_redirect("?mod=framework&scr=dashboard");}}
+
  // build html object
  $html=new HTML($module_title);
  // build navbar object
