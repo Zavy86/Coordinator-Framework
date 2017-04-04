@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `framework_modules` (
 --
 
 INSERT INTO `framework_modules` (`module`, `version`, `enabled`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`) VALUES
-('framework', '1.0.0', 1, 1483228800, 1, NULL, NULL);
+('framework', '0.0.1', 1, 1483228800, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
