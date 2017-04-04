@@ -102,7 +102,7 @@ class cHTML{
   * @return boolean
   */
  public function addModal($modal){
-  if(!is_a($modal,Modal)){return FALSE;}
+  if(!is_a($modal,cModal)){return FALSE;}
   // add modal to modals array
   $this->modals_array[$modal->id]=$modal;
   return TRUE;
