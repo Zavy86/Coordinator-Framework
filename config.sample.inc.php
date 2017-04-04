@@ -1,6 +1,6 @@
 <?php
 /**
- * Template
+ * Configuration Sample
  *
  * @package Coordinator
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -11,13 +11,8 @@
  $debug=FALSE;
  $develop=FALSE;
 
- // path and dir
- //$configuration->path="/var/www";
+ // framework directory with trailing slash
  $configuration->dir="/coordinator-framework/";
-
- // interface title  /** @todo move to database */
- $configuration->title="Coordinator";
- $configuration->default_module="dashboards";
 
  // database parameters
  $configuration->db_type="mysql";

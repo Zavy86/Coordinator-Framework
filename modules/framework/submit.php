@@ -10,6 +10,9 @@
 if(!defined('ACTION')){die("ERROR EXECUTING SCRIPT: The action was not defined");}
 // switch action
 switch(ACTION){
+
+ /** @todo check authorization in all submits function */
+
  // settings
  case "settings_edit":settings_edit();break;
  // menus

@@ -6,6 +6,9 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
+
+ /** @todo rifare gli oggetti prendendoli dalla relativa pagina */
+
  // check authorizations
  if($authorization){if(!api_checkAuthorization(MODULE,$authorization)){api_alerts_add(api_text("alert_unauthorized",array(MODULE,$authorization)),"danger");api_redirect("?mod=framework&scr=dashboard");}}
 
@@ -40,7 +43,7 @@
  // own
  if(substr(SCRIPT,0,3)=="own"){
   $nav->addItem(api_text("own_profile"),"?mod=framework&scr=own_profile");
-  $nav->addItem(api_text("own_password"),"?mod=framework&scr=own_password"); /** @todo if auth is standard */
+  if($GLOBALS['settings']->sessions_authentication_method=="standard"){$nav->addItem(api_text("own_password"),"?mod=framework&scr=own_password");}
  }
 
  // users

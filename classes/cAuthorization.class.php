@@ -48,7 +48,8 @@ class cAuthorization{
   // get groups
   $this->groups_array=array();
   $this->groups_level_array=array();
-  $groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_modules_authorizations_join_groups` WHERE `fkAuthorization`='".$this->id."'"); /** @todo in che ordine?? ORDER BY `name` */
+  /** @todo fare autorizzazioni anche per tutti i gruppi (fkGroup=NULL) */
+  $groups_results=$GLOBALS['database']->queryObjects("SELECT `framework_modules_authorizations_join_groups`.* FROM `framework_modules_authorizations_join_groups` JOIN `framework_groups` ON `framework_groups`.`id`=`framework_modules_authorizations_join_groups`.`fkGroup` WHERE `fkAuthorization`='".$this->id."' ORDER BY `framework_groups`.`name`");
   foreach($groups_results as $group){
    $this->groups_array[$group->fkGroup]=new cGroup($group->fkGroup);
    $this->groups_level_array[$group->fkGroup]=$group->level;

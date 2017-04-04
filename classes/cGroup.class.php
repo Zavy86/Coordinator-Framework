@@ -18,7 +18,7 @@ class cGroup{
  protected $name;
  protected $description;
  protected $fullname;
- protected $addTimestamp; /** @todo teniamo cosi? */
+ protected $addTimestamp;
  protected $addFkUser;
  protected $updTimestamp;
  protected $updFkUser;

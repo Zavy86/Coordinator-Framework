@@ -8,7 +8,7 @@
  */
 
 /**
- * HTML class            @todo add custom script
+ * HTML class
  */
 class cHTML{
 

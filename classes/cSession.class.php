@@ -123,7 +123,7 @@ class cSession{
   */
  public function destroy(){ /** @todo cercare un nome decente.. */
   // destroy session
-  //session_destroy();  /** @todo distruggere solo variabili di coordinator */
+  //session_destroy();  /** @todo ora distruggo solo variabili di coordinator non tutta la sessione vedere se parametrizzare o lasciare cosi */
   //session_start();
   $_SESSION['coordinator_session_id']=NULL;
   $_SESSION['coordinator_logs']=NULL;

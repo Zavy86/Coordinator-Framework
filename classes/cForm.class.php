@@ -58,7 +58,7 @@ class cForm{
   *                                    text | password | date | datetime | time |
   *                                    month | week | number | email | url | search |
   *                                    tel | color | checkbox | radio | select |
-  *                                    textarea | file | text_localized ) /** @todo list of availables
+  *                                    textarea | file | text_localized )
   * @param string $name Name
   * @param string $label Label
   * @param string $value Default value
@@ -94,7 +94,7 @@ class cForm{
   if($field->size<1 || $field->size>10){$field->size=10;}
   if($field->typology=="file"){
    $field->class="filestyle ".$field->class;
-   $field->tags="data-buttonText=\"\" data-iconName=\"glyphicon glyphicon-folder-open\" data-placeholder=\"".api_text("form-input-file-placeholder")."\" ".$field->tags; /** @todo modificare con font-awesome icon */
+   $field->tags="data-buttonText=\"\" data-iconName=\"fa fa-fw fa-folder-open-o faa-tada animated-hover\" data-placeholder=\"".api_text("form-input-file-placeholder")."\" ".$field->tags;
    if(!$field->enabled){$field->tags="data-disabled=\"true\" ".$field->tags;}
   }
   // text localized
@@ -312,6 +312,8 @@ class cForm{
      }
      $return.=$split_identation."   </select>\n";
      break;
+    // textarea
+    /** @todo textarea */
     // text localized
     case "text_localized":
      // show standard form field

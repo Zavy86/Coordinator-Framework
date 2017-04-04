@@ -6,10 +6,9 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
+ /** @todo check authorizations */
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // check authorizations
- /** @todo check authorizations */
  // set html title
  $html->setTitle("Dashboard");
  // build grid object

@@ -73,6 +73,11 @@ class cUser{
   $this->updTimestamp=(int)$user->updTimestamp;
   $this->updFkUser=(int)$user->updFkUser;
   $this->deleted=(bool)$user->deleted;
+  // check for password expiration
+  if($GLOBALS['settings']->users_password_expiration>-1){
+   $this->pwdExpiration=$GLOBALS['settings']->users_password_expiration-(time()-$user->pwdTimestamp);
+   if($this->pwdExpiration<0){$this->pwdExpired=TRUE;}
+  }
   // make avatar
   if(!file_exists(ROOT.str_replace(DIR,"",$this->avatar))){
    switch($this->gender){
@@ -80,11 +85,6 @@ class cUser{
     case "woman":$this->avatar=DIR."uploads/framework/users/avatar_woman.jpg";break;
     default:$this->avatar=DIR."uploads/framework/users/avatar.jpg";
    }
-  }
-  /** @todo check for password expiration */
-  if($GLOBALS['settings']->users_password_expiration>-1){
-   $this->pwdExpiration=$GLOBALS['settings']->users_password_expiration-(time()-$user->pwdTimestamp);
-   if($this->pwdExpiration<0){$this->pwdExpired=TRUE;}
   }
   // get user groups
   $this->groups_array=array();

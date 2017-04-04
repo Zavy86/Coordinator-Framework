@@ -16,12 +16,12 @@
  //$this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme.min.css"); /** @todo definire temi "giovanniani" */
  $this->addStylesheet(HELPERS."font-awesome/css/font-awesome.min.css");
  $this->addStylesheet(HELPERS."font-awesome-animation/css/font-awesome-animation.min.css");
- /** @todo add some helpders here */
+ /** @todo add some css helpers here */
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-custom.css");
  // add scripts
  $this->addScript(HELPERS."jquery/jquery-1.12.0.min.js",TRUE);
  $this->addScript(HELPERS."jquery-sortable/jquery-sortable-0.9.13.min.js",TRUE);
- /** @todo add some helpders here */
+ /** @todo add some javascript helpers here */
  $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.7.min.js",TRUE);
  $this->addScript(HELPERS."bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",TRUE);
 
@@ -51,7 +51,7 @@
   $header_navbar->addSubItem(api_text("nav-logout"),"?mod=framework&scr=submit&act=user_logout",TRUE,"text-right");
 
  }else{
-
+  /** @todo collegamenti per i non loggati.. regolamento? privacy? boh? */
  }
 
  // set header

@@ -11,7 +11,6 @@
  $user_obj=new cUser($_REQUEST['idUser']);
  if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
 
-
  // include module template
  require_once(MODULE_PATH."template.inc.php");
 
@@ -20,9 +19,6 @@
 
  // build groups table
  $groups_table=new cTable(api_text("users_view-groups_table-tr-unvalued"));
- /*$groups_table->addHeader("&nbsp;",NULL,16);
- $groups_table->addHeader(api_text("users_view-groups_table-th-name"),"nowrap","100%");
- if(1){$groups_table->addHeader("&nbsp;",NULL,16);}*/
  // cycle user groups
  foreach($user_obj->groups_array as $group){
   // make delete and mainize td
@@ -31,21 +27,19 @@
    $mainize_td=api_icon("fa-star",api_text("users_view-groups_table-td-main"));
    if(count($user_obj->groups_array)>1){$delete_td=NULL;}
   }else{
-   /** @todo check authorization */
-   if(!(1)){$mainize_td=api_icon("fa-star-o");}
-   else{$mainize_td=api_link("?mod=framework&scr=submit&act=user_group_mainize&idUser=".$user_obj->id."&idGroup=".$group->id,api_icon("fa-star-o",api_text("users_view-groups_table-td-mainize"),"hidden-link"),NULL,NULL,FALSE,api_text("users_view-groups_table-td-mainize-confirm"));}
+   $mainize_td=api_link("?mod=framework&scr=submit&act=user_group_mainize&idUser=".$user_obj->id."&idGroup=".$group->id,api_icon("fa-star-o",api_text("users_view-groups_table-td-mainize"),"hidden-link"),NULL,NULL,FALSE,api_text("users_view-groups_table-td-mainize-confirm"));
   }
   // add group row
   $groups_table->addRow();
   $groups_table->addRowField($mainize_td);
   $groups_table->addRowField(api_link("?mod=framework&scr=groups_view&idGroup=".$group->id,$group->fullname,NULL,"hidden-link",FALSE,NULL,NULL,NULL,"_blank"),"truncate-ellipsis");
-  if(1){$groups_table->addRowField($delete_td);} /** @todo check authorization */
+  $groups_table->addRowField($delete_td);
  }
 
  // deleted alert
  if($user_obj->deleted){api_alerts_add(api_text("users_view-deleted-alert"),"warning");}
 
- /** @todo check permissions */
+ // avatar delete link
  if(is_numeric(substr($user_obj->avatar,-5,1))){$avatar_delete_link=api_link("#",api_icon("fa-remove",api_text("users_view-avatar-delete"),"hidden-link text-vtop"),NULL,NULL,FALSE,api_text("users_view-avatar-delete-confirm"));}
 
  // build left user description list

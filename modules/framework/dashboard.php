@@ -8,12 +8,11 @@
  */
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // check authorizations
- /** @todo check authorizations */
  // set html title
  $html->setTitle(api_text("framework"));
  // build list object
  $list=new cList();
+ /** @todo check authorizations */
  $list->addElement(api_link("?mod=framework&scr=settings_edit&tab=general",api_text("settings_edit")));
  $list->addElement(api_link("?mod=framework&scr=menus_list",api_text("menus_list")));
  $list->addElement(api_link("?mod=framework&scr=modules_list",api_text("modules_list")));
