@@ -28,7 +28,7 @@
  foreach($modules_array as $module){
   // get last released version from GitHub
   $repository_version=NULL;
-  if($module->repository_version_url){$repository_version=file_get_contents($module->repository_version_url);}
+  if($module->repository_version_url){$repository_version=file_get_contents($module->repository_version_url."?".rand(1,99999));}
   if(!is_numeric(substr($repository_version,0,1))){$repository_version=NULL;}
   // check if repository version is updated among source version
   if(api_check_version($module->source_version,$repository_version)>0){$repository_updated=TRUE;}else{$repository_updated=FALSE;}
