@@ -10,7 +10,7 @@
  ini_set("display_errors",TRUE);
  error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
  // defines constants
- define('DIR',$configuration->dir);
+ define('DIR',"");
  define('URL',(isset($_SERVER['HTTPS'])?"https":"http")."://".$_SERVER['HTTP_HOST'].$GLOBALS['configuration']->dir);
  define('ROOT',realpath(dirname(__FILE__))."/");
  define('HELPERS',DIR."helpers/");
@@ -101,6 +101,8 @@
    $file_content.="?>";
    // write configuration file
    file_put_contents(ROOT."config.inc.php",$file_content);
+   // change configuration file permissions
+   chmod(ROOT."config.inc.php",0755);
    // load setup dump
    $queries=file(ROOT."queries/setup.sql");
    // check for update queries
