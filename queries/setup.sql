@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `framework_users` (
   `timezone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `secret` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `gender` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'undefined, man, woman',
+  `gender` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'man, woman',
   `birthday` date DEFAULT NULL,
   `enabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `superuser` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -129,8 +129,8 @@ CREATE TABLE IF NOT EXISTS `framework_users` (
 -- Dumping data for table `framework_users`
 --
 
-INSERT INTO `framework_users` (`id`, `mail`, `firstname`, `lastname`, `localization`, `timezone`, `password`, `secret`, `enabled`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`, `pwdTimestamp`, `deleted`) VALUES
-(1, 'you@domain.tdl', 'Administrator', 'Coordinator', 'en_EN', 'Europe/London', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, 1, 1483228800, 1, NULL, NULL, NULL, 0);
+INSERT INTO `framework_users` (`id`, `mail`, `firstname`, `lastname`, `localization`, `timezone`, `password`, `secret`, `gender`, `birthday`, `enabled`, `superuser`, `level`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`, `pwdTimestamp`, `deleted`) VALUES
+(1, 'you@domain.tdl', 'Administrator', 'Coordinator', 'en_EN', 'Europe/London', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, NULL, NULL, 1, 1, 1, 1483228800, 1, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 

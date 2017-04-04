@@ -10,7 +10,7 @@
 /**
  * Module class
  */
-class Module{
+class cModule{
 
  /** Properties */
  protected $module;
