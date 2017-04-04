@@ -335,7 +335,7 @@ class cForm{
      $translation_modal=new cModal($field->label,NULL,$this->id."_input_".$field->name);
      $translation_modal->SetBody($translation_form->render());
      // add translation modal window to html
-     $GLOBALS['html']->addcModal($translation_modal);
+     $GLOBALS['html']->addModal($translation_modal);
      // text localized jQuery script
      $jquery="/* Localized Text Field Modal Focus Trigger */\n";
      $jquery.="$(\"#".$this->id."_input_".$field->name."\").focus(function(){\$(\"#modal_".$this->id."_input_".$field->name."\").modal('show');});\n";

@@ -76,7 +76,7 @@
   $groups_modal=new cModal(api_text("users_view-groups_modal-title"),NULL,"users_view-groups_modal");
   $groups_modal->setBody($group_add_form->render());
   // add modal to html object
-  $html->addcModal($groups_modal);
+  $html->addModal($groups_modal);
   // jQuery scripts
   $html->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_users_view-groups_modal\").modal('show');});");
  }
