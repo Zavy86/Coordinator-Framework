@@ -10,7 +10,7 @@
  ini_set("display_errors",TRUE);
  error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
  // defines constants
- define('DIR',$configuration->dir);
+ define('DIR',"");
  define('URL',(isset($_SERVER['HTTPS'])?"https":"http")."://".$_SERVER['HTTP_HOST'].$GLOBALS['configuration']->dir);
  define('ROOT',realpath(dirname(__FILE__))."/");
  define('HELPERS',DIR."helpers/");
