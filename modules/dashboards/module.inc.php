@@ -7,7 +7,7 @@
  * @link    http://www.zavynet.org
  */
  $module_name="dashboards";
- $module_title="Dashboards";
- $module_description="Dashboards";
- $module_default_script="dashboards_view"
+ // optionals if exist dashboard.php script
+ $module_default_script="dashboards_view";
+ $module_default_tab=NULL;
 ?>
