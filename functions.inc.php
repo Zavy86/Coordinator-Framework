@@ -326,13 +326,15 @@ function api_alerts_add($message,$class="info"){
  *
  * @param type $current Version to check
  * @param type $new New version for check
- * @return int -1 oldest,
- *              0 equal,
- *              1 new major,
- *              2 new minor version,
- *              3 new hotfix,
+ * @return int|boolean -1 oldest,
+ *                      0 equal,
+ *                      1 new major,
+ *                      2 new minor version,
+ *                      3 new hotfix,
+ *                  FALSE on error
  */
 function api_check_version($current,$new){
+ if(!strlen($current) || !strlen($new)){return FALSE;}
  $current_t=explode(".",$current);
  $new_t=explode(".",$new);
  // check major version
