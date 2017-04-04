@@ -17,11 +17,11 @@
  // die if configuration already exist
  if(file_exists(ROOT."config.inc.php")){die("Coordinator Framework is already configured..");}
  // include classes
- require_once(ROOT."classes/localization.class.php");
- require_once(ROOT."classes/html.class.php");
- require_once(ROOT."classes/grid.class.php");
- require_once(ROOT."classes/navbar.class.php");
- require_once(ROOT."classes/form.class.php");
+ require_once(ROOT."classes/cLocalization.class.php");
+ require_once(ROOT."classes/cHTML.class.php");
+ require_once(ROOT."classes/cGrid.class.php");
+ require_once(ROOT."classes/cNavbar.class.php");
+ require_once(ROOT."classes/cForm.class.php");
  // build localization instance
  $localization=new cLocalization();
  // build settings instance
