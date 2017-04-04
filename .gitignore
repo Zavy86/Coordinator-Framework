@@ -6,9 +6,11 @@ config.inc.php
 !/modules/framework/
 
 /uploads/*
-!/uploads/framework/brand.default.jpg
+!/uploads/framework/logo.default.png
 !/uploads/framework/favicon.default.ico
 !/uploads/framework/users/avatar.jpg
+!/uploads/framework/users/avatar_man.jpg
+!/uploads/framework/users/avatar_woman.jpg
 
 /tmp/*
 
