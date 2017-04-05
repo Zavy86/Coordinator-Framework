@@ -119,6 +119,7 @@ function api_debug(){
  if($GLOBALS['debug']){
   api_dump($GLOBALS['session']->debug(),"session");
   api_dump($GLOBALS['settings']->debug(),"settings");
+  api_dump($GLOBALS['localization']->debug(),"localization");
   api_dump(get_defined_constants(true)["user"],"contants");
   api_dump($_SESSION["coordinator_logs"],"logs");
  }

@@ -18,6 +18,10 @@
  <text key="alert_authenticationFailed">Incorrect username or password</text>
  <text key="alert_submitFunctionNotFound">The function "{2}" was not found in script "{1}" of module "{0}"</text>
 
+ <!-- enabled -->
+ <text key="enabled">Enabled</text>
+ <text key="disabled">Disabled</text>
+
  <!-- nav -->
  <text key="nav-dashboard">Dashboard</text>
  <text key="nav-own-profile">Personal profile</text>
