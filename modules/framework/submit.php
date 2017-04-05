@@ -280,9 +280,10 @@ function module_add(){
  if(!$r_directory || is_dir(ROOT."modules/".$r_directory)){api_alerts_add(api_text("settings_alert_moduleAddErrorDirectory"),"danger");api_redirect("?mod=framework&scr=modules_add");}
  // git method
  if($r_method=="git"){
-
-  api_dump("eseguo il comando: cd ".ROOT."modules/ ; pwd ; git clone ".$r_url." ./".$r_directory." : chmod 755 -R ./".$r_directory);
-
+  // exec shell commands
+  $shell_output=exec('whoami')."@".exec('hostname').":".shell_exec("cd ".ROOT."modules/ ; pwd ; git clone ".$r_url." ./".$r_directory." : chmod 755 -R ./".$r_directory);
+  // debug
+  api_dump($shell_output);
  }
 
  // zip method
