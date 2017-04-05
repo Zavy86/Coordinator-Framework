@@ -394,9 +394,10 @@
  <text key="modules_list">Moduli</text>
  <text key="modules_list-tr-unvalued">Non sono presenti moduli da mostrare..</text>
  <text key="modules_list-th-name">Modulo</text>
- <text key="modules_list-th-installed">Installata</text>
- <text key="modules_list-th-repository">Rilasciata</text>
+ <text key="modules_list-th-installed">Versione</text>
+ <text key="modules_list-th-repository">Release</text>
  <text key="modules_list-th-description">Descrizione</text>
+ <text key="modules_list-td-setup">Installa</text>
  <text key="modules_list-td-update_database">Aggiorna a {0}</text>
  <text key="modules_list-td-update_source">Ottieni tramite Git</text>
  <text key="modules_list-td-update_source-confirm">Confermi di voler eseguire il download dell'aggiornamento tramite Git?</text>
