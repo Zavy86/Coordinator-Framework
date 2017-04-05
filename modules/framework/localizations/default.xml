@@ -432,6 +432,8 @@
  <text key="modules_add">Nuovo modulo</text>
  <text key="modules_add-url">URL Modulo</text>
  <text key="modules_add-url-placeholder">https://github.com/Zavy86/Coordinator-Framework.git</text>
+ <text key="modules_add-directory">Directory</text>
+ <text key="modules_add-directory-placeholder">Directory di installazione, consulta il README del modulo..</text>
  <text key="modules_add-method">Metodo</text>
  <text key="modules_add-method-git">Git</text>
  <text key="modules_add-method-zip">Zip</text>
