@@ -10,10 +10,11 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("users_add"));
+ $html->setTitle(api_text("modules_add"));
  // build profile form
  $form=new cForm("?mod=framework&scr=submit&act=module_add","POST",null,"modules_add");
  $form->addField("text","url",api_text("modules_add-url"),NULL,api_text("modules_add-url-placeholder"),NULL,NULL,NULL,"required");
+ $form->addField("text","directory",api_text("modules_add-directory"),NULL,api_text("modules_add-directory-placeholder"),NULL,NULL,NULL,"required");
  $form->addField("radio","method",api_text("modules_add-method"),NULL,NULL,NULL,"radio-inline");
  $form->addFieldOption("git",api_text("modules_add-method-git"));
  $form->addFieldOption("zip",api_text("modules_add-method-zip"));
@@ -31,7 +32,10 @@
 $(function(){
  $("input[name='url']").change(function(){
   var url=$("input[name='url']").val();
-  var ext=url.substr(url.length-4).toLowerCase();
+  if(url.substr(0,4)!="http"){return FALSE;}
+  var name=url.substr(url.lastIndexOf("/")+1,url.length-url.lastIndexOf("/")-5).toLowerCase().replace("coordinator-","");
+  $("input[name='directory']").val(name);
+  var ext=url.substr(-4).toLowerCase();
   if(ext===".git"){
    $("input[name='method'][value='git']").prop("checked", true)
   }else if(ext===".zip"){
