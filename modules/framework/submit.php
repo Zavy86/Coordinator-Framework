@@ -266,22 +266,23 @@ function menu_move($direction){
  */
 function module_add(){
  // disabled for localhost and 127.0.0.1 /** @todo verificare se serve */
- if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdatesGitLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ //if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdatesGitLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  // acquire variables
  $r_url=$_REQUEST['url'];
+ $r_directory=$_REQUEST['directory'];
  $r_method=$_REQUEST['method'];
- // check url
- if(!in_array(substr(strtolower($r_url),0,7),array("http://","https:/"))){api_alerts_add(api_text("settings_alert_moduleAddErrorUrl"),"danger");api_redirect("?mod=framework&scr=modules_list");}
- if(substr(strtolower($r_url),-3)!=$r_method){api_alerts_add(api_text("settings_alert_moduleAddErrorFormat"),"danger");api_redirect("?mod=framework&scr=modules_list");}
- // make and check directory
- $directory="@todo";
- api_dump("verifico se esiste la directory ROOT/modules/{directory} se esiste blocco");
-
  // debug
- api_dump($_REQUEST);
+ api_dump($_REQUEST,"_REQUEST");
+ // check url
+ if(!in_array(substr(strtolower($r_url),0,7),array("http://","https:/"))){api_alerts_add(api_text("settings_alert_moduleAddErrorUrl"),"danger");api_redirect("?mod=framework&scr=modules_add");}
+ if(substr(strtolower($r_url),-3)!=$r_method){api_alerts_add(api_text("settings_alert_moduleAddErrorFormat"),"danger");api_redirect("?mod=framework&scr=modules_add");}
+ // check directory
+ if(!$r_directory || is_dir(ROOT."modules/".$r_directory)){api_alerts_add(api_text("settings_alert_moduleAddErrorDirectory"),"danger");api_redirect("?mod=framework&scr=modules_add");}
  // git method
  if($r_method=="git"){
-  api_dump("eseguo il comando: cd ".ROOT."modules/ ; pwd ; git clone ".$r_url." ./".$directory." : chmod 755 -R ./".$directory);
+
+  api_dump("eseguo il comando: cd ".ROOT."modules/ ; pwd ; git clone ".$r_url." ./".$r_directory." : chmod 755 -R ./".$r_directory);
+
  }
 
  // zip method
@@ -291,16 +292,31 @@ function module_add(){
   api_dump("creo la cartella ROOT/tmp/module_setup");
   api_dump("decomprimo il modulo nella cartella ROOT/tmp/module_setup");
   api_dump("leggo il file module.inc.php per il {nome-del-modulo}");
-  /*api_dump("verifico se esiste la cartella ROOT/module/{nome-del-modulo} se esiste la cancello");*/
   api_dump("creo la cartella ROOT/module/{nome-del-modulo}");
   api_dump("copia il contenuto della cartella ROOT/tmp/module_setup in ROOT/module/{nome-del-modulo}");
   api_dump("imposto i permessi di ROOT/module/{nome-del-modulo} ricorsivi a 755");
   api_dump("elimino la cartella ROOT/tmp/module_setup");
  }
 
+ // check for module.inc.php
+ if(!file_exists(ROOT."modules/".$r_directory."module.inc.php")){api_alerts_add(api_text("settings_alert_moduleAddError"),"danger");api_redirect("?mod=framework&scr=modules_add");}
+ // include module file
+ include(ROOT."modules/".$r_directory."module.inc.php");
+
+ // build module query object
+ $module_qobj=new stdClass();
+ $module_qobj->module=$module_name;
+ $module_qobj->version="0";
+ $module_qobj->enabled=0;
+ $module_qobj->addTimestamp=time();
+ $module_qobj->addFkUser=$GLOBALS['session']->user->id;
+ // debug
+ api_dump($module_qobj,"module query object");
+ // update module
+ $GLOBALS['database']->queryInsert("framework_modules",$module_qobj);
+
  // alert
  api_alerts_add(api_text("settings_alert_moduleAdded"),"success");
-
  // redirect
  api_redirect("?mod=framework&scr=modules_list");
 }

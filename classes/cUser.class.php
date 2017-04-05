@@ -79,7 +79,7 @@ class cUser{
    if($this->pwdExpiration<0){$this->pwdExpired=TRUE;}
   }
   // make avatar
-  if(!file_exists(ROOT.str_replace(DIR,"",$this->avatar))){
+  if(!file_exists(str_replace("//","/",ROOT.str_replace(DIR,"/",$this->avatar)))){
    switch($this->gender){
     case "man":$this->avatar=DIR."uploads/framework/users/avatar_man.jpg";break;
     case "woman":$this->avatar=DIR."uploads/framework/users/avatar_woman.jpg";break;
