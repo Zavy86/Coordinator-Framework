@@ -267,7 +267,7 @@ function menu_move($direction){
  */
 function module_add(){
  // disabled for localhost and 127.0.0.1 /** @todo verificare se serve */
- if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdateErrorLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleErrorLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  // acquire variables
  $r_url=$_REQUEST['url'];
  $r_directory=$_REQUEST['directory'];
@@ -356,7 +356,7 @@ function module_setup(){
  */
 function module_update_source(){
  // disabled for localhost and 127.0.0.1
- if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdateErrorLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleErrorLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  // get objects
  $module_obj=new cModule($_REQUEST['module']);
  // check objects
@@ -378,7 +378,7 @@ function module_update_source(){
  */
 function module_update_database(){
  // disabled for localhost and 127.0.0.1
- if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdateErrorLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleErrorLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  // get objects
  $module_obj=new cModule($_REQUEST['module']);
  api_dump($module_obj->version,"version");

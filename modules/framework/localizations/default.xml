@@ -63,7 +63,7 @@
  <text key="settings_alert_moduleAdded">Il modulo è stato scaricato</text>
  <text key="settings_alert_moduleEnabled">Il modulo è stato abilitato</text>
  <text key="settings_alert_moduleDisabled">Il modulo è stato disabilitato</text>
- <text key="settings_alert_moduleUpdateErrorLocalhost">Aggiornamento bloccato su localhost</text>
+ <text key="settings_alert_moduleErrorLocalhost">L'installazione e l'aggiornamento dei moduli sono bloccati su localhost</text>
  <text key="settings_alert_moduleUpdateSourceAborted">Si è verificato un errore durante il tentativo di aggiornamento tramite Git</text>
  <text key="settings_alert_moduleUpdateSourceAlready">La versione dei sorgenti installata non necessita di ulteriori aggiornamenti</text>
  <text key="settings_alert_moduleUpdateSourceUpdated">L'aggiornamento dei sorgenti tramite Git è avvenuto correttamente</text>
