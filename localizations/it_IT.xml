@@ -18,6 +18,10 @@
  <text key="alert_authenticationFailed">Nome utente o password non corretti</text>
  <text key="alert_submitFunctionNotFound">La funzione "{2}" non è stata trovata nello script "{1}" del modulo "{0}"</text>
 
+ <!-- enabled -->
+ <text key="enabled">Abilitato</text>
+ <text key="disabled">Disabilitato</text>
+
  <!-- nav -->
  <text key="nav-dashboard">Bacheca</text>
  <text key="nav-own-profile">Profilo personale</text>

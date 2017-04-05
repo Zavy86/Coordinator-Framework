@@ -58,9 +58,9 @@ class cModule{
   // get source version
   $this->source_path=ROOT."modules/".$this->module."/";
   if($this->module=="framework"){$this->source_path=ROOT;}
-  $this->source_version=file_get_contents($this->source_path."VERSION.txt");
+  if(file_exists($this->source_path."VERSION.txt")){$this->source_version=file_get_contents($this->source_path."VERSION.txt");}
   // get repository version url
-  require(ROOT."modules/".$this->module."/module.inc.php");
+  include(ROOT."modules/".$this->module."/module.inc.php");
   $this->repository_version_url=$module_repository_version_url;
   // get authorizations
   $this->authorizations_array=array();
@@ -76,6 +76,27 @@ class cModule{
   * @return string Property value
   */
  public function __get($property){return $this->$property;}
+
+ /**
+  * Get Enabled
+  *
+  * @param boolean $showIcon show icon
+  * @param boolean $showText show text
+  * @return string enabled text and icon
+  */
+ public function getEnabled($showIcon=TRUE,$showText=TRUE){
+  // check enabled
+  if($this->enabled){
+   $icon=api_icon("fa-check",api_text("enabled"));
+   $text=api_text("enabled");
+  }else{
+   $icon=api_icon("fa-remove",api_text("disabled"));
+   $text=api_text("disabled");
+  }
+  // return
+  if($showIcon){if($showText){$return.=$icon." ".$text;}else{$return=$icon;}}else{$return=$text;}
+  return $return;
+ }
 
 }
 ?>
