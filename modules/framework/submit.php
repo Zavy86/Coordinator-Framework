@@ -24,6 +24,7 @@ switch(ACTION){
  case "module_add":module_add();break;
  case "module_enable":module_enable(TRUE);break;
  case "module_disable":module_enable(FALSE);break;
+ case "module_setup":module_setup();break;
  case "module_update_source":module_update_source();break;
  case "module_update_database":module_update_database();break;
  case "module_authorizations_group_add":module_authorizations_group_add();break;
@@ -266,7 +267,7 @@ function menu_move($direction){
  */
 function module_add(){
  // disabled for localhost and 127.0.0.1 /** @todo verificare se serve */
- //if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdatesGitLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdateErrorLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  // acquire variables
  $r_url=$_REQUEST['url'];
  $r_directory=$_REQUEST['directory'];
@@ -281,7 +282,7 @@ function module_add(){
  // git method
  if($r_method=="git"){
   // exec shell commands
-  $shell_output=exec('whoami')."@".exec('hostname').":".shell_exec("cd ".ROOT."modules/ ; pwd ; git clone ".$r_url." ./".$r_directory." : chmod 755 -R ./".$r_directory);
+  $shell_output=exec('whoami')."@".exec('hostname').":".shell_exec("cd ".ROOT."modules/ ; pwd ; git clone ".$r_url." ./".$r_directory." ; chmod 755 -R ./".$r_directory);
   // debug
   api_dump($shell_output);
  }
@@ -300,10 +301,9 @@ function module_add(){
  }
 
  // check for module.inc.php
- if(!file_exists(ROOT."modules/".$r_directory."module.inc.php")){api_alerts_add(api_text("settings_alert_moduleAddError"),"danger");api_redirect("?mod=framework&scr=modules_add");}
+ if(!file_exists(ROOT."modules/".$r_directory."/module.inc.php")){api_alerts_add(api_text("settings_alert_moduleAddError"),"danger");api_redirect("?mod=framework&scr=modules_add");}
  // include module file
- include(ROOT."modules/".$r_directory."module.inc.php");
-
+ include(ROOT."modules/".$r_directory."/module.inc.php");
  // build module query object
  $module_qobj=new stdClass();
  $module_qobj->module=$module_name;
@@ -313,12 +313,120 @@ function module_add(){
  $module_qobj->addFkUser=$GLOBALS['session']->user->id;
  // debug
  api_dump($module_qobj,"module query object");
+ // check for module
+ if(!$module_qobj->module){api_alerts_add(api_text("settings_alert_moduleAddError"),"danger");api_redirect("?mod=framework&scr=modules_add");}
  // update module
  $GLOBALS['database']->queryInsert("framework_modules",$module_qobj);
-
  // alert
  api_alerts_add(api_text("settings_alert_moduleAdded"),"success");
  // redirect
+ api_redirect("?mod=framework&scr=modules_list");
+}
+/**
+ * Module Setup
+ */
+function module_setup(){
+ // get objects
+ $module_obj=new cModule($_REQUEST['module']);
+ // check objects
+ if(!$module_obj->module){api_alerts_add(api_text("settings_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ // debug
+ api_dump($module_obj,"module object");
+ // load setup dump
+ if(!file_exists($module_obj->source_path."queries/setup.sql")){api_alerts_add(api_text("settings_alert_moduleSetupErrorDump"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ // execute setup dump
+ api_sqlDump_import(file($module_obj->source_path."queries/setup.sql"));
+ // build module query object
+ $module_qobj=new stdClass();
+ $module_qobj->module=$module_obj->module;
+ $module_qobj->version="0.0.1";
+ $module_qobj->updTimestamp=time();
+ $module_qobj->updFkUser=$GLOBALS['session']->user->id;
+ // debug
+ api_dump($module_qobj,"module query object");
+ // update module
+ $GLOBALS['database']->queryUpdate("framework_modules",$module_qobj,"module");
+ // alert
+ api_alerts_add(api_text("settings_alert_moduleEnabled"),"success");
+ // redirect
+ api_redirect("?mod=framework&scr=modules_list");
+}
+/**
+ * Module Update Source
+ */
+function module_update_source(){
+ // disabled for localhost and 127.0.0.1
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdateErrorLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ // get objects
+ $module_obj=new cModule($_REQUEST['module']);
+ // check objects
+ if(!$module_obj->module){api_alerts_add(api_text("settings_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ /** @todo cycle all selected modules (if multiselect in table) */
+ // exec shell commands
+ $shell_output=exec('whoami')."@".exec('hostname').":".shell_exec("cd ".$module_obj->source_path." ; pwd ; git stash ; git stash clear ; git pull ; chmod 755 -R ./");
+ // debug
+ api_dump($shell_output);
+ // alert
+ if(is_int(strpos(strtolower($shell_output),"up-to-date"))){api_alerts_add(api_text("settings_alert_moduleUpdateSourceAlready"),"success");}
+ elseif(is_int(strpos(strtolower($shell_output),"abort"))){api_alerts_add(api_text("settings_alert_moduleUpdateSourceAborted"),"danger");}
+ else{api_alerts_add(api_text("settings_alert_moduleUpdateSourceUpdated"),"warning");}
+ // redirect
+ api_redirect("?mod=framework&scr=modules_list");
+}
+/**
+ * Module Updates Database
+ */
+function module_update_database(){
+ // disabled for localhost and 127.0.0.1
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdateErrorLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ // get objects
+ $module_obj=new cModule($_REQUEST['module']);
+ api_dump($module_obj->version,"version");
+ api_dump($module_obj->source_version,"source_version");
+  // explode current version
+ $current_array=explode(".",$module_obj->version);
+ $major=$current_array[0];
+ $minor=$current_array[1];
+ $hotfix=$current_array[2];
+ // cycle all possibile version update
+ while($major<=99){
+  while($minor<=99){
+   while($hotfix<=999){
+    // make update version
+    $update_version=$major.".".$minor.".".$hotfix;
+    // check if version is oldest than source version
+    if(api_check_version($update_version,$module_obj->source_version)<0){break 3;}
+    // check for update sql dump
+    if(file_exists($module_obj->source_path."queries/update_".$update_version.".sql")){
+     // execute setup dump
+     api_dump("Execute DUMP: update_".$update_version.".sql");
+     api_sqlDump_import(file($module_obj->source_path."queries/update_".$update_version.".sql"));
+    }
+    // increment hotfix
+    $hotfix++;
+   }
+   // reset hotfix
+   $hotfix=0;
+   // increment minor release
+   $minor++;
+  }
+  // reset minor release
+  $minor=0;
+  // increment major release
+  $major++;
+ }
+ // build module query object
+ $module_qobj=new stdClass();
+ $module_qobj->module=$module_obj->module;
+ $module_qobj->version=$module_obj->source_version;
+ $module_qobj->updTimestamp=time();
+ $module_qobj->updFkUser=$GLOBALS['session']->user->id;
+ // debug
+ api_dump($module_qobj);
+ // update module
+ $GLOBALS['database']->queryUpdate("framework_modules",$module_qobj,"module");
+ // redirect
+ api_alerts_add(api_text("settings_alert_moduleUpdateDatabaseUpdated"),"success");
  api_redirect("?mod=framework&scr=modules_list");
 }
 /**
@@ -346,54 +454,6 @@ function module_enable($enable){
  else{api_alerts_add(api_text("settings_alert_moduleDisabled"),"warning");}
  // redirect
  api_redirect("?mod=framework&scr=modules_view&module=".$module_obj->module);
-}
-/**
- * Module Update Source
- */
-function module_update_source(){
- // disabled for localhost and 127.0.0.1
- if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdateGitLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
- // get objects
- $module_obj=new cModule($_REQUEST['module']);
- // check objects
- if(!$module_obj->module){api_alerts_add(api_text("settings_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
- /** @todo cycle all selected modules (multiselect in table) */
- // exec shell commands
- $shell_output=exec('whoami')."@".exec('hostname').":".shell_exec("cd ".$module_obj->source_path." ; pwd ; git stash ; git stash clear ; git pull ; chmod 755 -R ./");
- // debug
- api_dump($shell_output);
- // alert
- if(is_int(strpos(strtolower($shell_output),"up-to-date"))){api_alerts_add(api_text("settings_alert_moduleUpdateSourceAlready"),"success");}
- elseif(is_int(strpos(strtolower($shell_output),"abort"))){api_alerts_add(api_text("settings_alert_moduleUpdateSourceAborted"),"danger");}
- else{api_alerts_add(api_text("settings_alert_moduleUpdateSourceUpdated"),"warning");}
- // redirect
- api_redirect("?mod=framework&scr=modules_list");
-}
-/**
- * Module Updates Database
- */
-function module_update_database(){
- // disabled for localhost and 127.0.0.1
- if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("settings_alert_moduleUpdateGitLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
- // get objects
- $module_obj=new cModule($_REQUEST['module']);
-
- /** @todo execute .sql file and update version in database */
- // cycle all sql file from $module_obj->version to $module_obj->source_version
-
- // build module query object
- $module_qobj=new stdClass();
- $module_qobj->module=$module_obj->module;
- $module_qobj->version=$module_obj->source_version;
- $module_qobj->updTimestamp=time();
- $module_qobj->updFkUser=$GLOBALS['session']->user->id;
- // debug
- api_dump($module_qobj);
- // update module
- $GLOBALS['database']->queryUpdate("framework_modules",$module_qobj,"module");
- // redirect
- api_alerts_add(api_text("settings_alert_moduleUpdateDatabaseUpdated"),"success");
- api_redirect("?mod=framework&scr=modules_list&module=".$module_obj->module);
 }
 /**
  * Module Authorizations Group Add

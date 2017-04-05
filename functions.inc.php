@@ -406,6 +406,28 @@ function api_tree_to_array(&$return,$function,$idField,$fkId=NULL,$nesting=0){
  if($last_id){$return[$last_id]->nesting_last=TRUE;}
 }
 
+/**
+ * SQL Dump Import
+ *
+ * @param string $sql_dump SQL Dump
+ */
+function api_sqlDump_import($sql_dump){
+ // cycle all queries
+ foreach($sql_dump as $line){
+  // skip comments
+  if(substr($line,0,2)=="--" || $line==""){continue;}
+  $sql_query=$sql_query.$line;
+  // search for query end signal
+  if(substr(trim($line),-1,1)==';'){
+   // debug
+   api_dump($sql_query);
+   // execute query
+   $GLOBALS['database']->queryExecute($sql_query);
+   // reset query
+   $sql_query="";
+  }
+ }
+}
 
 
 
