@@ -26,6 +26,7 @@
  <text key="nav-dashboard">Bacheca</text>
  <text key="nav-own-profile">Profilo personale</text>
  <text key="nav-settings">Impostazioni</text>
+ <text key="nav-debug">Debug</text>
  <text key="nav-logout">Esci</text>
  <text key="nav-operations">Operazioni</text>
 

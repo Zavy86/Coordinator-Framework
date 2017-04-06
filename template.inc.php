@@ -44,10 +44,11 @@
   $header_navbar->addcNav("navbar-right");
   $header_navbar->addItem(api_image($GLOBALS['session']->user->avatar,NULL,20,20,FALSE,"alt='Brand'"));
   $header_navbar->addSubHeader($GLOBALS['session']->user->fullname,"text-right");
-  $header_navbar->addSubItem(api_text("nav-own-profile"),"?mod=framework&scr=own_profile",TRUE,"text-right");
+  $header_navbar->addSubItem(api_text("nav-own-profile")." ".api_icon("fa-user-circle-o"),"?mod=framework&scr=own_profile",TRUE,"text-right");
   $header_navbar->addSubSeparator();
-  $header_navbar->addSubItem(api_text("nav-settings"),"?mod=framework&scr=dashboard",TRUE,"text-right");
-  $header_navbar->addSubItem(api_text("nav-logout"),"?mod=framework&scr=submit&act=user_logout",TRUE,"text-right");
+  $header_navbar->addSubItem(api_text("nav-settings")." ".api_icon("fa-toggle-on"),"?mod=framework&scr=dashboard",TRUE,"text-right");
+  if($GLOBALS['session']->user->superuser){$header_navbar->addSubItem(api_text("nav-debug")." ".api_icon("fa-code"),"?mod=".MODULE."&scr=".SCRIPT."&tab=".TAB."&debug=".(!$_SESSION['coordinator_debug']),TRUE,"text-right inactive");}
+  $header_navbar->addSubItem(api_text("nav-logout")." ".api_icon("fa-sign-out"),"?mod=framework&scr=submit&act=user_logout",TRUE,"text-right");
 
  }else{
   /** @todo collegamenti per i non loggati.. regolamento? privacy? boh? */
