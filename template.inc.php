@@ -33,7 +33,7 @@
 
  // check session
  if($GLOBALS['session']->validity){
-  $header_navbar->addItem(api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover"),"?mod=dashboards");
+  $header_navbar->addItem(api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover"),"?mod=dashboard");
   // cycle all menus
   foreach(api_framework_menus(NULL) as $menu_obj){
    if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=NULL;}

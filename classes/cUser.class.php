@@ -98,12 +98,12 @@ class cUser{
   return TRUE;
  }
 
-/**
- * Get
- *
- * @param string $property Property name
- * @return string Property value
- */
+ /**
+  * Get
+  *
+  * @param string $property Property name
+  * @return string Property value
+  */
  public function __get($property){return $this->$property;}
 
  /**

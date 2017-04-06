@@ -62,6 +62,7 @@ class Database{
    $return=FALSE;
   }
   $this->query_counter++;
+  if(!is_array($return)){$return=array();}
   return $return;
  }
 

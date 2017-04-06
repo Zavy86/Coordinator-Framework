@@ -2,7 +2,7 @@
 /**
  * Framework - Dashboard
  *
- * @package Rasmotic\Modules\Settings
+ * @package Coordinator\Modules\Settings
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */

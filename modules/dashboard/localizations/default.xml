@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<locale>
+
+ <!-- dashboard -->
+ <text key="dashboard">Bacheca</text>
+ <text key="dashboard-description">Bacheca personale</text>
+
+ <!-- alerts @todo verificare forse meglio metterne alcune o tutte nel file di coordinator -->
+ <text key="settings_alert_menuError">Si è verificato un errore durante il salvaraggio del menu</text>
+ <text key="settings_alert_menuNotFound">Il menu non è stato trovato</text>
+ <text key="settings_alert_menuCreated">Il menu è stato creato</text>
+ <text key="settings_alert_menuUpdated">Il menu è stato aggiornato</text>
+ <text key="settings_alert_userDeleted">L'utente è stato eliminato</text>
+
+ <!-- dashboard_view -->
+ <text key="dashboard_view">Bacheca</text>
+ <text key="dashboard_view-welcome">Bevenuto {0}</text>
+
+ <!-- dashboard_edit -->
+ <text key="dashboard_edit">Personalizza</text>
+ <text key="dashboard_edit-tr">Non sono presenti elementi da visualizzare</text>
+ <text key="dashboard_edit-th-label">Etichetta</text>
+ <text key="dashboard_edit-th-url">URL</text>
+ <text key="dashboard_edit-td-preview">Anteprima elemento</text>
+ <text key="dashboard_edit-td-edit">Modifica elemento</text>
+ <text key="dashboard_edit-dashboard-preview">Anteprima</text>
+
+</locale>

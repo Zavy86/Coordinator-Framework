@@ -34,7 +34,7 @@ if($develop){error_reporting(E_ALL & ~E_NOTICE);}
 else{error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);}
 // module variables
 $r_module=$_REQUEST['mod'];
-if(!$r_module){$r_module="dashboards";}
+if(!$r_module){$r_module="dashboard";}
 $r_script=$_REQUEST['scr'];
 if(!$r_script){$r_script=NULL;}
 $r_action=$_REQUEST['act'];
@@ -72,8 +72,6 @@ require_once(ROOT."classes/cModal.class.php");
 require_once(ROOT."classes/cDescriptionList.class.php");
 require_once(ROOT."classes/cOperationsButton.class.php");
 require_once(ROOT."classes/cList.class.php");
-
-// load modules  /** @todo fare funzione */
 
 // build localization instance
 $localization=new cLocalization();

@@ -33,7 +33,7 @@
  $form->addField("static",NULL,"&nbsp;",api_image($user_obj->avatar,"img-thumbnail",128).$avatar_delete_link);
  // controls
  $form->addControl("submit",api_text("own_profile-submit"));
- $form->addControl("button",api_text("own_profile-cancel"),"?mod=dashboards");
+ $form->addControl("button",api_text("own_profile-cancel"),"?mod=dashboard");
  // build grid object
  $grid=new cGrid();
  $grid->addRow();

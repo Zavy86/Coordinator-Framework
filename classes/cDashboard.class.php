@@ -50,6 +50,14 @@ class cDashboard{
  }
 
  /**
+  * Get
+  *
+  * @param string $property Property name
+  * @return string Property value
+  */
+ public function __get($property){return $this->$property;}
+
+ /**
   * Add Container
   *
   * @param string $label Label
@@ -154,13 +162,13 @@ class cDashboard{
     case "tile":
      // check if tile is starred if not in dashboard
      if(MODULE<>"dashboard"){
-      $starred_tile_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework_users_dashboards` WHERE `fkUser`='".$GLOBALS['session']->user->id."' AND `module`='".MODULE."' AND `url`='".$element->url."'");
+      $starred_tile_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework_users_dashboard` WHERE `fkUser`='".$GLOBALS['session']->user->id."' AND `module`='".MODULE."' AND `url`='".$element->url."'");
       // make starred link
       if($starred_tile_id>0){
-       $starred_link=api_link("?mod=dashboards&scr=submit&act=tile_delete&idTile=".$starred_tile_id."&redirect_mod=".MODULE."&redirect_scr=".SCRIPT."&redirect_tab=".TAB,api_icon("fa-star",api_text("dashboard-tile-remove"),"hidden-link"))." ";
+       $starred_link=api_link("?mod=dashboard&scr=submit&act=tile_delete&idTile=".$starred_tile_id."&redirect_mod=".MODULE."&redirect_scr=".SCRIPT."&redirect_tab=".TAB,api_icon("fa-star",api_text("dashboard-tile-remove"),"hidden-link"))." ";
       }elseif($element->enabled){
        $element->module=MODULE;
-       $starred_link=api_link("?mod=dashboards&scr=submit&act=tile_save&redirect_mod=".MODULE."&redirect_scr=".SCRIPT."&redirect_tab=".TAB."&element=".urlencode(json_encode($element)),api_icon("fa-star-o",api_text("dashboard-tile-add"),"hidden-link"))." ";
+       $starred_link=api_link("?mod=dashboard&scr=submit&act=tile_save&redirect_mod=".MODULE."&redirect_scr=".SCRIPT."&redirect_tab=".TAB."&element=".urlencode(json_encode($element)),api_icon("fa-star-o",api_text("dashboard-tile-add"),"hidden-link"))." ";
       }else{
        $starred_link=NULL;
       }
@@ -168,8 +176,8 @@ class cDashboard{
      // make hyperlink reference
      $href="window.open('".($element->enabled?$element->url:"#")."','".$element->target."');";
      // make background css style
-     if(file_exists($element->background)){
-      $background_style=" style=\"background-image:url('".$element->background."?rand=".rand(1,99999)."')\"";
+     if(file_exists(ROOT.$element->background)){
+      $background_style=" style=\"background-image:url('".$element->background."?rand=".md5(rand(1,99999))."')\"";
       $background_class="dashboard-element-background-alpha";
      }else{
       $background_style=NULL;
