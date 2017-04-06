@@ -13,7 +13,8 @@
  $this->setMetaTag("owner",$GLOBALS['settings']->owner);
  // add style sheets
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7.min.css");
- //$this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme.min.css"); /** @todo definire temi "giovanniani" */
+ /** @todo definire temi "giovanniani" */
+ /*if($GLOBALS['session']->user->theme){$this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme-".$GLOBALS['session']->user->theme.".min.css");}*/
  $this->addStylesheet(HELPERS."font-awesome/css/font-awesome.min.css");
  $this->addStylesheet(HELPERS."font-awesome-animation/css/font-awesome-animation.min.css");
  /** @todo add some css helpers here */

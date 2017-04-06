@@ -922,27 +922,28 @@ function sessions_terminate_all(){
  * Own Profile Update
  */
 function own_profile_update(){
- // build user objects
- $user=new stdClass();
- $user->id=$GLOBALS['session']->user->id;
+ // build user query objects
+ $user_qobj=new stdClass();
+ $user_qobj->id=$GLOBALS['session']->user->id;
  // acquire variables
- $user->firstname=$_REQUEST['firstname'];
- $user->lastname=$_REQUEST['lastname'];
- $user->localization=$_REQUEST['localization'];
- $user->timezone=$_REQUEST['timezone'];
- $user->gender=$_REQUEST['gender'];
- $user->birthday=$_REQUEST['birthday'];
- $user->updTimestamp=time();
- $user->updFkUser=$GLOBALS['session']->user->id;
+ $user_qobj->firstname=$_REQUEST['firstname'];
+ $user_qobj->lastname=$_REQUEST['lastname'];
+ $user_qobj->localization=$_REQUEST['localization'];
+ $user_qobj->timezone=$_REQUEST['timezone'];
+ $user_qobj->gender=$_REQUEST['gender'];
+ $user_qobj->birthday=$_REQUEST['birthday'];
+ $user_qobj->theme=$_REQUEST['theme'];
+ $user_qobj->updTimestamp=time();
+ $user_qobj->updFkUser=$GLOBALS['session']->user->id;
  // debug
- api_dump($user);
+ api_dump($user_qobj);
  // update user
- $GLOBALS['database']->queryUpdate("framework_users",$user);
+ $GLOBALS['database']->queryUpdate("framework_users",$user_qobj);
  // upload avatar
  if(intval($_FILES['avatar']['size'])>0 && $_FILES['avatar']['error']==UPLOAD_ERR_OK){
   if(!is_dir(ROOT."uploads/framework/users")){mkdir(ROOT."uploads/framework/users",0777,TRUE);}
-  if(file_exists(ROOT."uploads/framework/users/avatar_".$user->id.".jpg")){unlink(ROOT."uploads/framework/users/avatar_".$user->id.".jpg");}
-  if(is_uploaded_file($_FILES['avatar']['tmp_name'])){move_uploaded_file($_FILES['avatar']['tmp_name'],ROOT."uploads/framework/users/avatar_".$user->id.".jpg");}
+  if(file_exists(ROOT."uploads/framework/users/avatar_".$user_qobj->id.".jpg")){unlink(ROOT."uploads/framework/users/avatar_".$user_qobj->id.".jpg");}
+  if(is_uploaded_file($_FILES['avatar']['tmp_name'])){move_uploaded_file($_FILES['avatar']['tmp_name'],ROOT."uploads/framework/users/avatar_".$user_qobj->id.".jpg");}
  }
  // redirect
  api_alerts_add(api_text("settings_alert_ownProfileUpdated"),"success");
