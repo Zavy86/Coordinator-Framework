@@ -2,7 +2,7 @@
 config.inc.php
 
 /modules/*
-!/modules/dashboards/
+!/modules/dashboard/
 !/modules/framework/
 
 /uploads/*
@@ -15,8 +15,8 @@ config.inc.php
 !/uploads/framework/users/avatar.jpg
 !/uploads/framework/users/avatar_man.jpg
 !/uploads/framework/users/avatar_woman.jpg
-!/uploads/dashboards/
-/uploads/dashboards/*
+!/uploads/dashboard/
+/uploads/dashboard/*
 
 /tmp/*
 
