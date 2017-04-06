@@ -65,6 +65,7 @@ require_once(ROOT."classes/cHTML.class.php");
 require_once(ROOT."classes/cGrid.class.php");
 require_once(ROOT."classes/cNav.class.php"); /** fare classe tabs/tabbable per copia - e integrare tab nella nav */
 require_once(ROOT."classes/cNavbar.class.php");
+require_once(ROOT."classes/cDashboard.class.php");
 require_once(ROOT."classes/cTable.class.php");
 require_once(ROOT."classes/cForm.class.php");
 require_once(ROOT."classes/cModal.class.php");

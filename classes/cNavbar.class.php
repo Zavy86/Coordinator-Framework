@@ -60,7 +60,7 @@ class cNavbar{
   * @param string $class Item css class
   * @return boolean
   */
- public function addcNav($class=NULL){
+ public function addNav($class=NULL){
   $nav=new stdClass();
   $nav->class=$class;
   $nav->items_array=array();

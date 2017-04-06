@@ -184,7 +184,7 @@ class cUser{
   $authorizations_query="SELECT `framework_modules_authorizations`.`id`,`framework_modules_authorizations`.`module`,`framework_modules_authorizations`.`action`
    FROM `framework_modules_authorizations_join_groups`
    JOIN `framework_modules_authorizations` ON `framework_modules_authorizations`.`id`=`framework_modules_authorizations_join_groups`.`fkAuthorization`
-   WHERE `framework_modules_authorizations_join_groups`.`level`>='".$this->level."' AND
+   WHERE `framework_modules_authorizations_join_groups`.`level`<='".$this->level."' AND
     ( ".substr($authorizations_groups_where,0,-4)." )
    GROUP BY `framework_modules_authorizations`.`id`";
   // get authorizations
@@ -198,7 +198,7 @@ class cUser{
    $authorizations_query="SELECT `framework_modules_authorizations`.`id`,`framework_modules_authorizations`.`module`,`framework_modules_authorizations`.`action`,'1' as `inherited`
     FROM `framework_modules_authorizations_join_groups`
     JOIN `framework_modules_authorizations` ON `framework_modules_authorizations`.`id`=`framework_modules_authorizations_join_groups`.`fkAuthorization`
-    WHERE `framework_modules_authorizations_join_groups`.`level`>='".$this->level."' AND
+    WHERE `framework_modules_authorizations_join_groups`.`level`<='".$this->level."' AND
      ( ".substr($authorizations_groups_recursive_where,0,-4)." )
     GROUP BY `framework_modules_authorizations`.`id`";
    // get inherited authorizations

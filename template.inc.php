@@ -29,7 +29,7 @@
 
  // build header navbar object
  $header_navbar=new cNavbar($GLOBALS['settings']->title,"navbar-default navbar-fixed-top");
- $header_navbar->addcNav("navclass");
+ $header_navbar->addNav();
 
  // check session
  if($GLOBALS['session']->validity){
@@ -44,7 +44,7 @@
    }
   }
   // account and settings
-  $header_navbar->addcNav("navbar-right");
+  $header_navbar->addNav("navbar-right");
   $header_navbar->addItem(api_image($GLOBALS['session']->user->avatar,NULL,20,20,FALSE,"alt='Brand'"));
   $header_navbar->addSubHeader($GLOBALS['session']->user->fullname,"text-right");
   $header_navbar->addSubItem(api_text("nav-own-profile")." ".api_icon("fa-user-circle-o"),"?mod=framework&scr=own_profile",TRUE,"text-right");
