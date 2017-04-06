@@ -13,8 +13,12 @@ switch(ACTION){
 
  /** @todo check authorization in all submits function */
 
+ // own
+ case "own_profile_update":own_profile_update();break;
+ case "own_password_update":own_password_update();break;
+ case "own_avatar_remove":own_avatar_remove();break;
  // settings
- case "settings_edit":settings_edit();break;
+ case "settings_save":settings_save();break;
  // menus
  case "menu_save":menu_save();break;
  case "menu_move_left":menu_move("left");break;
@@ -37,10 +41,6 @@ switch(ACTION){
  case "user_recovery":user_recovery();break;
  /** @todo ^ check */
 
- // own
- case "own_profile_update":own_profile_update();break;
- case "own_password_update":own_password_update();break;
- case "own_avatar_remove":own_avatar_remove();break;
  // users
  case "user_add":user_add();break;
  case "user_edit":user_edit();break;
@@ -64,9 +64,83 @@ switch(ACTION){
 }
 
 /**
- * Settings Framework
+ * Own Profile Update
  */
-function settings_edit(){
+function own_profile_update(){
+ // build user query objects
+ $user_qobj=new stdClass();
+ $user_qobj->id=$GLOBALS['session']->user->id;
+ // acquire variables
+ $user_qobj->firstname=$_REQUEST['firstname'];
+ $user_qobj->lastname=$_REQUEST['lastname'];
+ $user_qobj->localization=$_REQUEST['localization'];
+ $user_qobj->timezone=$_REQUEST['timezone'];
+ $user_qobj->gender=$_REQUEST['gender'];
+ $user_qobj->birthday=$_REQUEST['birthday'];
+ $user_qobj->theme=$_REQUEST['theme'];
+ $user_qobj->updTimestamp=time();
+ $user_qobj->updFkUser=$GLOBALS['session']->user->id;
+ // debug
+ api_dump($user_qobj);
+ // update user
+ $GLOBALS['database']->queryUpdate("framework_users",$user_qobj);
+ // upload avatar
+ if(intval($_FILES['avatar']['size'])>0 && $_FILES['avatar']['error']==UPLOAD_ERR_OK){
+  if(!is_dir(ROOT."uploads/framework/users")){mkdir(ROOT."uploads/framework/users",0777,TRUE);}
+  if(file_exists(ROOT."uploads/framework/users/avatar_".$user_qobj->id.".jpg")){unlink(ROOT."uploads/framework/users/avatar_".$user_qobj->id.".jpg");}
+  if(is_uploaded_file($_FILES['avatar']['tmp_name'])){move_uploaded_file($_FILES['avatar']['tmp_name'],ROOT."uploads/framework/users/avatar_".$user_qobj->id.".jpg");}
+ }
+ // redirect
+ api_alerts_add(api_text("settings_alert_ownProfileUpdated"),"success");
+ api_redirect("?mod=framework&scr=own_profile");
+}
+/**
+ * Own Password Update
+ */
+function own_password_update(){
+ // retrieve user object
+ $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_users` WHERE `id`='".$GLOBALS['session']->user->id."'",$GLOBALS['debug']);
+ // check
+ if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect(DIR."index.php");}
+ // acquire variables
+ $r_password=$_REQUEST['password'];
+ $r_password_new=$_REQUEST['password_new'];
+ $r_password_confirm=$_REQUEST['password_confirm'];
+ // check old password
+ if(md5($r_password)!==$user_obj->password){api_alerts_add(api_text("settings_alert_ownPasswordIncorrect"),"danger");api_redirect("?mod=framework&scr=own_password");}
+ // check new password
+ if($r_password_new!==$r_password_confirm){api_alerts_add(api_text("settings_alert_ownPasswordNotMatch"),"danger");api_redirect("?mod=framework&scr=own_password");}
+ if(strlen($r_password_new)<8){api_alerts_add(api_text("settings_alert_ownPasswordWeak"),"danger");api_redirect("?mod=framework&scr=own_password");}
+ // check if new password is equal to oldest password
+ if(md5($r_password_new)===$user_obj->password){api_alerts_add(api_text("settings_alert_ownPasswordOldest"),"danger");api_redirect("?mod=framework&scr=own_password");}
+ // build user objects
+ $user=new stdClass();
+ $user->id=$user_obj->id;
+ $user->password=md5($r_password_new);
+ $user->pwdTimestamp=time();
+ // debug
+ api_dump($user);
+ // insert user to database
+ $GLOBALS['database']->queryUpdate("framework_users",$user);
+ // redirect
+ api_alerts_add(api_text("settings_alert_ownPasswordUpdated"),"success");
+ api_redirect("?mod=framework&scr=own_profile");
+}
+/**
+ * Own Avatar Remove
+ */
+function own_avatar_remove(){
+ // remove avatar if exist
+ if(file_exists(ROOT."uploads/framework/users/avatar_".$GLOBALS['session']->user->id.".jpg")){unlink(ROOT."uploads/framework/users/avatar_".$GLOBALS['session']->user->id.".jpg");}
+ // redirect
+ api_alerts_add(api_text("settings_alert_ownAvatarRemoved"),"success");
+ api_redirect("?mod=framework&scr=own_profile");
+}
+
+/**
+ * Settings Save
+ */
+function settings_save(){
  // acquire variables
  $r_tab=$_REQUEST['tab'];
  // definitions
@@ -916,80 +990,6 @@ function sessions_terminate_all(){
  // redirect
  api_alerts_add(api_text("settings_alert_sessionTerminatedAll"),"warning");
  api_redirect(DIR."index.php");
-}
-
-/**
- * Own Profile Update
- */
-function own_profile_update(){
- // build user query objects
- $user_qobj=new stdClass();
- $user_qobj->id=$GLOBALS['session']->user->id;
- // acquire variables
- $user_qobj->firstname=$_REQUEST['firstname'];
- $user_qobj->lastname=$_REQUEST['lastname'];
- $user_qobj->localization=$_REQUEST['localization'];
- $user_qobj->timezone=$_REQUEST['timezone'];
- $user_qobj->gender=$_REQUEST['gender'];
- $user_qobj->birthday=$_REQUEST['birthday'];
- $user_qobj->theme=$_REQUEST['theme'];
- $user_qobj->updTimestamp=time();
- $user_qobj->updFkUser=$GLOBALS['session']->user->id;
- // debug
- api_dump($user_qobj);
- // update user
- $GLOBALS['database']->queryUpdate("framework_users",$user_qobj);
- // upload avatar
- if(intval($_FILES['avatar']['size'])>0 && $_FILES['avatar']['error']==UPLOAD_ERR_OK){
-  if(!is_dir(ROOT."uploads/framework/users")){mkdir(ROOT."uploads/framework/users",0777,TRUE);}
-  if(file_exists(ROOT."uploads/framework/users/avatar_".$user_qobj->id.".jpg")){unlink(ROOT."uploads/framework/users/avatar_".$user_qobj->id.".jpg");}
-  if(is_uploaded_file($_FILES['avatar']['tmp_name'])){move_uploaded_file($_FILES['avatar']['tmp_name'],ROOT."uploads/framework/users/avatar_".$user_qobj->id.".jpg");}
- }
- // redirect
- api_alerts_add(api_text("settings_alert_ownProfileUpdated"),"success");
- api_redirect("?mod=framework&scr=own_profile");
-}
-/**
- * Own Password Update
- */
-function own_password_update(){
- // retrieve user object
- $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_users` WHERE `id`='".$GLOBALS['session']->user->id."'",$GLOBALS['debug']);
- // check
- if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect(DIR."index.php");}
- // acquire variables
- $r_password=$_REQUEST['password'];
- $r_password_new=$_REQUEST['password_new'];
- $r_password_confirm=$_REQUEST['password_confirm'];
- // check old password
- if(md5($r_password)!==$user_obj->password){api_alerts_add(api_text("settings_alert_ownPasswordIncorrect"),"danger");api_redirect("?mod=framework&scr=own_password");}
- // check new password
- if($r_password_new!==$r_password_confirm){api_alerts_add(api_text("settings_alert_ownPasswordNotMatch"),"danger");api_redirect("?mod=framework&scr=own_password");}
- if(strlen($r_password_new)<8){api_alerts_add(api_text("settings_alert_ownPasswordWeak"),"danger");api_redirect("?mod=framework&scr=own_password");}
- // check if new password is equal to oldest password
- if(md5($r_password_new)===$user_obj->password){api_alerts_add(api_text("settings_alert_ownPasswordOldest"),"danger");api_redirect("?mod=framework&scr=own_password");}
- // build user objects
- $user=new stdClass();
- $user->id=$user_obj->id;
- $user->password=md5($r_password_new);
- $user->pwdTimestamp=time();
- // debug
- api_dump($user);
- // insert user to database
- $GLOBALS['database']->queryUpdate("framework_users",$user);
- // redirect
- api_alerts_add(api_text("settings_alert_ownPasswordUpdated"),"success");
- api_redirect("?mod=framework&scr=own_profile");
-}
-/**
- * Own Avatar Remove
- */
-function own_avatar_remove(){
- // remove avatar if exist
- if(file_exists(ROOT."uploads/framework/users/avatar_".$GLOBALS['session']->user->id.".jpg")){unlink(ROOT."uploads/framework/users/avatar_".$GLOBALS['session']->user->id.".jpg");}
- // redirect
- api_alerts_add(api_text("settings_alert_ownAvatarRemoved"),"success");
- api_redirect("?mod=framework&scr=own_profile");
 }
 
 ?>

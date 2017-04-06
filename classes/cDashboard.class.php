@@ -74,7 +74,7 @@ class cDashboard{
  }
 
  /**
-  * Add Element
+  * Add Tile
   *
   * @param string $url URL
   * @param string $label Label
@@ -91,12 +91,12 @@ class cDashboard{
   * @param string $tags Custom HTML tags
   * @return boolean
   */
- public function addElement($url,$label,$description=NULL,$enabled=TRUE,$size="1x1",$icon=NULL,$counter=NULL,$counter_class=NULL,$background=NULL,$target="_self",$class=NULL,$style=NULL,$tags=NULL){
+ public function addTile($url,$label,$description=NULL,$enabled=TRUE,$size="1x1",$icon=NULL,$counter=NULL,$counter_class=NULL,$background=NULL,$target="_self",$class=NULL,$style=NULL,$tags=NULL){
   if(!$url||!$label){return FALSE;}
   if(!in_array(strtolower($size),array("1x1","2x1","3x1","4x1","5x1","6x1"))){$size="1x1";}
   if(!$target){$target="_self";}
   $element=new stdClass();
-  $element->type="element";
+  $element->type="tile";
   $element->url=$url;
   $element->label=$label;
   $element->description=$description;
@@ -151,7 +151,7 @@ class cDashboard{
      $return.="  </div>\n";
      break;
     // dashboard element
-    case "element":
+    case "tile":
      // check if tile is starred if not in dashboard
      if(MODULE<>"dashboard"){
       $starred_tile_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework_users_dashboards` WHERE `fkUser`='".$GLOBALS['session']->user->id."' AND `module`='".MODULE."' AND `url`='".$element->url."'");

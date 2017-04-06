@@ -21,7 +21,7 @@
  $tabs->addItem(api_text("settings_edit-users"),"?mod=framework&scr=settings_edit&tab=users");
  $tabs->addItem(api_text("settings_edit-token"),"?mod=framework&scr=settings_edit&tab=token");
  // build settings form
- $form=new cForm("?mod=framework&scr=submit&act=settings_edit&tab=".TAB,"POST",NULL,"settings_edit");
+ $form=new cForm("?mod=framework&scr=submit&act=settings_save&tab=".TAB,"POST",NULL,"settings_edit");
  /**
   * Generals
   */
