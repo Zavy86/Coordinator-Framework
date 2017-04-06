@@ -12,6 +12,7 @@
  $this->setMetaTag("description","Coordinator is an Open Source Modular Framework");
  $this->setMetaTag("owner",$GLOBALS['settings']->owner);
  // add style sheets
+ $this->addStylesheet(HELPERS."pace/css/pace-1.0.0-theme-flash.css");
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7.min.css");
  /** @todo definire temi "giovanniani" */
  /*if($GLOBALS['session']->user->theme){$this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme-".$GLOBALS['session']->user->theme.".min.css");}*/
@@ -21,6 +22,7 @@
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-custom.css");
  // add scripts
  $this->addScript(HELPERS."jquery/jquery-1.12.0.min.js",TRUE);
+ $this->addScript(HELPERS."pace/js/pace-1.0.0.min.js",TRUE);
  /** @todo add some javascript helpers here */
  $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.7.min.js",TRUE);
  $this->addScript(HELPERS."bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",TRUE);
