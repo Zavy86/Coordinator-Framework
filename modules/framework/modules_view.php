@@ -12,7 +12,7 @@
  // get objects
  $module_obj=new cModule($_REQUEST['module']);
  // check objects
- if(!$module_obj->module){api_alerts_add(api_text("settings_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  // set html title
  $html->setTitle(api_text("modules_view",$module_obj->name));
  // make version
@@ -27,7 +27,7 @@
  $table=new cTable(api_text("modules_view-authorizations-tr-unvalued"));
  $table->addHeader(api_text("modules_view-authorizations-th-authorization"),"nowrap");
  $table->addHeader(api_text("modules_view-authorizations-th-groups"),NULL,"100%");
- if(!$module_obj->module){api_alerts_add(api_text("settings_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  // cycle selected module authorizations
  foreach($module_obj->authorizations_array as $authorization){
   // make groups

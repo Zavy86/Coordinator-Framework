@@ -9,7 +9,7 @@
  $authorization="framework-users_manage";
  // get objects
  $user_obj=new cUser($_REQUEST['idUser']);
- if(!$user_obj->id){api_alerts_add(api_text("settings_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
+ if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
 
  // include module template
  require_once(MODULE_PATH."template.inc.php");

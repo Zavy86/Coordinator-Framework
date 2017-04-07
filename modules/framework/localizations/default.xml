@@ -21,57 +21,57 @@
  <text key="framework-sessions_manage-description">Gestione delle sessioni degli utenti nel framework</text>
 
  <!-- alerts -->
- <text key="settings_alert_settingsUpdated">Le impostazioni sono state aggiornate</text>
+ <text key="framework_alert_settingsUpdated">Le impostazioni sono state aggiornate</text>
 
- <text key="settings_alert_menuError">Si è verificato un errore durante il salvaraggio del menu</text>
- <text key="settings_alert_menuNotFound">Il menu non è stato trovato</text>
- <text key="settings_alert_menuCreated">Il menu è stato creato</text>
- <text key="settings_alert_menuUpdated">Il menu è stato aggiornato</text>
- <text key="settings_alert_menuNesting">Sono presenti menu ad un sotto-livello non renderizzabile</text>
+ <text key="framework_alert_menuError">Si è verificato un errore durante il salvaraggio del menu</text>
+ <text key="framework_alert_menuNotFound">Il menu non è stato trovato</text>
+ <text key="framework_alert_menuCreated">Il menu è stato creato</text>
+ <text key="framework_alert_menuUpdated">Il menu è stato aggiornato</text>
+ <text key="framework_alert_menuNesting">Sono presenti menu ad un sotto-livello non renderizzabile</text>
 
- <text key="settings_alert_ownProfileUpdated">Il tuo profilo è stato aggiornato</text>
- <text key="settings_alert_ownPasswordIncorrect">La password attuale inserita non è corretta</text>
- <text key="settings_alert_ownPasswordNotMatch">Le nuove password non coincidono</text>
- <text key="settings_alert_ownPasswordWeak">La nuova password non ha superato il livello minimo di sicurezza</text>
- <text key="settings_alert_ownPasswordOldest">La nuova password coincide con la vecchia password</text>
- <text key="settings_alert_ownPasswordUpdated">La tua password è stata aggiornata</text>
+ <text key="framework_alert_ownProfileUpdated">Il tuo profilo è stato aggiornato</text>
+ <text key="framework_alert_ownPasswordIncorrect">La password attuale inserita non è corretta</text>
+ <text key="framework_alert_ownPasswordNotMatch">Le nuove password non coincidono</text>
+ <text key="framework_alert_ownPasswordWeak">La nuova password non ha superato il livello minimo di sicurezza</text>
+ <text key="framework_alert_ownPasswordOldest">La nuova password coincide con la vecchia password</text>
+ <text key="framework_alert_ownPasswordUpdated">La tua password è stata aggiornata</text>
 
- <text key="settings_alert_userError">Si è verificato un errore durante il salvaraggio dell'utente</text>
- <text key="settings_alert_userNotFound">L'utente non è stato trovato</text>
- <text key="settings_alert_userCreated">L'utente è stato creato</text>
- <text key="settings_alert_userUpdated">L'utente è stato aggiornato</text>
- <text key="settings_alert_userEnabled">L'utente è stato abilitato</text>
- <text key="settings_alert_userDisabled">L'utente è stato disabilitato</text>
- <text key="settings_alert_userDeleted">L'utente è stato eliminato</text>
- <text key="settings_alert_userUndeleted">L'utente è stato ripristinato</text>
- <text key="settings_alert_userGroupError">Si è verificato un errore durante il salvataggio del gruppo dell'utente</text>
- <text key="settings_alert_userGroupNotFound">Il gruppo dell'utente non è stato trovato</text>
- <text key="settings_alert_userGroupAdded">Il gruppo è stato aggiunto all'utente</text>
- <text key="settings_alert_userGroupRemoved">Il gruppo è stato rimosso dall'utente</text>
+ <text key="framework_alert_userError">Si è verificato un errore durante il salvaraggio dell'utente</text>
+ <text key="framework_alert_userNotFound">L'utente non è stato trovato</text>
+ <text key="framework_alert_userCreated">L'utente è stato creato</text>
+ <text key="framework_alert_userUpdated">L'utente è stato aggiornato</text>
+ <text key="framework_alert_userEnabled">L'utente è stato abilitato</text>
+ <text key="framework_alert_userDisabled">L'utente è stato disabilitato</text>
+ <text key="framework_alert_userDeleted">L'utente è stato eliminato</text>
+ <text key="framework_alert_userUndeleted">L'utente è stato ripristinato</text>
+ <text key="framework_alert_userGroupError">Si è verificato un errore durante il salvataggio del gruppo dell'utente</text>
+ <text key="framework_alert_userGroupNotFound">Il gruppo dell'utente non è stato trovato</text>
+ <text key="framework_alert_userGroupAdded">Il gruppo è stato aggiunto all'utente</text>
+ <text key="framework_alert_userGroupRemoved">Il gruppo è stato rimosso dall'utente</text>
 
- <text key="settings_alert_groupError">Si è verificato un errore durante il salvataggio del gruppo</text>
- <text key="settings_alert_groupNotFound">Il gruppo non è stato trovato</text>
- <text key="settings_alert_groupCreated">Il gruppo è stato creato</text>
- <text key="settings_alert_groupUpdated">Il gruppo è stato aggiornato</text>
+ <text key="framework_alert_groupError">Si è verificato un errore durante il salvataggio del gruppo</text>
+ <text key="framework_alert_groupNotFound">Il gruppo non è stato trovato</text>
+ <text key="framework_alert_groupCreated">Il gruppo è stato creato</text>
+ <text key="framework_alert_groupUpdated">Il gruppo è stato aggiornato</text>
 
- <text key="settings_alert_sessionNotFound">La sessione non è stata trovata</text>
- <text key="settings_alert_sessionTerminated">La sessione è stata terminata</text>
- <text key="settings_alert_sessionTerminatedAll">Tutte le sessioni sono state terminate</text>
+ <text key="framework_alert_sessionNotFound">La sessione non è stata trovata</text>
+ <text key="framework_alert_sessionTerminated">La sessione è stata terminata</text>
+ <text key="framework_alert_sessionTerminatedAll">Tutte le sessioni sono state terminate</text>
 
- <text key="settings_alert_moduleError">Si è verificato un errore durante il salvataggio del modulo</text>
- <text key="settings_alert_moduleNotFound">Il modulo non è stato trovato</text>
- <text key="settings_alert_moduleAdded">Il modulo è stato scaricato</text>
- <text key="settings_alert_moduleEnabled">Il modulo è stato abilitato</text>
- <text key="settings_alert_moduleDisabled">Il modulo è stato disabilitato</text>
- <text key="settings_alert_moduleErrorLocalhost">L'installazione e l'aggiornamento dei moduli sono bloccati su localhost</text>
- <text key="settings_alert_moduleUpdateSourceAborted">Si è verificato un errore durante il tentativo di aggiornamento tramite Git</text>
- <text key="settings_alert_moduleUpdateSourceAlready">La versione dei sorgenti installata non necessita di ulteriori aggiornamenti</text>
- <text key="settings_alert_moduleUpdateSourceUpdated">L'aggiornamento dei sorgenti tramite Git è avvenuto correttamente</text>
- <text key="settings_alert_moduleUpdateDatabaseError">Si è verificato un errore durante il tentativo di aggiornamento del database</text>
- <text key="settings_alert_moduleUpdateDatabaseUpdated">L'aggiornamento del database è avvenuto correttamente</text>
- <text key="settings_alert_moduleAuthorizationGroupAdded">Il gruppo è stato aggiunto alle autorizzazioni del modulo</text>
- <text key="settings_alert_moduleAuthorizationGroupRemoved">Il gruppo è stato rimosso dalle autorizzazioni del modulo</text>
- <text key="settings_alert_moduleAuthorizationResetted">Le autorizzazioni del gruppo sono state ripristinate</text>
+ <text key="framework_alert_moduleError">Si è verificato un errore durante il salvataggio del modulo</text>
+ <text key="framework_alert_moduleNotFound">Il modulo non è stato trovato</text>
+ <text key="framework_alert_moduleAdded">Il modulo è stato scaricato</text>
+ <text key="framework_alert_moduleEnabled">Il modulo è stato abilitato</text>
+ <text key="framework_alert_moduleDisabled">Il modulo è stato disabilitato</text>
+ <text key="framework_alert_moduleErrorLocalhost">L'installazione e l'aggiornamento dei moduli sono bloccati su localhost</text>
+ <text key="framework_alert_moduleUpdateSourceAborted">Si è verificato un errore durante il tentativo di aggiornamento tramite Git</text>
+ <text key="framework_alert_moduleUpdateSourceAlready">La versione dei sorgenti installata non necessita di ulteriori aggiornamenti</text>
+ <text key="framework_alert_moduleUpdateSourceUpdated">L'aggiornamento dei sorgenti tramite Git è avvenuto correttamente</text>
+ <text key="framework_alert_moduleUpdateDatabaseError">Si è verificato un errore durante il tentativo di aggiornamento del database</text>
+ <text key="framework_alert_moduleUpdateDatabaseUpdated">L'aggiornamento del database è avvenuto correttamente</text>
+ <text key="framework_alert_moduleAuthorizationGroupAdded">Il gruppo è stato aggiunto alle autorizzazioni del modulo</text>
+ <text key="framework_alert_moduleAuthorizationGroupRemoved">Il gruppo è stato rimosso dalle autorizzazioni del modulo</text>
+ <text key="framework_alert_moduleAuthorizationResetted">Le autorizzazioni del gruppo sono state ripristinate</text>
 
  <!-- operations -->
  <text key="nav-operations-user_interpret">Interpreta utente</text>

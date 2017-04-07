@@ -329,8 +329,8 @@ class cForm{
       else{$label=$language;$text_key="language";}
       $translation_form->addField("text",substr($field->name,0,-10)."_lang_".$code,$label,$field->value_localizations[$code],api_text("form-input-text_localized-".$text_key."-placeholder",$language));
      }
-     $translation_form->addControl("submit",api_text("form-submit"),"#","btn-primary",NULL,NULL,"onClick=\"".$this->id."_input_".$field->name."_encoder();return false;\"");
-     $translation_form->addControl("button",api_text("form-cancel"),"#",NULL,NULL,NULL,"data-dismiss='modal'");
+     $translation_form->addControl("submit",api_text("form-fc-submit"),"#","btn-primary",NULL,NULL,"onClick=\"".$this->id."_input_".$field->name."_encoder();return false;\"");
+     $translation_form->addControl("button",api_text("form-fc-cancel"),"#",NULL,NULL,NULL,"data-dismiss='modal'");
      // build translation modal window
      $translation_modal=new cModal($field->label,NULL,$this->id."_input_".$field->name);
      $translation_modal->SetBody($translation_form->render());

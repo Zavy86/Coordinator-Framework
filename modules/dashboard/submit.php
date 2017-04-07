@@ -1,8 +1,8 @@
 <?php
 /**
- * Dashboards - Submit
+ * Dashboard - Submit
  *
- * @package Coordinator\Modules\Dashboards
+ * @package Coordinator\Modules\Dashboard
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
@@ -10,12 +10,12 @@
 if(!defined('ACTION')){die("ERROR EXECUTING SCRIPT: The action was not defined");}
 // switch action
 switch(ACTION){
-
- /** @todo check authorization in all submits function */
-
  // tiles
  case "tile_save":tile_save();break;
-
+ case "tile_move_up":tile_move("up");break;
+ case "tile_move_down":tile_move("down");break;
+ case "tile_remove":tile_remove();break;
+ case "tile_background_remove":tile_background_remove();break;
  // default
  default:
   api_alerts_add(api_text("alert_submitFunctionNotFound",array(MODULE,SCRIPT,ACTION)),"danger");
@@ -27,15 +27,14 @@ switch(ACTION){
  */
 function tile_save(){
  // get objects
- $tile_obj=new stdClass();
- $tile_obj->id=$_REQUEST['idTile'];
+ $tile_obj=new cDashboardTile($_REQUEST['idTile']);
  // acquire variables
  $r_element=json_decode($_REQUEST['element']);
  $r_redirect_mod=$_REQUEST['redirect_mod'];
  $r_redirect_scr=$_REQUEST['redirect_scr'];
  $r_redirect_tab=$_REQUEST['redirect_tab'];
  // check parameters
- if(!$r_redirect_mod){$r_redirect_mod="dashboard";$r_redirect_scr="dashboard_view";$r_redirect_tab=NULL;}
+ if(!$r_redirect_mod){$r_redirect_mod="dashboard";$r_redirect_scr="dashboard_edit";$r_redirect_tab=NULL;}
  // build tile query object
  $tile_qobj=new stdClass();
  $tile_qobj->id=$tile_obj->id;
@@ -67,10 +66,10 @@ function tile_save(){
   // debug
   api_dump($tile_qobj,"tile query object");
   // update tile
-  //$GLOBALS['database']->queryUpdate("framework_users_dashboards",$tile_qobj);
+  $GLOBALS['database']->queryUpdate("framework_users_dashboards",$tile_qobj);
  }else{
   // get maximum position
-  $v_order=$GLOBALS['database']->queryCount("framework_users_dashboard","`fkUser`='".$GLOBALS['session']->user->id."'");
+  $v_order=$GLOBALS['database']->queryCount("framework_users_dashboards","`fkUser`='".$GLOBALS['session']->user->id."'");
   // set new properties
   $tile_qobj->fkUser=$GLOBALS['session']->user->id;
   $tile_qobj->order=($v_order+1);
@@ -82,48 +81,100 @@ function tile_save(){
   $tile_qobj->id=$GLOBALS['database']->lastInsertedId();
  }
  // upload background
- /*if(intval($_FILES['background']['size'])>0 && $_FILES['background']['error']==UPLOAD_ERR_OK){
-  if(file_exists("../uploads/uploads/dashboard/".$tile_obj->id.".jpg")){unlink("../uploads/uploads/dashboard/".$tile_obj->id.".jpg");}
-  if(is_uploaded_file($_FILES['background']['tmp_name'])){move_uploaded_file($_FILES['background']['tmp_name'],"../uploads/uploads/dashboard/".$tile_obj->id.".jpg");}
- }*/
- // redirect
- api_alerts_add(api_text("dashboard_alert_tileSaved"),"success");
- api_redirect("?mod=".$r_redirect_mod."&scr=".$r_redirect_scr."&tab=".$r_redirect_tab);
-}
-/**
- * Tile delete
- */
-function tile_delete(){
- die();
- // acquire variables
- $tile_obj->id=$_GET['idTile'];
- $g_redirect=$_GET['redirect'];
- if(!$g_redirect){$g_redirect="dashboard_edit.php";}
- // get tile position
- $order=$GLOBALS['db']->queryUniqueValue("SELECT `order` FROM `settings_dashboards` WHERE `id`='".$tile_obj->id."'");
- if($order>0){
-  // remove tile
-  echo $GLOBALS['db']->execute("DELETE FROM `settings_dashboards` WHERE `id`='".$tile_obj->id."'");
-  // moves back tiles located after
-  echo $GLOBALS['db']->execute("UPDATE `settings_dashboards` SET `order`=`order`-1 WHERE `order`>'".$order."' AND `idAccount`='".api_account()->id."'");
-  // delete background
-  if(file_exists("../uploads/uploads/dashboard/".$tile_obj->id.".jpg")){unlink("../uploads/uploads/dashboard/".$tile_obj->id.".jpg");}
+ if(intval($_FILES['background']['size'])>0 && $_FILES['background']['error']==UPLOAD_ERR_OK){
+  if(file_exists(ROOT."uploads/dashboard/".$tile_obj->id.".jpg")){unlink(ROOT."uploads/dashboard/".$tile_obj->id.".jpg");}
+  if(is_uploaded_file($_FILES['background']['tmp_name'])){move_uploaded_file($_FILES['background']['tmp_name'],ROOT."uploads/dashboard/".$tile_obj->id.".jpg");}
  }
- //redirect
- exit(header("location: ".$g_redirect));
+ // redirect
+ api_redirect("?mod=".$r_redirect_mod."&scr=".$r_redirect_scr."&tab=".$r_redirect_tab."&idTile=".$tile_qobj->id);
 }
 /**
- * Tile background delete
+ * Tile Move
+ *
+ * @param string direction
  */
-function tile_background_delete(){
- die();
+function tile_move($direction){
+ // get objects
+ $tile_obj=new cDashboardTile($_REQUEST['idTile']);
+ // check objects
+ if(!$tile_obj->id){api_alerts_add(api_text("dashboard_alert_tileNotFound"),"danger");api_redirect("?mod=dashboard&scr=dashboard_edit");}
+ // check parameters
+ if(!in_array(strtolower($direction),array("up","down"))){api_alerts_add(api_text("dashboard_alert_tileError"),"warning");api_redirect("?mod=dashboard&scr=dashboard_edit&idTile=".$tile_obj->id);}
+ // build tile query objects
+ $tile_qobj=new stdClass();
+ $tile_qobj->id=$tile_obj->id;
+ //switch direction
+ switch(strtolower($direction)){
+  // up -> order -1
+  case "up":
+   // set previous order
+   $tile_qobj->order=$tile_obj->order-1;
+   // check for order
+   if($tile_qobj->order<1){api_alerts_add(api_text("dashboard_alert_tileError"),"warning");api_redirect("?mod=dashboard&scr=dashboard_edit&idTile=".$tile_obj->id);}
+   // update tile
+   $GLOBALS['database']->queryUpdate("framework_users_dashboards",$tile_qobj);
+   // rebase other tiles
+   api_dump($rebase_query="UPDATE `framework_users_dashboards` SET `order`=`order`+'1' WHERE `order`<'".$tile_obj->order."' AND `order`>='".$tile_qobj->order."' AND `order`<>'0' AND `id`!='".$tile_obj->id."' AND `fkUser`='".$GLOBALS['session']->user->id."'","rebase_query");
+   $GLOBALS['database']->queryExecute($rebase_query);
+   break;
+  // down -> order +1
+  case "down":
+   // set following order
+   $tile_qobj->order=$tile_obj->order+1;
+   // update tile
+   $GLOBALS['database']->queryUpdate("framework_users_dashboards",$tile_qobj);
+   // rebase other tiles
+   api_dump($rebase_query="UPDATE `framework_users_dashboards` SET `order`=`order`-'1' WHERE `order`>'".$tile_obj->order."' AND `order`<='".$tile_qobj->order."' AND `order`<>'0' AND `id`!='".$tile_obj->id."' AND `fkUser`='".$GLOBALS['session']->user->id."'","rebase_query");
+   $GLOBALS['database']->queryExecute($rebase_query);
+   break;
+ }
+ // debug
+ api_dump($_REQUEST,"_REQUEST");
+ api_dump($direction,"direction");
+ api_dump($tile_obj,"tile_obj");
+ api_dump($tile_qobj,"tile_qobj");
+ // redirect
+ api_redirect("?mod=dashboard&scr=dashboard_edit&idTile=".$tile_obj->id);
+}
+/**
+ * Tile Remove
+ */
+function tile_remove(){
+ // get objects
+ $tile_obj=new cDashboardTile($_REQUEST['idTile']);
+ // check objects
+ if(!$tile_obj->id){api_alerts_add(api_text("dashboard_alert_tileNotFound"),"danger");api_redirect("?mod=dashboard&scr=dashboard_edit");}
  // acquire variables
- $tile_obj->id=$_GET['idTile'];
- // delete background
- if(file_exists("../uploads/uploads/dashboard/".$tile_obj->id.".jpg")){unlink("../uploads/uploads/dashboard/".$tile_obj->id.".jpg");}
- // alert and redirect
- $alert="?alert=tileBackgroundDeleted&alert_class=alert-warning";
- exit(header("location: dashboard_edit.php".$alert));
+ $r_redirect_mod=$_REQUEST['redirect_mod'];
+ $r_redirect_scr=$_REQUEST['redirect_scr'];
+ $r_redirect_tab=$_REQUEST['redirect_tab'];
+ // check parameters
+ if(!$r_redirect_mod){$r_redirect_mod="dashboard";$r_redirect_scr="dashboard_edit";$r_redirect_tab=NULL;}
+ // debug
+ api_dump($tile_obj);
+ // remove tile
+ $GLOBALS['database']->queryDelete("framework_users_dashboards",$tile_obj->id);
+ // rebase other tiles
+ $GLOBALS['database']->queryExecute("UPDATE `framework_users_dashboards` SET `order`=`order`-1 WHERE `order`>'".$tile_obj->order."' AND `fkUser`='".$GLOBALS['session']->user->id."'");
+ // remove background if exist
+ if(file_exists(ROOT."uploads/dashboard/".$tile_obj->id.".jpg")){unlink(ROOT."uploads/dashboard/".$tile_obj->id.".jpg");}
+ // redirect
+ api_redirect("?mod=".$r_redirect_mod."&scr=".$r_redirect_scr."&tab=".$r_redirect_tab."&idTile=".$tile_obj->id);
+}
+/**
+ * Tile Background Remove
+ */
+function tile_background_remove(){
+ // get objects
+ $tile_obj=new cDashboardTile($_REQUEST['idTile']);
+ // debug
+ api_dump($tile_obj);
+ // check objects
+ if(!$tile_obj->id){api_alerts_add(api_text("dashboard_alert_tileNotFound"),"danger");api_redirect("?mod=dashboard&scr=dashboard_edit");}
+ // remove background if exist
+ if(file_exists(ROOT."uploads/dashboard/".$tile_obj->id.".jpg")){unlink(ROOT."uploads/dashboard/".$tile_obj->id.".jpg");}
+ // redirect
+ api_redirect("?mod=dashboard&scr=dashboard_edit&idTile=".$tile_obj->id);
 }
 
 ?>

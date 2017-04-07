@@ -1,22 +1,99 @@
 <?php
 /**
- * Dashboards - Customize
+ * Dashboard - Edit
  *
- * @package Rasmotic\Modules\Dashboards
+ * @package Coordinator\Modules\Dashboard
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
- /** @todo check authorizations */
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle("Dashboard");
+ $html->setTitle(api_text("dashboard_edit"));
+
+ // get objects
+ $selected_tile_obj=new cDashboardTile($_REQUEST['idTile']);
+
+ // build table
+ $table=new cTable(api_text("dashboard_edit-tr-unvalued"));
+ // build table header
+ $table->addHeader("&nbsp;",NULL,16);
+ $table->addHeader(api_text("dashboard_edit-th-label"),"nowarp");
+ $table->addHeader("&nbsp;","nowarp");
+ $table->addHeader(api_text("dashboard_edit-th-url"),NULL,"100%");
+ $table->addHeader("&nbsp;",NULL,16);
+ // build table rows
+ $tiles_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_users_dashboards` WHERE `fkUser`='".$GLOBALS['session']->user->id."' ORDER BY `order`");
+ foreach($tiles_results as $tile){
+  $tile_obj=new cDashboardTile($tile);
+  // build operations button
+  $ob=new cOperationsButton();
+  $ob->addElement("?mod=dashboard&scr=dashboard_edit&act=editTile&idTile=".$tile_obj->id,"fa-pencil",api_text("dashboard_edit-td-edit"));
+  $ob->addElement("?mod=dashboard&scr=submit&act=tile_move_up&idTile=".$tile_obj->id,"fa-arrow-up",api_text("dashboard_edit-td-move-up"),($tile_obj->order>1?TRUE:FALSE));
+  $ob->addElement("?mod=dashboard&scr=submit&act=tile_move_down&idTile=".$tile_obj->id,"fa-arrow-down",api_text("dashboard_edit-td-move-down"),($tile_obj->order<count($tiles_results)?TRUE:FALSE));
+  $ob->addElement("?mod=dashboard&scr=submit&act=tile_remove&idTile=".$selected_tile_obj->id,"fa-trash",api_text("dashboard_edit-td-delete"),TRUE,api_text("dashboard_edit-td-delete-confirm"));
+  // check deleted
+  if($user_obj->deleted){$tr_class="deleted";}else{$tr_class=NULL;}
+  // build table row
+  $table->addRow(($selected_tile_obj->id==$tile_obj->id?"info":NULL));
+  // build table fields
+  $table->addRowFieldAction("?mod=dashboard&scr=dashboard_edit&idTile=".$tile_obj->id,api_icon("fa-search",api_text("dashboard_edit-td-preview"),"hidden-link"));
+  $table->addRowField($tile_obj->label,"nowrap");
+  $table->addRowField(api_icon($tile_obj->icon),"nowrap text-center");
+  $table->addRowField($tile_obj->url,"truncate-ellipsis");
+  $table->addRowField($ob->render(),"text-right");
+ }
+ // check for actions
+ if(in_array(ACTION,array("addTile","editTile"))){
+  // build form
+  $tile_form=new cForm("?mod=dashboard&scr=submit&act=tile_save&idTile=".$selected_tile_obj->id,"POST",NULL,"dashboard_edit_tile");
+  $tile_form->addField("hidden","redirect_mod",NULL,"dashboard");
+  $tile_form->addField("hidden","redirect_scr",NULL,"dashboard_edit");
+  $tile_form->addField("text","icon",api_text("dashboard_edit-tile-ff-icon"),$selected_tile_obj->icon,api_text("dashboard_edit-tile-ff-icon-placeholder"));
+  $tile_form->addField("text","label",api_text("dashboard_edit-tile-ff-label"),$selected_tile_obj->label,api_text("dashboard_edit-tile-ff-label-placeholder"),NULL,NULL,NULL,"required");
+  $tile_form->addField("text","description",api_text("dashboard_edit-tile-ff-description"),$selected_tile_obj->description,api_text("dashboard_edit-tile-ff-description-placeholder"));
+  $tile_form->addField("select","size",api_text("dashboard_edit-tile-ff-size"),$selected_tile_obj->size,api_text("dashboard_edit-tile-ff-size-placeholder"),NULL,NULL,NULL,"required");
+  for($size_1=1;$size_1<=6;$size_1++){$tile_form->addFieldOption($size_1."x1",$size_1."x1");}
+  $tile_form->addField("text","url",api_text("dashboard_edit-tile-ff-url"),$selected_tile_obj->url,api_text("dashboard_edit-tile-ff-url-placeholder"),NULL,NULL,NULL,"required");
+  $tile_form->addField("hidden","module",NULL,$selected_tile_obj->module);
+  $tile_form->addField("select","target",api_text("dashboard_edit-tile-ff-target"),$selected_tile_obj->target);
+  $tile_form->addFieldOption("",api_text("dashboard_edit-tile-fo-target-standard"));
+  $tile_form->addFieldOption("_blank",api_text("dashboard_edit-tile-fo-target-blank"));
+  $tile_form->addField("file","background",api_text("dashboard_edit-tile-ff-background"));
+  if(file_exists(ROOT."uploads/dashboard/".$selected_tile_obj->id.".jpg")){
+   $background_field=api_image(DIR."uploads/dashboard/".$selected_tile_obj->id.".jpg","img-polaroid",128,NULL,TRUE);
+   $background_field.=api_link("?mod=dashboard&scr=submit&act=tile_background_remove&idTile=".$selected_tile_obj->id,api_icon("fa-remove",api_text("dashboard_edit-tile-ff-background-delete"),"hidden-link text-vtop"),NULL,NULL,FALSE,api_text("dashboard_edit-tile-ff-background-confirm"));
+   $tile_form->addField("static",NULL,"&nbsp;",$background_field);
+  }
+  $tile_form->addControl("submit",api_text("form-fc-submit"));
+  $tile_form->addControl("button",api_text("form-fc-cancel"),"#",NULL,NULL,NULL,"data-dismiss='modal'");
+  if($selected_tile_obj->id){$tile_form->addControl("button",api_text("form-fc-delete"),"?mod=dashboard&scr=submit&act=tile_remove&idTile=".$selected_tile_obj->id,"btn-danger",api_text("form-fc-delete-confirm"));}
+  // build group add modal window
+  $tile_form_modal=new cModal(api_text("dashboard_edit-tile-modal-title"),NULL,"dashboard_edit-tile_form-modal");
+  $tile_form_modal->setBody($tile_form->render(2));
+  // add modal to html object
+  $html->addModal($tile_form_modal);
+  // jQuery scripts
+  $html->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_dashboard_edit-tile_form-modal\").modal('show');});");
+  $html->addScript("/* Font Awesome Icon Picker */\n$(function(){\$(\"#form_dashboard_edit_tile_input_icon\").iconpicker();});");
+ }
  // build grid object
  $grid=new cGrid();
  $grid->addRow();
- $grid->addCol("Dashboard customize","col-xs-12");
+ // add table to grid
+ $grid->addCol($table->render(),"col-xs-12 col-sm-8");
+ // check for selected tile
+ if($selected_tile_obj->id){
+  // build preview dashbaord
+  $dashboard=new cDashboard(api_text("dashboard_edit-dashboard-preview"));
+  $dashboard->addTile($selected_tile_obj->url,$selected_tile_obj->label,$selected_tile_obj->description,TRUE,$selected_tile_obj->size,$selected_tile_obj->icon,$selected_tile_obj->counter->count,$selected_tile_obj->counter_class,$selected_tile_obj->background,$selected_tile_obj->target);
+  // add preview to grid
+  $grid->addCol($dashboard->render(),"col-xs-12 col-sm-4");
+ }
  // add content to html
  $html->addContent($grid->render());
  // renderize html page
  $html->render();
+ // debug
+ if($GLOBALS['debug']){api_dump($selected_tile_obj,"selected tile");}
 ?>

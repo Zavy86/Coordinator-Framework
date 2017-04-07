@@ -459,7 +459,7 @@ function api_framework_menus($idMenu=NULL){  /** @todo levare framework? */
  if(!$idMenu){$query_where="`fkMenu` IS NULL";}else{$query_where="`fkMenu`='".$idMenu."'";}
  // execute query
  $menus_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_menus` WHERE ".$query_where." ORDER BY `order` ASC");
- foreach($menus_results as $menu){$return[$menu->id]=new Menu($menu);}
+ foreach($menus_results as $menu){$return[$menu->id]=new cMenu($menu);}
  // return menus
  return $return;
 }

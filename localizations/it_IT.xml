@@ -31,9 +31,11 @@
  <text key="nav-operations">Operazioni</text>
 
  <!-- forms -->
- <text key="form-submit">Salva</text>
- <text key="form-cancel">Annulla</text>
- <text key="form-reset">Reset</text>
+ <text key="form-fc-submit">Salva</text>
+ <text key="form-fc-cancel">Annulla</text>
+ <text key="form-fc-reset">Reset</text>
+ <text key="form-fc-delete">Elimina</text>
+ <text key="form-fc-delete-confirm">Confermi di voler eliminare questo oggetto?</text>
  <text key="form-input-file-placeholder">Seleziona un file..</text>
  <text key="form-input-text_localized-default">Principale</text>
  <text key="form-input-text_localized-default-placeholder">Inserisci la traduzione principale</text>

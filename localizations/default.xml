@@ -30,9 +30,11 @@
  <text key="nav-operations">Operations</text>
 
  <!-- forms -->
- <text key="form-submit">Submit</text>
- <text key="form-cancel">Cancel</text>
- <text key="form-reset">Reset</text>
+ <text key="form-fc-submit">Submit</text>
+ <text key="form-fc-cancel">Cancel</text>
+ <text key="form-fc-reset">Reset</text>
+ <text key="form-fc-delete">Delete</text>
+ <text key="form-fc-delete-confirm">Are you sure you want to delete this object?</text>
  <text key="form-input-file-placeholder">Select a file..</text>
  <text key="form-input-text_localized-default">Default</text>
  <text key="form-input-text_localized-default-placeholder">Insert default translation</text>

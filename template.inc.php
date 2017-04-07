@@ -14,6 +14,7 @@
  // add style sheets
  $this->addStylesheet(HELPERS."pace/css/pace-1.0.0-theme-flash.css");
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7.min.css");
+ $this->addStylesheet(HELPERS."bootstrap-faiconpicker/css/bootstrap-faiconpicker-1.3.0.min.css");
  /** @todo definire temi "giovanniani" */
  /*if($GLOBALS['session']->user->theme){$this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme-".$GLOBALS['session']->user->theme.".min.css");}*/
  $this->addStylesheet(HELPERS."font-awesome/css/font-awesome.min.css");
@@ -26,6 +27,7 @@
  /** @todo add some javascript helpers here */
  $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.7.min.js",TRUE);
  $this->addScript(HELPERS."bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",TRUE);
+ $this->addScript(HELPERS."bootstrap-faiconpicker/js/bootstrap-faiconpicker-1.3.0.min.js",TRUE);
 
  // build header navbar object
  $header_navbar=new cNavbar($GLOBALS['settings']->title,"navbar-default navbar-fixed-top");

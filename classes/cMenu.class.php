@@ -10,7 +10,7 @@
 /**
  * Menu class
  */
-class Menu{
+class cMenu{
 
  /** Properties */
  protected $id;

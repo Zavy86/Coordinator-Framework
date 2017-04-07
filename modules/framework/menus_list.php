@@ -40,7 +40,7 @@
  // add script to html
  $html->addScript("/* Popover Click Script */\n$(function(){\$(\"[data-toggle='popover-click']\").popover({'trigger':'click','placement':'auto top','html':true});});");
  // check nesting alert
- if($nesting_alert){api_alerts_add(api_text("settings_alert_menuNesting"),"warning");}
+ if($nesting_alert){api_alerts_add(api_text("framework_alert_menuNesting"),"warning");}
  // build grid object
  $grid=new cGrid();
  $grid->addRow();

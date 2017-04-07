@@ -10,7 +10,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // get objects
- $menu_obj=new Menu($_REQUEST['idMenu']);
+ $menu_obj=new cMenu($_REQUEST['idMenu']);
  // set html title
  $html->setTitle(($menu_obj->id?api_text("menus_edit"):api_text("menus_add")));
  // build profile form
