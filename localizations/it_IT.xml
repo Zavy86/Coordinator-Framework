@@ -26,13 +26,16 @@
  <text key="nav-dashboard">Bacheca</text>
  <text key="nav-own-profile">Profilo personale</text>
  <text key="nav-settings">Impostazioni</text>
+ <text key="nav-debug">Debug</text>
  <text key="nav-logout">Esci</text>
  <text key="nav-operations">Operazioni</text>
 
  <!-- forms -->
- <text key="form-submit">Salva</text>
- <text key="form-cancel">Annulla</text>
- <text key="form-reset">Reset</text>
+ <text key="form-fc-submit">Salva</text>
+ <text key="form-fc-cancel">Annulla</text>
+ <text key="form-fc-reset">Reset</text>
+ <text key="form-fc-delete">Elimina</text>
+ <text key="form-fc-delete-confirm">Confermi di voler eliminare questo oggetto?</text>
  <text key="form-input-file-placeholder">Seleziona un file..</text>
  <text key="form-input-text_localized-default">Principale</text>
  <text key="form-input-text_localized-default-placeholder">Inserisci la traduzione principale</text>
@@ -50,5 +53,9 @@
  <text key="recovery-ff-account">Account</text>
  <text key="recovery-ff-account-placeholder">Inserisci il tuo indirizzo mail..</text>
  <text key="recovery-fc-submit">Invia link di ripristino</text>
+
+ <!-- dashboard -->
+ <text key="dashboard-tile-add">Aggiungi alla bacheca</text>
+ <text key="dashboard-tile-remove">Rimuovi dalla bacheca</text>
 
 </locale>

@@ -12,25 +12,30 @@
  $this->setMetaTag("description","Coordinator is an Open Source Modular Framework");
  $this->setMetaTag("owner",$GLOBALS['settings']->owner);
  // add style sheets
+ $this->addStylesheet(HELPERS."pace/css/pace-1.0.0-theme-flash.css");
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7.min.css");
- //$this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme.min.css"); /** @todo definire temi "giovanniani" */
+ $this->addStylesheet(HELPERS."bootstrap-faiconpicker/css/bootstrap-faiconpicker-1.3.0.min.css");
+ /** @todo definire temi "giovanniani" */
+ /*if($GLOBALS['session']->user->theme){$this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme-".$GLOBALS['session']->user->theme.".min.css");}*/
  $this->addStylesheet(HELPERS."font-awesome/css/font-awesome.min.css");
  $this->addStylesheet(HELPERS."font-awesome-animation/css/font-awesome-animation.min.css");
  /** @todo add some css helpers here */
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-custom.css");
  // add scripts
  $this->addScript(HELPERS."jquery/jquery-1.12.0.min.js",TRUE);
+ $this->addScript(HELPERS."pace/js/pace-1.0.0.min.js",TRUE);
  /** @todo add some javascript helpers here */
  $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.7.min.js",TRUE);
  $this->addScript(HELPERS."bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",TRUE);
+ $this->addScript(HELPERS."bootstrap-faiconpicker/js/bootstrap-faiconpicker-1.3.0.min.js",TRUE);
 
  // build header navbar object
  $header_navbar=new cNavbar($GLOBALS['settings']->title,"navbar-default navbar-fixed-top");
- $header_navbar->addcNav("navclass");
+ $header_navbar->addNav();
 
  // check session
  if($GLOBALS['session']->validity){
-  $header_navbar->addItem(api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover"),"?mod=dashboards");
+  $header_navbar->addItem(api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover"),"?mod=dashboard");
   // cycle all menus
   foreach(api_framework_menus(NULL) as $menu_obj){
    if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=NULL;}
@@ -41,13 +46,14 @@
    }
   }
   // account and settings
-  $header_navbar->addcNav("navbar-right");
+  $header_navbar->addNav("navbar-right");
   $header_navbar->addItem(api_image($GLOBALS['session']->user->avatar,NULL,20,20,FALSE,"alt='Brand'"));
   $header_navbar->addSubHeader($GLOBALS['session']->user->fullname,"text-right");
-  $header_navbar->addSubItem(api_text("nav-own-profile"),"?mod=framework&scr=own_profile",TRUE,"text-right");
+  $header_navbar->addSubItem(api_text("nav-own-profile")." ".api_icon("fa-user-circle-o"),"?mod=framework&scr=own_profile",TRUE,"text-right");
   $header_navbar->addSubSeparator();
-  $header_navbar->addSubItem(api_text("nav-settings"),"?mod=framework&scr=dashboard",TRUE,"text-right");
-  $header_navbar->addSubItem(api_text("nav-logout"),"?mod=framework&scr=submit&act=user_logout",TRUE,"text-right");
+  $header_navbar->addSubItem(api_text("nav-settings")." ".api_icon("fa-toggle-on"),"?mod=framework&scr=dashboard",TRUE,"text-right");
+  if($GLOBALS['session']->user->superuser){$header_navbar->addSubItem(api_text("nav-debug")." ".api_icon("fa-code"),"?mod=".MODULE."&scr=".SCRIPT."&tab=".TAB."&debug=".(!$_SESSION['coordinator_debug']),TRUE,"text-right inactive");}
+  $header_navbar->addSubItem(api_text("nav-logout")." ".api_icon("fa-sign-out"),"?mod=framework&scr=submit&act=user_logout",TRUE,"text-right");
 
  }else{
   /** @todo collegamenti per i non loggati.. regolamento? privacy? boh? */

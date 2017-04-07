@@ -16,7 +16,7 @@
  $form=new cForm("?mod=accounts&scr=submit&act=user_recovery");
  $form->addField("email","mail",api_text("recovery-ff-account"),NULL,api_text("recovery-ff-account-placeholder"),NULL,NULL,NULL,"required");
  $form->addControl("submit",api_text("recovery-fc-submit"));
- $form->addControl("button",api_text("form-cancel"),"login.php");
+ $form->addControl("button",api_text("form-fc-cancel"),"login.php");
  // build grid object
  $grid=new cGrid();
  $grid->addRow();

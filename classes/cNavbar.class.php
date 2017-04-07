@@ -60,7 +60,7 @@ class cNavbar{
   * @param string $class Item css class
   * @return boolean
   */
- public function addcNav($class=NULL){
+ public function addNav($class=NULL){
   $nav=new stdClass();
   $nav->class=$class;
   $nav->items_array=array();
@@ -208,6 +208,7 @@ class cNavbar{
       if($active){break;}
      }
     }
+    if(is_int(strpos($item->class,"inactive"))){$active=FALSE;}
     // lock url if active or disabled
     if($active||!$item->enabled){$item->url="#";}
     // make item class
@@ -231,6 +232,7 @@ class cNavbar{
       // check for sub active
       if($subItem->urlParsed->query_array['mod']==MODULE){$sub_active=TRUE;}else{$sub_active=FALSE;}
       if($subItem->urlParsed->query_array['scr']&&$subItem->urlParsed->query_array['scr']!=SCRIPT){$sub_active=FALSE;}
+      if(is_int(strpos($subItem->class,"inactive"))){$sub_active=FALSE;}
       // lock url if active or disabled
       if($sub_active||!$subItem->enabled){$subItem->url="#";}
       // make sub item class

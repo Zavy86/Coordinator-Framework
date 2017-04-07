@@ -34,7 +34,7 @@ if($develop){error_reporting(E_ALL & ~E_NOTICE);}
 else{error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);}
 // module variables
 $r_module=$_REQUEST['mod'];
-if(!$r_module){$r_module="dashboards";}
+if(!$r_module){$r_module="dashboard";}
 $r_script=$_REQUEST['scr'];
 if(!$r_script){$r_script=NULL;}
 $r_action=$_REQUEST['act'];
@@ -65,14 +65,13 @@ require_once(ROOT."classes/cHTML.class.php");
 require_once(ROOT."classes/cGrid.class.php");
 require_once(ROOT."classes/cNav.class.php"); /** fare classe tabs/tabbable per copia - e integrare tab nella nav */
 require_once(ROOT."classes/cNavbar.class.php");
+require_once(ROOT."classes/cDashboard.class.php");
 require_once(ROOT."classes/cTable.class.php");
 require_once(ROOT."classes/cForm.class.php");
 require_once(ROOT."classes/cModal.class.php");
 require_once(ROOT."classes/cDescriptionList.class.php");
 require_once(ROOT."classes/cOperationsButton.class.php");
 require_once(ROOT."classes/cList.class.php");
-
-// load modules  /** @todo fare funzione */
 
 // build localization instance
 $localization=new cLocalization();
@@ -460,7 +459,7 @@ function api_framework_menus($idMenu=NULL){  /** @todo levare framework? */
  if(!$idMenu){$query_where="`fkMenu` IS NULL";}else{$query_where="`fkMenu`='".$idMenu."'";}
  // execute query
  $menus_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_menus` WHERE ".$query_where." ORDER BY `order` ASC");
- foreach($menus_results as $menu){$return[$menu->id]=new Menu($menu);}
+ foreach($menus_results as $menu){$return[$menu->id]=new cMenu($menu);}
  // return menus
  return $return;
 }

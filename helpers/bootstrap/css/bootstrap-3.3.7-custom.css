@@ -140,3 +140,177 @@ td .btn{
  font-size:8px;
  color:#999;
 }
+
+
+
+
+.dashboard{}
+
+.dashboard-container{
+	width:100%;
+ overflow:auto;
+}
+
+.dashboard-container-title{
+ margin-bottom:18px;
+ padding-bottom:10px;
+ border-bottom:1px solid #dddddd;
+}
+
+.dashboard-container-label{
+ font-size:20px;
+ padding-left:12px;
+}
+
+.dashboard-container-description{
+ color:#666666;
+ font-size:14px;
+ margin-top:3px;
+ padding-left:12px;
+}
+
+.dashboard-element{
+ position:relative;
+ float:left;
+ color:#393939;
+ margin-right:20px;
+ margin-bottom:20px;
+ border:1px solid #cccccc;
+ border-radius:6px;
+ -webkit-border-radius:6px;
+ -moz-border-radius:6px;
+ background-size:cover;
+ background-color:#ffffff;
+ /*box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);
+ -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);
+ -moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);*/
+ /*background-image:linear-gradient(to bottom,#ffffff,#f0f0f0);
+ background-image:-webkit-gradient(linear,top,bottom,from(#ffffff),to(#f0f0f0));
+ background-image:-webkit-linear-gradient(top,#ffffff,#f0f0f0);
+ background-image:-moz-linear-gradient(top,#ffffff,#f0f0f0);
+ background-image:-o-linear-gradient(top,#ffffff,#f0f0f0);
+ background-image:linear-gradient(to bottom,#ffffff,#f0f0f0);*/
+}
+
+.dashboard-element:link{
+ text-decoration:none;
+}
+
+.dashboard-element:hover{
+ color:#000000;
+ cursor:pointer;
+ border:1px solid #adadad;
+ background-color:#e6e6e6;
+ box-shadow: inset 0px 10px 10px rgba(0,0,0,0.1);
+ -webkit-box-shadow: inset 0px 10px 10px rgba(0,0,0,0.1);
+ -moz-box-shadow: inset 0px 10px 10px rgba(0,0,0,0.1);
+ -o-box-shadow: inset 0px 10px 10px rgba(0,0,0,0.1);
+ /*background-image:linear-gradient(to bottom,#ffffff,#e0e0e0);
+ background-image:-webkit-gradient(linear,top,bottom,from(#ffffff),to(#e0e0e0));
+ background-image:-webkit-linear-gradient(top,#ffffff,#e0e0e0);
+ background-image:-moz-linear-gradient(top,#ffffff,#e0e0e0);
+ background-image:-o-linear-gradient(top,#ffffff,#e0e0e0);
+ background-image:linear-gradient(to bottom,#ffffff,#e0e0e0);*/
+}
+
+.dashboard-element:active{
+ cursor:pointer;
+ text-decoration:none;
+ border:1px solid #8c8c8c;
+ background-color:#d4d4d4;
+ box-shadow: inset 0px 10px 10px rgba(0,0,0,0.3);
+ -webkit-box-shadow: inset 0px 10px 10px rgba(0,0,0,0.3);
+ -moz-box-shadow: inset 0px 10px 10px rgba(0,0,0,0.3);
+ -o-box-shadow: inset 0px 10px 10px rgba(0,0,0,0.3);
+ /*background-image:linear-gradient(to bottom,#ffffff,#d0d0d0);
+ background-image:-webkit-gradient(linear,top,bottom,from(#ffffff),to(#d0d0d0));
+ background-image:-webkit-linear-gradient(top,#ffffff,#d0d0d0);
+ background-image:-moz-linear-gradient(top,#ffffff,#d0d0d0);
+ background-image:-o-linear-gradient(top,#ffffff,#d0d0d0);
+ background-image:linear-gradient(to bottom,#ffffff,#d0d0d0);*/
+}
+
+.dashboard-element-size-1x1{
+ width:170px;
+ height:170px;
+}
+
+.dashboard-element-size-2x1{
+ width:360px;
+ height:170px;
+}
+
+.dashboard-element-size-3x1{
+ width:555px;
+ height:170px;
+}
+
+.dashboard-element-size-4x1{
+ width:745px;
+ height:170px;
+}
+
+.dashboard-element-size-5x1{
+ width:940px;
+ height:170px;
+}
+
+.dashboard-element-size-6x1{
+ width:1130px;
+ height:170px;
+}
+
+.dashboard-element-label{
+ font-weight:bolder;
+ padding:5px 7px 0 7px;
+ margin:0;
+}
+
+.dashboard-element-description{
+ padding:0 7px 5px 7px;
+}
+
+.dashboard-element-label.dashboard-element-background-alpha{
+ border-radius:6px 6px 0 0;
+ -webkit-border-radius:6px 6px 0 0;
+ -moz-border-radius:6px 6px 0 0;
+ background:rgba(255,255,255,0.6);
+}
+
+.dashboard-element-description.dashboard-element-background-alpha{
+ background:rgba(255,255,255,0.6);
+}
+
+.dashboard-element-icon{
+ position:absolute;
+ text-align:left;
+ font-size:48px;
+ color:#505050;
+ bottom:0px;
+ left:7px;
+}
+
+.dashboard-element-counter{
+ position:absolute;
+ text-align:right;
+ font-size:64px;
+ bottom:-8px;
+ right:14px;
+}
+
+.dashboard-element-disabled{
+ color:#999999;
+ background-color:#f0f0f0;
+ background-image:none;
+}
+
+.dashboard-element-disabled:hover{
+ color:#999999;
+ cursor:not-allowed;
+ background-color:#f0f0f0;
+ background-image:none;
+}
+
+.dashboard-element-disabled .dashboard-element-icon{
+ color:#999999;
+}
