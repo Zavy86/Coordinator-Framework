@@ -53,4 +53,8 @@
  <text key="recovery-ff-account-placeholder">Insert your mail address..</text>
  <text key="recovery-fc-submit">Send recovery link</text>
 
+ <!-- dashboard -->
+ <text key="dashboard-tile-add">Add to dashboard</text>
+ <text key="dashboard-tile-remove">Remove from dashboard</text>
+
 </locale>

@@ -20,34 +20,34 @@
  <text key="dashboard_view">Bacheca</text>
  <text key="dashboard_view-welcome">Bevenuto {0}</text>
 
- <!-- dashboard_edit -->
- <text key="dashboard_edit">Personalizza</text>
- <text key="dashboard_edit-tr">Non sono presenti elementi da visualizzare</text>
- <text key="dashboard_edit-th-label">Etichetta</text>
- <text key="dashboard_edit-th-url">URL</text>
- <text key="dashboard_edit-td-preview">Anteprima elemento</text>
- <text key="dashboard_edit-td-edit">Modifica elemento</text>
- <text key="dashboard_edit-td-move-up">Sposta in alto</text>
- <text key="dashboard_edit-td-move-down">Sposta in basso</text>
- <text key="dashboard_edit-td-delete">Elimina elemento</text>
- <text key="dashboard_edit-td-delete-confirm">Confermi di voler eliminare questo elemento?</text>
- <text key="dashboard_edit-dashboard-preview">Anteprima</text>
- <text key="dashboard_edit-tile-modal-title">Elemento</text>
- <text key="dashboard_edit-tile-ff-icon">Icona</text>
- <text key="dashboard_edit-tile-ff-icon-placeholder">Seleziona un icona..</text>
- <text key="dashboard_edit-tile-ff-label">Etichetta</text>
- <text key="dashboard_edit-tile-ff-label-placeholder">Etichetta dell'elemento</text>
- <text key="dashboard_edit-tile-ff-description">Descrizione</text>
- <text key="dashboard_edit-tile-ff-description-placeholder">Descrizione dell'elemento</text>
- <text key="dashboard_edit-tile-ff-target">Target</text>
- <text key="dashboard_edit-tile-fo-target-standard">Standard</text>
- <text key="dashboard_edit-tile-fo-target-blank">Nuova finestra</text>
- <text key="dashboard_edit-tile-ff-size">Dimensione</text>
- <text key="dashboard_edit-tile-ff-size-placeholder">Seleziona una dimensione..</text>
- <text key="dashboard_edit-tile-ff-url">URL</text>
- <text key="dashboard_edit-tile-ff-url-placeholder">http://www.url.tld</text>
- <text key="dashboard_edit-tile-ff-background">Sfondo</text>
- <text key="dashboard_edit-tile-ff-background-delete">Rimuovi sfondo</text>
- <text key="dashboard_edit-tile-ff-background-confirm">Confermi di voler eliminare definitivamente questa immagine?</text>
+ <!-- dashboard_customize -->
+ <text key="dashboard_customize">Personalizza</text>
+ <text key="dashboard_customize-tr">Non sono presenti elementi da visualizzare</text>
+ <text key="dashboard_customize-th-label">Etichetta</text>
+ <text key="dashboard_customize-th-url">URL</text>
+ <text key="dashboard_customize-td-preview">Anteprima elemento</text>
+ <text key="dashboard_customize-td-edit">Modifica elemento</text>
+ <text key="dashboard_customize-td-move-up">Sposta in alto</text>
+ <text key="dashboard_customize-td-move-down">Sposta in basso</text>
+ <text key="dashboard_customize-td-delete">Elimina elemento</text>
+ <text key="dashboard_customize-td-delete-confirm">Confermi di voler eliminare questo elemento?</text>
+ <text key="dashboard_customize-dashboard-preview">Anteprima</text>
+ <text key="dashboard_customize-tile-modal-title">Elemento</text>
+ <text key="dashboard_customize-tile-ff-icon">Icona</text>
+ <text key="dashboard_customize-tile-ff-icon-placeholder">Seleziona un icona..</text>
+ <text key="dashboard_customize-tile-ff-label">Etichetta</text>
+ <text key="dashboard_customize-tile-ff-label-placeholder">Etichetta dell'elemento</text>
+ <text key="dashboard_customize-tile-ff-description">Descrizione</text>
+ <text key="dashboard_customize-tile-ff-description-placeholder">Descrizione dell'elemento</text>
+ <text key="dashboard_customize-tile-ff-target">Target</text>
+ <text key="dashboard_customize-tile-fo-target-standard">Standard</text>
+ <text key="dashboard_customize-tile-fo-target-blank">Nuova finestra</text>
+ <text key="dashboard_customize-tile-ff-size">Dimensione</text>
+ <text key="dashboard_customize-tile-ff-size-placeholder">Seleziona una dimensione..</text>
+ <text key="dashboard_customize-tile-ff-url">URL</text>
+ <text key="dashboard_customize-tile-ff-url-placeholder">http://www.url.tld</text>
+ <text key="dashboard_customize-tile-ff-background">Sfondo</text>
+ <text key="dashboard_customize-tile-ff-background-delete">Rimuovi sfondo</text>
+ <text key="dashboard_customize-tile-ff-background-confirm">Confermi di voler eliminare definitivamente questa immagine?</text>
 
 </locale>

@@ -54,4 +54,8 @@
  <text key="recovery-ff-account-placeholder">Inserisci il tuo indirizzo mail..</text>
  <text key="recovery-fc-submit">Invia link di ripristino</text>
 
+ <!-- dashboard -->
+ <text key="dashboard-tile-add">Aggiungi alla bacheca</text>
+ <text key="dashboard-tile-remove">Rimuovi dalla bacheca</text>
+
 </locale>

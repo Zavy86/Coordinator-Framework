@@ -34,7 +34,7 @@ function tile_save(){
  $r_redirect_scr=$_REQUEST['redirect_scr'];
  $r_redirect_tab=$_REQUEST['redirect_tab'];
  // check parameters
- if(!$r_redirect_mod){$r_redirect_mod="dashboard";$r_redirect_scr="dashboard_edit";$r_redirect_tab=NULL;}
+ if(!$r_redirect_mod){$r_redirect_mod="dashboard";$r_redirect_scr="dashboard_customize";$r_redirect_tab=NULL;}
  // build tile query object
  $tile_qobj=new stdClass();
  $tile_qobj->id=$tile_obj->id;
@@ -97,9 +97,9 @@ function tile_move($direction){
  // get objects
  $tile_obj=new cDashboardTile($_REQUEST['idTile']);
  // check objects
- if(!$tile_obj->id){api_alerts_add(api_text("dashboard_alert_tileNotFound"),"danger");api_redirect("?mod=dashboard&scr=dashboard_edit");}
+ if(!$tile_obj->id){api_alerts_add(api_text("dashboard_alert_tileNotFound"),"danger");api_redirect("?mod=dashboard&scr=dashboard_customize");}
  // check parameters
- if(!in_array(strtolower($direction),array("up","down"))){api_alerts_add(api_text("dashboard_alert_tileError"),"warning");api_redirect("?mod=dashboard&scr=dashboard_edit&idTile=".$tile_obj->id);}
+ if(!in_array(strtolower($direction),array("up","down"))){api_alerts_add(api_text("dashboard_alert_tileError"),"warning");api_redirect("?mod=dashboard&scr=dashboard_customize&idTile=".$tile_obj->id);}
  // build tile query objects
  $tile_qobj=new stdClass();
  $tile_qobj->id=$tile_obj->id;
@@ -110,7 +110,7 @@ function tile_move($direction){
    // set previous order
    $tile_qobj->order=$tile_obj->order-1;
    // check for order
-   if($tile_qobj->order<1){api_alerts_add(api_text("dashboard_alert_tileError"),"warning");api_redirect("?mod=dashboard&scr=dashboard_edit&idTile=".$tile_obj->id);}
+   if($tile_qobj->order<1){api_alerts_add(api_text("dashboard_alert_tileError"),"warning");api_redirect("?mod=dashboard&scr=dashboard_customize&idTile=".$tile_obj->id);}
    // update tile
    $GLOBALS['database']->queryUpdate("framework_users_dashboards",$tile_qobj);
    // rebase other tiles
@@ -134,7 +134,7 @@ function tile_move($direction){
  api_dump($tile_obj,"tile_obj");
  api_dump($tile_qobj,"tile_qobj");
  // redirect
- api_redirect("?mod=dashboard&scr=dashboard_edit&idTile=".$tile_obj->id);
+ api_redirect("?mod=dashboard&scr=dashboard_customize&idTile=".$tile_obj->id);
 }
 /**
  * Tile Remove
@@ -143,13 +143,13 @@ function tile_remove(){
  // get objects
  $tile_obj=new cDashboardTile($_REQUEST['idTile']);
  // check objects
- if(!$tile_obj->id){api_alerts_add(api_text("dashboard_alert_tileNotFound"),"danger");api_redirect("?mod=dashboard&scr=dashboard_edit");}
+ if(!$tile_obj->id){api_alerts_add(api_text("dashboard_alert_tileNotFound"),"danger");api_redirect("?mod=dashboard&scr=dashboard_customize");}
  // acquire variables
  $r_redirect_mod=$_REQUEST['redirect_mod'];
  $r_redirect_scr=$_REQUEST['redirect_scr'];
  $r_redirect_tab=$_REQUEST['redirect_tab'];
  // check parameters
- if(!$r_redirect_mod){$r_redirect_mod="dashboard";$r_redirect_scr="dashboard_edit";$r_redirect_tab=NULL;}
+ if(!$r_redirect_mod){$r_redirect_mod="dashboard";$r_redirect_scr="dashboard_customize";$r_redirect_tab=NULL;}
  // debug
  api_dump($tile_obj);
  // remove tile
@@ -170,11 +170,11 @@ function tile_background_remove(){
  // debug
  api_dump($tile_obj);
  // check objects
- if(!$tile_obj->id){api_alerts_add(api_text("dashboard_alert_tileNotFound"),"danger");api_redirect("?mod=dashboard&scr=dashboard_edit");}
+ if(!$tile_obj->id){api_alerts_add(api_text("dashboard_alert_tileNotFound"),"danger");api_redirect("?mod=dashboard&scr=dashboard_customize");}
  // remove background if exist
  if(file_exists(ROOT."uploads/dashboard/".$tile_obj->id.".jpg")){unlink(ROOT."uploads/dashboard/".$tile_obj->id.".jpg");}
  // redirect
- api_redirect("?mod=dashboard&scr=dashboard_edit&idTile=".$tile_obj->id);
+ api_redirect("?mod=dashboard&scr=dashboard_customize&idTile=".$tile_obj->id);
 }
 
 ?>
