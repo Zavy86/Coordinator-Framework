@@ -239,13 +239,14 @@ function menu_save(){
   $v_order=$GLOBALS['database']->queryUniqueValue($order_query);
   $menu_qobj->order=($v_order+1);
  }
- // debug
- api_dump($menu_qobj);
  // check menu
  if($menu_obj->id){
   // update menu
   $menu_qobj->updTimestamp=time();
   $menu_qobj->updFkUser=$GLOBALS['session']->user->id;
+  // debug
+  api_dump($menu_qobj,"menu query object");
+  // execute query
   $GLOBALS['database']->queryUpdate("framework_menus",$menu_qobj);
   // check if parent menu is changed
   if($menu_qobj->fkMenu<>$menu_obj->fkMenu){
@@ -259,6 +260,9 @@ function menu_save(){
   // insert menu
   $menu_qobj->addTimestamp=time();
   $menu_qobj->addFkUser=$GLOBALS['session']->user->id;
+  // debug
+  api_dump($menu_qobj,"menu query object");
+  // execute query
   $GLOBALS['database']->queryInsert("framework_menus",$menu_qobj);
   api_alerts_add(api_text("framework_alert_menuCreated"),"success");
  }

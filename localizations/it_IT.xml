@@ -36,6 +36,10 @@
  <text key="form-fc-reset">Reset</text>
  <text key="form-fc-delete">Elimina</text>
  <text key="form-fc-delete-confirm">Confermi di voler eliminare questo oggetto?</text>
+ <text key="form-fc-undelete">Rispritina</text>
+ <text key="form-fc-undelete-confirm">Confermi di voler ripristinare questo oggetto?</text>
+ <text key="form-fc-remove">Rimuovi</text>
+ <text key="form-fc-remove-confirm">Confermi di voler rimuovere definitivamente questo oggetto?</text>
  <text key="form-input-file-placeholder">Seleziona un file..</text>
  <text key="form-input-text_localized-default">Principale</text>
  <text key="form-input-text_localized-default-placeholder">Inserisci la traduzione principale</text>
