@@ -80,8 +80,9 @@ EOT;
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html
  $html->addContent($grid->render());
- // add script to html
+ // add scripts to html
  $html->addScript($jquery);
+ $html->addScript("/* Font Awesome Icon Picker */\n$(function(){\$(\"#form_menus_edit_input_icon\").iconpicker();});");
  // renderize html page
  $html->render();
  // debug

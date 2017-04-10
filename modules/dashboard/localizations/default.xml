@@ -22,7 +22,7 @@
 
  <!-- dashboard_customize -->
  <text key="dashboard_customize">Personalizza</text>
- <text key="dashboard_customize-tr">Non sono presenti elementi da visualizzare</text>
+ <text key="dashboard_customize-tr-unvalued">Non sono presenti elementi da visualizzare..</text>
  <text key="dashboard_customize-th-label">Etichetta</text>
  <text key="dashboard_customize-th-url">URL</text>
  <text key="dashboard_customize-td-preview">Anteprima elemento</text>

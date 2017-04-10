@@ -35,6 +35,10 @@
  <text key="form-fc-reset">Reset</text>
  <text key="form-fc-delete">Delete</text>
  <text key="form-fc-delete-confirm">Are you sure you want to delete this object?</text>
+ <text key="form-fc-undelete">Undelete</text>
+ <text key="form-fc-undelete-confirm">Are you sure you want to undelete this object?</text>
+ <text key="form-fc-remove">Remove</text>
+ <text key="form-fc-remove-confirm">Are you sure you want to permanently remove this object?</text>
  <text key="form-input-file-placeholder">Select a file..</text>
  <text key="form-input-text_localized-default">Default</text>
  <text key="form-input-text_localized-default-placeholder">Insert default translation</text>

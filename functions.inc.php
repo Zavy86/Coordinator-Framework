@@ -246,8 +246,8 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
  else{$icon="glyphicon glyphicon-".$icon;}
  if(is_int(strpos($class,"hidden-link"))){$icon.=" faa-tada animated-hover";}
  $return="<i class='".$icon." ".$class."'";
- if($title){$return.="title='".$title."'";}
- if($style){$return.="style='".$style."'";}
+ if($title){$return.=" title='".$title."'";}
+ if($style){$return.=" style='".$style."'";}
  if($tags){$return.=" ".$tags."";}
  $return.=" aria-hidden='true'></i>";
  return $return;
