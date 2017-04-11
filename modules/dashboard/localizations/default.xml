@@ -18,7 +18,7 @@
 
  <!-- dashboard_view -->
  <text key="dashboard_view">Bacheca</text>
- <text key="dashboard_view-welcome">Bevenuto {0}</text>
+ <text key="dashboard_view-welcome">Bevenuto <![CDATA[{0}]]></text>
 
  <!-- dashboard_customize -->
  <text key="dashboard_customize">Personalizza</text>

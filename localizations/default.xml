@@ -14,9 +14,9 @@
  <text key="datetimesec">m-d-Y H:i:s</text>
 
  <!-- alerts -->
- <text key="alert_unauthorized">Your account is not authorized to perform the "{1}" action in the "{0}" module</text>
+ <text key="alert_unauthorized">Your account is not authorized to perform the "<![CDATA[{1}]]>" action in the "<![CDATA[{0}]]>" module</text>
  <text key="alert_authenticationFailed">Incorrect username or password</text>
- <text key="alert_submitFunctionNotFound">The function "{2}" was not found in script "{1}" of module "{0}"</text>
+ <text key="alert_submitFunctionNotFound">The function "<![CDATA[{2}]]>" was not found in script "<![CDATA[{1}]]>" of module "<![CDATA[{0}]]>"</text>
 
  <!-- enabled -->
  <text key="enabled">Enabled</text>
@@ -42,7 +42,7 @@
  <text key="form-input-file-placeholder">Select a file..</text>
  <text key="form-input-text_localized-default">Default</text>
  <text key="form-input-text_localized-default-placeholder">Insert default translation</text>
- <text key="form-input-text_localized-language-placeholder">Insert the {0} translation</text>
+ <text key="form-input-text_localized-language-placeholder">Insert the <![CDATA[{0}]]> translation</text>
  <text key="form-input-text_localized-translate">Insert translations</text>
  <text key="form-input-text_localized-alert">Default translation is required!</text>
 

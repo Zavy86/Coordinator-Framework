@@ -69,6 +69,7 @@ require_once(ROOT."classes/cDashboard.class.php");
 require_once(ROOT."classes/cTable.class.php");
 require_once(ROOT."classes/cForm.class.php");
 require_once(ROOT."classes/cModal.class.php");
+require_once(ROOT."classes/cPanel.class.php");
 require_once(ROOT."classes/cDescriptionList.class.php");
 require_once(ROOT."classes/cOperationsButton.class.php");
 require_once(ROOT."classes/cList.class.php");
@@ -91,6 +92,7 @@ $session=new cSession();
  * @param string $class pre dump class
  */
 function api_dump($variable,$label=NULL,$function=API_DUMP_PRINTR,$class=NULL){
+ if(!$GLOBALS['debug']){return FALSE;}
  echo "\n\n<!-- dump -->\n";
  echo "<pre class='".$class."'>\n";
  if($label<>NULL){echo "<strong>".$label."</strong><br>";}

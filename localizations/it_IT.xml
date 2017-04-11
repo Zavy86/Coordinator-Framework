@@ -14,9 +14,9 @@
  <text key="datetimesec">d-m-Y H:i:s</text>
 
  <!-- alerts -->
- <text key="alert_unauthorized">Il tuo account non è autorizzato ad eseguire l'azione "{1}" nel modulo "{0}"</text>
+ <text key="alert_unauthorized">Il tuo account non è autorizzato ad eseguire l'azione "<![CDATA[{1}]]>" nel modulo "<![CDATA[{0}]]>"</text>
  <text key="alert_authenticationFailed">Nome utente o password non corretti</text>
- <text key="alert_submitFunctionNotFound">La funzione "{2}" non è stata trovata nello script "{1}" del modulo "{0}"</text>
+ <text key="alert_submitFunctionNotFound">La funzione "<![CDATA[{2}]]>" non è stata trovata nello script "<![CDATA[{1}]]>" del modulo "<![CDATA[{0}]]>"</text>
 
  <!-- enabled -->
  <text key="enabled">Abilitato</text>
@@ -43,7 +43,7 @@
  <text key="form-input-file-placeholder">Seleziona un file..</text>
  <text key="form-input-text_localized-default">Principale</text>
  <text key="form-input-text_localized-default-placeholder">Inserisci la traduzione principale</text>
- <text key="form-input-text_localized-language-placeholder">Inserisci la traduzione in {0}</text>
+ <text key="form-input-text_localized-language-placeholder">Inserisci la traduzione in <![CDATA[{0}]]></text>
  <text key="form-input-text_localized-translate">Inserisci traduzione</text>
  <text key="form-input-text_localized-alert">La traduzione principale è richiesta!</text>
 
