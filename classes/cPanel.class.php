@@ -117,7 +117,7 @@ class cPanel{
    $return.=$this->header." </div><!-- /panel-heading -->\n";
   }
   // renderize panel window body
-  $return.=" <div class=\"panel-body\">\n".$this->body." </div>\n";
+  if($this->body){$return.=" <div class=\"panel-body\">\n".$this->body." </div>\n";}
   // renderize panel window footer
   if($this->footer){$return.=" <div class=\"panel-footer\">\n".$this->footer." </div>\n";}
   $return.="</div><!-- /".$this->id." -->\n";

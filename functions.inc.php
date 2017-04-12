@@ -303,6 +303,33 @@ function api_timestamp_format($timestamp,$format="Y-m-d H:i:s",$timezone=NULL){
 }
 
 /**
+ * Timestamp Difference Format
+ *
+ * @param integer $difference Number of seconds
+ * @param boolean $showSeconds Show seconds
+ * @return string Formatted timestamp difference
+ */
+function api_timestampDifferenceFormat($difference,$showSeconds=TRUE){
+ if($difference==NULL){return FALSE;}
+ $return=NULL;
+ $days=intval(intval($difference)/(3600*24));
+ if($days==1){$return.=$days." ".api_text("day").", ";}
+ elseif($days>1){$return.=$days." ".api_text("days").", ";}
+ $hours=(intval($difference)/3600)%24;
+ if($hours==1){$return.=$hours." ".api_text("hour").", ";}
+ elseif($hours>1){$return.=$hours." ".api_text("hours").", ";}
+ $minutes=(intval($difference)/60)%60;
+ if($minutes==1){$return.=$minutes." ".api_text("minute").", ";}
+ elseif($minutes>1){$return.=$minutes." ".api_text("minutes").", ";}
+ if($showSeconds || intval($difference)<60){
+  $seconds=intval($difference)%60;
+  if($seconds==1){$return.=$seconds." ".api_text("second").", ";}
+  elseif($seconds>1){$return.=$seconds." ".api_text("seconds").", ";}
+ }
+ return substr($return,0,-2);
+}
+
+/**
  * Alerts Add
  *
  * @param string $message alert message

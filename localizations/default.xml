@@ -9,9 +9,21 @@
  <text key="no">No</text>
 
  <!-- datetimes -->
+ <text key="time">H:i</text>
+ <text key="timesec">H:i:s</text>
  <text key="date">m-d-Y</text>
+ <text key="date-textual">l, F jS Y</text>
  <text key="datetime">m-d-Y H:i</text>
  <text key="datetimesec">m-d-Y H:i:s</text>
+ <text key="datetime-textual">l, F jS Y g:i A</text>
+ <text key="second">second</text>
+ <text key="seconds">seconds</text>
+ <text key="minute">minute</text>
+ <text key="minutes">minutes</text>
+ <text key="hour">hour</text>
+ <text key="hours">hours</text>
+ <text key="day">day</text>
+ <text key="days">days</text>
 
  <!-- alerts -->
  <text key="alert_unauthorized">Your account is not authorized to perform the "<![CDATA[{1}]]>" action in the "<![CDATA[{0}]]>" module</text>
@@ -26,6 +38,7 @@
  <text key="nav-dashboard">Dashboard</text>
  <text key="nav-own-profile">Personal profile</text>
  <text key="nav-settings">Settings</text>
+ <text key="nav-debug">Debug</text>
  <text key="nav-logout">Logout</text>
  <text key="nav-operations">Operations</text>
 
