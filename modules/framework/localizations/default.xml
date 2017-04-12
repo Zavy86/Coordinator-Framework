@@ -182,7 +182,7 @@
  <text key="settings_edit-sendmail_from_mail">Indirizzo mail</text>
  <text key="settings_edit-sendmail_from_mail-placeholder">Indirizzo mail del mittente predefinito</text>
  <text key="settings_edit-sendmail_asynchronous">Invio mail asincrono</text>
- <text key="settings_edit-sendmail_asynchronous-enabled">Abilitato (Richiesto Cron {0})</text>
+ <text key="settings_edit-sendmail_asynchronous-enabled">Abilitato (Richiesto Cron <![CDATA[{0}]]>)</text>
  <text key="settings_edit-sendmail_method">Metodo di invio</text>
  <text key="settings_edit-sendmail_method-standard">Standard</text>
  <text key="settings_edit-sendmail_method-smtp">SMTP</text>
@@ -291,7 +291,7 @@
  <text key="users_view-localization">Lingua</text>
  <text key="users_view-timezone">Fuso orario</text>
  <text key="users_view-level">Livello</text>
- <text key="users_view-level-level">{0}° livello</text>
+ <text key="users_view-level-level"><![CDATA[{0}]]>° livello</text>
  <text key="users_view-gender">Genere</text>
  <text key="users_view-birthday">Data di nascita</text>
  <text key="users_view-groups">Gruppi</text>
@@ -321,7 +321,7 @@
  <text key="users_add-timezone-placeholder">Seleziona un fuso orario..</text>
  <text key="users_add-level">Livello</text>
  <text key="users_add-level-placeholder">Seleziona un livello..</text>
- <text key="users_add-level-level">{0}° livello</text>
+ <text key="users_add-level-level"><![CDATA[{0}]]>° livello</text>
  <text key="users_add-submit">Salva</text>
  <text key="users_add-cancel">Annulla</text>
 
@@ -340,7 +340,7 @@
  <text key="users_edit-timezone-placeholder">Seleziona un fuso orario..</text>
  <text key="users_edit-level">Livello</text>
  <text key="users_edit-level-placeholder">Seleziona un livello..</text>
- <text key="users_edit-level-level">{0}° livello</text>
+ <text key="users_edit-level-level"><![CDATA[{0}]]>° livello</text>
  <text key="users_edit-superuser">Amministratore di sistema</text>
  <text key="users_edit-superuser-alert">Attenzione, stai per concedere pieni poteri a questo utente!</text>
 
@@ -404,17 +404,17 @@
  <text key="modules_list-th-repository">Release</text>
  <text key="modules_list-th-description">Descrizione</text>
  <text key="modules_list-td-setup">Installa</text>
- <text key="modules_list-td-update_database">Aggiorna a {0}</text>
+ <text key="modules_list-td-update_database">Aggiorna a <![CDATA[{0}]]></text>
  <text key="modules_list-td-update_source">Ottieni tramite Git</text>
  <text key="modules_list-td-update_source-confirm">Confermi di voler eseguire il download dell'aggiornamento tramite Git?</text>
  <text key="modules_list-td-update_source-manual">Aggiorna manualmente</text>
 
  <!-- modules_view -->
- <text key="modules_view">Modulo {0}</text>
+ <text key="modules_view">Modulo <![CDATA[{0}]]></text>
  <text key="modules_view-dt-name">Modulo</text>
  <text key="modules_view-dt-description">Descrizione</text>
  <text key="modules_view-dt-version">Versione</text>
- <text key="modules_view-dd-version-repository_update">Aggiornamento disponibile {0}</text>
+ <text key="modules_view-dd-version-repository_update">Aggiornamento disponibile <![CDATA[{0}]]></text>
  <text key="modules_view-dd-version-source_update">Aggiornamento database necessario</text>
  <text key="modules_view-dt-status">Stato</text>
  <text key="modules_view-dd-enabled">Abilitato</text>
@@ -430,7 +430,7 @@
  <text key="modules_view-authorizations_modal-ff-group-placeholder">Seleziona un gruppo..</text>
  <text key="modules_view-authorizations_modal-ff-level">Livello</text>
  <text key="modules_view-authorizations_modal-ff-level-placeholder">Seleziona un livello minimo..</text>
- <text key="modules_view-authorizations_modal-ff-level-fo-level">{0}° livello o superiore</text>
+ <text key="modules_view-authorizations_modal-ff-level-fo-level"><![CDATA[{0}]]>° livello o superiore</text>
  <text key="modules_view-authorizations_modal-ff-authorizations">Autorizzazioni</text>
  <text key="modules_view-authorizations_modal-fc-submit">Salva</text>
  <text key="modules_view-authorizations_modal-fc-cancel">Annulla</text>
@@ -444,7 +444,7 @@
  <text key="modules_add-method">Metodo</text>
  <text key="modules_add-method-git">Git</text>
  <text key="modules_add-method-zip">Zip</text>
- <text key="modules_add-submit">Installa</text>
+ <text key="modules_add-submit">Scarica</text>
  <text key="modules_add-cancel">Annulla</text>
 
 </locale>

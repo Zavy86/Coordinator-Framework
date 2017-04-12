@@ -24,6 +24,7 @@
  // add scripts
  $this->addScript(HELPERS."jquery/jquery-1.12.0.min.js",TRUE);
  $this->addScript(HELPERS."pace/js/pace-1.0.0.min.js",TRUE);
+ $this->addScript(HELPERS."peity/js/peity-3.2.1.min.js",TRUE);
  /** @todo add some javascript helpers here */
  $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.7.min.js",TRUE);
  $this->addScript(HELPERS."bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",TRUE);
@@ -38,6 +39,7 @@
   $header_navbar->addItem(api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover"),"?mod=dashboard");
   // cycle all menus
   foreach(api_framework_menus(NULL) as $menu_obj){
+   /** @todo menu titles */
    if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=NULL;}
    $header_navbar->addItem($icon_source.$menu_obj->label,$menu_obj->url,TRUE,NULL,NULL,NULL,$menu_obj->target);
    foreach(api_framework_menus($menu_obj->id) as $submenu_obj){

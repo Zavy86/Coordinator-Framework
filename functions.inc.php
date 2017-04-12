@@ -69,6 +69,7 @@ require_once(ROOT."classes/cDashboard.class.php");
 require_once(ROOT."classes/cTable.class.php");
 require_once(ROOT."classes/cForm.class.php");
 require_once(ROOT."classes/cModal.class.php");
+require_once(ROOT."classes/cPanel.class.php");
 require_once(ROOT."classes/cDescriptionList.class.php");
 require_once(ROOT."classes/cOperationsButton.class.php");
 require_once(ROOT."classes/cList.class.php");
@@ -91,6 +92,7 @@ $session=new cSession();
  * @param string $class pre dump class
  */
 function api_dump($variable,$label=NULL,$function=API_DUMP_PRINTR,$class=NULL){
+ if(!$GLOBALS['debug']){return FALSE;}
  echo "\n\n<!-- dump -->\n";
  echo "<pre class='".$class."'>\n";
  if($label<>NULL){echo "<strong>".$label."</strong><br>";}
@@ -298,6 +300,33 @@ function api_timestamp_format($timestamp,$format="Y-m-d H:i:s",$timezone=NULL){
  $datetime->setTimeZone(new DateTimeZone($timezone));
  // return date time formatted
  return $datetime->format($format);
+}
+
+/**
+ * Timestamp Difference Format
+ *
+ * @param integer $difference Number of seconds
+ * @param boolean $showSeconds Show seconds
+ * @return string Formatted timestamp difference
+ */
+function api_timestampDifferenceFormat($difference,$showSeconds=TRUE){
+ if($difference==NULL){return FALSE;}
+ $return=NULL;
+ $days=intval(intval($difference)/(3600*24));
+ if($days==1){$return.=$days." ".api_text("day").", ";}
+ elseif($days>1){$return.=$days." ".api_text("days").", ";}
+ $hours=(intval($difference)/3600)%24;
+ if($hours==1){$return.=$hours." ".api_text("hour").", ";}
+ elseif($hours>1){$return.=$hours." ".api_text("hours").", ";}
+ $minutes=(intval($difference)/60)%60;
+ if($minutes==1){$return.=$minutes." ".api_text("minute").", ";}
+ elseif($minutes>1){$return.=$minutes." ".api_text("minutes").", ";}
+ if($showSeconds || intval($difference)<60){
+  $seconds=intval($difference)%60;
+  if($seconds==1){$return.=$seconds." ".api_text("second").", ";}
+  elseif($seconds>1){$return.=$seconds." ".api_text("seconds").", ";}
+ }
+ return substr($return,0,-2);
 }
 
 /**
