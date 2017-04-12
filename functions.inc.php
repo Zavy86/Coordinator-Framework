@@ -247,11 +247,11 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
  if(substr($icon,0,2)=="fa"){$icon="fa fa-fw ".$icon;}
  else{$icon="glyphicon glyphicon-".$icon;}
  if(is_int(strpos($class,"hidden-link"))){$icon.=" faa-tada animated-hover";}
- $return="<i class='".$icon." ".$class."'";
- if($title){$return.=" title='".$title."'";}
- if($style){$return.=" style='".$style."'";}
+ $return="<i class=\"".$icon." ".$class."\"";
+ if($title){$return.=" title=\"".$title."\"";}
+ if($style){$return.=" style=\"".$style."\"";}
  if($tags){$return.=" ".$tags."";}
- $return.=" aria-hidden='true'></i>";
+ $return.=" aria-hidden=\"true\"></i>";
  return $return;
 }
 
@@ -303,13 +303,27 @@ function api_timestamp_format($timestamp,$format="Y-m-d H:i:s",$timezone=NULL){
 }
 
 /**
+* Timestamp Difference From
+* @param string $timestamp Timestamp from
+* @param string $difference difference in textual form ("+1 day","-1 month,..)
+* @param string $format timestamp format
+* @return string formatted timestamp difference
+*/
+function api_timestampDifferenceFrom($timestamp,$difference,$format="Y-m-d H:i:s"){/** @todo verificare il nome fa schifo ed è poco significativo */
+ if(!is_numeric($timestamp)){return FALSE;}
+ $datetime=new DateTime("@".$timestamp);
+ $datetime->modify($difference);
+ return $datetime->getTimestamp();
+}
+
+/**
  * Timestamp Difference Format
  *
  * @param integer $difference Number of seconds
  * @param boolean $showSeconds Show seconds
  * @return string Formatted timestamp difference
  */
-function api_timestampDifferenceFormat($difference,$showSeconds=TRUE){
+function api_timestampDifferenceFormat($difference,$showSeconds=TRUE){ /** @todo verificare il nome fa schifo ed è poco significativo */
  if($difference==NULL){return FALSE;}
  $return=NULL;
  $days=intval(intval($difference)/(3600*24));
