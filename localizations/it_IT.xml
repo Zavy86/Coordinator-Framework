@@ -27,6 +27,7 @@
 
  <!-- alerts -->
  <text key="alert_unauthorized">Il tuo account non è autorizzato ad eseguire l'azione "<![CDATA[{1}]]>" nel modulo "<![CDATA[{0}]]>"</text>
+ <text key="alert_passwordExpired">La tua password è scaduta, per cortesia scegline una nuova</text>
  <text key="alert_authenticationFailed">Nome utente o password non corretti</text>
  <text key="alert_submitFunctionNotFound">La funzione "<![CDATA[{2}]]>" non è stata trovata nello script "<![CDATA[{1}]]>" del modulo "<![CDATA[{0}]]>"</text>
 
