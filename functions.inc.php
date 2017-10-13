@@ -345,6 +345,20 @@ function api_timestampDifferenceFormat($difference,$showSeconds=TRUE){ /** @todo
 }
 
 /**
+ * Weekly Days
+ *
+ * @param integer $start number of day to start
+ * @return array Weekly Days
+ */
+function api_weekly_days($start=null){  /** @todo verificare */
+ // definitions
+ //$days_array=array();
+ /** @todo fare tramite impostazioni con primo giorno della settimana 0 o 1 */
+ $days_array=array(1=>"monday",2=>"tuesday",3=>"wednesday",4=>"thursday",5=>"friday",6=>"saturday",0=>"sunday");
+ return $days_array;
+}
+
+/**
  * Alerts Add
  *
  * @param string $message alert message
@@ -525,9 +539,6 @@ function api_framework_groups($idGroup=NULL){  /** @todo levare framework? */
  // return groups
  return $return;
 }
-
-
-
 
 
              /**

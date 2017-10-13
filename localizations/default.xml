@@ -25,6 +25,15 @@
  <text key="day">day</text>
  <text key="days">days</text>
 
+ <!-- days -->
+ <text key="sunday">Sunday</text>
+ <text key="monday">Monday</text>
+ <text key="tuesday">Tuesday</text>
+ <text key="wednesday">Wednesday</text>
+ <text key="thursday">Thursday</text>
+ <text key="friday">Friday</text>
+ <text key="saturday">Saturday</text>
+
  <!-- alerts -->
  <text key="alert_unauthorized">Your account is not authorized to perform the "<![CDATA[{1}]]>" action in the "<![CDATA[{0}]]>" module</text>
  <text key="alert_passwordExpired">Your password is expired please choose a new password</text>
@@ -46,6 +55,7 @@
  <!-- forms -->
  <text key="form-fc-submit">Submit</text>
  <text key="form-fc-cancel">Cancel</text>
+ <text key="form-fc-close">Close</text>
  <text key="form-fc-reset">Reset</text>
  <text key="form-fc-delete">Delete</text>
  <text key="form-fc-delete-confirm">Are you sure you want to delete this object?</text>

@@ -135,6 +135,28 @@ INSERT INTO `framework_users` (`id`, `mail`, `firstname`, `lastname`, `localizat
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `framework_users_dashboards`
+--
+
+CREATE TABLE IF NOT EXISTS `framework_users_dashboards` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `fkUser` int(11) unsigned NOT NULL,
+  `order` int(11) unsigned NOT NULL,
+  `icon` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `label` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `size` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `module` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `target` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `counter_function` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fkUser` (`fkUser`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `framework_users_join_groups`
 --
 
@@ -269,6 +291,12 @@ ALTER TABLE `framework_sessions`
 ALTER TABLE `framework_users_join_groups`
   ADD CONSTRAINT `framework_users_join_groups_ibfk_1` FOREIGN KEY (`fkUser`) REFERENCES `framework_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `framework_users_join_groups_ibfk_2` FOREIGN KEY (`fkGroup`) REFERENCES `framework_groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `framework_users_dashboards`
+--
+ALTER TABLE `framework_users_dashboards`
+  ADD CONSTRAINT `framework_users_dashboards_ibfk_1` FOREIGN KEY (`fkUser`) REFERENCES `framework_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `framework_modules_authorizations`
