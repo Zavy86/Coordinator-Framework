@@ -25,6 +25,15 @@
  <text key="day">giorno</text>
  <text key="days">giorni</text>
 
+ <!-- days -->
+ <text key="sunday">Domenica</text>
+ <text key="monday">Lunedì</text>
+ <text key="tuesday">Martedì</text>
+ <text key="wednesday">Mercoledì</text>
+ <text key="thursday">Giovedì</text>
+ <text key="friday">Venerdì</text>
+ <text key="saturday">Sabato</text>
+
  <!-- alerts -->
  <text key="alert_unauthorized">Il tuo account non è autorizzato ad eseguire l'azione "<![CDATA[{1}]]>" nel modulo "<![CDATA[{0}]]>"</text>
  <text key="alert_passwordExpired">La tua password è scaduta, per cortesia scegline una nuova</text>
@@ -46,6 +55,7 @@
  <!-- forms -->
  <text key="form-fc-submit">Salva</text>
  <text key="form-fc-cancel">Annulla</text>
+ <text key="form-fc-close">Chiudi</text>
  <text key="form-fc-reset">Reset</text>
  <text key="form-fc-delete">Elimina</text>
  <text key="form-fc-delete-confirm">Confermi di voler eliminare questo oggetto?</text>
