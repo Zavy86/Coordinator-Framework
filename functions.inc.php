@@ -325,7 +325,7 @@ function api_timestampDifferenceFrom($timestamp,$difference,$format="Y-m-d H:i:s
  * @return string Formatted timestamp difference
  */
 function api_timestampDifferenceFormat($difference,$showSeconds=TRUE){ /** @todo verificare il nome fa schifo ed è poco significativo */
- if($difference==NULL){return FALSE;}
+ if($difference===NULL){return FALSE;}
  $return=NULL;
  $days=intval(intval($difference)/(3600*24));
  if($days==1){$return.=$days." ".api_text("day").", ";}
@@ -340,6 +340,7 @@ function api_timestampDifferenceFormat($difference,$showSeconds=TRUE){ /** @todo
   $seconds=intval($difference)%60;
   if($seconds==1){$return.=$seconds." ".api_text("second").", ";}
   elseif($seconds>1){$return.=$seconds." ".api_text("seconds").", ";}
+  else{$return.="0 ".api_text("seconds").", ";}
  }
  return substr($return,0,-2);
 }
