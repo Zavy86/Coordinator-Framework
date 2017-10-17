@@ -23,11 +23,11 @@ class cGrid{
   * @param string $class Grid css class
   * @return boolean
   */
- public function __construct($class=NULL){
+ public function __construct($class=null){
   $this->class=$class;
   $this->current_row=0;
   $this->rows_array=array();
-  return TRUE;
+  return true;
  }
 
  /**
@@ -36,13 +36,13 @@ class cGrid{
   * @param string $class Element css class
   * @return boolean
   */
- public function addRow($class=NULL){
+ public function addRow($class=null){
   $row=new stdClass();
   $row->class=$class;
   $row->cols_array=array();
   $this->current_row++;
   $this->rows_array[$this->current_row]=$row;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -52,26 +52,29 @@ class cGrid{
   * @param string $class Col css class (col-
   * @return boolean
   */
- public function addCol($content,$class=NULL){
-  if(!$this->current_row){echo "ERROR - Grid->addCol - No rows defined";return FALSE;}
-  if(!$content){echo "ERROR - Grid->addCol - Content is required";return FALSE;}
-  if(substr($class,0,4)!="col-"){echo "ERROR - Grid->addCol - Class \"col-..\" is required";return FALSE;}
+ public function addCol($content,$class=null){
+  if(!$this->current_row){echo "ERROR - Grid->addCol - No rows defined";return false;}
+  if(!$content){echo "ERROR - Grid->addCol - Content is required";return false;}
+  if(substr($class,0,4)!="col-"){echo "ERROR - Grid->addCol - Class \"col-..\" is required";return false;}
   $col=new stdClass();
   $col->content=$content;
   $col->class=$class;
   $this->rows_array[$this->current_row]->cols_array[]=$col;
-  return TRUE;
+  return true;
  }
 
  /**
   * Renderize Grid object
   *
+  * @param boolean $container Renderize container
   * @return string HTML source code
   */
- public function render(){
+ public function render($container=true){
   // renderize grid
-  $return="<!-- grid container -->\n";
-  $return.="<div class='container ".$this->class."'>\n";
+  if($container){
+   $return="<!-- grid container -->\n";
+   $return.="<div class='container ".$this->class."'>\n";
+  }
   // cycle all grid rows
   foreach($this->rows_array as $row){
    // renderize grid rows
@@ -85,9 +88,9 @@ class cGrid{
     $return.=$col->content."\n";
     $return.="  </div><!-- /grid-row-col -->\n";
    }
-   $return.=" </div><br><!-- /grid-row -->\n";
+   $return.=" </div><!-- /grid-row -->\n"; /** @todo verificare (tolto un <br>) */
   }
-  $return.="</div><!-- /grid container -->\n\n";
+  if($container){$return.="</div><!-- /grid container -->\n\n";}
   // return
   return $return;
  }
