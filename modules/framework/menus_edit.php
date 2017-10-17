@@ -16,9 +16,9 @@
  // build profile form
  $form=new cForm("?mod=framework&scr=submit&act=menu_save&idMenu=".$menu_obj->id,"POST",null,"menus_edit");
  $form->addField("select","fkMenu",api_text("menus_edit-fkMenu"),$menu_obj->fkMenu);
- $form->addFieldOption(NULL,api_text("menus_edit-fkMenu-main"));
+ $form->addFieldOption(null,api_text("menus_edit-fkMenu-main"));
  // cycle all first level menus
- foreach(api_framework_menus(NULL) as $menu_option_obj){
+ foreach(api_framework_menus(null) as $menu_option_obj){
   if($menu_option_obj->id==$menu_obj->id){continue;}
   $form->addFieldOption($menu_option_obj->id,str_repeat("&nbsp;&nbsp;&nbsp;",$menu_option_obj->nesting).$menu_option_obj->label);
  }
@@ -26,19 +26,19 @@
  $form->addField("text","icon",api_text("menus_edit-icon"),$menu_obj->icon,api_text("menus_edit-icon-placeholder"));
  $form->addField("text_localized","label_localizations",api_text("menus_edit-label"),$menu_obj->label_localizations,api_text("menus_edit-label-placeholder"));
  $form->addField("text_localized","title_localizations",api_text("menus_edit-title"),$menu_obj->title_localizations,api_text("menus_edit-title-placeholder"));
- $form->addField("radio","target",api_text("menus_edit-target"),$menu_obj->target,NULL,NULL,"radio-inline");
+ $form->addField("radio","target",api_text("menus_edit-target"),$menu_obj->target,null,null,"radio-inline");
  $form->addFieldOption("",api_text("menus_edit-target-standard"));
  $form->addFieldOption("_blank",api_text("menus_edit-target-blank"));
  $form->addField("splitter");
  // typologies
- $form->addField("radio","typology",api_text("menus_edit-typology"),($menu_obj->module?"module":"link"),NULL,NULL,"radio-inline");
+ $form->addField("radio","typology",api_text("menus_edit-typology"),($menu_obj->module?"module":"link"),null,null,"radio-inline");
  $form->addFieldOption("link",api_text("menus_edit-typology-link"));
  $form->addFieldOption("module",api_text("menus_edit-typology-module"));
  // link typology
  $form->addField("text","url",api_text("menus_edit-url"),$menu_obj->url,api_text("menus_edit-url-placeholder"));
  // module typology
  $form->addField("select","module",api_text("menus_edit-module"),$menu_obj->module,api_text("menus_edit-module-placeholder"));
- foreach(api_framework_modules(NULL) as $module_obj){$form->addFieldOption($module_obj->module,$module_obj->name);}
+ foreach(api_framework_modules(null) as $module_obj){$form->addFieldOption($module_obj->module,$module_obj->name);}
  $form->addField("text","script",api_text("menus_edit-script"),$menu_obj->script,api_text("menus_edit-script-placeholder"));
  $form->addField("text","tab",api_text("menus_edit-tab"),$menu_obj->tab,api_text("menus_edit-tab-placeholder"));
  $form->addField("text","action",api_text("menus_edit-action"),$menu_obj->action,api_text("menus_edit-action-placeholder"));

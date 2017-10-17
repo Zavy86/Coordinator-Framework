@@ -72,13 +72,13 @@ class cGauge{
   * @param string $id Gauge ID
   * @return boolean
   */
- public function __construct($class=NULL,$style=NULL,$tags=NULL,$id=NULL){
+ public function __construct($class=null,$style=null,$tags=null,$id=null){
   if($id){$this->id="gauge_".$id;}else{$this->id="gauge_".md5(rand(1,99999));}
   $this->class=$class;
   $this->style=$style;
   $this->tags=$tags;
   $this->options["id"]=$this->id;
-  return TRUE;
+  return true;
  }
 
  /**

@@ -22,7 +22,7 @@
   * @param integer $idGroup Start group branch
   * @param integer $level Identation level
   */
- /*function api_groups_tree2selectOption(&$form,$skip=NULL,$idGroup=NULL,$level=0){
+ /*function api_groups_tree2selectOption(&$form,$skip=null,$idGroup=null,$level=0){
   $groups_tree=api_framework_groups($idGroup);
   foreach($groups_tree as $group){
    if($group->id==$skip){continue;}
@@ -34,7 +34,7 @@
  // build profile form
  $form=new cForm("?mod=framework&scr=submit&act=group_save&idGroup=".$group->id,"POST",null,"groups_edit");
  $form->addField("select","fkGroup",api_text("groups_edit-fkGroup"),$group->fkGroup);
- $form->addFieldOption(NULL,api_text("groups_edit-fkGroup-main"));
+ $form->addFieldOption(null,api_text("groups_edit-fkGroup-main"));
  //api_groups_tree2selectOption($form,$group->id);
 
  api_tree_to_array($groups_array,"api_framework_groups","id");
@@ -43,7 +43,7 @@
   $form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->fullname);
  }
 
- $form->addField("text","name",api_text("groups_edit-name"),$group->name,api_text("groups_edit-name-placeholder"),NULL,NULL,NULL,"required");
+ $form->addField("text","name",api_text("groups_edit-name"),$group->name,api_text("groups_edit-name-placeholder"),null,null,null,"required");
  $form->addField("textarea","description",api_text("groups_edit-description"),$group->description,api_text("groups_edit-description-placeholder"));
  $form->addControl("submit",api_text("groups_edit-submit"));
  $form->addControl("button",api_text("groups_edit-cancel"),"?mod=framework&scr=groups_list");

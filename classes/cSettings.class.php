@@ -39,7 +39,7 @@ class cSettings{
   }else{
    $this->settings_array["logo"]=DIR."uploads/framework/logo.default.png";
   }
-  return TRUE;
+  return true;
  }
 
 /**
@@ -50,7 +50,7 @@ class cSettings{
  */
  public function __get($setting){
   // check if setting exist
-  if(!array_key_exists($setting,$this->settings_array)){return FALSE;}
+  if(!array_key_exists($setting,$this->settings_array)){return false;}
   // return setting value
   return $this->settings_array[$setting];
  }

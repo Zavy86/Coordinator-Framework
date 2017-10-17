@@ -33,12 +33,12 @@ class cDescriptionList{
   * @param string $class CSS class
   * @return boolean
   */
- public function __construct($separator=NULL,$class=NULL){
-  if(!in_array(strtolower($separator),array(NULL,"hr","br"))){return FALSE;}
+ public function __construct($separator=null,$class=null){
+  if(!in_array(strtolower($separator),array(null,"hr","br"))){return false;}
   $this->class=$class;
   $this->separator=$separator;
   $this->elements_array=array();
-  return TRUE;
+  return true;
  }
 
  /**
@@ -50,8 +50,8 @@ class cDescriptionList{
   * @param string $class CSS class
   * @return boolean
   */
- public function addElement($label,$content,$separator="default",$class=NULL){
-  if(!in_array(strtolower($separator),array(NULL,"default","hr","br"))){return FALSE;}
+ public function addElement($label,$content,$separator="default",$class=null){
+  if(!in_array(strtolower($separator),array(null,"default","hr","br"))){return false;}
   if($separator=="default"){$separator=$this->separator;}
   if(!strlen($content)>0){$content="&nbsp;";}
   $element=new stdClass();
@@ -62,7 +62,7 @@ class cDescriptionList{
   $element->class=$class;
   // add element to elements array
   $this->elements_array[]=$element;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -74,15 +74,15 @@ class cDescriptionList{
   * @param string $class CSS class
   * @return boolean
   */
- public function addSeparator($separator="default",$class=NULL){
-  if(!in_array(strtolower($separator),array("default","hr","br"))){return FALSE;}
+ public function addSeparator($separator="default",$class=null){
+  if(!in_array(strtolower($separator),array("default","hr","br"))){return false;}
   if($separator=="default"){$separator=$this->separator;}
   $element=new stdClass();
   $element->type="separator";
   $element->separator=$separator;
   $element->class=$class;
   $this->elements_array[]=$element;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -92,7 +92,7 @@ class cDescriptionList{
   */
  public function render(){
   // check for elements
-  if(!count($this->elements_array)){return NULL;}
+  if(!count($this->elements_array)){return null;}
   // renderize description list
   $return="<!-- description-list -->\n";
   $return.="<dl class=\"".$this->class."\">\n";
@@ -100,7 +100,7 @@ class cDescriptionList{
    switch($element->type){
     case "element":
      $return.=" <dt class='".$element->class."'>".$element->label."</dt><dd class='".$element->class."'>".$element->content."</dd>";
-     if($element->separator<>NULL && $this->elements_array[$index+1]->type=="element"){$return.="<".$element->separator.">\n";}else{$return.="\n";}
+     if($element->separator<>null && $this->elements_array[$index+1]->type=="element"){$return.="<".$element->separator.">\n";}else{$return.="\n";}
      break;
     case "separator":
      $return.=" <".$element->separator.">\n";

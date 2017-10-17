@@ -8,8 +8,8 @@
  */
 
  // debug
- $debug=FALSE;
- $develop=FALSE;
+ $debug=false;
+ $develop=false;
 
  // framework directory with trailing slash
  $configuration->dir="/coordinator-framework/";

@@ -50,10 +50,10 @@ class cUser{
   * @param integer $user User object or ID
   * @return boolean
   */
- public function __construct($user,$loadAuthorizations=FALSE){
+ public function __construct($user,$loadAuthorizations=false){
   // get object
   if(is_numeric($user)){$user=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_users` WHERE `id`='".$user."'",$GLOBALS['debug']);}
-  if(!$user->id){return FALSE;}
+  if(!$user->id){return false;}
   // set properties
   $this->id=(int)$user->id;
   $this->mail=stripslashes($user->mail);
@@ -76,7 +76,7 @@ class cUser{
   // check for password expiration
   if($GLOBALS['settings']->users_password_expiration>-1){
    $this->pwdExpiration=$GLOBALS['settings']->users_password_expiration-(time()-$user->pwdTimestamp);
-   if($this->pwdExpiration<0){$this->pwdExpired=TRUE;}
+   if($this->pwdExpiration<0){$this->pwdExpired=true;}
   }
   // make avatar
   if(!file_exists(str_replace("//","/",ROOT.str_replace(DIR,"/",$this->avatar)))){
@@ -95,7 +95,7 @@ class cUser{
   }
   // load authorizations
   if($loadAuthorizations){$this->authorizations_array=$this->loadAuthorizations();}
-  return TRUE;
+  return true;
  }
 
  /**
@@ -113,7 +113,7 @@ class cUser{
   * @param boolean $showText show text
   * @return string status text and icon
   */
- public function getStatus($showIcon=TRUE,$showText=TRUE){
+ public function getStatus($showIcon=true,$showText=true){
   if($this->deleted){
    $icon=api_icon("fa-trash",api_text("user-status-deleted"));
    $text=api_text("user-status-deleted");
@@ -143,12 +143,12 @@ class cUser{
   * @param boolean $showText show text
   * @return string gender text and icon
   */
- public function getGender($showIcon=TRUE,$showText=TRUE){
+ public function getGender($showIcon=true,$showText=true){
   // switch gender
   switch($this->gender){
    case "man":$icon=api_icon("fa-male",api_text("user-gender-man"));$text=api_text("user-gender-man");break;
    case "woman":$icon=api_icon("fa-female",api_text("user-gender-woman"));$text=api_text("user-gender-woman");break;
-   default:return NULL;
+   default:return null;
   }
   // return
   if($showIcon){if($showText){$return.=$icon." ".$text;}else{$return=$icon;}}else{$return=$text;}

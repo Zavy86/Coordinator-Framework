@@ -38,7 +38,7 @@ class cDashboard{
   * @param string $tags Custom HTML tags
   * @return boolean
   */
- public function __construct($label=NULL,$description=NULL,$class=NULL,$style=NULL,$tags=NULL,$id=NULL){
+ public function __construct($label=null,$description=null,$class=null,$style=null,$tags=null,$id=null){
   if($id){$this->id="dashboard_".$id;}else{$this->id="dashboard_".md5(rand(1,99999));}
   $this->label=$label;
   $this->description=$description;
@@ -46,7 +46,7 @@ class cDashboard{
   $this->style=$style;
   $this->tags=$tags;
   $this->elements_array=array();
-  return TRUE;
+  return true;
  }
 
  /**
@@ -67,8 +67,8 @@ class cDashboard{
   * @param string $tags Custom HTML tags
   * @return boolean
   */
- public function addContainer($label,$description=NULL,$class=NULL,$style=NULL,$tags=NULL){
-  if(!$label){return FALSE;}
+ public function addContainer($label,$description=null,$class=null,$style=null,$tags=null){
+  if(!$label){return false;}
   $element=new stdClass();
   $element->type="container";
   $element->label=$label;
@@ -78,7 +78,7 @@ class cDashboard{
   $element->tags=$tags;
   $this->elements_array[]=$element;
   // add element to elements array
-  return TRUE;
+  return true;
  }
 
  /**
@@ -99,8 +99,8 @@ class cDashboard{
   * @param string $tags Custom HTML tags
   * @return boolean
   */
- public function addTile($url,$label,$description=NULL,$enabled=TRUE,$size="1x1",$icon=NULL,$counter=NULL,$counter_class=NULL,$background=NULL,$target="_self",$class=NULL,$style=NULL,$tags=NULL){
-  if(!$url||!$label){return FALSE;}
+ public function addTile($url,$label,$description=null,$enabled=true,$size="1x1",$icon=null,$counter=null,$counter_class=null,$background=null,$target="_self",$class=null,$style=null,$tags=null){
+  if(!$url||!$label){return false;}
   if(!in_array(strtolower($size),array("1x1","2x1","3x1","4x1","5x1","6x1"))){$size="1x1";}
   if(!$target){$target="_self";}
   $element=new stdClass();
@@ -120,7 +120,7 @@ class cDashboard{
   $element->tags=$tags;
   // add element to elements array
   $this->elements_array[]=$element;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -170,7 +170,7 @@ class cDashboard{
        $element->module=MODULE;
        $starred_link=api_link("?mod=dashboard&scr=submit&act=tile_save&redirect_mod=".MODULE."&redirect_scr=".SCRIPT."&redirect_tab=".TAB."&element=".urlencode(json_encode($element)),api_icon("fa-star-o",api_text("dashboard-tile-add"),"hidden-link"))." ";
       }else{
-       $starred_link=NULL;
+       $starred_link=null;
       }
      }
      // make hyperlink reference
@@ -180,12 +180,12 @@ class cDashboard{
       $background_style=" style=\"background-image:url('".$element->background."?rand=".md5(rand(1,99999))."')\"";
       $background_class="dashboard-element-background-alpha";
      }else{
-      $background_style=NULL;
-      $background_class=NULL;
+      $background_style=null;
+      $background_class=null;
      }
      // renderize dashboard element
      $return.="  <!-- dashboard-element -->\n";
-     $return.="  <div class=\"dashboard-element dashboard-element-size-".$element->size." ".(!$element->enabled?"dashboard-element-disabled":NULL)."\" onclick=\"".$href."\"".$background_style.">\n";
+     $return.="  <div class=\"dashboard-element dashboard-element-size-".$element->size." ".(!$element->enabled?"dashboard-element-disabled":null)."\" onclick=\"".$href."\"".$background_style.">\n";
      $return.="   <p class=\"dashboard-element-label ".$background_class."\">".$starred_link.$element->label."</p>\n";
      $return.="   <p class=\"dashboard-element-description ".$background_class."\">".$element->description."</p>\n";
      if($element->icon){$return.="   <span class=\"dashboard-element-icon\">".api_icon($element->icon)."</span>\n";}

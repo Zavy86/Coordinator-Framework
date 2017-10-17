@@ -37,12 +37,12 @@ class cPanel{
   * @param string $id Panel ID
   * @return boolean
   */
- public function __construct($title=NULL,$class=NULL,$id=NULL){
+ public function __construct($title=null,$class=null,$id=null){
   if(!$id){$id=rand(1,99999);}
   $this->id="panel_".$id;
   $this->title=$title;
   $this->class=$class;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -60,9 +60,9 @@ class cPanel{
   * @return boolean
   */
  public function setTitle($title){
-  if(!$title){return FALSE;}
+  if(!$title){return false;}
   $this->title=$title;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -72,9 +72,9 @@ class cPanel{
   * @return boolean
   */
  public function setHeader($content){
-  if(!$content){return FALSE;}
+  if(!$content){return false;}
   $this->header=$content;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -84,9 +84,9 @@ class cPanel{
   * @return boolean
   */
  public function SetBody($content){
-  if(!$content){return FALSE;}
+  if(!$content){return false;}
   $this->body=$content;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -96,9 +96,9 @@ class cPanel{
   * @return boolean
   */
  public function SetFooter($content){
-  if(!$content){return FALSE;}
+  if(!$content){return false;}
   $this->footer=$content;
-  return TRUE;
+  return true;
  }
 
  /**

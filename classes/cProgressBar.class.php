@@ -35,13 +35,13 @@ class cProgressBar{
   * @param string $id ProgressBar ID
   * @return boolean
   */
- public function __construct($class=NULL,$style=NULL,$tags=NULL,$id=NULL){
+ public function __construct($class=null,$style=null,$tags=null,$id=null){
   if($id){$this->id="progressBar_".$id;}else{$this->id="progressBar_".md5(rand(1,99999));}
   $this->class=$class;
   $this->style=$style;
   $this->tags=$tags;
   $this->elements_array=array();
-  return TRUE;
+  return true;
  }
 
  /**
@@ -54,8 +54,8 @@ class cProgressBar{
   * @param string $tags Custom HTML tags
   * @return boolean
   */
- public function addElement($percentage,$content,$class=NULL,$style=NULL,$tags=NULL){
-  if(!is_numeric($percentage)>0){return FALSE;}
+ public function addElement($percentage,$content,$class=null,$style=null,$tags=null){
+  if(!is_numeric($percentage)>0){return false;}
   $element=new stdClass();
   $element->percentage=$percentage;
   $element->content=$content;
@@ -64,7 +64,7 @@ class cProgressBar{
   $element->tags=$tags;
   // add element to elements array
   $this->elements_array[]=$element;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -74,7 +74,7 @@ class cProgressBar{
   */
  public function render(){
   // check for elements
-  if(!count($this->elements_array)){return NULL;}
+  if(!count($this->elements_array)){return null;}
   // make progressBar tags
   $progressBar_tags=" id=\"".$this->id."\"";
   $progressBar_tags.=" class=\"progress ".$this->class."\"";
@@ -85,7 +85,7 @@ class cProgressBar{
   $return.="<div".$progressBar_tags.">\n";
   foreach($this->elements_array as $element){
    // make element tags
-   $element_tags=NULL;
+   $element_tags=null;
    $element_tags.=" class=\"progress-bar ".$element->class."\"";
    $element_tags.=" style=\"width:".$element->percentage."%;".$element->style."\"";
    if($element->tags){$element_tags.=" ".$element->tags;}

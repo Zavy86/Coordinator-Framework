@@ -41,7 +41,7 @@ class cModule{
  public function __construct($module){
   // get object
   if(is_string($module)){$module=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_modules` WHERE `module`='".$module."'");}
-  if(!$module->module){return FALSE;}
+  if(!$module->module){return false;}
   // set properties
   $this->module=stripslashes($module->module);
   $this->version=stripslashes($module->version);
@@ -66,7 +66,7 @@ class cModule{
   $this->authorizations_array=array();
   $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_modules_authorizations` WHERE `module`='".$this->module."'"); /** @todo in che ordine?? nuovo campo order? ORDER BY `action` */
   foreach($authorizations_results as $authorization){$this->authorizations_array[$authorization->id]=New cAuthorization($authorization);}
-  return TRUE;
+  return true;
  }
 
  /**
@@ -84,7 +84,7 @@ class cModule{
   * @param boolean $showText show text
   * @return string enabled text and icon
   */
- public function getEnabled($showIcon=TRUE,$showText=TRUE){
+ public function getEnabled($showIcon=true,$showText=true){
   // check enabled
   if($this->enabled){
    $icon=api_icon("fa-check",api_text("enabled"));

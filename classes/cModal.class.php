@@ -37,12 +37,12 @@ class cModal{
   * @param string $id Modal window ID
   * @return boolean
   */
- public function __construct($title=NULL,$class=NULL,$id=NULL){
+ public function __construct($title=null,$class=null,$id=null){
   if(!$id){$id=rand(1,99999);}
   $this->id="modal_".$id;
   $this->title=$title;
   $this->class=$class;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -60,9 +60,9 @@ class cModal{
   * @return boolean
   */
  public function setTitle($title){
-  if(!$title){return FALSE;}
+  if(!$title){return false;}
   $this->title=$title;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -72,9 +72,9 @@ class cModal{
   * @return boolean
   */
  public function setHeader($content){
-  if(!$content){return FALSE;}
+  if(!$content){return false;}
   $this->header=$content;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -84,9 +84,9 @@ class cModal{
   * @return boolean
   */
  public function SetBody($content){
-  if(!$content){return FALSE;}
+  if(!$content){return false;}
   $this->body=$content;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -96,9 +96,9 @@ class cModal{
   * @return boolean
   */
  public function SetFooter($content){
-  if(!$content){return FALSE;}
+  if(!$content){return false;}
   $this->footer=$content;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -111,8 +111,8 @@ class cModal{
   * @param string $tags Custom HTML tags
   * @return string Link HTML source code
   */
- public function link($label,$title=NULL,$class=NULL,$confirm=NULL,$style=NULL,$tags=NULL){
-  return api_link("#".$this->id,$label,$title,$class,FALSE,$confirm,$style,"data-toggle='modal' ".$tags,"_self",$this->id);
+ public function link($label,$title=null,$class=null,$confirm=null,$style=null,$tags=null){
+  return api_link("#".$this->id,$label,$title,$class,false,$confirm,$style,"data-toggle='modal' ".$tags,"_self",$this->id);
  }
 
  /**

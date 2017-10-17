@@ -33,13 +33,13 @@ class cNav{
   * @param boolean $container Renderize container
   * @return boolean
   */
- public function __construct($class="nav-tabs",$container=TRUE){
+ public function __construct($class="nav-tabs",$container=true){
   $this->class=$class;
   $this->container=$container;
   $this->current_nav=0;
   $this->current_item=0;
   $this->items_array=array();
-  return TRUE;
+  return true;
  }
 
  /**
@@ -48,9 +48,9 @@ class cNav{
   * @return boolean
   */
  public function setTitle($title){
-  if(!$title){return FALSE;}
+  if(!$title){return false;}
   $this->title=$title;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -62,7 +62,7 @@ class cNav{
   * @param boolean $enabled Enabled
   * @return boolean
   */
- public function addItem($label,$url="#",$enabled=TRUE,$class=NULL,$style=NULL,$tags=NULL,$target="_self"){
+ public function addItem($label,$url="#",$enabled=true,$class=null,$style=null,$tags=null,$target="_self"){
   $item=new stdClass();
   $item->label=$label;
   $item->url=$url;
@@ -76,7 +76,7 @@ class cNav{
   // add item to nav
   $this->current_item++;
   $this->items_array[$this->current_item]=$item;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -89,8 +89,8 @@ class cNav{
   * @param boolean $enabled Enabled
   * @return boolean
   */
- public function addSubItem($label,$url,$enabled=TRUE,$confirm=NULL,$class=NULL,$style=NULL,$tags=NULL,$target="_self"){
-  if(!$this->current_item){echo "ERROR - Nav->addSubItem - No item defined";return FALSE;}
+ public function addSubItem($label,$url,$enabled=true,$confirm=null,$class=null,$style=null,$tags=null,$target="_self"){
+  if(!$this->current_item){echo "ERROR - Nav->addSubItem - No item defined";return false;}
   $subItem=new stdClass();
   $subItem->typology="item";
   $subItem->label=$label;
@@ -104,7 +104,7 @@ class cNav{
   $subItem->target=$target;
   // add sub item to item
   $this->items_array[$this->current_item]->subItems_array[]=$subItem;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -113,15 +113,15 @@ class cNav{
   * @param string $class CSS class
   * @return boolean
   */
- public function addSubSeparator($class=NULL){
-  if(!$this->current_item){echo "ERROR - Nav->addSubSeparator - No item defined";return FALSE;}
+ public function addSubSeparator($class=null){
+  if(!$this->current_item){echo "ERROR - Nav->addSubSeparator - No item defined";return false;}
   $subSeparator=new stdClass();
   $subSeparator->typology="separator";
-  $subSeparator->enabled=TRUE;
+  $subSeparator->enabled=true;
   $subSeparator->class=$class;
   // add sub item to item
   $this->items_array[$this->current_item]->subItems_array[]=$subSeparator;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -131,16 +131,16 @@ class cNav{
   * @param string $class CSS class
   * @return boolean
   */
- public function addSubHeader($label,$class=NULL){
-  if(!$this->current_item){echo "ERROR - Nav->addSubHeader - No item defined";return FALSE;}
+ public function addSubHeader($label,$class=null){
+  if(!$this->current_item){echo "ERROR - Nav->addSubHeader - No item defined";return false;}
   $subHeader=new stdClass();
   $subHeader->typology="header";
   $subHeader->label=$label;
-  $subHeader->enabled=TRUE;
+  $subHeader->enabled=true;
   $subHeader->class=$class;
   // add sub item to item
   $this->items_array[$this->current_item]->subItems_array[]=$subHeader;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -149,7 +149,7 @@ class cNav{
   * @param boolean $echo Echo Nav source code or return
   * @return boolean|string Nav source code
   */
- public function render($echo=TRUE){
+ public function render($echo=true){
   // calcualte responsive min-width
   $min_width=strlen($this->title)*16;
   foreach($this->items_array as $item){
@@ -157,7 +157,7 @@ class cNav{
    else{$min_width+=(strlen($item->label)*7)+32;}
   }
   // renderize nav
-  $return=NULL;
+  $return=null;
   // check for container
   if($this->container){
    $return.="<!-- nav container -->\n";
@@ -173,24 +173,24 @@ class cNav{
   // cycle all items
   foreach($this->items_array as $item){
    // check for active
-   $active=FALSE;
-   if($item->urlParsed->query_array['mod']==MODULE && $item->urlParsed->query_array['scr']==SCRIPT){$active=TRUE;}
-   if(is_int(strpos($this->class,"nav-pills")) && defined('TAB') && $item->urlParsed->query_array['tab']!=TAB){$active=FALSE;}
+   $active=false;
+   if($item->urlParsed->query_array['mod']==MODULE && $item->urlParsed->query_array['scr']==SCRIPT){$active=true;}
+   if(is_int(strpos($this->class,"nav-pills")) && defined('TAB') && $item->urlParsed->query_array['tab']!=TAB){$active=false;}
    if(count($item->subItems_array)){
     foreach($item->subItems_array as $subItem){
-     if($subItem->urlParsed->query_array['mod']==MODULE && $subItem->urlParsed->query_array['scr']==SCRIPT){$active=TRUE;}
-     if(is_int(strpos($this->class,"nav-pills")) && defined('TAB') && $subItem->urlParsed->query_array['tab']!=TAB){$active=FALSE;}
+     if($subItem->urlParsed->query_array['mod']==MODULE && $subItem->urlParsed->query_array['scr']==SCRIPT){$active=true;}
+     if(is_int(strpos($this->class,"nav-pills")) && defined('TAB') && $subItem->urlParsed->query_array['tab']!=TAB){$active=false;}
     }
    }
    // lock url if active or disabled
    if($active||!$item->enabled){$item->url="#";}
    // make item class
-   $item_class=NULL;
+   $item_class=null;
    if($active){$item_class.="active ";}
    if(!$item->enabled){$item_class.="disabled ";}
    if($item->class){$item_class.=$item->class;}
    // make item tags
-   $item_tags=NULL;
+   $item_tags=null;
    if($item->style){$item_tags.=" style=\"".$item->style."\"";}
    if($item->tags){$item_tags.=" ".$item->tags;}
    // check for sub items
@@ -203,24 +203,24 @@ class cNav{
     // cycle all sub items
     foreach($item->subItems_array as $subItem){
      // check for sub active
-     /*$sub_active=FALSE;
-     if($subItem->urlParsed->query_array['mod']==MODULE && $subItem->urlParsed->query_array['scr']==SCRIPT){$sub_active=TRUE;}
-     if(is_int(strpos($this->class,"nav-pills")) && defined('TAB') && $subItem->urlParsed->query_array['tab']!=TAB){$sub_active=FALSE;}*/
+     /*$sub_active=false;
+     if($subItem->urlParsed->query_array['mod']==MODULE && $subItem->urlParsed->query_array['scr']==SCRIPT){$sub_active=true;}
+     if(is_int(strpos($this->class,"nav-pills")) && defined('TAB') && $subItem->urlParsed->query_array['tab']!=TAB){$sub_active=false;}*/
      // lock url if disabled
      //if($sub_active||!$subItem->enabled){$subItem->url="#";}
      if(!$subItem->enabled){$subItem->url="#";}
      // make sub item class
-     $subItem_class=NULL;
+     $subItem_class=null;
      //if($sub_active){$subItem_class.="active ";}
      if(!$subItem->enabled){$subItem_class.="disabled ";}
      if($subItem->class){$subItem_class.=$subItem->class;}
      // make sub item tags
-     $subItem_tags=NULL;
+     $subItem_tags=null;
      if($subItem->style){$subItem_tags.=" style=\"".$subItem->style."\"";}
      if($subItem->tags){$subItem_tags.=" ".$subItem->tags;}
      // switch sub item typology
      switch($subItem->typology){
-      case "item":$return.=$ident."   <li class=\"".$subItem_class."\"><a href=\"".$subItem->url."\" target=\"".$subItem->target."\"".($subItem->confirm?" onClick=\"return confirm('".addslashes($subItem->confirm)."')\"":NULL).">".$subItem->label."</a></li>\n";break;
+      case "item":$return.=$ident."   <li class=\"".$subItem_class."\"><a href=\"".$subItem->url."\" target=\"".$subItem->target."\"".($subItem->confirm?" onClick=\"return confirm('".addslashes($subItem->confirm)."')\"":null).">".$subItem->label."</a></li>\n";break;
       case "separator":$return.=$ident."   <li class=\"divider ".$subItem_class."\" role=\"separator\">&nbsp;</li>\n";break;
       case "header":$return.=$ident."   <li class=\"dropdown-header".$subItem_class."\">".$subItem->label."</li>\n";break;
      }
@@ -239,7 +239,7 @@ class cNav{
    $return.="</div><!-- /container -->\n\n";
   }
   // echo or return
-  if($echo){echo $return;return TRUE;}else{return $return;}
+  if($echo){echo $return;return true;}else{return $return;}
  }
 
 }

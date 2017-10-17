@@ -55,7 +55,7 @@ class cSession{
    case "duration":return $this->duration;
    case "idle":return $this->idle;
    case "user":return $this->user;
-   default:return FALSE;
+   default:return false;
   }
  }
 
@@ -72,24 +72,24 @@ class cSession{
    // unset session id and return
    unset($_SESSION['coordinator_session_id']);
    api_redirect(DIR."login.php?alert=sessionExpired");
-   return FALSE;
+   return false;
   }
   // set session
   $this->id=$session_obj->id;
   $this->duration=time()-$session_obj->startTimestamp;
   $this->idle=time()-$session_obj->lastTimestamp;
-  $this->validity=TRUE;
+  $this->validity=true;
   // update last timestamp
   $GLOBALS['database']->queryExecute("UPDATE `framework_sessions` SET `lastTimestamp`='".time()."' WHERE `id`='".$this->id."'");
   // build user object
-  $this->user=new cUser($session_obj->fkUser,TRUE);
+  $this->user=new cUser($session_obj->fkUser,true);
   // check maintenance
   if($GLOBALS['settings']->maintenance){ /** @ and user not administrator */
    unset($_SESSION['coordinator_session_id']);
    api_redirect(DIR."login.php?alert=maintenance");
-   return FALSE;
+   return false;
   }
-  return TRUE;
+  return true;
  }
 
  /**
@@ -125,8 +125,8 @@ class cSession{
   // destroy session
   //session_destroy();  /** @todo ora distruggo solo variabili di coordinator non tutta la sessione vedere se parametrizzare o lasciare cosi */
   //session_start();
-  $_SESSION['coordinator_session_id']=NULL;
-  $_SESSION['coordinator_logs']=NULL;
+  $_SESSION['coordinator_session_id']=null;
+  $_SESSION['coordinator_logs']=null;
  }
 
  /**

@@ -19,7 +19,7 @@
 
  $nav->setTitle(api_text("framework"));
 
- $nav->addItem(api_icon("fa-th-large",NULL,"test hidden-link"),"?mod=framework&scr=dashboard");
+ $nav->addItem(api_icon("fa-th-large",null,"test hidden-link"),"?mod=framework&scr=dashboard");
 
  // settings
  if(substr(SCRIPT,0,8)=="settings"){
@@ -54,14 +54,14 @@
   if(in_array(SCRIPT,array("users_view","users_edit"))){
    // users view operations
    if(SCRIPT=="users_view"){  /** @todo check authorizations */
-    $nav->addItem(api_text("nav-operations"),NULL,NULL,"active");
+    $nav->addItem(api_text("nav-operations"),null,null,"active");
     // check for deleted
     if($user_obj->deleted){
-     $nav->addSubItem(api_text("nav-operations-user_undelete"),"?mod=framework&scr=submit&act=user_undelete&idUser=".$user_obj->id,TRUE,api_text("nav-operations-user_undelete-confirm"));
+     $nav->addSubItem(api_text("nav-operations-user_undelete"),"?mod=framework&scr=submit&act=user_undelete&idUser=".$user_obj->id,true,api_text("nav-operations-user_undelete-confirm"));
     }else{
      // check superuser authorization
      if($GLOBALS['session']->user->superuser && $user_obj->id!=$GLOBALS['session']->user->id){
-      $nav->addSubItem(api_text("nav-operations-user_interpret"),"?mod=framework&scr=submit&act=user_interpret&idUser=".$user_obj->id,TRUE,api_text("nav-operations-user_interpret-confirm"));
+      $nav->addSubItem(api_text("nav-operations-user_interpret"),"?mod=framework&scr=submit&act=user_interpret&idUser=".$user_obj->id,true,api_text("nav-operations-user_interpret-confirm"));
       $nav->addSubSeparator();
      }
      $nav->addSubItem(api_text("nav-operations-user_edit"),"?mod=framework&scr=users_edit&idUser=".$user_obj->id);
@@ -103,12 +103,12 @@
   $nav->addItem(api_text("modules_list"),"?mod=framework&scr=modules_list");
   // module operations
   if(in_array(SCRIPT,array("modules_view")) && $_REQUEST['module']){
-   $nav->addItem(api_text("nav-operations"),NULL,NULL,"active");
+   $nav->addItem(api_text("nav-operations"),null,null,"active");
    // get module object
    $module_obj=new cModule($_REQUEST['module']);
    // check enabled
    if($module_obj->module<>"framework"){
-    if($module_obj->enabled){$nav->addSubItem(api_text("nav-operations-module_disable"),"?mod=framework&scr=submit&act=module_disable&module=".$_REQUEST['module'],TRUE,api_text("nav-operations-module_disable-confirm"));}
+    if($module_obj->enabled){$nav->addSubItem(api_text("nav-operations-module_disable"),"?mod=framework&scr=submit&act=module_disable&module=".$_REQUEST['module'],true,api_text("nav-operations-module_disable-confirm"));}
     else{$nav->addSubItem(api_text("nav-operations-module_enable"),"?mod=framework&scr=submit&act=module_enable&module=".$_REQUEST['module']);}
    }
    // authorizations
@@ -116,7 +116,7 @@
     $nav->addSubSeparator();
     $nav->addSubHeader(api_text("nav-operations-module_authorizations"));
     $nav->addSubItem(api_text("nav-operations-module_authorizations_group_add"),"?mod=framework&scr=modules_view&act=module_authorizations_group_add&module=".$_REQUEST['module']);
-    $nav->addSubItem(api_text("nav-operations-module_authorizations_reset"),"?mod=framework&scr=submit&act=module_authorizations_reset&module=".$_REQUEST['module'],TRUE,api_text("nav-operations-module_authorizations_reset-confirm"));
+    $nav->addSubItem(api_text("nav-operations-module_authorizations_reset"),"?mod=framework&scr=submit&act=module_authorizations_reset&module=".$_REQUEST['module'],true,api_text("nav-operations-module_authorizations_reset-confirm"));
    }
   }else{
    // add module
@@ -125,5 +125,5 @@
  }
 
  // add nav to html
- $html->addContent($nav->render(FALSE));
+ $html->addContent($nav->render(false));
 ?>

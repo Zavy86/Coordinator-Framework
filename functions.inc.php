@@ -16,31 +16,31 @@ global $database;
 global $settings;
 global $session;
 // reset session logs
-$_SESSION['coordinator_logs']=NULL;
+$_SESSION['coordinator_logs']=null;
 // check for configuration file
 if(!file_exists(realpath(dirname(__FILE__))."/config.inc.php")){die("Coordinator Framework is not configured..<br><br>".api_link("setup.php","Setup"));}
 // include configuration file
 $configuration=new stdClass();
 require_once("config.inc.php");
 // check for debug from session and parameters
-if($_SESSION['coordinator_debug']){$debug=TRUE;}
+if($_SESSION['coordinator_debug']){$debug=true;}
 if(isset($_GET['debug'])){
- if($_GET['debug']==1){$debug=TRUE;$_SESSION['coordinator_debug']=TRUE;}
- else{$debug=FALSE;$_SESSION['coordinator_debug']=FALSE;}
+ if($_GET['debug']==1){$debug=true;$_SESSION['coordinator_debug']=true;}
+ else{$debug=false;$_SESSION['coordinator_debug']=false;}
 }
 // errors configuration
-ini_set("display_errors",($debug||$develop?TRUE:FALSE));
+ini_set("display_errors",($debug||$develop?true:false));
 if($develop){error_reporting(E_ALL & ~E_NOTICE);}
 else{error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);}
 // module variables
 $r_module=$_REQUEST['mod'];
 if(!$r_module){$r_module="dashboard";}
 $r_script=$_REQUEST['scr'];
-if(!$r_script){$r_script=NULL;}
+if(!$r_script){$r_script=null;}
 $r_action=$_REQUEST['act'];
-if(!$r_action){$r_action=NULL;}
+if(!$r_action){$r_action=null;}
 $r_tab=$_REQUEST['tab'];
-if(!$r_tab){$r_tab=NULL;}
+if(!$r_tab){$r_tab=null;}
 // constants definitions
 define('DIR',$configuration->dir);
 define('URL',(isset($_SERVER['HTTPS'])?"https":"http")."://".$_SERVER['HTTP_HOST'].$GLOBALS['configuration']->dir);
@@ -93,11 +93,11 @@ $session=new cSession();
  * @param API_DUMP_PRINTR|API_DUMP_VARDUMP $function dump function
  * @param string $class pre dump class
  */
-function api_dump($variable,$label=NULL,$function=API_DUMP_PRINTR,$class=NULL){
- if(!$GLOBALS['debug']){return FALSE;}
+function api_dump($variable,$label=null,$function=API_DUMP_PRINTR,$class=null){
+ if(!$GLOBALS['debug']){return false;}
  echo "\n\n<!-- dump -->\n";
  echo "<pre class='".$class."'>\n";
- if($label<>NULL){echo "<strong>".$label."</strong><br>";}
+ if($label<>null){echo "<strong>".$label."</strong><br>";}
  if(is_string($variable)){$variable=str_replace(array("<",">"),array("&lt;","&gt;"),$variable);}
  switch($function){
   case API_DUMP_PRINTR:print_r($variable);break;
@@ -148,8 +148,8 @@ function api_redirect($location){
  * @param string $tags Custom HTML tags
  * @return string|boolean Tag HTML source code or false
  */
-function api_tag($tag,$text,$class=NULL,$style=NULL,$tags=NULL){
- if(!$text){return FALSE;}
+function api_tag($tag,$text,$class=null,$style=null,$tags=null){
+ if(!$text){return false;}
  if(!$tag){return $text;}
  $html="<".$tag;
  if($class){$html.=" class=\"".$class."\"";}
@@ -166,7 +166,7 @@ function api_tag($tag,$text,$class=NULL,$style=NULL,$tags=NULL){
  * @param array $parameters[] Array of parameters
  * @return string|boolean Localized text with parameters or false
  */
-function api_text($key,$parameters=NULL,$localization=NULL){
+function api_text($key,$parameters=null,$localization=null){
  if(!$key){return false;}
  if(!is_array($parameters)){if(!$parameters){$parameters=array();}else{$parameters=array($parameters);}}
  // get text by key from locale array
@@ -193,9 +193,9 @@ function api_text($key,$parameters=NULL,$localization=NULL){
  * @param string $id Link ID or random created
  * @return string link
  */
-function api_link($url,$label,$title=NULL,$class=NULL,$popup=FALSE,$confirm=NULL,$style=NULL,$tags=NULL,$target="_self",$id=NULL){
- if(!$url){return FALSE;}
- if(!$label){return FALSE;}
+function api_link($url,$label,$title=null,$class=null,$popup=false,$confirm=null,$style=null,$tags=null,$target="_self",$id=null){
+ if(!$url){return false;}
+ if(!$label){return false;}
  if(!$id){$id=rand(1,99999);}
  if(substr($url,0,1)=="?"){$url="index.php".$url;}
  $return="<a id=\"link_".$id."\" href=\"".$url."\"";
@@ -222,7 +222,7 @@ function api_link($url,$label,$title=NULL,$class=NULL,$popup=FALSE,$confirm=NULL
  * @param string $tags HTML tags
  * @return string|boolean Image html source code or false
  */
-function api_image($path,$class=NULL,$width=NULL,$height=NULL,$refresh=FALSE,$tags=NULL){
+function api_image($path,$class=null,$width=null,$height=null,$refresh=false,$tags=null){
  if(!$path){return false;}
  if($refresh){$refresh="?".rand(1,99999);}
  $return="<img src=\"".$path.$refresh."\"";
@@ -244,8 +244,8 @@ function api_image($path,$class=NULL,$width=NULL,$height=NULL,$refresh=FALSE,$ta
  * @param string $tags Custom HTML tags
  * @return string|boolean Icon html source code or false
  */
-function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
- if($icon==NULL){return FALSE;}
+function api_icon($icon,$title=null,$class=null,$style=null,$tags=null){
+ if($icon==null){return false;}
  if(substr($icon,0,2)=="fa"){$icon="fa fa-fw ".$icon;}
  else{$icon="glyphicon glyphicon-".$icon;}
  if(is_int(strpos($class,"hidden-link"))){$icon.=" faa-tada animated-hover";}
@@ -263,7 +263,7 @@ function api_icon($icon,$title=NULL,$class=NULL,$style=NULL,$tags=NULL){
  * @param string $url URL to parse
  * @return object Parsed
  */
-function api_parse_url($url=NULL){
+function api_parse_url($url=null){
  // check url
  if(!$url){$url=(isset($_SERVER['HTTPS'])?"https":"http")."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];}
  // build object
@@ -293,8 +293,8 @@ function api_parse_url($url=NULL){
  * @param string $format Date Time format (see php.net/manual/en/function.date.php)
  * @return string|boolean Formatted timestamp or false
  */
-function api_timestamp_format($timestamp,$format="Y-m-d H:i:s",$timezone=NULL){
- if(!is_numeric($timestamp)){return FALSE;}
+function api_timestamp_format($timestamp,$format="Y-m-d H:i:s",$timezone=null){
+ if(!is_numeric($timestamp)){return false;}
  if(!$timezone){$timezone=$GLOBALS['session']->user->timezone;}
  // build date time object
  $datetime=new DateTime("@".$timestamp);
@@ -312,7 +312,7 @@ function api_timestamp_format($timestamp,$format="Y-m-d H:i:s",$timezone=NULL){
 * @return string formatted timestamp difference
 */
 function api_timestampDifferenceFrom($timestamp,$difference,$format="Y-m-d H:i:s"){/** @todo verificare il nome fa schifo ed è poco significativo */
- if(!is_numeric($timestamp)){return FALSE;}
+ if(!is_numeric($timestamp)){return false;}
  $datetime=new DateTime("@".$timestamp);
  $datetime->modify($difference);
  return $datetime->getTimestamp();
@@ -325,9 +325,9 @@ function api_timestampDifferenceFrom($timestamp,$difference,$format="Y-m-d H:i:s
  * @param boolean $showSeconds Show seconds
  * @return string Formatted timestamp difference
  */
-function api_timestampDifferenceFormat($difference,$showSeconds=TRUE){ /** @todo verificare il nome fa schifo ed è poco significativo */
- if($difference===NULL){return FALSE;}
- $return=NULL;
+function api_timestampDifferenceFormat($difference,$showSeconds=true){ /** @todo verificare il nome fa schifo ed è poco significativo */
+ if($difference===null){return false;}
+ $return=null;
  $days=intval(intval($difference)/(3600*24));
  if($days==1){$return.=$days." ".api_text("day").", ";}
  elseif($days>1){$return.=$days." ".api_text("days").", ";}
@@ -369,7 +369,7 @@ function api_weekly_days($start=null){  /** @todo verificare */
  */
 function api_alerts_add($message,$class="info"){
  // checks
- if(!$message){return FALSE;}
+ if(!$message){return false;}
  if(!is_array($_SESSION['coordinator_alerts'])){$_SESSION['coordinator_alerts']=array();}
  // build alert object
  $alert=new stdClass();
@@ -378,7 +378,7 @@ function api_alerts_add($message,$class="info"){
  $alert->class=$class;
  $_SESSION['coordinator_alerts'][]=$alert;
  // return
- return TRUE;
+ return true;
 }
 
 /**
@@ -391,10 +391,10 @@ function api_alerts_add($message,$class="info"){
  *                      1 new major,
  *                      2 new minor version,
  *                      3 new hotfix,
- *                  FALSE on error
+ *                  false on error
  */
 function api_check_version($current,$new){
- if(!strlen($current) || !strlen($new)){return FALSE;}
+ if(!strlen($current) || !strlen($new)){return false;}
  $current_t=explode(".",$current);
  $new_t=explode(".",$new);
  // check major version
@@ -419,20 +419,20 @@ function api_check_version($current,$new){
  * @param booelan $superuser If true return true if user is superuser
  * @return boolean authorized or not
  */
-function api_checkAuthorization($module,$action,$inherited=TRUE,$superuser=TRUE){
+function api_checkAuthorization($module,$action,$inherited=true,$superuser=true){
  /** @todo levare gli alert e i dump */
  // check authorization
  $authorization=$GLOBALS['session']->user->authorizations_array[$module][$action];
- if($authorization=="authorized"){/*api_dump("Check permission [".$module."][".$action."] = AUTORIZED");*/return TRUE;}
- if($inherited && $authorization=="inherited"){/*api_dump("Check permission [".$module."][".$action."] = HINERITED");*/return TRUE;}
+ if($authorization=="authorized"){/*api_dump("Check permission [".$module."][".$action."] = AUTORIZED");*/return true;}
+ if($inherited && $authorization=="inherited"){/*api_dump("Check permission [".$module."][".$action."] = HINERITED");*/return true;}
  // check superuser
  if($superuser && $GLOBALS['session']->user->superuser){
   api_alerts_add("Check permission [".$module."][".$action."] = SUPERUSER","warning");
-  return TRUE;
+  return true;
  }
  // unauthorized
  /*api_dump("Check permission [".$module."][".$action."] = NOT");*/
- return FALSE;
+ return false;
 }
 
 /**
@@ -444,13 +444,13 @@ function api_checkAuthorization($module,$action,$inherited=TRUE,$superuser=TRUE)
  * @param type $fkId Foreign key ID
  * @param type $nesting Nesting level
  */
-function api_tree_to_array(&$return,$function,$idField,$fkId=NULL,$nesting=0){
+function api_tree_to_array(&$return,$function,$idField,$fkId=null,$nesting=0){
  // check for array
  if(!is_array($return)){$return=array();}
  // call user funciton with foreign key id
  $results=call_user_func($function,$fkId);
  // last nesting item
- $last_id=NULL;
+ $last_id=null;
  // cycle all branch results
  foreach($results as $result){
   // increment last nesting
@@ -462,7 +462,7 @@ function api_tree_to_array(&$return,$function,$idField,$fkId=NULL,$nesting=0){
   // recursive call with incremented level
   api_tree_to_array($return,$function,$idField,$result->$idField,($nesting+1));
  }
- if($last_id){$return[$last_id]->nesting_last=TRUE;}
+ if($last_id){$return[$last_id]->nesting_last=true;}
 }
 
 /**
@@ -512,11 +512,11 @@ function api_framework_modules(){  /** @todo levare framework? */
  * @param string $idMenu Start menu branch
  * @return object $return[] Array of menu objects
  */
-function api_framework_menus($idMenu=NULL){  /** @todo levare framework? */
+function api_framework_menus($idMenu=null){  /** @todo levare framework? */
  // definitions
  $return=array();
  // query where
- if(!$idMenu){$query_where="`fkMenu` IS NULL";}else{$query_where="`fkMenu`='".$idMenu."'";}
+ if(!$idMenu){$query_where="`fkMenu` IS null";}else{$query_where="`fkMenu`='".$idMenu."'";}
  // execute query
  $menus_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_menus` WHERE ".$query_where." ORDER BY `order` ASC");
  foreach($menus_results as $menu){$return[$menu->id]=new cMenu($menu);}
@@ -530,11 +530,11 @@ function api_framework_menus($idMenu=NULL){  /** @todo levare framework? */
  * @param string $idGroup Start group branch
  * @return object $return[] Array of group objects
  */
-function api_framework_groups($idGroup=NULL){  /** @todo levare framework? */
+function api_framework_groups($idGroup=null){  /** @todo levare framework? */
  // definitions
  $return=array();
  // query where
- if(!$idGroup){$query_where="`fkGroup` IS NULL";}else{$query_where="`fkGroup`='".$idGroup."'";}
+ if(!$idGroup){$query_where="`fkGroup` IS null";}else{$query_where="`fkGroup`='".$idGroup."'";}
  // execute query
  $groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_groups` WHERE ".$query_where." ORDER BY `name` ASC");
  foreach($groups_results as $group){$return[$group->id]=new cGroup($group);}

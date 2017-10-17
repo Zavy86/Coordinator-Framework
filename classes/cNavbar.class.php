@@ -33,13 +33,13 @@ class cNavbar{
   * @param string $class Navbar class
   * @return boolean
   */
- public function __construct($title=NULL,$class="navbar-default"){
+ public function __construct($title=null,$class="navbar-default"){
   $this->title=$title;
   $this->class=$class;
   $this->current_nav=0;
   $this->current_item=0;
   $this->navs_array=array();
-  return TRUE;
+  return true;
  }
 
  /**
@@ -48,10 +48,10 @@ class cNavbar{
   * @param string $title Navbar title
   * @return boolean
   */
- public function setTitle($title=NULL){
-  if(!$title){return FALSE;}
+ public function setTitle($title=null){
+  if(!$title){return false;}
   $this->title=$title;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -60,14 +60,14 @@ class cNavbar{
   * @param string $class Item css class
   * @return boolean
   */
- public function addNav($class=NULL){
+ public function addNav($class=null){
   $nav=new stdClass();
   $nav->class=$class;
   $nav->items_array=array();
   // add nav to navbar
   $this->current_nav++;
   $this->navs_array[$this->current_nav]=$nav;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -79,8 +79,8 @@ class cNavbar{
   * @param boolean $enabled Enabled
   * @return boolean
   */
- public function addItem($label,$url="#",$enabled=TRUE,$class=NULL,$style=NULL,$tags=NULL,$target="_self"){
-  if(!$this->current_nav){echo "ERROR - Navbar->addItem - No nav defined";return FALSE;}
+ public function addItem($label,$url="#",$enabled=true,$class=null,$style=null,$tags=null,$target="_self"){
+  if(!$this->current_nav){echo "ERROR - Navbar->addItem - No nav defined";return false;}
   $item=new stdClass();
   $item->label=$label;
   $item->url=$url;
@@ -96,7 +96,7 @@ class cNavbar{
   // add item to nav
   $this->current_item++;
   $this->navs_array[$this->current_nav]->items_array[$this->current_item]=$item;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -108,8 +108,8 @@ class cNavbar{
   * @param boolean $enabled Enabled
   * @return boolean
   */
- public function addSubItem($label,$url,$enabled=TRUE,$class=NULL,$style=NULL,$tags=NULL,$target="_self"){
-  if(!$this->current_item){echo "ERROR - Navbar->addSubItem - No item defined";return FALSE;}
+ public function addSubItem($label,$url,$enabled=true,$class=null,$style=null,$tags=null,$target="_self"){
+  if(!$this->current_item){echo "ERROR - Navbar->addSubItem - No item defined";return false;}
   $subItem=new stdClass();
   $subItem->typology="item";
   $subItem->label=$label;
@@ -122,7 +122,7 @@ class cNavbar{
   $subItem->target=$target;
   // add sub item to item
   $this->navs_array[$this->current_nav]->items_array[$this->current_item]->subItems_array[]=$subItem;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -131,15 +131,15 @@ class cNavbar{
   * @param string $class Separator css class
   * @return boolean
   */
- public function addSubSeparator($class=NULL){
-  if(!$this->current_item){echo "ERROR - Navbar->addSubSeparator - No item defined";return FALSE;}
+ public function addSubSeparator($class=null){
+  if(!$this->current_item){echo "ERROR - Navbar->addSubSeparator - No item defined";return false;}
   $subSeparator=new stdClass();
   $subSeparator->typology="separator";
-  $subSeparator->enabled=TRUE;
+  $subSeparator->enabled=true;
   $subSeparator->class=$class;
   // add sub item to item
   $this->navs_array[$this->current_nav]->items_array[$this->current_item]->subItems_array[]=$subSeparator;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -149,16 +149,16 @@ class cNavbar{
   * @param string $class Separator css class
   * @return boolean
   */
- public function addSubHeader($label,$class=NULL){
-  if(!$this->current_item){echo "ERROR - Navbar->addSubHeader - No item defined";return FALSE;}
+ public function addSubHeader($label,$class=null){
+  if(!$this->current_item){echo "ERROR - Navbar->addSubHeader - No item defined";return false;}
   $subHeader=new stdClass();
   $subHeader->typology="header";
   $subHeader->label=$label;
-  $subHeader->enabled=TRUE;
+  $subHeader->enabled=true;
   $subHeader->class=$class;
   // add sub item to item
   $this->navs_array[$this->current_nav]->items_array[$this->current_item]->subItems_array[]=$subHeader;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -167,7 +167,7 @@ class cNavbar{
   * @param boolean $echo Echo Navbar source code or return
   * @return boolean|string Navbar source code
   */
- public function render($echo=TRUE){
+ public function render($echo=true){
   // renderize navbar
   $return="<!-- navbar -->\n";
   $return.="<nav class=\"navbar ".$this->class."\">\n";
@@ -198,26 +198,26 @@ class cNavbar{
    // cycle all items
    foreach($nav->items_array as $item){
     // check for active
-    $active=FALSE;
-    if($item->urlParsed->query_array['mod']==MODULE){$active=TRUE;}
-    if($item->urlParsed->query_array['scr']&&$item->urlParsed->query_array['scr']!=SCRIPT){$active=FALSE;}
+    $active=false;
+    if($item->urlParsed->query_array['mod']==MODULE){$active=true;}
+    if($item->urlParsed->query_array['scr']&&$item->urlParsed->query_array['scr']!=SCRIPT){$active=false;}
     elseif(count($item->subItems_array)){
      foreach($item->subItems_array as $subItem){
-      if($subItem->urlParsed->query_array['mod']==MODULE){$active=TRUE;}
-      if($subItem->urlParsed->query_array['scr']&&$subItem->urlParsed->query_array['scr']!=SCRIPT){$sub_active=FALSE;}
+      if($subItem->urlParsed->query_array['mod']==MODULE){$active=true;}
+      if($subItem->urlParsed->query_array['scr']&&$subItem->urlParsed->query_array['scr']!=SCRIPT){$sub_active=false;}
       if($active){break;}
      }
     }
-    if(is_int(strpos($item->class,"inactive"))){$active=FALSE;}
+    if(is_int(strpos($item->class,"inactive"))){$active=false;}
     // lock url if active or disabled
     if($active||!$item->enabled){$item->url="#";}
     // make item class
-    $item_class=NULL;
+    $item_class=null;
     if($active){$item_class.="active ";}
     if(!$item->enabled){$item_class.="disabled ";}
     if($item->class){$item_class.=$item->class;}
     // make item tags
-    $item_tags=NULL;
+    $item_tags=null;
     if($item->style){$item_tags.=" style=\"".$item->style."\"";}
     if($item->tags){$item_tags.=" ".$item->tags;}
     // check for sub items
@@ -230,18 +230,18 @@ class cNavbar{
      // cycle all sub items
      foreach($item->subItems_array as $subItem){
       // check for sub active
-      if($subItem->urlParsed->query_array['mod']==MODULE){$sub_active=TRUE;}else{$sub_active=FALSE;}
-      if($subItem->urlParsed->query_array['scr']&&$subItem->urlParsed->query_array['scr']!=SCRIPT){$sub_active=FALSE;}
-      if(is_int(strpos($subItem->class,"inactive"))){$sub_active=FALSE;}
+      if($subItem->urlParsed->query_array['mod']==MODULE){$sub_active=true;}else{$sub_active=false;}
+      if($subItem->urlParsed->query_array['scr']&&$subItem->urlParsed->query_array['scr']!=SCRIPT){$sub_active=false;}
+      if(is_int(strpos($subItem->class,"inactive"))){$sub_active=false;}
       // lock url if active or disabled
       if($sub_active||!$subItem->enabled){$subItem->url="#";}
       // make sub item class
-      $subItem_class=NULL;
+      $subItem_class=null;
       if($sub_active){$subItem_class.="active ";}
       if(!$subItem->enabled){$subItem_class.="disabled ";}
       if($subItem->class){$subItem_class.=$subItem->class;}
       // make sub item tags
-      $subItem_tags=NULL;
+      $subItem_tags=null;
       if($subItem->style){$subItem_tags.=" style=\"".$subItem->style."\"";}
       if($subItem->tags){$subItem_tags.=" ".$subItem->tags;}
       // switch typology
@@ -262,7 +262,7 @@ class cNavbar{
   $return.=" </div><!-- /navbar-container -->\n";
   $return.="</nav><!-- /navbar -->\n\n";
   // echo or return
-  if($echo){echo $return;return TRUE;}else{return $return;}
+  if($echo){echo $return;return true;}else{return $return;}
  }
 
 }

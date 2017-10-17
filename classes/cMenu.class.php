@@ -48,14 +48,14 @@ class cMenu{
  public function __construct($menu){
   // get object
   if(is_numeric($menu)){$menu=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_menus` WHERE `id`='".$menu."'",$GLOBALS['debug']);}
-  if(!$menu->id){return FALSE;}
+  if(!$menu->id){return false;}
   // set properties
   $this->id=(int)$menu->id;
   $this->fkMenu=$menu->fkMenu;
   $this->order=$menu->order;
   $this->icon=stripslashes($menu->icon);
-  $this->label_localizations=json_decode($menu->label_localizations,TRUE);
-  $this->title_localizations=json_decode($menu->title_localizations,TRUE);
+  $this->label_localizations=json_decode($menu->label_localizations,true);
+  $this->title_localizations=json_decode($menu->title_localizations,true);
   $this->url=stripslashes($menu->url);
   $this->module=stripslashes($menu->module);
   $this->script=stripslashes($menu->script);
@@ -73,7 +73,7 @@ class cMenu{
   if(!$this->title){$this->title=$this->title_localizations["en_EN"];}
   // make module url
   if($this->module){$this->url="?mod=".$this->module."&scr=".$this->script."&tab=".$this->tab."&act=".$this->action;}
-  return TRUE;
+  return true;
  }
 
 /**
