@@ -153,7 +153,7 @@ function api_tag($tag,$text,$class=NULL,$style=NULL,$tags=NULL){
  $html="<".$tag;
  if($class){$html.=" class=\"".$class."\"";}
  if($style){$html.=" style=\"".$class."\"";}
- if($tags){$html.=" ".$tag;}
+ if($tags){$html.=" ".$tags;}
  $html.=">".$text."</".$tag.">";
  return $html;
 }
