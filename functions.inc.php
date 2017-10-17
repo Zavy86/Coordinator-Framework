@@ -74,6 +74,7 @@ require_once(ROOT."classes/cDescriptionList.class.php");
 require_once(ROOT."classes/cOperationsButton.class.php");
 require_once(ROOT."classes/cList.class.php");
 require_once(ROOT."classes/cProgressBar.class.php");
+require_once(ROOT."classes/cGauge.class.php");
 
 // build localization instance
 $localization=new cLocalization();
