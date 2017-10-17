@@ -39,7 +39,7 @@ class cHTML{
   * @param string $charset Page charset
   * @return boolean
   */
- public function __construct($title=NULL,$language="en",$charset="utf-8"){
+ public function __construct($title=null,$language="en",$charset="utf-8"){
   $this->title=$title;
   $this->language=$language;
   $this->charset=$charset;
@@ -48,7 +48,7 @@ class cHTML{
   $this->styleSheets_array=array();
   $this->scripts_array=array();
   $this->modals_array=array();
-  return TRUE;
+  return true;
  }
 
  /**
@@ -58,10 +58,10 @@ class cHTML{
   * @param string $value Meta tag value
   * @return boolean
   */
- public function setMetaTag($name,$value=NULL){
-  if(!$name){return FALSE;}
+ public function setMetaTag($name,$value=null){
+  if(!$name){return false;}
   $this->metaTags_array[$name]=$value;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -71,41 +71,41 @@ class cHTML{
   * @return boolean
   */
  public function addStyleSheet($url){
-  if(!$url){return FALSE;}
+  if(!$url){return false;}
   $this->styleSheets_array[]=$url;
-  return TRUE;
+  return true;
  }
 
  /**
   * Add Script
   *
   * @param string $source Source code or URL
-  * @param booelan $url True if source is an URL
+  * @param booelan $url true if source is an URL
   * @return boolean
   */
- public function addScript($source=NULL,$url=FALSE){
-  if(!$source && !$url){return FALSE;}
+ public function addScript($source=null,$url=false){
+  if(!$source && !$url){return false;}
   // build script class
   $script=new stdClass();
   $script->url=(bool)$url;
   $script->source=$source;
   // add script to scripts array
   $this->scripts_array[]=$script;
-  return TRUE;
+  return true;
  }
 
  /**
   * Add Modal
   *
   * @param string $modal Modal window object
-  * @param booelan $url True if source is an URL
+  * @param booelan $url true if source is an URL
   * @return boolean
   */
  public function addModal($modal){
-  if(!is_a($modal,cModal)){return FALSE;}
+  if(!is_a($modal,cModal)){return false;}
   // add modal to modals array
   $this->modals_array[$modal->id]=$modal;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -114,10 +114,10 @@ class cHTML{
   * @param string $title Page title
   * @return boolean
   */
- public function setTitle($title=NULL){
-  if(!$title){return FALSE;}
+ public function setTitle($title=null){
+  if(!$title){return false;}
   $this->title=$title." - ".$GLOBALS['settings']->title;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -126,9 +126,9 @@ class cHTML{
   * @param string $header Body header
   * @return boolean
   */
- public function setHeader($header=NULL){
+ public function setHeader($header=null){
   $this->header=$header;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -137,9 +137,9 @@ class cHTML{
   * @param string $footer Body footer
   * @return boolean
   */
- public function setFooter($footer=NULL){
+ public function setFooter($footer=null){
   $this->footer=$footer;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -149,9 +149,9 @@ class cHTML{
   * @return boolean
   */
  public function setContent($content){
-  if(!$content){echo "ERROR - HTML->setContent - Content is required";return FALSE;}
+  if(!$content){echo "ERROR - HTML->setContent - Content is required";return false;}
   $this->content=$content;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -160,10 +160,10 @@ class cHTML{
   * @param string $content Body content
   * @return boolean
   */
- public function addContent($content,$separator=NULL){
-  if(!$content){echo "ERROR - HTML->addContent - Content is required";return FALSE;}
+ public function addContent($content,$separator=null){
+  if(!$content){echo "ERROR - HTML->addContent - Content is required";return false;}
   $this->content=$this->content.$separator.$content;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -172,7 +172,7 @@ class cHTML{
   * @param boolean $echo Echo HTML source code or return
   * @return boolean|string HTML source code
   */
- public function render($echo=TRUE){
+ public function render($echo=true){
   // load default template
   require_once(ROOT."template.inc.php");
   // renderize html
@@ -255,7 +255,7 @@ class cHTML{
   $return.=" </body>\n\n";
   $return.="</html>";
   // echo or return
-  if($echo){echo $return;return TRUE;}else{return $return;}
+  if($echo){echo $return;return true;}else{return $return;}
  }
 
 }

@@ -13,11 +13,11 @@
  $html->setTitle(api_text("users_list"));
  // build grid object
  $table=new cTable(api_text("users_list-tr-unvalued"));
- $table->addHeader("&nbsp;",NULL,16);
+ $table->addHeader("&nbsp;",null,16);
  $table->addHeader(api_text("users_list-th-fullname"),"nowrap");
- $table->addHeader("&nbsp;",NULL,16);
- $table->addHeader(api_text("users_list-th-mail"),NULL,"100%");
- $table->addHeader("&nbsp;",NULL,16);
+ $table->addHeader("&nbsp;",null,16);
+ $table->addHeader(api_text("users_list-th-mail"),null,"100%");
+ $table->addHeader("&nbsp;",null,16);
  // get user objects
  $users_array=array();
  $users_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_users` ORDER BY `lastname`,`firstname`",$GLOBALS['debug']);
@@ -34,12 +34,12 @@
    $ob->addElement("?mod=framework&scr=submit&act=user_delete&idUser=".$user_obj->id,"fa-trash",api_text("users_list-td-delete"),true,api_text("users_list-td-delete-confirm"));
   }
   // check deleted
-  if($user_obj->deleted){$tr_class="deleted";}else{$tr_class=NULL;}
+  if($user_obj->deleted){$tr_class="deleted";}else{$tr_class=null;}
   // make user row
   $table->addRow($tr_class);
-  $table->addRowField(api_link("?mod=framework&scr=users_view&idUser=".$user_obj->id,api_image($user_obj->avatar,NULL,18),api_text("users_list-td-view")));
+  $table->addRowField(api_link("?mod=framework&scr=users_view&idUser=".$user_obj->id,api_image($user_obj->avatar,null,18),api_text("users_list-td-view")));
   $table->addRowField($user_obj->fullname,"nowrap");
-  $table->addRowField($user_obj->getStatus(TRUE,FALSE));
+  $table->addRowField($user_obj->getStatus(true,false));
   $table->addRowField($user_obj->mail,"truncate-ellipsis");
   $table->addRowField($ob->render(),"text-right");
  }

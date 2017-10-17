@@ -22,17 +22,17 @@
  // cycle user groups
  foreach($user_obj->groups_array as $group){
   // make delete and mainize td
-  $delete_td=api_link("?mod=framework&scr=submit&act=user_group_remove&idUser=".$user_obj->id."&idGroup=".$group->id,api_icon("fa-trash",api_text("users_view-groups_table-td-delete"),"hidden-link"),NULL,NULL,FALSE,api_text("users_view-groups_table-td-delete-confirm"));
+  $delete_td=api_link("?mod=framework&scr=submit&act=user_group_remove&idUser=".$user_obj->id."&idGroup=".$group->id,api_icon("fa-trash",api_text("users_view-groups_table-td-delete"),"hidden-link"),null,null,false,api_text("users_view-groups_table-td-delete-confirm"));
   if($group->id==$user_obj->groups_main){
    $mainize_td=api_icon("fa-star",api_text("users_view-groups_table-td-main"));
-   if(count($user_obj->groups_array)>1){$delete_td=NULL;}
+   if(count($user_obj->groups_array)>1){$delete_td=null;}
   }else{
-   $mainize_td=api_link("?mod=framework&scr=submit&act=user_group_mainize&idUser=".$user_obj->id."&idGroup=".$group->id,api_icon("fa-star-o",api_text("users_view-groups_table-td-mainize"),"hidden-link"),NULL,NULL,FALSE,api_text("users_view-groups_table-td-mainize-confirm"));
+   $mainize_td=api_link("?mod=framework&scr=submit&act=user_group_mainize&idUser=".$user_obj->id."&idGroup=".$group->id,api_icon("fa-star-o",api_text("users_view-groups_table-td-mainize"),"hidden-link"),null,null,false,api_text("users_view-groups_table-td-mainize-confirm"));
   }
   // add group row
   $groups_table->addRow();
   $groups_table->addRowField($mainize_td);
-  $groups_table->addRowField(api_link("?mod=framework&scr=groups_view&idGroup=".$group->id,$group->fullname,NULL,"hidden-link",FALSE,NULL,NULL,NULL,"_blank"),"truncate-ellipsis");
+  $groups_table->addRowField(api_link("?mod=framework&scr=groups_view&idGroup=".$group->id,$group->fullname,null,"hidden-link",false,null,null,null,"_blank"),"truncate-ellipsis");
   $groups_table->addRowField($delete_td);
  }
 
@@ -40,7 +40,7 @@
  if($user_obj->deleted){api_alerts_add(api_text("users_view-deleted-alert"),"warning");}
 
  // avatar delete link
- if(is_numeric(substr($user_obj->avatar,-5,1))){$avatar_delete_link=api_link("#",api_icon("fa-remove",api_text("users_view-avatar-delete"),"hidden-link text-vtop"),NULL,NULL,FALSE,api_text("users_view-avatar-delete-confirm"));}
+ if(is_numeric(substr($user_obj->avatar,-5,1))){$avatar_delete_link=api_link("#",api_icon("fa-remove",api_text("users_view-avatar-delete"),"hidden-link text-vtop"),null,null,false,api_text("users_view-avatar-delete-confirm"));}
 
  // build left user description list
  $dl_left=new cDescriptionList("br","dl-horizontal");
@@ -53,7 +53,7 @@
 
  // build right user description list
  $dl_right=new cDescriptionList("br","dl-horizontal");
- if($user_obj->gender){$dl_right->addElement(api_text("users_view-gender"),$user_obj->getGender(FALSE));}
+ if($user_obj->gender){$dl_right->addElement(api_text("users_view-gender"),$user_obj->getGender(false));}
  if($user_obj->birthday){$dl_right->addElement(api_text("users_view-birthday"),api_timestamp_format(strtotime($user_obj->birthday),api_text("date")));}
  $dl_right->addElement(api_text("users_view-groups"),$groups_table->render());
 
@@ -66,14 +66,14 @@
  // check for action group_add
  if(ACTION=="group_add"){
   // build group add form
-  $group_add_form=new cForm("?mod=framework&scr=submit&act=user_group_add&idUser=".$user_obj->id,"POST",NULL,"users_view-groups_modal");
-  $group_add_form->addField("select","fkGroup",api_text("users_view-groups_modal-ff-group"),NULL,api_text("users_view-groups_modal-ff-group-placeholder"),NULL,NULL,NULL,"required");
+  $group_add_form=new cForm("?mod=framework&scr=submit&act=user_group_add&idUser=".$user_obj->id,"POST",null,"users_view-groups_modal");
+  $group_add_form->addField("select","fkGroup",api_text("users_view-groups_modal-ff-group"),null,api_text("users_view-groups_modal-ff-group-placeholder"),null,null,null,"required");
   api_tree_to_array($groups_array,"api_framework_groups","id");
   foreach($groups_array as $group_option){$group_add_form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->fullname);}
   $group_add_form->addControl("submit",api_text("users_view-groups_modal-fc-submit"));
-  $group_add_form->addControl("button",api_text("users_view-groups_modal-fc-cancel"),"#",NULL,NULL,NULL,"data-dismiss='modal'");
+  $group_add_form->addControl("button",api_text("users_view-groups_modal-fc-cancel"),"#",null,null,null,"data-dismiss='modal'");
   // build group add modal window
-  $groups_modal=new cModal(api_text("users_view-groups_modal-title"),NULL,"users_view-groups_modal");
+  $groups_modal=new cModal(api_text("users_view-groups_modal-title"),null,"users_view-groups_modal");
   $groups_modal->setBody($group_add_form->render());
   // add modal to html object
   $html->addModal($groups_modal);

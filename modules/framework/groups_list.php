@@ -13,10 +13,10 @@
  $html->setTitle(api_text("groups_list"));
  // build grid object
  $table=new cTable(api_text("groups_list-tr-unvalued"));
- $table->addHeader("&nbsp;",NULL,16);
+ $table->addHeader("&nbsp;",null,16);
  $table->addHeader(api_text("groups_list-th-name"),"nowrap");
- $table->addHeader(api_text("groups_list-th-description"),NULL,"100%");
- $table->addHeader("&nbsp;",NULL,16);
+ $table->addHeader(api_text("groups_list-th-description"),null,"100%");
+ $table->addHeader("&nbsp;",null,16);
  // make array from groups tree
  $groups_array=array();
  api_tree_to_array($groups_array,"api_framework_groups","id");

@@ -38,7 +38,7 @@ class cTable{
  * @param string $id Table ID, if null randomly generated
  * @return boolean
  */
- public function __construct($emptyrow=NULL,$class=NULL,$caption=NULL,$id=NULL){
+ public function __construct($emptyrow=null,$class=null,$caption=null,$id=null){
   if($id){$this->id="table_".$id;}else{$this->id="table_".md5(rand(1,99999));}
   $this->emptyrow=$emptyrow;
   $this->class=$class;
@@ -47,7 +47,7 @@ class cTable{
   $this->rows_array=array();
   // initialize headers row array
   $this->rows_array["headers"]=array();
-  return TRUE;
+  return true;
  }
 
  /**
@@ -61,8 +61,8 @@ class cTable{
          * @param string $order Query field for order
  * @return boolean
  */
- public function addHeader($label,$class=NULL,$width=NULL,$style=NULL,$tags=NULL){
-  if(!$label){return FALSE;}
+ public function addHeader($label,$class=null,$width=null,$style=null,$tags=null){
+  if(!$label){return false;}
   // build header object
   $th=new stdClass();
   $th->label=$label;
@@ -72,7 +72,7 @@ class cTable{
   $th->tags=$tags;
   // add header to headers
   $this->rows_array["headers"][]=$th;
-  return TRUE;
+  return true;
  }
 
 /**
@@ -83,7 +83,7 @@ class cTable{
  * @param string $tags Custom HTML tags
  * @return boolean
  */
- public function addRow($class=NULL,$style=NULL,$tags=NULL){
+ public function addRow($class=null,$style=null,$tags=null){
   // build row object
   $tr=new stdClass();
   $tr->class=$class;
@@ -93,7 +93,7 @@ class cTable{
   // add row to table
   $this->current_row++;
   $this->rows_array[$this->current_row]=$tr;
-  return TRUE;
+  return true;
  }
 
 /**
@@ -105,8 +105,8 @@ class cTable{
  * @param string $tags Custom HTML tags
  * @return boolean
  */
- function addRowField($content,$class=NULL,$style=NULL,$tags=NULL){
-  if(!$this->current_row){echo "ERROR - Table->addRowField - No row defined";return FALSE;}
+ function addRowField($content,$class=null,$style=null,$tags=null){
+  if(!$this->current_row){echo "ERROR - Table->addRowField - No row defined";return false;}
   if(!$content){$content="&nbsp;";}
   // build field object
   $td=new stdClass();
@@ -118,7 +118,7 @@ class cTable{
   if(is_int(strpos($td->class,"truncate-ellipsis"))){$td->content="<span>".$td->content."</span>";}
   // add field to row
   $this->rows_array[$this->current_row]->fields_array[]=$td;
-  return TRUE;
+  return true;
  }
 
 /**
@@ -131,19 +131,19 @@ class cTable{
  * @param string $tags Custom HTML tags
  * @return boolean
  */
- function addRowFieldAction($url,$label,$class=NULL,$style=NULL,$tags=NULL){
-  if(!$this->current_row){echo "ERROR - Table->addRowFieldAction - No row defined";return FALSE;}
-  if(!$url){echo "ERROR - Table->addRowFieldAction - URL is required";return FALSE;}
+ function addRowFieldAction($url,$label,$class=null,$style=null,$tags=null){
+  if(!$this->current_row){echo "ERROR - Table->addRowFieldAction - No row defined";return false;}
+  if(!$url){echo "ERROR - Table->addRowFieldAction - URL is required";return false;}
   if(!$label){$label="&nbsp;";}
   // build field object
   $td=new stdClass();
-  $td->content=api_link($url,$label,NULL,"btn btn-default btn-xs");
+  $td->content=api_link($url,$label,null,"btn btn-default btn-xs");
   $td->class=$class;
   $td->style=$style;
   $td->tags=$tags;
   // add field to row
   $this->rows_array[$this->current_row]->fields_array[]=$td;
-  return TRUE;
+  return true;
  }
 
 /**

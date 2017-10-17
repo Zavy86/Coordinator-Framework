@@ -26,8 +26,8 @@ switch(ACTION){
  case "menu_move_down":menu_move("down");break;
  // modules
  case "module_add":module_add();break;
- case "module_enable":module_enable(TRUE);break;
- case "module_disable":module_enable(FALSE);break;
+ case "module_enable":module_enable(true);break;
+ case "module_disable":module_enable(false);break;
  case "module_setup":module_setup();break;
  case "module_update_source":module_update_source();break;
  case "module_update_database":module_update_database();break;
@@ -44,10 +44,10 @@ switch(ACTION){
  // users
  case "user_add":user_add();break;
  case "user_edit":user_edit();break;
- case "user_enable":user_enabled(TRUE);break;
- case "user_disable":user_enabled(FALSE);break;
- case "user_delete":user_deleted(TRUE);break;
- case "user_undelete":user_deleted(FALSE);break;
+ case "user_enable":user_enabled(true);break;
+ case "user_disable":user_enabled(false);break;
+ case "user_delete":user_deleted(true);break;
+ case "user_undelete":user_deleted(false);break;
  case "user_group_add":user_group_add();break;
  case "user_group_remove":user_group_remove();break;
  // groups
@@ -164,7 +164,7 @@ function settings_save(){
  // cycle all form fields and set availables
  foreach($_REQUEST as $setting=>$value){if(in_array($setting,$availables_settings_array)){$settings_array[$setting]=$value;}}
  // sendmail smtp password (save password only if change)
- if(isset($settings_array['sendmail_smtp_username'])){if($settings_array['sendmail_smtp_username']){if($_REQUEST['sendmail_smtp_password']){$settings_array['sendmail_smtp_password']=$_REQUEST['sendmail_smtp_password'];}}else{$settings_array['sendmail_smtp_password']=NULL;}}
+ if(isset($settings_array['sendmail_smtp_username'])){if($settings_array['sendmail_smtp_username']){if($_REQUEST['sendmail_smtp_password']){$settings_array['sendmail_smtp_password']=$_REQUEST['sendmail_smtp_password'];}}else{$settings_array['sendmail_smtp_password']=null;}}
  // debug
  api_dump($settings_array);
  // cycle all settings
@@ -218,14 +218,14 @@ function menu_save(){
   // link
   case "link":
    $menu_qobj->url=$r_url;
-   $menu_qobj->module=NULL;
-   $menu_qobj->script=NULL;
-   $menu_qobj->tab=NULL;
-   $menu_qobj->action=NULL;
+   $menu_qobj->module=null;
+   $menu_qobj->script=null;
+   $menu_qobj->tab=null;
+   $menu_qobj->action=null;
    break;
   // module
   case "module":
-   $menu_qobj->url=NULL;
+   $menu_qobj->url=null;
    $menu_qobj->module=$r_module;
    $menu_qobj->script=$r_script;
    $menu_qobj->tab=$r_tab;
@@ -234,7 +234,7 @@ function menu_save(){
  }
  // get last order of new fkMenu
  if(!$menu_obj->id || $menu_qobj->fkMenu<>$menu_obj->fkMenu){
-  if($menu_qobj->fkMenu){$order_query_where="`fkMenu`='".$menu_qobj->fkMenu."'";}else{$order_query_where="`fkMenu` IS NULL";}
+  if($menu_qobj->fkMenu){$order_query_where="`fkMenu`='".$menu_qobj->fkMenu."'";}else{$order_query_where="`fkMenu` IS null";}
   api_dump($order_query="SELECT `order` FROM `framework_menus` WHERE ".$order_query_where." ORDER BY `order` DESC","order_query");
   $v_order=$GLOBALS['database']->queryUniqueValue($order_query);
   $menu_qobj->order=($v_order+1);
@@ -251,7 +251,7 @@ function menu_save(){
   // check if parent menu is changed
   if($menu_qobj->fkMenu<>$menu_obj->fkMenu){
    // rebase other menus
-   if($menu_obj->fkMenu){$rebase_query_where="`fkMenu`='".$menu_obj->fkMenu."'";}else{$rebase_query_where="`fkMenu` IS NULL";}
+   if($menu_obj->fkMenu){$rebase_query_where="`fkMenu`='".$menu_obj->fkMenu."'";}else{$rebase_query_where="`fkMenu` IS null";}
    api_dump($rebase_query="UPDATE `framework_menus` SET `order`=`order`-'1' WHERE `order`>'".$menu_obj->order."' AND ".$rebase_query_where." ORDER BY `order` ASC");
    $GLOBALS['database']->queryExecute($rebase_query);
   }
@@ -294,14 +294,14 @@ function menu_move($direction){
    $fkMenu_obj=new cMenu($menu_obj->fkMenu);
    $menu_qobj->fkMenu=$fkMenu_obj->fkMenu;
    // set last order of new fkMenu
-   if($menu_qobj->fkMenu){$order_query_where="`fkMenu`='".$menu_qobj->fkMenu."'";}else{$order_query_where="`fkMenu` IS NULL";}
+   if($menu_qobj->fkMenu){$order_query_where="`fkMenu`='".$menu_qobj->fkMenu."'";}else{$order_query_where="`fkMenu` IS null";}
    api_dump($order_query="SELECT `order` FROM `framework_menus` WHERE ".$order_query_where." ORDER BY `order` DESC","order_query");
    $v_order=$GLOBALS['database']->queryUniqueValue($order_query);
    $menu_qobj->order=($v_order+1);
    // update menu
    $GLOBALS['database']->queryUpdate("framework_menus",$menu_qobj);
    // rebase other menus
-   if($menu_obj->fkMenu){$rebase_query_where="`fkMenu`='".$menu_obj->fkMenu."'";}else{$rebase_query_where="`fkMenu` IS NULL";}
+   if($menu_obj->fkMenu){$rebase_query_where="`fkMenu`='".$menu_obj->fkMenu."'";}else{$rebase_query_where="`fkMenu` IS null";}
    api_dump($rebase_query="UPDATE `framework_menus` SET `order`=`order`-'1' WHERE `order`>'".$menu_obj->order."' AND ".$rebase_query_where." ORDER BY `order` ASC","rebase_query");
    $GLOBALS['database']->queryExecute($rebase_query);
    break;
@@ -314,7 +314,7 @@ function menu_move($direction){
    // update menu
    $GLOBALS['database']->queryUpdate("framework_menus",$menu_qobj);
    // rebase other menus
-   if($menu_obj->fkMenu){$rebase_query_where="`fkMenu`='".$menu_obj->fkMenu."'";}else{$rebase_query_where="`fkMenu` IS NULL";}
+   if($menu_obj->fkMenu){$rebase_query_where="`fkMenu`='".$menu_obj->fkMenu."'";}else{$rebase_query_where="`fkMenu` IS null";}
    api_dump($rebase_query="UPDATE `framework_menus` SET `order`=`order`+'1' WHERE `order`<'".$menu_obj->order."' AND `order`>='".$menu_qobj->order."' AND `order`<>'0' AND `id`!='".$menu_obj->id."' AND ".$rebase_query_where,"rebase_query");
    $GLOBALS['database']->queryExecute($rebase_query);
    break;
@@ -325,7 +325,7 @@ function menu_move($direction){
    // update menu
    $GLOBALS['database']->queryUpdate("framework_menus",$menu_qobj);
    // rebase other menus
-   if($menu_obj->fkMenu){$rebase_query_where="`fkMenu`='".$menu_obj->fkMenu."'";}else{$rebase_query_where="`fkMenu` IS NULL";}
+   if($menu_obj->fkMenu){$rebase_query_where="`fkMenu`='".$menu_obj->fkMenu."'";}else{$rebase_query_where="`fkMenu` IS null";}
    api_dump($rebase_query="UPDATE `framework_menus` SET `order`=`order`-'1' WHERE `order`>'".$menu_obj->order."' AND `order`<='".$menu_qobj->order."' AND `order`<>'0' AND `id`!='".$menu_obj->id."' AND ".$rebase_query_where,"rebase_query");
    $GLOBALS['database']->queryExecute($rebase_query);
    break;
@@ -728,7 +728,7 @@ function user_recovery(){
   // generate new password
   $f_password=substr(md5(date("Y-m-d H:i:s").rand(1,99999)),0,8);
   // update password and reset secret
-  $GLOBALS['database']->queryExecute("UPDATE `framework_users` SET `password`='".md5($f_password)."',`secret`=NULL,`pwdTimestamp`=NULL WHERE `id`='".$user_obj->id."'");
+  $GLOBALS['database']->queryExecute("UPDATE `framework_users` SET `password`='".md5($f_password)."',`secret`=null,`pwdTimestamp`=null WHERE `id`='".$user_obj->id."'");
   // send new password
   api_sendmail($r_mail,"Coordinator new password",$f_password); /** @todo fare mail come si deve */
   // redirect

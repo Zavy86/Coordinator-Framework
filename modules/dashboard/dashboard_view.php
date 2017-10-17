@@ -18,7 +18,7 @@
  foreach($tiles_results as $tile){
   $tile_obj=new cDashboardTile($tile);
   // add dashboard element
-  $dashboard->addTile($tile_obj->url,$tile_obj->label,$tile_obj->description,TRUE,$tile_obj->size,$tile_obj->icon,$tile_obj->counter->count,$tile_obj->counter->class,$tile_obj->background,$tile_obj->target);
+  $dashboard->addTile($tile_obj->url,$tile_obj->label,$tile_obj->description,true,$tile_obj->size,$tile_obj->icon,$tile_obj->counter->count,$tile_obj->counter->class,$tile_obj->background,$tile_obj->target);
  }
  // build grid object
  $grid=new cGrid();

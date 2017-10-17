@@ -42,7 +42,7 @@ class cDashboardTile{
  public function __construct($tile){
   // get object
   if(is_numeric($tile)){$tile=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_users_dashboards` WHERE `id`='".$tile."'",$GLOBALS['debug']);}
-  if(!$tile->id){return FALSE;}
+  if(!$tile->id){return false;}
   // set properties
   $this->id=(int)$tile->id;
   $this->fkUser=(int)$tile->fkUser;
@@ -60,9 +60,9 @@ class cDashboardTile{
   // make counter
   /** @todo get from counter_function */
   $this->counter=new stdClass();
-  $this->counter->count=NULL;
-  $this->counter->class=NULL;
-  return TRUE;
+  $this->counter->count=null;
+  $this->counter->class=null;
+  return true;
  }
 
  /**

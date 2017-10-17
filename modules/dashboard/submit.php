@@ -34,7 +34,7 @@ function tile_save(){
  $r_redirect_scr=$_REQUEST['redirect_scr'];
  $r_redirect_tab=$_REQUEST['redirect_tab'];
  // check parameters
- if(!$r_redirect_mod){$r_redirect_mod="dashboard";$r_redirect_scr="dashboard_customize";$r_redirect_tab=NULL;}
+ if(!$r_redirect_mod){$r_redirect_mod="dashboard";$r_redirect_scr="dashboard_customize";$r_redirect_tab=null;}
  // build tile query object
  $tile_qobj=new stdClass();
  $tile_qobj->id=$tile_obj->id;
@@ -149,7 +149,7 @@ function tile_remove(){
  $r_redirect_scr=$_REQUEST['redirect_scr'];
  $r_redirect_tab=$_REQUEST['redirect_tab'];
  // check parameters
- if(!$r_redirect_mod){$r_redirect_mod="dashboard";$r_redirect_scr="dashboard_customize";$r_redirect_tab=NULL;}
+ if(!$r_redirect_mod){$r_redirect_mod="dashboard";$r_redirect_scr="dashboard_customize";$r_redirect_tab=null;}
  // debug
  api_dump($tile_obj);
  // remove tile

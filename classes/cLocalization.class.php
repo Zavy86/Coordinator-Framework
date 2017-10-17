@@ -31,7 +31,7 @@ class cLocalization{
   $this->available_localizations=array();
   $this->localized_strings_array=array();
   // load standard localizations
-  $this->load(NULL);
+  $this->load(null);
  }
 
  /**
@@ -46,7 +46,7 @@ class cLocalization{
   // check for module path
   if($module){$path=ROOT."modules/".$module."/localizations/";}else{$path=ROOT."localizations/";}
   // check for directory
-  if(!file_exists($path)){return FALSE;}
+  if(!file_exists($path)){return false;}
   // scan all localization files
   foreach(scandir($path) as $file){if(substr(strtolower($file),-4)==".xml"){$xml_files[]=$file;}}
   // cycle all localization files
@@ -61,7 +61,7 @@ class cLocalization{
    foreach($xml_parsed->text as $text_xml){$this->localized_strings_array[$language_code][(string)$text_xml['key']]=(string)$text_xml;}
   }
   // return
-  return TRUE;
+  return true;
  }
 
  /**
@@ -78,11 +78,11 @@ class cLocalization{
   * @param string $property Property name
   * @return mixed value
   */
- public function getString($key,$localization_code=NULL){
+ public function getString($key,$localization_code=null){
   if(!$localization_code){$localization_code=$GLOBALS['session']->user->localization;}
   $return=$this->localized_strings_array[$localization_code][$key];
   if(!$return){$return=$this->localized_strings_array["default"][$key];}
-  if(!$return){$return=FALSE;}
+  if(!$return){$return=false;}
   // return
   return $return;
  }

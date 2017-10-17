@@ -44,22 +44,22 @@ class Database{
    $return=$query->execute();
   }catch(PDOException $e){
    $_SESSION['coordinator_logs'][]=array("error","PDO queryUpdate: ".$e->getMessage());
-   $return=FALSE;
+   $return=false;
   }
   $this->query_counter++;
   return $return;
  }
 
 
- public function queryObjects($sql,$debug=FALSE){
+ public function queryObjects($sql,$debug=false){
   $_SESSION['coordinator_logs'][]=array("log","PDO queryObjects: ".$sql);
   try{
    $results=$this->connection->query($sql);
    $return=$results->fetchAll(PDO::FETCH_OBJ);
-   if($debug){$_SESSION['coordinator_logs'][]=array("log","PDO queryObjects results:\n".var_export($return,TRUE));}
+   if($debug){$_SESSION['coordinator_logs'][]=array("log","PDO queryObjects results:\n".var_export($return,true));}
   }catch(PDOException $e){
    $_SESSION['coordinator_logs'][]=array("warn","PDO queryObjects: ".$e->getMessage());
-   $return=FALSE;
+   $return=false;
   }
   $this->query_counter++;
   if(!is_array($return)){$return=array();}
@@ -67,23 +67,23 @@ class Database{
  }
 
 
- public function queryUniqueObject($sql,$debug=FALSE){
+ public function queryUniqueObject($sql,$debug=false){
   $sql.=" LIMIT 0,1";
   $_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueObject: ".$sql);
   try{
    $results=$this->connection->query($sql);
    $return=$results->fetch(PDO::FETCH_OBJ);
-   if($debug){$_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueObject result:\n".var_export($return,TRUE));}
+   if($debug){$_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueObject result:\n".var_export($return,true));}
   }catch(PDOException $e){
    $_SESSION['coordinator_logs'][]=array("warn","PDO queryUniqueObject: ".$e->getMessage());
-   $return=FALSE;
+   $return=false;
   }
   $this->query_counter++;
   return $return;
  }
 
 
- public function queryUniqueValue($sql,$debug=FALSE){
+ public function queryUniqueValue($sql,$debug=false){
   $sql.=" LIMIT 0,1";
   $_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueValue: ".$sql);
   try{
@@ -92,7 +92,7 @@ class Database{
    if($debug){$_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueValue result: ".$return);}
    }catch(PDOException $e){
    $_SESSION['coordinator_logs'][]=array("warn","PDO queryUniqueValue: ".$e->getMessage());
-   $return=FALSE;
+   $return=false;
   }
   $this->query_counter++;
   return $return;
@@ -111,14 +111,14 @@ class Database{
   $sql=substr($sql,0,-1).") VALUES (";
   foreach(array_keys(get_object_vars($object)) as $key){$sql.=":".$key.",";}
   $sql=substr($sql,0,-1).")";
-  $_SESSION['coordinator_logs'][]=array("log","PDO queryInsert: ".$sql."\n".var_export($object,TRUE));
+  $_SESSION['coordinator_logs'][]=array("log","PDO queryInsert: ".$sql."\n".var_export($object,true));
   try{
    $query=$this->connection->prepare($sql);
    $query->execute(get_object_vars($object));
    $return=$this->connection->lastInsertId();
   }catch(PDOException $e){
    $_SESSION['coordinator_logs'][]=array("error","PDO queryInsert: ".$e->getMessage());
-   $return=FALSE;
+   $return=false;
   }
   $this->query_counter++;
   return $return;
@@ -132,18 +132,18 @@ class Database{
   $sql="UPDATE `".$table."` SET ";
   foreach(array_keys(get_object_vars($object)) as $key){
    if(!array_key_exists($key,$fields_array)){unset($object->$key);continue;}
-   if($object->$key==""){$object->$key=NULL;}
+   if($object->$key==""){$object->$key=null;}
    if($key<>$idKey){$sql.="`".$key."`=:".$key.",";}
   }
   $sql=substr($sql,0,-1)." WHERE `".$idKey."`=:".$idKey."";
-  $_SESSION['coordinator_logs'][]=array("log","PDO queryUpdate: ".$sql."\n".var_export($object,TRUE));
+  $_SESSION['coordinator_logs'][]=array("log","PDO queryUpdate: ".$sql."\n".var_export($object,true));
   try{
    $query=$this->connection->prepare($sql);
    $query->execute(get_object_vars($object));
    $return=$object->$idKey;
   }catch(PDOException $e){
    $_SESSION['coordinator_logs'][]=array("error","PDO queryUpdate: ".$e->getMessage());
-   $return=FALSE;
+   $return=false;
   }
   $this->query_counter++;
   return $return;
@@ -156,10 +156,10 @@ class Database{
   try{
    $query=$this->connection->query($sql);
    $_SESSION['coordinator_logs'][]=array("warn","PDO queryDelete: ".$query->rowCount()." rows deleted");
-   return TRUE;
+   return true;
   }catch(PDOException $e){
    $_SESSION['coordinator_logs'][]=array("error","PDO queryDelete: ".$e->getMessage());
-   $return=FALSE;
+   $return=false;
   }
   $this->query_counter++;
   return $return;
@@ -174,7 +174,7 @@ class Database{
    $return=$results->fetchColumn();
   }catch(PDOException $e){
    $_SESSION['coordinator_logs'][]=array("error","PDO count: ".$e->getMessage());
-   $return=FALSE;
+   $return=false;
   }
   $this->query_counter++;
   return $return;

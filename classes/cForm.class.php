@@ -37,18 +37,18 @@ class cForm{
   * @param string $id Form ID, if null randomly generated
   * @return boolean
   */
- public function __construct($action,$method="POST",$class=NULL,$id=NULL){
-  if(!in_array(strtoupper($method),array("GET","POST"))){return FALSE;}
+ public function __construct($action,$method="POST",$class=null,$id=null){
+  if(!in_array(strtoupper($method),array("GET","POST"))){return false;}
   if(substr($action,0,1)=="?"){$action="index.php".$action;}
-  if(!$action){return FALSE;}
+  if(!$action){return false;}
   $this->action=$action;
   $this->method=$method;
   $this->class=$class;
-  $this->splitted=FALSE;
+  $this->splitted=false;
   if($id){$this->id="form_".$id;}else{$this->id="form_".md5(rand(1,99999));}
   $this->current_field=0;
   $this->fields_array=array();
-  return TRUE;
+  return true;
  }
 
  /**
@@ -70,10 +70,10 @@ class cForm{
   * @param boolean $enabled Enabled
   * @return boolean
   */
- public function addField($typology,$name=NULL,$label=NULL,$value=NULL,$placeholder=NULL,$size=10,$class=NULL,$style=NULL,$tags=NULL,$enabled=TRUE){
-  if(!in_array($typology,array("static","separator","splitter","hidden","text","password","date","datetime","time","month","week","number","email","url","search","tel","color","checkbox","radio","select","textarea","file","text_localized"))){return FALSE;}
-  if(!in_array($typology,array("static","separator","splitter")) && !$name){return FALSE;}
-  if($typology=="splitter"){if($this->splitted){return FALSE;}else{$this->splitted=TRUE;}}
+ public function addField($typology,$name=null,$label=null,$value=null,$placeholder=null,$size=10,$class=null,$style=null,$tags=null,$enabled=true){
+  if(!in_array($typology,array("static","separator","splitter","hidden","text","password","date","datetime","time","month","week","number","email","url","search","tel","color","checkbox","radio","select","textarea","file","text_localized"))){return false;}
+  if(!in_array($typology,array("static","separator","splitter")) && !$name){return false;}
+  if($typology=="splitter"){if($this->splitted){return false;}else{$this->splitted=true;}}
   // build field object
   $field=new stdClass();
   $field->typology=$typology;
@@ -86,8 +86,8 @@ class cForm{
   $field->style=$style;
   $field->tags=$tags;
   $field->enabled=$enabled;
-  $field->addon_append=NULL;
-  $field->addon_prepend=NULL;
+  $field->addon_append=null;
+  $field->addon_prepend=null;
   $field->options_array=array();
   // checks
   if($field->typology=="datetime"){$field->typology="datetime-local";}
@@ -109,7 +109,7 @@ class cForm{
   // add field to form
   $this->current_field++;
   $this->fields_array[$this->current_field]=$field;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -123,10 +123,10 @@ class cForm{
   * @return boolean
   */
  public function addFieldAddon($content,$position="append"){
-  if(!in_array($position,array("append","prepend"))){return FALSE;}
+  if(!in_array($position,array("append","prepend"))){return false;}
   $addon_field="addon_".$position;
   $this->fields_array[$this->current_field]->$addon_field=$content;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -140,9 +140,9 @@ class cForm{
   * @param boolean $enabled Enabled
   * @return boolean
   */
- public function addFieldAddonButton($url,$label,$class=NULL,$style=NULL,$tags=NULL,$enabled=TRUE){
-  if($this->fields_array[$this->current_field]->addon_button->url){return FALSE;}
-  if(!$url || !$label){return FALSE;}
+ public function addFieldAddonButton($url,$label,$class=null,$style=null,$tags=null,$enabled=true){
+  if($this->fields_array[$this->current_field]->addon_button->url){return false;}
+  if(!$url || !$label){return false;}
   // build button object
   $button=new stdClass();
   $button->url=$url;
@@ -155,7 +155,7 @@ class cForm{
   if(!$button->class){$button->class="btn-default";}
   // add button to field
   $this->fields_array[$this->current_field]->addon_button=$button;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -169,8 +169,8 @@ class cForm{
   * @param boolean $enabled Enabled
   * @return boolean
   */
- public function addFieldOption($value,$label,$class=NULL,$style=NULL,$tags=NULL,$enabled=TRUE){
-  if(!$label){return FALSE;}
+ public function addFieldOption($value,$label,$class=null,$style=null,$tags=null,$enabled=true){
+  if(!$label){return false;}
   // build field option object
   $fieldOption=new stdClass();
   $fieldOption->value=$value;
@@ -180,7 +180,7 @@ class cForm{
   $fieldOption->tags=$tags;
   $fieldOption->enabled=$enabled;
   $this->fields_array[$this->current_field]->options_array[]=$fieldOption;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -196,8 +196,8 @@ class cForm{
   * @param boolean $enabled Enabled
   * @return boolean
   */
- public function addControl($typology,$label,$url=NULL,$class=NULL,$confirm=NULL,$style=NULL,$tags=NULL,$enabled=TRUE){
-  if(!in_array($typology,array("submit","reset","button"))){return FALSE;}
+ public function addControl($typology,$label,$url=null,$class=null,$confirm=null,$style=null,$tags=null,$enabled=true){
+  if(!in_array($typology,array("submit","reset","button"))){return false;}
   // build field object
   $control=new stdClass();
   $control->typology=$typology;
@@ -219,7 +219,7 @@ class cForm{
   // add field to form
   $this->current_control++;
   $this->controls_array[$this->current_control]=$control;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -228,7 +228,7 @@ class cForm{
   * @param integer scaleFactor Scale factor
   * @return string HTML source code
   */
- public function render($scaleFactor=NULL){
+ public function render($scaleFactor=null){
   // renderize form
   $return.="<!-- form -->\n";
   $return.="<form class=\"form-horizontal ".$this->class."\" action=\"".$this->action."\" method=\"".$this->method."\" id=\"".$this->id."\" enctype=\"multipart/form-data\">\n";
@@ -320,19 +320,19 @@ class cForm{
      $return.=$split_identation."   <input type=\"text\"".$field_tags.">\n";
      // add an hidden form field with required name
      $value_localizations=htmlspecialchars(json_encode($field->value_localizations));
-     if($value_localizations=="null"){$value_localizations=NULL;}
+     if($value_localizations=="null"){$value_localizations=null;}
      $return.=$split_identation."   <input type=\"hidden\" name=\"".substr($field->name,0,-10)."\" id=\"".$this->id."_input_".substr($field->name,0,-10)."\" value=\"".$value_localizations."\">\n";
      // build translation form
-     $translation_form=new cForm("#","POST",NULL,$this->id."_input_".$field->name);
+     $translation_form=new cForm("#","POST",null,$this->id."_input_".$field->name);
      foreach($GLOBALS['localization']->available_localizations as $code=>$language){
       if($code=="en_EN"){$language="Default";$label=api_text("form-input-text_localized-default");$text_key="default";}
       else{$label=$language;$text_key="language";}
       $translation_form->addField("text",substr($field->name,0,-10)."_lang_".$code,$label,$field->value_localizations[$code],api_text("form-input-text_localized-".$text_key."-placeholder",$language));
      }
-     $translation_form->addControl("submit",api_text("form-fc-submit"),"#","btn-primary",NULL,NULL,"onClick=\"".$this->id."_input_".$field->name."_encoder();return false;\"");
-     $translation_form->addControl("button",api_text("form-fc-cancel"),"#",NULL,NULL,NULL,"data-dismiss='modal'");
+     $translation_form->addControl("submit",api_text("form-fc-submit"),"#","btn-primary",null,null,"onClick=\"".$this->id."_input_".$field->name."_encoder();return false;\"");
+     $translation_form->addControl("button",api_text("form-fc-cancel"),"#",null,null,null,"data-dismiss='modal'");
      // build translation modal window
-     $translation_modal=new cModal($field->label,NULL,$this->id."_input_".$field->name);
+     $translation_modal=new cModal($field->label,null,$this->id."_input_".$field->name);
      $translation_modal->SetBody($translation_form->render());
      // add translation modal window to html
      $GLOBALS['html']->addModal($translation_modal);

@@ -42,9 +42,9 @@ class cOperationsButton{
   * @param string $tags Custom HTML tags
   * @return boolean
   */
- public function __construct($icon="fa-cog faa-spin",$label=NULL,$direction="left",$class=NULL,$style=NULL,$tags=NULL,$id=NULL){
+ public function __construct($icon="fa-cog faa-spin",$label=null,$direction="left",$class=null,$style=null,$tags=null,$id=null){
   if($id){$this->id="operationsButton_".$id;}else{$this->id="operationsButton_".md5(rand(1,99999));}
-  if(!in_array(strtolower($direction),array("left","right"))){echo "ERROR - OperationsButton - Invalid direction";return FALSE;}
+  if(!in_array(strtolower($direction),array("left","right"))){echo "ERROR - OperationsButton - Invalid direction";return false;}
   $this->icon=$icon;
   $this->label=$label;
   $this->direction=$direction;
@@ -52,7 +52,7 @@ class cOperationsButton{
   $this->style=$style;
   $this->tags=$tags;
   $this->elements_array=array();
-  return TRUE;
+  return true;
  }
 
  /**
@@ -68,8 +68,8 @@ class cOperationsButton{
   * @param string $tags Custom HTML tags
   * @return boolean
   */
- public function addElement($url,$icon,$title=NULL,$enabled=TRUE,$confirm=NULL,$class=NULL,$style=NULL,$tags=NULL){
-  if(!$url){echo "ERROR - OperationsButton->addElement - URL is required";return FALSE;}
+ public function addElement($url,$icon,$title=null,$enabled=true,$confirm=null,$class=null,$style=null,$tags=null){
+  if(!$url){echo "ERROR - OperationsButton->addElement - URL is required";return false;}
   $element=new stdClass();
   $element->url=$url;
   $element->icon=$icon;
@@ -81,7 +81,7 @@ class cOperationsButton{
   $element->tags=$tags;
   // add element to elements array
   $this->elements_array[]=$element;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -91,19 +91,19 @@ class cOperationsButton{
   */
  public function render(){
   // check for elements
-  if(!count($this->elements_array)){return NULL;}
+  if(!count($this->elements_array)){return null;}
   // renderize description list
   $return="<!-- operations-button -->\n";
   $return.="<div id='".$this->id."' class=\"operationButton btn btn-xs btn-default faa-parent animated-hover ".$this->class."\">\n";
   // make icon
-  $icon.=" <i class=\"fa ".$this->icon." fa-fw hidden-link\" aria-hidden=\"true\"></i>".($this->label?" ".$this->label:NULL)."\n";
+  $icon.=" <i class=\"fa ".$this->icon." fa-fw hidden-link\" aria-hidden=\"true\"></i>".($this->label?" ".$this->label:null)."\n";
   // make operations
   $operations=" <span id=\"".$this->id."_operations\" style=\"display:none\">\n";
   // cycle all elements
   foreach($this->elements_array as $element){
    $operations.="  &nbsp;";
    if($element->enabled){
-    $operations.="<a href=\"".$element->url."\"".($element->confirm?" onClick=\"return confirm('".addslashes($element->confirm)."')\"":NULL).">";
+    $operations.="<a href=\"".$element->url."\"".($element->confirm?" onClick=\"return confirm('".addslashes($element->confirm)."')\"":null).">";
     $operations.="<i class='fa ".$element->icon." fa-fw faa-tada animated-hover hidden-link' aria-hidden='true' title=\"".str_ireplace('"',"''",$element->title)."\"></i>";
     $operations.="</a>\n";
    }else{$operations.="<i class='fa ".$element->icon." disabled' aria-hidden='true'></i>\n";}

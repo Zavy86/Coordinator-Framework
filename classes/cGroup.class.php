@@ -40,7 +40,7 @@ class cGroup{
  public function __construct($group){
   // get object
   if(is_numeric($group)){$group=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_groups` WHERE `id`='".$group."'",$GLOBALS['debug']);}
-  if(!$group->id){return FALSE;}
+  if(!$group->id){return false;}
   // set properties
   $this->id=(int)$group->id;
   $this->fkGroup=$group->fkGroup;
@@ -54,7 +54,7 @@ class cGroup{
   // make fullname
   $this->fullname=$group->name;
   if($this->description){$this->fullname.=" - ".$group->description;}
-  return TRUE;
+  return true;
  }
 
 /**
@@ -76,7 +76,7 @@ class cGroup{
    case "updTimestamp":return $this->updTimestamp;
    case "updFkUser":return $this->updFkUser;
    case "deleted":return $this->deleted;
-   default:return FALSE;
+   default:return false;
   }
  }
 

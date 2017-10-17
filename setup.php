@@ -7,7 +7,7 @@
  * @link    http://www.zavynet.org
  */
  // errors configuration
- ini_set("display_errors",TRUE);
+ ini_set("display_errors",true);
  error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
  // defines constants
  define('DIR',"");
@@ -34,28 +34,28 @@
  // set html title
  $html->setTitle("Setup");
  // build setup form
- $form=new cForm("setup.php","POST",NULL,"setup");
+ $form=new cForm("setup.php","POST",null,"setup");
  // check for submit
  if(!$_REQUEST['setup_action']){
   // setup form
-  $form->addField("hidden","setup_action",NULL,"check");
-  $form->addField("text","dir","Directory",substr($_SERVER['SCRIPT_NAME'],0,-9),"Framework directory with trailing slash",NULL,NULL,NULL,"required");
-  $form->addField("text","firstname","Firstname",NULL,"Administrator firstname",NULL,NULL,NULL,"required");
-  $form->addField("text","lastname","Lastname",NULL,"Administrator lastname",NULL,NULL,NULL,"required");
-  $form->addField("email","mail","Mail address",NULL,"Administrator e-mail address",NULL,NULL,NULL,"required");
-  $form->addField("text","password","Password",NULL,"Administrator password",NULL,NULL,NULL,"required");
-  $form->addField("select","localization","Localization",NULL,"Select a localization..",NULL,NULL,NULL,"required");
+  $form->addField("hidden","setup_action",null,"check");
+  $form->addField("text","dir","Directory",substr($_SERVER['SCRIPT_NAME'],0,-9),"Framework directory with trailing slash",null,null,null,"required");
+  $form->addField("text","firstname","Firstname",null,"Administrator firstname",null,null,null,"required");
+  $form->addField("text","lastname","Lastname",null,"Administrator lastname",null,null,null,"required");
+  $form->addField("email","mail","Mail address",null,"Administrator e-mail address",null,null,null,"required");
+  $form->addField("text","password","Password",null,"Administrator password",null,null,null,"required");
+  $form->addField("select","localization","Localization",null,"Select a localization..",null,null,null,"required");
   foreach($localization->available_localizations as $code=>$language){$form->addFieldOption($code,$language." (".$code.")");}
-  $form->addField("select","timezone","Timezone",NULL,"Select a time zone",NULL,NULL,NULL,"required");
+  $form->addField("select","timezone","Timezone",null,"Select a time zone",null,null,null,"required");
   foreach(timezone_identifiers_list() as $timezone){$form->addFieldOption($timezone,$timezone);}
   $form->addField("splitter");
-  $form->addField("select","db_type","Database typology","mysql","Select one database..",NULL,NULL,NULL,"required");
+  $form->addField("select","db_type","Database typology","mysql","Select one database..",null,null,null,"required");
   $form->addFieldOption("mysql","MySQL");
-  $form->addField("text","db_host","Host",NULL,"Hostname or IP Address",NULL,NULL,NULL,"required");
-  $form->addField("text","db_port","Port",3306,"Port number",NULL,NULL,NULL,"required");
-  $form->addField("text","db_name","Database",NULL,"Database name",NULL,NULL,NULL,"required");
-  $form->addField("text","db_user","Username",NULL,"Database username",NULL,NULL,NULL,"required");
-  $form->addField("text","db_pass","Password",NULL,"Database password",NULL,NULL,NULL,"required");
+  $form->addField("text","db_host","Host",null,"Hostname or IP Address",null,null,null,"required");
+  $form->addField("text","db_port","Port",3306,"Port number",null,null,null,"required");
+  $form->addField("text","db_name","Database",null,"Database name",null,null,null,"required");
+  $form->addField("text","db_user","Username",null,"Database username",null,null,null,"required");
+  $form->addField("text","db_pass","Password",null,"Database password",null,null,null,"required");
   $form->addControl("submit","Check parameters");
  }else{
   // check setup
@@ -142,26 +142,26 @@
    $query->execute();
    /** @todo settare un random cron token */
    // setup complete form
-   $form->addField("hidden","setup_action",NULL,"completed");
-   $form->addField("static",NULL,"Setup","<i class='fa fa-check'></i> Completed");
+   $form->addField("hidden","setup_action",null,"completed");
+   $form->addField("static",null,"Setup","<i class='fa fa-check'></i> Completed");
    $form->addControl("button","Complete","index.php","btn-primary");
   }else{
    // check form
-   $form->addField("hidden","setup_action",NULL,"setup");
-   $form->addField("hidden","dir",NULL,$configuration->dir);
-   $form->addField("hidden","db_type",NULL,$configuration->db_type);
-   $form->addField("hidden","db_host",NULL,$configuration->db_host);
-   $form->addField("hidden","db_name",NULL,$configuration->db_name);
-   $form->addField("hidden","db_user",NULL,$configuration->db_user);
-   $form->addField("hidden","db_pass",NULL,$configuration->db_pass);
-   $form->addField("hidden","firstname",NULL,$_REQUEST['firstname']);
-   $form->addField("hidden","lastname",NULL,$_REQUEST['lastname']);
-   $form->addField("hidden","mail",NULL,$_REQUEST['mail']);
-   $form->addField("hidden","localization",NULL,$_REQUEST['localization']);
-   $form->addField("hidden","timezone",NULL,$_REQUEST['timezone']);
-   $form->addField("hidden","password",NULL,$_REQUEST['password']);
-   $form->addField("static",NULL,"Check permissions","<i class='fa fa-check'></i> Ok");
-   $form->addField("static",NULL,"Check parameters","<i class='fa fa-check'></i> Ok");
+   $form->addField("hidden","setup_action",null,"setup");
+   $form->addField("hidden","dir",null,$configuration->dir);
+   $form->addField("hidden","db_type",null,$configuration->db_type);
+   $form->addField("hidden","db_host",null,$configuration->db_host);
+   $form->addField("hidden","db_name",null,$configuration->db_name);
+   $form->addField("hidden","db_user",null,$configuration->db_user);
+   $form->addField("hidden","db_pass",null,$configuration->db_pass);
+   $form->addField("hidden","firstname",null,$_REQUEST['firstname']);
+   $form->addField("hidden","lastname",null,$_REQUEST['lastname']);
+   $form->addField("hidden","mail",null,$_REQUEST['mail']);
+   $form->addField("hidden","localization",null,$_REQUEST['localization']);
+   $form->addField("hidden","timezone",null,$_REQUEST['timezone']);
+   $form->addField("hidden","password",null,$_REQUEST['password']);
+   $form->addField("static",null,"Check permissions","<i class='fa fa-check'></i> Ok");
+   $form->addField("static",null,"Check parameters","<i class='fa fa-check'></i> Ok");
    $form->addControl("submit","Setup");
   }
  }

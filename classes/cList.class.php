@@ -39,8 +39,8 @@ class cList{
   * @param string $id List ID
   * @return boolean
   */
- public function __construct($tag="ul",$icon="fa-chevron-right",$class=NULL,$style=NULL,$tags=NULL,$id=NULL){
-  if(!in_array(strtolower($tag),array("ul","ol"))){return FALSE;}
+ public function __construct($tag="ul",$icon="fa-chevron-right",$class=null,$style=null,$tags=null,$id=null){
+  if(!in_array(strtolower($tag),array("ul","ol"))){return false;}
   if($id){$this->id="list_".$id;}else{$this->id="list_".md5(rand(1,99999));}
   $this->tag=$tag;
   $this->icon=$icon;
@@ -50,7 +50,7 @@ class cList{
   $this->elements_array=array();
   // check tag
   if(strtolower($this->tag)=="ul"){$this->class="fa-ul ".$this->class;}
-  return TRUE;
+  return true;
  }
 
  /**
@@ -62,7 +62,7 @@ class cList{
   * @param string $tags Custom HTML tags
   * @return boolean
   */
- public function addElement($content,$class=NULL,$style=NULL,$tags=NULL){
+ public function addElement($content,$class=null,$style=null,$tags=null){
   if(!strlen($content)>0){$content="&nbsp;";}
   $element=new stdClass();
   $element->content=$content;
@@ -71,7 +71,7 @@ class cList{
   $element->tags=$tags;
   // add element to elements array
   $this->elements_array[]=$element;
-  return TRUE;
+  return true;
  }
 
  /**
@@ -81,7 +81,7 @@ class cList{
   */
  public function render(){
   // check for elements
-  if(!count($this->elements_array)){return NULL;}
+  if(!count($this->elements_array)){return null;}
   // make list tags
   $list_tags=" id=\"".$this->id."\"";
   if($this->class){$list_tags.=" class=\"".$this->class."\"";}
@@ -93,7 +93,7 @@ class cList{
   foreach($this->elements_array as $element){
    if(!in_array(substr(strtolower($element->content),0,7),array("<!-- li","<ul id="))){
     // make item tags
-    $item_tags=NULL;
+    $item_tags=null;
     if($element->class){$item_tags.=" class=\"".$element->class."\"";}
     if($element->style){$item_tags.=" style=\"".$element->style."\"";}
     if($element->tags){$item_tags.=" ".$element->tags;}
