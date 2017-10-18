@@ -29,6 +29,7 @@
  /** @todo verificare quali caricare sempre e quali solo alla bisogna */
  $this->addScript(HELPERS."peity/js/peity-3.2.1.min.js",true);
  $this->addScript(HELPERS."justgage/js/justgage-1.2.2.js",true);
+ $this->addScript(HELPERS."chartjs/js/chart-2.7.0.min.js",true);
  /** @todo add some javascript helpers here */
  $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.7.min.js",true);
  $this->addScript(HELPERS."bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",true);
