@@ -311,6 +311,8 @@
  <text key="users_add">Nuovo utente</text>
  <text key="users_add-mail">Indirizzo mail</text>
  <text key="users_add-mail-placeholder">Indirizzo mail dell'utente</text>
+ <text key="users_add-username">Username</text>
+ <text key="users_add-username-placeholder">Nome utente LDAP</text>
  <text key="users_add-firstname">Nome</text>
  <text key="users_add-firstname-placeholder">Nome dell'utente</text>
  <text key="users_add-lastname">Cognome</text>
@@ -329,7 +331,7 @@
  <text key="users_edit">Modifica utente</text>
  <text key="users_edit-enabled">Abilitato</text>
  <text key="users_edit-mail">Indirizzo mail</text>
- <text key="users_edit-mail-placeholder">Indirizzo mail dell'utente</text>
+ <text key="users_edit-username">Username</text>
  <text key="users_edit-firstname">Nome</text>
  <text key="users_edit-firstname-placeholder">Nome dell'utente</text>
  <text key="users_edit-lastname">Cognome</text>

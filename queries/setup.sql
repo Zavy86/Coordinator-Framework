@@ -104,6 +104,7 @@ CREATE TABLE IF NOT EXISTS `framework_sessions` (
 CREATE TABLE IF NOT EXISTS `framework_users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `username` VARCHAR(32) COLLATE utf8_unicode_ci NULL,
   `firstname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lastname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `localization` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
@@ -122,7 +123,8 @@ CREATE TABLE IF NOT EXISTS `framework_users` (
   `pwdTimestamp` int(11) unsigned DEFAULT NULL,
   `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `mail` (`mail`)
+  UNIQUE KEY `mail` (`mail`),
+  UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
