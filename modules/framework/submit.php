@@ -549,7 +549,6 @@ function module_authorizations_group_add(){
  // check parameters
  if(!$r_fkGroup){api_alerts_add(api_text("framework_alert_moduleError"),"danger");api_redirect("?mod=framework&scr=modules_view&module=".$module_obj->module);}
  if(!is_array($r_fkAuthorizations_array)){$r_fkAuthorizations_array=array();}
-
  // cycle all module authorization
  foreach($module_obj->authorizations_array as $authorization){
   // remove old group authorization
