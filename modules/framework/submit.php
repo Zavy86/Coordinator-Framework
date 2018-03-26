@@ -640,10 +640,6 @@ function module_authorizations_reset(){
  api_redirect("?mod=framework&scr=modules_view&module=".$module_obj->module);
 }
 
-
-
-
-
 /**
  * User Authentication
  *
@@ -656,8 +652,71 @@ function module_authorizations_reset(){
 function user_authentication($username,$password){
  // retrieve user object
  $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_users` WHERE `mail`='".$username."'",$GLOBALS['debug']);
+ // check for user object
  if(!$user_obj->id){return -1;}
+ // check password
  if(md5($password)!==$user_obj->password){return -2;}
+ // return user object
+ return $user_obj->id;
+}
+/**
+ * User Authentication LDAP
+ *
+ * @param string $username Username
+ * @param string $password Password
+ * @return integer Account User ID or Error Code
+ *                 -1 User account was not found
+ *                 -2 Binding error
+ *                 -3 Groups error
+ */
+function user_authentication_ldap($username,$password){
+ // definitions
+ $binded=false;
+ /** @todo check ping or use ldap cache */
+ // connect to ldap server
+ $ldap=@ldap_connect($GLOBALS['settings']->sessions_ldap_hostname);
+ // set ldap options
+ @ldap_set_option($ldap,LDAP_OPT_PROTOCOL_VERSION,3);
+ @ldap_set_option($ldap,LDAP_OPT_REFERRALS,0);
+ // try to bind with specified credentials
+ $bind=@ldap_bind($ldap,$username.$GLOBALS['settings']->sessions_ldap_domain,$password);
+ // check for bind
+ if(!$bind){return -2;}
+ // Check ldap groups if defined
+ if($GLOBALS['settings']->sessions_ldap_groups){
+  // check presence in groups
+  $filter="(".$GLOBALS['settings']->sessions_ldap_userfield."=".$username.")"; //
+  $attr=array("memberof");
+  $result=ldap_search($ldap,$GLOBALS['settings']->sessions_ldap_dn,$filter,$attr);
+  $entries=ldap_get_entries($ldap, $result);
+  // cycle all ldap memberof user group
+  foreach($entries[0]['memberof'] as $groups){if(strpos($groups,$GLOBALS['settings']->sessions_ldap_groups)){$binded=true;}}
+ }else{
+  // or set binded to true
+  $binded=true;
+ }
+ // disconnect from ldap
+ @ldap_unbind($ldap);
+ // check for binded value
+ if(!$binded){return -3;}
+ // retrieve user object
+ $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_users` WHERE `username`='".$username."'",$GLOBALS['debug']);
+ // check for user object
+ if(!$user_obj->id){return -1;}
+ // check for password caching
+ if($GLOBALS['settings']->sessions_ldap_cache){
+  // build user query objects
+  $user_qobj=new stdClass();
+  // acquire variables
+  $user_qobj->id=$user_obj->id;
+  $user_qobj->password=md5($password);
+  $user_qobj->pwdTimestamp=time();
+  // debug
+  api_dump($user_qobj,"user_qobj");
+  // update user
+  $GLOBALS['database']->queryUpdate("framework_users",$user_qobj);
+ }
+ // return user object
  return $user_obj->id;
 }
 /**
@@ -670,16 +729,18 @@ function user_login(){
  //
  api_dump($_SESSION["coordinator_session_id"],"session_id");
  api_dump($GLOBALS['session']->debug(),"session");
-
  // switch authentication method
  switch($GLOBALS['settings']->sessions_authentication_method){
   case "ldap":
-   /** @todo ldap auth */
+   // ldap authentication
+   $authentication_result=user_authentication_ldap($r_username,$r_password);
    break;
   default:
    // standard authentication
    $authentication_result=user_authentication($r_username,$r_password);
  }
+ // debug authentication result
+ api_dump($authentication_result,"authentication_result");
  // check authentication result
  if($authentication_result<1){api_alerts_add(api_text("alert_authenticationFailed"),"warning");api_redirect(DIR."login.php");}
  // try to authenticate user
@@ -750,6 +811,7 @@ function user_add(){
  $user_obj=new stdClass();
  // acquire variables
  $user_obj->mail=$_REQUEST['mail'];
+ $user_obj->username=$_REQUEST['username'];
  $user_obj->firstname=$_REQUEST['firstname'];
  $user_obj->lastname=$_REQUEST['lastname'];
  $user_obj->localization=$_REQUEST['localization'];
@@ -786,6 +848,7 @@ function user_edit(){
  $user_qobj->id=$user_obj->id;
  //$user_qobj->enabled=$_REQUEST['enabled'];
  //$user_qobj->mail=$_REQUEST['mail'];
+ //$user_obj->username=$_REQUEST['username'];
  $user_qobj->firstname=$_REQUEST['firstname'];
  $user_qobj->lastname=$_REQUEST['lastname'];
  $user_qobj->localization=$_REQUEST['localization'];

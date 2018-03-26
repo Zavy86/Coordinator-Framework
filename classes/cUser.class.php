@@ -15,6 +15,7 @@ class cUser{
  /** Properties */
  protected $id;
  protected $mail;
+ protected $username;
  protected $firstname;
  protected $lastname;
  protected $fullname;
@@ -57,6 +58,7 @@ class cUser{
   // set properties
   $this->id=(int)$user->id;
   $this->mail=stripslashes($user->mail);
+  $this->username=stripslashes($user->username);
   $this->firstname=stripslashes($user->firstname);
   $this->lastname=stripslashes($user->lastname);
   $this->fullname=$this->lastname." ".$this->firstname;

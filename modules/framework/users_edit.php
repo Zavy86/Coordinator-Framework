@@ -23,6 +23,7 @@
   $form->addFieldOption(1,api_text("users_edit-enabled"));
  }*/
  $form->addField("static",null,api_text("users_edit-mail"),$user->mail);
+ if($user->username){$form->addField("static",null,api_text("users_edit-username"),$user->username);}
  $form->addField("text","firstname",api_text("users_edit-firstname"),$user->firstname,api_text("users_edit-firstname-placeholder"),null,null,8,"required");
  $form->addField("text","lastname",api_text("users_edit-lastname"),$user->lastname,api_text("users_edit-lastname-placeholder"),null,null,null,"required");
  $form->addField("select","localization",api_text("users_edit-localization"),$user->localization,api_text("users_edit-localization-placeholder"),null,null,null,"required");
