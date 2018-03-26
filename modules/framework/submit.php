@@ -549,8 +549,12 @@ function module_authorizations_group_add(){
  // check parameters
  if(!$r_fkGroup){api_alerts_add(api_text("framework_alert_moduleError"),"danger");api_redirect("?mod=framework&scr=modules_view&module=".$module_obj->module);}
  if(!is_array($r_fkAuthorizations_array)){$r_fkAuthorizations_array=array();}
- // remove old group authorization
- $GLOBALS['database']->queryExecute("DELETE FROM `framework_modules_authorizations_join_groups` WHERE `fkGroup`='".$r_fkGroup."'");
+
+ // cycle all module authorization
+ foreach($module_obj->authorizations_array as $authorization){
+  // remove old group authorization
+  $GLOBALS['database']->queryExecute("DELETE FROM `framework_modules_authorizations_join_groups` WHERE `fkAuthorization`='".$authorization->id."' AND `fkGroup`='".$r_fkGroup."'");
+ }
  // cycle all selected authorizations
  foreach($r_fkAuthorizations_array as $fkAuthorization){
   // build user join group query object
