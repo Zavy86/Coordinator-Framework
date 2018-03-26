@@ -110,6 +110,9 @@
    if($module_obj->module<>"framework"){
     if($module_obj->enabled){$nav->addSubItem(api_text("nav-operations-module_disable"),"?mod=framework&scr=submit&act=module_disable&module=".$_REQUEST['module'],true,api_text("nav-operations-module_disable-confirm"));}
     else{$nav->addSubItem(api_text("nav-operations-module_enable"),"?mod=framework&scr=submit&act=module_enable&module=".$_REQUEST['module']);}
+   }else{
+    // disabled disable for framework
+    $nav->addSubItem(api_text("nav-operations-module_disable"),"#",false);
    }
    // authorizations
    if(count($module_obj->authorizations_array)){
