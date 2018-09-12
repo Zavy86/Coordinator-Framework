@@ -409,6 +409,8 @@
  <text key="modules_list-td-update_database">Aggiorna a <![CDATA[{0}]]></text>
  <text key="modules_list-td-update_source">Ottieni tramite Git</text>
  <text key="modules_list-td-update_source-confirm">Confermi di voler eseguire il download dell'aggiornamento tramite Git?</text>
+ <text key="modules_list-td-update_source_force">Forza tramite Git</text>
+ <text key="modules_list-td-update_source_force-confirm">Impossibile trovare la versione della release. Vuoi tentare un'aggiornamento forzato tramite Git?</text>
  <text key="modules_list-td-update_source-manual">Aggiorna manualmente</text>
 
  <!-- modules_view -->
