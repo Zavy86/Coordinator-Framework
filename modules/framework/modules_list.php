@@ -37,6 +37,8 @@
   if(api_check_version($module->source_version,$repository_version)>0){$repository_updated=true;}else{$repository_updated=false;}
   // check if source version is updated among installed version
   if(api_check_version($module->version,$module->source_version)>0){$source_updated=true;}else{$source_updated=false;}
+  // make action button
+  $action_btn=null;
   // check module status
   if($module_installed){
    if($source_updated){
@@ -48,8 +50,11 @@
     }else{
      $action_btn=api_link("@todo module url".$module->url,api_text("modules_list-td-update_source-manual"),null,"btn btn-info btn-xs",false,null,null,null,"_blank");
     }
-   }else{
-    $action_btn=null;
+   }elseif($repository_version===null){
+    // check for git
+    if(file_exists($module->source_path."/.git/config")){
+     $action_btn=api_link("?mod=framework&scr=submit&act=module_update_source&module=".$module->module,api_text("modules_list-td-update_source_force"),null,"btn btn-default btn-xs",false,api_text("modules_list-td-update_source_force-confirm"));
+    }
    }
   }else{
    $action_btn=api_link("?mod=framework&scr=submit&act=module_setup&module=".$module->module,api_text("modules_list-td-setup"),null,"btn btn-success btn-xs");
