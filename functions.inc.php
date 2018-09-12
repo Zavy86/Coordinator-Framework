@@ -116,6 +116,14 @@ define('API_DUMP_PRINTR',1);
 define('API_DUMP_VARDUMP',2);
 
 /**
+ * Dump Coordinator Logs
+ */
+function api_dump_logs(){
+ if(!$GLOBALS['debug']){return false;}
+ api_dump($_SESSION['coordinator_logs'],"LOGS");
+}
+
+/**
  * Debug
  */
 function api_debug(){
@@ -177,6 +185,21 @@ function api_text($key,$parameters=null,$localization=null){
  foreach($parameters as $key=>$parameter){$text=str_replace("{".$key."}",$parameter,$text);}
  // return
  return $text;
+}
+
+/**
+ * Number Format
+ *
+ * @param string $number Number
+ * @param string $currency Currency sign
+ * @return string Formatted number or false
+ */
+function api_number_format($number,$currency=null){
+ if(!$number){return false;}
+ $return=number_format($number,2,",",".");
+ if($currency){$return=$currency." ".$return;}
+ // return
+ return $return;
 }
 
 /**
