@@ -1,4 +1,8 @@
 /nbproject/
+
+/.well-know/
+.htaccess
+
 config.inc.php
 
 /modules/*
