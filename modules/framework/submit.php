@@ -158,7 +158,7 @@ function settings_save(){
   /* users */
   "users_password_expiration","users_level_max",
   /* tokens */
-  "token_cron"
+  "token_cron","token_gtag"
  );
  // debug
  api_dump($_REQUEST);

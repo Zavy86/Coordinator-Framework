@@ -212,6 +212,8 @@
  <text key="settings_edit-token_cron-placeholder">Randomly created cron job token</text>
  <text key="settings_edit-token_cron-randomize">Rigenera</text>
  <text key="settings_edit-token_cron-randomize-confirm">Attenzione, generando un nuovo token dovrai modificarlo manualmente nel cron job del server. Confermi di voler generare un nuobo token?</text>
+ <text key="settings_edit-token_gtag">Google Analytics Token</text>
+ <text key="settings_edit-token_gtag-placeholder">Inserisci il codice del tuo GTAG ad esempio UA-123456789-1</text>
 
  <text key="settings_edit-submit">Salva</text>
  <text key="settings_edit-reset">Reset</text>

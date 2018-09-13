@@ -8,14 +8,14 @@
  */
  // set meta tags
  $this->setMetaTag("author","Manuel Zavatta [www.zavynet.org]");
- $this->setMetaTag("copyright","2009-".date("Y")." &copy; Coordinator [www.coordinator.it]");
+ $this->setMetaTag("copyright","2009-".date("Y")." © Coordinator [www.coordinator.it]");
  $this->setMetaTag("description","Coordinator is an Open Source Modular Framework");
  $this->setMetaTag("owner",$GLOBALS['settings']->owner);
  // add style sheets
  $this->addStylesheet(HELPERS."pace/css/pace-1.0.0-theme-flash.css");
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7.min.css");
  $this->addStylesheet(HELPERS."bootstrap-faiconpicker/css/bootstrap-faiconpicker-1.3.0.min.css");
- /** @todo definire temi "giovanniani" */
+ /** @todo definire temi */
  /*if($GLOBALS['session']->user->theme){$this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme-".$GLOBALS['session']->user->theme.".min.css");}*/
  $this->addStylesheet(HELPERS."font-awesome/css/font-awesome.min.css");
  $this->addStylesheet(HELPERS."font-awesome-animation/css/font-awesome-animation.min.css");
