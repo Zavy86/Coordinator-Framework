@@ -104,6 +104,7 @@
  if(TAB=="token"){
   $form->addField("text","token_cron",api_text("settings_edit-token_cron"),$settings->token_cron,api_text("settings_edit-token_cron-placeholder"));
   $form->addFieldAddonButton("?mod=framework&scr=settings_edit&tab=token&act=token_cron_randomize",api_text("settings_edit-token_cron-randomize"));
+  $form->addField("text","token_gtag",api_text("settings_edit-token_gtag"),$settings->token_gtag,api_text("settings_edit-token_gtag-placeholder"));
  }
  // form controls
  $form->addControl("submit",api_text("settings_edit-submit"));
