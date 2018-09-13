@@ -180,7 +180,15 @@ class cHTML{
   $return.="<html lang=\"".$this->language."\">\n\n";
   // renderize head
   $return.=" <head>\n\n";
+  // trackers
+  if($GLOBALS['settings']->token_gtag){
+   // Google Analytics
+   $return.="  <!-- trackers -->\n";
+   $return.="  <script async src=\"https://www.googletagmanager.com/gtag/js?id=".$GLOBALS['settings']->token_gtag."\"></script>\n";
+   $return.="  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','".$GLOBALS['settings']->token_gtag."');</script>\n";
+  }
   // renderize title
+  $return.="  <!-- title and icons -->\n";
   $return.="  <title>".$this->title."</title>\n";
   // rendrizer favicon
   $return.="  <link rel=\"icon\" href=\"".DIR."uploads/framework/favicon.default.ico\">\n";
@@ -195,7 +203,7 @@ class cHTML{
   if(strpos($this->header,"navbar-fixed-top")){$return.="  <style>body{padding-top:70px;}</style>\n";}
   $return.="\n </head>\n\n";
   // renderize body
-  $return.=" <body>\n\n";
+  $return.=" <body lang=\"".$this->language."\">\n\n";
   // renderize header
   if($this->header){
    $return.="  <header>\n\n";
