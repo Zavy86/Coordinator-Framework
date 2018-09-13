@@ -14,7 +14,11 @@ class Database{
 
  /** Properties */
  private $connection;
+ private $query_array;
+ private $query_array_results;
+
  public $query_counter;
+
 
  public function __construct(){
   global $configuration;
@@ -23,6 +27,9 @@ class Database{
    $this->connection->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND,"SET NAMES utf8");
    $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_OBJ);
    $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+   $this->query_counter=0;
+   $this->query_array=array();
+   $this->query_array_results=array();
    $_SESSION['coordinator_logs'][]=array("log","PDO connection: connected to ".$configuration->db_name." ".strtoupper($configuration->db_type)." database on server ".$configuration->db_host);
   }catch(PDOException $e){
    $_SESSION['coordinator_logs'][]=array("error","PDO connection: ".$e->getMessage());
@@ -34,6 +41,29 @@ class Database{
  public function __call($method,$args){
   $args=implode(",",$args);
   $_SESSION['coordinator_logs'][]=array("warn","Method ".$method."(".$args.") was not found in ".get_class($this)." class");
+ }
+
+
+ private function addQueryToCache($sql,$result){
+  if(substr(strtoupper($sql),0,6)=="SELECT"){
+   $this->query_array[$this->query_counter]=$sql;
+   $this->query_array_results[$this->query_counter]=$result;
+   return true;
+  }else{
+   return false;
+  }
+ }
+
+
+ private function getQueryFromCache($sql){
+  $cached_query_key=array_search($sql,$this->query_array,true);
+  if($cached_query_key){
+   $_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueObject result from cache id #".$cached_query_key."\n");
+   $return=$this->query_array_results[$cached_query_key];
+   return $return;
+  }else{
+   return false;
+  }
  }
 
 
@@ -51,8 +81,14 @@ class Database{
  }
 
 
- public function queryObjects($sql,$debug=false){
+ public function queryObjects($sql,$debug=false,$cache=true){
   $_SESSION['coordinator_logs'][]=array("log","PDO queryObjects: ".$sql);
+  // check for cache
+  if($cache){
+   $return=$this->getQueryFromCache($sql);
+   if($return!==false){return $return;}
+  }
+  // execute query
   try{
    $results=$this->connection->query($sql);
    $return=$results->fetchAll(PDO::FETCH_OBJ);
@@ -61,15 +97,22 @@ class Database{
    $_SESSION['coordinator_logs'][]=array("warn","PDO queryObjects: ".$e->getMessage());
    $return=false;
   }
-  $this->query_counter++;
   if(!is_array($return)){$return=array();}
+  $this->query_counter++;
+  if($cache){$this->addQueryToCache($sql,$return);}
   return $return;
  }
 
 
- public function queryUniqueObject($sql,$debug=false){
+ public function queryUniqueObject($sql,$debug=false,$cache=true){
   $sql.=" LIMIT 0,1";
   $_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueObject: ".$sql);
+  // check for cache
+  if($cache){
+   $return=$this->getQueryFromCache($sql);
+   if($return!==false){return $return;}
+  }
+  // execute query
   try{
    $results=$this->connection->query($sql);
    $return=$results->fetch(PDO::FETCH_OBJ);
@@ -78,14 +121,22 @@ class Database{
    $_SESSION['coordinator_logs'][]=array("warn","PDO queryUniqueObject: ".$e->getMessage());
    $return=false;
   }
+  //
   $this->query_counter++;
+  if($cache){$this->addQueryToCache($sql,$return);}
   return $return;
  }
 
 
- public function queryUniqueValue($sql,$debug=false){
+ public function queryUniqueValue($sql,$debug=false,$cache=true){
   $sql.=" LIMIT 0,1";
   $_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueValue: ".$sql);
+  // check for cache
+  if($cache){
+   $return=$this->getQueryFromCache($sql);
+   if($return!==false){return $return;}
+  }
+  // execute query
   try{
    $results=$this->connection->query($sql);
    $return=$results->fetch(PDO::FETCH_NUM)[0];
@@ -94,7 +145,9 @@ class Database{
    $_SESSION['coordinator_logs'][]=array("warn","PDO queryUniqueValue: ".$e->getMessage());
    $return=false;
   }
+  //
   $this->query_counter++;
+  if($cache){$this->addQueryToCache($sql,$return);}
   return $return;
  }
 
