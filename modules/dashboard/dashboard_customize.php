@@ -18,8 +18,8 @@
  $table=new cTable(api_text("dashboard_customize-tr-unvalued"));
  // build table header
  $table->addHeader("&nbsp;",null,16);
- $table->addHeader(api_text("dashboard_customize-th-label"),"nowarp");
- $table->addHeader("&nbsp;","nowarp");
+ $table->addHeader(api_text("dashboard_customize-th-label"),"nowrap");
+ $table->addHeader("&nbsp;","nowrap");
  $table->addHeader(api_text("dashboard_customize-th-url"),null,"100%");
  $table->addHeader("&nbsp;",null,16);
  // build table rows

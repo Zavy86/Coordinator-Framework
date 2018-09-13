@@ -565,6 +565,21 @@ function api_framework_groups($idGroup=null){  /** @todo levare framework? */
  return $return;
 }
 
+/**
+ * Return Script
+ *
+ * @param string $default Default script
+ * @return string|boolean Return script defined or false
+ */
+function api_return_script($default){
+ if(!$default){return false;}
+ // get return script
+ $return=$_REQUEST['return_scr'];
+ // if not found return default
+ if(!$return){$return=$default;}
+ // return
+ return $return;
+}
 
              /**
               *
