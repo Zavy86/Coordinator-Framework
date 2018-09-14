@@ -548,6 +548,27 @@ function api_framework_menus($idMenu=null){  /** @todo levare framework? */
 }
 
 /**
+ * Users
+ *
+ * @param boolean $disabled Show disabled users
+ * @param boolean $deleted Show deleted users
+ * @return object $return[] Array of user objects
+ */
+function api_framework_users($disabled=false,$deleted=false){  /** @todo levare framework? */
+ // definitions
+ $return=array();
+ // query where
+ $query_where="1";
+ if(!$disabled){$query_where.=" AND `enabled`='1'";}
+ if(!$deleted){$query_where.=" AND `deleted`='0'";}
+ // execute query
+ $users_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_users` WHERE ".$query_where." ORDER BY `lastname` ASC,`firstname` ASC");
+ foreach($users_results as $user){$return[$user->id]=new cUser($user);}
+ // return groups
+ return $return;
+}
+
+/**
  * Groups
  *
  * @param string $idGroup Start group branch
