@@ -289,9 +289,10 @@ class cForm{
       $return.=$split_identation."   ";
       if(!is_int(strpos($field->class,"-inline"))){$return.="<div class=\"".$field->typology." ".$field->class."\">";}
       $return.="<label class=\"".$field->class."\"><input type=\"".$field->typology."\" name=\"".$field->name."\" value=\"".$option->value."\"";
-      if($option->value==$field->value){$return.=" checked=\"checked\"";}
+      if($option->value===$field->value){$return.=" checked=\"checked\"";}
       if($option->class){$return.=" class=\"".$option->class."\"";}
       if($option->style){$return.=" style=\"".$option->style."\"";}
+      if($field->tags){$return.=" ".$field->tags;}
       if($option->tags){$return.=" ".$option->tags;}
       if(!$option->enabled){$return.=" disabled=\"disabled\"";}
       $return.=" id=\"".$this->id."_input_".$field->name."_option_".$option_id."\">".$option->label."</label>";
@@ -305,10 +306,8 @@ class cForm{
      // cycle all field options
      foreach($field->options_array as $option_id=>$option){
       $return.=$split_identation."    <option value=\"".$option->value."\"";
-      
       if(is_array($field->value)){if(in_array($option->value,$field->value)){$return.=" selected=\"selected\"";}}
-      else{if($option->value==$field->value){$return.=" selected=\"selected\"";}}
-      
+      else{if($option->value===$field->value){$return.=" selected=\"selected\"";}}
       if($option->style){$return.=" style=\"".$option->style."\"";}
       if($option->tags){$return.=" ".$option->tags;}
       $return.=" id=\"".$this->id."_input_".$field->name."_option_".$option_id."\">".$option->label."</option>\n";
@@ -316,7 +315,9 @@ class cForm{
      $return.=$split_identation."   </select>\n";
      break;
     // textarea
-    /** @todo textarea */
+    case "textarea":
+     $return.=$split_identation."   <textarea".$field_tags."></textarea>\n"; /** @todo verificare se serve altro */
+     break;
     // text localized
     case "text_localized":
      // show standard form field
