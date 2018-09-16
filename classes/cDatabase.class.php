@@ -14,10 +14,11 @@ class Database{
 
  /** Properties */
  private $connection;
- private $query_array;
- private $query_array_results;
+ private $cache_query_array;
+ private $cache_query_array_results;
 
  public $query_counter;
+ public $cache_query_counter;
 
 
  public function __construct(){
@@ -28,8 +29,9 @@ class Database{
    $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_OBJ);
    $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
    $this->query_counter=0;
-   $this->query_array=array();
-   $this->query_array_results=array();
+   $this->cache_query_counter=0;
+   $this->cache_query_array=array();
+   $this->cache_query_array_results=array();
    $_SESSION['coordinator_logs'][]=array("log","PDO connection: connected to ".$configuration->db_name." ".strtoupper($configuration->db_type)." database on server ".$configuration->db_host);
   }catch(PDOException $e){
    $_SESSION['coordinator_logs'][]=array("error","PDO connection: ".$e->getMessage());
@@ -46,8 +48,8 @@ class Database{
 
  private function addQueryToCache($sql,$result){
   if(substr(strtoupper($sql),0,6)=="SELECT"){
-   $this->query_array[$this->query_counter]=$sql;
-   $this->query_array_results[$this->query_counter]=$result;
+   $this->cache_query_array[$this->query_counter]=$sql;
+   $this->cache_query_array_results[$this->query_counter]=$result;
    return true;
   }else{
    return false;
@@ -56,10 +58,11 @@ class Database{
 
 
  private function getQueryFromCache($sql){
-  $cached_query_key=array_search($sql,$this->query_array,true);
+  $cached_query_key=array_search($sql,$this->cache_query_array,true);
   if($cached_query_key){
    $_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueObject result from cache id #".$cached_query_key."\n");
-   $return=$this->query_array_results[$cached_query_key];
+   $return=$this->cache_query_array_results[$cached_query_key];
+   $this->cache_query_counter++;
    return $return;
   }else{
    return false;
