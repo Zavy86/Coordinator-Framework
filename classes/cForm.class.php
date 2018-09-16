@@ -305,7 +305,10 @@ class cForm{
      // cycle all field options
      foreach($field->options_array as $option_id=>$option){
       $return.=$split_identation."    <option value=\"".$option->value."\"";
-      if($option->value==$field->value){$return.=" selected=\"selected\"";}
+      
+      if(is_array($field->value)){if(in_array($option->value,$field->value)){$return.=" selected=\"selected\"";}}
+      else{if($option->value==$field->value){$return.=" selected=\"selected\"";}}
+      
       if($option->style){$return.=" style=\"".$option->style."\"";}
       if($option->tags){$return.=" ".$option->tags;}
       $return.=" id=\"".$this->id."_input_".$field->name."_option_".$option_id."\">".$option->label."</option>\n";
