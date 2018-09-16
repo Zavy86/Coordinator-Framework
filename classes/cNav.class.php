@@ -36,7 +36,6 @@ class cNav{
  public function __construct($class="nav-tabs",$container=true){
   $this->class=$class;
   $this->container=$container;
-  $this->current_nav=0;
   $this->current_item=0;
   $this->items_array=array();
   return true;
@@ -150,7 +149,7 @@ class cNav{
   * @return boolean|string Nav source code
   */
  public function render($echo=true){
-  // calcualte responsive min-width
+  // calculate responsive min-width
   $min_width=strlen($this->title)*16;
   foreach($this->items_array as $item){
    if(substr($item->label,0,2)=="<i"){$min_width+=45;}
