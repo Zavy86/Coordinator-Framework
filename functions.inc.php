@@ -73,6 +73,7 @@ require_once(ROOT."classes/cPanel.class.php");
 require_once(ROOT."classes/cDescriptionList.class.php");
 require_once(ROOT."classes/cOperationsButton.class.php");
 require_once(ROOT."classes/cList.class.php");
+require_once(ROOT."classes/cTab.class.php");
 require_once(ROOT."classes/cProgressBar.class.php");
 require_once(ROOT."classes/cGauge.class.php");
 
