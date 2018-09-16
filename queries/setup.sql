@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `framework_settings` (
   `setting` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `value` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`setting`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `framework_settings`
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `framework_menus` (
   `updFkUser` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fkMenu` (`fkMenu`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `framework_sessions` (
   `lastTimestamp` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fkUser` (`fkUser`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `framework_users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `mail` (`mail`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `framework_users`
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `framework_users_dashboards` (
   `counter_function` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fkUser` (`fkUser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `framework_users_join_groups` (
   `main` tinyint(1) unsigned NOT NULL DEFAULT '0',
   KEY `fkUser` (`fkUser`),
   KEY `fkGroup` (`fkGroup`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `framework_users_join_groups`
@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `framework_groups` (
   `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fkGroup` (`fkGroup`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `framework_groups`
@@ -219,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `framework_modules` (
   `updTimestamp` int(11) unsigned DEFAULT NULL,
   `updFkUser` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`module`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `framework_modules`
@@ -241,7 +241,7 @@ CREATE TABLE IF NOT EXISTS `framework_modules_authorizations` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `action` (`action`),
   KEY `module` (`module`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `framework_modules_authorizations`
@@ -267,7 +267,7 @@ CREATE TABLE IF NOT EXISTS `framework_modules_authorizations_join_groups` (
   `level` tinyint(2) NOT NULL,
   KEY `fkAuthorization` (`fkAuthorization`),
   KEY `fkGroup` (`fkGroup`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
