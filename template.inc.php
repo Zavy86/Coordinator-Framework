@@ -13,15 +13,16 @@
  $this->setMetaTag("owner",$GLOBALS['settings']->owner);
  // add style sheets
  $this->addStylesheet(HELPERS."pace/css/pace-1.0.0-theme-flash.css");
- $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7.min.css");
- $this->addStylesheet(HELPERS."bootstrap-faiconpicker/css/bootstrap-faiconpicker-1.3.0.min.css");
- /** @todo definire temi */
- /*if($GLOBALS['session']->user->theme){$this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme-".$GLOBALS['session']->user->theme.".min.css");}*/
  $this->addStylesheet(HELPERS."font-awesome/css/font-awesome.min.css");
  $this->addStylesheet(HELPERS."font-awesome-animation/css/font-awesome-animation.min.css");
  /** @todo verificare quali caricare sempre e quali solo alla bisogna */
  $this->addStylesheet(HELPERS."justgage/css/justgage-1.2.2.css");
+ $this->addStylesheet(HELPERS."select2/css/select2-4.0.5.min.css");
  /** @todo add some css helpers here */
+ $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7.min.css");
+ $this->addStylesheet(HELPERS."bootstrap-faiconpicker/css/bootstrap-faiconpicker-1.3.0.min.css");
+ /** @todo definire temi */
+ /*if($GLOBALS['session']->user->theme){$this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme-".$GLOBALS['session']->user->theme.".min.css");}*/
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-custom.css");
  // add scripts
  $this->addScript(HELPERS."jquery/jquery-1.12.0.min.js",true);
@@ -30,6 +31,7 @@
  $this->addScript(HELPERS."peity/js/peity-3.2.1.min.js",true);
  $this->addScript(HELPERS."justgage/js/justgage-1.2.2.js",true);
  $this->addScript(HELPERS."chartjs/js/chart-2.7.0.min.js",true);
+ $this->addScript(HELPERS."select2/js/select2-4.0.5.min.js",true);
  /** @todo add some javascript helpers here */
  $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.7.min.js",true);
  $this->addScript(HELPERS."bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",true);
