@@ -60,8 +60,12 @@
   $header_navbar->addSubHeader($GLOBALS['session']->user->fullname,"text-right");
   $header_navbar->addSubItem(api_text("nav-own-profile")." ".api_icon("fa-user-circle-o"),"?mod=framework&scr=own_profile",true,"text-right");
   $header_navbar->addSubSeparator();
-  $header_navbar->addSubItem(api_text("nav-settings")." ".api_icon("fa-toggle-on"),"?mod=framework&scr=dashboard",true,"text-right");
-  if($GLOBALS['session']->user->superuser){$header_navbar->addSubItem(api_text("nav-debug")." ".api_icon("fa-code"),"?mod=".MODULE."&scr=".SCRIPT."&tab=".TAB."&debug=".(!$_SESSION['coordinator_debug']),true,"text-right inactive");}
+  // show link for administrators
+  if(api_checkAuthorization("framework","framework-settings_manage")){
+   $header_navbar->addSubItem(api_text("nav-mails")." ".api_icon("fa-envelope-o"),"?mod=framework&scr=mails_list",true,"text-right");
+   $header_navbar->addSubItem(api_text("nav-settings")." ".api_icon("fa-toggle-on"),"?mod=framework&scr=dashboard",true,"text-right");
+   if($GLOBALS['session']->user->superuser){$header_navbar->addSubItem(api_text("nav-debug")." ".api_icon("fa-code"),"?mod=".MODULE."&scr=".SCRIPT."&tab=".TAB."&debug=".(!$_SESSION['coordinator_debug']),true,"text-right inactive");}
+  }
   $header_navbar->addSubItem(api_text("nav-logout")." ".api_icon("fa-sign-out"),"?mod=framework&scr=submit&act=user_logout",true,"text-right");
 
  }else{
