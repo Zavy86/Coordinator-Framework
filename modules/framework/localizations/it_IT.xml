@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<locale>
+
+ <code>it_IT</code>
+ <localization>Italiano</localization>
+
+ <text key="yes">Sì</text>
+ <text key="no">No</text>
+
+ <!-- datetimes -->
+ <text key="time">H:i</text>
+ <text key="timesec">H:i:s</text>
+ <text key="date">d-m-Y</text>
+ <text key="date-textual">l, j F Y</text>
+ <text key="datetime">d-m-Y H:i</text>
+ <text key="datetimesec">d-m-Y H:i:s</text>
+ <text key="datetime-textual">l, j M Y G:i</text>
+ <text key="second">secondo</text>
+ <text key="seconds">secondi</text>
+ <text key="minute">minuto</text>
+ <text key="minutes">minuti</text>
+ <text key="hour">ora</text>
+ <text key="hours">ore</text>
+ <text key="day">giorno</text>
+ <text key="days">giorni</text>
+
+ <!-- days -->
+ <text key="sunday">Domenica</text>
+ <text key="monday">Lunedì</text>
+ <text key="tuesday">Martedì</text>
+ <text key="wednesday">Mercoledì</text>
+ <text key="thursday">Giovedì</text>
+ <text key="friday">Venerdì</text>
+ <text key="saturday">Sabato</text>
+
+ <!-- alerts -->
+ <text key="alert_unauthorized">Il tuo account non è autorizzato ad eseguire l'azione "<![CDATA[{1}]]>" nel modulo "<![CDATA[{0}]]>"</text>
+ <text key="alert_passwordExpired">La tua password è scaduta, per cortesia scegline una nuova</text>
+ <text key="alert_authenticationFailed">Nome utente o password non corretti</text>
+ <text key="alert_submitFunctionNotFound">La funzione "<![CDATA[{2}]]>" non è stata trovata nello script "<![CDATA[{1}]]>" del modulo "<![CDATA[{0}]]>"</text>
+
+ <!-- enabled -->
+ <text key="enabled">Abilitato</text>
+ <text key="disabled">Disabilitato</text>
+
+ <!-- nav -->
+ <text key="nav-dashboard">Bacheca</text>
+ <text key="nav-own-profile">Profilo personale</text>
+ <text key="nav-mails">Registro mail</text>
+ <text key="nav-settings">Impostazioni</text>
+ <text key="nav-debug">Debug</text>
+ <text key="nav-logout">Esci</text>
+ <text key="nav-operations">Operazioni</text>
+
+ <!-- forms -->
+ <text key="form-fc-submit">Salva</text>
+ <text key="form-fc-cancel">Annulla</text>
+ <text key="form-fc-close">Chiudi</text>
+ <text key="form-fc-reset">Reset</text>
+ <text key="form-fc-delete">Elimina</text>
+ <text key="form-fc-delete-confirm">Confermi di voler eliminare questo oggetto?</text>
+ <text key="form-fc-undelete">Rispritina</text>
+ <text key="form-fc-undelete-confirm">Confermi di voler ripristinare questo oggetto?</text>
+ <text key="form-fc-remove">Rimuovi</text>
+ <text key="form-fc-remove-confirm">Confermi di voler rimuovere definitivamente questo oggetto?</text>
+ <text key="form-input-select-placeholder">Seleziona un elemento..</text>
+ <text key="form-input-file-placeholder">Seleziona un file..</text>
+ <text key="form-input-text_localized-default">Principale</text>
+ <text key="form-input-text_localized-default-placeholder">Inserisci la traduzione principale</text>
+ <text key="form-input-text_localized-language-placeholder">Inserisci la traduzione in <![CDATA[{0}]]></text>
+ <text key="form-input-text_localized-translate">Inserisci traduzione</text>
+ <text key="form-input-text_localized-alert">La traduzione principale è richiesta!</text>
+
+ <!-- login -->
+ <text key="login-ff-account">Account</text>
+ <text key="login-ff-password">Password</text>
+ <text key="login-fc-login">Accedi</text>
+ <text key="login-fc-recovery">Password dimenticata?</text>
+
+ <!-- recovery -->
+ <text key="recovery-ff-account">Account</text>
+ <text key="recovery-ff-account-placeholder">Inserisci il tuo indirizzo mail..</text>
+ <text key="recovery-fc-submit">Invia link di ripristino</text>
+
+ <!-- dashboard -->
+ <text key="dashboard-tile-add">Aggiungi alla bacheca</text>
+ <text key="dashboard-tile-remove">Rimuovi dalla bacheca</text>
+
+</locale>
