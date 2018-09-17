@@ -58,6 +58,11 @@ switch(ACTION){
  // sessions
  case "sessions_terminate":sessions_terminate();break;
  case "sessions_terminate_all":sessions_terminate_all();break;
+
+ // mails
+ case "mail_retry":mail_retry();break;
+ case "mail_remove":mail_remove();break;
+
  // default
  default:
   api_alerts_add(api_text("alert_submitFunctionNotFound",array(MODULE,SCRIPT,ACTION)),"danger");
@@ -1060,6 +1065,48 @@ function sessions_terminate_all(){
  // redirect
  api_alerts_add(api_text("framework_alert_sessionTerminatedAll"),"warning");
  api_redirect(DIR."index.php");
+}
+
+/**
+ * Mail Retry
+ */
+function mail_retry(){
+ // get objects
+ $mail_obj=new cMail($_REQUEST['idMail']);
+ // check objects
+ if(!$mail_obj->id){api_alerts_add(api_text("framework_alert_mailNotFound"),"danger");api_redirect("?mod=framework&scr=mails_list");}
+ // debug
+ api_dump($_REQUEST,"_REQUEST");
+ api_dump($mail_obj,"mail object");
+ // build mail query objects
+ $mail_qobj=new stdClass();
+ $mail_qobj->id=$mail_obj->id;
+ $mail_qobj->status="inserted";
+ $mail_qobj->sndTimestamp=null;
+ // debug
+ api_dump($mail_qobj,"mail query object");
+ // execute query
+ $GLOBALS['database']->queryUpdate("framework_mails",$mail_qobj);
+ // redirect
+ api_alerts_add(api_text("mails_alert_mailRetry"),"success");
+ api_redirect("?mod=framework&scr=mails_list&idMail=".$mail_obj->id);
+}
+/**
+ * Mail Remove
+ */
+function mail_remove(){
+ // get objects
+ $mail_obj=new cMail($_REQUEST['idMail']);
+ // check objects
+ if(!$mail_obj->id){api_alerts_add(api_text("framework_alert_mailNotFound"),"danger");api_redirect("?mod=framework&scr=mails_list");}
+ // debug
+ api_dump($_REQUEST,"_REQUEST");
+ api_dump($mail_obj,"mail object");
+ // execute query
+ $GLOBALS['database']->queryDelete("framework_mails",$mail_obj->id);
+ // redirect
+ api_alerts_add(api_text("mails_alert_mailRemoved"),"warning");
+ api_redirect("?mod=framework&scr=mails_list");
 }
 
 ?>

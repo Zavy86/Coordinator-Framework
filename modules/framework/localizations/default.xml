@@ -73,6 +73,9 @@
  <text key="framework_alert_moduleAuthorizationGroupRemoved">Il gruppo è stato rimosso dalle autorizzazioni del modulo</text>
  <text key="framework_alert_moduleAuthorizationResetted">Le autorizzazioni del gruppo sono state ripristinate</text>
 
+ <text key="framework_alert_mailError">Si è verificato un errore durante il salvataggio della mail</text>
+ <text key="framework_alert_mailNotFound">La mail non è stata trovata</text>
+
  <!-- operations -->
  <text key="nav-operations-user_interpret">Interpreta utente</text>
  <text key="nav-operations-user_interpret-confirm">Confermi di voler interpretare questo utente?</text>
@@ -452,5 +455,17 @@
  <text key="modules_add-method-zip">Zip</text>
  <text key="modules_add-submit">Scarica</text>
  <text key="modules_add-cancel">Annulla</text>
+
+ <!-- mails_list -->
+ <text key="mails_list">Registro mail</text>
+ <text key="mails_list-tr-unvalued">Non sono presenti mail da mostrare..</text>
+ <text key="mails_list-th-addTimestamp">Data inserimento</text>
+ <text key="mails_list-th-recipients">Destinatario</text>
+ <text key="mails_list-th-subject">Oggetto</text>
+ <text key="mails_list-th-sndTimestamp">Data invio</text>
+ <text key="mails_list-td-view">Visualizza mail</text>
+ <text key="mails_list-td-retry">Ritenta l'invio della mail</text>
+ <text key="mails_list-td-remove">Elimina mail</text>
+ <text key="mails_list-td-remove-confirm">Confermi di voler rimuovere dal database questa mail?</text>
 
 </locale>

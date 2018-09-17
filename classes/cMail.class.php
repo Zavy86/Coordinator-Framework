@@ -64,6 +64,8 @@ class cMail{
   $this->addTimestamp=(int)$mail->addTimestamp;
   $this->addFkUser=(int)$mail->addFkUser;
   $this->sndTimestamp=(int)$mail->sndTimestamp;
+  // checks
+  if(!$this->sndTimestamp){$this->sndTimestamp=null;}
   // return
   return true;
  }
@@ -75,6 +77,29 @@ class cMail{
   * @return string Property value
   */
  public function __get($property){return $this->$property;}
+
+ /**
+  * Get Status
+  *
+  * @param string $showIcon Show status icon
+  * @param string $showText Show status text
+  * @return string Status string
+  */
+ public function getStatus($showIcon=true,$showText=true){
+  // make text
+  $text=api_text("status-mail-".$this->status);
+  // make icon
+  switch($this->status){
+   case "inserted":$icon=api_icon("fa-edit",$text);break;
+   case "sended":$icon=api_icon("fa-check",$text);break;
+   case "failed":$icon=api_icon("fa-times",$text);break;
+  }
+  // make return
+  if($showIcon){$return=$icon;}
+  if($showText){$return=$text;}
+  if($showIcon && $showText){$return=$icon." ".$text;}
+  return $return;
+ }
 
 }
 ?>

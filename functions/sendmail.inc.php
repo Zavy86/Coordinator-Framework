@@ -128,6 +128,7 @@ function api_sendmail_process($mail=null){
  }else{
   $mail_qobj->status="failed";
   $mail_qobj->errors=$mailer->ErrorInfo;
+  $mail_qobj->sndTimestamp=null;
  }
  // debug
  api_dump($mail_qobj,"mail query object");

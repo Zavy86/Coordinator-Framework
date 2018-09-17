@@ -127,6 +127,19 @@
   }
  }
 
+ // mails
+ if(substr(SCRIPT,0,5)=="mails"){
+  // lists
+  $nav->addItem(api_text("mails_list"),"?mod=framework&scr=mails_list");
+  // menu edit
+  /*if(in_array(SCRIPT,array("mails_edit")) && $_REQUEST['idMenu']){
+   $nav->addItem(api_text("nav-operations"));
+   $nav->addSubItem(api_text("menus_edit"),"?mod=framework&scr=menus_edit&idMenu=".$_REQUEST['idMenu']);
+  }else{
+   // menu add
+   $nav->addItem(api_text("menus_add"),"?mod=framework&scr=menus_edit");
+  }*/
+ }
  // add nav to html
  $html->addContent($nav->render(false));
 ?>

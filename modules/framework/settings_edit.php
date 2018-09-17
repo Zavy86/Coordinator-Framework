@@ -26,7 +26,7 @@
   * Generals
   */
  if(TAB=="general"){
-  $form->addField("radio","maintenance",api_text("settings_edit-maintenance"),$settings->maintenance,null,null,"radio-inline");
+  $form->addField("radio","maintenance",api_text("settings_edit-maintenance"),(int)$settings->maintenance,null,null,"radio-inline");
   $form->addFieldOption(0,api_text("no"));
   $form->addFieldOption(1,api_text("settings_edit-maintenance-lock"));
   $form->addField("text","owner",api_text("settings_edit-owner"),$settings->owner,api_text("settings_edit-owner-placeholder"));
@@ -46,10 +46,10 @@
   $form->addField("radio","sessions_authentication_method",api_text("settings_edit-sessions_authentication_method"),$settings->sessions_authentication_method,null,null,"radio-inline");
   $form->addFieldOption("standard",api_text("settings_edit-sessions_authentication_method-standard"));
   $form->addFieldOption("ldap",api_text("settings_edit-sessions_authentication_method-ldap"));
-  $form->addField("radio","sessions_multiple",api_text("settings_edit-sessions_multiple"),$settings->sessions_multiple,null,null,"radio-inline");
+  $form->addField("radio","sessions_multiple",api_text("settings_edit-sessions_multiple"),(int)$settings->sessions_multiple,null,null,"radio-inline");
   $form->addFieldOption(0,api_text("no"));
   $form->addFieldOption(1,api_text("settings_edit-sessions_multiple-allowed"));
-  $form->addField("select","sessions_idle_timeout",api_text("settings_edit-sessions_idle_timeout"),$settings->sessions_idle_timeout,api_text("settings_edit-sessions_idle_timeout-placeholder"));
+  $form->addField("select","sessions_idle_timeout",api_text("settings_edit-sessions_idle_timeout"),(int)$settings->sessions_idle_timeout,api_text("settings_edit-sessions_idle_timeout-placeholder"));
   $form->addFieldOption(900,api_text("settings_edit-sessions_idle_timeout-15m"));
   $form->addFieldOption(3600,api_text("settings_edit-sessions_idle_timeout-1h"));
   $form->addFieldOption(14400,api_text("settings_edit-sessions_idle_timeout-4h"));
@@ -61,7 +61,7 @@
   $form->addField("text","sessions_ldap_domain",api_text("settings_edit-sessions_ldap_domain"),$settings->sessions_ldap_domain,api_text("settings_edit-sessions_ldap_domain-placeholder"));
   $form->addField("text","sessions_ldap_userfield",api_text("settings_edit-sessions_ldap_userfield"),$settings->sessions_ldap_userfield,api_text("settings_edit-sessions_ldap_userfield-placeholder"));
   $form->addField("text","sessions_ldap_groups",api_text("settings_edit-sessions_ldap_groups"),$settings->sessions_ldap_groups,api_text("settings_edit-sessions_ldap_groups-placeholder"));
-  $form->addField("radio","sessions_ldap_cache",api_text("settings_edit-sessions_ldap_cache"),$settings->sessions_ldap_cache,null,null,"radio-inline");
+  $form->addField("radio","sessions_ldap_cache",api_text("settings_edit-sessions_ldap_cache"),(int)$settings->sessions_ldap_cache,null,null,"radio-inline");
   $form->addFieldOption(0,api_text("no"));
   $form->addFieldOption(1,api_text("settings_edit-sessions_ldap_cache-allowed"));
  }
@@ -71,7 +71,7 @@
  if(TAB=="sendmail"){
   $form->addField("text","sendmail_from_name",api_text("settings_edit-sendmail_from_name"),$settings->sendmail_from_name,api_text("settings_edit-sendmail_from_name-placeholder"));
   $form->addField("text","sendmail_from_mail",api_text("settings_edit-sendmail_from_mail"),$settings->sendmail_from_mail,api_text("settings_edit-sendmail_from_mail-placeholder"));
-  $form->addField("radio","sendmail_asynchronous",api_text("settings_edit-sendmail_asynchronous"),$settings->sendmail_asynchronous,null,null,"radio-inline");
+  $form->addField("radio","sendmail_asynchronous",api_text("settings_edit-sendmail_asynchronous"),(int)$settings->sendmail_asynchronous,null,null,"radio-inline");
   $form->addFieldOption(0,api_text("no"));
   $form->addFieldOption(1,api_text("settings_edit-sendmail_asynchronous-enabled",api_link("#",api_icon("question-sign"))));
   $form->addField("radio","sendmail_method",api_text("settings_edit-sendmail_method"),$settings->sendmail_method,null,null,"radio-inline");
@@ -82,7 +82,7 @@
   $form->addField("text","sendmail_smtp_username",api_text("settings_edit-sendmail_smtp_username"),$settings->sendmail_smtp_username,api_text("settings_edit-sendmail_smtp_username-placeholder"));
   $form->addField("text","sendmail_smtp_password",api_text("settings_edit-sendmail_smtp_password"),null,api_text("settings_edit-sendmail_smtp_password-placeholder"));
   $form->addField("radio","sendmail_smtp_encryption",api_text("settings_edit-sendmail_smtp_encryption"),$settings->sendmail_smtp_encryption,null,null,"radio-inline");
-  $form->addFieldOption("",api_text("settings_edit-sendmail_smtp_encryption-none"));
+  $form->addFieldOption(null,api_text("settings_edit-sendmail_smtp_encryption-none"));
   $form->addFieldOption("tls",api_text("settings_edit-sendmail_smtp_encryption-tls"));
   $form->addFieldOption("ssl",api_text("settings_edit-sendmail_smtp_encryption-ssl"));
  }
@@ -90,7 +90,7 @@
   * Users
   */
  if(TAB=="users"){
-  $form->addField("select","users_password_expiration",api_text("settings_edit-users_password_expiration"),$settings->users_password_expiration,api_text("settings_edit-users_password_expiration-placeholder"));
+  $form->addField("select","users_password_expiration",api_text("settings_edit-users_password_expiration"),(int)$settings->users_password_expiration,api_text("settings_edit-users_password_expiration-placeholder"));
   $form->addFieldOption(-1,api_text("settings_edit-users_password_expiration-never"));
   $form->addFieldOption(2592000,api_text("settings_edit-users_password_expiration-30days"));
   $form->addFieldOption(5184000,api_text("settings_edit-users_password_expiration-60days"));
