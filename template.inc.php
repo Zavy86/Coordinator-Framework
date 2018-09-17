@@ -25,7 +25,7 @@
  /*if($GLOBALS['session']->user->theme){$this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme-".$GLOBALS['session']->user->theme.".min.css");}*/
  $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-custom.css");
  // add scripts
- $this->addScript(HELPERS."jquery/jquery-1.12.0.min.js",true);
+ $this->addScript(HELPERS."jquery/js/jquery-1.12.4.min.js",true);
  $this->addScript(HELPERS."pace/js/pace-1.0.0.min.js",true);
  /** @todo verificare quali caricare sempre e quali solo alla bisogna */
  $this->addScript(HELPERS."peity/js/peity-3.2.1.min.js",true);
