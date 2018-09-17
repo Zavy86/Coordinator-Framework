@@ -51,10 +51,13 @@ define('MODULE_PATH',ROOT."modules/".MODULE."/");
 if($r_script){define("SCRIPT",$r_script);}
 if($r_action){define("ACTION",$r_action);}
 if($r_tab){define("TAB",$r_tab);}
+// include functions
+require_once(ROOT."functions/sendmail.inc.php");
 // include classes
 require_once(ROOT."classes/cLocalization.class.php");
 require_once(ROOT."classes/cDatabase.class.php");
 require_once(ROOT."classes/cSettings.class.php");
+require_once(ROOT."classes/cMail.class.php");
 require_once(ROOT."classes/cSession.class.php");
 require_once(ROOT."classes/cModule.class.php");
 require_once(ROOT."classes/cMenu.class.php");
@@ -63,7 +66,7 @@ require_once(ROOT."classes/cUser.class.php");
 require_once(ROOT."classes/cGroup.class.php");
 require_once(ROOT."classes/cHTML.class.php");
 require_once(ROOT."classes/cGrid.class.php");
-require_once(ROOT."classes/cNav.class.php"); /** fare classe tabs/tabbable per copia - e integrare tab nella nav */
+require_once(ROOT."classes/cNav.class.php");
 require_once(ROOT."classes/cNavbar.class.php");
 require_once(ROOT."classes/cDashboard.class.php");
 require_once(ROOT."classes/cTable.class.php");
@@ -603,15 +606,21 @@ function api_return_script($default){
  return $return;
 }
 
-             /**
-              *
-              * @param type $recipient
-              * @param type $subject
-              * @param type $message
-              */
-             function api_sendmail($recipient,$subject,$message){
-               /** @todo fare funzione con phpmailer */
-              mail($recipient,$subject,$message);
-             }
+/**
+ * Clean a string
+ *
+ * @param string $string string to clean
+ * @param string $pattern pattern to clean
+ * @param string $null returned string if null
+ * @return string cleaned string
+ */
+function api_cleanString($string,$pattern="/[^A-Za-zÀ-ÿ0-9-_.,:;' ]/",$null=NULL){
+ // remove multiple spaces and apply patter
+ $return=preg_replace($pattern,"",preg_replace("!\s+!"," ",$string));
+ // check for null
+ if(!strlen($return)){$return=$null;}
+ // return
+ return $return;
+}
 
 ?>
