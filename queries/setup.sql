@@ -272,6 +272,30 @@ CREATE TABLE IF NOT EXISTS `framework_modules_authorizations_join_groups` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `framework_mails`
+--
+
+CREATE TABLE IF NOT EXISTS `framework_mails` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `recipients_to` text COLLATE utf8mb4_unicode_ci,
+  `recipients_cc` text COLLATE utf8mb4_unicode_ci,
+  `recipients_bcc` text COLLATE utf8mb4_unicode_ci,
+  `sender_mail` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sender_name` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subject` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci,
+  `attachments` text COLLATE utf8mb4_unicode_ci,
+  `errors` text COLLATE utf8mb4_unicode_ci,
+  `status` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'inserted, sended, failed',
+  `addTimestamp` int(11) unsigned NOT NULL,
+  `addFkUser` int(11) unsigned NOT NULL,
+  `sndTimestamp` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Constraints
 --
 

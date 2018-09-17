@@ -441,7 +441,7 @@ function module_update_source(){
  if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
  /** @todo cycle all selected modules (if multiselect in table) */
  // exec shell commands
- $shell_output=exec('whoami')."@".exec('hostname').":".shell_exec("cd ".$module_obj->source_path." ; pwd ; git stash ; git stash clear ; git pull ; chmod 755 -R ./");
+ $shell_output=exec('whoami')."@".exec('hostname').":".shell_exec("cd ".$module_obj->source_path." ; pwd ; git stash 2>&1 ; git stash clear ; git pull 2>&1 ; chmod 755 -R ./");
  // debug
  api_dump($shell_output);
  // alert
@@ -784,7 +784,7 @@ function user_recovery(){
   $GLOBALS['database']->queryExecute("UPDATE `framework_users` SET `secret`='".$f_secret."' WHERE `id`='".$user_obj->id."'");
   $recoveryLink=URL."index.php?mod=framework&scr=submit&act=user_recovery&mail=".$r_mail."&secret=".$f_secret;
   // send recovery link
-  api_sendmail($r_mail,"Coordinator password recovery",$recoveryLink); /** @todo fare mail come si deve */
+  api_sendmail("Coordinator password recovery",$recoveryLink,$r_mail); /** @todo fare mail come si deve */
   // redirect
   api_redirect(DIR."login.php?error=userRecoveryLinkSended"); /** @todo sistemare error alert */
  }else{
@@ -795,7 +795,7 @@ function user_recovery(){
   // update password and reset secret
   $GLOBALS['database']->queryExecute("UPDATE `framework_users` SET `password`='".md5($f_password)."',`secret`=null,`pwdTimestamp`=null WHERE `id`='".$user_obj->id."'");
   // send new password
-  api_sendmail($r_mail,"Coordinator new password",$f_password); /** @todo fare mail come si deve */
+  api_sendmail("Coordinator new password",$f_password,$r_mail); /** @todo fare mail come si deve */
   // redirect
   api_redirect(DIR."login.php?error=userRecoveryPasswordSended"); /** @todo sistemare error alert */
  }
@@ -833,7 +833,7 @@ function user_add(){
  // check user
  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // send password to user
- api_sendmail($user_obj->mail,"Coordinator new user welcome","Your access password is:\n\n".$v_password); /** @todo fare mail come si deve */
+ api_sendmail("Coordinator new user welcome","Your access password is:\n\n".$v_password,$user_obj->mail); /** @todo fare mail come si deve */
  // redirect
  api_alerts_add(api_text("framework_alert_userCreated"),"success");
  api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
