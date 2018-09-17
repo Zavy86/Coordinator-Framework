@@ -60,5 +60,5 @@
  // renderize html
  $html->render();
  // debug
- api_dump($mails_array);
+ //api_dump($mails_array);
 ?>
