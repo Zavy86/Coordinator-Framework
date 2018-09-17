@@ -33,13 +33,13 @@
  $form->addField("select","level",api_text("users_edit-level"),$user->level,api_text("users_edit-level-placeholder"),null,null,null,"required");
  for($level=1;$level<=$GLOBALS['settings']->users_level_max;$level++){$form->addFieldOption($level,api_text("users_edit-level-level",$level));}
  if(!$user->deleted){
-  $form->addField("checkbox","superuser","&nbsp;",$user->superuser);
+  $form->addField("checkbox","superuser","&nbsp;",(int)$user->superuser);
   $form->addFieldOption(1,api_text("users_edit-superuser"));
  }
  // optionals
  $form->addField("splitter");
  $form->addField("radio","gender",api_text("users_edit-gender"),$user->gender,null,null,"radio-inline");
- $form->addFieldOption("",api_text("users_edit-gender-none"));
+ $form->addFieldOption(null,api_text("users_edit-gender-none"));
  $form->addFieldOption("man",api_text("users_edit-gender-man"));
  $form->addFieldOption("woman",api_text("users_edit-gender-woman"));
  $form->addField("date","birthday",api_text("users_edit-birthday"),$user->birthday);
