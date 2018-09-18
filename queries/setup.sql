@@ -253,7 +253,8 @@ INSERT INTO `framework_modules_authorizations` (`id`, `module`, `action`) VALUES
 (3, 'framework', 'framework-modules_manage'),
 (4, 'framework', 'framework-users_manage'),
 (5, 'framework', 'framework-groups_manage'),
-(6, 'framework', 'framework-sessions_manage');
+(6, 'framework', 'framework-sessions_manage'),
+(7, 'framework', 'framework-mails_manage');
 
 -- --------------------------------------------------------
 
