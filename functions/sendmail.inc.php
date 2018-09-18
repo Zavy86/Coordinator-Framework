@@ -39,11 +39,8 @@ function api_sendmail($subject,$message,$recipients_to=null,$recipients_cc=null,
  $mail_qobj->id=$GLOBALS['database']->queryInsert("framework_mails",$mail_qobj);
  // check for mail id
  if(!$mail_qobj->id){return false;}
- // check for asynchronous sendmail option
- if(!$GLOBALS['settings']->sendmail_asynchronous){
-  // try to send mail now
-  api_sendmail_process($mail_qobj->id);
- }
+ // check for asynchronous sendmail option or send mail now
+ if(!$GLOBALS['settings']->sendmail_asynchronous){api_sendmail_process($mail_qobj->id);}
  // return
  return $mail_qobj->id;
 }
