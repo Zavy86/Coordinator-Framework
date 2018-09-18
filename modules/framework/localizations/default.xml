@@ -49,6 +49,11 @@
  <text key="framework_alert_userGroupAdded">Il gruppo è stato aggiunto all'utente</text>
  <text key="framework_alert_userGroupRemoved">Il gruppo è stato rimosso dall'utente</text>
 
+ <text key="framework_alert_userRecoveryNotFound">L'account specificato non è stato trovato.</text>
+ <text key="framework_alert_userRecoverySecretError">Si è verificato un errore durante la procedura di ripristino dell'account.</text>
+ <text key="framework_alert_userRecoveryLinkSended">E' stata inviata una mail con un link per il recupero della password.</text>
+ <text key="framework_alert_userRecoveryPasswordSended">E' stata inviata una mail con un una nuova password di accesso.</text>
+
  <text key="framework_alert_groupError">Si è verificato un errore durante il salvataggio del gruppo</text>
  <text key="framework_alert_groupNotFound">Il gruppo non è stato trovato</text>
  <text key="framework_alert_groupCreated">Il gruppo è stato creato</text>
@@ -75,6 +80,18 @@
 
  <text key="framework_alert_mailError">Si è verificato un errore durante il salvataggio della mail</text>
  <text key="framework_alert_mailNotFound">La mail non è stata trovata</text>
+ <text key="framework_alert_mailRetry">E' stato programmato un nuovo tentativo di invio per la mail</text>
+ <text key="framework_alert_mailRemoved">La mail è stata eliminata</text>
+
+ <!-- mails -->
+ <text key="framework_mail-user_add-subject"><![CDATA[{0}]]> account</text>
+ <text key="framework_mail-user_add-message"><![CDATA[<p>Gentile {0}, il tuo account su {1} è stato attivato.</p><p>Il link di accesso è {2}</p><p>La password per il tuo primo accesso è: {3}</p>]]></text>
+
+ <text key="framework_mail-user_recovery-subject">Ripristino account <![CDATA[{0}]]></text>
+ <text key="framework_mail-user_recovery-message"><![CDATA[<p>Gentile {0}, per ripristinare la password del tuo account su {1} premi il seguente link:</p><br><p><a href="{2}">{2}</a></p>]]></text>
+
+ <text key="framework_mail-user_recovery_password-subject">Ripristino account <![CDATA[{0}]]></text>
+ <text key="framework_mail-user_recovery_password-message"><![CDATA[<p>Gentile {0}, il tuo account su {1} è stato ripristinato.</p><p>Il link di accesso è {2}</p><p>La nuova password per il tuo prossimo accesso è: {3}</p>]]></text>
 
  <!-- operations -->
  <text key="nav-operations-user_interpret">Interpreta utente</text>
@@ -186,6 +203,8 @@
  <text key="settings_edit-sendmail_from_mail-placeholder">Indirizzo mail del mittente predefinito</text>
  <text key="settings_edit-sendmail_asynchronous">Invio mail asincrono</text>
  <text key="settings_edit-sendmail_asynchronous-enabled">Abilitato (Richiesto Cron <![CDATA[{0}]]>)</text>
+ <text key="settings_edit-sendmail_asynchronous-modal-title">Abilitazione invio mail asincrono</text>
+ <text key="settings_edit-sendmail_asynchronous-modal-body"><![CDATA[Per abilitare l'invio delle mail asincrono è necessario impostare un <em>Cron job</em>.<br><br>Un esempio di stringa in ambiente Unix è:<br><br><samp>*/5 * * * * wget "{0}cron.php?token={1}" -qO- | cat /dev/null</samp>]]></text>
  <text key="settings_edit-sendmail_method">Metodo di invio</text>
  <text key="settings_edit-sendmail_method-standard">Standard</text>
  <text key="settings_edit-sendmail_method-smtp">SMTP</text>
