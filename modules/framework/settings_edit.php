@@ -73,7 +73,7 @@
   $form->addField("text","sendmail_from_mail",api_text("settings_edit-sendmail_from_mail"),$settings->sendmail_from_mail,api_text("settings_edit-sendmail_from_mail-placeholder"));
   $form->addField("radio","sendmail_asynchronous",api_text("settings_edit-sendmail_asynchronous"),(int)$settings->sendmail_asynchronous,null,null,"radio-inline");
   $form->addFieldOption(0,api_text("no"));
-  $form->addFieldOption(1,api_text("settings_edit-sendmail_asynchronous-enabled",api_link("#",api_icon("question-sign"))));
+  $form->addFieldOption(1,api_text("settings_edit-sendmail_asynchronous-enabled",api_link("?mod=framework&scr=settings_edit&tab=sendmail&act=cron_informations",api_icon("fa-question-circle"),null,"hidden-link")));
   $form->addField("radio","sendmail_method",api_text("settings_edit-sendmail_method"),$settings->sendmail_method,null,null,"radio-inline");
   $form->addFieldOption("standard",api_text("settings_edit-sendmail_method-standard"));
   $form->addFieldOption("smtp",api_text("settings_edit-sendmail_method-smtp"));
@@ -85,6 +85,16 @@
   $form->addFieldOption(null,api_text("settings_edit-sendmail_smtp_encryption-none"));
   $form->addFieldOption("tls",api_text("settings_edit-sendmail_smtp_encryption-tls"));
   $form->addFieldOption("ssl",api_text("settings_edit-sendmail_smtp_encryption-ssl"));
+  // cron informations
+  if(ACTION=="cron_informations"){
+   // build cron informations modal window
+   $cron_informations_modal=new cModal(api_text("settings_edit-sendmail_asynchronous-modal-title"),null,"requests_view-cron_informations_modal");
+   $cron_informations_modal->setBody(api_text("settings_edit-sendmail_asynchronous-modal-body",array(URL,$settings->token_cron)));
+   // add modal to html object
+   $html->addModal($cron_informations_modal);
+   // jQuery scripts
+   $html->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_requests_view-cron_informations_modal\").modal('show');});");
+  }
  }
  /**
   * Users
