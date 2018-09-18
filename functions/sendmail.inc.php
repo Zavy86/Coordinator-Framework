@@ -19,10 +19,10 @@ function api_sendmail($subject,$message,$recipients_to=null,$recipients_cc=null,
  $mail_qobj=new stdClass();
  $mail_qobj->subject=addslashes($subject);
  $mail_qobj->message=addslashes($message);
- $mail_qobj->recipients_to=str_replace(",",";",api_cleanString(strtolower($recipients_to),"/[^a-z0-9-_.,;@]/"));
- $mail_qobj->recipients_cc=str_replace(",",";",api_cleanString(strtolower($recipients_cc),"/[^a-z0-9-_.,;@]/"));
- $mail_qobj->recipients_bcc=str_replace(",",";",api_cleanString(strtolower($recipients_bcc),"/[^a-z0-9-_.,;@]/"));
- $mail_qobj->sender_mail=str_replace(",",";",api_cleanString(strtolower($sender_mail),"/[^a-z0-9-_.,;@]/"));
+ $mail_qobj->recipients_to=str_replace(",",";",api_cleanString(strtolower($recipients_to),"/[^a-z0-9+-_.,;@]/"));
+ $mail_qobj->recipients_cc=str_replace(",",";",api_cleanString(strtolower($recipients_cc),"/[^a-z0-9+-_.,;@]/"));
+ $mail_qobj->recipients_bcc=str_replace(",",";",api_cleanString(strtolower($recipients_bcc),"/[^a-z0-9+-_.,;@]/"));
+ $mail_qobj->sender_mail=str_replace(",",";",api_cleanString(strtolower($sender_mail),"/[^a-z0-9+-_.,;@]/"));
  $mail_qobj->sender_name=addslashes($sender_name);
  $mail_qobj->attachments=addslashes($attachments);
  $mail_qobj->status="inserted";

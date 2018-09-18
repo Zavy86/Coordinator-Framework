@@ -14,7 +14,7 @@
  // build profile form
  $form=new cForm("?mod=framework&scr=submit&act=user_add","POST",null,"users_add");
  $form->addField("text","mail",api_text("users_add-mail"),$user->mail,api_text("users_add-mail-placeholder"),null,null,8,($GLOBALS['settings']->sessions_authentication_method=='standard'?"required":null));
- if($GLOBALS['settings']->sessions_authentication_method=='ldap'){$form->addField("text","username",api_text("users_add-username"),$user->username,api_text("users_add-username-placeholder"),null,null,8,"required");}
+ if($GLOBALS['settings']->sessions_authentication_method=='ldap'){$form->addField("text","username",api_text("users_add-username"),$user->username,api_text("users_add-username-placeholder"),null,null,8);}
  $form->addField("text","firstname",api_text("users_add-firstname"),$user->firstname,api_text("users_add-firstname-placeholder"),null,null,8,"required");
  $form->addField("text","lastname",api_text("users_add-lastname"),$user->lastname,api_text("users_add-lastname-placeholder"),null,null,null,"required");
  $form->addField("select","localization",api_text("users_add-localization"),$session->user->localization,api_text("users_add-localization-placeholder"),null,null,null,"required");
