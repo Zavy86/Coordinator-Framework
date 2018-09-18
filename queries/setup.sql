@@ -285,6 +285,7 @@ CREATE TABLE IF NOT EXISTS `framework_mails` (
   `subject` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `message` text COLLATE utf8mb4_unicode_ci,
   `attachments` text COLLATE utf8mb4_unicode_ci,
+  `template` text COLLATE utf8mb4_unicode_ci,
   `errors` text COLLATE utf8mb4_unicode_ci,
   `status` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'inserted, sended, failed',
   `addTimestamp` int(11) unsigned NOT NULL,
