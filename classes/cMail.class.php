@@ -22,6 +22,7 @@ class cMail{
  protected $subject;
  protected $message;
  protected $attachments;
+ protected $template;
  protected $errors;
  protected $status;
  protected $addTimestamp;
@@ -59,6 +60,7 @@ class cMail{
   $this->message=stripslashes($mail->message);
   if(!$mail->attachments){$this->attachments=array();}
   else{$this->attachments=explode(";",stripslashes($mail->attachments));}
+  $this->template=stripslashes($mail->template);
   $this->errors=stripslashes($mail->errors);
   $this->status=stripslashes($mail->status);
   $this->addTimestamp=(int)$mail->addTimestamp;
