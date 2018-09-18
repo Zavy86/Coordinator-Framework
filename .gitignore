@@ -19,6 +19,10 @@ config.inc.php
 !/uploads/framework/users/avatar.jpg
 !/uploads/framework/users/avatar_man.jpg
 !/uploads/framework/users/avatar_woman.jpg
+!/uploads/framework/mails/
+/uploads/framework/mails/*
+!/uploads/framework/mails/template.default.html
+!/uploads/framework/mails/header.default.png
 !/uploads/dashboard/
 /uploads/dashboard/*
 
