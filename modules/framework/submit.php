@@ -743,6 +743,8 @@ function user_login(){
   case "ldap":
    // ldap authentication
    $authentication_result=user_authentication_ldap($r_username,$r_password);
+   // check authentication
+   if($authentication_result==-2){$authentication_result=user_authentication($r_username,$r_password);}
    break;
   default:
    // standard authentication
@@ -773,13 +775,18 @@ function user_logout(){
  * User Recovery   /** @todo rename in own ?
  */
 function user_recovery(){
+ // debug
+ api_dump($_REQUEST,"_REQUEST");
  // acquire variables
  $r_mail=$_REQUEST['mail'];
  $r_secret=$_REQUEST['secret'];
  // retrieve user object
  $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_users` WHERE `mail`='".$r_mail."'",$GLOBALS['debug']);
  // check user
- if(!$user_obj->id){api_redirect(DIR."login.php?error=userNotFound");} /** @todo sistemare error alert */
+ if(!$user_obj->id){
+  api_alerts_add(api_text("framework_alert_userRecoveryNotFound"),"warning");
+  api_redirect(DIR."login.php");
+ }
  // remove all user sessions
  $GLOBALS['database']->queryExecute("DELETE FROM `framework_sessions` WHERE `fkUser`='".$user_obj->id."'");
  // check for secret
@@ -789,20 +796,27 @@ function user_recovery(){
   $GLOBALS['database']->queryExecute("UPDATE `framework_users` SET `secret`='".$f_secret."' WHERE `id`='".$user_obj->id."'");
   $recoveryLink=URL."index.php?mod=framework&scr=submit&act=user_recovery&mail=".$r_mail."&secret=".$f_secret;
   // send recovery link
-  api_sendmail("Coordinator password recovery",$recoveryLink,$r_mail); /** @todo fare mail come si deve */
+  //api_sendmail("Coordinator password recovery",$recoveryLink,$r_mail); /** @todo fare mail come si deve */
+  api_sendmail(api_text("framework_mail-user_recovery-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_recovery-message",array($user_obj->firstname,$GLOBALS['settings']->title,$recoveryLink)),$user_obj->mail);
   // redirect
-  api_redirect(DIR."login.php?error=userRecoveryLinkSended"); /** @todo sistemare error alert */
+  api_alerts_add(api_text("framework_alert_userRecoveryLinkSended"),"success");
+  api_redirect(DIR."login.php");
  }else{
   // check secret code
-  if($r_secret!==$user_obj->secret){api_redirect(DIR."login.php?error=userRecoverySecretError");} /** @todo sistemare error alert */
+  if($r_secret!==$user_obj->secret){
+   api_alerts_add(api_text("framework_alert_userRecoverySecretError"),"warning");
+   api_redirect(DIR."login.php?error=userRecoverySecretError");
+  }
   // generate new password
-  $f_password=substr(md5(date("Y-m-d H:i:s").rand(1,99999)),0,8);
+  $v_password=substr(md5(date("Y-m-d H:i:s").rand(1,99999)),0,8);
   // update password and reset secret
-  $GLOBALS['database']->queryExecute("UPDATE `framework_users` SET `password`='".md5($f_password)."',`secret`=null,`pwdTimestamp`=null WHERE `id`='".$user_obj->id."'");
+  $GLOBALS['database']->queryExecute("UPDATE `framework_users` SET `password`='".md5($v_password)."',`secret`=null,`pwdTimestamp`=null WHERE `id`='".$user_obj->id."'");
   // send new password
-  api_sendmail("Coordinator new password",$f_password,$r_mail); /** @todo fare mail come si deve */
+  //api_sendmail("Coordinator new password",$f_password,$r_mail); /** @todo fare mail come si deve */
+  api_sendmail(api_text("framework_mail-user_recovery_password-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_recovery_password-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_password)),$user_obj->mail);
   // redirect
-  api_redirect(DIR."login.php?error=userRecoveryPasswordSended"); /** @todo sistemare error alert */
+  api_alerts_add(api_text("framework_alert_userRecoveryPasswordSended"),"success");
+  api_redirect(DIR."login.php");
  }
 }
 
@@ -838,7 +852,8 @@ function user_add(){
  // check user
  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // send password to user
- api_sendmail("Coordinator new user welcome","Your access password is:\n\n".$v_password,$user_obj->mail); /** @todo fare mail come si deve */
+ //api_sendmail("Coordinator new user welcome","Your access password is:\n\n".$v_password,$user_obj->mail); /** @todo fare mail come si deve */
+ api_sendmail(api_text("framework_mail-user_add-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_add-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_password)),$user_obj->mail);
  // redirect
  api_alerts_add(api_text("framework_alert_userCreated"),"success");
  api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
