@@ -87,13 +87,13 @@
 
  <!-- mails -->
  <text key="framework_mail-user_add-subject"><![CDATA[{0}]]> account</text>
- <text key="framework_mail-user_add-message"><![CDATA[<p>Gentile {0}, il tuo account su {1} è stato attivato.</p><p>Il link di accesso è {2}</p><p>La password per il tuo primo accesso è: {3}</p>]]></text>
+ <text key="framework_mail-user_add-message"><![CDATA[<p>Ciao {0}, il tuo account su {1} è stato attivato.</p><p>Il link di accesso è {2}</p><p>La password per il tuo primo accesso è: {3}</p>]]></text>
 
  <text key="framework_mail-user_recovery-subject">Ripristino account <![CDATA[{0}]]></text>
- <text key="framework_mail-user_recovery-message"><![CDATA[<p>Gentile {0}, per ripristinare la password del tuo account su {1} premi il seguente link:</p><br><p><a href="{2}">{2}</a></p>]]></text>
+ <text key="framework_mail-user_recovery-message"><![CDATA[<p>Ciao {0}, per ripristinare la password del tuo account su {1} premi il seguente link:</p><br><p><a href="{2}">{2}</a></p>]]></text>
 
  <text key="framework_mail-user_recovery_password-subject">Ripristino account <![CDATA[{0}]]></text>
- <text key="framework_mail-user_recovery_password-message"><![CDATA[<p>Gentile {0}, il tuo account su {1} è stato ripristinato.</p><p>Il link di accesso è {2}</p><p>La nuova password per il tuo prossimo accesso è: {3}</p>]]></text>
+ <text key="framework_mail-user_recovery_password-message"><![CDATA[<p>Ciao {0}, il tuo account su {1} è stato ripristinato.</p><p>Il link di accesso è {2}</p><p>La nuova password per il tuo prossimo accesso è: {3}</p>]]></text>
 
  <!-- operations -->
  <text key="nav-operations-user_interpret">Interpreta utente</text>
