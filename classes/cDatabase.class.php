@@ -70,11 +70,17 @@ class Database{
  }
 
 
+ public function affectedRows(){
+ }
+
+
  public function queryExecute($sql){
   $_SESSION['coordinator_logs'][]=array("log","PDO queryUpdate: ".$sql);
   try{
    $query=$this->connection->prepare($sql);
-   $return=$query->execute();
+   $query->execute();
+   $return=$query->rowCount();
+   //$return=$query->execute();
   }catch(PDOException $e){
    $_SESSION['coordinator_logs'][]=array("error","PDO queryUpdate: ".$e->getMessage());
    $return=false;

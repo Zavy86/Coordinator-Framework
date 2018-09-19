@@ -154,12 +154,16 @@ function api_sendmail_process($mail=null){
 
 /**
  * Sendmail Process
+ *
+ * @return integer Number of processed mails
  */
 function api_sendmail_process_all(){
  // get inserted mails
  $mails_array=api_framework_mails("inserted");
  // cycle all mails
  foreach($mails_array as $mail_obj){api_sendmail_process($mail_obj->id);}
+ // return
+ return count($mails_array);
 }
 
 /**
