@@ -52,6 +52,9 @@
   api_dump($cronjobs_weekly_path,"cronjobs_weekly_path");
   foreach($cronjobs_weekly_path as $job_path){if(file_exists($job_path)){include $job_path;}}
  }
+ 
+ /** @todo salvare un log? */
+
  // debug
  api_dump("CRON EXECUTED");
 ?>

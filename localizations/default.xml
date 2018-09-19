@@ -38,6 +38,7 @@
  <text key="alert_unauthorized">Your account is not authorized to perform the "<![CDATA[{1}]]>" action in the "<![CDATA[{0}]]>" module</text>
  <text key="alert_passwordExpired">Your password is expired please choose a new password</text>
  <text key="alert_authenticationFailed">Incorrect username or password</text>
+ <text key="alert_requiredModuleNotFound">The module <![CDATA[{0}]]> could not be included</text>
  <text key="alert_submitFunctionNotFound">The function "<![CDATA[{2}]]>" was not found in script "<![CDATA[{1}]]>" of module "<![CDATA[{0}]]>"</text>
 
  <!-- enabled -->

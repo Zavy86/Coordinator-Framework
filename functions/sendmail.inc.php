@@ -34,16 +34,12 @@ function api_sendmail($subject,$message,$recipients_to=null,$recipients_cc=null,
  if(!$mail_qobj->sender_name){$mail_qobj->sender_name=$GLOBALS['settings']->sendmail_from_name;}
  // debug
  api_dump($mail_qobj,"mail query object");
- api_debug();
  // execute query
  $mail_qobj->id=$GLOBALS['database']->queryInsert("framework_mails",$mail_qobj);
  // check for mail id
  if(!$mail_qobj->id){return false;}
- // check for asynchronous sendmail option
- if(!$GLOBALS['settings']->sendmail_asynchronous){
-  // try to send mail now
-  api_sendmail_process($mail_qobj->id);
- }
+ // check for asynchronous sendmail option or send mail now
+ if(!$GLOBALS['settings']->sendmail_asynchronous){api_sendmail_process($mail_qobj->id);}
  // return
  return $mail_qobj->id;
 }
@@ -158,12 +154,16 @@ function api_sendmail_process($mail=null){
 
 /**
  * Sendmail Process
+ *
+ * @return integer Number of processed mails
  */
 function api_sendmail_process_all(){
  // get inserted mails
  $mails_array=api_framework_mails("inserted");
  // cycle all mails
  foreach($mails_array as $mail_obj){api_sendmail_process($mail_obj->id);}
+ // return
+ return count($mails_array);
 }
 
 /**
