@@ -34,7 +34,6 @@ function api_sendmail($subject,$message,$recipients_to=null,$recipients_cc=null,
  if(!$mail_qobj->sender_name){$mail_qobj->sender_name=$GLOBALS['settings']->sendmail_from_name;}
  // debug
  api_dump($mail_qobj,"mail query object");
- api_debug();
  // execute query
  $mail_qobj->id=$GLOBALS['database']->queryInsert("framework_mails",$mail_qobj);
  // check for mail id
