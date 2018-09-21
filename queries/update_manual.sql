@@ -1,15 +1,12 @@
 --
 -- Update Coordinator Framework
 --
--- @todo migliorare, per ora farli a mano (fino alla 1.0.0 poi ci penseremo..)
+-- Aggiornamenti da fare manualmente
 --
 
 -- --------------------------------------------------------
 
---
--- Version 0.0.2
---
-
-
+ALTER TABLE  `framework_users` CHANGE  `pwdTimestamp`  `pwdTimestamp` INT( 11 ) UNSIGNED NULL DEFAULT NULL COMMENT  'password change';
+ALTER TABLE  `framework_users` ADD  `lsaTimestamp` INT( 11 ) UNSIGNED NOT NULL COMMENT  'last system access' AFTER  `updFkUser`;
 
 -- --------------------------------------------------------

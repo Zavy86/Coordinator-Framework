@@ -754,11 +754,20 @@ function user_login(){
  api_dump($authentication_result,"authentication_result");
  // check authentication result
  if($authentication_result<1){api_alerts_add(api_text("alert_authenticationFailed"),"warning");api_redirect(DIR."login.php");}
- // try to authenticate user
+ // build session
  $GLOBALS['session']->build($authentication_result);
  //
  api_dump($_SESSION["coordinator_session_id"],"session_id after");
  api_dump($GLOBALS['session']->debug(),"session after");
+ // build user query objects
+ $user_qobj=new stdClass();
+ // acquire variables
+ $user_qobj->id=$authentication_result;
+ $user_qobj->lsaTimestamp=time();
+ // debug
+ api_dump($user_qobj,"user_qobj");
+ // update user
+ $GLOBALS['database']->queryUpdate("framework_users",$user_qobj);
  // redirect
  api_redirect(DIR."index.php");
 }

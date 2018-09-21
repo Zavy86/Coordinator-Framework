@@ -31,6 +31,7 @@ class cUser{
  protected $addFkUser;
  protected $updTimestamp;
  protected $updFkUser;
+ protected $lsaTimestamp;
  protected $pwdExpiration;
  protected $pwdExpired;
  protected $deleted;
@@ -74,6 +75,7 @@ class cUser{
   $this->addFkUser=(int)$user->addFkUser;
   $this->updTimestamp=(int)$user->updTimestamp;
   $this->updFkUser=(int)$user->updFkUser;
+  $this->lsaTimestamp=(int)$user->lsaTimestamp;
   $this->deleted=(bool)$user->deleted;
   // check for password expiration
   if($GLOBALS['settings']->users_password_expiration>-1){
