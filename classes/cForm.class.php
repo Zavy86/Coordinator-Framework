@@ -310,6 +310,7 @@ class cForm{
       else{if($option->value===$field->value){$return.=" selected=\"selected\"";}}
       if($option->style){$return.=" style=\"".$option->style."\"";}
       if($option->tags){$return.=" ".$option->tags;}
+      if(!$option->enabled){$return.=" disabled";}
       $return.=" id=\"".$this->id."_input_".$field->name."_option_".$option_id."\">".$option->label."</option>\n";
      }
      $return.=$split_identation."   </select>\n";
