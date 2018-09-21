@@ -15,7 +15,7 @@
  * @return string|boolean Formatted timestamp or false
  */
 function api_timestamp_format($timestamp,$format="Y-m-d H:i:s",$timezone=null){
- if(!is_numeric($timestamp)){return false;}
+ if(!is_numeric($timestamp) || $timestamp==0){return false;}
  if(!$timezone){$timezone=$GLOBALS['session']->user->timezone;}
  // build date time object
  $datetime=new DateTime("@".$timestamp);
