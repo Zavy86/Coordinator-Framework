@@ -583,4 +583,46 @@ function api_requireModules($modules){                     /** @todo integrare d
  }
 }
 
+
+/**
+ * Events table
+ * 
+ * @param objects $events_array Array of event objects
+ * @return object Return cTable object
+ */
+function api_events_table($events_array){
+ // build events table
+ $events_table=new cTable(api_text("events-tr-unvalued"));
+ $events_table->addHeader("&nbsp;",null,16);
+ $events_table->addHeader(api_text("events-th-timestamp"),"nowrap");
+ $events_table->addHeader(api_text("events-th-event"),"nowrap");
+ $events_table->addHeader(api_text("events-th-fkUser"),"nowrap");
+ $events_table->addHeader(api_text("events-th-note"),null,"100%");
+ $events_table->addHeader("&nbsp;",null,16);
+ // check parameters
+ if(is_array($events_array)){
+  // cycle events
+  foreach($events_array as $event_fobj){
+   // switch level
+   switch($event_fobj->level){
+    case "debug":$tr_class="success";break;
+    case "warning":$tr_class="warning";break;
+    case "error":$tr_class="error";break;
+    default:$tr_class=null;
+   }
+   // check selected
+   if($event_fobj->id==$_REQUEST['idEvent']){$tr_class="info";}
+   // add event row
+   $events_table->addRow($tr_class);
+   $events_table->addRowField($event_fobj->getLevel(true,false),"nowrap");
+   $events_table->addRowField(api_timestamp_format($event_fobj->timestamp,api_text("datetime")),"nowrap");
+   $events_table->addRowField($event_fobj->getEvent(),"nowrap");
+   $events_table->addRowField((new cUser($event_fobj->fkUser))->fullname,"nowrap");
+   $events_table->addRowField($event_fobj->note,"truncate-ellipsis");
+  }
+ }
+ // return 
+ return $events_table;
+}
+
 ?>

@@ -41,6 +41,12 @@
  <text key="alert_requiredModuleNotFound">Non è stato possibile includere il modulo <![CDATA[{0}]]></text>
  <text key="alert_submitFunctionNotFound">La funzione "<![CDATA[{2}]]>" non è stata trovata nello script "<![CDATA[{1}]]>" del modulo "<![CDATA[{0}]]>"</text>
 
+ <!-- event levels -->
+ <text key="event-level-debug">Debug</text>
+ <text key="event-level-information">Informazione</text>
+ <text key="event-level-warning">Attenzione</text>
+ <text key="event-level-error">Errore</text>
+
  <!-- enabled -->
  <text key="enabled">Abilitato</text>
  <text key="disabled">Disabilitato</text>
@@ -87,5 +93,12 @@
  <!-- dashboard -->
  <text key="dashboard-tile-add">Aggiungi alla bacheca</text>
  <text key="dashboard-tile-remove">Rimuovi dalla bacheca</text>
+ 
+ <!-- events table -->
+ <text key="events-tr-unvalued">Non sono presenti eventi da mostrare..</text>
+ <text key="events-th-timestamp">Data</text>
+ <text key="events-th-event">Evento</text>
+ <text key="events-th-note">Note</text>
+ <text key="events-th-fkUser">Utente</text>
 
 </locale>
