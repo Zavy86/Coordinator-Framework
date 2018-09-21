@@ -228,7 +228,7 @@ class Database{
  }
 
 
- public function queryCount($table,$where=1){
+ public function queryCount($table,$where="1"){
   $sql="SELECT COUNT(*) FROM `".$table."` WHERE ".$where;
   $_SESSION['coordinator_logs'][]=array("log","PDO count: ".$sql);
   try{
