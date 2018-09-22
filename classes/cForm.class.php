@@ -317,7 +317,7 @@ class cForm{
      break;
     // textarea
     case "textarea":
-     $return.=$split_identation."   <textarea".$field_tags."></textarea>\n"; /** @todo verificare se serve altro */
+     $return.=$split_identation."   <textarea".$field_tags.">".$field->value."</textarea>\n"; /** @todo verificare se serve altro */
      break;
     // text localized
     case "text_localized":

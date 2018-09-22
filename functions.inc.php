@@ -596,9 +596,8 @@ function api_events_table($events_array){
  $events_table->addHeader("&nbsp;",null,16);
  $events_table->addHeader(api_text("events-th-timestamp"),"nowrap");
  $events_table->addHeader(api_text("events-th-event"),"nowrap");
- $events_table->addHeader(api_text("events-th-fkUser"),"nowrap");
  $events_table->addHeader(api_text("events-th-note"),null,"100%");
- $events_table->addHeader("&nbsp;",null,16);
+ $events_table->addHeader(api_text("events-th-fkUser"),"nowrap text-right");
  // check parameters
  if(is_array($events_array)){
   // cycle events
@@ -612,13 +611,18 @@ function api_events_table($events_array){
    }
    // check selected
    if($event_fobj->id==$_REQUEST['idEvent']){$tr_class="info";}
+   // make note
+   $note_td=$event_fobj->note;
+   
+   /** @todo replace {key} */
+   
    // add event row
    $events_table->addRow($tr_class);
    $events_table->addRowField($event_fobj->getLevel(true,false),"nowrap");
    $events_table->addRowField(api_timestamp_format($event_fobj->timestamp,api_text("datetime")),"nowrap");
    $events_table->addRowField($event_fobj->getEvent(),"nowrap");
-   $events_table->addRowField((new cUser($event_fobj->fkUser))->fullname,"nowrap");
-   $events_table->addRowField($event_fobj->note,"truncate-ellipsis");
+   $events_table->addRowField($note_td,"truncate-ellipsis");
+   $events_table->addRowField((new cUser($event_fobj->fkUser))->fullname,"nowrap text-right");
   }
  }
  // return 
