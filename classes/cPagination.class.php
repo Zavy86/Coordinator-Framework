@@ -39,7 +39,7 @@ class cPagination{
  public function __construct($records,$show=20,$id=null){
   // check parameters
   if($id){$this->id="pagination_".$id;}else{$this->id="pagination_".md5(rand(1,99999));}
-  if(!$records){return false;}
+  if($records===null){return false;}
   if(!$show){$show=20;}
   // parse current url
   parse_str(parse_url($_SERVER['REQUEST_URI'])['query'],$this->uri_array);
@@ -55,6 +55,7 @@ class cPagination{
    $this->query_limits=null;
   }else{
    $this->pages=ceil($this->records/$this->show);
+   if(!$this->pages){$this->pages=1;}
    if($this->page>$this->pages){$this->page=$this->pages;}
    $this->query_limits="LIMIT ".(($this->page-1)*$this->show).",".$this->show;
   }

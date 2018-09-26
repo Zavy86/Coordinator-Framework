@@ -106,6 +106,28 @@ class cQuery{
  }
 
  /**
+  * Get
+  *
+  * @return string
+  */
+ public function getQueryFromJoinWhere(){
+  // query table
+  $sql.="\nFROM `".$this->query_table."`";
+  // query joins
+  if(count($this->query_joins_array)){
+   foreach($this->query_joins_array as $join_fobj){
+    $sql.="\nJOIN `".$join_fobj->jk_table."` ON ";
+    $sql.="`".$join_fobj->jk_table."`.`".$join_fobj->jk_field."`=";
+    $sql.="`".$join_fobj->fk_table."`.`".$join_fobj->fk_field."`";
+   }
+  }
+  // query where
+  if($this->query_where){$sql.="\nWHERE ".$this->query_where;}
+  // return
+  return $sql;
+ }
+
+ /**
   * Get Query SQL
   *
   * @return string SQL Query limits
@@ -122,7 +144,7 @@ class cQuery{
    $sql="SELECT\n ".implode(",\n ",$fields_array);
   }else{$sql="SELECT *";}
   // add query table
-  $sql.="\nFROM `".$this->query_table."`";
+  /*$sql.="\nFROM `".$this->query_table."`";
   // add query joins
   if(count($this->query_joins_array)){
    foreach($this->query_joins_array as $join_fobj){
@@ -132,7 +154,10 @@ class cQuery{
    }
   }
   // add query where
-  if($this->query_where){$sql.="\nWHERE ".$this->query_where;}
+  if($this->query_where){$sql.="\nWHERE ".$this->query_where;}*/
+
+  $sql.=$this->getQueryFromJoinWhere();
+
   // add query orders
   if(count($this->query_order_fields_array)){
    $order_fields_array=array();
@@ -171,17 +196,15 @@ class cQuery{
   * @return
   */
  public function getRecordsCount(){
+  // build count query
+  $sql="SELECT COUNT(*)".$this->getQueryFromJoinWhere();
+  //api_dump($sql);
   // count records
-  $count=$GLOBALS['database']->queryCount($this->query_table,$this->getQueryWhere());
+  $count=$GLOBALS['database']->queryUniqueValue($sql);
   // check count
   if(!$count){$count=0;}
   // return
   return $count;
- }
-
-
- public function calculate(){
-
  }
 
 }
