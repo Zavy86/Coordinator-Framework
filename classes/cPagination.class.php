@@ -19,9 +19,6 @@ class cPagination{
  protected $pages;
  protected $records;
  protected $uri_array;
- 
- protected $query_sql;
- protected $query_where;
  protected $query_limits;
 
 /**
@@ -39,14 +36,10 @@ class cPagination{
  * @param string $id Pagination ID, if null randomly generated
  * @return boolean
  */
- public function __construct($table,$conditions,$show=20,$id=null){
- //public function __construct($records,$show=20,$id=null){
+ public function __construct($records,$show=20,$id=null){
   // check parameters
   if($id){$this->id="pagination_".$id;}else{$this->id="pagination_".md5(rand(1,99999));}
-  //if(!$records){return false;}
-
-  if($conditions){$this->query_where=$conditions;}else{$this->query_where="1";}
-
+  if(!$records){return false;}
   if(!$show){$show=20;}
   // parse current url
   parse_str(parse_url($_SERVER['REQUEST_URI'])['query'],$this->uri_array);
@@ -54,11 +47,7 @@ class cPagination{
   if($this->uri_array['pnr']){$this->page=$this->uri_array['pnr'];}else{$this->page=1;}
   if($this->uri_array['psr']){$this->show=$this->uri_array['psr'];}else{$this->show=$show;}
   // total records
-  //$this->records=$records;
-
-  // count total records
-  $this->records=$GLOBALS['database']->queryCount($table,$conditions);
-
+  $this->records=$records;
   // calculate total pages and make query limits
   if($this->show=="all"){
    $this->page=1;
@@ -67,7 +56,7 @@ class cPagination{
   }else{
    $this->pages=ceil($this->records/$this->show);
    if($this->page>$this->pages){$this->page=$this->pages;}
-   $this->query_limits=" LIMIT ".(($this->page-1)*$this->show).",".$this->show;
+   $this->query_limits="LIMIT ".(($this->page-1)*$this->show).",".$this->show;
   }
   // return
   return true;
@@ -78,7 +67,7 @@ class cPagination{
   *
   * @return string SQL Query limits
   */
- public function getQuery(){
+ public function getQueryLimits(){
   return $this->query_limits;
  }
 
