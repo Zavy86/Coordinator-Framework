@@ -58,6 +58,7 @@ require_once(ROOT."functions/timestamp.inc.php");
 require_once(ROOT."classes/cLocalization.class.php");
 require_once(ROOT."classes/cDatabase.class.php");
 require_once(ROOT."classes/cEvent.class.php");
+require_once(ROOT."classes/cFilter.class.php");
 require_once(ROOT."classes/cSettings.class.php");
 require_once(ROOT."classes/cMail.class.php");
 require_once(ROOT."classes/cSession.class.php");
