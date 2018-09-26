@@ -60,6 +60,13 @@
  <text key="nav-logout">Logout</text>
  <text key="nav-operations">Operations</text>
 
+ <!-- pagination -->
+ <text key="pagination-shows">Shows</text>
+ <text key="pagination-all">All</text>
+ <text key="pagination-page">Page <![CDATA[{0}]]> of <![CDATA[{1}]]></text>
+ <text key="pagination-previous">Previous</text>
+ <text key="pagination-next">Next</text>
+
  <!-- forms -->
  <text key="form-fc-submit">Submit</text>
  <text key="form-fc-cancel">Cancel</text>
@@ -92,7 +99,7 @@
  <!-- dashboard -->
  <text key="dashboard-tile-add">Add to dashboard</text>
  <text key="dashboard-tile-remove">Remove from dashboard</text>
- 
+
  <!-- events table -->
  <text key="events-tr-unvalued">There are no events to show</text>
  <text key="events-th-timestamp">Timestamp</text>

@@ -31,6 +31,10 @@ a.hidden-link{
  text-decoration:none;
 }
 
+li a.hidden-link{
+ color:#666;
+}
+
 .control-label{
  font-weight:normal;
 }

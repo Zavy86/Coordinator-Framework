@@ -60,6 +60,13 @@
  <text key="nav-logout">Esci</text>
  <text key="nav-operations">Operazioni</text>
 
+ <!-- pagination -->
+ <text key="pagination-shows">Mostra</text>
+ <text key="pagination-all">Tutti</text>
+ <text key="pagination-page">Pagina <![CDATA[{0}]]> di <![CDATA[{1}]]></text>
+ <text key="pagination-previous">Precedente</text>
+ <text key="pagination-next">Successiva</text>
+
  <!-- forms -->
  <text key="form-fc-submit">Salva</text>
  <text key="form-fc-cancel">Annulla</text>
@@ -93,7 +100,7 @@
  <!-- dashboard -->
  <text key="dashboard-tile-add">Aggiungi alla bacheca</text>
  <text key="dashboard-tile-remove">Rimuovi dalla bacheca</text>
- 
+
  <!-- events table -->
  <text key="events-tr-unvalued">Non sono presenti eventi da mostrare..</text>
  <text key="events-th-timestamp">Data</text>
