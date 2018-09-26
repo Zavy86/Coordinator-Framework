@@ -81,6 +81,8 @@ require_once(ROOT."classes/cList.class.php");
 require_once(ROOT."classes/cTab.class.php");
 require_once(ROOT."classes/cProgressBar.class.php");
 require_once(ROOT."classes/cGauge.class.php");
+require_once(ROOT."classes/cPagination.class.php");
+require_once(ROOT."classes/cQuery.class.php");
 
 // build localization instance
 $localization=new cLocalization();
@@ -586,7 +588,7 @@ function api_requireModules($modules){                     /** @todo integrare d
 
 /**
  * Events table
- * 
+ *
  * @param objects $events_array Array of event objects
  * @return object Return cTable object
  */
@@ -613,9 +615,9 @@ function api_events_table($events_array){
    if($event_fobj->id==$_REQUEST['idEvent']){$tr_class="info";}
    // make note
    $note_td=$event_fobj->note;
-   
+
    /** @todo replace {key} */
-   
+
    // add event row
    $events_table->addRow($tr_class);
    $events_table->addRowField($event_fobj->getLevel(true,false),"nowrap");
@@ -625,7 +627,7 @@ function api_events_table($events_array){
    $events_table->addRowField((new cUser($event_fobj->fkUser))->fullname,"nowrap text-right");
   }
  }
- // return 
+ // return
  return $events_table;
 }
 
