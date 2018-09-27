@@ -79,7 +79,7 @@ class cForm{
   $field->typology=$typology;
   $field->name=$name;
   $field->label=$label;
-  $field->value=$value;
+  if(is_array($value)){$field->value=$value;}else{$field->value=(string)$value;}
   $field->placeholder=$placeholder;
   $field->size=$size;
   $field->class=$class;
@@ -173,7 +173,7 @@ class cForm{
   if(!$label){return false;}
   // build field option object
   $fieldOption=new stdClass();
-  $fieldOption->value=$value;
+  $fieldOption->value=(string)$value;
   $fieldOption->label=$label;
   $fieldOption->class=$class;
   $fieldOption->style=$style;

@@ -86,6 +86,15 @@
  <text key="form-input-text_localized-translate">Insert translations</text>
  <text key="form-input-text_localized-alert">Default translation is required!</text>
 
+ <!-- filters -->
+ <text key="filters">Filters</text>
+ <text key="filters-modal-title">Filters panel</text>
+ <text key="filters-modal-link">Open filter panel</text>
+ <text key="filters-fc-submit">Apply filters</text>
+ <text key="filters-fc-reset">Reset</text>
+ <text key="filters-reset">Reset filters</text>
+ <text key="filters-edit">Edit filters</text>
+
  <!-- login -->
  <text key="login-ff-account">Account</text>
  <text key="login-ff-password">Password</text>

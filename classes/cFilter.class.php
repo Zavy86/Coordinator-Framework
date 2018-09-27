@@ -14,45 +14,58 @@ class cFilter{
 
  /** Properties */
  protected $id;
-
+ protected $url;
  protected $uri_array;
-
  protected $items_array;
  protected $current_item;
+ protected $modal;
 
-/**
- * Debug
- */
+ /**
+  * Debug
+  */
  public function debug(){api_dump($this);}
 
-/**
- * Filter class
- *
- * @param string $id Filter ID, if null randomly generated
- * @return boolean
- */
+ /**
+  * Filter class
+  *
+  * @param string $id Filter ID, if null randomly generated
+  * @return boolean
+  */
  public function __construct($id=null){
   // check parameters
   if($id){$this->id="filter_".$id;}else{$this->id="filter_".md5(rand(1,99999));}
-
   // parse current url
   parse_str(parse_url($_SERVER['REQUEST_URI'])['query'],$this->uri_array);
-
-  //
-  $this->current_item=1;
-
-  // initialize arrays
+  // initializations
+  $this->url="?".http_build_query($this->uri_array);
   $this->items_array=array();
-
+  $this->current_item=1;
+  $this->modal=null;
   // return
   return true;
  }
 
+ /**
+  * Get
+  *
+  * @param string $property Property name
+  * @return string Property value
+  */
+ public function __get($property){return $this->$property;}
 
+ /**
+  * Add Item
+  *
+  * @param type $label
+  * @param type $values_array
+  * @param type $field
+  * @param type $table
+  * @param type $id
+  * @return boolean
+  */
  public function addItem($label,$values_array,$field=null,$table=null,$id=null){
   // check parameters
   if(!$label || !is_array($values_array)){return false;}
-
   // build item class
   $item=new stdClass();
   if($id){$item->id="filter_".$id;}else{$item->id="filter_".$this->current_item;}
@@ -60,31 +73,32 @@ class cFilter{
   $item->field=$field;
   $item->label=$label;
   $item->values_array=$values_array;
-
+  // add item to items array
   $this->items_array[$item->id]=$item;
-
+  // delete modal
+  $this->modal=null;
+  // increment current item
   $this->current_item++;
-
  }
 
- public function getFilters(){
-
+ /**
+  * Get Active Filters
+  *
+  * @return array $active_filters_array Array of active filters
+  */
+ public function getActiveFilters(){
+  // definitions
   $active_filters_array=array();
-
-  //api_dump($_REQUEST,"_REQUEST");
-
-  foreach($this->items_array as $item){
-
-   if($_REQUEST[$item->id]){
-    $active_filters_array[$item->name]=$_REQUEST[$item->id];
-   }
-
-  }
-
+  // cycle all items
+  foreach($this->items_array as $item){if($_REQUEST[$item->id]){$active_filters_array[$item->id]=$_REQUEST[$item->id];}}
+  // return active filters
   return $active_filters_array;
-
  }
 
+ /**
+  *
+  * @return type
+  */
  public function getQueryWhere(){
 
   //api_dump($_REQUEST,"_REQUEST");
@@ -126,105 +140,81 @@ class cFilter{
 
  }
 
-
-
- public function render(){
-
-  $v_url="?".http_build_query($this->uri_array);
-
-  //api_dump($v_url);
-
-  $form=new cForm($v_url,"POST");
-
+ /**
+  * Build Modal
+  *
+  * @return boolean
+  */
+ protected function buildModal(){
+  // build filters form
+  $form=new cForm($this->url,"POST",null,$this->id);
+  // cycle all items
   foreach($this->items_array as $item){
    $form->addField("select",$item->id."[]",$item->label,$_REQUEST[$item->id],null,null,null,null,"multiple");
-   //api_text("form-input-select-placeholder")
    foreach($item->values_array as $value=>$label){$form->addFieldOption($value,$label);}
+   // add jQuery script
+   $GLOBALS['html']->addScript("/* Select2 ".$item->id." */\n$(document).ready(function(){\$('select[name=\"".$item->id."[]\"]').select2({width:'100%',dropdownParent:\$('#modal_".$this->id."')});});");
   }
-
-  $form->addControl("submit","filtra");
-
-  //api_dump($form);
-
-  //
-  return $form->render(2);
-
+  // form controls
+  $form->addControl("submit",api_text("filters-fc-submit"));
+  $form->addControl("button",api_text("filters-fc-reset"),$this->url);
+  // build filters modal window
+  $this->modal=new cModal(api_text("filters-modal-title"),null,$this->id);
+  $this->modal->SetBody($form->render(2));
+  // return modal add to html response
+  return $GLOBALS['html']->addModal($this->modal);
  }
 
+ /**
+  * Link
+  * @param string $label Label
+  * @param string $title Title
+  * @param string $class CSS class
+  * @param string $confirm Show confirm alert box
+  * @param string $style Style tags
+  * @param string $tags Custom HTML tags
+  * @return string Link HTML source code
+  */
+ public function link($label,$title=null,$class=null,$confirm=null,$style=null,$tags=null){
+  // check for modal or build
+  if(!is_a($this->modal,cModal)){if(!$this->buildModal()){return false;}}
+  // return modal link calling original modal link function
+  return $this->modal->link($label,$title,$class,$confirm,$style,$tags);
+ }
 
-
-/**
- * Renderize filter object
- *
- * @return string HTML source code
- */
- public function render2(){
-  $return.="<!-- filter -->\n";
-  $return.="<div class=\"row\">\n";
-  // page viewer
-  $return.=" <div class=\"col-xs-12 col-md-6\">\n";
-  $return.="  <nav>\n";
-  $return.="   <ul class=\"filter filter-sm\" style=\"margin:0 0 16px 0;\">\n";
-  $return.="    <li><a class=\"hidden-link\">".api_text("filter-shows")."</a></li>\n";
-  // check for not exceted page shown records
-  if(!in_array($this->show,array(20,100,"all"))){$return.="    <li class=\"active\"><a href=\"#\">".$this->show."</a></li>\n";}
-  // 20 page shown records
-  if($this->show==20){$return.="    <li class=\"active\"><a href=\"#\">20</a></li>\n";}
-  else{
-   $v_uri_array=$this->uri_array;
-   $v_uri_array['psr']=20;
-   $v_url="?".http_build_query($v_uri_array);
-   $return.="    <li><a href=\"".$v_url."\">20</a></li>\n";
+ /**
+  * Renderize filter object
+  *
+  * @return string HTML source code
+  */
+ public function render(){
+  // check for modal or build
+  if(!is_a($this->modal,cModal)){if(!$this->buildModal()){return false;}}
+  // definitions
+  $active_filters_array=array();
+  // get active filters
+  $active_filters=$this->getActiveFilters();
+  // check active filters count
+  if(!count($active_filters)){return false;}
+  // cycle all acvtive filters
+  foreach($active_filters as $item=>$values){
+   $item_active_values_array=array();
+   // cycle all values
+   foreach($values as $value){$item_active_values_array[]=$this->items_array[$item]->values_array[$value];}
+   // add filter to active filters array
+   $active_filters_array[]=$this->items_array[$item]->label.": ".implode(", ",$item_active_values_array);
   }
-  // 100 page shown records
-  if($this->show==100){$return.="    <li class=\"active\"><a href=\"#\">100</a></li>\n";}
-  else{
-   $v_uri_array=$this->uri_array;
-   $v_uri_array['psr']=100;
-   $v_url="?".http_build_query($v_uri_array);
-   $return.="    <li><a href=\"".$v_url."\">100</a></li>\n";
-  }
-  // all page shown records
-  if($this->show=="all"){$return.="    <li class=\"active\"><a href=\"#\">".api_text("filter-all")."</a></li>\n";}
-  else{
-   $v_uri_array=$this->uri_array;
-   $v_uri_array['psr']="all";
-   $v_url="?".http_build_query($v_uri_array);
-   $return.="    <li><a href=\"".$v_url."\">".api_text("filter-all")."</a></li>\n";
-  }
-  $return.="   </ul>\n";
-  $return.="  </nav>\n";
-  $return.=" </div><!-- /col -->\n";
-  // check for all page shown records
-  if($this->show!="all"){
-   // page changer
-   $return.=" <div class=\"col-xs-12 col-md-6 text-right\">\n";
-   $return.="  <nav>\n";
-   $return.="   <ul class=\"filter filter-sm\" style=\"margin:0 0 16px 0;\">\n";
-   // previous
-   if($this->page==1){$return.="    <li class=\"disabled\"><a href=\"#\">&laquo; ".api_text("filter-previous")."</a></li>\n";}
-   else{
-    $v_uri_array=$this->uri_array;
-    $v_uri_array['pnr']=($this->page-1);
-    $v_url="?".http_build_query($v_uri_array);
-    $return.="    <li><a href=\"".$v_url."\">&laquo; ".api_text("filter-previous")."</a></li>\n";
-   }
-   // page
-   $return.="    <li class=\"active\"><a href=\"#\">".api_text("filter-page",array($this->page,$this->pages))."</a></li>\n";
-   // next
-   if($this->page==$this->pages){$return.="    <li class=\"disabled\"><a href=\"#\">".api_text("filter-next")." &raquo;</a></li>\n";}
-   else{
-    $v_uri_array=$this->uri_array;
-    $v_uri_array['pnr']=($this->page+1);
-    $v_url="?".http_build_query($v_uri_array);
-   $return.="    <li><a href=\"".$v_url."\">".api_text("filter-next")." &raquo;</a></li>\n";
-   }
-   $return.="   </ul>\n";
-   $return.="  </nav>\n";
-   $return.=" </div><!-- /col -->\n";
-  }
-  $return.="</div><!-- /filter -->\n";
-  // return HTML code
+  // debug
+  //api_dump($active_filters_array);
+  // make source code
+  $return.="<!-- ".$this->id." -->\n";
+  $return.="<div class=\"filter\" style=\"margin:-8px 0 8px 0\">\n";
+  // add reset link
+  $return.=api_link($this->url,api_tag("span",api_icon("fa-times")." ".api_text("filters").":","label label-default"),api_text("filters-reset"))."\n";
+  // add all active filters
+  foreach($active_filters_array as $filter){$return.=$this->link(api_tag("span",$filter,"label label-primary"),api_text("filters-edit"))."\n";}
+  $return.="\n</div><!-- /filter -->\n";
+  // return source code
   return $return;
  }
 

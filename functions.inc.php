@@ -15,6 +15,7 @@ global $localization;
 global $database;
 global $settings;
 global $session;
+global $html;
 // reset session logs
 $_SESSION['coordinator_logs']=null;
 // check for configuration file
