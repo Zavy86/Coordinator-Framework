@@ -294,6 +294,7 @@
  <!-- users_list -->
  <text key="users_list">Utenti</text>
  <text key="users_list-description">Gestione degli utenti del framework</text>
+ <text key="users_list-filter-enabled">Abilitazione</text>
  <text key="users_list-tr-unvalued">Non sono presenti utenti da mostrare..</text>
  <text key="users_list-th-fullname">Utente</text>
  <text key="users_list-th-mail">Indirizzo mail</text>

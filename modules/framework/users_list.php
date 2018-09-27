@@ -11,17 +11,27 @@
  require_once(MODULE_PATH."template.inc.php");
  // set html title
  $html->setTitle(api_text("users_list"));
+ // build filter
+ $filter=new cFilter();
+ $filter->addItem(api_text("users_list-filter-enabled"),array(0=>api_text("user-status-disabled"),1=>api_text("user-status-enabled")),"enabled","framework_users");
+ // build query
+ $query=new cQuery("framework_users",$filter->getQueryWhere());
+ $query->addQueryOrderField("lastname","ASC",null,true);
+ $query->addQueryOrderField("firstname","ASC",null,true);
+ // build pagination
+ $pagination=new cPagination($query->getRecordsCount());
  // build grid object
  $table=new cTable(api_text("users_list-tr-unvalued"));
- $table->addHeader("&nbsp;",null,16);
+ $table->addHeader($filter->link(api_icon("fa-filter"),api_text("filters-modal-link"),"hidden-link"),null,16);
  $table->addHeader(api_text("users_list-th-fullname"),"nowrap");
  $table->addHeader("&nbsp;",null,16);
  $table->addHeader(api_text("users_list-th-mail"),null,"100%");
  $table->addHeader("&nbsp;",null,16);
  // get user objects
  $users_array=array();
- $users_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_users` ORDER BY `lastname`,`firstname`",$GLOBALS['debug']);
- foreach($users_results as $user){$users_array[$user->id]=new cUser($user);}
+ //$users_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_users` ORDER BY `lastname`,`firstname`",$GLOBALS['debug']);
+ //foreach($users_results as $user){$users_array[$user->id]=new cUser($user);}
+ foreach($query->getRecords($pagination->getQueryLimits()) as $user){$users_array[$user->id]=new cUser($user);}
  // cycle all users
  foreach($users_array as $user_obj){
   // build operation button
@@ -46,7 +56,11 @@
  // build grid object
  $grid=new cGrid();
  $grid->addRow();
+ $grid->addCol($filter->render(),"col-xs-12");
+ $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
+ $grid->addRow();
+ $grid->addCol($pagination->render(),"col-xs-12");
  // add content to html
  $html->addContent($grid->render());
  // renderize html
