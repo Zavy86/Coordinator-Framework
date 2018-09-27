@@ -17,6 +17,7 @@
  foreach($results as $result){$mails_filters[$result->recipients_to]=$result->recipients_to;}
  // build filter
  $filter=new cFilter();
+ $filter->addSearch(array("recipients_to","recipients_cc","recipients_bcc","subject","message"));
  $filter->addItem(api_text("mails_list-filter-status"),array("inserted"=>api_text("mail-status-inserted"),"sended"=>api_text("mail-status-sended"),"failed"=>api_text("mail-status-failed")),"status","framework_mails");
  $filter->addItem(api_text("mails_list-filter-recipient"),$mails_filters,"recipients_to","framework_mails");
  // build query

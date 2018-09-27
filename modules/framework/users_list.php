@@ -13,7 +13,8 @@
  $html->setTitle(api_text("users_list"));
  // build filter
  $filter=new cFilter();
- $filter->addItem(api_text("users_list-filter-enabled"),array(0=>api_text("user-status-disabled"),1=>api_text("user-status-enabled")),"enabled","framework_users");
+ $filter->addSearch(array("firstname","lastname","username","mail"));
+ $filter->addItem(api_text("users_list-filter-enabled"),array(0=>api_text("user-status-disabled"),1=>api_text("user-status-enabled")),"enabled");
  // build query
  $query=new cQuery("framework_users",$filter->getQueryWhere());
  $query->addQueryOrderField("lastname","ASC",null,true);

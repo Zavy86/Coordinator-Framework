@@ -18,6 +18,7 @@ class cFilter{
  protected $uri_array;
  protected $items_array;
  protected $current_item;
+ protected $search_fields_array;
  protected $modal;
 
  /**
@@ -40,6 +41,7 @@ class cFilter{
   $this->url="?".http_build_query($this->uri_array);
   $this->items_array=array();
   $this->current_item=1;
+  $this->search_fields_array=array();
   $this->modal=null;
   // return
   return true;
@@ -52,6 +54,31 @@ class cFilter{
   * @return string Property value
   */
  public function __get($property){return $this->$property;}
+
+ /**
+  * Add Search
+  *
+  * @param string $fields_array Array of fields
+  * @param string $table Fields table
+  * @return boolean
+  */
+ public function addSearch($fields_array,$table=null){
+  // check parameters
+  if(!is_array($fields_array)){$fields_array=array($fields_array);}
+  // cycle all fields
+  foreach($fields_array as $field){
+   // build item class
+   $item=new stdClass();
+   $item->table=$table;
+   $item->field=$field;
+   // add item to search_fields_array
+   $this->search_fields_array[]=$item;
+  }
+  // delete modal
+  $this->modal=null;
+  //return
+  return true;
+ }
 
  /**
   * Add Item
@@ -135,8 +162,25 @@ class cFilter{
    }
    //
   }
+
+
+  if($_REQUEST['filter_search'] && count($this->search_fields_array)){
+   $search_array=array();
+   foreach($this->search_fields_array as $search_field){
+    $filter=null;
+    if($search_field->table){$filter.="`".$search_field->table."`.";}
+    $filter.="`".$search_field->field."`";
+    $filter.=" LIKE '%".$_REQUEST['filter_search']."%'";
+
+    $search_array[]=$filter;
+   }
+   $where_array[]="( ".implode(" OR ",$search_array)." )";
+  }
+
+
   //
   return implode("\n AND ",$where_array);
+
 
  }
 
@@ -148,6 +192,8 @@ class cFilter{
  protected function buildModal(){
   // build filters form
   $form=new cForm($this->url,"POST",null,$this->id);
+  // check for search field
+  if(count($this->search_fields_array)){$form->addField("text","filter_search",api_text("filters-ff-search"),$_REQUEST['filter_search'],api_text("filters-ff-search-placeholder"));}
   // cycle all items
   foreach($this->items_array as $item){
    $form->addField("select",$item->id."[]",$item->label,$_REQUEST[$item->id],null,null,null,null,"multiple");
@@ -195,8 +241,7 @@ class cFilter{
   // get active filters
   $active_filters=$this->getActiveFilters();
   // check active filters count
-  if(!count($active_filters)){return false;}
-  // cycle all acvtive filters
+  if(!$_REQUEST['filter_search'] && !count($active_filters)){return false;}// cycle all acvtive filters
   foreach($active_filters as $item=>$values){
    $item_active_values_array=array();
    // cycle all values
@@ -211,6 +256,8 @@ class cFilter{
   $return.="<div class=\"filter\" style=\"margin:-8px 0 8px 0\">\n";
   // add reset link
   $return.=api_link($this->url,api_tag("span",api_icon("fa-times")." ".api_text("filters").":","label label-default"),api_text("filters-reset"))."\n";
+  // check for search
+  if($_REQUEST['filter_search']){$return.=$this->link(api_tag("span",api_text("filters-search").": ".$_REQUEST['filter_search'],"label label-info"),api_text("filters-edit"))."\n";}
   // add all active filters
   foreach($active_filters_array as $filter){$return.=$this->link(api_tag("span",$filter,"label label-primary"),api_text("filters-edit"))."\n";}
   $return.="\n</div><!-- /filter -->\n";

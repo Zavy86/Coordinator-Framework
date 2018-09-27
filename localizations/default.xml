@@ -90,8 +90,11 @@
  <text key="filters">Filters</text>
  <text key="filters-modal-title">Filters panel</text>
  <text key="filters-modal-link">Open filter panel</text>
+ <text key="filters-ff-search">Search</text>
+ <text key="filters-ff-search-placeholder">Search</text>
  <text key="filters-fc-submit">Apply filters</text>
  <text key="filters-fc-reset">Reset</text>
+ <text key="filters-search">Search</text>
  <text key="filters-reset">Reset filters</text>
  <text key="filters-edit">Edit filters</text>
 
