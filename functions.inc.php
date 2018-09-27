@@ -201,12 +201,14 @@ function api_text($key,$parameters=null,$localization=null){
  * Number Format
  *
  * @param string $number Number
+ * @param string $decimals Number of decimals
  * @param string $currency Currency sign
  * @return string Formatted number or false
  */
-function api_number_format($number,$currency=null){
+function api_number_format($number,$decimals=2,$currency=null){
  if(!$number){return false;}
- $return=number_format($number,2,",",".");
+ if(!is_numeric($decimals)){return false;}
+ $return=number_format($number,$decimals,",",".");
  if($currency){$return=$currency." ".$return;}
  // return
  return $return;
