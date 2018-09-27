@@ -124,6 +124,11 @@
  <text key="user-gender-man">Uomo</text>
  <text key="user-gender-woman">Donna</text>
 
+ <!-- mail status -->
+ <text key="mail-status-inserted">Inserita</text>
+ <text key="mail-status-sended">Inviata</text>
+ <text key="mail-status-failed">Errore</text>
+
  <!-- own_profile -->
  <text key="own_profile">Profilo personale</text>
  <text key="own_profile-mail">Indirizzo mail</text>
@@ -479,6 +484,8 @@
 
  <!-- mails_list -->
  <text key="mails_list">Registro mail</text>
+ <text key="mails_list-filter-status">Stato</text>
+ <text key="mails_list-filter-recipient">Destinatario</text>
  <text key="mails_list-tr-unvalued">Non sono presenti mail da mostrare..</text>
  <text key="mails_list-th-addTimestamp">Data inserimento</text>
  <text key="mails_list-th-recipients">Destinatario</text>
@@ -488,7 +495,6 @@
  <text key="mails_list-td-retry">Ritenta l'invio della mail</text>
  <text key="mails_list-td-remove">Elimina mail</text>
  <text key="mails_list-td-remove-confirm">Confermi di voler rimuovere dal database questa mail?</text>
-
  <text key="mails_list-mails-modal-title">Visualizza mail</text>
  <text key="mails_list-mails-modal-dl-sender">Mittente</text>
  <text key="mails_list-mails-modal-dl-recipients_to">Destinatari</text>

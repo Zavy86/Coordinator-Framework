@@ -11,18 +11,32 @@
  require_once(MODULE_PATH."template.inc.php");
  // set html title
  $html->setTitle(api_text("mails_list"));
- // build grid object
+ // make recipeint filter
+ $mails_filters=array();
+ $results=$GLOBALS['database']->queryObjects("SELECT DISTINCT(`recipients_to`) FROM `framework_mails`",$GLOBALS['debug']);
+ foreach($results as $result){$mails_filters[$result->recipients_to]=$result->recipients_to;}
+ // build filter
+ $filter=new cFilter();
+ $filter->addItem(api_text("mails_list-filter-status"),array("inserted"=>api_text("mail-status-inserted"),"sended"=>api_text("mail-status-sended"),"failed"=>api_text("mail-status-failed")),"status","framework_mails");
+ $filter->addItem(api_text("mails_list-filter-recipient"),$mails_filters,"recipients_to","framework_mails");
+ // build query
+ $query=new cQuery("framework_mails",$filter->getQueryWhere());
+ $query->addQueryOrderField("sndTimestamp","DESC",null,true);
+ // build pagination
+ $pagination=new cPagination($query->getRecordsCount());
+ // build table
  $table=new cTable(api_text("mails_list-tr-unvalued"));
- $table->addHeader("&nbsp;",null,16);
+ $table->addHeader($filter->link(api_icon("fa-filter"),api_text("filters-modal-link"),"hidden-link"),null,16);
  $table->addHeader(api_text("mails_list-th-addTimestamp"),"nowrap");
  $table->addHeader(api_text("mails_list-th-recipients"),"nowrap");
  $table->addHeader(api_text("mails_list-th-subject"),null,"100%");
  $table->addHeader(api_text("mails_list-th-sndTimestamp"),"nowrap text-right");
  $table->addHeader("&nbsp;",null,16);
- // get mail objects
+ // get mails
  $mails_array=array();
- $mails_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_mails` ORDER BY `sndTimestamp` IS NULL DESC,`sndTimestamp` DESC",$GLOBALS['debug']);
- foreach($mails_results as $mail){$mails_array[$mail->id]=new cMail($mail);}
+ //$mails_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_mails` ORDER BY `sndTimestamp` IS NULL DESC,`sndTimestamp` DESC",$GLOBALS['debug']);
+ //foreach($mails_results as $mail){$mails_array[$mail->id]=new cMail($mail);}
+ foreach($query->getRecords($pagination->getQueryLimits()) as $mail){$mails_array[$mail->id]=new cMail($mail);}
  // cycle all mails
  foreach($mails_array as $mail_fobj){
   // make recipients
@@ -61,7 +75,6 @@
   if(count($mail_obj->attachments)){$mail_dl->addElement(api_text("mails_list-mails-modal-dl-attachments"),implode("<br>",$mail_obj->attachments));}
   if($mail_obj->errors){$mail_dl->addElement(api_text("mails_list-mails-modal-dl-errors"),api_tag("span",$mail_obj->errors,"text-danger"));}
   $mail_dl->addSeparator("hr");
-
   // build cron informations modal window
   $mails_modal=new cModal(api_text("mails_list-mails-modal-title"),null,"requests_view-mails_modal");
   $mails_modal->setBody($mail_dl->render().$mail_obj->message);
@@ -73,7 +86,11 @@
  // build grid object
  $grid=new cGrid();
  $grid->addRow();
+ $grid->addCol($filter->render(),"col-xs-12");
+ $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
+ $grid->addRow();
+ $grid->addCol($pagination->render(),"col-xs-12");
  // add content to html
  $html->addContent($grid->render());
  // renderize html

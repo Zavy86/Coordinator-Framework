@@ -79,7 +79,7 @@ class cQuery{
  }
 
 
- public function addQueryOrderField($name,$order=null,$table=null){
+ public function addQueryOrderField($name,$order=null,$table=null,$null_first=false){
   // check parameters
   if(!$name){return false;}
   if(!in_array($order,array("ASC","DESC"))){$order=null;}
@@ -89,6 +89,7 @@ class cQuery{
   $field->table=$table;
   $field->name=$name;
   $field->order=$order;
+  $field->null_first=$null_first;
   // add order field to order fields array
   $this->query_order_fields_array[]=$field;
  }
@@ -163,6 +164,7 @@ class cQuery{
    $order_fields_array=array();
    foreach($this->query_order_fields_array as $field_fobj){
     $code="`".$field_fobj->table."`.`".$field_fobj->name."` ".$field_fobj->order;
+    if($field_fobj->null_first){$code="`".$field_fobj->table."`.`".$field_fobj->name."` IS NULL ".$field_fobj->order.", ".$code;}
     $order_fields_array[]=$code;
    }
    $sql.="\nORDER BY\n ".implode(",\n ",$order_fields_array);

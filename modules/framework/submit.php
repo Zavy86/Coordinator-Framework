@@ -1118,7 +1118,7 @@ function mail_retry(){
  // execute query
  $GLOBALS['database']->queryUpdate("framework_mails",$mail_qobj);
  // redirect
- api_alerts_add(api_text("mails_alert_mailRetry"),"success");
+ api_alerts_add(api_text("framework_alert_mailRetry"),"success");
  api_redirect("?mod=framework&scr=mails_list&idMail=".$mail_obj->id);
 }
 /**
@@ -1135,7 +1135,7 @@ function mail_remove(){
  // execute query
  $GLOBALS['database']->queryDelete("framework_mails",$mail_obj->id);
  // redirect
- api_alerts_add(api_text("mails_alert_mailRemoved"),"warning");
+ api_alerts_add(api_text("framework_alert_mailRemoved"),"warning");
  api_redirect("?mod=framework&scr=mails_list");
 }
 
