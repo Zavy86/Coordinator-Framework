@@ -206,7 +206,7 @@ function api_text($key,$parameters=null,$localization=null){
  * @return string Formatted number or false
  */
 function api_number_format($number,$decimals=2,$currency=null){
- if(!$number){return false;}
+ if(!is_numeric($number)){return false;}
  if(!is_numeric($decimals)){return false;}
  $return=number_format($number,$decimals,",",".");
  if($currency){$return=$currency." ".$return;}
