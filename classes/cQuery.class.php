@@ -79,6 +79,14 @@ class cQuery{
  }
 
 
+ /**
+  *
+  * @param type $name
+  * @param type $order
+  * @param type $table
+  * @param type $null_first
+  * @return boolean
+  */
  public function addQueryOrderField($name,$order=null,$table=null,$null_first=false){
   // check parameters
   if(!$name){return false;}

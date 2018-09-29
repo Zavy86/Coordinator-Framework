@@ -19,6 +19,8 @@
  $query=new cQuery("framework_users",$filter->getQueryWhere());
  $query->addQueryOrderField("lastname","ASC",null,true);
  $query->addQueryOrderField("firstname","ASC",null,true);
+ // debug
+ //api_dump($query->getQuerySQL());
  // build pagination
  $pagination=new cPagination($query->getRecordsCount());
  // build grid object

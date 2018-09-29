@@ -100,6 +100,8 @@ class cFilter{
   $item->field=$field;
   $item->label=$label;
   $item->values_array=$values_array;
+  // convert object to text string
+  foreach($item->values_array as $key=>$value){if(is_object($value) && $value->text){$item->values_array[$key]=$value->text;}}
   // add item to items array
   $this->items_array[$item->id]=$item;
   // delete modal
