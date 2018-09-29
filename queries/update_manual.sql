@@ -1,7 +1,7 @@
 --
 -- Update Coordinator Framework
 --
--- Aggiornamenti da fare manualmente
+-- Manual updates
 --
 
 -- --------------------------------------------------------
