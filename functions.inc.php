@@ -167,7 +167,7 @@ function api_redirect($location){
  * @return string|boolean Tag HTML source code or false
  */
 function api_tag($tag,$text,$class=null,$style=null,$tags=null){
- if(!$text){return false;}
+ if(!strlen($text)){return false;}
  if(!$tag){return $text;}
  $html="<".$tag;
  if($class){$html.=" class=\"".$class."\"";}
