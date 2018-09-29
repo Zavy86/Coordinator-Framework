@@ -620,7 +620,24 @@ function api_events_table($events_array){
    // make note
    $note_td=$event_fobj->note;
 
-   /** @todo replace {key} */
+   /** @todo check replace*/
+   if(strpos($note_td,"{")!==false){
+    // key substring
+    $key_start=(strpos($note_td,"{")+1);
+    $key_end=strpos($note_td,"}");
+    if(strpos($note_td,"|")!==false){
+     // parameter substring
+     $param_start=(strpos($note_td,"|")+1);
+     $param_end=($key_end);
+     $parameter=substr($note_td,$param_start,($param_end-$param_start));
+     // update key end
+     $key_end=(strpos($note_td,"|"));
+    }
+    $key=substr($note_td,$key_start,($key_end-$key_start));
+    // check for parameter
+    if(strlen($parameter)){$note_td=api_text($key,$parameter);}
+    else{$note_td=api_text($key);}
+   }
 
    // add event row
    $events_table->addRow($tr_class);
