@@ -15,6 +15,7 @@ global $localization;
 global $database;
 global $settings;
 global $session;
+global $html;
 // reset session logs
 $_SESSION['coordinator_logs']=null;
 // check for configuration file
@@ -57,6 +58,8 @@ require_once(ROOT."functions/timestamp.inc.php");
 // include classes
 require_once(ROOT."classes/cLocalization.class.php");
 require_once(ROOT."classes/cDatabase.class.php");
+require_once(ROOT."classes/cEvent.class.php");
+require_once(ROOT."classes/cFilter.class.php");
 require_once(ROOT."classes/cSettings.class.php");
 require_once(ROOT."classes/cMail.class.php");
 require_once(ROOT."classes/cSession.class.php");
@@ -80,6 +83,8 @@ require_once(ROOT."classes/cList.class.php");
 require_once(ROOT."classes/cTab.class.php");
 require_once(ROOT."classes/cProgressBar.class.php");
 require_once(ROOT."classes/cGauge.class.php");
+require_once(ROOT."classes/cPagination.class.php");
+require_once(ROOT."classes/cQuery.class.php");
 
 // build localization instance
 $localization=new cLocalization();
@@ -162,7 +167,7 @@ function api_redirect($location){
  * @return string|boolean Tag HTML source code or false
  */
 function api_tag($tag,$text,$class=null,$style=null,$tags=null){
- if(!$text){return false;}
+ if(!strlen($text)){return false;}
  if(!$tag){return $text;}
  $html="<".$tag;
  if($class){$html.=" class=\"".$class."\"";}
@@ -196,12 +201,14 @@ function api_text($key,$parameters=null,$localization=null){
  * Number Format
  *
  * @param string $number Number
+ * @param string $decimals Number of decimals
  * @param string $currency Currency sign
  * @return string Formatted number or false
  */
-function api_number_format($number,$currency=null){
- if(!$number){return false;}
- $return=number_format($number,2,",",".");
+function api_number_format($number,$decimals=2,$currency=null){
+ if(!is_numeric($number)){return false;}
+ if(!is_numeric($decimals)){return false;}
+ $return=number_format($number,$decimals,",",".");
  if($currency){$return=$currency." ".$return;}
  // return
  return $return;
@@ -580,6 +587,52 @@ function api_requireModules($modules){                     /** @todo integrare d
   // load module localization
   $GLOBALS['localization']->load($module_f);
  }
+}
+
+
+/**
+ * Events table
+ *
+ * @param objects $events_array Array of event objects
+ * @return object Return cTable object
+ */
+function api_events_table($events_array){
+ // build events table
+ $events_table=new cTable(api_text("events-tr-unvalued"));
+ $events_table->addHeader("&nbsp;",null,16);
+ $events_table->addHeader(api_text("events-th-timestamp"),"nowrap");
+ $events_table->addHeader(api_text("events-th-event"),"nowrap");
+ $events_table->addHeader(api_text("events-th-note"),null,"100%");
+ $events_table->addHeader(api_text("events-th-fkUser"),"nowrap text-right");
+ // check parameters
+ if(is_array($events_array)){
+  // cycle events
+  foreach($events_array as $event_fobj){
+   // switch level
+   switch($event_fobj->level){
+    case "debug":$tr_class="success";break;
+    case "warning":$tr_class="warning";break;
+    case "error":$tr_class="error";break;
+    default:$tr_class=null;
+   }
+   // check selected
+   if($event_fobj->id==$_REQUEST['idEvent']){$tr_class="info";}
+   // make note
+   $note_td=$event_fobj->note;
+
+   /** @todo replace {key} */
+
+   // add event row
+   $events_table->addRow($tr_class);
+   $events_table->addRowField($event_fobj->getLevel(true,false),"nowrap");
+   $events_table->addRowField(api_timestamp_format($event_fobj->timestamp,api_text("datetime")),"nowrap");
+   $events_table->addRowField($event_fobj->getEvent(),"nowrap");
+   $events_table->addRowField($note_td,"truncate-ellipsis");
+   $events_table->addRowField((new cUser($event_fobj->fkUser))->fullname,"nowrap text-right");
+  }
+ }
+ // return
+ return $events_table;
 }
 
 ?>

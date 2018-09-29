@@ -79,7 +79,7 @@ class cForm{
   $field->typology=$typology;
   $field->name=$name;
   $field->label=$label;
-  $field->value=$value;
+  if(is_array($value)){$field->value=$value;}else{$field->value=(string)$value;}
   $field->placeholder=$placeholder;
   $field->size=$size;
   $field->class=$class;
@@ -173,7 +173,7 @@ class cForm{
   if(!$label){return false;}
   // build field option object
   $fieldOption=new stdClass();
-  $fieldOption->value=$value;
+  $fieldOption->value=(string)$value;
   $fieldOption->label=$label;
   $fieldOption->class=$class;
   $fieldOption->style=$style;
@@ -310,13 +310,14 @@ class cForm{
       else{if($option->value===$field->value){$return.=" selected=\"selected\"";}}
       if($option->style){$return.=" style=\"".$option->style."\"";}
       if($option->tags){$return.=" ".$option->tags;}
+      if(!$option->enabled){$return.=" disabled";}
       $return.=" id=\"".$this->id."_input_".$field->name."_option_".$option_id."\">".$option->label."</option>\n";
      }
      $return.=$split_identation."   </select>\n";
      break;
     // textarea
     case "textarea":
-     $return.=$split_identation."   <textarea".$field_tags."></textarea>\n"; /** @todo verificare se serve altro */
+     $return.=$split_identation."   <textarea".$field_tags.">".$field->value."</textarea>\n"; /** @todo verificare se serve altro */
      break;
     // text localized
     case "text_localized":

@@ -15,8 +15,8 @@ class cTable{
  /** Properties */
  protected $id;
  protected $emptyrow;
- protected $caption;
  protected $class;
+ protected $caption;
  protected $rows_array;
  protected $current_row;
 
@@ -25,7 +25,7 @@ class cTable{
 /**
  * Debug
  *
- * @return object Nav object
+ * @return object Table object
  */
  public function debug(){return $this;}
 

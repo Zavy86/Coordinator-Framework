@@ -53,9 +53,9 @@ class cGrid{
   * @return boolean
   */
  public function addCol($content,$class=null){
-  if(!$this->current_row){echo "ERROR - Grid->addCol - No rows defined";return false;}
-  if(!$content){echo "ERROR - Grid->addCol - Content is required";return false;}
-  if(substr($class,0,4)!="col-"){echo "ERROR - Grid->addCol - Class \"col-..\" is required";return false;}
+  if(!$this->current_row){api_dump("ERROR - Grid->addCol - No rows defined");return false;}
+  //if(!$content){api_dump("ERROR - Grid->addCol - Content is required");return false;}
+  if(substr($class,0,4)!="col-"){api_dump("ERROR - Grid->addCol - Class \"col-..\" is required");return false;}
   $col=new stdClass();
   $col->content=$content;
   $col->class=$class;

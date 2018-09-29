@@ -48,7 +48,7 @@
   foreach($groups_array as $group_option){$authorizations_join_form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->fullname);}
   $authorizations_join_form->addField("select","level",api_text("modules_view-authorizations_modal-ff-level"),$user->level,api_text("modules_view-authorizations_modal-ff-level-placeholder"),null,null,null,"required");
   for($level=1;$level<=$GLOBALS['settings']->users_level_max;$level++){$authorizations_join_form->addFieldOption($level,api_text("modules_view-authorizations_modal-ff-level-fo-level",$level));}
-  $authorizations_join_form->addField("checkbox","fkAuthorizations[]",api_text("modules_view-authorizations_modal-ff-authorizations"),null,null,null,null,null,"required");
+  $authorizations_join_form->addField("checkbox","fkAuthorizations[]",api_text("modules_view-authorizations_modal-ff-authorizations"));
   foreach($module_obj->authorizations_array as $authorization){$authorizations_join_form->addFieldOption($authorization->id,$authorization->name."<br>".$authorization->description);}
   $authorizations_join_form->addControl("submit",api_text("modules_view-authorizations_modal-fc-submit"));
   $authorizations_join_form->addControl("button",api_text("modules_view-authorizations_modal-fc-cancel"),"#",null,null,null,"data-dismiss='modal'");

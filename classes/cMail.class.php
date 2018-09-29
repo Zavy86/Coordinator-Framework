@@ -89,7 +89,7 @@ class cMail{
   */
  public function getStatus($showIcon=true,$showText=true){
   // make text
-  $text=api_text("status-mail-".$this->status);
+  $text=api_text("mail-status-".$this->status);
   // make icon
   switch($this->status){
    case "inserted":$icon=api_icon("fa-edit",$text);break;

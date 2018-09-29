@@ -124,6 +124,11 @@
  <text key="user-gender-man">Uomo</text>
  <text key="user-gender-woman">Donna</text>
 
+ <!-- mail status -->
+ <text key="mail-status-inserted">Inserita</text>
+ <text key="mail-status-sended">Inviata</text>
+ <text key="mail-status-failed">Errore</text>
+
  <!-- own_profile -->
  <text key="own_profile">Profilo personale</text>
  <text key="own_profile-mail">Indirizzo mail</text>
@@ -289,6 +294,7 @@
  <!-- users_list -->
  <text key="users_list">Utenti</text>
  <text key="users_list-description">Gestione degli utenti del framework</text>
+ <text key="users_list-filter-enabled">Abilitazione</text>
  <text key="users_list-tr-unvalued">Non sono presenti utenti da mostrare..</text>
  <text key="users_list-th-fullname">Utente</text>
  <text key="users_list-th-mail">Indirizzo mail</text>
@@ -417,7 +423,7 @@
  <text key="sessions_list-th-idle">Tempo di inattività</text>
  <text key="sessions_list-th-start">Accesso</text>
  <text key="sessions_list-th-ipAddress">Indirizzo IP</text>
- <text key="sessions_list-th-id">ID Session</text>
+ <text key="sessions_list-th-id">ID Sessione</text>
  <text key="sessions_list-th-terminate">Termina tutte le sessioni</text>
  <text key="sessions_list-th-terminate-confirm">Confermi di voler terminare tutte le sessioni?</text>
  <text key="sessions_list-td-terminate">Termina sessione</text>
@@ -479,6 +485,8 @@
 
  <!-- mails_list -->
  <text key="mails_list">Registro mail</text>
+ <text key="mails_list-filter-status">Stato</text>
+ <text key="mails_list-filter-recipient">Destinatario</text>
  <text key="mails_list-tr-unvalued">Non sono presenti mail da mostrare..</text>
  <text key="mails_list-th-addTimestamp">Data inserimento</text>
  <text key="mails_list-th-recipients">Destinatario</text>
@@ -488,7 +496,6 @@
  <text key="mails_list-td-retry">Ritenta l'invio della mail</text>
  <text key="mails_list-td-remove">Elimina mail</text>
  <text key="mails_list-td-remove-confirm">Confermi di voler rimuovere dal database questa mail?</text>
-
  <text key="mails_list-mails-modal-title">Visualizza mail</text>
  <text key="mails_list-mails-modal-dl-sender">Mittente</text>
  <text key="mails_list-mails-modal-dl-recipients_to">Destinatari</text>

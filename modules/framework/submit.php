@@ -754,11 +754,20 @@ function user_login(){
  api_dump($authentication_result,"authentication_result");
  // check authentication result
  if($authentication_result<1){api_alerts_add(api_text("alert_authenticationFailed"),"warning");api_redirect(DIR."login.php");}
- // try to authenticate user
+ // build session
  $GLOBALS['session']->build($authentication_result);
  //
  api_dump($_SESSION["coordinator_session_id"],"session_id after");
  api_dump($GLOBALS['session']->debug(),"session after");
+ // build user query objects
+ $user_qobj=new stdClass();
+ // acquire variables
+ $user_qobj->id=$authentication_result;
+ $user_qobj->lsaTimestamp=time();
+ // debug
+ api_dump($user_qobj,"user_qobj");
+ // update user
+ $GLOBALS['database']->queryUpdate("framework_users",$user_qobj);
  // redirect
  api_redirect(DIR."index.php");
 }
@@ -1109,7 +1118,7 @@ function mail_retry(){
  // execute query
  $GLOBALS['database']->queryUpdate("framework_mails",$mail_qobj);
  // redirect
- api_alerts_add(api_text("mails_alert_mailRetry"),"success");
+ api_alerts_add(api_text("framework_alert_mailRetry"),"success");
  api_redirect("?mod=framework&scr=mails_list&idMail=".$mail_obj->id);
 }
 /**
@@ -1126,7 +1135,7 @@ function mail_remove(){
  // execute query
  $GLOBALS['database']->queryDelete("framework_mails",$mail_obj->id);
  // redirect
- api_alerts_add(api_text("mails_alert_mailRemoved"),"warning");
+ api_alerts_add(api_text("framework_alert_mailRemoved"),"warning");
  api_redirect("?mod=framework&scr=mails_list");
 }
 

@@ -41,6 +41,12 @@
  <text key="alert_requiredModuleNotFound">Non è stato possibile includere il modulo <![CDATA[{0}]]></text>
  <text key="alert_submitFunctionNotFound">La funzione "<![CDATA[{2}]]>" non è stata trovata nello script "<![CDATA[{1}]]>" del modulo "<![CDATA[{0}]]>"</text>
 
+ <!-- event levels -->
+ <text key="event-level-debug">Debug</text>
+ <text key="event-level-information">Informazione</text>
+ <text key="event-level-warning">Attenzione</text>
+ <text key="event-level-error">Errore</text>
+
  <!-- enabled -->
  <text key="enabled">Abilitato</text>
  <text key="disabled">Disabilitato</text>
@@ -53,6 +59,13 @@
  <text key="nav-debug">Debug</text>
  <text key="nav-logout">Esci</text>
  <text key="nav-operations">Operazioni</text>
+
+ <!-- pagination -->
+ <text key="pagination-shows">Mostra</text>
+ <text key="pagination-all">Tutti</text>
+ <text key="pagination-page">Pagina <![CDATA[{0}]]> di <![CDATA[{1}]]></text>
+ <text key="pagination-previous">Precedente</text>
+ <text key="pagination-next">Successiva</text>
 
  <!-- forms -->
  <text key="form-fc-submit">Salva</text>
@@ -73,6 +86,18 @@
  <text key="form-input-text_localized-translate">Inserisci traduzione</text>
  <text key="form-input-text_localized-alert">La traduzione principale è richiesta!</text>
 
+ <!-- filters -->
+ <text key="filters">Filtri</text>
+ <text key="filters-modal-title">Pannello dei filtri</text>
+ <text key="filters-modal-link">Apri il pannello dei filtri</text>
+ <text key="filters-ff-search">Ricerca</text>
+ <text key="filters-ff-search-placeholder">Effettua una ricerca..</text>
+ <text key="filters-fc-submit">Applica filtri</text>
+ <text key="filters-fc-reset">Reimposta</text>
+ <text key="filters-search">Ricerca</text>
+ <text key="filters-reset">Reimposta filtri</text>
+ <text key="filters-edit">Modifica filtri</text>
+
  <!-- login -->
  <text key="login-ff-account">Account</text>
  <text key="login-ff-password">Password</text>
@@ -87,5 +112,12 @@
  <!-- dashboard -->
  <text key="dashboard-tile-add">Aggiungi alla bacheca</text>
  <text key="dashboard-tile-remove">Rimuovi dalla bacheca</text>
+
+ <!-- events table -->
+ <text key="events-tr-unvalued">Non sono presenti eventi da mostrare..</text>
+ <text key="events-th-timestamp">Data</text>
+ <text key="events-th-event">Evento</text>
+ <text key="events-th-note">Note</text>
+ <text key="events-th-fkUser">Utente</text>
 
 </locale>

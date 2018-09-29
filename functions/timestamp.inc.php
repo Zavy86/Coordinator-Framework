@@ -8,14 +8,33 @@
  */
 
 /**
+ * Timestamp
+ *
+ * @param string $datetime Date Time in format YYYY-MM-DD HH:II:SS
+ * @param string $timezone Time Zone
+ * @return string|boolean Formatted timestamp or false
+ */
+function api_timestamp($datetime,$timezone=null){
+ if(!$datetime){return false;}
+ if(!$timezone){$timezone=$GLOBALS['session']->user->timezone;}
+ // build date time object
+ $dt=new DateTime($datetime);
+ // set date time timezone
+ $dt->setTimeZone(new DateTimeZone($timezone));
+ // return timestamp
+ return $dt->getTimestamp();
+}
+
+/**
  * Timestamp Format
  *
  * @param integer $timestamp Unix timestamp
  * @param string $format Date Time format (see php.net/manual/en/function.date.php)
+ * @param string $timezone Time Zone
  * @return string|boolean Formatted timestamp or false
  */
 function api_timestamp_format($timestamp,$format="Y-m-d H:i:s",$timezone=null){
- if(!is_numeric($timestamp)){return false;}
+ if(!is_numeric($timestamp) || $timestamp==0){return false;}
  if(!$timezone){$timezone=$GLOBALS['session']->user->timezone;}
  // build date time object
  $datetime=new DateTime("@".$timestamp);

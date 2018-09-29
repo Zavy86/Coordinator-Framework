@@ -115,13 +115,14 @@ CREATE TABLE IF NOT EXISTS `framework_users` (
   `birthday` date DEFAULT NULL,
   `enabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `superuser` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `level` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `level` tinyint(2) unsigned NOT NULL DEFAULT '0'
   `addTimestamp` int(11) unsigned NOT NULL,
   `addFkUser` int(11) unsigned NOT NULL,
   `updTimestamp` int(11) unsigned DEFAULT NULL,
   `updFkUser` int(11) unsigned DEFAULT NULL,
   `pwdTimestamp` int(11) unsigned DEFAULT NULL,
-  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `lsaTimestamp` int(11) unsigned DEFAULT NULL COMMENT 'last system access',
+  `pwdTimestamp` int(11) unsigned DEFAULT NULL COMMENT 'password change',
   PRIMARY KEY (`id`),
   UNIQUE KEY `mail` (`mail`),
   UNIQUE KEY `username` (`username`)

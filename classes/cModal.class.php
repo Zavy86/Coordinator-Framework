@@ -21,6 +21,7 @@ class cModal{
  protected $header;
  protected $body;
  protected $footer;
+ protected $size;
 
  /**
   * Debug
@@ -42,6 +43,7 @@ class cModal{
   $this->id="modal_".$id;
   $this->title=$title;
   $this->class=$class;
+  $this->size="normal";
   return true;
  }
 
@@ -102,6 +104,18 @@ class cModal{
  }
 
  /**
+  * Set Size
+  *
+  * @param string $size Modal size [normal,small,large]
+  * @return boolean
+  */
+ public function setSize($size){
+  if(!in_array($size,array("normal","small","large"))){return false;}
+  $this->size=strtolower($size);
+  return true;
+ }
+
+ /**
   * Link
   * @param string $label Label
   * @param string $title Title
@@ -121,9 +135,16 @@ class cModal{
   * @return string HTML source code
   */
  public function render(){
+  // make size
+  switch($this->size){
+   case "small":$size_class=" modal-sm";break;
+   case "large":$size_class=" modal-lg";break;
+   default:$size_class=null;
+  }
+  // build html source coide
   $return="<!-- ".$this->id." -->\n";
   $return.="<div class=\"modal fade ".$this->class."\" id=\"".$this->id."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"".$this->id."-label\">\n";
-  $return.=" <div class=\"modal-dialog\" role=\"document\">\n";
+  $return.=" <div class=\"modal-dialog".$size_class."\" role=\"document\">\n";
   $return.="  <div class=\"modal-content\">\n";
   // renderize modal window header
   if($this->header || $this->title){

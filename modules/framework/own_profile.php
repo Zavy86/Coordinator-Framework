@@ -42,4 +42,6 @@
  $html->addContent($grid->render());
  // renderize html page
  $html->render();
+ // debug
+ api_dump($user_obj,"user");
 ?>

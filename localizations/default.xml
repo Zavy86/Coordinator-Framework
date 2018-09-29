@@ -41,6 +41,12 @@
  <text key="alert_requiredModuleNotFound">The module <![CDATA[{0}]]> could not be included</text>
  <text key="alert_submitFunctionNotFound">The function "<![CDATA[{2}]]>" was not found in script "<![CDATA[{1}]]>" of module "<![CDATA[{0}]]>"</text>
 
+ <!-- event levels -->
+ <text key="event-level-debug">Debug</text>
+ <text key="event-level-information">Information</text>
+ <text key="event-level-warning">Warning</text>
+ <text key="event-level-error">Error</text>
+
  <!-- enabled -->
  <text key="enabled">Enabled</text>
  <text key="disabled">Disabled</text>
@@ -54,6 +60,13 @@
  <text key="nav-logout">Logout</text>
  <text key="nav-operations">Operations</text>
 
+ <!-- pagination -->
+ <text key="pagination-shows">Shows</text>
+ <text key="pagination-all">All</text>
+ <text key="pagination-page">Page <![CDATA[{0}]]> of <![CDATA[{1}]]></text>
+ <text key="pagination-previous">Previous</text>
+ <text key="pagination-next">Next</text>
+
  <!-- forms -->
  <text key="form-fc-submit">Submit</text>
  <text key="form-fc-cancel">Cancel</text>
@@ -65,12 +78,25 @@
  <text key="form-fc-undelete-confirm">Are you sure you want to undelete this object?</text>
  <text key="form-fc-remove">Remove</text>
  <text key="form-fc-remove-confirm">Are you sure you want to permanently remove this object?</text>
+ <text key="form-input-select-placeholder">Select an option..</text>
  <text key="form-input-file-placeholder">Select a file..</text>
  <text key="form-input-text_localized-default">Default</text>
  <text key="form-input-text_localized-default-placeholder">Insert default translation</text>
  <text key="form-input-text_localized-language-placeholder">Insert the <![CDATA[{0}]]> translation</text>
  <text key="form-input-text_localized-translate">Insert translations</text>
  <text key="form-input-text_localized-alert">Default translation is required!</text>
+
+ <!-- filters -->
+ <text key="filters">Filters</text>
+ <text key="filters-modal-title">Filters panel</text>
+ <text key="filters-modal-link">Open filter panel</text>
+ <text key="filters-ff-search">Search</text>
+ <text key="filters-ff-search-placeholder">Search</text>
+ <text key="filters-fc-submit">Apply filters</text>
+ <text key="filters-fc-reset">Reset</text>
+ <text key="filters-search">Search</text>
+ <text key="filters-reset">Reset filters</text>
+ <text key="filters-edit">Edit filters</text>
 
  <!-- login -->
  <text key="login-ff-account">Account</text>
@@ -86,5 +112,12 @@
  <!-- dashboard -->
  <text key="dashboard-tile-add">Add to dashboard</text>
  <text key="dashboard-tile-remove">Remove from dashboard</text>
+
+ <!-- events table -->
+ <text key="events-tr-unvalued">There are no events to show</text>
+ <text key="events-th-timestamp">Timestamp</text>
+ <text key="events-th-event">Event</text>
+ <text key="events-th-note">Note</text>
+ <text key="events-th-fkUser">User</text>
 
 </locale>

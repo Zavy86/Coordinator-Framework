@@ -8,6 +8,8 @@
  */
  // include functions
  require_once("functions.inc.php");
+ // check for debug
+ if($_GET['debug']==1){$GLOBALS['debug']=true;}else{$GLOBALS['debug']=false;}
  // check token
  if($_REQUEST['token']!==$GLOBALS['settings']->token_cron){die("TOKEN ERROR");} /** @todo attivare dopo i test */
  // debug

@@ -34,7 +34,7 @@ class cSettings{
   $settings_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_settings` ORDER BY `setting` ASC",$GLOBALS['debug']);
   foreach($settings_results as $setting){$this->settings_array[$setting->setting]=$setting->value;}
   // make logo
-  if(file_exists(ROOT."uploads/framework/brand.png")){
+  if(file_exists(ROOT."uploads/framework/logo.png")){
    $this->settings_array["logo"]=DIR."uploads/framework/logo.png";
   }else{
    $this->settings_array["logo"]=DIR."uploads/framework/logo.default.png";
