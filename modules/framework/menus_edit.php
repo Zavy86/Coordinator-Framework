@@ -26,6 +26,8 @@
  $form->addField("text","icon",api_text("menus_edit-icon"),$menu_obj->icon,api_text("menus_edit-icon-placeholder"));
  $form->addField("text_localized","label_localizations",api_text("menus_edit-label"),$menu_obj->label_localizations,api_text("menus_edit-label-placeholder"));
  $form->addField("text_localized","title_localizations",api_text("menus_edit-title"),$menu_obj->title_localizations,api_text("menus_edit-title-placeholder"));
+ $form->addField("select","authorization",api_text("menus_edit-authorization"),$menu_obj->authorization,api_text("menus_edit-authorization-placeholder"));
+ foreach(api_framework_authorizations() as $authorization_fobj){$form->addFieldOption($authorization_fobj->module."|".$authorization_fobj->action,$authorization_fobj->action);}
  $form->addField("radio","target",api_text("menus_edit-target"),$menu_obj->target,null,null,"radio-inline");
  $form->addFieldOption("",api_text("menus_edit-target-standard"));
  $form->addFieldOption("_blank",api_text("menus_edit-target-blank"));

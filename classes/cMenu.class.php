@@ -25,6 +25,7 @@ class cMenu{
  protected $tab;
  protected $action;
  protected $target;
+ protected $authorization;
  protected $addTimestamp;
  protected $addFkUser;
  protected $updTimestamp;
@@ -62,6 +63,7 @@ class cMenu{
   $this->tab=stripslashes($menu->tab);
   $this->action=stripslashes($menu->action);
   $this->target=stripslashes($menu->target);
+  $this->authorization=stripslashes($menu->authorization);
   $this->addTimestamp=$menu->addTimestamp;
   $this->addFkUser=$menu->addFkUser;
   $this->updTimestamp=$menu->updTimestamp;

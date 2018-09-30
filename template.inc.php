@@ -46,12 +46,23 @@
   $header_navbar->addItem(api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover"),"?mod=dashboard");
   // cycle all menus
   foreach(api_framework_menus(null) as $menu_obj){
+   // check for authorization
+   if($menu_obj->authorization){
+    $authorization=explode("|",$menu_obj->authorization);
+    if(!api_checkAuthorization($authorization[0],$authorization[1])){continue;}
+   }
    /** @todo menu titles */
    if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=null;}
    $header_navbar->addItem($icon_source.$menu_obj->label,$menu_obj->url,true,null,null,null,$menu_obj->target);
    foreach(api_framework_menus($menu_obj->id) as $submenu_obj){
+    // check for authorization
+    $authorized=true;
+    if($submenu_obj->authorization){
+     $authorization=explode("|",$submenu_obj->authorization);
+     if(!api_checkAuthorization($authorization[0],$authorization[1])){$authorized=false;}
+    }
     if($submenu_obj->icon){$icon_source=api_icon($submenu_obj->icon)." ";}else{$icon_source=null;}
-    $header_navbar->addSubItem($icon_source.$submenu_obj->label,$submenu_obj->url,true,null,null,null,$submenu_obj->target);
+    $header_navbar->addSubItem($icon_source.$submenu_obj->label,$submenu_obj->url,$authorized,null,null,null,$submenu_obj->target);
    }
   }
   // account and settings

@@ -208,6 +208,7 @@ function menu_save(){
  $r_script=addslashes($_REQUEST['script']);
  $r_tab=addslashes($_REQUEST['tab']);
  $r_action=addslashes($_REQUEST['action']);
+ $r_authorization=addslashes($_REQUEST['authorization']);
  $r_target=addslashes($_REQUEST['target']);
  // check variables
  if(!$r_url){$r_url="#";}
@@ -218,8 +219,9 @@ function menu_save(){
  $menu_qobj->icon=$r_icon;
  $menu_qobj->label_localizations=$r_label_localizations;
  $menu_qobj->title_localizations=$r_title_localizations;
-   $menu_qobj->target=$r_target;
-  // switch menu typology
+ $menu_qobj->target=$r_target;
+ $menu_qobj->authorization=$r_authorization;
+ // switch menu typology
  switch($r_typology){
   // link
   case "link":
