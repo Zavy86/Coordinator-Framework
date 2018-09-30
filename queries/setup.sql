@@ -71,6 +71,7 @@ CREATE TABLE IF NOT EXISTS `framework_menus` (
   `tab` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `action` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `target` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `authorization` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `addTimestamp` int(11) unsigned NOT NULL,
   `addFkUser` int(11) unsigned NOT NULL,
   `updTimestamp` int(11) unsigned DEFAULT NULL,

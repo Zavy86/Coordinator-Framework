@@ -539,6 +539,24 @@ function api_framework_groups($idGroup=null){  /** @todo levare framework? */
 }
 
 /**
+ * Authorizations
+ *
+ * @param string $module Module authorizations
+ * @return object $return Array of authorization objects
+ */
+function api_framework_authorizations($module=null){  /** @todo levare framework? */
+ // definitions
+ $return=array();
+ // query where
+ if($module){$query_where="`module`='".$module."'";}else{$query_where="1";}
+ // execute query
+ $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_modules_authorizations` WHERE ".$query_where." ORDER BY `action`");
+ foreach($authorizations_results as $authorization){$return[$authorization->id]=new cAuthorization($authorization);}
+ // return groups
+ return $return;
+}
+
+/**
  * Return Script
  *
  * @param string $default Default script
