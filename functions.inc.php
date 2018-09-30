@@ -402,7 +402,7 @@ function api_checkAuthorization($module,$action,$inherited=true,$superuser=true)
  if($inherited && $authorization=="inherited"){/*api_dump("Check permission [".$module."][".$action."] = HINERITED");*/return true;}
  // check superuser
  if($superuser && $GLOBALS['session']->user->superuser){
-  api_alerts_add("Check permission [".$module."][".$action."] = SUPERUSER","warning");
+  if($GLOBALS['debug']){api_alerts_add("Check permission [".$module."][".$action."] = SUPERUSER","warning");}
   return true;
  }
  // unauthorized
