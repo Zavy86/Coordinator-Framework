@@ -107,9 +107,9 @@ function api_sendmail_process($mail=null){
    "{mail-content}"=>$mail_obj->message
   );
   // load template
-  if($mail_obj->template && file_exists(ROOT."uploads/framework/mails/".$mail_obj->template))
-  {$template_source=file_get_contents(ROOT."uploads/framework/mails/".$mail_obj->template);}
-  else{$template_source=file_get_contents(ROOT."uploads/framework/mails/template.default.html");}
+  if($mail_obj->template && file_exists(ROOT."modules/".$mail_obj->template))
+  {$template_source=file_get_contents(ROOT."modules/".$mail_obj->template);}
+  else{$template_source=file_get_contents(ROOT."modules/framework/templates/default.mail.html");}
   // replace template placeholders
   $mail_obj->body=str_replace(array_keys($placeholders),$placeholders,$template_source);
   // debug
