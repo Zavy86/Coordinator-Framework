@@ -135,9 +135,9 @@
  <text key="own_profile-firstname">Nome</text>
  <text key="own_profile-lastname">Cognome</text>
  <text key="own_profile-localization">Lingua</text>
- <text key="own_profile-localization-select">Seleziona una lingua..</text>
+ <text key="own_profile-localization-placeholder">Seleziona una lingua..</text>
  <text key="own_profile-timezone">Fuso orario</text>
- <text key="own_profile-timezone-select">Seleziona un fuso orario..</text>
+ <text key="own_profile-timezone-placeholder">Seleziona un fuso orario..</text>
  <text key="own_profile-gender">Genere</text>
  <text key="own_profile-gender-none">Non dichiarato</text>
  <text key="own_profile-gender-man">Uomo</text>
