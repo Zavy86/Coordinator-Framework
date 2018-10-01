@@ -848,10 +848,10 @@ function user_add(){
  // build user objects
  $user_obj=new stdClass();
  // acquire variables
- $user_obj->mail=$_REQUEST['mail'];
- $user_obj->username=$_REQUEST['username'];
- $user_obj->firstname=$_REQUEST['firstname'];
- $user_obj->lastname=$_REQUEST['lastname'];
+ $user_obj->mail=trim($_REQUEST['mail']);
+ $user_obj->username=trim($_REQUEST['username']);
+ $user_obj->firstname=trim($_REQUEST['firstname']);
+ $user_obj->lastname=trim($_REQUEST['lastname']);
  $user_obj->localization=$_REQUEST['localization'];
  $user_obj->timezone=$_REQUEST['timezone'];
  $user_obj->level=$_REQUEST['level'];
