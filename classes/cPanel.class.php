@@ -17,10 +17,13 @@ class cPanel{
  /** Properties */
  protected $id;
  protected $title;
- protected $class;
  protected $header;
  protected $body;
  protected $footer;
+ protected $panel_class;
+ protected $header_class;
+ protected $body_class;
+ protected $footer_class;
 
  /**
   * Debug
@@ -41,7 +44,7 @@ class cPanel{
   if(!$id){$id=rand(1,99999);}
   $this->id="panel_".$id;
   $this->title=$title;
-  $this->class=$class;
+  $this->panel_class=$class;
   return true;
  }
 
@@ -69,11 +72,13 @@ class cPanel{
   * Set Header
   *
   * @param string $content Content of the header
+  * @param string $class CSS class
   * @return boolean
   */
- public function setHeader($content){
+ public function setHeader($content,$class){
   if(!$content){return false;}
   $this->header=$content;
+  $this->header_class=$class;
   return true;
  }
 
@@ -81,11 +86,13 @@ class cPanel{
   * Set Body
   *
   * @param string $content Content of the body
+  * @param string $class CSS class
   * @return boolean
   */
- public function SetBody($content){
+ public function SetBody($content,$class){
   if(!$content){return false;}
   $this->body=$content;
+  $this->body_class=$class;
   return true;
  }
 
@@ -93,11 +100,13 @@ class cPanel{
   * Set Footer
   *
   * @param string $content Content of the footer
+  * @param string $class CSS class
   * @return boolean
   */
- public function SetFooter($content){
+ public function SetFooter($content,$class){
   if(!$content){return false;}
   $this->footer=$content;
+  $this->footer_class=$class;
   return true;
  }
 
@@ -108,18 +117,18 @@ class cPanel{
   */
  public function render(){
   $return="<!-- ".$this->id." -->\n";
-  $return.="<div class=\"panel panel-default ".$this->class."\" id=\"".$this->id."\">\n";
+  $return.="<div class=\"panel panel-default ".$this->panel_class."\" id=\"".$this->id."\">\n";
   // renderize panel header
   if($this->header || $this->title){
-   $return.=" <div class=\"panel-heading\">\n";
+   $return.=" <div class=\"panel-heading ".$this->header_class."\">\n";
    // show title
    if($this->title){$return.="  <h4 class=\"panel-title\">".$this->title."</h4>\n";}
    $return.=$this->header." </div><!-- /panel-heading -->\n";
   }
   // renderize panel window body
-  if($this->body){$return.=" <div class=\"panel-body\">\n".$this->body." </div>\n";}
+  if($this->body){$return.=" <div class=\"panel-body ".$this->body_class."\">\n".$this->body." </div>\n";}
   // renderize panel window footer
-  if($this->footer){$return.=" <div class=\"panel-footer\">\n".$this->footer." </div>\n";}
+  if($this->footer){$return.=" <div class=\"panel-footer ".$this->footer_class."\">\n".$this->footer." </div>\n";}
   $return.="</div><!-- /".$this->id." -->\n";
   // return html source code
   return $return;

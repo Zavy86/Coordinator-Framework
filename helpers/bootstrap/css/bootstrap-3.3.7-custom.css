@@ -97,6 +97,10 @@ footer{
  text-decoration:line-through;
 }
 
+.text-deleted{
+ text-decoration:line-through;
+}
+
 .nav-responsive{
  /*overflow-x:auto; @todo @bug verificare per dropdown mobile */
  min-height:0.01%;

@@ -90,7 +90,7 @@ class cQuery{
  public function addQueryOrderField($name,$order=null,$table=null,$null_first=false){
   // check parameters
   if(!$name){return false;}
-  if(!in_array($order,array("ASC","DESC"))){$order=null;}
+  if(!in_array(strtoupper($order),array("ASC","DESC"))){$order=null;}
   if(!$table){$table=$this->query_table;}
   // build field order object
   $field=new stdClass();
