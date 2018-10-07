@@ -205,11 +205,20 @@ function api_text($key,$parameters=null,$localization=null){
  * @param string $currency Currency sign
  * @return string Formatted number or false
  */
-function api_number_format($number,$decimals=2,$currency=null){
+function api_number_format($number,$decimals=2,$currency=null,$small_decimals=false){
+ // check parameters
  if(!is_numeric($number)){return false;}
  if(!is_numeric($decimals)){return false;}
+ // format number
  $return=number_format($number,$decimals,",",".");
+ // check for currency
  if($currency){$return=$currency." ".$return;}
+ // check for small decimals
+ if($decimals && $small_decimals){
+  $real=explode(",",$return)[0];
+  $decimals=explode(",",$return)[1];
+  $return=api_tag("span",$real.api_tag("small",",".$decimals));
+ }
  // return
  return $return;
 }

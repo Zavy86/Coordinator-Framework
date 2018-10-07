@@ -2,9 +2,9 @@
 /**
  * Framework - Framework
  *
- * @package Coordinator\Modules\Settings
+ * @package Coordinator\Modules\Framework
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
  $authorization="framework-settings_manage";
  // include module template
