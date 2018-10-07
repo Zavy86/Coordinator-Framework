@@ -39,7 +39,7 @@ function api_timestamp_format($timestamp,$format="Y-m-d H:i:s",$timezone=null){
  // build date time object
  $datetime=new DateTime("@".$timestamp);
  // set date time timezone
- $datetime->setTimeZone(new DateTimeZone($timezone));
+ if($timezone){$datetime->setTimeZone(new DateTimeZone($timezone));}
  // return date time formatted
  return $datetime->format($format);
 }
