@@ -35,7 +35,7 @@ function api_sendmail($subject,$message,$recipients_to=null,$recipients_cc=null,
  // debug
  api_dump($mail_qobj,"mail query object");
  // execute query
- $mail_qobj->id=$GLOBALS['database']->queryInsert("framework_mails",$mail_qobj);
+ $mail_qobj->id=$GLOBALS['database']->queryInsert("framework__mails",$mail_qobj);
  // check for mail id
  if(!$mail_qobj->id){return false;}
  // check for asynchronous sendmail option or send mail now
@@ -147,7 +147,7 @@ function api_sendmail_process($mail=null){
  // debug
  api_dump($mail_qobj,"mail query object");
  // execute query
- $mail_qobj->id=$GLOBALS['database']->queryUpdate("framework_mails",$mail_qobj);
+ $mail_qobj->id=$GLOBALS['database']->queryUpdate("framework__mails",$mail_qobj);
  // return
  if($mail_sended){return true;}else{return false;}
 }
@@ -182,9 +182,9 @@ function api_framework_mails($status=null){  /** @todo levare framework? */
  $query_where="1";
  foreach($status_array as $status_f){$query_where.=" OR `status`='".$status_f."'";}
  if(count($status_array)){$query_where=substr($query_where,5);}
- //api_dump("SELECT * FROM `framework_mails` WHERE ".$query_where." ORDER BY `id` ASC");
+ //api_dump("SELECT * FROM `framework__mails` WHERE ".$query_where." ORDER BY `id` ASC");
  // execute query
- $mails_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_mails` WHERE ".$query_where." ORDER BY `id` ASC");
+ $mails_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__mails` WHERE ".$query_where." ORDER BY `id` ASC");
  foreach($mails_results as $mail){$return[$mail->id]=new cMail($mail);}
  // return groups
  return $return;

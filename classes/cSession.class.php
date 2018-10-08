@@ -66,7 +66,7 @@ class cSession{
   */
  public function load(){
   // retrieve session from database
-  $session_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_sessions` WHERE `id`='".$_SESSION['coordinator_session_id']."'",$GLOBALS['debug']);
+  $session_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__sessions` WHERE `id`='".$_SESSION['coordinator_session_id']."'",$GLOBALS['debug']);
   // check if session not exist or is expired
   if(!$session_obj->id||(time()-$session_obj->lastTimestamp)>$GLOBALS['settings']->sessions_idle_timeout){
    // unset session id and return
@@ -80,7 +80,7 @@ class cSession{
   $this->idle=time()-$session_obj->lastTimestamp;
   $this->validity=true;
   // update last timestamp
-  $GLOBALS['database']->queryExecute("UPDATE `framework_sessions` SET `lastTimestamp`='".time()."' WHERE `id`='".$this->id."'");
+  $GLOBALS['database']->queryExecute("UPDATE `framework__sessions` SET `lastTimestamp`='".time()."' WHERE `id`='".$this->id."'");
   // build user object
   $this->user=new cUser($session_obj->fkUser,true);
   // check maintenance
@@ -109,9 +109,9 @@ class cSession{
   // debug
   api_dump($session_obj,"session_obj");
   // if multiple sessions are not allowed delete previous account sessions
-  if(!$GLOBALS['settings']->sessions_multiple){$GLOBALS['database']->queryExecute("DELETE FROM `framework_sessions` WHERE `fkUser`='".$session_obj->fkUser."'");}
+  if(!$GLOBALS['settings']->sessions_multiple){$GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `fkUser`='".$session_obj->fkUser."'");}
   // insert session to database
-  $GLOBALS['database']->queryInsert("framework_sessions",$session_obj);
+  $GLOBALS['database']->queryInsert("framework__sessions",$session_obj);
   // set coordinator session id
   $_SESSION['coordinator_session_id']=$session_obj->id;
   // load session
@@ -134,7 +134,7 @@ class cSession{
   */
  /*public function countAllSessions(){
   /** @todo cercare un nome decente..
-  return $GLOBALS['database']->queryUniqueValue("SELECT COUNT(`id`) FROM `framework_sessions`");
+  return $GLOBALS['database']->queryUniqueValue("SELECT COUNT(`id`) FROM `framework__sessions`");
  }*/
 
  /**
@@ -142,7 +142,7 @@ class cSession{
   */
  /*public function countOnlineUsers(){
   /** @todo cercare un nome decente..
-  return $GLOBALS['database']->queryUniqueValue("SELECT COUNT(DISTINCT(`fkUser`)) FROM `framework_sessions`");
+  return $GLOBALS['database']->queryUniqueValue("SELECT COUNT(DISTINCT(`fkUser`)) FROM `framework__sessions`");
  }*/
 
 }
