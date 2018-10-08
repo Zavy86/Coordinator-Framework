@@ -84,9 +84,14 @@ class cSession{
   // build user object
   $this->user=new cUser($session_obj->fkUser,true);
   // check maintenance
-  if($GLOBALS['settings']->maintenance){ /** @ and user not administrator */
-   unset($_SESSION['coordinator_session_id']);
-   api_redirect(DIR."login.php?alert=maintenance");
+  if($GLOBALS['settings']->maintenance){
+   if($this->user->superuser){
+    api_alerts_add(api_text("alert_maintenance_enabled"),"warning");
+   }else{
+    unset($_SESSION['coordinator_session_id']);
+    api_alerts_add(api_text("alert_maintenance"),"danger");
+    api_redirect(DIR."login.php");
+   }
    return false;
   }
   return true;
