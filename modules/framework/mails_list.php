@@ -13,15 +13,15 @@
  $html->setTitle(api_text("mails_list"));
  // make recipeint filter
  $mails_filters=array();
- $results=$GLOBALS['database']->queryObjects("SELECT DISTINCT(`recipients_to`) FROM `framework_mails`",$GLOBALS['debug']);
+ $results=$GLOBALS['database']->queryObjects("SELECT DISTINCT(`recipients_to`) FROM `framework__mails`",$GLOBALS['debug']);
  foreach($results as $result){$mails_filters[$result->recipients_to]=$result->recipients_to;}
  // build filter
  $filter=new cFilter();
  $filter->addSearch(array("recipients_to","recipients_cc","recipients_bcc","subject","message"));
- $filter->addItem(api_text("mails_list-filter-status"),array("inserted"=>api_text("mail-status-inserted"),"sended"=>api_text("mail-status-sended"),"failed"=>api_text("mail-status-failed")),"status","framework_mails");
- $filter->addItem(api_text("mails_list-filter-recipient"),$mails_filters,"recipients_to","framework_mails");
+ $filter->addItem(api_text("mails_list-filter-status"),array("inserted"=>api_text("mail-status-inserted"),"sended"=>api_text("mail-status-sended"),"failed"=>api_text("mail-status-failed")),"status","framework__mails");
+ $filter->addItem(api_text("mails_list-filter-recipient"),$mails_filters,"recipients_to","framework__mails");
  // build query
- $query=new cQuery("framework_mails",$filter->getQueryWhere());
+ $query=new cQuery("framework__mails",$filter->getQueryWhere());
  $query->addQueryOrderField("sndTimestamp","DESC",null,true);
  // build pagination
  $pagination=new cPagination($query->getRecordsCount());
@@ -35,7 +35,7 @@
  $table->addHeader("&nbsp;",null,16);
  // get mails
  $mails_array=array();
- //$mails_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_mails` ORDER BY `sndTimestamp` IS NULL DESC,`sndTimestamp` DESC",$GLOBALS['debug']);
+ //$mails_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__mails` ORDER BY `sndTimestamp` IS NULL DESC,`sndTimestamp` DESC",$GLOBALS['debug']);
  //foreach($mails_results as $mail){$mails_array[$mail->id]=new cMail($mail);}
  foreach($query->getRecords($pagination->getQueryLimits()) as $mail){$mails_array[$mail->id]=new cMail($mail);}
  // cycle all mails

@@ -39,7 +39,7 @@ class cGroup{
   */
  public function __construct($group){
   // get object
-  if(is_numeric($group)){$group=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_groups` WHERE `id`='".$group."'",$GLOBALS['debug']);}
+  if(is_numeric($group)){$group=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__groups` WHERE `id`='".$group."'",$GLOBALS['debug']);}
   if(!$group->id){return false;}
   // set properties
   $this->id=(int)$group->id;

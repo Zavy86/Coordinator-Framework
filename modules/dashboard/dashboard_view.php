@@ -14,7 +14,7 @@
  // build dashboard
  $dashboard=new cDashboard();
  // get all tiles
- $tiles_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_users_dashboards` WHERE `fkUser`='".$GLOBALS['session']->user->id."' ORDER BY `order`");
+ $tiles_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users_dashboards` WHERE `fkUser`='".$GLOBALS['session']->user->id."' ORDER BY `order`");
  foreach($tiles_results as $tile){
   $tile_obj=new cDashboardTile($tile);
   // add dashboard element

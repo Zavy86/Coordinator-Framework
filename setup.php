@@ -129,7 +129,7 @@
     }
    }
    // update admin user
-   $sql_update="UPDATE `framework_users` SET
+   $sql_update="UPDATE `framework__users` SET
     `mail`='".$_REQUEST['mail']."',
     `firstname`='".$_REQUEST['firstname']."',
     `lastname`='".$_REQUEST['lastname']."',

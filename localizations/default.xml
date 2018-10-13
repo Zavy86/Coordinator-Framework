@@ -35,6 +35,8 @@
  <text key="saturday">Saturday</text>
 
  <!-- alerts -->
+ <text key="alert_maintenance">System in maintenance. Please try again later..</text>
+ <text key="alert_maintenance_enabled">Maintenance mode active!</text>
  <text key="alert_unauthorized">Your account is not authorized to perform the "<![CDATA[{1}]]>" action in the "<![CDATA[{0}]]>" module</text>
  <text key="alert_passwordExpired">Your password is expired please choose a new password</text>
  <text key="alert_authenticationFailed">Incorrect username or password</text>

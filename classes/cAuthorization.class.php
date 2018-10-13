@@ -34,7 +34,7 @@ class cAuthorization{
   */
  public function __construct($authorization){
   // get object
-  if(is_int($authorization)){$authorization=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_modules_authorizations` WHERE `id`='".$authorization."'");}
+  if(is_int($authorization)){$authorization=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__modules_authorizations` WHERE `id`='".$authorization."'");}
   if(!$authorization->id){return false;}
   // set properties
   $this->id=$authorization->id;
@@ -49,7 +49,7 @@ class cAuthorization{
   $this->groups_array=array();
   $this->groups_level_array=array();
   /** @todo fare autorizzazioni anche per tutti i gruppi (fkGroup=null) */
-  $groups_results=$GLOBALS['database']->queryObjects("SELECT `framework_modules_authorizations_join_groups`.* FROM `framework_modules_authorizations_join_groups` JOIN `framework_groups` ON `framework_groups`.`id`=`framework_modules_authorizations_join_groups`.`fkGroup` WHERE `fkAuthorization`='".$this->id."' ORDER BY `framework_groups`.`name`");
+  $groups_results=$GLOBALS['database']->queryObjects("SELECT `framework__modules_authorizations_join_groups`.* FROM `framework__modules_authorizations_join_groups` JOIN `framework__groups` ON `framework__groups`.`id`=`framework__modules_authorizations_join_groups`.`fkGroup` WHERE `fkAuthorization`='".$this->id."' ORDER BY `framework__groups`.`name`");
   foreach($groups_results as $group){
    $this->groups_array[$group->fkGroup]=new cGroup($group->fkGroup);
    $this->groups_level_array[$group->fkGroup]=$group->level;

@@ -48,7 +48,7 @@ class cMenu{
   */
  public function __construct($menu){
   // get object
-  if(is_numeric($menu)){$menu=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework_menus` WHERE `id`='".$menu."'",$GLOBALS['debug']);}
+  if(is_numeric($menu)){$menu=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__menus` WHERE `id`='".$menu."'",$GLOBALS['debug']);}
   if(!$menu->id){return false;}
   // set properties
   $this->id=(int)$menu->id;

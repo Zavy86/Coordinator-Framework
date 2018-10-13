@@ -16,7 +16,7 @@
  $filter->addSearch(array("firstname","lastname","username","mail"));
  $filter->addItem(api_text("users_list-filter-enabled"),array(0=>api_text("user-status-disabled"),1=>api_text("user-status-enabled")),"enabled");
  // build query
- $query=new cQuery("framework_users",$filter->getQueryWhere());
+ $query=new cQuery("framework__users",$filter->getQueryWhere());
  $query->addQueryOrderField("lastname","ASC",null,true);
  $query->addQueryOrderField("firstname","ASC",null,true);
  // debug
@@ -32,7 +32,7 @@
  $table->addHeader("&nbsp;",null,16);
  // get user objects
  $users_array=array();
- //$users_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_users` ORDER BY `lastname`,`firstname`",$GLOBALS['debug']);
+ //$users_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users` ORDER BY `lastname`,`firstname`",$GLOBALS['debug']);
  //foreach($users_results as $user){$users_array[$user->id]=new cUser($user);}
  foreach($query->getRecords($pagination->getQueryLimits()) as $user){$users_array[$user->id]=new cUser($user);}
  // cycle all users

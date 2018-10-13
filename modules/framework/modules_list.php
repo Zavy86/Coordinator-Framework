@@ -23,7 +23,7 @@
  // get module objects
  $modules_array=array();
  $modules_array["framework"]=new cModule("framework");
- $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework_modules` WHERE `module`!='framework' ORDER BY `module`");
+ $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules` WHERE `module`!='framework' ORDER BY `module`");
  foreach($modules_results as $module){$modules_array[$module->module]=new cModule($module);}
  // cycle all modules
  foreach($modules_array as $module){

@@ -9,8 +9,8 @@
  // definitions
  $logs=array();
  // delete expired sessions
- $deleted_sessions_1=$GLOBALS['database']->queryExecute("DELETE FROM `framework_sessions` WHERE `startTimestamp`<'".(time()-36000)."'");
- $deleted_sessions_2=$GLOBALS['database']->queryExecute("DELETE FROM `framework_sessions` WHERE `lastTimestamp`<'".(time()-$GLOBALS['settings']->sessions_idle_timeout)."'");
+ $deleted_sessions_1=$GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `startTimestamp`<'".(time()-36000)."'");
+ $deleted_sessions_2=$GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `lastTimestamp`<'".(time()-$GLOBALS['settings']->sessions_idle_timeout)."'");
  // log
  $logs[]="Expired sessions deleted (".($deleted_sessions_1+$deleted_sessions_2).")"; /** @todo verificare ed eventualmente migliorare */
  // sendmail

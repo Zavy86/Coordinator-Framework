@@ -36,7 +36,7 @@ class cEvent{
   * ----------------@param string $table Events table
   * @return object Return query object for extensions
   */
- public function __construct($event,$module="framework"/*,$table="framework_events"*/){
+ public function __construct($event,$module="framework"/*,$table="framework__events"*/){
   // get object
   //if(is_numeric($event)){$event=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `".$table."` WHERE `id`='".$event."'",$GLOBALS['debug']);}
   if(!$event->id){return false;}
