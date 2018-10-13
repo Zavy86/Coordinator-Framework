@@ -289,7 +289,8 @@ class cForm{
       $return.=$split_identation."   ";
       if(!is_int(strpos($field->class,"-inline"))){$return.="<div class=\"".$field->typology." ".$field->class."\">";}
       $return.="<label class=\"".$field->class."\"><input type=\"".$field->typology."\" name=\"".$field->name."\" value=\"".$option->value."\"";
-      if($option->value===$field->value){$return.=" checked=\"checked\"";}
+      if(is_array($field->value)){if(in_array($option->value,$field->value)){$return.=" checked=\"checked\"";}}
+      else{if($option->value===$field->value){$return.=" checked=\"checked\"";}}
       if($option->class){$return.=" class=\"".$option->class."\"";}
       if($option->style){$return.=" style=\"".$option->style."\"";}
       if($field->tags){$return.=" ".$field->tags;}

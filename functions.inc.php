@@ -53,6 +53,7 @@ if($r_script){define("SCRIPT",$r_script);}
 if($r_action){define("ACTION",$r_action);}
 if($r_tab){define("TAB",$r_tab);}
 // include functions
+require_once(ROOT."functions/map.inc.php");
 require_once(ROOT."functions/sendmail.inc.php");
 require_once(ROOT."functions/timestamp.inc.php");
 // include classes
