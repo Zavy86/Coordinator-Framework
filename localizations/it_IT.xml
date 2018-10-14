@@ -55,6 +55,7 @@
 
  <!-- nav -->
  <text key="nav-dashboard">Bacheca</text>
+ <text key="nav-modules">Moduli abilitati</text>
  <text key="nav-own-profile">Profilo personale</text>
  <text key="nav-mails">Registro mail</text>
  <text key="nav-settings">Impostazioni</text>

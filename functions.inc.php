@@ -257,6 +257,43 @@ function api_link($url,$label,$title=null,$class=null,$popup=false,$confirm=null
 }
 
 /**
+ * Mail Link
+ * @param string $address Mail address
+ * @param string $label Link label
+ * @param string $title Title
+ * @param string $class CSS class
+ * @param string $style Style tags
+ * @param string $tags Custom HTML tags
+ * @param string $target Target window
+ * @param string $id Link ID or random created
+ * @return string mail link
+ */
+function api_mail_link($address,$label=null,$title=null,$class=null,$style=null,$tags=null,$target="_self",$id=null){
+ // check parameters
+ if(!$address){return false;}
+ if(!$label){$label=$address;}
+ if(!$id){$id=rand(1,99999);}
+ // make current uri array
+ parse_str(parse_url($_SERVER['REQUEST_URI'])['query'],$uri_array);
+ $uri_array['return_mod']=$uri_array['mod'];unset($uri_array['mod']);
+ $uri_array['return_scr']=$uri_array['scr'];unset($uri_array['scr']);
+ $uri_array['return_tab']=$uri_array['tab'];unset($uri_array['tab']);
+ // make mail link
+ //$return="<a id=\"link_".$id."\" href=\"mailto:".$address."\"";
+ $link="index.php?mod=framework&scr=mails_add";
+ $link.="&recipient=".$address;
+ $link.="&".http_build_query($uri_array);
+ $return="<a id=\"link_".$id."\" href=\"".$link."\"";
+ if($title){$return.=" title=\"".$title."\"";}
+ if($class){$return.=" class=\"".$class."\"";}
+ if($style){$return.=" style=\"".$style."\"";}
+ if($tags){$return.=" ".$tags;}
+ $return.=" target=\"".$target."\">".$label."</a>";
+ // return
+ return $return;
+}
+
+/**
  * Image
  *
  * @param string $path Image path

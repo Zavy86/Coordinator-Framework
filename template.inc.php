@@ -49,7 +49,7 @@
    // check for authorization
    if($menu_obj->authorization){
     $authorization=explode("|",$menu_obj->authorization);
-    if(!api_checkAuthorization($authorization[0],$authorization[1])){continue;}
+    if(!api_checkAuthorization($authorization[0],$authorization[1],true,false)){continue;}
    }
    /** @todo menu titles */
    if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=null;}
@@ -59,7 +59,7 @@
     $authorized=true;
     if($submenu_obj->authorization){
      $authorization=explode("|",$submenu_obj->authorization);
-     if(!api_checkAuthorization($authorization[0],$authorization[1])){$authorized=false;}
+     if(!api_checkAuthorization($authorization[0],$authorization[1],true,false)){$authorized=false;}
     }
     if($submenu_obj->icon){$icon_source=api_icon($submenu_obj->icon)." ";}else{$icon_source=null;}
     $header_navbar->addSubItem($icon_source.$submenu_obj->label,$submenu_obj->url,$authorized,null,null,null,$submenu_obj->target);
@@ -67,6 +67,18 @@
   }
   // account and settings
   $header_navbar->addNav("navbar-right");
+  // check for administrators
+  if($GLOBALS['session']->user->superuser){
+   $header_navbar->addItem(api_icon("fa-puzzle-piece"));
+   $header_navbar->addSubHeader(api_text("nav-modules"),"text-right");
+   // get all modules
+   $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules` WHERE `module`!='framework' ORDER BY `module`");
+   foreach($modules_results as $module){
+    if($module->module==MODULE){continue;}
+    $module=new cModule($module);
+    $header_navbar->addSubItem($module->name,"?mod=".$module->module,true,"text-right");
+   }
+  }
   $header_navbar->addItem(api_image($GLOBALS['session']->user->avatar,null,20,20,false,"alt='Brand'"));
   $header_navbar->addSubHeader($GLOBALS['session']->user->fullname,"text-right");
   $header_navbar->addSubItem(api_text("nav-own-profile")." ".api_icon("fa-user-circle-o"),"?mod=framework&scr=own_profile",true,"text-right");
@@ -75,7 +87,7 @@
   if(api_checkAuthorization("framework","framework-settings_manage")){
    $header_navbar->addSubItem(api_text("nav-mails")." ".api_icon("fa-envelope-o"),"?mod=framework&scr=mails_list",true,"text-right");
    $header_navbar->addSubItem(api_text("nav-settings")." ".api_icon("fa-toggle-on"),"?mod=framework&scr=dashboard",true,"text-right");
-   if($GLOBALS['session']->user->superuser){$header_navbar->addSubItem(api_text("nav-debug")." ".api_icon("fa-code"),"?mod=".MODULE."&scr=".SCRIPT."&tab=".TAB."&debug=".(!$_SESSION['coordinator_debug']),true,"text-right inactive");}
+   if($GLOBALS['session']->user->superuser){$header_navbar->addSubItem(api_text("nav-debug")." ".api_icon("fa-code"),"index.php?debug=".(!$_SESSION['coordinator_debug']),true,"text-right inactive");}
   }
   $header_navbar->addSubItem(api_text("nav-logout")." ".api_icon("fa-sign-out"),"?mod=framework&scr=submit&act=user_logout",true,"text-right");
 

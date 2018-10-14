@@ -55,6 +55,7 @@
 
  <!-- nav -->
  <text key="nav-dashboard">Dashboard</text>
+ <text key="nav-modules">Enabled modules</text>
  <text key="nav-own-profile">Personal profile</text>
  <text key="nav-mails">Mails register</text>
  <text key="nav-settings">Settings</text>
