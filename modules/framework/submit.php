@@ -19,6 +19,8 @@ switch(ACTION){
  case "own_avatar_remove":own_avatar_remove();break;
  // settings
  case "settings_save":settings_save();break;
+ // mails
+ case "mail_save":mail_save();break;
  // menus
  case "menu_save":menu_save();break;
  case "menu_move_left":menu_move("left");break;
@@ -189,6 +191,30 @@ function settings_save(){
  // redirect
  api_alerts_add(api_text("framework_alert_settingsUpdated"),"success");
  api_redirect("?mod=framework&scr=settings_edit&tab=".$r_tab);
+}
+
+/**
+ * Mail Save
+ */
+function mail_save(){
+ // debug
+ api_dump($_REQUEST);
+ // acquire variables
+ $r_sender=addslashes($_REQUEST['sender']);
+ $r_recipient=addslashes($_REQUEST['recipient']);
+ $r_subject=addslashes($_REQUEST['subject']);
+ $r_message=addslashes($_REQUEST['message']);
+ // save mail
+ api_sendmail($r_subject,$r_message,$r_recipient,null,null,$r_sender);
+ // make current uri array
+ parse_str(parse_url($_SERVER['REQUEST_URI'])['query'],$uri_array);
+ $uri_array['mod']=$uri_array['return_mod'];unset($uri_array['return_mod']);
+ $uri_array['scr']=$uri_array['return_scr'];unset($uri_array['return_scr']);
+ $uri_array['tab']=$uri_array['return_tab'];unset($uri_array['return_tab']);
+ unset($uri_array['act']);
+ // redirect
+ if($uri_array['mod']){api_redirect("?".http_build_query($uri_array));}
+ else{api_redirect("?mod=framework&scr=mails_list");}
 }
 
 /**

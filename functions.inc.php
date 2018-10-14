@@ -273,8 +273,18 @@ function api_mail_link($address,$label=null,$title=null,$class=null,$style=null,
  if(!$address){return false;}
  if(!$label){$label=$address;}
  if(!$id){$id=rand(1,99999);}
+ // make current uri array
+ parse_str(parse_url($_SERVER['REQUEST_URI'])['query'],$uri_array);
+ $uri_array['return_mod']=$uri_array['mod'];unset($uri_array['mod']);
+ $uri_array['return_scr']=$uri_array['scr'];unset($uri_array['scr']);
+ $uri_array['return_tab']=$uri_array['tab'];unset($uri_array['tab']);
  // make mail link
- $return="<a id=\"link_".$id."\" href=\"mailto:".$address."\"";
+ //$return="<a id=\"link_".$id."\" href=\"mailto:".$address."\"";
+ $link="index.php?mod=framework&scr=mails_add";
+ $link.="&recipient=".$address;
+ $link.="&".http_build_query($uri_array);
+ $return="<a id=\"link_".$id."\" href=\"".$link."\"";
+ if($title){$return.=" title=\"".$title."\"";}
  if($class){$return.=" class=\"".$class."\"";}
  if($style){$return.=" style=\"".$style."\"";}
  if($tags){$return.=" ".$tags;}
