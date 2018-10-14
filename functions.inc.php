@@ -257,6 +257,33 @@ function api_link($url,$label,$title=null,$class=null,$popup=false,$confirm=null
 }
 
 /**
+ * Mail Link
+ * @param string $address Mail address
+ * @param string $label Link label
+ * @param string $title Title
+ * @param string $class CSS class
+ * @param string $style Style tags
+ * @param string $tags Custom HTML tags
+ * @param string $target Target window
+ * @param string $id Link ID or random created
+ * @return string mail link
+ */
+function api_mail_link($address,$label=null,$title=null,$class=null,$style=null,$tags=null,$target="_self",$id=null){
+ // check parameters
+ if(!$address){return false;}
+ if(!$label){$label=$address;}
+ if(!$id){$id=rand(1,99999);}
+ // make mail link
+ $return="<a id=\"link_".$id."\" href=\"mailto:".$address."\"";
+ if($class){$return.=" class=\"".$class."\"";}
+ if($style){$return.=" style=\"".$style."\"";}
+ if($tags){$return.=" ".$tags;}
+ $return.=" target=\"".$target."\">".$label."</a>";
+ // return
+ return $return;
+}
+
+/**
  * Image
  *
  * @param string $path Image path
