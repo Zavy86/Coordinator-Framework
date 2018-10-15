@@ -82,6 +82,10 @@ class cTab{
   }
   // renderize nav
   $return=null;
+  // ----------------- test
+  $return.="<!-- nav-responsive -->\n";
+  $return.="<div class=\"nav-responsive\">\n";
+  // -----------------
   $return.="<!-- tab-nav -->\n";
   $return.="<ul class=\"nav nav-tabs\" role=\"tablist\" style=\"min-width:".$min_width."px;\">\n";
   // cycle all items
@@ -113,6 +117,9 @@ class cTab{
   }
   // renderize closures
   $return.="</div><!-- /tab-panes -->\n";
+  // ----------------- test
+  $return.=" </div><!-- /nav-responsive -->\n";
+  // -----------------
   // return
   return $return;
  }
