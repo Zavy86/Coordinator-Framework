@@ -160,6 +160,17 @@
  <text key="own_password-submit">Salva</text>
  <text key="own_password-cancel">Annulla</text>
 
+ <!-- mails_add -->
+ <text key="mails_add">Nuova mail</text>
+ <text key="mails_add-sender">Mittente</text>
+ <text key="mails_add-sender-placeholder">Seleziona un mittente..</text>
+ <text key="mails_add-recipient">Destinatario</text>
+ <text key="mails_add-recipient-placeholder">Destinatario della mail</text>
+ <text key="mails_add-subject">Oggetto</text>
+ <text key="mails_add-subject-placeholder">Oggetto della mail</text>
+ <text key="mails_add-message">Messaggio</text>
+ <text key="mails_add-message-placeholder">Contenuto della mail..</text>
+
  <!-- settings_edit -->
  <text key="settings_edit">Impostazioni</text>
  <text key="settings_edit-description">Gestione delle impostazioni del framework</text>
