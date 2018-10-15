@@ -9,7 +9,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("users_edit"));
+ $html->setTitle(api_text("mails_add"));
  // acquire variables
  $r_recipient=$_REQUEST['recipient'];
  /*$return_mod=$_REQUEST['return_mod'];
@@ -29,15 +29,15 @@
  /*$form->addField("hidden","return_mod",null,$return_mod);
  $form->addField("hidden","return_scr",null,$return_scr);
  $form->addField("hidden","return_tab",null,$return_act);*/
- $form->addField("select","sender",api_text("users_edit-sender"),null,api_text("users_edit-sender-placeholder"),null,null,null,"required");
+ $form->addField("select","sender",api_text("mails_add-sender"),null,api_text("mails_add-sender-placeholder"),null,null,null,"required");
  $form->addFieldOption($GLOBALS['session']->user->mail,$GLOBALS['session']->user->fullname);
  $form->addFieldOption($GLOBALS['settings']->sendmail_from_mail,$GLOBALS['settings']->sendmail_from_name);
- $form->addField("text","recipient",api_text("users_edit-recipient"),$r_recipient,api_text("users_edit-recipient-placeholder"),null,null,null,"required");
- $form->addField("text","subject",api_text("users_edit-subject"),null,api_text("users_edit-subject-placeholder"),null,null,null,"required");
- $form->addField("textarea","message",api_text("users_edit-message"),null,api_text("users_edit-message-placeholder"),null,null,null,"required rows='9'");
+ $form->addField("email","recipient",api_text("mails_add-recipient"),$r_recipient,api_text("mails_add-recipient-placeholder"),null,null,null,"required");
+ $form->addField("text","subject",api_text("mails_add-subject"),null,api_text("mails_add-subject-placeholder"),null,null,null,"required");
+ $form->addField("textarea","message",api_text("mails_add-message"),null,api_text("mails_add-message-placeholder"),null,null,null,"required rows='9'");
  // controls
- $form->addControl("submit",api_text("users_edit-submit"));
- $form->addControl("button",api_text("users_edit-cancel"),"?mod=framework&scr=users_view&idUser=".$user->id);
+ $form->addControl("submit",api_text("form-fc-submit"));
+ $form->addControl("button",api_text("form-fc-cancel"),"?mod=framework&scr=users_view&idUser=".$user->id);
  // build grid object
  $grid=new cGrid();
  $grid->addRow();

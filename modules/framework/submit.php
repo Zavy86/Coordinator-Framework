@@ -203,7 +203,7 @@ function mail_save(){
  $r_sender=addslashes($_REQUEST['sender']);
  $r_recipient=addslashes($_REQUEST['recipient']);
  $r_subject=addslashes($_REQUEST['subject']);
- $r_message=addslashes($_REQUEST['message']);
+ $r_message=addslashes(nl2br($_REQUEST['message']));
  // save mail
  api_sendmail($r_subject,$r_message,$r_recipient,null,null,$r_sender);
  // make current uri array
