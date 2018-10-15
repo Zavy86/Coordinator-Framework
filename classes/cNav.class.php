@@ -198,7 +198,7 @@ class cNav{
    }else{
     $return.=$ident." <li class=\"dropdown ".$item_class."\">\n";
     $return.=$ident."  <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".$item->label." <span class=\"caret\"></span></a>\n";
-    $return.=$ident."  <ul class=\"dropdown-menu ".$item->class."\">\n";
+    $return.=$ident."  <ul class=\"test dropdown-menu ".$item->class."\">\n";
     // cycle all sub items
     foreach($item->subItems_array as $subItem){
      // check for sub active

@@ -113,6 +113,12 @@ footer{
   overflow-y:hidden;
   -ms-overflow-style:-ms-autohiding-scrollbar;
  }
+ ul.dropdown-menu{
+  position:fixed;
+  top:111px;
+  left:15px;
+  z-index:10000;
+ }
 }
 
 .dl-horizontal dt{
