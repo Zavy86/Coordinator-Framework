@@ -86,4 +86,18 @@ function api_timestampDifferenceFormat($difference,$showSeconds=true){ /** @todo
  return substr($return,0,-2);
 }
 
+/**
+ * Timestamp Difference Days
+ *
+ * @param integer $difference Number of seconds
+ * @return string Formatted timestamp difference
+ */
+function api_timestampDifferenceDays($difference){
+ if($difference===null){return false;}
+ $days=intval(intval($difference)/(3600*24));
+ if($days==1){$return.=$days." ".api_text("day");}
+ elseif($days>1){$return.=$days." ".api_text("days");}
+ return $return;
+}
+
 ?>
