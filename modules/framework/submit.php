@@ -973,10 +973,12 @@ function user_deleted($deleted){
  $user_obj=new cUser($_REQUEST['idUser']);
  // check
  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
+ if($user_obj->id==1){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=framework&scr=users_list");}
+ if($user_obj->superuser==1){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=framework&scr=users_list");}
  // build user query objects
  $user_qobj=new stdClass();
  $user_qobj->id=$user_obj->id;
- $user_qobj->deleted=($deleted?1:0);
+ $user_qobj->deleted=($deleted?1:0);  /** @todo verificare perche non esiste piu sul db il campo */
  if($deleted){
   $user_qobj->enabled=0;
   $user_qobj->superuser=0;
