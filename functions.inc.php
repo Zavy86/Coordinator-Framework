@@ -435,25 +435,30 @@ function api_check_version($current,$new){
 /**
  * Check Authorization
  *
- * @param string $module Module
- * @param string $action Action
+ * @param string $action Action to check
+ * @param string $redirect If unauthorized redirect to this script
+ * @param string $module Module (default current module)
  * @param booelan $inherited If true check also in hinerited permissions
  * @param booelan $superuser If true return true if user is superuser
  * @return boolean authorized or not
  */
-function api_checkAuthorization($module,$action,$inherited=true,$superuser=true){
- /** @todo levare gli alert e i dump */
+function api_checkAuthorization($action,$redirect=null,$module=null,$inherited=true,$superuser=true){
+ // check parameters
+ if(!$action){return false;}
+ if(!$module){$module=MODULE;}
  // check authorization
  $authorization=$GLOBALS['session']->user->authorizations_array[$module][$action];
- if($authorization=="authorized"){/*api_dump("Check permission [".$module."][".$action."] = AUTORIZED");*/return true;}
- if($inherited && $authorization=="inherited"){/*api_dump("Check permission [".$module."][".$action."] = HINERITED");*/return true;}
+ if($authorization=="authorized"){return true;}
+ if($inherited && $authorization=="inherited"){return true;}
  // check superuser
  if($superuser && $GLOBALS['session']->user->superuser){
   if($GLOBALS['debug']){api_alerts_add("Check permission [".$module."][".$action."] = SUPERUSER","warning");}
   return true;
  }
  // unauthorized
- /*api_dump("Check permission [".$module."][".$action."] = NOT");*/
+ api_alerts_add(api_text("alert_unauthorized",array(MODULE,$action)),"danger");
+ // redirect to script
+ if($redirect){api_redirect("?mod=".MODULE."&scr=".$redirect);}
  return false;
 }
 

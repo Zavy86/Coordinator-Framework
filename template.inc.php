@@ -49,7 +49,7 @@
    // check for authorization
    if($menu_obj->authorization){
     $authorization=explode("|",$menu_obj->authorization);
-    if(!api_checkAuthorization($authorization[0],$authorization[1],true,false)){continue;}
+    if(!api_checkAuthorization($authorization[1],null,$authorization[0],true,false)){continue;}
    }
    /** @todo menu titles */
    if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=null;}
@@ -59,7 +59,7 @@
     $authorized=true;
     if($submenu_obj->authorization){
      $authorization=explode("|",$submenu_obj->authorization);
-     if(!api_checkAuthorization($authorization[0],$authorization[1],true,false)){$authorized=false;}
+     if(!api_checkAuthorization($authorization[1],null,$authorization[0],true,false)){$authorized=false;}
     }
     if($submenu_obj->icon){$icon_source=api_icon($submenu_obj->icon)." ";}else{$icon_source=null;}
     $header_navbar->addSubItem($icon_source.$submenu_obj->label,$submenu_obj->url,$authorized,null,null,null,$submenu_obj->target);
