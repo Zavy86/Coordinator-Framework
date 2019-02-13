@@ -59,8 +59,9 @@
   }else{
    $action_btn=api_link("?mod=framework&scr=submit&act=module_setup&module=".$module->module,api_text("modules_list-td-setup"),null,"btn btn-success btn-xs");
   }
-  //
+  // build table row
   $table->addRow();
+  // build table fields
   $table->addRowField(api_link("?mod=framework&scr=modules_view&module=".$module->module,api_icon("search",api_text("show"))));
   $table->addRowField($module->name,"nowrap");
   $table->addRowField(api_tag("span",$module->version,"label ".($source_updated?"label-warning":"label-success")),"nowrap text-right");
@@ -69,6 +70,22 @@
   $table->addRowField($module->description,"truncate-ellipsis");
   $table->addRowField($action_btn,"nowrap text-right");
  }
+ // check for local uninstalled modules
+ $module_directory_array=array();
+ $dir_handle=opendir(ROOT."modules/");
+ while($module_directory=readdir($dir_handle)){
+  if(in_array($module_directory,array(".","..","index.php"))){continue;}
+  if(!file_exists(ROOT."modules/".$module_directory."/module.inc.php")){continue;}
+  // make action button
+  $action_btn=api_link("?mod=framework&scr=submit&act=module_initialize&module=$module_directory",api_text("modules_list-td-initialize"),null,"btn btn-info btn-xs");
+  // build table row
+  $table->addRow();
+  // build table fields
+  $table->addRowField("&nbsp;");
+  $table->addRowField($module_directory,"nowrap",null,"colspan='5'");
+  $table->addRowField($action_btn,"nowrap text-right");
+ }
+ closedir($dir_handle);
  // build grid object
  $grid=new cGrid();
  $grid->addRow();

@@ -30,6 +30,7 @@ switch(ACTION){
  case "module_add":module_add();break;
  case "module_enable":module_enable(true);break;
  case "module_disable":module_enable(false);break;
+ case "module_initialize":module_initialize();break;
  case "module_setup":module_setup();break;
  case "module_update_source":module_update_source();break;
  case "module_update_database":module_update_database();break;
@@ -415,6 +416,36 @@ function module_add(){
  if(!file_exists(ROOT."modules/".$r_directory."/module.inc.php")){api_alerts_add(api_text("framework_alert_moduleAddError"),"danger");api_redirect("?mod=framework&scr=modules_add");}
  // include module file
  include(ROOT."modules/".$r_directory."/module.inc.php");
+ // build module query object
+ $module_qobj=new stdClass();
+ $module_qobj->module=$module_name;
+ $module_qobj->version="0";
+ $module_qobj->enabled=0;
+ $module_qobj->addTimestamp=time();
+ $module_qobj->addFkUser=$GLOBALS['session']->user->id;
+ // debug
+ api_dump($module_qobj,"module query object");
+ // check for module
+ if(!$module_qobj->module){api_alerts_add(api_text("framework_alert_moduleAddError"),"danger");api_redirect("?mod=framework&scr=modules_add");}
+ // update module
+ $GLOBALS['database']->queryInsert("framework__modules",$module_qobj);
+ // alert
+ api_alerts_add(api_text("framework_alert_moduleAdded"),"success");
+ // redirect
+ api_redirect("?mod=framework&scr=modules_list");
+}
+/**
+ * Module Initialize
+ */
+function module_initialize(){
+ // debug
+ api_dump($_REQUEST,"$_REQUEST");
+ // get variables
+ $module_directory=$_REQUEST['module'];
+ // check objects
+ if(!file_exists(ROOT."modules/".$module_directory."/module.inc.php")){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ // include module file
+ include(ROOT."modules/".$module_directory."/module.inc.php");
  // build module query object
  $module_qobj=new stdClass();
  $module_qobj->module=$module_name;
