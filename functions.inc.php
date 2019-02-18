@@ -204,9 +204,11 @@ function api_text($key,$parameters=null,$localization=null){
  * @param string $number Number
  * @param string $decimals Number of decimals
  * @param string $currency Currency sign
+ * @param string $small_decimals Decimal in small format
+ * @param string $hide_unsignificat Hide unsignificant decimals
  * @return string Formatted number or false
  */
-function api_number_format($number,$decimals=2,$currency=null,$small_decimals=false){
+function api_number_format($number,$decimals=2,$currency=null,$small_decimals=false,$hide_unsignificat=false){
  // check parameters
  if(!is_numeric($number)){return false;}
  if(!is_numeric($decimals)){return false;}
@@ -214,6 +216,14 @@ function api_number_format($number,$decimals=2,$currency=null,$small_decimals=fa
  $return=number_format($number,$decimals,",",".");
  // check for currency
  if($currency){$return=$currency." ".$return;}
+ // check for hide unsignificant decimals
+ if($decimals && $hide_unsignificat){
+  // remove unsignificant decimals
+  do{
+   $num=substr($return,-1);
+   if($num=="0" || $num==","){$return=substr($return,0,-1);}
+  }while($num=="0" && $num!=",");
+ }
  // check for small decimals
  if($decimals && $small_decimals){
   $real=explode(",",$return)[0];
@@ -455,12 +465,35 @@ function api_checkAuthorization($action,$redirect=null,$module=null,$inherited=t
   if($GLOBALS['debug']){api_alerts_add("Check permission [".$module."][".$action."] = SUPERUSER","warning");}
   return true;
  }
- // unauthorized
- api_alerts_add(api_text("alert_unauthorized",array(MODULE,$action)),"danger");
- // redirect to script
- if($redirect){api_redirect("?mod=".MODULE."&scr=".$redirect);}
+ // unauthorized redirection to script
+ if($redirect){
+  api_alerts_add(api_text("alert_unauthorized",array(MODULE,$action)),"danger");
+  api_redirect("?mod=".MODULE."&scr=".$redirect);
+ }
+ // unauthorized return
  return false;
 }
+
+/*
+ * Random generator
+ *
+ * @param integer $lenght Number of characters
+ */
+function api_random($lenght){
+ // check parameters
+ if(!is_int($lenght)){$lenght=9;}
+ // definitions
+ $return=null;
+ $chars=array("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h",
+              "i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
+              "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R",
+              "S","T","U","V","W","X","Y","Z");
+ // pick random character
+ for($i=0;$i<$lenght;$i++){$return.=$chars[array_rand($chars)];}
+ // return
+ return $return;
+}
+
 
 /**
  * Tree to array
