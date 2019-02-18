@@ -479,7 +479,7 @@ function api_checkAuthorization($action,$redirect=null,$module=null,$inherited=t
  *
  * @param integer $lenght Number of characters
  */
-function api_random($lenght){
+function api_random($lenght=9){
  // check parameters
  if(!is_int($lenght)){$lenght=9;}
  // definitions
