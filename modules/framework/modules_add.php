@@ -27,7 +27,7 @@
  // add content to html
  $html->addContent($grid->render());
  // jQuery script
- $jquery = <<< EOT
+ $jquery=<<<EOS
 /* Popover Script */
 $(function(){
  $("input[name='url']").change(function(){
@@ -43,7 +43,7 @@ $(function(){
   }
  });
 });
-EOT;
+EOS;
  // add script to html
  $html->addScript($jquery);
  // renderize html page

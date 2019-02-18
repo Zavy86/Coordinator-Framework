@@ -49,7 +49,7 @@
  $form->addControl("button",api_text("menus_edit-cancel"),"?mod=framework&scr=menus_list");
  $form->addControl("button",api_text("menus_edit-delete"),"?mod=framework&scr=submit&act=menus_delete&idMenu=".$menu_obj->id,"btn-danger",api_text("menus_edit-delete-confirm"));
  // jQuery script
- $jquery = <<< EOT
+ $jquery=<<<EOS
 /* Toggle Typology Script */
 function menus_edit_toggle_typology() {
  switch($("input[name='typology']:checked").val()){
@@ -75,7 +75,7 @@ function menus_edit_toggle_typology() {
 $(window).load(function(){menus_edit_toggle_typology();});
 // typology change trigger
 $(function(){\$("input[name='typology']").change(function(){menus_edit_toggle_typology();});});
-EOT;
+EOS;
  // build grid object
  $grid=new cGrid();
  $grid->addRow();

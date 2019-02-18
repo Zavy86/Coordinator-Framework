@@ -84,7 +84,7 @@
   $header_navbar->addSubItem(api_text("nav-own-profile")." ".api_icon("fa-user-circle-o"),"?mod=framework&scr=own_profile",true,"text-right");
   $header_navbar->addSubSeparator();
   // show link for administrators
-  if(api_checkAuthorization("framework","framework-settings_manage")){
+  if(api_checkAuthorization("framework-settings_manage",null,"framework")){
    $header_navbar->addSubItem(api_text("nav-mails")." ".api_icon("fa-envelope-o"),"?mod=framework&scr=mails_list",true,"text-right");
    $header_navbar->addSubItem(api_text("nav-settings")." ".api_icon("fa-toggle-on"),"?mod=framework&scr=dashboard",true,"text-right");
    if($GLOBALS['session']->user->superuser){$header_navbar->addSubItem(api_text("nav-debug")." ".api_icon("fa-code"),"index.php?debug=".(!$_SESSION['coordinator_debug']),true,"text-right inactive");}
