@@ -99,11 +99,12 @@ class cDashboard{
   * @param string $tags Custom HTML tags
   * @return boolean
   */
- public function addTile($url,$label,$description=null,$enabled=true,$size="1x1",$icon=null,$counter=null,$counter_class=null,$background=null,$target="_self",$class=null,$style=null,$tags=null){
+ public function addTile($url,$label,$description=null,$enabled=true,$size="1x1",$icon=null,$counter=null,$counter_class=null,$background=null,$target="_self",$class=null,$style=null,$tags=null,$id=null){
   if(!$url||!$label){return false;}
   if(!in_array(strtolower($size),array("1x1","2x1","3x1","4x1","5x1","6x1"))){$size="1x1";}
   if(!$target){$target="_self";}
   $element=new stdClass();
+  $element->id="tile_".($id?$id:api_random());
   $element->type="tile";
   $element->url=$url;
   $element->label=$label;
@@ -120,7 +121,7 @@ class cDashboard{
   $element->tags=$tags;
   // add element to elements array
   $this->elements_array[]=$element;
-  return true;
+  return $element->id;
  }
 
  /**
@@ -185,7 +186,7 @@ class cDashboard{
      }
      // renderize dashboard element
      $return.="  <!-- dashboard-element -->\n";
-     $return.="  <div class=\"dashboard-element dashboard-element-size-".$element->size." ".(!$element->enabled?"dashboard-element-disabled":null)."\" onclick=\"".$href."\"".$background_style.">\n";
+     $return.="  <div class=\"dashboard-element dashboard-element-size-".$element->size." ".(!$element->enabled?"dashboard-element-disabled":null)."\" onclick=\"".$href."\"".$background_style." id=\"".$element->id."\">\n";
      $return.="   <p class=\"dashboard-element-label ".$background_class."\">".$starred_link.$element->label."</p>\n";
      $return.="   <p class=\"dashboard-element-description ".$background_class."\">".$element->description."</p>\n";
      if($element->icon){$return.="   <span class=\"dashboard-element-icon\">".api_icon($element->icon)."</span>\n";}
