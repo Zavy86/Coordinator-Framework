@@ -123,6 +123,7 @@ CREATE TABLE IF NOT EXISTS `framework__users` (
   `updFkUser` int(11) unsigned DEFAULT NULL,
   `lsaTimestamp` int(11) unsigned DEFAULT NULL COMMENT 'last system access',
   `pwdTimestamp` int(11) unsigned DEFAULT NULL COMMENT 'password change',
+  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `mail` (`mail`),
   UNIQUE KEY `username` (`username`)
