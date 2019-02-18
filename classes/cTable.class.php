@@ -39,7 +39,7 @@ class cTable{
  * @return boolean
  */
  public function __construct($emptyrow=null,$class=null,$caption=null,$id=null){
-  if($id){$this->id="table_".$id;}else{$this->id="table_".md5(rand(1,99999));}
+  $this->id="table_".($id?$id:api_random());
   $this->emptyrow=$emptyrow;
   $this->class=$class;
   $this->caption=$caption;
@@ -81,11 +81,13 @@ class cTable{
  * @param string $class CSS class
  * @param string $style Custom CSS
  * @param string $tags Custom HTML tags
+ * @param string $id Row ID, if null randomly generated
  * @return boolean
  */
- public function addRow($class=null,$style=null,$tags=null){
+ public function addRow($class=null,$style=null,$tags=null,$id=null){
   // build row object
   $tr=new stdClass();
+  $tr->id="tr_".($id?$id:api_random());
   $tr->class=$class;
   $tr->style=$style;
   $tr->tags=$tags;
@@ -103,13 +105,15 @@ class cTable{
  * @param string $class CSS class
  * @param string $style Custom CSS
  * @param string $tags Custom HTML tags
+ * @param string $id Field ID, if null randomly generated
  * @return boolean
  */
- function addRowField($content,$class=null,$style=null,$tags=null){
+ function addRowField($content,$class=null,$style=null,$tags=null,$id=null){
   if(!$this->current_row){echo "ERROR - Table->addRowField - No row defined";return false;}
   if(!$content){$content="&nbsp;";}
   // build field object
   $td=new stdClass();
+  $td->id="td_".($id?$id:api_random());
   $td->content=$content;
   $td->class=$class;
   $td->style=$style;
@@ -179,7 +183,7 @@ class cTable{
   foreach($this->rows_array as $row_id=>$tr){
    if($row_id=="headers"){continue;}
    // show rows
-   $return.="   <tr";
+   $return.="   <tr id=\"".$tr->id."\"";
    if($tr->class){$return.=" class=\"".$tr->class."\"";}
    if($tr->style){$return.=" style=\"".$tr->style."\"";}
    if($tr->tags){$return.=" ".$tr->tags."";}
@@ -187,7 +191,7 @@ class cTable{
    // cycle all row fields
    foreach($tr->fields_array as $td){
     // show field
-    $return.="    <td";
+    $return.="    <td id=\"".$td->id."\"";
     if($td->class){$return.=" class=\"".$td->class."\"";}
     if($td->style){$return.=" style=\"".$td->style."\"";}
     if($td->tags){$return.=" ".$td->tags."";}

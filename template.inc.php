@@ -49,7 +49,7 @@
    // check for authorization
    if($menu_obj->authorization){
     $authorization=explode("|",$menu_obj->authorization);
-    if(!api_checkAuthorization($authorization[0],$authorization[1],true,false)){continue;}
+    if(!api_checkAuthorization($authorization[1],null,$authorization[0],true,false)){continue;}
    }
    /** @todo menu titles */
    if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=null;}
@@ -59,7 +59,7 @@
     $authorized=true;
     if($submenu_obj->authorization){
      $authorization=explode("|",$submenu_obj->authorization);
-     if(!api_checkAuthorization($authorization[0],$authorization[1],true,false)){$authorized=false;}
+     if(!api_checkAuthorization($authorization[1],null,$authorization[0],true,false)){$authorized=false;}
     }
     if($submenu_obj->icon){$icon_source=api_icon($submenu_obj->icon)." ";}else{$icon_source=null;}
     $header_navbar->addSubItem($icon_source.$submenu_obj->label,$submenu_obj->url,$authorized,null,null,null,$submenu_obj->target);
@@ -84,7 +84,7 @@
   $header_navbar->addSubItem(api_text("nav-own-profile")." ".api_icon("fa-user-circle-o"),"?mod=framework&scr=own_profile",true,"text-right");
   $header_navbar->addSubSeparator();
   // show link for administrators
-  if(api_checkAuthorization("framework","framework-settings_manage")){
+  if(api_checkAuthorization("framework-settings_manage",null,"framework")){
    $header_navbar->addSubItem(api_text("nav-mails")." ".api_icon("fa-envelope-o"),"?mod=framework&scr=mails_list",true,"text-right");
    $header_navbar->addSubItem(api_text("nav-settings")." ".api_icon("fa-toggle-on"),"?mod=framework&scr=dashboard",true,"text-right");
    if($GLOBALS['session']->user->superuser){$header_navbar->addSubItem(api_text("nav-debug")." ".api_icon("fa-code"),"index.php?debug=".(!$_SESSION['coordinator_debug']),true,"text-right inactive");}

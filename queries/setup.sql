@@ -16,10 +16,10 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 CREATE TABLE IF NOT EXISTS `framework__settings` (
-  `setting` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `setting` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`setting`)
-) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `framework__settings`
@@ -62,23 +62,23 @@ CREATE TABLE IF NOT EXISTS `framework__menus` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fkMenu` int(11) unsigned DEFAULT NULL,
   `order` int(11) unsigned NOT NULL,
-  `icon` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `label_localizations` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title_localizations` text COLLATE utf8mb4_unicode_ci,
-  `url` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `module` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `script` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tab` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `action` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `target` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `authorization` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `icon` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `label_localizations` text COLLATE utf8_unicode_ci NOT NULL,
+  `title_localizations` text COLLATE utf8_unicode_ci,
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `module` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `script` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tab` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `action` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `target` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `authorization` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `addTimestamp` int(11) unsigned NOT NULL,
   `addFkUser` int(11) unsigned NOT NULL,
   `updTimestamp` int(11) unsigned DEFAULT NULL,
   `updFkUser` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fkMenu` (`fkMenu`)
-) ENGINE=InnoDB  DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -87,14 +87,14 @@ CREATE TABLE IF NOT EXISTS `framework__menus` (
 --
 
 CREATE TABLE IF NOT EXISTS `framework__sessions` (
-  `id` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `fkUser` int(11) unsigned NOT NULL,
-  `ipAddress` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ipAddress` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   `startTimestamp` int(11) unsigned NOT NULL,
   `lastTimestamp` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fkUser` (`fkUser`)
-) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -104,37 +104,37 @@ CREATE TABLE IF NOT EXISTS `framework__sessions` (
 
 CREATE TABLE IF NOT EXISTS `framework__users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `mail` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` VARCHAR(32) COLLATE utf8mb4_unicode_ci NULL,
-  `firstname` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lastname` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `localization` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `timezone` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `secret` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `gender` varchar(8) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'man, woman',
+  `mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(32) COLLATE utf8_unicode_ci NULL,
+  `firstname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `lastname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `localization` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
+  `timezone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `secret` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `gender` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'man, woman',
   `birthday` date DEFAULT NULL,
   `enabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `superuser` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `level` tinyint(2) unsigned NOT NULL DEFAULT '0'
+  `level` tinyint(2) unsigned NOT NULL DEFAULT '0',
   `addTimestamp` int(11) unsigned NOT NULL,
   `addFkUser` int(11) unsigned NOT NULL,
   `updTimestamp` int(11) unsigned DEFAULT NULL,
   `updFkUser` int(11) unsigned DEFAULT NULL,
-  `pwdTimestamp` int(11) unsigned DEFAULT NULL,
   `lsaTimestamp` int(11) unsigned DEFAULT NULL COMMENT 'last system access',
   `pwdTimestamp` int(11) unsigned DEFAULT NULL COMMENT 'password change',
+  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `mail` (`mail`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `framework__users`
 --
 
-INSERT INTO `framework__users` (`id`, `mail`, `firstname`, `lastname`, `localization`, `timezone`, `password`, `secret`, `gender`, `birthday`, `enabled`, `superuser`, `level`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`, `pwdTimestamp`, `deleted`) VALUES
-(1, 'you@domain.tdl', 'Administrator', 'Coordinator', 'en_EN', 'Europe/London', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, NULL, NULL, 1, 1, 1, 1483228800, 1, NULL, NULL, NULL, 0);
+INSERT INTO `framework__users` (`id`, `mail`, `firstname`, `lastname`, `localization`, `timezone`, `password`,`enabled`, `superuser`, `level`, `addTimestamp`, `addFkUser`) VALUES
+(1, 'you@domain.tdl', 'Administrator', 'Coordinator', 'en_EN', 'Europe/London', '5f4dcc3b5aa765d61d8327deb882cf99', 1, 1, 1, 1483228800, 1);
 
 -- --------------------------------------------------------
 
@@ -146,17 +146,17 @@ CREATE TABLE IF NOT EXISTS `framework__users_dashboards` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fkUser` int(11) unsigned NOT NULL,
   `order` int(11) unsigned NOT NULL,
-  `icon` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `label` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `size` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `module` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `target` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `counter_function` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `icon` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `label` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `size` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `module` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `target` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `counter_function` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fkUser` (`fkUser`)
-) ENGINE=InnoDB  DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -170,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `framework__users_join_groups` (
   `main` tinyint(1) unsigned NOT NULL DEFAULT '0',
   KEY `fkUser` (`fkUser`),
   KEY `fkGroup` (`fkGroup`)
-) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `framework__users_join_groups`
@@ -188,8 +188,8 @@ INSERT INTO `framework__users_join_groups` (`fkUser`, `fkGroup`, `main`) VALUES
 CREATE TABLE IF NOT EXISTS `framework__groups` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fkGroup` int(11) unsigned DEFAULT NULL,
-  `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `addTimestamp` int(11) unsigned NOT NULL,
   `addFkUser` int(11) unsigned NOT NULL,
   `updTimestamp` int(11) unsigned DEFAULT NULL,
@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `framework__groups` (
   `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fkGroup` (`fkGroup`)
-) ENGINE=InnoDB  DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `framework__groups`
@@ -213,15 +213,15 @@ INSERT INTO `framework__groups` (`id`, `fkGroup`, `name`, `description`, `addTim
 --
 
 CREATE TABLE IF NOT EXISTS `framework__modules` (
-  `module` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `version` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `module` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `version` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   `enabled` tinyint(1) unsigned NOT NULL,
   `addTimestamp` int(11) unsigned NOT NULL,
   `addFkUser` int(11) unsigned NOT NULL,
   `updTimestamp` int(11) unsigned DEFAULT NULL,
   `updFkUser` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`module`)
-) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `framework__modules`
@@ -238,12 +238,12 @@ INSERT INTO `framework__modules` (`module`, `version`, `enabled`, `addTimestamp`
 
 CREATE TABLE IF NOT EXISTS `framework__modules_authorizations` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `module` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `action` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `module` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `action` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `action` (`action`),
   KEY `module` (`module`)
-) ENGINE=InnoDB  DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `framework__modules_authorizations`
@@ -270,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `framework__modules_authorizations_join_groups` (
   `level` tinyint(2) NOT NULL,
   KEY `fkAuthorization` (`fkAuthorization`),
   KEY `fkGroup` (`fkGroup`)
-) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -280,22 +280,22 @@ CREATE TABLE IF NOT EXISTS `framework__modules_authorizations_join_groups` (
 
 CREATE TABLE IF NOT EXISTS `framework__mails` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `recipients_to` text COLLATE utf8mb4_unicode_ci,
-  `recipients_cc` text COLLATE utf8mb4_unicode_ci,
-  `recipients_bcc` text COLLATE utf8mb4_unicode_ci,
-  `sender_mail` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sender_name` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `subject` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `message` text COLLATE utf8mb4_unicode_ci,
-  `attachments` text COLLATE utf8mb4_unicode_ci,
-  `template` text COLLATE utf8mb4_unicode_ci,
-  `errors` text COLLATE utf8mb4_unicode_ci,
-  `status` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'inserted, sended, failed',
+  `recipients_to` text COLLATE utf8_unicode_ci,
+  `recipients_cc` text COLLATE utf8_unicode_ci,
+  `recipients_bcc` text COLLATE utf8_unicode_ci,
+  `sender_mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `sender_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `subject` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `message` text COLLATE utf8_unicode_ci,
+  `attachments` text COLLATE utf8_unicode_ci,
+  `template` text COLLATE utf8_unicode_ci,
+  `errors` text COLLATE utf8_unicode_ci,
+  `status` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT 'inserted, sended, failed',
   `addTimestamp` int(11) unsigned NOT NULL,
   `addFkUser` int(11) unsigned NOT NULL,
   `sndTimestamp` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 

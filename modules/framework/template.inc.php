@@ -10,7 +10,7 @@
  /** @todo rifare gli oggetti prendendoli dalla relativa pagina */
 
  // check authorizations
- if($authorization){if(!api_checkAuthorization(MODULE,$authorization)){api_alerts_add(api_text("alert_unauthorized",array(MODULE,$authorization)),"danger");api_redirect("?mod=framework&scr=dashboard");}}
+ if($authorization){if(!api_checkAuthorization($authorization)){api_alerts_add(api_text("alert_unauthorized",array(MODULE,$authorization)),"danger");api_redirect("?mod=framework&scr=dashboard");}}
 
  // build html object
  $html=new cHTML($module_name);
