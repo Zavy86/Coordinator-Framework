@@ -49,7 +49,15 @@ class cQuery{
   return true;
  }
 
-
+ /**
+  * Add Query Join
+  *
+  * @param type $join_table Table
+  * @param type $join_field Field
+  * @param type $fk_table Foreign table
+  * @param type $fk_field Foreign field
+  * @return boolean
+  */
  public function addQueryJoin($join_table,$join_field,$fk_table,$fk_field){
   // check parameters
   if(!$join_table || !$join_field){return false;}
@@ -61,9 +69,18 @@ class cQuery{
   $join->fk_field=$fk_field;
   // add order field to order fields array
   $this->query_joins_array[]=$join;
+  // return
+  return true;
  }
 
-
+ /**
+  * Add Query Field
+  *
+  * @param type $name Field name
+  * @param type $alias Name alias
+  * @param type $table Table
+  * @return boolean
+  */
  public function addQueryField($name,$alias=null,$table=null){
   // check parameters
   if(!$name){return false;}
@@ -76,15 +93,18 @@ class cQuery{
   $field->alias=$alias;
   // add field to fields array
   $this->query_fields_array[]=$field;
+  // return
+  return true;
  }
 
 
  /**
+  * Query Order Field
   *
-  * @param type $name
-  * @param type $order
-  * @param type $table
-  * @param type $null_first
+  * @param type $name Field name
+  * @param type $order Order method [asc|desc]
+  * @param type $table Field table
+  * @param type $null_first Show null values first
   * @return boolean
   */
  public function addQueryOrderField($name,$order=null,$table=null,$null_first=false){
@@ -100,6 +120,8 @@ class cQuery{
   $field->null_first=$null_first;
   // add order field to order fields array
   $this->query_order_fields_array[]=$field;
+  // return
+  return true;
  }
 
  /**
