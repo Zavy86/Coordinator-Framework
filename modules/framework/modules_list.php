@@ -74,7 +74,8 @@
  $module_directory_array=array();
  $dir_handle=opendir(ROOT."modules/");
  while($module_directory=readdir($dir_handle)){
-  if(in_array($module_directory,array(".","..","index.php"))){continue;}
+  if(in_array($module_directory,array(".","..","index.php","dashboard","framework"))){continue;}
+  if(array_key_exists($module_directory,$modules_array)){continue;}
   if(!file_exists(ROOT."modules/".$module_directory."/module.inc.php")){continue;}
   // make action button
   $action_btn=api_link("?mod=framework&scr=submit&act=module_initialize&module=$module_directory",api_text("modules_list-td-initialize"),null,"btn btn-info btn-xs");

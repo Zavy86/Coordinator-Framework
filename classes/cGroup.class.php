@@ -43,13 +43,13 @@ class cGroup{
   if(!$group->id){return false;}
   // set properties
   $this->id=(int)$group->id;
-  $this->fkGroup=$group->fkGroup;
+  $this->fkGroup=(int)$group->fkGroup;
   $this->name=stripslashes($group->name);
   $this->description=stripslashes($group->description);
-  $this->addTimestamp=$group->addTimestamp;
-  $this->addFkUser=$group->addFkUser;
-  $this->updTimestamp=$group->updTimestamp;
-  $this->updFkUser=$group->updFkUser;
+  $this->addTimestamp=(int)$group->addTimestamp;
+  $this->addFkUser=(int)$group->addFkUser;
+  $this->updTimestamp=(int)$group->updTimestamp;
+  $this->updFkUser=(int)$group->updFkUser;
   $this->deleted=(bool)$group->deleted;
   // make fullname
   $this->fullname=$group->name;
@@ -57,27 +57,39 @@ class cGroup{
   return true;
  }
 
-/**
- * Get
- *
- * @param string $property Property name
- * @return string Property value
- */
- public function __get($property){
-  // switch
-  switch($property){
-   case "id":return $this->id;
-   case "fkGroup":return $this->fkGroup;
-   case "name":return $this->name;
-   case "description":return $this->description;
-   case "fullname":return $this->fullname;
-   case "addTimestamp":return $this->addTimestamp;
-   case "addFkUser":return $this->addFkUser;
-   case "updTimestamp":return $this->updTimestamp;
-   case "updFkUser":return $this->updFkUser;
-   case "deleted":return $this->deleted;
-   default:return false;
+ /**
+  * Get
+  *
+  * @param string $property Property name
+  * @return string Property value
+  */
+ public function __get($property){return $this->$property;}
+
+ /**
+  * Get Path
+  *
+  * @param string $modality Return modality [array|string]
+  * @return mixed Group path array, string or false
+  */
+ public function getPath($modality){
+  // check parameters
+  if(!in_array($modality,array("array","string"))){return false;}
+  // definitions
+  $groups_array=array($this->id=>$this->name);
+  $fkGroup=$this->fkGroup;
+  // cycle all parent
+  while($fkGroup){
+   $group=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__groups` WHERE `id`='".$fkGroup."'",$GLOBALS['debug']);
+   $groups_array[$group->id]=$group->name;
+   $fkGroup=$group->fkGroup;
   }
+  // switch modality
+  switch($modality){
+   case "array":$return=array_reverse($groups_array,true);break;
+   case "string":$return=implode(" &rarr; ",array_reverse($groups_array));break;
+  }
+  // return
+  return $return;
  }
 
 }
