@@ -1,6 +1,6 @@
 <?php
 /**
- * Dashboard - View
+ * Dashboard - Dashboard
  *
  * @package Coordinator\Modules\Dashboard
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
