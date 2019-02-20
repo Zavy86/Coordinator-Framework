@@ -32,7 +32,7 @@
   // add group row
   $groups_table->addRow();
   $groups_table->addRowField($mainize_td);
-  $groups_table->addRowField(api_link("?mod=framework&scr=groups_view&idGroup=".$group->id,$group->fullname,null,"hidden-link",false,null,null,null,"_blank"),"truncate-ellipsis");
+  $groups_table->addRowField(api_link("?mod=framework&scr=groups_view&idGroup=".$group->id,$group->fullname,$group->getPath("string"),"hidden-link",true,null,null,null,"_blank"),"truncate-ellipsis");
   $groups_table->addRowField($delete_td);
  }
 

@@ -107,7 +107,7 @@ $session=new cSession();
 function api_dump($variable,$label=null,$function=API_DUMP_PRINTR,$class=null){
  if(!$GLOBALS['debug']){return false;}
  echo "\n\n<!-- dump -->\n";
- echo "<pre class='".$class."'>\n";
+ echo "<pre class='debug ".$class."'>\n";
  if($label<>null){echo "<strong>".$label."</strong><br>";}
  if(is_string($variable)){$variable=str_replace(array("<",">"),array("&lt;","&gt;"),$variable);}
  switch($function){

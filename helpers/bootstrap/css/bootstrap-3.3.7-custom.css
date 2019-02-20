@@ -10,6 +10,18 @@
  margin:9px 0 0 0;
 }*/
 
+@media(min-width:768px){.container{width:750px;}}
+@media(min-width:992px){.container{width:970px;}}
+@media(min-width:1200px){.container{width:1170px;}}
+@media(min-width:1400px){.container{width:1370px;}}
+@media(min-width:1900px){.container{width:1870px;}}
+
+pre.debug{
+ margin:9px;
+ padding:9px;
+ font-size:9pt;
+}
+
 .nowrap{
  white-space:nowrap;
 }
