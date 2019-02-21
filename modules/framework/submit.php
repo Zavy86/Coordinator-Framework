@@ -1053,14 +1053,13 @@ function user_group_add(){
  $user_obj=new cUser($_REQUEST['idUser']);
  api_dump($user_obj,"user_obj");
  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
- $group_obj=new cUser($_REQUEST['fkGroup']);
+ $group_obj=new cGroup($_REQUEST['fkGroup']);
  api_dump($group_obj,"group_obj");
  if(!$group_obj->id){api_alerts_add(api_text("framework_alert_groupNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);}
  // build user join group query object
  $join_qobj=new stdClass();
  $join_qobj->fkUser=$user_obj->id;
  $join_qobj->fkGroup=$group_obj->id;
- $join_qobj->level=$_REQUEST['level'];
  $join_qobj->main=(count($user_obj->getAssignedGroups())?0:1);
  // debug
  api_dump($join_qobj,"user_join_group_qobj");

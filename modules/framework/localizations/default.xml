@@ -333,10 +333,12 @@
  <text key="users_view-avatar-delete">Elimina avatar</text>
  <text key="users_view-avatar-delete-confirm">Confermi di voler eliminare definitivamente questa immagine?</text>
  <text key="users_view-mail">Indirizzo mail</text>
- <text key="users_view-localization">Lingua</text>
  <text key="users_view-timezone">Fuso orario</text>
+ <text key="users_view-localization">Lingua</text>
  <text key="users_view-gender">Genere</text>
  <text key="users_view-birthday">Data di nascita</text>
+ <text key="users_view-level">Livello autorizzativo</text>
+ <text key="users_view-level-level">{0}° livello</text>
  <text key="users_view-groups">Gruppi assegnati</text>
  <text key="users_view-groups_table-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
  <text key="users_view-groups_table-td-delete">Rimuovi gruppo</text>
@@ -348,7 +350,7 @@
  <text key="users_view-groups_modal-ff-group">Gruppo</text>
  <text key="users_view-groups_modal-ff-group-placeholder">Seleziona un gruppo..</text>
  <text key="users_view-groups_modal-ff-level">Livello</text>
- <text key="users_view-groups_modal-fo-level">Livello {0}</text>
+ <text key="users_view-groups_modal-fo-level">{0}° livello</text>
  <text key="users_view-groups_modal-ff-level-placeholder">Seleziona un livello..</text>
  <text key="users_view-groups_modal-fc-submit">Aggiungi</text>
  <text key="users_view-groups_modal-fc-cancel">Annulla</text>

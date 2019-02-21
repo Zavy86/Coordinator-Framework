@@ -166,7 +166,6 @@ CREATE TABLE IF NOT EXISTS `framework__users_dashboards` (
 CREATE TABLE IF NOT EXISTS `framework__join__users__groups` (
   `fkUser` int(11) unsigned NOT NULL,
   `fkGroup` int(11) unsigned NOT NULL,
-  `level` tinyint(2) unsigned NOT NULL,
   `main` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`fkUser`,`fkGroup`),
   KEY `fkUser` (`fkUser`),
@@ -177,8 +176,8 @@ CREATE TABLE IF NOT EXISTS `framework__join__users__groups` (
 -- Dumping data for table `framework__join__users__groups`
 --
 
-INSERT INTO `framework__join__users__groups` (`fkUser`, `fkGroup`, `level`, `main`) VALUES
-(1, 1, 1, 1);
+INSERT INTO `framework__join__users__groups` (`fkUser`, `fkGroup`, `main`) VALUES
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
