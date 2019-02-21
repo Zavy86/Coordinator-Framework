@@ -20,7 +20,8 @@ class Database{
  public $query_counter;
  public $cache_query_counter;
 
-
+ /** @todo commentare bene*/
+ 
  public function __construct(){
   global $configuration;
   try{
@@ -41,8 +42,7 @@ class Database{
 
 
  public function __call($method,$args){
-  $args=implode(",",$args);
-  $_SESSION['coordinator_logs'][]=array("warn","Method ".$method."(".$args.") was not found in ".get_class($this)." class");
+  $_SESSION['coordinator_logs'][]=array("warn","Method ".$method."(".implode(",",$args).") was not found in ".get_class($this)." class");
  }
 
 
@@ -75,14 +75,14 @@ class Database{
 
 
  public function queryExecute($sql){
-  $_SESSION['coordinator_logs'][]=array("log","PDO queryUpdate: ".$sql);
+  $_SESSION['coordinator_logs'][]=array("log","PDO queryExecute: ".$sql);
   try{
    $query=$this->connection->prepare($sql);
    $query->execute();
    $return=$query->rowCount();
    //$return=$query->execute();
   }catch(PDOException $e){
-   $_SESSION['coordinator_logs'][]=array("error","PDO queryUpdate: ".$e->getMessage());
+   $_SESSION['coordinator_logs'][]=array("error","PDO queryExecute: ".$e->getMessage());
    $return=false;
   }
   $this->query_counter++;
@@ -230,12 +230,12 @@ class Database{
 
  public function queryCount($table,$where="1"){
   $sql="SELECT COUNT(*) FROM `".$table."` WHERE ".$where;
-  $_SESSION['coordinator_logs'][]=array("log","PDO count: ".$sql);
+  $_SESSION['coordinator_logs'][]=array("log","PDO queryCount: ".$sql);
   try{
    $results=$this->connection->query($sql);
    $return=$results->fetchColumn();
   }catch(PDOException $e){
-   $_SESSION['coordinator_logs'][]=array("error","PDO count: ".$e->getMessage());
+   $_SESSION['coordinator_logs'][]=array("error","PDO queryCount: ".$e->getMessage());
    $return=false;
   }
   $this->query_counter++;
