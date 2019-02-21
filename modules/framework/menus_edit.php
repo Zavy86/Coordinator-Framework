@@ -14,7 +14,7 @@
  // set html title
  $html->setTitle(($menu_obj->id?api_text("menus_edit"):api_text("menus_add")));
  // build profile form
- $form=new cForm("?mod=framework&scr=submit&act=menu_save&idMenu=".$menu_obj->id,"POST",null,"menus_edit");
+ $form=new cForm("?mod=".MODULE."&scr=submit&act=menu_save&idMenu=".$menu_obj->id,"POST",null,"menus_edit");
  $form->addField("select","fkMenu",api_text("menus_edit-fkMenu"),$menu_obj->fkMenu);
  $form->addFieldOption(null,api_text("menus_edit-fkMenu-main"));
  // cycle all first level menus
@@ -46,8 +46,8 @@
  $form->addField("text","action",api_text("menus_edit-action"),$menu_obj->action,api_text("menus_edit-action-placeholder"));
  // controls
  $form->addControl("submit",api_text("menus_edit-submit"));
- $form->addControl("button",api_text("menus_edit-cancel"),"?mod=framework&scr=menus_list");
- $form->addControl("button",api_text("menus_edit-delete"),"?mod=framework&scr=submit&act=menus_delete&idMenu=".$menu_obj->id,"btn-danger",api_text("menus_edit-delete-confirm"));
+ $form->addControl("button",api_text("menus_edit-cancel"),"?mod=".MODULE."&scr=menus_list");
+ $form->addControl("button",api_text("menus_edit-delete"),"?mod=".MODULE."&scr=submit&act=menus_delete&idMenu=".$menu_obj->id,"btn-danger",api_text("menus_edit-delete-confirm"));
  // jQuery script
  $jquery=<<<EOS
 /* Toggle Typology Script */

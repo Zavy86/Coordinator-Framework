@@ -15,13 +15,13 @@
  if(ACTION=="token_cron_randomize"||!$settings->token_cron){$settings->token_cron=md5(date("YmdHis").rand(1,99999));}
  // script tabs
  $tabs=new cNav("nav-pills");
- $tabs->addItem(api_text("settings_edit-general"),"?mod=framework&scr=settings_edit&tab=general");
- $tabs->addItem(api_text("settings_edit-sessions"),"?mod=framework&scr=settings_edit&tab=sessions");
- $tabs->addItem(api_text("settings_edit-sendmail"),"?mod=framework&scr=settings_edit&tab=sendmail");
- $tabs->addItem(api_text("settings_edit-users"),"?mod=framework&scr=settings_edit&tab=users");
- $tabs->addItem(api_text("settings_edit-token"),"?mod=framework&scr=settings_edit&tab=token");
+ $tabs->addItem(api_text("settings_edit-general"),"?mod=".MODULE."&scr=settings_edit&tab=general");
+ $tabs->addItem(api_text("settings_edit-sessions"),"?mod=".MODULE."&scr=settings_edit&tab=sessions");
+ $tabs->addItem(api_text("settings_edit-sendmail"),"?mod=".MODULE."&scr=settings_edit&tab=sendmail");
+ $tabs->addItem(api_text("settings_edit-users"),"?mod=".MODULE."&scr=settings_edit&tab=users");
+ $tabs->addItem(api_text("settings_edit-token"),"?mod=".MODULE."&scr=settings_edit&tab=token");
  // build settings form
- $form=new cForm("?mod=framework&scr=submit&act=settings_save&tab=".TAB,"POST",null,"settings_edit");
+ $form=new cForm("?mod=".MODULE."&scr=submit&act=settings_save&tab=".TAB,"POST",null,"settings_edit");
  /**
   * Generals
   */
@@ -73,7 +73,7 @@
   $form->addField("text","sendmail_from_mail",api_text("settings_edit-sendmail_from_mail"),$settings->sendmail_from_mail,api_text("settings_edit-sendmail_from_mail-placeholder"));
   $form->addField("radio","sendmail_asynchronous",api_text("settings_edit-sendmail_asynchronous"),(int)$settings->sendmail_asynchronous,null,null,"radio-inline");
   $form->addFieldOption(0,api_text("no"));
-  $form->addFieldOption(1,api_text("settings_edit-sendmail_asynchronous-enabled",api_link("?mod=framework&scr=settings_edit&tab=sendmail&act=cron_informations",api_icon("fa-question-circle"),null,"hidden-link")));
+  $form->addFieldOption(1,api_text("settings_edit-sendmail_asynchronous-enabled",api_link("?mod=".MODULE."&scr=settings_edit&tab=sendmail&act=cron_informations",api_icon("fa-question-circle"),null,"hidden-link")));
   $form->addField("radio","sendmail_method",api_text("settings_edit-sendmail_method"),$settings->sendmail_method,null,null,"radio-inline");
   $form->addFieldOption("standard",api_text("settings_edit-sendmail_method-standard"));
   $form->addFieldOption("smtp",api_text("settings_edit-sendmail_method-smtp"));
@@ -113,13 +113,13 @@
   */
  if(TAB=="token"){
   $form->addField("text","token_cron",api_text("settings_edit-token_cron"),$settings->token_cron,api_text("settings_edit-token_cron-placeholder"));
-  $form->addFieldAddonButton("?mod=framework&scr=settings_edit&tab=token&act=token_cron_randomize",api_text("settings_edit-token_cron-randomize"));
+  $form->addFieldAddonButton("?mod=".MODULE."&scr=settings_edit&tab=token&act=token_cron_randomize",api_text("settings_edit-token_cron-randomize"));
   $form->addField("text","token_gtag",api_text("settings_edit-token_gtag"),$settings->token_gtag,api_text("settings_edit-token_gtag-placeholder"));
  }
  // form controls
  $form->addControl("submit",api_text("settings_edit-submit"));
  $form->addControl("reset",api_text("settings_edit-reset"));
- $form->addControl("button",api_text("settings_edit-cancel"),"?mod=framework&scr=dashboard");
+ $form->addControl("button",api_text("settings_edit-cancel"),"?mod=".MODULE."&scr=dashboard");
  // build grid object
  $grid=new cGrid();
  $grid->addRow();

@@ -46,9 +46,9 @@
   if(!$recipients_td){$recipients_td=implode(";",$mail_fobj->recipients_bcc);}
   // build operation button
   $ob=new cOperationsButton();
-  $ob->addElement("?mod=framework&scr=mails_list&act=mail_view&idMail=".$mail_fobj->id,"fa-info-circle",api_text("mails_list-td-view"));
-  if($mail_fobj->status=="failed"){$ob->addElement("?mod=framework&scr=submit&act=mail_retry&idMail=".$mail_fobj->id,"fa-refresh",api_text("mails_list-td-retry"));}
-  if($mail_fobj->status!="sended"){$ob->addElement("?mod=framework&scr=submit&act=mail_remove&idMail=".$mail_fobj->id,"fa-trash",api_text("mails_list-td-remove"),true,api_text("mails_list-td-remove-confirm"));}
+  $ob->addElement("?mod=".MODULE."&scr=mails_list&act=mail_view&idMail=".$mail_fobj->id,"fa-info-circle",api_text("mails_list-td-view"));
+  if($mail_fobj->status=="failed"){$ob->addElement("?mod=".MODULE."&scr=submit&act=mail_retry&idMail=".$mail_fobj->id,"fa-refresh",api_text("mails_list-td-retry"));}
+  if($mail_fobj->status!="sended"){$ob->addElement("?mod=".MODULE."&scr=submit&act=mail_remove&idMail=".$mail_fobj->id,"fa-trash",api_text("mails_list-td-remove"),true,api_text("mails_list-td-remove-confirm"));}
   // make tr class
   $tr_class=null;
   if($mail_fobj->status=="failed"){$tr_class="danger";}

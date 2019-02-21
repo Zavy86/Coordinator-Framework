@@ -39,18 +39,18 @@
  foreach($users_array as $user_obj){
   // build operation button
   $ob=new cOperationsButton();
-  $ob->addElement("?mod=framework&scr=users_edit&idUser=".$user_obj->id,"fa-pencil",api_text("users_list-td-edit"));
-  if($user_obj->deleted){$ob->addElement("?mod=framework&scr=submit&act=user_undelete&idUser=".$user_obj->id,"fa-trash-o",api_text("users_list-td-undelete"),true,api_text("users_list-td-undelete-confirm"));}
+  $ob->addElement("?mod=".MODULE."&scr=users_edit&idUser=".$user_obj->id,"fa-pencil",api_text("users_list-td-edit"));
+  if($user_obj->deleted){$ob->addElement("?mod=".MODULE."&scr=submit&act=user_undelete&idUser=".$user_obj->id,"fa-trash-o",api_text("users_list-td-undelete"),true,api_text("users_list-td-undelete-confirm"));}
   else{
-   if($user_obj->enabled){$ob->addElement("?mod=framework&scr=submit&act=user_disable&idUser=".$user_obj->id,"fa-remove",api_text("users_list-td-disable"),true,api_text("users_list-td-disable-confirm"));}
-   else{$ob->addElement("?mod=framework&scr=submit&act=user_enable&idUser=".$user_obj->id,"fa-check",api_text("users_list-td-enable"),true,api_text("users_list-td-enable-confirm"));}
-   $ob->addElement("?mod=framework&scr=submit&act=user_delete&idUser=".$user_obj->id,"fa-trash",api_text("users_list-td-delete"),true,api_text("users_list-td-delete-confirm"));
+   if($user_obj->enabled){$ob->addElement("?mod=".MODULE."&scr=submit&act=user_disable&idUser=".$user_obj->id,"fa-remove",api_text("users_list-td-disable"),true,api_text("users_list-td-disable-confirm"));}
+   else{$ob->addElement("?mod=".MODULE."&scr=submit&act=user_enable&idUser=".$user_obj->id,"fa-check",api_text("users_list-td-enable"),true,api_text("users_list-td-enable-confirm"));}
+   $ob->addElement("?mod=".MODULE."&scr=submit&act=user_delete&idUser=".$user_obj->id,"fa-trash",api_text("users_list-td-delete"),true,api_text("users_list-td-delete-confirm"));
   }
   // check deleted
   if($user_obj->deleted){$tr_class="deleted";}else{$tr_class=null;}
   // make user row
   $table->addRow($tr_class);
-  $table->addRowField(api_link("?mod=framework&scr=users_view&idUser=".$user_obj->id,api_image($user_obj->avatar,null,18),api_text("users_list-td-view")));
+  $table->addRowField(api_link("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id,api_image($user_obj->avatar,null,18),api_text("users_list-td-view")));
   $table->addRowField($user_obj->fullname,"nowrap");
   $table->addRowField($user_obj->getStatus(true,false));
   $table->addRowField($user_obj->mail,"truncate-ellipsis");

@@ -22,10 +22,10 @@
  unset($uri_array['tab']);
  unset($uri_array['recipient']);
 
- api_dump("?mod=framework&scr=submit&act=mail_save&".http_build_query($uri_array));
+ api_dump("?mod=".MODULE."&scr=submit&act=mail_save&".http_build_query($uri_array));
 
  // build profile form
- $form=new cForm("?mod=framework&scr=submit&act=mail_save&".http_build_query($uri_array),"POST",null,"mails_add");
+ $form=new cForm("?mod=".MODULE."&scr=submit&act=mail_save&".http_build_query($uri_array),"POST",null,"mails_add");
  /*$form->addField("hidden","return_mod",null,$return_mod);
  $form->addField("hidden","return_scr",null,$return_scr);
  $form->addField("hidden","return_tab",null,$return_act);*/
@@ -37,7 +37,7 @@
  $form->addField("textarea","message",api_text("mails_add-message"),null,api_text("mails_add-message-placeholder"),null,null,null,"required rows='9'");
  // controls
  $form->addControl("submit",api_text("form-fc-submit"));
- $form->addControl("button",api_text("form-fc-cancel"),"?mod=framework&scr=users_view&idUser=".$user->id);
+ $form->addControl("button",api_text("form-fc-cancel"),"?mod=".MODULE."&scr=users_view&idUser=".$user->id);
  // build grid object
  $grid=new cGrid();
  $grid->addRow();

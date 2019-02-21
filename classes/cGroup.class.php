@@ -66,6 +66,27 @@ class cGroup{
  public function __get($property){return $this->$property;}
 
  /**
+  * Get Assigned Users
+  *
+  * @return array Array of users assigned to user (key is user id)
+  */
+ public function getAssignedUsers(){
+  // definitions
+  $users_array=array();
+  // get users
+  $users_results=$GLOBALS['database']->queryObjects("SELECT `framework__join__users__groups`.* FROM `framework__join__users__groups` LEFT JOIN `framework__users` ON `framework__users`.`id`=`framework__join__users__groups`.`fkUser` WHERE `framework__join__users__groups`.`fkGroup`='".$this->id."' ORDER BY `framework__join__users__groups`.`level` ASC,`framework__users`.`lastname` ASC,`framework__users`.`firstname` ASC",$GLOBALS['debug']);
+  foreach($users_results as $result_f){
+   $user=new stdClass();
+   $user->id=$result_f->fkUser;
+   $user->level=$result_f->level;
+   $user->main=$result_f->main;
+   $users_array[$user->id]=$user;
+  }
+  // return
+  return $users_array;
+ }
+
+ /**
   * Get Path
   *
   * @param string $modality Return modality [array|string]

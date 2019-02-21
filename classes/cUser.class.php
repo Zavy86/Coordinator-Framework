@@ -35,8 +35,6 @@ class cUser{
  protected $pwdExpiration;
  protected $pwdExpired;
  protected $deleted;
- protected $groups_main;
- protected $groups_array;
  protected $authorizations_array;
 
  /**
@@ -89,13 +87,6 @@ class cUser{
     case "woman":$this->avatar=DIR."uploads/framework/users/avatar_woman.jpg";break;
     default:$this->avatar=DIR."uploads/framework/users/avatar.jpg";
    }
-  }
-  // get user groups
-  $this->groups_array=array();
-  $groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users_join_groups` WHERE `fkUser`='".$user->id."' ORDER BY `main` DESC",$GLOBALS['debug']);
-  foreach($groups_results as $group){
-   $this->groups_array[$group->fkGroup]=new cGroup($group->fkGroup);
-   if($group->main){$this->groups_main=$group->fkGroup;}
   }
   // load authorizations
   if($loadAuthorizations){$this->authorizations_array=$this->loadAuthorizations();}
@@ -157,6 +148,37 @@ class cUser{
   // return
   if($showIcon){if($showText){$return.=$icon." ".$text;}else{$return=$icon;}}else{$return=$text;}
   return $return;
+ }
+
+ /**
+  * Get Assigned Groups
+  *
+  * @return array Array of groups assigned to user (key is group id)
+  */
+ public function getAssignedGroups(){
+  // definitions
+  $groups_array=array();
+  // get groups
+  //$groups_results=$GLOBALS['database']->queryObjects("SELECT `framework__join__users__groups`.* FROM `framework__join__users__groups` LEFT JOIN `framework__groups` ON `framework__groups`.`id`=`framework__join__users__groups`.`fkGroup` WHERE `framework__join__users__groups`.`fkUser`='".$this->id."' ORDER BY `framework__join__users__groups`.`main` DESC,`framework__groups`.`name` ASC",$GLOBALS['debug']);
+  $groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__join__users__groups` WHERE `fkUser`='".$this->id."' ORDER BY `main` DESC,`level` ASC",$GLOBALS['debug']);
+  foreach($groups_results as $result_f){
+   $group=new stdClass();
+   $group->id=$result_f->fkGroup;
+   $group->level=$result_f->level;
+   $group->main=$result_f->main;
+   $groups_array[$group->id]=$group;
+  }
+  // return
+  return $groups_array;
+ }
+
+ /**
+  * Get Main Group
+  *
+  * @return integer id of main group
+  */
+ public function getMainGroup(){
+  return $GLOBALS['database']->queryUniqueValue("SELECT `fkGroup` FROM `framework__join__users__groups` WHERE `fkUser`='".$this->id."' AND `main`='1'",$GLOBALS['debug']);
  }
 
  /**
