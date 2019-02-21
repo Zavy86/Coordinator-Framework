@@ -100,7 +100,7 @@ function own_profile_update(){
  }
  // redirect
  api_alerts_add(api_text("framework_alert_ownProfileUpdated"),"success");
- api_redirect("?mod=framework&scr=own_profile");
+ api_redirect("?mod=".MODULE."&scr=own_profile");
 }
 /**
  * Own Password Update
@@ -115,12 +115,12 @@ function own_password_update(){
  $r_password_new=$_REQUEST['password_new'];
  $r_password_confirm=$_REQUEST['password_confirm'];
  // check old password
- if(md5($r_password)!==$user_obj->password){api_alerts_add(api_text("framework_alert_ownPasswordIncorrect"),"danger");api_redirect("?mod=framework&scr=own_password");}
+ if(md5($r_password)!==$user_obj->password){api_alerts_add(api_text("framework_alert_ownPasswordIncorrect"),"danger");api_redirect("?mod=".MODULE."&scr=own_password");}
  // check new password
- if($r_password_new!==$r_password_confirm){api_alerts_add(api_text("framework_alert_ownPasswordNotMatch"),"danger");api_redirect("?mod=framework&scr=own_password");}
- if(strlen($r_password_new)<8){api_alerts_add(api_text("framework_alert_ownPasswordWeak"),"danger");api_redirect("?mod=framework&scr=own_password");}
+ if($r_password_new!==$r_password_confirm){api_alerts_add(api_text("framework_alert_ownPasswordNotMatch"),"danger");api_redirect("?mod=".MODULE."&scr=own_password");}
+ if(strlen($r_password_new)<8){api_alerts_add(api_text("framework_alert_ownPasswordWeak"),"danger");api_redirect("?mod=".MODULE."&scr=own_password");}
  // check if new password is equal to oldest password
- if(md5($r_password_new)===$user_obj->password){api_alerts_add(api_text("framework_alert_ownPasswordOldest"),"danger");api_redirect("?mod=framework&scr=own_password");}
+ if(md5($r_password_new)===$user_obj->password){api_alerts_add(api_text("framework_alert_ownPasswordOldest"),"danger");api_redirect("?mod=".MODULE."&scr=own_password");}
  // build user objects
  $user=new stdClass();
  $user->id=$user_obj->id;
@@ -132,7 +132,7 @@ function own_password_update(){
  $GLOBALS['database']->queryUpdate("framework__users",$user);
  // redirect
  api_alerts_add(api_text("framework_alert_ownPasswordUpdated"),"success");
- api_redirect("?mod=framework&scr=own_profile");
+ api_redirect("?mod=".MODULE."&scr=own_profile");
 }
 /**
  * Own Avatar Remove
@@ -142,7 +142,7 @@ function own_avatar_remove(){
  if(file_exists(ROOT."uploads/framework/users/avatar_".$GLOBALS['session']->user->id.".jpg")){unlink(ROOT."uploads/framework/users/avatar_".$GLOBALS['session']->user->id.".jpg");}
  // redirect
  api_alerts_add(api_text("framework_alert_ownAvatarRemoved"),"success");
- api_redirect("?mod=framework&scr=own_profile");
+ api_redirect("?mod=".MODULE."&scr=own_profile");
 }
 
 /**
@@ -191,7 +191,7 @@ function settings_save(){
 
  // redirect
  api_alerts_add(api_text("framework_alert_settingsUpdated"),"success");
- api_redirect("?mod=framework&scr=settings_edit&tab=".$r_tab);
+ api_redirect("?mod=".MODULE."&scr=settings_edit&tab=".$r_tab);
 }
 
 /**
@@ -215,7 +215,7 @@ function mail_save(){
  unset($uri_array['act']);
  // redirect
  if($uri_array['mod']){api_redirect("?".http_build_query($uri_array));}
- else{api_redirect("?mod=framework&scr=mails_list");}
+ else{api_redirect("?mod=".MODULE."&scr=mails_list");}
 }
 
 /**
@@ -302,7 +302,7 @@ function menu_save(){
   api_alerts_add(api_text("framework_alert_menuCreated"),"success");
  }
  // redirect
- api_redirect("?mod=framework&scr=menus_list&idMenu=".$menu_obj->id);
+ api_redirect("?mod=".MODULE."&scr=menus_list&idMenu=".$menu_obj->id);
 }
 /**
  * Menu Move
@@ -313,9 +313,9 @@ function menu_move($direction){
  // get objects
  $menu_obj=new cMenu($_REQUEST['idMenu']);
  // check objects
- if(!$menu_obj->id){api_alerts_add(api_text("framework_alert_menuNotFound"),"danger");api_redirect("?mod=framework&scr=menus_list");}
+ if(!$menu_obj->id){api_alerts_add(api_text("framework_alert_menuNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=menus_list");}
  // check parameters
- if(!in_array(strtolower($direction),array("left","up","down"))){api_alerts_add(api_text("framework_alert_menuError"),"warning");api_redirect("?mod=framework&scr=menus_list&idMenu=".$menu_obj->id);}
+ if(!in_array(strtolower($direction),array("left","up","down"))){api_alerts_add(api_text("framework_alert_menuError"),"warning");api_redirect("?mod=".MODULE."&scr=menus_list&idMenu=".$menu_obj->id);}
  // build menu query objects
  $menu_qobj=new stdClass();
  $menu_qobj->id=$menu_obj->id;
@@ -324,7 +324,7 @@ function menu_move($direction){
   // left -> fkGroup -1
   case "left":
    // check for fkGroup
-   if(!$menu_obj->fkMenu){api_alerts_add(api_text("framework_alert_menuError"),"warning");api_redirect("?mod=framework&scr=menus_list&idMenu=".$menu_obj->id);}
+   if(!$menu_obj->fkMenu){api_alerts_add(api_text("framework_alert_menuError"),"warning");api_redirect("?mod=".MODULE."&scr=menus_list&idMenu=".$menu_obj->id);}
    // get fkMenu of menu fkMenu
    $fkMenu_obj=new cMenu($menu_obj->fkMenu);
    $menu_qobj->fkMenu=$fkMenu_obj->fkMenu;
@@ -345,7 +345,7 @@ function menu_move($direction){
    // set previous order
    $menu_qobj->order=$menu_obj->order-1;
    // check for order
-   if($menu_qobj->order<1){api_alerts_add(api_text("framework_alert_menuError"),"warning");api_redirect("?mod=framework&scr=menus_list&idMenu=".$menu_obj->id);}
+   if($menu_qobj->order<1){api_alerts_add(api_text("framework_alert_menuError"),"warning");api_redirect("?mod=".MODULE."&scr=menus_list&idMenu=".$menu_obj->id);}
    // update menu
    $GLOBALS['database']->queryUpdate("framework__menus",$menu_qobj);
    // rebase other menus
@@ -371,7 +371,7 @@ function menu_move($direction){
  api_dump($menu_obj,"menu_obj");
  api_dump($menu_qobj,"menu_qobj");
  // redirect
- api_redirect("?mod=framework&scr=menus_list&idMenu=".$menu_obj->id);
+ api_redirect("?mod=".MODULE."&scr=menus_list&idMenu=".$menu_obj->id);
 }
 
 /**
@@ -379,7 +379,7 @@ function menu_move($direction){
  */
 function module_add(){
  // disabled for localhost and 127.0.0.1 /** @todo verificare se serve */
- if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("framework_alert_moduleErrorLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("framework_alert_moduleErrorLocalhost"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  // acquire variables
  $r_url=$_REQUEST['url'];
  $r_directory=$_REQUEST['directory'];
@@ -387,10 +387,10 @@ function module_add(){
  // debug
  api_dump($_REQUEST,"_REQUEST");
  // check url
- if(!in_array(substr(strtolower($r_url),0,7),array("http://","https:/"))){api_alerts_add(api_text("framework_alert_moduleAddErrorUrl"),"danger");api_redirect("?mod=framework&scr=modules_add");}
- if(substr(strtolower($r_url),-3)!=$r_method){api_alerts_add(api_text("framework_alert_moduleAddErrorFormat"),"danger");api_redirect("?mod=framework&scr=modules_add");}
+ if(!in_array(substr(strtolower($r_url),0,7),array("http://","https:/"))){api_alerts_add(api_text("framework_alert_moduleAddErrorUrl"),"danger");api_redirect("?mod=".MODULE."&scr=modules_add");}
+ if(substr(strtolower($r_url),-3)!=$r_method){api_alerts_add(api_text("framework_alert_moduleAddErrorFormat"),"danger");api_redirect("?mod=".MODULE."&scr=modules_add");}
  // check directory
- if(!$r_directory || is_dir(ROOT."modules/".$r_directory)){api_alerts_add(api_text("framework_alert_moduleAddErrorDirectory"),"danger");api_redirect("?mod=framework&scr=modules_add");}
+ if(!$r_directory || is_dir(ROOT."modules/".$r_directory)){api_alerts_add(api_text("framework_alert_moduleAddErrorDirectory"),"danger");api_redirect("?mod=".MODULE."&scr=modules_add");}
  // git method
  if($r_method=="git"){
   // exec shell commands
@@ -413,7 +413,7 @@ function module_add(){
  }
 
  // check for module.inc.php
- if(!file_exists(ROOT."modules/".$r_directory."/module.inc.php")){api_alerts_add(api_text("framework_alert_moduleAddError"),"danger");api_redirect("?mod=framework&scr=modules_add");}
+ if(!file_exists(ROOT."modules/".$r_directory."/module.inc.php")){api_alerts_add(api_text("framework_alert_moduleAddError"),"danger");api_redirect("?mod=".MODULE."&scr=modules_add");}
  // include module file
  include(ROOT."modules/".$r_directory."/module.inc.php");
  // build module query object
@@ -426,13 +426,13 @@ function module_add(){
  // debug
  api_dump($module_qobj,"module query object");
  // check for module
- if(!$module_qobj->module){api_alerts_add(api_text("framework_alert_moduleAddError"),"danger");api_redirect("?mod=framework&scr=modules_add");}
+ if(!$module_qobj->module){api_alerts_add(api_text("framework_alert_moduleAddError"),"danger");api_redirect("?mod=".MODULE."&scr=modules_add");}
  // update module
  $GLOBALS['database']->queryInsert("framework__modules",$module_qobj);
  // alert
  api_alerts_add(api_text("framework_alert_moduleAdded"),"success");
  // redirect
- api_redirect("?mod=framework&scr=modules_list");
+ api_redirect("?mod=".MODULE."&scr=modules_list");
 }
 /**
  * Module Initialize
@@ -443,7 +443,7 @@ function module_initialize(){
  // get variables
  $module_directory=$_REQUEST['module'];
  // check objects
- if(!file_exists(ROOT."modules/".$module_directory."/module.inc.php")){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(!file_exists(ROOT."modules/".$module_directory."/module.inc.php")){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  // include module file
  include(ROOT."modules/".$module_directory."/module.inc.php");
  // build module query object
@@ -456,13 +456,13 @@ function module_initialize(){
  // debug
  api_dump($module_qobj,"module query object");
  // check for module
- if(!$module_qobj->module){api_alerts_add(api_text("framework_alert_moduleAddError"),"danger");api_redirect("?mod=framework&scr=modules_add");}
+ if(!$module_qobj->module){api_alerts_add(api_text("framework_alert_moduleAddError"),"danger");api_redirect("?mod=".MODULE."&scr=modules_add");}
  // update module
  $GLOBALS['database']->queryInsert("framework__modules",$module_qobj);
  // alert
  api_alerts_add(api_text("framework_alert_moduleAdded"),"success");
  // redirect
- api_redirect("?mod=framework&scr=modules_list");
+ api_redirect("?mod=".MODULE."&scr=modules_list");
 }
 /**
  * Module Setup
@@ -471,11 +471,11 @@ function module_setup(){
  // get objects
  $module_obj=new cModule($_REQUEST['module']);
  // check objects
- if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  // debug
  api_dump($module_obj,"module object");
  // load setup dump
- if(!file_exists($module_obj->source_path."queries/setup.sql")){api_alerts_add(api_text("framework_alert_moduleSetupErrorDump"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(!file_exists($module_obj->source_path."queries/setup.sql")){api_alerts_add(api_text("framework_alert_moduleSetupErrorDump"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  // execute setup dump
  api_sqlDump_import(file($module_obj->source_path."queries/setup.sql"));
  // build module query object
@@ -491,18 +491,18 @@ function module_setup(){
  // alert
  api_alerts_add(api_text("framework_alert_moduleEnabled"),"success");
  // redirect
- api_redirect("?mod=framework&scr=modules_list");
+ api_redirect("?mod=".MODULE."&scr=modules_list");
 }
 /**
  * Module Update Source
  */
 function module_update_source(){
  // disabled for localhost and 127.0.0.1
- if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("framework_alert_moduleErrorLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("framework_alert_moduleErrorLocalhost"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  // get objects
  $module_obj=new cModule($_REQUEST['module']);
  // check objects
- if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  /** @todo cycle all selected modules (if multiselect in table) */
  // exec shell commands
  $shell_output=exec('whoami')."@".exec('hostname').":".shell_exec("cd ".$module_obj->source_path." ; pwd ; git stash 2>&1 ; git stash clear ; git pull 2>&1 ; chmod 755 -R ./");
@@ -513,7 +513,7 @@ function module_update_source(){
  elseif(is_int(strpos(strtolower($shell_output),"abort"))){api_alerts_add(api_text("framework_alert_moduleUpdateSourceAborted"),"danger");}
  else{api_alerts_add(api_text("framework_alert_moduleUpdateSourceUpdated"),"warning");}
  // redirect
- api_redirect("?mod=framework&scr=modules_list");
+ api_redirect("?mod=".MODULE."&scr=modules_list");
 }
 /**
  * Module Updates Database
@@ -521,7 +521,7 @@ function module_update_source(){
 function module_update_database(){
  // disabled for localhost and 127.0.0.1
  if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){$localhost_update=true;} /** @todo vedere come fare se inibire le query o meno in localhost */
- if($localhost_update && !$GLOBALS['debug']){api_alerts_add(api_text("framework_alert_moduleErrorLocalhost"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if($localhost_update && !$GLOBALS['debug']){api_alerts_add(api_text("framework_alert_moduleErrorLocalhost"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  // get objects
  $module_obj=new cModule($_REQUEST['module']);
  api_dump($module_obj->version,"version");
@@ -570,7 +570,7 @@ function module_update_database(){
  $GLOBALS['database']->queryUpdate("framework__modules",$module_qobj,"module");
  // redirect
  api_alerts_add(api_text("framework_alert_moduleUpdateDatabaseUpdated"),"success");
- api_redirect("?mod=framework&scr=modules_list");
+ api_redirect("?mod=".MODULE."&scr=modules_list");
 }
 /**
  * Module Enable
@@ -581,7 +581,7 @@ function module_enable($enable){
  // get objects
  $module_obj=new cModule($_REQUEST['module']);
  // check objects
- if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  // build module query object
  $module_qobj=new stdClass();
  $module_qobj->module=$module_obj->module;
@@ -596,7 +596,7 @@ function module_enable($enable){
  if($enable){api_alerts_add(api_text("framework_alert_moduleEnabled"),"success");}
  else{api_alerts_add(api_text("framework_alert_moduleDisabled"),"warning");}
  // redirect
- api_redirect("?mod=framework&scr=modules_view&module=".$module_obj->module);
+ api_redirect("?mod=".MODULE."&scr=modules_view&module=".$module_obj->module);
 }
 /**
  * Module Authorizations Group Add
@@ -605,7 +605,7 @@ function module_authorizations_group_add(){
  // get objects
  $module_obj=new cModule($_REQUEST['module']);
  // check objects
- if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  // acquire variables
  $r_fkGroup=$_REQUEST['fkGroup'];
  $r_level=$_REQUEST['level'];
@@ -613,7 +613,7 @@ function module_authorizations_group_add(){
  // debug
  api_dump($_REQUEST);
  // check parameters
- if(!$r_fkGroup){api_alerts_add(api_text("framework_alert_moduleError"),"danger");api_redirect("?mod=framework&scr=modules_view&module=".$module_obj->module);}
+ if(!$r_fkGroup){api_alerts_add(api_text("framework_alert_moduleError"),"danger");api_redirect("?mod=".MODULE."&scr=modules_view&module=".$module_obj->module);}
  if(!is_array($r_fkAuthorizations_array)){$r_fkAuthorizations_array=array();}
  // cycle all module authorization
  foreach($module_obj->authorizations_array as $authorization){
@@ -646,7 +646,7 @@ function module_authorizations_group_add(){
  // alert
  api_alerts_add(api_text("framework_alert_moduleAuthorizationGroupAdded"),"success");
  // redirect
- api_redirect("?mod=framework&scr=modules_view&module=".$module_obj->module);
+ api_redirect("?mod=".MODULE."&scr=modules_view&module=".$module_obj->module);
 }
 /**
  * Module Authorizations Group Remove
@@ -655,14 +655,14 @@ function module_authorizations_group_remove(){
  // get objects
  $module_obj=new cModule($_REQUEST['module']);
  // check objects
- if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  // acquire variables
  $r_fkAuthorization=$_REQUEST['fkAuthorization'];
  $r_fkGroup=$_REQUEST['fkGroup'];
  // debug
  api_dump($_REQUEST);
  // check parameters
- if(!$r_fkAuthorization || !$r_fkGroup){api_alerts_add(api_text("framework_alert_moduleError"),"danger");api_redirect("?mod=framework&scr=modules_view&module=".$module_obj->module);}
+ if(!$r_fkAuthorization || !$r_fkGroup){api_alerts_add(api_text("framework_alert_moduleError"),"danger");api_redirect("?mod=".MODULE."&scr=modules_view&module=".$module_obj->module);}
  // remove group authorization
  $GLOBALS['database']->queryExecute("DELETE FROM `framework__modules_authorizations_join_groups` WHERE `fkAuthorization`='".$r_fkAuthorization."' AND `fkGroup`='".$r_fkGroup."'");
  // build module query object
@@ -677,7 +677,7 @@ function module_authorizations_group_remove(){
  // alert
  api_alerts_add(api_text("framework_alert_moduleAuthorizationGroupRemoved"),"warning");
  // redirect
- api_redirect("?mod=framework&scr=modules_view&module=".$module_obj->module);
+ api_redirect("?mod=".MODULE."&scr=modules_view&module=".$module_obj->module);
 }
 /**
  * Module Authorizations Reset
@@ -686,7 +686,7 @@ function module_authorizations_reset(){
  // get objects
  $module_obj=new cModule($_REQUEST['module']);
  // check objects
- if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=framework&scr=modules_list");}
+ if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  // debug
  api_dump($_REQUEST);
  // cycle all authorizations
@@ -706,7 +706,7 @@ function module_authorizations_reset(){
  // alert
  api_alerts_add(api_text("framework_alert_moduleAuthorizationResetted"),"warning");
  // redirect
- api_redirect("?mod=framework&scr=modules_view&module=".$module_obj->module);
+ api_redirect("?mod=".MODULE."&scr=modules_view&module=".$module_obj->module);
 }
 
 /**
@@ -863,7 +863,7 @@ function user_recovery(){
   // generate new secret code and save into database
   $f_secret=md5(date("Y-m-d H:i:s").rand(1,99999));
   $GLOBALS['database']->queryExecute("UPDATE `framework__users` SET `secret`='".$f_secret."' WHERE `id`='".$user_obj->id."'");
-  $recoveryLink=URL."index.php?mod=framework&scr=submit&act=user_recovery&mail=".$r_mail."&secret=".$f_secret;
+  $recoveryLink=URL."index.php?mod=".MODULE."&scr=submit&act=user_recovery&mail=".$r_mail."&secret=".$f_secret;
   // send recovery link
   //api_sendmail("Coordinator password recovery",$recoveryLink,$r_mail); /** @todo fare mail come si deve */
   $mail_id=api_sendmail(api_text("framework_mail-user_recovery-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_recovery-message",array($user_obj->firstname,$GLOBALS['settings']->title,$recoveryLink)),$user_obj->mail);
@@ -923,7 +923,7 @@ function user_add(){
  // update user
  $user_obj->id=$GLOBALS['database']->queryInsert("framework__users",$user_obj);
  // check user
- if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=framework&scr=users_list");}
+ if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
  // send password to user
  //api_sendmail("Coordinator new user welcome","Your access password is:\n\n".$v_password,$user_obj->mail); /** @todo fare mail come si deve */
  $mail_id=api_sendmail(api_text("framework_mail-user_add-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_add-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_password)),$user_obj->mail);
@@ -931,7 +931,7 @@ function user_add(){
  if($GLOBALS['settings']->sendmail_asynchronous){api_sendmail_process($mail_id);}
  // redirect
  api_alerts_add(api_text("framework_alert_userCreated"),"success");
- api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
+ api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
 }
 /**
  * User Edit
@@ -940,7 +940,7 @@ function user_edit(){
  // get objects
  $user_obj=new cUser($_REQUEST['idUser']);
  // check objects
- if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
+ if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
  // build user query objects
  $user_qobj=new stdClass();
  // acquire variables
@@ -965,7 +965,7 @@ function user_edit(){
  $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
  // redirect
  api_alerts_add(api_text("framework_alert_userUpdated"),"success");
- api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
+ api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
 }
 /**
  * User Enabled
@@ -976,7 +976,7 @@ function user_enabled($enabled){
  // get objects
  $user_obj=new cUser($_REQUEST['idUser']);
  // check
- if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
+ if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
  // build user query objects
  $user_qobj=new stdClass();
  $user_qobj->id=$user_obj->id;
@@ -993,7 +993,7 @@ function user_enabled($enabled){
  if($enabled){api_alerts_add(api_text("framework_alert_userEnabled"),"success");}
  else{api_alerts_add(api_text("framework_alert_userDisabled"),"warning");}
  // redirect
- api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
+ api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
 }
 /**
  * User Deleted
@@ -1004,9 +1004,9 @@ function user_deleted($deleted){
  // get objects
  $user_obj=new cUser($_REQUEST['idUser']);
  // check
- if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
- if($user_obj->id==1){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=framework&scr=users_list");}
- if($user_obj->superuser==1){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=framework&scr=users_list");}
+ if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
+ if($user_obj->id==1){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
+ if($user_obj->superuser==1){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
  // build user query objects
  $user_qobj=new stdClass();
  $user_qobj->id=$user_obj->id;
@@ -1026,7 +1026,7 @@ function user_deleted($deleted){
  if($deleted){api_alerts_add(api_text("framework_alert_userDeleted"),"warning");}
  else{api_alerts_add(api_text("framework_alert_userUndeleted"),"success");}
  // redirect
- api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
+ api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
 }
 /**
  * User Avatar Remove
@@ -1037,45 +1037,48 @@ function user_avatar_remove(){
  // get objects
  $user_obj=new cUser($_REQUEST['idUser']);
  // check
- if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
+ if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
  // remove avatar if exist
  if(file_exists(ROOT."uploads/framework/users/avatar_".$user_obj->id.".jpg")){unlink(ROOT."uploads/framework/users/avatar_".$user_obj->id.".jpg");}
  // redirect
  api_alerts_add(api_text("framework_alert_userAvatarRemoved"),"success");
- api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
+ api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
 }
 /**
  * User Group Add
  */
 function user_group_add(){
+ api_dump($_REQUEST,"_REQUEST");
  // get objects
  $user_obj=new cUser($_REQUEST['idUser']);
- // check objects
- if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
- // check for duplicates
- if(array_key_exists($_REQUEST['fkGroup'],$user_obj->groups_array)){api_alerts_add(api_text("framework_alert_userGroupDuplicated"),"warning");api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);}
+ api_dump($user_obj,"user_obj");
+ if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
+ $group_obj=new cUser($_REQUEST['fkGroup']);
+ api_dump($group_obj,"group_obj");
+ if(!$group_obj->id){api_alerts_add(api_text("framework_alert_groupNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);}
  // build user join group query object
- $user_join_group_qobj=new stdClass();
- $user_join_group_qobj->fkUser=$user_obj->id;
- $user_join_group_qobj->fkGroup=$_REQUEST['fkGroup'];
- $user_join_group_qobj->main=(count($user_obj->groups_array)?0:1);
+ $join_qobj=new stdClass();
+ $join_qobj->fkUser=$user_obj->id;
+ $join_qobj->fkGroup=$group_obj->id;
+ $join_qobj->level=$_REQUEST['level'];
+ $join_qobj->main=(count($user_obj->getAssignedGroups())?0:1);
+ // debug
+ api_dump($join_qobj,"user_join_group_qobj");
+ // delete previous group if exist
+ $GLOBALS['database']->queryExecute("DELETE FROM `framework__join__users__groups` WHERE `fkUser`='".$user_obj->id."' AND `fkGroup`='".$group_obj->id."'");
+ // insert group
+ $GLOBALS['database']->queryInsert("framework__join__users__groups",$join_qobj);
  // build user query object
  $user_qobj=new stdClass();
  $user_qobj->id=$user_obj->id;
  $user_qobj->updTimestamp=time();
  $user_qobj->updFkUser=$GLOBALS['session']->user->id;
- // debug
- api_dump($_REQUEST,"_REQUEST");
- api_dump($user_obj,"user_obj");
- api_dump($user_join_group_qobj,"user_join_group_qobj");
  api_dump($user_qobj,"user_qobj");
- // insert group
- $GLOBALS['database']->queryInsert("framework__users_join_groups",$user_join_group_qobj);
  // update user
- $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
+ $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);      /** @todo spostare in api event (da fare) */
  // redirect
  api_alerts_add(api_text("framework_alert_userGroupAdded"),"success");
- api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
+ api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
 }
 /**
  * User Group Remove
@@ -1084,11 +1087,9 @@ function user_group_remove(){
  // get objects
  $user_obj=new cUser($_REQUEST['idUser']);
  // check objects
- if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
- // check if user is in request group
- if(!array_key_exists($_REQUEST['idGroup'],$user_obj->groups_array)){api_alerts_add(api_text("framework_alert_userGroupNotFound"),"danger");api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);}
+ if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
  // check if request group is main for user and not only
- if(count($user_obj->groups_array)>1 && $user_obj->groups_main==$_REQUEST['idGroup']){api_alerts_add(api_text("framework_alert_userGroupError"),"danger");api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);}
+ if(count($user_obj->getAssignedGroups())>1 && $user_obj->getMainGroup()==$_REQUEST['idGroup']){api_alerts_add(api_text("framework_alert_userGroupError"),"danger");api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);}
  // build user query object
  $user_qobj=new stdClass();
  $user_qobj->id=$user_obj->id;
@@ -1099,12 +1100,12 @@ function user_group_remove(){
  api_dump($user_obj,"user_obj");
  api_dump($user_qobj,"user_qobj");
  // delete group
- $GLOBALS['database']->queryExecute("DELETE FROM `framework__users_join_groups` WHERE `fkUser`='".$user_obj->id."' AND `fkGroup`='".$_REQUEST['idGroup']."'");
+ $GLOBALS['database']->queryExecute("DELETE FROM `framework__join__users__groups` WHERE `fkUser`='".$user_obj->id."' AND `fkGroup`='".$_REQUEST['idGroup']."'");
  // update user
  $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
  // redirect
  api_alerts_add(api_text("framework_alert_userGroupRemoved"),"warning");
- api_redirect("?mod=framework&scr=users_view&idUser=".$user_obj->id);
+ api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
 }
 
 /**
@@ -1133,7 +1134,7 @@ function group_save(){
   api_alerts_add(api_text("framework_alert_groupCreated"),"success");
  }
  // redirect
- api_redirect("?mod=framework&scr=groups_list");
+ api_redirect("?mod=".MODULE."&scr=groups_list");
 }
 
 /**
@@ -1141,12 +1142,12 @@ function group_save(){
  */
 function sessions_terminate(){
  $idSession=$_REQUEST['idSession'];
- if(!$idSession){api_alerts_add(api_text("framework_alert_sessionNotFound"),"danger");api_redirect("?mod=framework&scr=sessions_list");}
+ if(!$idSession){api_alerts_add(api_text("framework_alert_sessionNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=sessions_list");}
  // delete session
  $GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `id`='".$idSession."'");
  // redirect
  api_alerts_add(api_text("framework_alert_sessionTerminated"),"warning");
- api_redirect("?mod=framework&scr=sessions_list");
+ api_redirect("?mod=".MODULE."&scr=sessions_list");
 }
 /**
  * Sessions Terminate All
@@ -1166,7 +1167,7 @@ function mail_retry(){
  // get objects
  $mail_obj=new cMail($_REQUEST['idMail']);
  // check objects
- if(!$mail_obj->id){api_alerts_add(api_text("framework_alert_mailNotFound"),"danger");api_redirect("?mod=framework&scr=mails_list");}
+ if(!$mail_obj->id){api_alerts_add(api_text("framework_alert_mailNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=mails_list");}
  // debug
  api_dump($_REQUEST,"_REQUEST");
  api_dump($mail_obj,"mail object");
@@ -1181,7 +1182,7 @@ function mail_retry(){
  $GLOBALS['database']->queryUpdate("framework__mails",$mail_qobj);
  // redirect
  api_alerts_add(api_text("framework_alert_mailRetry"),"success");
- api_redirect("?mod=framework&scr=mails_list&idMail=".$mail_obj->id);
+ api_redirect("?mod=".MODULE."&scr=mails_list&idMail=".$mail_obj->id);
 }
 /**
  * Mail Remove
@@ -1190,7 +1191,7 @@ function mail_remove(){
  // get objects
  $mail_obj=new cMail($_REQUEST['idMail']);
  // check objects
- if(!$mail_obj->id){api_alerts_add(api_text("framework_alert_mailNotFound"),"danger");api_redirect("?mod=framework&scr=mails_list");}
+ if(!$mail_obj->id){api_alerts_add(api_text("framework_alert_mailNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=mails_list");}
  // debug
  api_dump($_REQUEST,"_REQUEST");
  api_dump($mail_obj,"mail object");
@@ -1198,7 +1199,7 @@ function mail_remove(){
  $GLOBALS['database']->queryDelete("framework__mails",$mail_obj->id);
  // redirect
  api_alerts_add(api_text("framework_alert_mailRemoved"),"warning");
- api_redirect("?mod=framework&scr=mails_list");
+ api_redirect("?mod=".MODULE."&scr=mails_list");
 }
 
 ?>

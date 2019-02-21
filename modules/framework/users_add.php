@@ -12,7 +12,7 @@
  // set html title
  $html->setTitle(api_text("users_add"));
  // build profile form
- $form=new cForm("?mod=framework&scr=submit&act=user_add","POST",null,"users_add");
+ $form=new cForm("?mod=".MODULE."&scr=submit&act=user_add","POST",null,"users_add");
  $form->addField("text","mail",api_text("users_add-mail"),$user->mail,api_text("users_add-mail-placeholder"),null,null,8,($GLOBALS['settings']->sessions_authentication_method=='standard'?"required":null));
  if($GLOBALS['settings']->sessions_authentication_method=='ldap'){$form->addField("text","username",api_text("users_add-username"),$user->username,api_text("users_add-username-placeholder"),null,null,8);}
  $form->addField("text","firstname",api_text("users_add-firstname"),$user->firstname,api_text("users_add-firstname-placeholder"),null,null,8,"required");
@@ -24,7 +24,7 @@
  $form->addField("select","level",api_text("users_add-level"),$user->level,api_text("users_add-level-placeholder"),null,null,null,"required");
  for($level=1;$level<=$GLOBALS['settings']->users_level_max;$level++){$form->addFieldOption($level,api_text("users_add-level-level",$level));}
  $form->addControl("submit",api_text("users_add-submit"));
- $form->addControl("button",api_text("users_add-cancel"),"?mod=framework&scr=users_list");
+ $form->addControl("button",api_text("users_add-cancel"),"?mod=".MODULE."&scr=users_list");
  // build grid object
  $grid=new cGrid();
  $grid->addRow();

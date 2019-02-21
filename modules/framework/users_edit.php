@@ -9,7 +9,7 @@
  $authorization="framework-users_manage";
  // get objects
  $user=new cUser($_REQUEST['idUser']);
- if(!$user->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=framework&scr=users_list");}
+ if(!$user->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
 
  // include module template
  require_once(MODULE_PATH."template.inc.php");
@@ -17,7 +17,7 @@
  // set html title
  $html->setTitle(api_text("users_edit"));
  // build profile form
- $form=new cForm("?mod=framework&scr=submit&act=user_edit&idUser=".$user->id,"POST",null,"users_edit");
+ $form=new cForm("?mod=".MODULE."&scr=submit&act=user_edit&idUser=".$user->id,"POST",null,"users_edit");
  /*if(!$user->deleted){
   $form->addField("checkbox","enabled","&nbsp;",$user->enabled);
   $form->addFieldOption(1,api_text("users_edit-enabled"));
@@ -46,9 +46,9 @@
 
  // controls
  $form->addControl("submit",api_text("users_edit-submit"));
- $form->addControl("button",api_text("users_edit-cancel"),"?mod=framework&scr=users_view&idUser=".$user->id);
- if(!$user->deleted){$form->addControl("button",api_text("users_edit-delete"),"?mod=framework&scr=submit&act=user_delete&idUser=".$user->id,"btn-danger",api_text("users_edit-delete-confirm"));}
- else{$form->addControl("button",api_text("users_edit-undelete"),"?mod=framework&scr=submit&act=user_undelete&idUser=".$user->id,"btn-warning");}
+ $form->addControl("button",api_text("users_edit-cancel"),"?mod=".MODULE."&scr=users_view&idUser=".$user->id);
+ if(!$user->deleted){$form->addControl("button",api_text("users_edit-delete"),"?mod=".MODULE."&scr=submit&act=user_delete&idUser=".$user->id,"btn-danger",api_text("users_edit-delete-confirm"));}
+ else{$form->addControl("button",api_text("users_edit-undelete"),"?mod=".MODULE."&scr=submit&act=user_undelete&idUser=".$user->id,"btn-warning");}
  // jQuery script
  $jquery="/* Superuser Alert */$(function(){\$(\"input[name='superuser']\").change(function(){if($(\"input[name='superuser']:checked\").val()){alert(\"".api_text("users_edit-superuser-alert")."\");}});});";
  // build grid object
