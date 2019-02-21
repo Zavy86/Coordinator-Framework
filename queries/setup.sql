@@ -116,7 +116,6 @@ CREATE TABLE IF NOT EXISTS `framework__users` (
   `birthday` date DEFAULT NULL,
   `enabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `superuser` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `level` tinyint(2) unsigned NOT NULL DEFAULT '0',
   `addTimestamp` int(11) unsigned NOT NULL,
   `addFkUser` int(11) unsigned NOT NULL,
   `updTimestamp` int(11) unsigned DEFAULT NULL,
@@ -161,23 +160,25 @@ CREATE TABLE IF NOT EXISTS `framework__users_dashboards` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `framework__users_join_groups`
+-- Table structure for table `framework__join__users__groups`
 --
 
-CREATE TABLE IF NOT EXISTS `framework__users_join_groups` (
+CREATE TABLE IF NOT EXISTS `framework__join__users__groups` (
   `fkUser` int(11) unsigned NOT NULL,
   `fkGroup` int(11) unsigned NOT NULL,
-  `main` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `level` tinyint(2) unsigned NOT NULL,
+  `main` tinyint(1) unsigned NOT NULL,
+  PRIMARY KEY (`fkUser`,`fkGroup`),
   KEY `fkUser` (`fkUser`),
   KEY `fkGroup` (`fkGroup`)
-) ENGINE=InnoDB DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `framework__users_join_groups`
+-- Dumping data for table `framework__join__users__groups`
 --
 
-INSERT INTO `framework__users_join_groups` (`fkUser`, `fkGroup`, `main`) VALUES
-(1, 1, 1);
+INSERT INTO `framework__join__users__groups` (`fkUser`, `fkGroup`, `level`, `main`) VALUES
+(1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -316,11 +317,11 @@ ALTER TABLE `framework__sessions`
   ADD CONSTRAINT `framework__sessions_ibfk_1` FOREIGN KEY (`fkUser`) REFERENCES `framework__users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `framework__users_join_groups`
+-- Constraints for table `framework__join__users__groups`
 --
-ALTER TABLE `framework__users_join_groups`
-  ADD CONSTRAINT `framework__users_join_groups_ibfk_1` FOREIGN KEY (`fkUser`) REFERENCES `framework__users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `framework__users_join_groups_ibfk_2` FOREIGN KEY (`fkGroup`) REFERENCES `framework__groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `framework__join__users__groups`
+  ADD CONSTRAINT `framework__join__users__groups_ibfk_1` FOREIGN KEY (`fkUser`) REFERENCES `framework__users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `framework__join__users__groups_ibfk_2` FOREIGN KEY (`fkGroup`) REFERENCES `framework__groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `framework__users_dashboards`
