@@ -21,7 +21,7 @@ class Database{
  public $cache_query_counter;
 
  /** @todo commentare bene*/
- 
+
  public function __construct(){
   global $configuration;
   try{

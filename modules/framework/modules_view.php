@@ -32,7 +32,7 @@
  foreach($module_obj->authorizations_array as $authorization){
   // make groups
   $groups_td=null;
-  foreach($authorization->groups_array as $group){$groups_td.=api_link("?mod=".MODULE."&scr=submit&act=module_authorizations_group_remove&module=".$module_obj->module."&fkAuthorization=".$authorization->id."&fkGroup=".$group->id,api_icon("fa-trash",api_text("modules_view-authorizations-td-delete"),"hidden-link"),null,null,false,api_text("modules_view-authorizations-td-delete-confirm"))." ".$group->fullname." (".$authorization->groups_level_array[$group->id]."+)<br>";}
+  foreach($authorization->groups_array as $group){$groups_td.=api_link("?mod=".MODULE."&scr=submit&act=module_authorizations_group_remove&module=".$module_obj->module."&fkAuthorization=".$authorization->id."&fkGroup=".$group->id,api_icon("fa-trash",api_text("modules_view-authorizations-td-delete"),"hidden-link"),null,null,false,api_text("modules_view-authorizations-td-delete-confirm"))." ".$group->fullname." (+".$authorization->groups_level_array[$group->id]."&deg;)<br>";}
   if(!$groups_td){$groups_td=api_tag("span",api_text("modules_view-authorizations-td-groups-none"),"disabled")."<br>";}
   // add authorization row
   $table->addRow();

@@ -16,11 +16,9 @@
 @media(min-width:1400px){.container{width:1370px;}}
 @media(min-width:1900px){.container{width:1870px;}}
 
-pre.debug{
- margin:9px;
- padding:9px;
- font-size:9pt;
-}
+pre.debug{margin:9px;padding:9px;font-size:9pt;}
+pre.warn{background-color:#FCF8E3;border-color:#FAEBCC;}
+pre.error{background-color:#F2DEDE;border-color:#EBCCD1;}
 
 .nowrap{
  white-space:nowrap;
