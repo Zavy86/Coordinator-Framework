@@ -20,6 +20,9 @@ pre.debug{margin:9px;padding:9px;font-size:9pt;}
 pre.warn{background-color:#FCF8E3;border-color:#FAEBCC;}
 pre.error{background-color:#F2DEDE;border-color:#EBCCD1;}
 
+div.redirect{margin:9px;padding:18px 9px 18px 9px;font-size:9pt;font-family:monospace;background-color:#D9EDF7;border-color:#BCE8F1;}
+div.redirect a{color:#000000;text-decoration:none;}div.redirect a:hover{color:#000000;text-decoration:underline;}
+
 .nowrap{
  white-space:nowrap;
 }

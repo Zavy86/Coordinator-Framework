@@ -212,6 +212,8 @@ class cHTML{
   }
   // renderize content
   $return.="  <content>\n\n";
+  // add warning and errors log to alerts
+  foreach($_SESSION["coordinator_logs"] as $log){if($log[0]!="log"){api_alerts_add($log[1],($log[0]=="error"?"danger":"warning"));}}
   // show alerts
   if(count($_SESSION['coordinator_alerts'])){
    $return.="<!-- grid container -->\n";
