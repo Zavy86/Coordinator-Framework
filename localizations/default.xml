@@ -57,8 +57,9 @@
  <text key="nav-dashboard">Dashboard</text>
  <text key="nav-modules">Enabled modules</text>
  <text key="nav-own-profile">Personal profile</text>
- <text key="nav-mails">Mails register</text>
  <text key="nav-settings">Settings</text>
+ <text key="nav-mails">Mails register</text>
+ <text key="nav-attachments">Attachments</text>
  <text key="nav-debug">Debug</text>
  <text key="nav-logout">Logout</text>
  <text key="nav-operations">Operations</text>
@@ -74,6 +75,7 @@
  <text key="form-fc-submit">Submit</text>
  <text key="form-fc-cancel">Cancel</text>
  <text key="form-fc-close">Close</text>
+ <text key="form-fc-search">Search</text>
  <text key="form-fc-reset">Reset</text>
  <text key="form-fc-delete">Delete</text>
  <text key="form-fc-delete-confirm">Are you sure you want to delete this object?</text>

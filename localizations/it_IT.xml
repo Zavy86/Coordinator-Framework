@@ -57,8 +57,9 @@
  <text key="nav-dashboard">Bacheca</text>
  <text key="nav-modules">Moduli abilitati</text>
  <text key="nav-own-profile">Profilo personale</text>
- <text key="nav-mails">Registro mail</text>
  <text key="nav-settings">Impostazioni</text>
+ <text key="nav-mails">Registro mail</text>
+ <text key="nav-attachments">Allegati</text>
  <text key="nav-debug">Debug</text>
  <text key="nav-logout">Esci</text>
  <text key="nav-operations">Operazioni</text>
@@ -74,6 +75,7 @@
  <text key="form-fc-submit">Salva</text>
  <text key="form-fc-cancel">Annulla</text>
  <text key="form-fc-close">Chiudi</text>
+ <text key="form-fc-search">Cerca</text>
  <text key="form-fc-reset">Reset</text>
  <text key="form-fc-delete">Elimina</text>
  <text key="form-fc-delete-confirm">Confermi di voler eliminare questo oggetto?</text>
