@@ -25,7 +25,7 @@
  $pagination=new cPagination($query->getRecordsCount());
  // build grid object
  $table=new cTable(api_text("users_list-tr-unvalued"));
- $table->addHeader($filter->link(api_icon("fa-filter"),api_text("filters-modal-link"),"hidden-link"),null,16);
+ $table->addHeader($filter->link(api_icon("fa-filter",api_text("filters-modal-link"),"hidden-link")),"text-center",16);
  $table->addHeader(api_text("users_list-th-fullname"),"nowrap");
  $table->addHeader("&nbsp;",null,16);
  $table->addHeader(api_text("users_list-th-mail"),null,"100%");

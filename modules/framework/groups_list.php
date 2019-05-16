@@ -23,10 +23,10 @@
  // cycle all groups
  foreach($groups_array as $group){
   $table->addRow();
-  $table->addRowField(api_link("?mod=".MODULE."&scr=groups_view&idGroup=".$group->id,api_icon("fa-search",api_text("groups_list-td-view"),"hidden-link")));
+  $table->addRowFieldAction("?mod=".MODULE."&scr=groups_view&idGroup=".$group->id,"fa-search",api_text("groups_list-td-view"));
   $table->addRowField(str_repeat("&nbsp;&nbsp;&nbsp;",$group->nesting).$group->name,"nowrap");
   $table->addRowField($group->description);
-  $table->addRowFieldAction("?mod=".MODULE."&scr=groups_edit&idGroup=".$group->id,api_icon("fa-edit",api_text("groups_list-td-edit"),"hidden-link"));
+  $table->addRowFieldAction("?mod=".MODULE."&scr=groups_edit&idGroup=".$group->id,"fa-edit",api_text("groups_list-td-edit"));
  }
  // build grid object
  $grid=new cGrid();
