@@ -251,14 +251,15 @@ CREATE TABLE IF NOT EXISTS `framework__modules_authorizations` (
 -- Dumping data for table `framework__modules_authorizations`
 --
 
-INSERT INTO `framework__modules_authorizations` (`id`, `module`, `action`) VALUES
-(1, 'framework', 'framework-settings_manage'),
-(2, 'framework', 'framework-menus_manage'),
-(3, 'framework', 'framework-modules_manage'),
-(4, 'framework', 'framework-users_manage'),
-(5, 'framework', 'framework-groups_manage'),
-(6, 'framework', 'framework-sessions_manage'),
-(7, 'framework', 'framework-mails_manage');
+INSERT IGNORE INTO `framework__modules_authorizations` (`id`, `module`, `action`) VALUES
+(null, 'framework', 'framework-settings_manage'),
+(null, 'framework', 'framework-menus_manage'),
+(null, 'framework', 'framework-modules_manage'),
+(null, 'framework', 'framework-users_manage'),
+(null, 'framework', 'framework-groups_manage'),
+(null, 'framework', 'framework-sessions_manage'),
+(null, 'framework', 'framework-mails_manage'),
+(null, 'framework', 'framework-attachments_manage');
 
 -- --------------------------------------------------------
 

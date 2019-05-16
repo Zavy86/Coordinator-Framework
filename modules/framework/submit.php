@@ -66,6 +66,12 @@ switch(ACTION){
  case "mail_retry":mail_retry();break;
  case "mail_remove":mail_remove();break;
 
+ // attachments
+ case "attachment_save":attachment_save();break;
+ case "attachment_delete":attachment_delete(true);break;
+ case "attachment_undelete":attachment_delete(false);break;
+ case "attachment_remove":attachment_remove();break;
+
  // default
  default:
   api_alerts_add(api_text("alert_submitFunctionNotFound",array(MODULE,SCRIPT,ACTION)),"danger");
@@ -1199,6 +1205,114 @@ function mail_remove(){
  // redirect
  api_alerts_add(api_text("framework_alert_mailRemoved"),"warning");
  api_redirect("?mod=".MODULE."&scr=mails_list");
+}
+
+
+
+/**
+ * Attachment Save
+ */
+function attachment_save(){
+ api_dump($_REQUEST,"_REQUEST");
+ api_dump($_FILES,"_FILES");
+ // get object
+ $attachment_obj=new cAttachment($_REQUEST['idAttachment']);
+ api_dump($attachment_obj,"attachment object");
+ // build query objects
+ $attachment_qobj=new stdClass();
+ // acquire variables
+ $attachment_qobj->id=$attachment_obj->id;
+ $attachment_qobj->name=strtolower(str_replace(" ","_",$_REQUEST['name']));
+ $attachment_qobj->description=$_REQUEST['description'];
+ $attachment_qobj->public=($_REQUEST['public']?1:0);
+ // check attachment
+ if($attachment_qobj->id){
+  // update
+  $attachment_qobj->updTimestamp=time();
+  $attachment_qobj->updFkUser=$GLOBALS['session']->user->id;
+  // debug
+  api_dump($attachment_qobj);
+  // execute query
+  $GLOBALS['database']->queryUpdate("framework__attachments",$attachment_qobj);
+  // alert
+  api_alerts_add(api_text("framework_alert_attachmentUpdated"),"success");
+ }else{
+  // add
+  $attachment_qobj->name=strtolower(str_replace(" ","_",$_FILES['file']['name']));
+  $attachment_qobj->typology=$_FILES['file']['type'];
+  $attachment_qobj->size=$_FILES['file']['size'];
+  $attachment_qobj->addTimestamp=time();
+  $attachment_qobj->addFkUser=$GLOBALS['session']->user->id;
+  do{
+   // generate attachment id
+   $attachment_qobj->id=md5(date("YmdHis").rand(1,99999));
+   // check for duplicates
+   $check_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework__attachments` WHERE `id`='".$attachment_qobj->id."'",$GLOBALS['debug']);
+  }while($attachment_qobj->id==$check_id);
+  // debug
+  api_dump($attachment_qobj);
+  // check for file
+  if(intval($_FILES['file']['size'])==0 || $_FILES['file']['error']!=UPLOAD_ERR_OK){api_alerts_add(api_text("framework_alert_attachmentError"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
+  // check for id
+  if(!$attachment_qobj->id){api_alerts_add(api_text("framework_alert_attachmentError"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
+  // check if file exist and replace
+  if(file_exists(ROOT."uploads/attachments/".$attachment_qobj->id)){unlink(ROOT."uploads/attachments/".$attachment_qobj->id);}
+  if(is_uploaded_file($_FILES['file']['tmp_name'])){move_uploaded_file($_FILES['file']['tmp_name'],ROOT."uploads/attachments/".$attachment_qobj->id);}
+  // check for file
+  if(!file_exists(ROOT."uploads/attachments/".$attachment_qobj->id)){api_alerts_add(api_text("framework_alert_attachmentError"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
+  // execute query
+  $GLOBALS['database']->queryInsert("framework__attachments",$attachment_qobj);
+  // alert
+  api_alerts_add(api_text("framework_alert_attachmentCreated"),"success");
+ }
+ // redirect
+ api_redirect("?mod=".MODULE."&scr=attachments_list&idAttachment=".$attachment_qobj->id);
+}
+/**
+ * Attachment Delete
+ *
+ * param boolean $delete
+ */
+function attachment_delete($deleted){
+ api_dump($_REQUEST,"_REQUEST");
+ // get objects
+ $attachment_obj=new cAttachment($_REQUEST['idAttachment']);
+ api_dump($attachment_obj,"attachment object");
+ // check objects
+ if(!$attachment_obj->id){api_alerts_add(api_text("framework_alert_attachmentNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
+ // build query objects
+ $attachment_qobj=new stdClass();
+ // acquire variables
+ $attachment_qobj->id=$attachment_obj->id;
+ $attachment_qobj->deleted=($deleted?1:0);
+ // debug
+ api_dump($attachment_qobj,"attachment query object");
+ // execute query
+ $GLOBALS['database']->queryUpdate("framework__attachments",$attachment_qobj);
+ // alert
+ if($deleted){api_alerts_add(api_text("framework_alert_attachmentDeleted"),"warning");}
+ else{api_alerts_add(api_text("framework_alert_attachmentUndeleted"),"success");}
+ // redirect
+ api_redirect("?mod=".MODULE."&scr=attachments_list&idAttachment=".$attachment_qobj->id);
+}
+/**
+ * Attachment Remove
+ */
+function attachment_remove(){
+ api_dump($_REQUEST,"_REQUEST");
+ // get objects
+ $attachment_obj=new cAttachment($_REQUEST['idAttachment']);
+ // check objects
+ if(!$attachment_obj->id){api_alerts_add(api_text("framework_alert_attachmentNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
+ // debug
+ api_dump($attachment_obj,"attachment object");
+ // execute query
+ $GLOBALS['database']->queryDelete("framework__attachments",$attachment_obj->id);
+ // check if file exist and remove
+ if(file_exists(ROOT."uploads/attachments/".$attachment_obj->id)){unlink(ROOT."uploads/attachments/".$attachment_obj->id);}
+ // redirect
+ api_alerts_add(api_text("framework_alert_attachmentRemoved"),"warning");
+ api_redirect("?mod=".MODULE."&scr=attachments_list");
 }
 
 ?>

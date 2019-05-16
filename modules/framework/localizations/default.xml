@@ -21,6 +21,8 @@
  <text key="framework-sessions_manage-description">Gestione delle sessioni degli utenti nel framework</text>
  <text key="framework-mails_manage">Gestione mail</text>
  <text key="framework-mails_manage-description">Gestione dei registri mail</text>
+ <text key="framework-attachments_manage">Gestione allegati</text>
+ <text key="framework-attachments_manage-description">Gestione degli allegati</text>
 
  <!-- alerts -->
  <text key="framework_alert_settingsUpdated">Le impostazioni sono state aggiornate</text>
@@ -84,6 +86,14 @@
  <text key="framework_alert_mailNotFound">La mail non è stata trovata</text>
  <text key="framework_alert_mailRetry">E' stato programmato un nuovo tentativo di invio per la mail</text>
  <text key="framework_alert_mailRemoved">La mail è stata eliminata</text>
+
+ <text key="framework_alert_attachmentError">Si è verificato un errore durante il salvataggio dell'allegato</text>
+ <text key="framework_alert_attachmentNotFound">L'allegato non è stato trovato</text>
+ <text key="framework_alert_attachmentCreated">L'allegato è stato caricato</text>
+ <text key="framework_alert_attachmentUpdated">L'allegato è stato aggiornato</text>
+ <text key="framework_alert_attachmentDeleted">L'allegato è stato eliminato</text>
+ <text key="framework_alert_attachmentUndeleted">L'allegato è stato ripristinato</text>
+ <text key="framework_alert_attachmentRemoved">L'allegato è stato rimosso</text>
 
  <!-- mails -->
  <text key="framework_mail-user_add-subject"><![CDATA[{0}]]> account</text>
@@ -529,5 +539,42 @@
  <text key="mails_list-mails-modal-dl-attachments">Allegati</text>
  <text key="mails_list-mails-modal-dl-message">Contenuto</text>
  <text key="mails_list-mails-modal-dl-errors">Errori</text>
+
+ <!-- attachments_list -->
+ <text key="attachments_list">Allegati</text>
+ <text key="attachments_list-tr-unvalued">Non sono presenti allegati da mostrare..</text>
+ <text key="attachments_list-th-id">Allegato</text>
+ <text key="attachments_list-th-name">Nome</text>
+ <text key="attachments_list-th-size">Dimensione</text>
+ <text key="attachments_list-td-view">Visualizza dettagli allegato</text>
+ <text key="attachments_list-td-download">Scarica file allegato</text>
+ <text key="attachments_list-td-delete">Elimina allegato</text>
+ <text key="attachments_list-td-delete-confirm">Confermi di voler eliminare questo allegato?</text>
+ <text key="attachments_list-modal-title-view">Visualizza allegato</text>
+ <text key="attachments_list-modal-title-edit">Modifica allegato</text>
+ <text key="attachments_list-modal-dt-id">Allegato</text>
+ <text key="attachments_list-modal-dt-name">Nome</text>
+ <text key="attachments_list-modal-dt-description">Descrizione</text>
+ <text key="attachments_list-modal-dt-typology">Tipologia</text>
+ <text key="attachments_list-modal-dt-size">Dimensione</text>
+ <text key="attachments_list-modal-dt-public">Pubblico</text>
+ <text key="attachments_list-modal-dt-downloads">Downloads</text>
+ <text key="attachments_list-modal-dt-add">Creazione</text>
+ <text key="attachments_list-modal-dd-add"><![CDATA[{0}]]> il <![CDATA[{1}]]></text>
+ <text key="attachments_list-modal-dt-upd">Modifica</text>
+ <text key="attachments_list-modal-dd-upd"><![CDATA[{0}]]> il <![CDATA[{1}]]></text>
+ <text key="attachments_list-modal-ff-id">Allegato</text>
+ <text key="attachments_list-modal-ff-name">Nome</text>
+ <text key="attachments_list-modal-ff-description">Descrizione</text>
+ <text key="attachments_list-modal-ff-public">Pubblico</text>
+ <text key="attachments_list-modal-fc-delete-confirm">Confermi di voler eliminare questo allegato?</text>
+ <text key="attachments_list-modal-fc-remove-confirm">Confermi di voler rimuovere definitivamente questo allegato?</text>
+
+ <!-- attachments_add -->
+ <text key="attachments_add">Carica allegato</text>
+ <text key="attachments_add-ff-file">Allegato</text>
+ <text key="attachments_add-ff-description">Descrizione</text>
+ <text key="attachments_add-ff-description-placeholder">Descrizione del file caricato</text>
+ <text key="attachments_add-ff-public">Pubblico</text>
 
 </locale>
