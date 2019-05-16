@@ -160,7 +160,7 @@ class cFilter{
 
     //
     //$where_array[]=$filter;
-    $where_array[]="( ".implode(" OR ",$values_array)." )";
+    $where_array[]="( ".implode(" OR ",$values_array)." )";   /** @todo migliorabile con IN al posto di OR */
    }
    //
   }
