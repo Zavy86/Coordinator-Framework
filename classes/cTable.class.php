@@ -129,19 +129,22 @@ class cTable{
  * Add Table Row Field Action
  *
  * @param string $url Action URL
+ * @param string $icon Button icon
  * @param string $label Button label
+ * @param string $confirm Confirmation popuop
  * @param string $class CSS class
  * @param string $style Custom CSS
  * @param string $tags Custom HTML tags
  * @return boolean
  */
- function addRowFieldAction($url,$label,$class=null,$style=null,$tags=null){
+ function addRowFieldAction($url,$icon,$label,$confirm=null,$class=null,$style=null,$tags=null,$target=null){
   if(!$this->current_row){echo "ERROR - Table->addRowFieldAction - No row defined";return false;}
   if(!$url){echo "ERROR - Table->addRowFieldAction - URL is required";return false;}
   if(!$label){$label="&nbsp;";}
   // build field object
   $td=new stdClass();
-  $td->content=api_link($url,$label,null,"btn btn-default btn-xs");
+  //$td->content=api_link($url,$label,null,"btn btn-default btn-xs",false,$confirm);
+  $td->content=api_link($url,api_icon($icon,$label,"hidden-link"),null,"btn btn-default btn-xs",false,$confirm,null,null,$target);
   $td->class=$class;
   $td->style=$style;
   $td->tags=$tags;

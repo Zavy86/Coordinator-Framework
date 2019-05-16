@@ -37,7 +37,7 @@
   // build table row
   $table->addRow(($selected_tile_obj->id==$tile_obj->id?"info":null));
   // build table fields
-  $table->addRowFieldAction("?mod=dashboard&scr=dashboard_customize&idTile=".$tile_obj->id,api_icon("fa-search",api_text("dashboard_customize-td-preview"),"hidden-link"));
+  $table->addRowFieldAction("?mod=dashboard&scr=dashboard_customize&idTile=".$tile_obj->id,"fa-search",api_text("dashboard_customize-td-preview"));
   $table->addRowField($tile_obj->label,"nowrap");
   $table->addRowField(api_icon($tile_obj->icon),"nowrap text-center");
   $table->addRowField($tile_obj->url,"truncate-ellipsis");

@@ -279,7 +279,10 @@ class cForm{
    switch($field->typology){
     // static plain text
     case "static":
+     $return.=$split_identation."   <!-- static-field -->\n";
      $return.=$split_identation."   <p class=\"form-control-static ".$field->class."\">".$field->value."</p>\n";
+     $return.=$split_identation."   <input type=\"hidden\"".$field_tags.">\n";
+     $return.=$split_identation."   <!-- /static-field -->\n";
      break;
     // radio and checkbox
     case "radio":

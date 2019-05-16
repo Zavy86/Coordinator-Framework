@@ -27,12 +27,12 @@ if($group_obj->description){$dl_left->addElement(api_text("groups_view-descripti
 // build users table
 $users_table=new cTable(api_text("groups_view-users_table-tr-unvalued"));
 // cycle all assigned users
-foreach($group_obj->getAssignedUsers() as $user_f){
+foreach($group_obj->getAssignedUsers() as $assigend_user_f){
  // get user object
- $user_obj=new cUser($user_f->id);
+ $user_obj=new cUser($assigend_user_f->id);
  // add group row
  $users_table->addRow();
- $users_table->addRowField(api_link("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id,$user_obj->fullname." (".$user_f->level.")",null,"hidden-link",true,null,null,null,"_blank"),"truncate-ellipsis");
+ $users_table->addRowField(api_link("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id,$user_obj->fullname." (".$user_obj->level.")",null,"hidden-link",true,null,null,null,"_blank"),"truncate-ellipsis");
 }
 // build right group description list
 $dl_right=new cDescriptionList("br","dl-horizontal");

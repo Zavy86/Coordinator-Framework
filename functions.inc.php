@@ -86,6 +86,7 @@ require_once(ROOT."classes/cProgressBar.class.php");
 require_once(ROOT."classes/cGauge.class.php");
 require_once(ROOT."classes/cPagination.class.php");
 require_once(ROOT."classes/cQuery.class.php");
+require_once(ROOT."classes/cAttachment.class.php");
 
 // build localization instance
 $localization=new cLocalization();
@@ -139,10 +140,11 @@ function api_dump_logs(){
  */
 function api_debug(){
  if($GLOBALS['debug']){
+  foreach($_SESSION["coordinator_logs"] as $log){if($log[0]!="log"){api_dump($log[1],strtoupper($log[0]),API_DUMP_PRINTR,$log[0]);}}
   api_dump(get_defined_constants(true)["user"],"contants");
   api_dump($GLOBALS['session']->debug(),"session");
   api_dump($GLOBALS['settings']->debug(),"settings");
-  api_dump($GLOBALS['localization']->debug(),"localization");
+  //api_dump($GLOBALS['localization']->debug(),"localization");
   api_dump($_SESSION["coordinator_logs"],"logs");
  }
 }
@@ -153,7 +155,12 @@ function api_debug(){
  * @param string $location Location URL
  */
 function api_redirect($location){
- if($GLOBALS['debug']){die(api_link($location,$location));}
+ if($GLOBALS['debug']){
+  echo "<div class='redirect'>".api_tag("strong","REDIRECT")."<br>".api_link($location,$location)."</div>";
+  echo "<link href=\"".HELPERS."bootstrap/css/bootstrap-3.3.7-custom.css\" rel=\"stylesheet\">\n";
+  api_debug();
+  die();
+ }
  exit(header("location: ".$location));
 }
 
@@ -396,7 +403,7 @@ function api_weekly_days($start=null){  /** @todo verificare */
  * Alerts Add
  *
  * @param string $message alert message
- * @param string $class alert class
+ * @param string $class alert class [info|warning|error]
  * @return boolean alert saved status
  */
 function api_alerts_add($message,$class="info"){
@@ -677,11 +684,12 @@ function api_cleanString($string,$pattern="/[^A-Za-zÀ-ÿ0-9-_.,:;' ]/",$null=NU
 /**
  * Require modules
  *
- * @param string $modules[] Array of module names
+ * @param array $modules Array of module names
  */
-function api_requireModules($modules){                     /** @todo integrare dentro al module.inc.php e nella classe cModule */
+function api_requireModules($modules=null){                     /** @todo integrare dentro al module.inc.php e nella classe cModule */
  // check parameters
  if(!is_array($modules)){$modules=array($modules);}
+  if(!$modules[0]){unset($modules[0]);}
  // cycle all required module
  foreach($modules as $module_f){
   if(!file_exists(ROOT."modules/".$module_f."/functions.inc.php")){api_alerts_add(api_text("alert_requiredModuleNotFound",$module_f),"danger");continue;}

@@ -160,11 +160,10 @@ class cUser{
   $groups_array=array();
   // get groups
   //$groups_results=$GLOBALS['database']->queryObjects("SELECT `framework__join__users__groups`.* FROM `framework__join__users__groups` LEFT JOIN `framework__groups` ON `framework__groups`.`id`=`framework__join__users__groups`.`fkGroup` WHERE `framework__join__users__groups`.`fkUser`='".$this->id."' ORDER BY `framework__join__users__groups`.`main` DESC,`framework__groups`.`name` ASC",$GLOBALS['debug']);
-  $groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__join__users__groups` WHERE `fkUser`='".$this->id."' ORDER BY `main` DESC,`level` ASC",$GLOBALS['debug']);
+  $groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__join__users__groups` WHERE `fkUser`='".$this->id."' ORDER BY `main` DESC",$GLOBALS['debug']);
   foreach($groups_results as $result_f){
    $group=new stdClass();
    $group->id=$result_f->fkGroup;
-   $group->level=$result_f->level;
    $group->main=$result_f->main;
    $groups_array[$group->id]=$group;
   }
@@ -192,10 +191,12 @@ class cUser{
   $groups_array=array();
   $groups_recursive_array=array();
   // cycle all user groups
-  foreach(array_keys($this->groups_array) as $idGroup){
-   $groups_array[$idGroup]=$idGroup;
+  foreach(array_keys($this->getAssignedGroups()) as $group_f){
+   // get group object
+   $group_obj=new cGroup($group_f);
+   $groups_array[$group_obj->id]=$group_obj->id;
    // get recursive groups
-   $fkGroup=$this->groups_array[$idGroup]->fkGroup;
+   $fkGroup=$group_obj->fkGroup;
    while($fkGroup){
     $group=$GLOBALS['database']->queryUniqueObject("SELECT `id`,`fkGroup` FROM `framework__groups` WHERE `id`='".$fkGroup."'");
     $groups_recursive_array[$group->id]=$group->id;

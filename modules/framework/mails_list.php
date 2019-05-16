@@ -27,7 +27,7 @@
  $pagination=new cPagination($query->getRecordsCount());
  // build table
  $table=new cTable(api_text("mails_list-tr-unvalued"));
- $table->addHeader($filter->link(api_icon("fa-filter"),api_text("filters-modal-link"),"hidden-link"),null,16);
+ $table->addHeader($filter->link(api_icon("fa-filter",api_text("filters-modal-link"),"hidden-link")),"text-center",16);
  $table->addHeader(api_text("mails_list-th-addTimestamp"),"nowrap");
  $table->addHeader(api_text("mails_list-th-recipients"),"nowrap");
  $table->addHeader(api_text("mails_list-th-subject"),null,"100%");

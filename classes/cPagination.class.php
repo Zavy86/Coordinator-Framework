@@ -46,6 +46,16 @@ class cPagination{
   // get pagination properties
   if($this->uri_array['pnr']){$this->page=$this->uri_array['pnr'];}else{$this->page=1;}
   if($this->uri_array['psr']){$this->show=$this->uri_array['psr'];}else{$this->show=$show;}
+  // unset action if exist
+  unset($this->uri_array['act']);
+
+  // check for tab pagination
+  /*if(strlen($tab) && $this->uri_array['tab']!=$tab){
+   $this->page=1;
+   $this->show=$show;
+   $this->uri_array['tab']=$tab;
+  }*/
+
   // total records
   $this->records=$records;
   // calculate total pages and make query limits

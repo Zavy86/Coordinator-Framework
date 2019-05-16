@@ -140,6 +140,13 @@
    $nav->addItem(api_text("menus_add"),"?mod=".MODULE."&scr=menus_edit");
   }*/
  }
+
+ // attachments
+ if(substr(SCRIPT,0,11)=="attachments"){
+  $nav->addItem(api_text("attachments_list"),"?mod=".MODULE."&scr=attachments_list");
+  $nav->addItem(api_text("attachments_add"),"?mod=".MODULE."&scr=attachments_add");
+ }
+
  // add nav to html
  $html->addContent($nav->render(false));
 ?>
