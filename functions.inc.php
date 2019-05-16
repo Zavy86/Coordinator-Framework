@@ -86,6 +86,7 @@ require_once(ROOT."classes/cProgressBar.class.php");
 require_once(ROOT."classes/cGauge.class.php");
 require_once(ROOT."classes/cPagination.class.php");
 require_once(ROOT."classes/cQuery.class.php");
+require_once(ROOT."classes/cAttachment.class.php");
 
 // build localization instance
 $localization=new cLocalization();
@@ -683,11 +684,12 @@ function api_cleanString($string,$pattern="/[^A-Za-zÀ-ÿ0-9-_.,:;' ]/",$null=NU
 /**
  * Require modules
  *
- * @param string $modules[] Array of module names
+ * @param array $modules Array of module names
  */
-function api_requireModules($modules){                     /** @todo integrare dentro al module.inc.php e nella classe cModule */
+function api_requireModules($modules=null){                     /** @todo integrare dentro al module.inc.php e nella classe cModule */
  // check parameters
  if(!is_array($modules)){$modules=array($modules);}
+  if(!$modules[0]){unset($modules[0]);}
  // cycle all required module
  foreach($modules as $module_f){
   if(!file_exists(ROOT."modules/".$module_f."/functions.inc.php")){api_alerts_add(api_text("alert_requiredModuleNotFound",$module_f),"danger");continue;}
