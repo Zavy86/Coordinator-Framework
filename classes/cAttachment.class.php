@@ -37,7 +37,7 @@ class cAttachment{
  /**
   * Attachment class
   *
-  * @param integer $attachment Attachment object or ID
+  * @param mixed $attachment Attachment object or ID
   * @return boolean
   */
  public function __construct($attachment){
@@ -58,7 +58,7 @@ class cAttachment{
   $this->updFkUser=(int)$attachment->updFkUser;
   $this->deleted=(int)$attachment->deleted;
   // make link
-  $this->url="download.php?attachment=".$this->id;
+  $this->url=URL."download.php?attachment=".$this->id;
   // return
   return true;
  }
