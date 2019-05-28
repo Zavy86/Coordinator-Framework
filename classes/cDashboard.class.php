@@ -163,7 +163,7 @@ class cDashboard{
     case "tile":
      // check if tile is starred if not in dashboard
      if(MODULE<>"dashboard"){
-      $starred_tile_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework__users_dashboards` WHERE `fkUser`='".$GLOBALS['session']->user->id."' AND `module`='".MODULE."' AND `url`='".$element->url."'");
+      $starred_tile_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework__users__dashboards` WHERE `fkUser`='".$GLOBALS['session']->user->id."' AND `module`='".MODULE."' AND `url`='".$element->url."'");
       // make starred link
       if($starred_tile_id>0){
        $starred_link=api_link("?mod=dashboard&scr=submit&act=tile_remove&idTile=".$starred_tile_id."&redirect_mod=".MODULE."&redirect_scr=".SCRIPT."&redirect_tab=".TAB,api_icon("fa-star",api_text("dashboard-tile-remove"),"hidden-link"))." ";

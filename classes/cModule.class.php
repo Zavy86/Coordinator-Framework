@@ -64,7 +64,7 @@ class cModule{
   $this->repository_version_url=$module_repository_version_url;
   // get authorizations
   $this->authorizations_array=array();
-  $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules_authorizations` WHERE `module`='".$this->module."'"); /** @todo in che ordine?? nuovo campo order? ORDER BY `action` */
+  $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules__authorizations` WHERE `module`='".$this->module."'"); /** @todo in che ordine?? nuovo campo order? ORDER BY `action` */
   foreach($authorizations_results as $authorization){$this->authorizations_array[$authorization->id]=New cAuthorization($authorization);}
   return true;
  }

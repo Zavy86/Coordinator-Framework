@@ -74,7 +74,7 @@ class cGroup{
   // definitions
   $users_array=array();
   // get users
-  $users_results=$GLOBALS['database']->queryObjects("SELECT `framework__join__users__groups`.* FROM `framework__join__users__groups` LEFT JOIN `framework__users` ON `framework__users`.`id`=`framework__join__users__groups`.`fkUser` WHERE `framework__join__users__groups`.`fkGroup`='".$this->id."' ORDER BY `framework__users`.`level` ASC,`framework__users`.`lastname` ASC,`framework__users`.`firstname` ASC",$GLOBALS['debug']);
+  $users_results=$GLOBALS['database']->queryObjects("SELECT `framework__users__groups`.* FROM `framework__users__groups` LEFT JOIN `framework__users` ON `framework__users`.`id`=`framework__users__groups`.`fkUser` WHERE `framework__users__groups`.`fkGroup`='".$this->id."' ORDER BY `framework__users`.`level` ASC,`framework__users`.`lastname` ASC,`framework__users`.`firstname` ASC",$GLOBALS['debug']);
   foreach($users_results as $result_f){
    $user=new stdClass();
    $user->id=$result_f->fkUser;

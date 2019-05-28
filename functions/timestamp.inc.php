@@ -47,15 +47,22 @@ function api_timestamp_format($timestamp,$format="Y-m-d H:i:s",$timezone=null){
 /**
 * Timestamp Difference From
 * @param string $timestamp Timestamp from
-* @param string $difference difference in textual form ("+1 day","-1 month,..)
+* @param string $difference difference in textual form ("+1 day","-1 month",..)
 * @param string $format timestamp format
 * @return string formatted timestamp difference
 */
-function api_timestampDifferenceFrom($timestamp,$difference,$format="Y-m-d H:i:s"){/** @todo verificare il nome fa schifo ed è poco significativo */
+function api_timestampDifferenceFrom($timestamp,$difference,$format=null){/** @todo verificare il nome fa schifo ed è poco significativo */
  if(!is_numeric($timestamp)){return false;}
  $datetime=new DateTime("@".$timestamp);
  $datetime->modify($difference);
- return $datetime->getTimestamp();
+ if(!$format){
+  // return timetamp
+  return $datetime->getTimestamp();
+ }
+ else{
+  // return date time formatted
+  return $datetime->format($format);
+ }
 }
 
 /**

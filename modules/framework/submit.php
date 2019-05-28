@@ -624,7 +624,7 @@ function module_authorizations_group_add(){
  // cycle all module authorization
  foreach($module_obj->authorizations_array as $authorization){
   // remove old group authorization
-  $GLOBALS['database']->queryExecute("DELETE FROM `framework__modules_authorizations_join_groups` WHERE `fkAuthorization`='".$authorization->id."' AND `fkGroup`='".$r_fkGroup."'");
+  $GLOBALS['database']->queryExecute("DELETE FROM `framework__modules__authorizations__groups` WHERE `fkAuthorization`='".$authorization->id."' AND `fkGroup`='".$r_fkGroup."'");
  }
  // cycle all selected authorizations
  foreach($r_fkAuthorizations_array as $fkAuthorization){
@@ -636,9 +636,9 @@ function module_authorizations_group_add(){
   // debug
   api_dump($authorization_join_group_qobj);
   // remove previous group authorization
-  $GLOBALS['database']->queryExecute("DELETE FROM `framework__modules_authorizations_join_groups` WHERE `fkAuthorization`='".$fkAuthorization."' AND `fkGroup`='".$r_fkGroup."'");
+  $GLOBALS['database']->queryExecute("DELETE FROM `framework__modules__authorizations__groups` WHERE `fkAuthorization`='".$fkAuthorization."' AND `fkGroup`='".$r_fkGroup."'");
   // insert group
-  $GLOBALS['database']->queryInsert("framework__modules_authorizations_join_groups",$authorization_join_group_qobj);
+  $GLOBALS['database']->queryInsert("framework__modules__authorizations__groups",$authorization_join_group_qobj);
  }
  // build module query object
  $module_qobj=new stdClass();
@@ -670,7 +670,7 @@ function module_authorizations_group_remove(){
  // check parameters
  if(!$r_fkAuthorization || !$r_fkGroup){api_alerts_add(api_text("framework_alert_moduleError"),"danger");api_redirect("?mod=".MODULE."&scr=modules_view&module=".$module_obj->module);}
  // remove group authorization
- $GLOBALS['database']->queryExecute("DELETE FROM `framework__modules_authorizations_join_groups` WHERE `fkAuthorization`='".$r_fkAuthorization."' AND `fkGroup`='".$r_fkGroup."'");
+ $GLOBALS['database']->queryExecute("DELETE FROM `framework__modules__authorizations__groups` WHERE `fkAuthorization`='".$r_fkAuthorization."' AND `fkGroup`='".$r_fkGroup."'");
  // build module query object
  $module_qobj=new stdClass();
  $module_qobj->module=$module_obj->module;
@@ -698,7 +698,7 @@ function module_authorizations_reset(){
  // cycle all authorizations
  foreach($module_obj->authorizations_array as $authorization){
   // remove authorization
-  $GLOBALS['database']->queryExecute("DELETE FROM `framework__modules_authorizations_join_groups` WHERE `fkAuthorization`='".$authorization->id."'");
+  $GLOBALS['database']->queryExecute("DELETE FROM `framework__modules__authorizations__groups` WHERE `fkAuthorization`='".$authorization->id."'");
  }
  // build module query object
  $module_qobj=new stdClass();
@@ -1070,9 +1070,9 @@ function user_group_add(){
  // debug
  api_dump($join_qobj,"user_join_group_qobj");
  // delete previous group if exist
- $GLOBALS['database']->queryExecute("DELETE FROM `framework__join__users__groups` WHERE `fkUser`='".$user_obj->id."' AND `fkGroup`='".$group_obj->id."'");
+ $GLOBALS['database']->queryExecute("DELETE FROM `framework__users__groups` WHERE `fkUser`='".$user_obj->id."' AND `fkGroup`='".$group_obj->id."'");
  // insert group
- $GLOBALS['database']->queryInsert("framework__join__users__groups",$join_qobj);
+ $GLOBALS['database']->queryInsert("framework__users__groups",$join_qobj);
  // build user query object
  $user_qobj=new stdClass();
  $user_qobj->id=$user_obj->id;
@@ -1105,7 +1105,7 @@ function user_group_remove(){
  api_dump($user_obj,"user_obj");
  api_dump($user_qobj,"user_qobj");
  // delete group
- $GLOBALS['database']->queryExecute("DELETE FROM `framework__join__users__groups` WHERE `fkUser`='".$user_obj->id."' AND `fkGroup`='".$_REQUEST['idGroup']."'");
+ $GLOBALS['database']->queryExecute("DELETE FROM `framework__users__groups` WHERE `fkUser`='".$user_obj->id."' AND `fkGroup`='".$_REQUEST['idGroup']."'");
  // update user
  $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
  // redirect

@@ -66,17 +66,17 @@ function tile_save(){
   // debug
   api_dump($tile_qobj,"tile query object");
   // update tile
-  $GLOBALS['database']->queryUpdate("framework__users_dashboards",$tile_qobj);
+  $GLOBALS['database']->queryUpdate("framework__users__dashboards",$tile_qobj);
  }else{
   // get maximum position
-  $v_order=$GLOBALS['database']->queryCount("framework__users_dashboards","`fkUser`='".$GLOBALS['session']->user->id."'");
+  $v_order=$GLOBALS['database']->queryCount("framework__users__dashboards","`fkUser`='".$GLOBALS['session']->user->id."'");
   // set new properties
   $tile_qobj->fkUser=$GLOBALS['session']->user->id;
   $tile_qobj->order=($v_order+1);
   // debug
   api_dump($tile_qobj,"tile query object");
   // insert
-  $GLOBALS['database']->queryInsert("framework__users_dashboards",$tile_qobj);
+  $GLOBALS['database']->queryInsert("framework__users__dashboards",$tile_qobj);
   // get last insert id
   $tile_qobj->id=$GLOBALS['database']->lastInsertedId();
  }
@@ -112,9 +112,9 @@ function tile_move($direction){
    // check for order
    if($tile_qobj->order<1){api_alerts_add(api_text("dashboard_alert_tileError"),"warning");api_redirect("?mod=dashboard&scr=dashboard_customize&idTile=".$tile_obj->id);}
    // update tile
-   $GLOBALS['database']->queryUpdate("framework__users_dashboards",$tile_qobj);
+   $GLOBALS['database']->queryUpdate("framework__users__dashboards",$tile_qobj);
    // rebase other tiles
-   api_dump($rebase_query="UPDATE `framework__users_dashboards` SET `order`=`order`+'1' WHERE `order`<'".$tile_obj->order."' AND `order`>='".$tile_qobj->order."' AND `order`<>'0' AND `id`!='".$tile_obj->id."' AND `fkUser`='".$GLOBALS['session']->user->id."'","rebase_query");
+   api_dump($rebase_query="UPDATE `framework__users__dashboards` SET `order`=`order`+'1' WHERE `order`<'".$tile_obj->order."' AND `order`>='".$tile_qobj->order."' AND `order`<>'0' AND `id`!='".$tile_obj->id."' AND `fkUser`='".$GLOBALS['session']->user->id."'","rebase_query");
    $GLOBALS['database']->queryExecute($rebase_query);
    break;
   // down -> order +1
@@ -122,9 +122,9 @@ function tile_move($direction){
    // set following order
    $tile_qobj->order=$tile_obj->order+1;
    // update tile
-   $GLOBALS['database']->queryUpdate("framework__users_dashboards",$tile_qobj);
+   $GLOBALS['database']->queryUpdate("framework__users__dashboards",$tile_qobj);
    // rebase other tiles
-   api_dump($rebase_query="UPDATE `framework__users_dashboards` SET `order`=`order`-'1' WHERE `order`>'".$tile_obj->order."' AND `order`<='".$tile_qobj->order."' AND `order`<>'0' AND `id`!='".$tile_obj->id."' AND `fkUser`='".$GLOBALS['session']->user->id."'","rebase_query");
+   api_dump($rebase_query="UPDATE `framework__users__dashboards` SET `order`=`order`-'1' WHERE `order`>'".$tile_obj->order."' AND `order`<='".$tile_qobj->order."' AND `order`<>'0' AND `id`!='".$tile_obj->id."' AND `fkUser`='".$GLOBALS['session']->user->id."'","rebase_query");
    $GLOBALS['database']->queryExecute($rebase_query);
    break;
  }
@@ -153,9 +153,9 @@ function tile_remove(){
  // debug
  api_dump($tile_obj);
  // remove tile
- $GLOBALS['database']->queryDelete("framework__users_dashboards",$tile_obj->id);
+ $GLOBALS['database']->queryDelete("framework__users__dashboards",$tile_obj->id);
  // rebase other tiles
- $GLOBALS['database']->queryExecute("UPDATE `framework__users_dashboards` SET `order`=`order`-1 WHERE `order`>'".$tile_obj->order."' AND `fkUser`='".$GLOBALS['session']->user->id."'");
+ $GLOBALS['database']->queryExecute("UPDATE `framework__users__dashboards` SET `order`=`order`-1 WHERE `order`>'".$tile_obj->order."' AND `fkUser`='".$GLOBALS['session']->user->id."'");
  // remove background if exist
  if(file_exists(ROOT."uploads/dashboard/".$tile_obj->id.".jpg")){unlink(ROOT."uploads/dashboard/".$tile_obj->id.".jpg");}
  // redirect
