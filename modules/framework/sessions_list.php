@@ -45,7 +45,7 @@
    $table->addRowField($session_r->ipAddress,"nowrap");
    $table->addRowField($session_r->id,"nowrap");
    /** @todo nome decente per session destroy */
-   $table->addRowField(api_link("?mod=".MODULE."&scr=submit&act=sessions_terminate&idSession=".$session_r->id,api_icon("remove",api_text("sessions_list-td-terminate")),null,null,false,api_text("sessions_list-td-terminate-confirm")));
+   $table->addRowFieldAction("?mod=".MODULE."&scr=submit&act=sessions_terminate&idSession=".$session_r->id,"remove",api_text("sessions_list-td-terminate"),api_text("sessions_list-td-terminate-confirm"));
   }
  }
  // build grid object
