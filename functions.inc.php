@@ -642,7 +642,7 @@ function api_framework_authorizations($module=null){  /** @todo levare framework
  // query where
  if($module){$query_where="`module`='".$module."'";}else{$query_where="1";}
  // execute query
- $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules_authorizations` WHERE ".$query_where." ORDER BY `action`");
+ $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules__authorizations` WHERE ".$query_where." ORDER BY `action`");
  foreach($authorizations_results as $authorization){$return[$authorization->id]=new cAuthorization($authorization);}
  // return groups
  return $return;

@@ -23,7 +23,7 @@
  $table->addHeader(api_text("dashboard_customize-th-url"),null,"100%");
  $table->addHeader("&nbsp;",null,16);
  // build table rows
- $tiles_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users_dashboards` WHERE `fkUser`='".$GLOBALS['session']->user->id."' ORDER BY `order`");
+ $tiles_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users__dashboards` WHERE `fkUser`='".$GLOBALS['session']->user->id."' ORDER BY `order`");
  foreach($tiles_results as $tile){
   $tile_obj=new cDashboardTile($tile);
   // build operations button
