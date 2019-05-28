@@ -50,7 +50,8 @@
   if($user_obj->deleted){$tr_class="deleted";}else{$tr_class=null;}
   // make user row
   $table->addRow($tr_class);
-  $table->addRowField(api_link("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id,api_image($user_obj->avatar,null,18),api_text("users_list-td-view")));
+  //$table->addRowField(api_link("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id,api_image($user_obj->avatar,null,18),api_text("users_list-td-view")));
+  $table->addRowFieldAction("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id,"search",api_text("users_list-td-view"));
   $table->addRowField($user_obj->fullname,"nowrap");
   $table->addRowField($user_obj->getStatus(true,false));
   $table->addRowField($user_obj->mail,"truncate-ellipsis");
