@@ -56,6 +56,7 @@ if($r_tab){define("TAB",$r_tab);}
 require_once(ROOT."functions/map.inc.php");
 require_once(ROOT."functions/sendmail.inc.php");
 require_once(ROOT."functions/timestamp.inc.php");
+require_once(ROOT."functions/date.inc.php");
 // include classes
 require_once(ROOT."classes/cLocalization.class.php");
 require_once(ROOT."classes/cDatabase.class.php");
