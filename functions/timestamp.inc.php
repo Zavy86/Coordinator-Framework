@@ -45,6 +45,41 @@ function api_timestamp_format($timestamp,$format="Y-m-d H:i:s",$timezone=null){
 }
 
 /**
+ * Timestamp of Day
+ *
+ * @param string $timestamp Timestamp
+ * @param string $timezone Time Zone
+ * @return array|boolean Array with start and and of day
+ */
+function api_timestamp_dayRange($timestamp,$timezone=null){
+ if(!is_int($timestamp)){return false;}
+ if(!$timezone){$timezone=$GLOBALS['session']->user->timezone;}
+ // build date time object
+ $dt=new DateTime();
+ // set date time timezone
+ $dt->setTimeZone(new DateTimeZone($timezone));
+ // set timestamp
+ $dt->setTimestamp($timestamp);
+ // make begin
+ $dt_begin=clone $dt;
+ $dt_begin->modify('today');
+ // make end
+ $dt_end=clone $dt_begin;
+ $dt_end->modify('tomorrow');
+ $dt_end->modify('-1 second');
+ // debug
+ /*api_dump(
+  array(
+   'input'=>$dt->getTimestamp()." -> ".$dt->format('Y-m-d H:i:s e'),
+   'begin'=>$dt_begin->getTimestamp()." -> ".$dt_begin->format('Y-m-d H:i:s e'),
+   'end  '=>$dt_end->getTimestamp()." -> ".$dt_end->format('Y-m-d H:i:s e')
+  )
+ );*/
+ // return
+ return array("begin"=>$dt_begin->getTimestamp(),"end"=>$dt_end->getTimestamp());
+}
+
+/**
 * Timestamp Difference From
 * @param string $timestamp Timestamp from
 * @param string $difference difference in textual form ("+1 day","-1 month",..)

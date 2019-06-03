@@ -281,7 +281,7 @@ class cForm{
     case "static":
      $return.=$split_identation."   <!-- static-field -->\n";
      $return.=$split_identation."   <p class=\"form-control-static ".$field->class."\">".$field->value."</p>\n";
-     $return.=$split_identation."   <input type=\"hidden\"".$field_tags.">\n";
+     if(substr($field->value,0,1)!="<" && substr($field->value,-1)!=">"){$return.=$split_identation."   <input type=\"hidden\"".$field_tags.">\n";}
      $return.=$split_identation."   <!-- /static-field -->\n";
      break;
     // radio and checkbox
