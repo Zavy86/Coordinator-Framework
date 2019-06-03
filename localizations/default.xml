@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!--
+/*
+ * Default localization
+ *
+ * @package Coordinator\Functions
+ * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
+ * @link    http://www.coordinator.it
+ */
+-->
 <locale>
 
  <code>en_EN</code>
@@ -70,6 +78,12 @@
  <text key="pagination-page">Page <![CDATA[{0}]]> of <![CDATA[{1}]]></text>
  <text key="pagination-previous">Previous</text>
  <text key="pagination-next">Next</text>
+
+ <!-- description lists -->
+ <text key="dl-dt-add">Creation</text>
+ <text key="dl-dd-add"><![CDATA[{0}]]> on <![CDATA[{1}]]></text>
+ <text key="dl-dt-upd">Update</text>
+ <text key="dl-dd-upd"><![CDATA[{0}]]> on <![CDATA[{1}]]></text>
 
  <!-- forms -->
  <text key="form-fc-submit">Submit</text>
