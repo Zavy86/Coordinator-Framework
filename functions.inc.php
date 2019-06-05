@@ -76,7 +76,7 @@
  require_once(ROOT."functions/timestamp.inc.php");
 
  // include structures
- require_once(ROOT."structures/strHTML.class.php");
+ require_once(ROOT."structures/strApplication.class.php");
  require_once(ROOT."structures/strDashboard.class.php");
  require_once(ROOT."structures/strDescriptionList.class.php");
  require_once(ROOT."structures/strFilter.class.php");

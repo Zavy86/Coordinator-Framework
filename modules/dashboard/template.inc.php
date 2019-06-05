@@ -7,7 +7,7 @@
  * @link    http://www.zavynet.org
  */
  // build html object
- $html=new strHTML($module_name);
+ $html=new strApplication($module_name);
  // build nav object
  $nav=new strNav("nav-tabs");
  $nav->addItem(api_text("dashboard_view"),"?mod=dashboard&scr=dashboard");

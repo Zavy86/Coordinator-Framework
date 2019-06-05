@@ -9,7 +9,7 @@
  // include functions
  require_once("functions.inc.php");
  // build html object
- $html=new strHTML($module_name);
+ $html=new strApplication($module_name);
  // set html title
  $html->setTitle("Recovery");
  // build recovery form

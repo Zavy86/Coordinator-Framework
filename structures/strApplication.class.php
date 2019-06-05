@@ -10,7 +10,7 @@
  /**
   * HTML class
   */
- class strHTML{
+ class strApplication{
 
   /** Properties */
   protected $title;
