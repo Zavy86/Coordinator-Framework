@@ -37,7 +37,7 @@
    */
   public function __construct($mail){
    // get object
-   if(is_numeric($mail)){$mail=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__mails` WHERE `id`='".$mail."'",$GLOBALS['debug']);}
+   if(is_numeric($mail)){$mail=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__mails` WHERE `id`='".$mail."'");}
    if(!$mail->id){return false;}
    // set properties
    $this->id=(int)$mail->id;

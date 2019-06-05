@@ -23,7 +23,7 @@
  // definitions
  $users_array=array();
  // acquire sessions
- $sessions_results=$GLOBALS['database']->queryObjects("SELECT `framework__sessions`.* FROM `framework__sessions` JOIN `framework__users` ON `framework__users`.`id`=`framework__sessions`.`fkUser` ORDER BY `lastname`,`firstname`,`lastTimestamp`",$GLOBALS['debug']);
+ $sessions_results=$GLOBALS['database']->queryObjects("SELECT `framework__sessions`.* FROM `framework__sessions` JOIN `framework__users` ON `framework__users`.`id`=`framework__sessions`.`fkUser` ORDER BY `lastname`,`firstname`,`lastTimestamp`");
  foreach($sessions_results as $session_r){
   if(!array_key_exists($session_r->fkUser,$users_array)){
    $users_array[$session_r->fkUser]=new cUser($session_r->fkUser);

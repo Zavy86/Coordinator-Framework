@@ -32,7 +32,7 @@
  $table->addHeader("&nbsp;",null,16);
  // get user objects
  $users_array=array();
- //$users_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users` ORDER BY `lastname`,`firstname`",$GLOBALS['debug']);
+ //$users_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users` ORDER BY `lastname`,`firstname`");
  //foreach($users_results as $user){$users_array[$user->id]=new cUser($user);}
  foreach($query->getRecords($pagination->getQueryLimits()) as $user){$users_array[$user->id]=new cUser($user);}
  // cycle all users

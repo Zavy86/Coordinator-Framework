@@ -59,7 +59,7 @@
    */
   public function load(){
    // retrieve session from database
-   $session_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__sessions` WHERE `id`='".$_SESSION['coordinator_session_id']."'",$GLOBALS['debug']);
+   $session_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__sessions` WHERE `id`='".$_SESSION['coordinator_session_id']."'");
    // check if session not exist or is expired
    if(!$session_obj->id||(time()-$session_obj->lastTimestamp)>$GLOBALS['settings']->sessions_idle_timeout){
     // unset session id and return

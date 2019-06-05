@@ -114,7 +114,7 @@ function own_profile_update(){
  */
 function own_password_update(){
  // retrieve user object
- $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `id`='".$GLOBALS['session']->user->id."'",$GLOBALS['debug']);
+ $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `id`='".$GLOBALS['session']->user->id."'");
  // check
  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect(DIR."index.php");}
  // acquire variables
@@ -188,7 +188,7 @@ function settings_save(){
   // buil setting query
   $query="INSERT INTO `framework__settings` (`setting`,`value`) VALUES ('".$setting."','".$value."') ON DUPLICATE KEY UPDATE `setting`='".$setting."',`value`='".$value."'";
   // execute setting query
-  $GLOBALS['database']->queryExecute($query,$GLOBALS['debug']);
+  $GLOBALS['database']->queryExecute($query);
   api_dump($query);
  }
  // downgrade user level out of limit
@@ -727,7 +727,7 @@ function module_authorizations_reset(){
  */
 function user_authentication($username,$password){
  // retrieve user object
- $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `mail`='".$username."'",$GLOBALS['debug']);
+ $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `mail`='".$username."'");
  // check for user object
  if(!$user_obj->id){return -1;}
  // check password
@@ -776,7 +776,7 @@ function user_authentication_ldap($username,$password){
  // check for binded value
  if(!$binded){return -3;}
  // retrieve user object
- $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `username`='".$username."'",$GLOBALS['debug']);
+ $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `username`='".$username."'");
  // check for user object
  if(!$user_obj->id){return -1;}
  // check for password caching
@@ -857,7 +857,7 @@ function user_recovery(){
  $r_mail=$_REQUEST['mail'];
  $r_secret=$_REQUEST['secret'];
  // retrieve user object
- $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `mail`='".$r_mail."'",$GLOBALS['debug']);
+ $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `mail`='".$r_mail."'");
  // check user
  if(!$user_obj->id){
   api_alerts_add(api_text("framework_alert_userRecoveryNotFound"),"warning");
@@ -1132,7 +1132,7 @@ function user_parameter_save(){
   // make parameter code
   $parameter_code=$r_module."-".$parameter_fkey;
   // get parameter
-  $parameter_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users__parameters` WHERE `fkUser`='".$user_obj->id."' AND `parameter`='".$parameter_code."'",$GLOBALS['debug']);
+  $parameter_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users__parameters` WHERE `fkUser`='".$user_obj->id."' AND `parameter`='".$parameter_code."'");
   // build user query object
   $parameter_qobj=new stdClass();
   $parameter_qobj->id=$parameter_obj->id;
@@ -1289,7 +1289,7 @@ function attachment_save(){
    // generate attachment id
    $attachment_qobj->id=md5(date("YmdHis").rand(1,99999));
    // check for duplicates
-   $check_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework__attachments` WHERE `id`='".$attachment_qobj->id."'",$GLOBALS['debug']);
+   $check_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework__attachments` WHERE `id`='".$attachment_qobj->id."'");
   }while($attachment_qobj->id==$check_id);
   // debug
   api_dump($attachment_qobj);

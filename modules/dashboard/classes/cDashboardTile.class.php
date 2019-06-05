@@ -34,7 +34,7 @@
    */
   public function __construct($tile){
    // get object
-   if(is_numeric($tile)){$tile=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users__dashboards` WHERE `id`='".$tile."'",$GLOBALS['debug']);}
+   if(is_numeric($tile)){$tile=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users__dashboards` WHERE `id`='".$tile."'");}
    if(!$tile->id){return false;}
    // set properties
    $this->id=(int)$tile->id;

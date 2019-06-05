@@ -53,6 +53,7 @@
  if(!$r_tab){$r_tab=null;}
 
  // constants definitions
+ define('DEBUG',$debug);
  define('DIR',$configuration->dir);
  define('URL',(isset($_SERVER['HTTPS'])?"https":"http")."://".$_SERVER['HTTP_HOST'].$GLOBALS['configuration']->dir);
  define('ROOT',realpath(dirname(__FILE__))."/");

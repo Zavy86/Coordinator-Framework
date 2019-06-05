@@ -34,7 +34,7 @@
    // generate attachment id
    $attachment_qobj->id=md5(date("YmdHis").rand(1,99999));
    // check for duplicates
-   $check_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework__attachments` WHERE `id`='".$attachment_qobj->id."'",$GLOBALS['debug']);
+   $check_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework__attachments` WHERE `id`='".$attachment_qobj->id."'");
   }while($attachment_qobj->id==$check_id);
   // debug
   api_dump($attachment_qobj);

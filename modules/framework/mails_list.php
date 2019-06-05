@@ -13,7 +13,7 @@
  $html->setTitle(api_text("mails_list"));
  // make recipeint filter
  $mails_filters=array();
- $results=$GLOBALS['database']->queryObjects("SELECT DISTINCT(`recipients_to`) FROM `framework__mails`",$GLOBALS['debug']);
+ $results=$GLOBALS['database']->queryObjects("SELECT DISTINCT(`recipients_to`) FROM `framework__mails`");
  foreach($results as $result){$mails_filters[$result->recipients_to]=$result->recipients_to;}
  // build filter
  $filter=new strFilter();
@@ -35,7 +35,7 @@
  $table->addHeader("&nbsp;",null,16);
  // get mails
  $mails_array=array();
- //$mails_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__mails` ORDER BY `sndTimestamp` IS NULL DESC,`sndTimestamp` DESC",$GLOBALS['debug']);
+ //$mails_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__mails` ORDER BY `sndTimestamp` IS NULL DESC,`sndTimestamp` DESC");
  //foreach($mails_results as $mail){$mails_array[$mail->id]=new cMail($mail);}
  foreach($query->getRecords($pagination->getQueryLimits()) as $mail){$mails_array[$mail->id]=new cMail($mail);}
  // cycle all mails

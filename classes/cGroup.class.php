@@ -32,7 +32,7 @@
    */
   public function __construct($group){
    // get object
-   if(is_numeric($group)){$group=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__groups` WHERE `id`='".$group."'",$GLOBALS['debug']);}
+   if(is_numeric($group)){$group=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__groups` WHERE `id`='".$group."'");}
    if(!$group->id){return false;}
    // set properties
    $this->id=(int)$group->id;
@@ -67,7 +67,7 @@
    // definitions
    $users_array=array();
    // get users
-   $users_results=$GLOBALS['database']->queryObjects("SELECT `framework__users__groups`.* FROM `framework__users__groups` LEFT JOIN `framework__users` ON `framework__users`.`id`=`framework__users__groups`.`fkUser` WHERE `framework__users__groups`.`fkGroup`='".$this->id."' ORDER BY `framework__users`.`level` ASC,`framework__users`.`lastname` ASC,`framework__users`.`firstname` ASC",$GLOBALS['debug']);
+   $users_results=$GLOBALS['database']->queryObjects("SELECT `framework__users__groups`.* FROM `framework__users__groups` LEFT JOIN `framework__users` ON `framework__users`.`id`=`framework__users__groups`.`fkUser` WHERE `framework__users__groups`.`fkGroup`='".$this->id."' ORDER BY `framework__users`.`level` ASC,`framework__users`.`lastname` ASC,`framework__users`.`firstname` ASC");
    foreach($users_results as $result_f){
     $user=new stdClass();
     $user->id=$result_f->fkUser;
@@ -92,7 +92,7 @@
    $fkGroup=$this->fkGroup;
    // cycle all parent
    while($fkGroup){
-    $group=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__groups` WHERE `id`='".$fkGroup."'",$GLOBALS['debug']);
+    $group=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__groups` WHERE `id`='".$fkGroup."'");
     $groups_array[$group->id]=$group->name;
     $fkGroup=$group->fkGroup;
    }
