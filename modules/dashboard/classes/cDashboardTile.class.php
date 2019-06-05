@@ -10,7 +10,7 @@
  /**
   * Dashboard Tile class
   */
- class cDashboardTile{
+ class strDashboardTile{
 
   /** Properties */
   protected $id;

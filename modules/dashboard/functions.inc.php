@@ -8,7 +8,7 @@
  */
 
  // include classes
- require_once(ROOT."modules/dashboard/classes/cDashboardTile.class.php");
+ require_once(ROOT."modules/dashboard/classes/strDashboardTile.class.php");
 
  /**
   * Dashboard - User Tiles
@@ -27,7 +27,7 @@
   if(!$user_obj->id){return false;}
   // get user tiles
   $tiles_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users__dashboards` WHERE `fkUser`='".$user_obj->id."' ORDER BY `order`");
-  foreach($tiles_results as $tile_fobj){$tiles_array[$tile_fobj->id]=new cDashboardTile($tile_fobj);}
+  foreach($tiles_results as $tile_fobj){$tiles_array[$tile_fobj->id]=new strDashboardTile($tile_fobj);}
   // return
   return $tiles_array;
  }

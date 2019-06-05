@@ -10,7 +10,7 @@
  /**
   * Filter class
   */
- class cFilter{
+ class strFilter{
 
   /** Properties */
   protected $id;
@@ -182,7 +182,7 @@
    */
   protected function buildModal(){
    // build filters form
-   $form=new cForm($this->url,"POST",null,$this->id);
+   $form=new strForm($this->url,"POST",null,$this->id);
    // check for search field
    if(count($this->search_fields_array)){$form->addField("text","filter_search",api_text("filters-ff-search"),$_REQUEST['filter_search'],api_text("filters-ff-search-placeholder"));}
    // cycle all items
@@ -196,7 +196,7 @@
    $form->addControl("submit",api_text("filters-fc-submit"));
    $form->addControl("button",api_text("filters-fc-reset"),$this->url);
    // build filters modal window
-   $this->modal=new cModal(api_text("filters-modal-title"),null,$this->id);
+   $this->modal=new strModal(api_text("filters-modal-title"),null,$this->id);
    $this->modal->SetBody($form->render(2));
    // return modal add to html response
    return $GLOBALS['html']->addModal($this->modal);
@@ -214,7 +214,7 @@
    */
   public function link($label,$title=null,$class=null,$confirm=null,$style=null,$tags=null){
    // check for modal or build
-   if(!is_a($this->modal,cModal)){if(!$this->buildModal()){return false;}}
+   if(!is_a($this->modal,strModal)){if(!$this->buildModal()){return false;}}
    // return modal link calling original modal link function
    return $this->modal->link($label,$title,$class,$confirm,$style,$tags);
   }
@@ -226,7 +226,7 @@
    */
   public function render(){
    // check for modal or build
-   if(!is_a($this->modal,cModal)){if(!$this->buildModal()){return false;}}
+   if(!is_a($this->modal,strModal)){if(!$this->buildModal()){return false;}}
    // definitions
    $active_filters_array=array();
    // get active filters

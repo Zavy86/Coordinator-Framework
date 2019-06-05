@@ -10,7 +10,7 @@
  /**
   * Grid structure class
   */
- class cGrid{
+ class strGrid{
 
   /** Properties */
   protected $class;

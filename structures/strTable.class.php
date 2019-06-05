@@ -10,7 +10,7 @@
  /**
   * Table class
   */
- class cTable{
+ class strTable{
 
   /** Properties */
   protected $id;

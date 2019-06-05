@@ -12,7 +12,7 @@
  /**
   * Modal window class
   */
- class cModal{
+ class strModal{
 
   /** Properties */
   protected $id;

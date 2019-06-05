@@ -12,7 +12,7 @@
  /**
   * Gauge class
   */
- class cGauge{
+ class strGauge{
 
   /** Properties */
   protected $id;

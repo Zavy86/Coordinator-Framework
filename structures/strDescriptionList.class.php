@@ -12,7 +12,7 @@
  /**
   * Description List class
   */
- class cDescriptionList{
+ class strDescriptionList{
 
   /** Properties */
   protected $separator;

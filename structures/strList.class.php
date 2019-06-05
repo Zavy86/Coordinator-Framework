@@ -12,7 +12,7 @@
  /**
   * List class
   */
- class cList{
+ class strList{
 
   /** Properties */
   protected $id;

@@ -10,7 +10,7 @@
  /**
   * Form class
   */
- class cForm{
+ class strForm{
 
   /** Properties */
   protected $id;
@@ -325,7 +325,7 @@
       if($value_localizations=="null"){$value_localizations=null;}
       $return.=$split_identation."   <input type=\"hidden\" name=\"".substr($field->name,0,-10)."\" id=\"".$this->id."_input_".substr($field->name,0,-10)."\" value=\"".$value_localizations."\">\n";
       // build translation form
-      $translation_form=new cForm("#","POST",null,$this->id."_input_".$field->name);
+      $translation_form=new strForm("#","POST",null,$this->id."_input_".$field->name);
       foreach($GLOBALS['localization']->available_localizations as $code=>$language){
        if($code=="en_EN"){$language="Default";$label=api_text("form-input-text_localized-default");$text_key="default";}
        else{$label=$language;$text_key="language";}
@@ -334,7 +334,7 @@
       $translation_form->addControl("submit",api_text("form-fc-submit"),"#","btn-primary",null,null,"onClick=\"".$this->id."_input_".$field->name."_encoder();return false;\"");
       $translation_form->addControl("button",api_text("form-fc-cancel"),"#",null,null,null,"data-dismiss='modal'");
       // build translation modal window
-      $translation_modal=new cModal($field->label,null,$this->id."_input_".$field->name);
+      $translation_modal=new strModal($field->label,null,$this->id."_input_".$field->name);
       $translation_modal->SetBody($translation_form->render());
       // add translation modal window to html
       $GLOBALS['html']->addModal($translation_modal);

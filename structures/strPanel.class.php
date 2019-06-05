@@ -12,7 +12,7 @@
  /**
   * Panel class
   */
- class cPanel{
+ class strPanel{
 
   /** Properties */
   protected $id;

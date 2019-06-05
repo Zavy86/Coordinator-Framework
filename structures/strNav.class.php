@@ -10,7 +10,7 @@
  /**
   * Nav class
   */
- class cNav{
+ class strNav{
 
   /** Properties */
   protected $title;

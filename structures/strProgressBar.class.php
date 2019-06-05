@@ -12,7 +12,7 @@
  /**
   * Progress Bar class
   */
- class cProgressBar{
+ class strProgressBar{
 
   /** Properties */
   protected $id;

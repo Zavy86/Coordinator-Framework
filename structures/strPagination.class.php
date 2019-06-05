@@ -10,7 +10,7 @@
  /**
   * Pagination class
   */
- class cPagination{
+ class strPagination{
 
   /** Properties */
   protected $id;

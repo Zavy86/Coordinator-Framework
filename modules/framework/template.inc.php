@@ -15,7 +15,7 @@
  // build html object
  $html=new strHTML($module_name);
  // build nav object
- $nav=new cNav("nav-tabs");
+ $nav=new strNav("nav-tabs");
 
  $nav->setTitle(api_text("framework"));
 

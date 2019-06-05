@@ -71,23 +71,23 @@
 
  // include structures
  require_once(ROOT."structures/strHTML.class.php");
- require_once(ROOT."structures/cDashboard.class.php");
- require_once(ROOT."structures/cDescriptionList.class.php");
- require_once(ROOT."structures/cFilter.class.php");
- require_once(ROOT."structures/cForm.class.php");
- require_once(ROOT."structures/cGauge.class.php");
- require_once(ROOT."structures/cGrid.class.php");
- require_once(ROOT."structures/cList.class.php");
- require_once(ROOT."structures/cModal.class.php");
- require_once(ROOT."structures/cNav.class.php");
- require_once(ROOT."structures/cNavbar.class.php");
- require_once(ROOT."structures/cOperationsButton.class.php");
- require_once(ROOT."structures/cPagination.class.php");
- require_once(ROOT."structures/cPanel.class.php");
- require_once(ROOT."structures/cParametersForm.class.php");
- require_once(ROOT."structures/cProgressBar.class.php");
- require_once(ROOT."structures/cTab.class.php");
- require_once(ROOT."structures/cTable.class.php");
+ require_once(ROOT."structures/strDashboard.class.php");
+ require_once(ROOT."structures/strDescriptionList.class.php");
+ require_once(ROOT."structures/strFilter.class.php");
+ require_once(ROOT."structures/strForm.class.php");
+ require_once(ROOT."structures/strGauge.class.php");
+ require_once(ROOT."structures/strGrid.class.php");
+ require_once(ROOT."structures/strList.class.php");
+ require_once(ROOT."structures/strModal.class.php");
+ require_once(ROOT."structures/strNav.class.php");
+ require_once(ROOT."structures/strNavbar.class.php");
+ require_once(ROOT."structures/strOperationsButton.class.php");
+ require_once(ROOT."structures/strPagination.class.php");
+ require_once(ROOT."structures/strPanel.class.php");
+ require_once(ROOT."structures/strParametersForm.class.php");
+ require_once(ROOT."structures/strProgressBar.class.php");
+ require_once(ROOT."structures/strTab.class.php");
+ require_once(ROOT."structures/strTable.class.php");
 
  // include classes
  require_once(ROOT."classes/cAttachment.class.php");
@@ -751,11 +751,11 @@
   * Events table
   *
   * @param objects $events_array Array of event objects
-  * @return object Return cTable object
+  * @return object Return strTable object
   */
  function api_events_table($events_array){
   // build events table
-  $events_table=new cTable(api_text("events-tr-unvalued"));
+  $events_table=new strTable(api_text("events-tr-unvalued"));
   $events_table->addHeader("&nbsp;",null,16);
   $events_table->addHeader(api_text("events-th-timestamp"),"nowrap");
   $events_table->addHeader(api_text("events-th-event"),"nowrap");

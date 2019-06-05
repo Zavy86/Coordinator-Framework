@@ -15,7 +15,7 @@
  // check for tiles
  if(count($tiles_array)){
   // build dashboard
-  $dashboard=new cDashboard();
+  $dashboard=new strDashboard();
   // cycle all tiles
   foreach($tiles_array as $tile_fobj){
    // add dashboard element
@@ -23,7 +23,7 @@
   }
  }
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  // check for elements
  if(count($tiles_array)){$grid->addCol($dashboard->render(),"col-xs-12");}

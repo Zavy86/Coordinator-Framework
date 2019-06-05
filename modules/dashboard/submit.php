@@ -29,7 +29,7 @@
   */
  function tile_save(){
   // get objects
-  $tile_obj=new cDashboardTile($_REQUEST['idTile']);
+  $tile_obj=new strDashboardTile($_REQUEST['idTile']);
   // acquire variables
   $r_element=json_decode($_REQUEST['element']);
   $r_redirect_mod=$_REQUEST['redirect_mod'];
@@ -98,7 +98,7 @@
   */
  function tile_move($direction){
   // get objects
-  $tile_obj=new cDashboardTile($_REQUEST['idTile']);
+  $tile_obj=new strDashboardTile($_REQUEST['idTile']);
   // check objects
   if(!$tile_obj->id){api_alerts_add(api_text("dashboard_alert_tileNotFound"),"danger");api_redirect("?mod=dashboard&scr=dashboard_customize");}
   // check parameters
@@ -145,7 +145,7 @@
   */
  function tile_remove(){
   // get objects
-  $tile_obj=new cDashboardTile($_REQUEST['idTile']);
+  $tile_obj=new strDashboardTile($_REQUEST['idTile']);
   // check objects
   if(!$tile_obj->id){api_alerts_add(api_text("dashboard_alert_tileNotFound"),"danger");api_redirect("?mod=dashboard&scr=dashboard_customize");}
   // acquire variables
@@ -171,7 +171,7 @@
   */
  function tile_background_remove(){
   // get objects
-  $tile_obj=new cDashboardTile($_REQUEST['idTile']);
+  $tile_obj=new strDashboardTile($_REQUEST['idTile']);
   // debug
   api_dump($tile_obj);
   // check objects

@@ -10,7 +10,7 @@
  /**
   * Dashboard class
   */
- class cDashboard{
+ class strDashboard{
 
   /** Properties */
   protected $id;

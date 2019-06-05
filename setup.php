@@ -19,9 +19,9 @@
  // include classes
  require_once(ROOT."classes/cLocalization.class.php");
  require_once(ROOT."classes/strHTML.class.php");
- require_once(ROOT."classes/cGrid.class.php");
- require_once(ROOT."classes/cNavbar.class.php");
- require_once(ROOT."classes/cForm.class.php");
+ require_once(ROOT."classes/strGrid.class.php");
+ require_once(ROOT."classes/strNavbar.class.php");
+ require_once(ROOT."classes/strForm.class.php");
  // build localization instance
  $localization=new cLocalization();
  // build settings instance
@@ -34,7 +34,7 @@
  // set html title
  $html->setTitle("Setup");
  // build setup form
- $form=new cForm("setup.php","POST",null,"setup");
+ $form=new strForm("setup.php","POST",null,"setup");
  // check for submit
  if(!$_REQUEST['setup_action']){
   // setup form
@@ -167,7 +167,7 @@
   }
  }
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html

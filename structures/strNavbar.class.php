@@ -10,7 +10,7 @@
  /**
   * Navbar class
   */
- class cNavbar{
+ class strNavbar{
 
   /** Properties */
   protected $title;

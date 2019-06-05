@@ -15,7 +15,7 @@
  // make avatar delete link
  if(is_numeric(substr($user_obj->avatar,-5,1))){$avatar_delete_link=api_link("?mod=".MODULE."&scr=submit&act=own_avatar_remove",api_icon("fa-remove",api_text("own_profile-avatar-delete"),"hidden-link text-vtop"),null,null,false,api_text("own_profile-avatar-delete-confirm"));}
  // build profile form
- $form=new cForm("?mod=".MODULE."&scr=submit&act=own_profile_update","POST",null,"own_profile");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=own_profile_update","POST",null,"own_profile");
  $form->addField("static",null,api_text("own_profile-mail"),$user_obj->mail);
  $form->addField("text","firstname",api_text("own_profile-firstname"),$user_obj->firstname,api_text("own_profile-firstname-placeholder"),null,null,8,"required");
  $form->addField("text","lastname",api_text("own_profile-lastname"),$user_obj->lastname,api_text("own_profile-lastname-placeholder"),null,null,null,"required");
@@ -35,7 +35,7 @@
  $form->addControl("submit",api_text("own_profile-submit"));
  $form->addControl("button",api_text("own_profile-cancel"),"?mod=dashboard");
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html

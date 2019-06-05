@@ -10,7 +10,7 @@
  /**
   * Tab class
   */
- class cTab{
+ class strTab{
 
   /** Properties */
   protected $id;

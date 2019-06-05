@@ -37,7 +37,7 @@
  $this->addScript(HELPERS."bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",true);
  $this->addScript(HELPERS."bootstrap-faiconpicker/js/bootstrap-faiconpicker-1.3.0.min.js",true);
  // build header navbar object
- $header_navbar=new cNavbar($GLOBALS['settings']->title,"navbar-default navbar-fixed-top");
+ $header_navbar=new strNavbar($GLOBALS['settings']->title,"navbar-default navbar-fixed-top");
  $header_navbar->addNav();
  // check session
  if($GLOBALS['session']->validity){
@@ -95,7 +95,7 @@
  // set header
  $this->setHeader($header_navbar->render(false));
  // build footer grid
- $footer_grid=new cGrid();
+ $footer_grid=new strGrid();
  $footer_grid->addRow();
  $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; Coordinator - All Rights Reserved".($GLOBALS['debug']?" [ Queries: ".$GLOBALS['database']->query_counter." | Cached queries: ".$GLOBALS['database']->cache_query_counter." | Execution time: ~".number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs ]":null),"col-xs-12 text-right");
  // set footer

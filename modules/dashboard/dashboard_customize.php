@@ -11,9 +11,9 @@
  // set html title
  $html->setTitle(api_text("dashboard_customize"));
  // get objects
- $selected_tile_obj=new cDashboardTile($_REQUEST['idTile']);
+ $selected_tile_obj=new strDashboardTile($_REQUEST['idTile']);
  // build table
- $table=new cTable(api_text("dashboard_customize-tr-unvalued"));
+ $table=new strTable(api_text("dashboard_customize-tr-unvalued"));
  // build table header
  $table->addHeader("&nbsp;",null,16);
  $table->addHeader(api_text("dashboard_customize-th-label"),"nowrap");
@@ -23,9 +23,9 @@
  // build table rows
  $tiles_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users__dashboards` WHERE `fkUser`='".$GLOBALS['session']->user->id."' ORDER BY `order`");
  foreach($tiles_results as $tile){
-  $tile_obj=new cDashboardTile($tile);
+  $tile_obj=new strDashboardTile($tile);
   // build operations button
-  $ob=new cOperationsButton();
+  $ob=new strOperationsButton();
   $ob->addElement("?mod=dashboard&scr=dashboard_customize&act=editTile&idTile=".$tile_obj->id,"fa-pencil",api_text("dashboard_customize-td-edit"));
   $ob->addElement("?mod=dashboard&scr=submit&act=tile_move_up&idTile=".$tile_obj->id,"fa-arrow-up",api_text("dashboard_customize-td-move-up"),($tile_obj->order>1?true:false));
   $ob->addElement("?mod=dashboard&scr=submit&act=tile_move_down&idTile=".$tile_obj->id,"fa-arrow-down",api_text("dashboard_customize-td-move-down"),($tile_obj->order<count($tiles_results)?true:false));
@@ -44,7 +44,7 @@
  // check for actions
  if(in_array(ACTION,array("addTile","editTile"))){
   // build form
-  $tile_form=new cForm("?mod=dashboard&scr=submit&act=tile_save&idTile=".$selected_tile_obj->id,"POST",null,"dashboard_customize_tile");
+  $tile_form=new strForm("?mod=dashboard&scr=submit&act=tile_save&idTile=".$selected_tile_obj->id,"POST",null,"dashboard_customize_tile");
   $tile_form->addField("hidden","redirect_mod",null,"dashboard");
   $tile_form->addField("hidden","redirect_scr",null,"dashboard_customize");
   $tile_form->addField("text","icon",api_text("dashboard_customize-tile-ff-icon"),$selected_tile_obj->icon,api_text("dashboard_customize-tile-ff-icon-placeholder"));
@@ -67,7 +67,7 @@
   $tile_form->addControl("button",api_text("form-fc-cancel"),"#",null,null,null,"data-dismiss='modal'");
   if($selected_tile_obj->id){$tile_form->addControl("button",api_text("form-fc-delete"),"?mod=dashboard&scr=submit&act=tile_remove&idTile=".$selected_tile_obj->id,"btn-danger",api_text("form-fc-delete-confirm"));}
   // build group add modal window
-  $tile_form_modal=new cModal(api_text("dashboard_customize-tile-modal-title"),null,"dashboard_customize-tile_form-modal");
+  $tile_form_modal=new strModal(api_text("dashboard_customize-tile-modal-title"),null,"dashboard_customize-tile_form-modal");
   $tile_form_modal->setBody($tile_form->render(2));
   // add modal to html object
   $html->addModal($tile_form_modal);
@@ -76,14 +76,14 @@
   $html->addScript("/* Font Awesome Icon Picker */\n$(function(){\$(\"#form_dashboard_customize_tile_input_icon\").iconpicker();});");
  }
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  // add table to grid
  $grid->addCol($table->render(),"col-xs-12 col-sm-8");
  // check for selected tile
  if($selected_tile_obj->id){
   // build preview dashbaord
-  $dashboard=new cDashboard(api_text("dashboard_customize-dashboard-preview"));
+  $dashboard=new strDashboard(api_text("dashboard_customize-dashboard-preview"));
   $dashboard->addTile($selected_tile_obj->url,$selected_tile_obj->label,$selected_tile_obj->description,true,$selected_tile_obj->size,$selected_tile_obj->icon,$selected_tile_obj->counter->count,$selected_tile_obj->counter_class,$selected_tile_obj->background,$selected_tile_obj->target);
   // add preview to grid
   $grid->addCol($dashboard->render(),"col-xs-12 col-sm-4");

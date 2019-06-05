@@ -12,7 +12,7 @@
  /**
   * Operations Button
   */
- class cOperationsButton{
+ class strOperationsButton{
 
   /** Properties */
   protected $id;

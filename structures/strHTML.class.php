@@ -95,7 +95,7 @@
    * @return boolean
    */
   public function addModal($modal){
-   if(!is_a($modal,cModal)){return false;}
+   if(!is_a($modal,strModal)){return false;}
    // add modal to modals array
    $this->modals_array[$modal->id]=$modal;
    return true;

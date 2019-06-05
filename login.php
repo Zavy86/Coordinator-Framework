@@ -28,7 +28,7 @@
  $form_source.=" </div><!-- /form-group -->\n";
  $form_source.="</form><!-- /form -->\n";
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form_source,"col-xs-12 col-sm-offset-4 col-sm-4 col-sm-offset-4");
  // add content to html
