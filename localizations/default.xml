@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-/*
- * Default localization
- *
- * @package Coordinator\Functions
- * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.coordinator.it
- */
--->
+<!-->
+ ! Default localization
+ !
+ ! @package Coordinator\Functions
+ ! @author  Manuel Zavatta <manuel.zavatta@gmail.com>
+ ! @link    http://www.coordinator.it
+ !
+<!-->
 <locale>
 
  <code>en_EN</code>
@@ -71,6 +70,8 @@
  <text key="nav-debug">Debug</text>
  <text key="nav-logout">Logout</text>
  <text key="nav-operations">Operations</text>
+ <text key="nav-management">Management</text>
+ <text key="nav-parameters">Personal parameters</text>
 
  <!-- pagination -->
  <text key="pagination-shows">Shows</text>
