@@ -15,27 +15,15 @@
   * @param string $function Dump function [API_DUMP_PRINTR|API_DUMP_VARDUMP]
   * @param string $class Dump class
   */
- function api_dump($variable,$label=null,$function=API_DUMP_PRINTR,$class=null){
+ function api_dump($variable,$label=null,$class=null){
   if(!DEBUG){return false;}
   echo "\n\n<!-- dump -->\n";
   echo "<pre class='debug ".$class."'>\n";
   if($label<>null){echo "<strong>".$label."</strong><br>";}
   if(is_string($variable)){$variable=str_replace(array("<",">"),array("&lt;","&gt;"),$variable);}
-  switch($function){
-   case API_DUMP_PRINTR:print_r($variable);break;
-   case API_DUMP_VARDUMP:var_dump($variable);break;
-   default:echo $variable."\n";
-  }
+  print_r($variable);
   echo "</pre>\n<!-- /dump -->\n\n";
  }
- /**
-  * Constants for api_dump()
-  *
-  * @const API_DUMP_PRINTR Dump with print_r()
-  * @const API_DUMP_VARDUMP Dump with var_dump()
-  */
- define('API_DUMP_PRINTR',1);
- define('API_DUMP_VARDUMP',2);
 
  /**
   * Renderize logs, constants, sessions and globals variables for debug
@@ -44,7 +32,7 @@
   // check for debug
   if(DEBUG){
    // cycle all logs and dump warning and errors
-   foreach($_SESSION["coordinator_logs"] as $log){if($log[0]!="log"){api_dump($log[1],strtoupper($log[0]),API_DUMP_PRINTR,$log[0]);}}
+   foreach($_SESSION["coordinator_logs"] as $log){if($log[0]!="log"){api_dump($log[1],strtoupper($log[0]),$log[0]);}}
    // dump constants, session and globals variables
    api_dump(get_defined_constants(true)["user"],"contants");
    api_dump($GLOBALS['session'],"session");

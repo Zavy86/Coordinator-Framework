@@ -12,7 +12,7 @@
  <text key="dashboard">Bacheca</text>
  <text key="dashboard-description">Bacheca personale</text>
 
- <!-- alerts -->     <!-- @todo verificare forse meglio metterne alcune o tutte nel file di coordinator   -->
+ <!-- alerts -->
  <text key="dashboard_alert_tileError">Si è verificato un errore durante il salvaraggio dell'elemento</text>
  <text key="dashboard_alert_tileNotFound">L'elemento non è stato trovato</text>
  <text key="dashboard_alert_tileCreated">L'elemento è stato creato</text>
