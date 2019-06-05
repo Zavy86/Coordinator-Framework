@@ -61,8 +61,6 @@
   /**
    * Add Separator
    *
-   * @todo verificare a che cosa serve... :/
-   *
    * @param string $separator Separator ( default | hr | br )
    * @param string $class CSS class
    * @return boolean
@@ -96,7 +94,7 @@
       if($element->separator<>null && $this->elements_array[$index+1]->type=="element"){$return.="<".$element->separator.">\n";}else{$return.="\n";}
       break;
      case "separator":
-      $return.=" <".$element->separator.">\n";
+      if($element->separator<>null){$return.=" <".$element->separator.">\n";}
       break;
     }
    }
