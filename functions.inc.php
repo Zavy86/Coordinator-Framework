@@ -69,38 +69,41 @@
  require_once(ROOT."functions/timestamp.inc.php");
  require_once(ROOT."functions/date.inc.php");
 
+ // include structures
+ require_once(ROOT."structures/strHTML.class.php");
+ require_once(ROOT."structures/cDashboard.class.php");
+ require_once(ROOT."structures/cDescriptionList.class.php");
+ require_once(ROOT."structures/cFilter.class.php");
+ require_once(ROOT."structures/cForm.class.php");
+ require_once(ROOT."structures/cGauge.class.php");
+ require_once(ROOT."structures/cGrid.class.php");
+ require_once(ROOT."structures/cList.class.php");
+ require_once(ROOT."structures/cModal.class.php");
+ require_once(ROOT."structures/cNav.class.php");
+ require_once(ROOT."structures/cNavbar.class.php");
+ require_once(ROOT."structures/cOperationsButton.class.php");
+ require_once(ROOT."structures/cPagination.class.php");
+ require_once(ROOT."structures/cPanel.class.php");
+ require_once(ROOT."structures/cParametersForm.class.php");
+ require_once(ROOT."structures/cProgressBar.class.php");
+ require_once(ROOT."structures/cTab.class.php");
+ require_once(ROOT."structures/cTable.class.php");
+
  // include classes
- require_once(ROOT."classes/cLocalization.class.php");
- require_once(ROOT."classes/cDatabase.class.php");
- require_once(ROOT."classes/cEvent.class.php");
- require_once(ROOT."classes/cFilter.class.php");
- require_once(ROOT."classes/cSettings.class.php");
- require_once(ROOT."classes/cMail.class.php");
- require_once(ROOT."classes/cSession.class.php");
- require_once(ROOT."classes/cModule.class.php");
- require_once(ROOT."classes/cMenu.class.php");
- require_once(ROOT."classes/cAuthorization.class.php");
- require_once(ROOT."classes/cUser.class.php");
- require_once(ROOT."classes/cGroup.class.php");
- require_once(ROOT."classes/cHTML.class.php");
- require_once(ROOT."classes/cGrid.class.php");
- require_once(ROOT."classes/cNav.class.php");
- require_once(ROOT."classes/cNavbar.class.php");
- require_once(ROOT."classes/cDashboard.class.php");
- require_once(ROOT."classes/cTable.class.php");
- require_once(ROOT."classes/cForm.class.php");
- require_once(ROOT."classes/cModal.class.php");
- require_once(ROOT."classes/cPanel.class.php");
- require_once(ROOT."classes/cDescriptionList.class.php");
- require_once(ROOT."classes/cOperationsButton.class.php");
- require_once(ROOT."classes/cList.class.php");
- require_once(ROOT."classes/cTab.class.php");
- require_once(ROOT."classes/cProgressBar.class.php");
- require_once(ROOT."classes/cGauge.class.php");
- require_once(ROOT."classes/cPagination.class.php");
- require_once(ROOT."classes/cQuery.class.php");
  require_once(ROOT."classes/cAttachment.class.php");
- require_once(ROOT."classes/cParametersForm.class.php");
+ require_once(ROOT."classes/cAuthorization.class.php");
+ require_once(ROOT."classes/cEvent.class.php");
+ require_once(ROOT."classes/cGroup.class.php");
+ require_once(ROOT."classes/cLocalization.class.php");
+ require_once(ROOT."classes/cMail.class.php");
+ require_once(ROOT."classes/cMenu.class.php");
+ require_once(ROOT."classes/cModule.class.php");
+ require_once(ROOT."classes/cSettings.class.php");
+ require_once(ROOT."classes/cSession.class.php");
+ require_once(ROOT."classes/cUser.class.php");
+ require_once(ROOT."classes/cQuery.class.php");
+
+ require_once(ROOT."classes/cDatabase.class.php");
 
  // build localization instance
  $localization=new cLocalization();
