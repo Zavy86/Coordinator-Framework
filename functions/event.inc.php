@@ -36,8 +36,6 @@
     if($event_fobj->id==$_REQUEST['idEvent']){$tr_class="info";}
     // make note
     $note_td=$event_fobj->note;
-
-    /** @todo check replace*/
     if(strpos($note_td,"{")!==false){
      // key substring
      $key_start=(strpos($note_td,"{")+1);
@@ -55,7 +53,6 @@
      if(strlen($parameter)){$note_td=api_text($key,$parameter);}
      else{$note_td=api_text($key);}
     }
-
     // add event row
     $events_table->addRow($tr_class);
     $events_table->addRowField($event_fobj->getLevel(true,false),"nowrap");

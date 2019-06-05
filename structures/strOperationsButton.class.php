@@ -10,7 +10,7 @@
  */
 
  /**
-  * Operations Button
+  * Operations Button structure class
   */
  class strOperationsButton{
 
@@ -25,7 +25,7 @@
   protected $elements_array;
 
   /**
-   * Operations Button class
+   * Operations Button structure class
    *
    * @param string $icon Icon
    * @param string $label Label
@@ -117,7 +117,7 @@
    // script
    $jQuery="/* Operations Button Hover Script */\n$(\"#".$this->id."\").hover(function(){\$(this).find(\"span\").show();},function(){\$(this).find(\"span\").hide();});";
    // add script to html
-   $GLOBALS['html']->addScript($jQuery);
+   $GLOBALS['app']->addScript($jQuery);
    // return html source code
    return $return;
   }

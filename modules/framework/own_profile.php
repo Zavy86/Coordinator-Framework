@@ -9,7 +9,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("own_profile"));
+ $app->setTitle(api_text("own_profile"));
  // get objects
  $user_obj=$session->user;
  // make avatar delete link
@@ -39,9 +39,9 @@
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html page
- $html->render();
+ $app->render();
  // debug
  api_dump($user_obj,"user");
 ?>

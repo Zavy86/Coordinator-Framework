@@ -9,7 +9,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("framework"));
+ $app->setTitle(api_text("framework"));
  // build dashboard object
  $dashboard=new strDashboard();
  $dashboard->addTile("?mod=".MODULE."&scr=settings_edit&tab=general",api_text("settings_edit"),api_text("settings_edit-description"),(api_checkAuthorization("framework-settings_manage")),"1x1","fa-toggle-on");
@@ -23,7 +23,7 @@
  $grid->addRow();
  $grid->addCol($dashboard->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html page
- $html->render();
+ $app->render();
 ?>

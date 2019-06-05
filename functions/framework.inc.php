@@ -98,4 +98,18 @@
   return $return;
  }
 
+  /**                          /** @todo spostare nelle functions
+   * Count all Sessions
+   */
+  /*public function countAllSessions(){
+   return $GLOBALS['database']->queryUniqueValue("SELECT COUNT(`id`) FROM `framework__sessions`");
+  }*/
+
+  /**
+   * Count Online Users
+   */
+  /*public function countOnlineUsers(){
+   return $GLOBALS['database']->queryUniqueValue("SELECT COUNT(DISTINCT(`fkUser`)) FROM `framework__sessions`");
+  }*/
+
 ?>

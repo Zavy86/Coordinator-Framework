@@ -19,7 +19,7 @@ if(!$group_obj->id){api_alerts_add(api_text("framework_alert_groupNotFound"),"da
 // deleted alert
 if($group_obj->deleted){api_alerts_add(api_text("groups_view-deleted-alert"),"warning");}
 // set html title
-$html->setTitle(api_text("groups_view",$group_obj->name));
+$app->setTitle(api_text("groups_view",$group_obj->name));
 // build left group description list
 $dl_left=new strDescriptionList("br","dl-horizontal");
 $dl_left->addElement(api_text("groups_view-name"),api_tag("strong",$group_obj->name));
@@ -44,9 +44,9 @@ $grid->addCol($dl_left->render(),"col-xs-12 col-sm-5");
 $grid->addCol($dl_right->render(),"col-xs-12 col-sm-7");
 //$grid->addCol($companies_table->render().$users_table->render(),"col-xs-12 col-sm-7");
 // add content to html
-$html->addContent($grid->render());
+$app->addContent($grid->render());
 // renderize html page
-$html->render();
+$app->render();
 // debug
-if($GLOBALS['debug']){api_dump($group_obj,"group_obj");}
+api_dump($group_obj,"group_obj");
 ?>

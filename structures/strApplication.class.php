@@ -1,6 +1,8 @@
 <?php
 /**
- * HTML
+ * Application
+ *
+ * Coordinator Web Application Structure Class
  *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -8,7 +10,7 @@
  */
 
  /**
-  * HTML class
+  * Application structure class
   */
  class strApplication{
 
@@ -25,7 +27,7 @@
   protected $footer;
 
   /**
-   * HTML class
+   * Application structure class
    *
    * @param string $title Page title
    * @param string $language Page language

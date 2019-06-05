@@ -97,7 +97,7 @@
  // build footer grid
  $footer_grid=new strGrid();
  $footer_grid->addRow();
- $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; Coordinator - All Rights Reserved".($GLOBALS['debug']?" [ Queries: ".$GLOBALS['database']->query_counter." | Cached queries: ".$GLOBALS['database']->cache_query_counter." | Execution time: ~".number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs ]":null),"col-xs-12 text-right");
+ $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; Coordinator - All Rights Reserved".(DEBUG?" [ Queries: ".$GLOBALS['database']->query_counter." | Cached queries: ".$GLOBALS['database']->cache_query_counter." | Execution time: ~".number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs ]":null),"col-xs-12 text-right");
  // set footer
  $this->setFooter($footer_grid->render());
  // jQuery scripts

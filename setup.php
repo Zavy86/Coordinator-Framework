@@ -30,9 +30,9 @@
  $settings->owner="Manuel Zavatta";
  $settings->logo=DIR."uploads/framework/logo.default.png";
  // build html object
- $html=new strApplication("Setup");
+ $app=new strApplication("Setup");
  // set html title
- $html->setTitle("Setup");
+ $app->setTitle("Setup");
  // build setup form
  $form=new strForm("setup.php","POST",null,"setup");
  // check for submit
@@ -171,7 +171,7 @@
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html page
- $html->render();
+ $app->render();
 ?>

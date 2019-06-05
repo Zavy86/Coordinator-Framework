@@ -2,13 +2,15 @@
 /**
  * Dashboard
  *
+ * Coordinator Structure Class for Dashboards
+ *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
 
  /**
-  * Dashboard class
+  * Dashboard structure class
   */
  class strDashboard{
 
@@ -22,7 +24,7 @@
   protected $elements_array;
 
   /**
-   * Dashboard class
+   * Dashboard structure class
    *
    * @param string $label Default container label
    * @param string $description Default container description

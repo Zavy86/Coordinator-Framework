@@ -10,7 +10,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("users_add"));
+ $app->setTitle(api_text("users_add"));
  // build profile form
  $form=new strForm("?mod=".MODULE."&scr=submit&act=user_add","POST",null,"users_add");
  $form->addField("text","mail",api_text("users_add-mail"),$user->mail,api_text("users_add-mail-placeholder"),null,null,8,($GLOBALS['settings']->sessions_authentication_method=='standard'?"required":null));
@@ -30,7 +30,7 @@
  $grid->addRow();
  $grid->addCol($form->render("2"),"col-xs-12 col-sm-6");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html page
- $html->render();
+ $app->render();
 ?>

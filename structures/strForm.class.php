@@ -2,13 +2,15 @@
 /**
  * Form
  *
+ * Coordinator Structure Class for Forms
+ *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
 
  /**
-  * Form class
+  * Form structure class
   */
  class strForm{
 
@@ -22,7 +24,7 @@
   protected $current_control;
 
   /**
-   * Form class
+   * Form structure class
    *
    * @param string $action Submit URL
    * @param string $method Submit method ( GET | POST )
@@ -314,7 +316,7 @@
       break;
      // textarea
      case "textarea":
-      $return.=$split_identation."   <textarea".$field_tags.">".$field->value."</textarea>\n"; /** @todo verificare se serve altro */
+      $return.=$split_identation."   <textarea".$field_tags.">".$field->value."</textarea>\n";
       break;
      // text localized
      case "text_localized":
@@ -337,7 +339,7 @@
       $translation_modal=new strModal($field->label,null,$this->id."_input_".$field->name);
       $translation_modal->SetBody($translation_form->render());
       // add translation modal window to html
-      $GLOBALS['html']->addModal($translation_modal);
+      $GLOBALS['app']->addModal($translation_modal);
       // text localized jQuery script
       $jquery="/* Localized Text Field Modal Focus Trigger */\n";
       $jquery.="$(\"#".$this->id."_input_".$field->name."\").focus(function(){\$(\"#modal_".$this->id."_input_".$field->name."\").modal('show');});\n";
@@ -359,7 +361,7 @@
       $jquery.=" }else{alert(\"".api_text("form-input-text_localized-alert")."\");}\n";
       $jquery.="}";
       // add script to html
-      $GLOBALS['html']->addScript($jquery);
+      $GLOBALS['app']->addScript($jquery);
       break;
      // others
      default:

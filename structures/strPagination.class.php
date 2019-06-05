@@ -2,13 +2,15 @@
 /**
  * Pagination
  *
+ * Coordinator Structure Class for Paginations
+ *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
 
  /**
-  * Pagination class
+  * Pagination structure class
   */
  class strPagination{
 
@@ -22,7 +24,7 @@
   protected $query_limits;
 
   /**
-   * Pagination class
+   * Pagination structure class
    *
    * @param integer $records Total number of records
    * @param integer $show Number of record to show

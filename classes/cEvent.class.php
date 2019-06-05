@@ -31,7 +31,7 @@
    */
   public function __construct($event,$module="framework"/*,$table="framework__events"*/){     /** @todo verificare se serve tabella */
    // get object
-   //if(is_numeric($event)){$event=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `".$table."` WHERE `id`='".$event."'",$GLOBALS['debug']);}
+   //if(is_numeric($event)){$event=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `".$table."` WHERE `id`='".$event."'");}
    if(!$event->id){return false;}
    // set properties
    $this->id=(int)$event->id;

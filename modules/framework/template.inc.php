@@ -13,7 +13,7 @@
  if($authorization){if(!api_checkAuthorization($authorization)){api_alerts_add(api_text("alert_unauthorized",array(MODULE,$authorization)),"danger");api_redirect("?mod=".MODULE."&scr=dashboard");}}
 
  // build html object
- $html=new strApplication($module_name);
+ $app=new strApplication($module_name);
  // build nav object
  $nav=new strNav("nav-tabs");
 
@@ -149,5 +149,5 @@
  }
 
  // add nav to html
- $html->addContent($nav->render(false));
+ $app->addContent($nav->render(false));
 ?>

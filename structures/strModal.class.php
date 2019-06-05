@@ -1,8 +1,8 @@
 <?php
 /**
- * Modal Window
+ * Modal
  *
- * Coordinator Structure Class Modal window
+ * Coordinator Structure Class for Modals
  *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -10,7 +10,7 @@
  */
 
  /**
-  * Modal window class
+  * Modal structure class
   */
  class strModal{
 
@@ -24,7 +24,7 @@
   protected $size;
 
   /**
-   * Modal window class
+   * Modal structure class
    *
    * @param string $title Title
    * @param string $class CSS class

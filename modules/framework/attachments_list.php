@@ -10,7 +10,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("attachments_list"));
+ $app->setTitle(api_text("attachments_list"));
  // build filter
  $filter=new strFilter();
  $filter->addSearch(array("id","name","description","typology"));
@@ -65,9 +65,9 @@
   $attachments_modal=new strModal(api_text("attachments_list-modal-title-view"),null,"requests_view-attachments_modal");
   $attachments_modal->setBody($attachment_dl->render());
   // add modal to html object
-  $html->addModal($attachments_modal);
+  $app->addModal($attachments_modal);
   // jQuery scripts
-  $html->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_requests_view-attachments_modal\").modal('show');});");
+  $app->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_requests_view-attachments_modal\").modal('show');});");
  }
  // attachment editing modal window
  if(ACTION=="attachment_edit" && $_REQUEST['idAttachment']){
@@ -90,9 +90,9 @@
   $attachments_modal=new strModal(api_text("attachments_list-modal-title-edit"),null,"requests_view-attachments_modal");
   $attachments_modal->setBody($attachments_form->render(2));
   // add modal to html object
-  $html->addModal($attachments_modal);
+  $app->addModal($attachments_modal);
   // jQuery scripts
-  $html->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_requests_view-attachments_modal\").modal('show');});");
+  $app->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_requests_view-attachments_modal\").modal('show');});");
  }
  // build grid object
  $grid=new strGrid();
@@ -103,9 +103,9 @@
  $grid->addRow();
  $grid->addCol($pagination->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html
- $html->render();
+ $app->render();
  // debug
  api_dump($attachments_array,"attachments_array");
 ?>

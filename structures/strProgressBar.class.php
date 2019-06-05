@@ -2,7 +2,7 @@
 /**
  * Progress Bar
  *
- * Coordinator Structure Class ProgressBar
+ * Coordinator Structure Class for Progress Bars
  *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -10,7 +10,7 @@
  */
 
  /**
-  * Progress Bar class
+  * Progress Bar structure class
   */
  class strProgressBar{
 
@@ -22,7 +22,7 @@
   protected $elements_array;
 
   /**
-   * Progress Bar class
+   * Progress Bar structure class
    *
    * @param string $class CSS class
    * @param string $style Custom CSS

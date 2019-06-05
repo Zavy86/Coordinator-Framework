@@ -9,9 +9,9 @@
  // include functions
  require_once("initializations.inc.php");
  // build html object
- $html=new strApplication($module_name);
+ $app=new strApplication($module_name);
  // set html title
- $html->setTitle("Login");
+ $app->setTitle("Login");
  // build login form manually
  $form_source="<!-- form -->\n";
  $form_source.="<h2>".$GLOBALS['settings']->title."</h2>\n";
@@ -32,9 +32,9 @@
  $grid->addRow();
  $grid->addCol($form_source,"col-xs-12 col-sm-offset-4 col-sm-4 col-sm-offset-4");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html page
- $html->render();
+ $app->render();
  // debug
  api_debug();
 ?>

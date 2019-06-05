@@ -10,7 +10,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("modules_list"));
+ $app->setTitle(api_text("modules_list"));
  // build grid object
  $table=new strTable(api_text("modules_list-tr-unvalued"));
  $table->addHeader("&nbsp;",null,16);
@@ -92,7 +92,7 @@
  $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html
- $html->render();
+ $app->render();
 ?>

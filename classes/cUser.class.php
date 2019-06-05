@@ -45,7 +45,7 @@
    */
   public function __construct($user,$loadAuthorizations=false){
    // get object
-   if(is_numeric($user)){$user=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `id`='".$user."'",$GLOBALS['debug']);}
+   if(is_numeric($user)){$user=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `id`='".$user."'");}
    if(!$user->id){return false;}
    // set properties
    $this->id=(int)$user->id;
@@ -152,8 +152,8 @@
    // definitions
    $groups_array=array();
    // get groups
-   //$groups_results=$GLOBALS['database']->queryObjects("SELECT `framework__users__groups`.* FROM `framework__users__groups` LEFT JOIN `framework__groups` ON `framework__groups`.`id`=`framework__users__groups`.`fkGroup` WHERE `framework__users__groups`.`fkUser`='".$this->id."' ORDER BY `framework__users__groups`.`main` DESC,`framework__groups`.`name` ASC",$GLOBALS['debug']);
-   $groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users__groups` WHERE `fkUser`='".$this->id."' ORDER BY `main` DESC",$GLOBALS['debug']);
+   //$groups_results=$GLOBALS['database']->queryObjects("SELECT `framework__users__groups`.* FROM `framework__users__groups` LEFT JOIN `framework__groups` ON `framework__groups`.`id`=`framework__users__groups`.`fkGroup` WHERE `framework__users__groups`.`fkUser`='".$this->id."' ORDER BY `framework__users__groups`.`main` DESC,`framework__groups`.`name` ASC");
+   $groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users__groups` WHERE `fkUser`='".$this->id."' ORDER BY `main` DESC");
    foreach($groups_results as $result_f){
     $group=new stdClass();
     $group->id=$result_f->fkGroup;
@@ -170,7 +170,7 @@
    * @return integer id of main group
    */
   public function getMainGroup(){
-   return $GLOBALS['database']->queryUniqueValue("SELECT `fkGroup` FROM `framework__users__groups` WHERE `fkUser`='".$this->id."' AND `main`='1'",$GLOBALS['debug']);
+   return $GLOBALS['database']->queryUniqueValue("SELECT `fkGroup` FROM `framework__users__groups` WHERE `fkUser`='".$this->id."' AND `main`='1'");
   }
 
   /**

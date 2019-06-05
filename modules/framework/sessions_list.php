@@ -10,7 +10,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("sessions_list"));
+ $app->setTitle(api_text("sessions_list"));
  // build grid object
  $table=new strTable(api_text("accounts_list-tr-unvalued"));
  $table->addHeader("&nbsp;",null,16);
@@ -23,7 +23,7 @@
  // definitions
  $users_array=array();
  // acquire sessions
- $sessions_results=$GLOBALS['database']->queryObjects("SELECT `framework__sessions`.* FROM `framework__sessions` JOIN `framework__users` ON `framework__users`.`id`=`framework__sessions`.`fkUser` ORDER BY `lastname`,`firstname`,`lastTimestamp`",$GLOBALS['debug']);
+ $sessions_results=$GLOBALS['database']->queryObjects("SELECT `framework__sessions`.* FROM `framework__sessions` JOIN `framework__users` ON `framework__users`.`id`=`framework__sessions`.`fkUser` ORDER BY `lastname`,`firstname`,`lastTimestamp`");
  foreach($sessions_results as $session_r){
   if(!array_key_exists($session_r->fkUser,$users_array)){
    $users_array[$session_r->fkUser]=new cUser($session_r->fkUser);
@@ -53,7 +53,7 @@
  $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html
- $html->render();
+ $app->render();
 ?>

@@ -9,9 +9,9 @@
  // include functions
  require_once("initializations.inc.php");
  // build html object
- $html=new strApplication($module_name);
+ $app=new strApplication($module_name);
  // set html title
- $html->setTitle("Recovery");
+ $app->setTitle("Recovery");
  // build recovery form
  $form=new strForm("?mod=framework&scr=submit&act=user_recovery");
  $form->addField("email","mail",api_text("recovery-ff-account"),null,api_text("recovery-ff-account-placeholder"),null,null,null,"required");
@@ -22,7 +22,7 @@
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html page
- $html->render();
+ $app->render();
 ?>

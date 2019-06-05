@@ -59,7 +59,7 @@
    */
   public function load(){
    // retrieve session from database
-   $session_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__sessions` WHERE `id`='".$_SESSION['coordinator_session_id']."'",$GLOBALS['debug']);
+   $session_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__sessions` WHERE `id`='".$_SESSION['coordinator_session_id']."'");
    // check if session not exist or is expired
    if(!$session_obj->id||(time()-$session_obj->lastTimestamp)>$GLOBALS['settings']->sessions_idle_timeout){
     // unset session id and return
@@ -93,7 +93,7 @@
   /**
    * Build
    *
-   * @param string $account Account User ID
+   * @param integer $account Account User ID
    * @return boolean
    */
   public function build($account){
@@ -119,29 +119,17 @@
   /**
    * Destroy
    */
-  public function destroy(){ /** @todo cercare un nome decente.. */
+  public function destroy(){
    // destroy session
-   //session_destroy();  /** @todo ora distruggo solo variabili di coordinator non tutta la sessione vedere se parametrizzare o lasciare cosi */
-   //session_start();
+   $_SESSION['coordinator_debug']=null;
    $_SESSION['coordinator_session_id']=null;
+   $_SESSION['coordinator_alerts']=null;
    $_SESSION['coordinator_logs']=null;
+   /** @todo verificare quale usare e spostare tutto dentro l'array.. verificare se usare hash dell'url o altro..
+   $_SESSION['coordinator']=null;
+   unset($_SESSION['coordinator']);
+   */
   }
-
-  /**                          /** @todo spostare nelle functions 
-   * Count all Sessions
-   */
-  /*public function countAllSessions(){
-   /** @todo cercare un nome decente..
-   return $GLOBALS['database']->queryUniqueValue("SELECT COUNT(`id`) FROM `framework__sessions`");
-  }*/
-
-  /**
-   * Count Online Users
-   */
-  /*public function countOnlineUsers(){
-   /** @todo cercare un nome decente..
-   return $GLOBALS['database']->queryUniqueValue("SELECT COUNT(DISTINCT(`fkUser`)) FROM `framework__sessions`");
-  }*/
 
  }
 

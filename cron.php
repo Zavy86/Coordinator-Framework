@@ -9,7 +9,7 @@
  // include functions
  require_once("initializations.inc.php");
  // check for debug
- if($_GET['debug']==1){$GLOBALS['debug']=true;}else{$GLOBALS['debug']=false;}
+ if($_GET['debug']==1){$_GET['debug']=true;}else{$_GET['debug']=false;}
  // check token
  if($_REQUEST['token']!==$GLOBALS['settings']->token_cron){die("TOKEN ERROR");} /** @todo attivare dopo i test */
  // debug
@@ -40,17 +40,17 @@
  api_dump($cronjobs_path,"cronjobs_path");
  foreach($cronjobs_path as $job_path){if(file_exists($job_path)){include $job_path;}}
  // include hourly cron jobs
- if((int)date("i")<5 || $GLOBALS['debug']){
+ if((int)date("i")<5 || DEBUG){
   api_dump($cronjobs_hourly_path,"cronjobs_hourly_path");
   foreach($cronjobs_hourly_path as $job_path){if(file_exists($job_path)){include $job_path;}}
  }
  // include daily cron jobs
- if((date("H")==0 && (int)date("i")<5) || $GLOBALS['debug']){
+ if((date("H")==0 && (int)date("i")<5) || DEBUG){
   api_dump($cronjobs_daily_path,"cronjobs_daily_path");
   foreach($cronjobs_daily_path as $job_path){if(file_exists($job_path)){include $job_path;}}
  }
  // include weekly cron jobs on sunday
- if((date("w")==0 && date("H")==0 && (int)date("i")<5) || $GLOBALS['debug']){
+ if((date("w")==0 && date("H")==0 && (int)date("i")<5) || DEBUG){
   api_dump($cronjobs_weekly_path,"cronjobs_weekly_path");
   foreach($cronjobs_weekly_path as $job_path){if(file_exists($job_path)){include $job_path;}}
  }

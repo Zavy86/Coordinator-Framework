@@ -15,7 +15,7 @@
  // check if module is enabled
  if(!in_array(MODULE,array("dashboard","framework"))){
   $module=new cModule(MODULE);
-  if(!$module->enabled && !$GLOBALS['debug']){die("MODULE DISABLED: The module ".MODULE." is not enabled");}
+  if(!$module->enabled && !DEBUG){die("MODULE DISABLED: The module ".MODULE." is not enabled");}
  }
  // load module
  if(file_exists(MODULE_PATH."module.inc.php")){require_once(MODULE_PATH."module.inc.php");}else{die("ERROR LOADING MODULE: File modules/".MODULE."/module.inc.php was not found");}

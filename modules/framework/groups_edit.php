@@ -12,7 +12,7 @@
  // get objects
  $group=new cGroup($_REQUEST['idGroup']);
  // set html title
- $html->setTitle(($group->id?api_text("groups_edit"):api_text("groups_add")));
+ $app->setTitle(($group->id?api_text("groups_edit"):api_text("groups_add")));
 
  /**
   * Groups tree to form select option
@@ -55,9 +55,9 @@
  $grid->addRow();
  $grid->addCol($form->render("2"),"col-xs-12 col-sm-6");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html page
- $html->render();
+ $app->render();
  // debug
- if($GLOBALS['debug']){api_dump($group,"group");}
+ api_dump($group,"group");
 ?>

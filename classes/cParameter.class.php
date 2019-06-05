@@ -26,7 +26,7 @@
    */
   public function __construct($parameter){
    // get object
-   if(is_numeric($parameter)){$parameter=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users__parameters` WHERE `id`='".$parameter."'",$GLOBALS['debug']);}
+   if(is_numeric($parameter)){$parameter=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users__parameters` WHERE `id`='".$parameter."'");}
    if(!$parameter->id){return false;}
    // set properties
    $this->id=(int)$parameter->id;

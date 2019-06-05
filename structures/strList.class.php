@@ -2,7 +2,7 @@
 /**
  * List
  *
- * Coordinator Structure Class List
+ * Coordinator Structure Class for Lists
  *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -10,7 +10,7 @@
  */
 
  /**
-  * List class
+  * List structure structure class
   */
  class strList{
 
@@ -24,7 +24,7 @@
   protected $elements_array;
 
   /**
-   * List class
+   * List structure structure class
    *
    * @param string $tag List HTML tag ( ul | ol )
    * @param string $icon Item icon

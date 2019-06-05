@@ -2,7 +2,7 @@
 /**
  * Panel
  *
- * Coordinator Structure Class Panel window
+ * Coordinator Structure Class for Panels
  *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -10,7 +10,7 @@
  */
 
  /**
-  * Panel class
+  * Panel structure class
   */
  class strPanel{
 
@@ -26,7 +26,7 @@
   protected $footer_class;
 
   /**
-   * Panel class
+   * Panel structure class
    *
    * @param string $title Title
    * @param string $class CSS class

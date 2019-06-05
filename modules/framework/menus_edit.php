@@ -12,7 +12,7 @@
  // get objects
  $menu_obj=new cMenu($_REQUEST['idMenu']);
  // set html title
- $html->setTitle(($menu_obj->id?api_text("menus_edit"):api_text("menus_add")));
+ $app->setTitle(($menu_obj->id?api_text("menus_edit"):api_text("menus_add")));
  // build profile form
  $form=new strForm("?mod=".MODULE."&scr=submit&act=menu_save&idMenu=".$menu_obj->id,"POST",null,"menus_edit");
  $form->addField("select","fkMenu",api_text("menus_edit-fkMenu"),$menu_obj->fkMenu);
@@ -81,12 +81,12 @@ EOS;
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // add scripts to html
- $html->addScript($jquery);
- $html->addScript("/* Font Awesome Icon Picker */\n$(function(){\$(\"#form_menus_edit_input_icon\").iconpicker();});");
+ $app->addScript($jquery);
+ $app->addScript("/* Font Awesome Icon Picker */\n$(function(){\$(\"#form_menus_edit_input_icon\").iconpicker();});");
  // renderize html page
- $html->render();
+ $app->render();
  // debug
- if($GLOBALS['debug']){api_dump($menu_obj,"menu");}
+ api_dump($menu_obj,"menu");
 ?>

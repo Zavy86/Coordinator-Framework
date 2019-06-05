@@ -10,7 +10,7 @@
  /**
   * Database class
   */
- class cDatabase{                   /** @todo verificare come togliere il parametro debug e prenderlo dalla sessione */
+ class cDatabase{                                                  /** @todo commentare bene*/
 
   /** Properties */
   private $connection;
@@ -20,10 +20,14 @@
   public $query_counter;
   public $cache_query_counter;
 
-  /** @todo commentare bene*/
-
+  /**
+   *
+   * @global type $configuration
+   */
   public function __construct(){
+   //
    global $configuration;
+   //
    try{
     $this->connection=new PDO($configuration->db_type.":host=".$configuration->db_host.";port=".$configuration->db_port.";dbname=".$configuration->db_name.";charset=utf8",$configuration->db_user,$configuration->db_pass);
     $this->connection->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND,"SET NAMES utf8");
@@ -86,7 +90,7 @@
   }
 
 
-  public function queryObjects($sql,$debug=false,$cache=true){
+  public function queryObjects($sql,$cache=true){
    $_SESSION['coordinator_logs'][]=array("log","PDO queryObjects: ".$sql);
    // check for cache
    if($cache){
@@ -97,7 +101,7 @@
    try{
     $results=$this->connection->query($sql);
     $return=$results->fetchAll(PDO::FETCH_OBJ);
-    if($debug){$_SESSION['coordinator_logs'][]=array("log","PDO queryObjects results:\n".var_export($return,true));}
+    if(DEBUG){$_SESSION['coordinator_logs'][]=array("log","PDO queryObjects results:\n".var_export($return,true));}
    }catch(PDOException $e){
     $_SESSION['coordinator_logs'][]=array("warn","PDO queryObjects: ".$e->getMessage());
     $return=false;
@@ -109,7 +113,7 @@
   }
 
 
-  public function queryUniqueObject($sql,$debug=false,$cache=true){
+  public function queryUniqueObject($sql,$cache=true){
    $sql.=" LIMIT 0,1";
    $_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueObject: ".$sql);
    // check for cache
@@ -121,7 +125,7 @@
    try{
     $results=$this->connection->query($sql);
     $return=$results->fetch(PDO::FETCH_OBJ);
-    if($debug){$_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueObject result:\n".var_export($return,true));}
+    if(DEBUG){$_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueObject result:\n".var_export($return,true));}
    }catch(PDOException $e){
     $_SESSION['coordinator_logs'][]=array("warn","PDO queryUniqueObject: ".$e->getMessage());
     $return=false;
@@ -133,7 +137,7 @@
   }
 
 
-  public function queryUniqueValue($sql,$debug=false,$cache=true){
+  public function queryUniqueValue($sql,$cache=true){
    $sql.=" LIMIT 0,1";
    $_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueValue: ".$sql);
    // check for cache
@@ -145,7 +149,7 @@
    try{
     $results=$this->connection->query($sql);
     $return=$results->fetch(PDO::FETCH_NUM)[0];
-    if($debug){$_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueValue result: ".$return);}
+    if(DEBUG){$_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueValue result: ".$return);}
     }catch(PDOException $e){
     $_SESSION['coordinator_logs'][]=array("warn","PDO queryUniqueValue: ".$e->getMessage());
     $return=false;

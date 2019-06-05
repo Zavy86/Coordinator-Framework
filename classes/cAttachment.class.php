@@ -35,7 +35,7 @@
    */
   public function __construct($attachment){
    // get object
-   if(is_string($attachment)){$attachment=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__attachments` WHERE `id`='".$attachment."'",$GLOBALS['debug']);}
+   if(is_string($attachment)){$attachment=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__attachments` WHERE `id`='".$attachment."'");}
    if(!$attachment->id){return false;}
    // set properties
    $this->id=stripslashes($attachment->id);

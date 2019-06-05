@@ -2,13 +2,15 @@
 /**
  * Tab
  *
+ * Coordinator Structure Class for Tabs
+ *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
 
  /**
-  * Tab class
+  * Tab structure class
   */
  class strTab{
 
@@ -20,7 +22,7 @@
   protected $current_item;
 
   /**
-   * Tab class
+   * Tab structure class
    *
    * @param string $id Tab ID
    * @return boolean
