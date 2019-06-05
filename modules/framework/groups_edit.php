@@ -59,5 +59,5 @@
  // renderize html page
  $app->render();
  // debug
- if($GLOBALS['debug']){api_dump($group,"group");}
+ api_dump($group,"group");
 ?>

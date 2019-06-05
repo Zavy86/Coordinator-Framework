@@ -9,7 +9,7 @@
  // include functions
  require_once("initializations.inc.php");
  // check for debug
- if($_GET['debug']==1){$GLOBALS['debug']=true;}else{$GLOBALS['debug']=false;}
+ if($_GET['debug']==1){DEBUG=true;}else{DEBUG=false;}
  // debug
  api_dump($_REQUEST);
  // get attachment

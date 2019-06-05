@@ -29,5 +29,5 @@
  // renderize html page
  $app->render();
  // debug
- if($GLOBALS['debug']){api_dump($attachment,"attachment");}
+ api_dump($attachment,"attachment");
 ?>

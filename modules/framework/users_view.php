@@ -83,5 +83,5 @@
  // renderize html page
  $app->render();
  // debug
- if($GLOBALS['debug']){api_dump($user_obj,"user_obj");}
+ api_dump($user_obj,"user_obj");
 ?>

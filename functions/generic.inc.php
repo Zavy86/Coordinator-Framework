@@ -16,7 +16,7 @@
   * @param string $class Dump class
   */
  function api_dump($variable,$label=null,$function=API_DUMP_PRINTR,$class=null){
-  if(!$GLOBALS['debug']){return false;}
+  if(!DEBUG){return false;}
   echo "\n\n<!-- dump -->\n";
   echo "<pre class='debug ".$class."'>\n";
   if($label<>null){echo "<strong>".$label."</strong><br>";}
@@ -38,11 +38,14 @@
  define('API_DUMP_VARDUMP',2);
 
  /**
-  * Renderize sessions and globals variables for debug
+  * Renderize logs, constants, sessions and globals variables for debug
   */
  function api_debug(){
-  if($GLOBALS['debug']){    /** @todo commentare meglio */
+  // check for debug
+  if(DEBUG){
+   // cycle all logs and dump warning and errors
    foreach($_SESSION["coordinator_logs"] as $log){if($log[0]!="log"){api_dump($log[1],strtoupper($log[0]),API_DUMP_PRINTR,$log[0]);}}
+   // dump constants, session and globals variables
    api_dump(get_defined_constants(true)["user"],"contants");
    api_dump($GLOBALS['session'],"session");
    api_dump($GLOBALS['settings'],"settings");
@@ -52,53 +55,38 @@
  }
 
  /**
-  * Redirect
+  * Redirect or show redirection link in debug mode)
   *
   * @param string $location Location URL
   */
  function api_redirect($location){
-  if($GLOBALS['debug']){
+  // check for debug
+  if(DEBUG){
+   // renderize redirect link
    echo "<div class='redirect'>".api_tag("strong","REDIRECT")."<br>".api_link($location,$location)."</div>";
    echo "<link href=\"".HELPERS."bootstrap/css/bootstrap-3.3.7-custom.css\" rel=\"stylesheet\">\n";
+   // renderize debug
    api_debug();
+   // block application
    die();
   }
+  // direct redirect
   exit(header("location: ".$location));
  }
 
  /**
-  * Tag
-  *
-  * @param string $tag HTML Tag
-  * @param string $text Content
-  * @param string $class CSS class
-  * @param string $style Style tags
-  * @param string $tags Custom HTML tags
-  * @return string|boolean Tag HTML source code or false
-  */
- function api_tag($tag,$text,$class=null,$style=null,$tags=null){
-  if(!strlen($text)){return false;}
-  if(!$tag){return $text;}
-  $html="<".$tag;
-  if($class){$html.=" class=\"".$class."\"";}
-  if($style){$html.=" style=\"".$style."\"";}
-  if($tags){$html.=" ".$tags;}
-  $html.=">".$text."</".$tag.">";
-  return $html;
- }
-
- /**
-  * Text
+  * Get localized text from key
   *
   * @param string $key Text key
-  * @param array $parameters[] Array of parameters
+  * @param string[] $parameters Array of parameters
+  * @param string $localization_code Localization code (Default current)
   * @return string|boolean Localized text with parameters or false
   */
- function api_text($key,$parameters=null,$localization=null){
+ function api_text($key,$parameters=null,$localization_code=null){
   if(!$key){return false;}
   if(!is_array($parameters)){if(!$parameters){$parameters=array();}else{$parameters=array($parameters);}}
   // get text by key from locale array
-  $text=$GLOBALS['localization']->getString($key,$localization);
+  $text=$GLOBALS['localization']->getString($key,$localization_code);
   // if key not found
   if(!$text){$text=str_replace("|}","}","{".$key."|".implode("|",$parameters)."}");}
   // replace parameters
@@ -108,7 +96,32 @@
  }
 
  /**
-  * Link
+  * Make an HTML tag source code
+  *
+  * @param string $tag HTML Tag
+  * @param string $text Content
+  * @param string $class CSS class
+  * @param string $style Style tags
+  * @param string $tags Custom HTML tags
+  * @return string|boolean HTML tag source code or false
+  */
+ function api_tag($tag,$text,$class=null,$style=null,$tags=null){
+  // check parameters
+  if(!strlen($text)){return false;}
+  if(!$tag){return $text;}
+  // make html source code
+  $html="<".$tag;
+  if($class){$html.=" class=\"".$class."\"";}
+  if($style){$html.=" style=\"".$style."\"";}
+  if($tags){$html.=" ".$tags;}
+  $html.=">".$text."</".$tag.">";
+  // return
+  return $html;
+ }
+
+ /**
+  * Make an HTML link source code
+  *
   * @param string $url URL
   * @param string $label Label
   * @param string $title Title
@@ -119,13 +132,15 @@
   * @param string $tags Custom HTML tags
   * @param string $target Target window
   * @param string $id Link ID or random created
-  * @return string link
+  * @return string|boolean HTML link source code or false
   */
  function api_link($url,$label,$title=null,$class=null,$popup=false,$confirm=null,$style=null,$tags=null,$target="_self",$id=null){
+  // check parameters
   if(!$url){return false;}
   if(!$label){return false;}
-  if(!$id){$id=rand(1,99999);}
+  if(!$id){$id=api_random();}
   if(substr($url,0,1)=="?"){$url="index.php".$url;}
+  // make html source code
   $return="<a id=\"link_".$id."\" href=\"".$url."\"";
   if($class){$return.=" class=\"".$class."\"";}
   if($style){$return.=" style=\"".$style."\"";}
@@ -136,11 +151,13 @@
   if($confirm){$return.=" onClick=\"return confirm('".addslashes($confirm)."')\"";}
   if($tags){$return.=" ".$tags;}
   $return.=" target=\"".$target."\">".$label."</a>";
+  // return
   return $return;
  }
 
  /**
-  * Mail Link
+  * Make an HTML mail link source code
+  *
   * @param string $address Mail address
   * @param string $label Link label
   * @param string $title Title
@@ -149,13 +166,13 @@
   * @param string $tags Custom HTML tags
   * @param string $target Target window
   * @param string $id Link ID or random created
-  * @return string mail link
+  * @return string|boolean HTML mail link source code or false
   */
  function api_mail_link($address,$label=null,$title=null,$class=null,$style=null,$tags=null,$target="_self",$id=null){
   // check parameters
   if(!$address){return false;}
   if(!$label){$label=$address;}
-  if(!$id){$id=rand(1,99999);}
+  if(!$id){$id=api_random();}
   // make current uri array
   parse_str(parse_url($_SERVER['REQUEST_URI'])['query'],$uri_array);
   $uri_array['return_mod']=$uri_array['mod'];unset($uri_array['mod']);
@@ -166,6 +183,7 @@
   $link="index.php?mod=framework&scr=mails_add";
   $link.="&recipient=".$address;
   $link.="&".http_build_query($uri_array);
+  // make html source code
   $return="<a id=\"link_".$id."\" href=\"".$link."\"";
   if($title){$return.=" title=\"".$title."\"";}
   if($class){$return.=" class=\"".$class."\"";}
@@ -177,7 +195,7 @@
  }
 
  /**
-  * Image
+  * Make an HTML image source code
   *
   * @param string $path Image path
   * @param string $class CSS class
@@ -185,40 +203,46 @@
   * @param string $height Height
   * @param booelan $refresh Add random string for cache refresh
   * @param string $tags HTML tags
-  * @return string|boolean Image html source code or false
+  * @return string|boolean HTML image source code or false
   */
  function api_image($path,$class=null,$width=null,$height=null,$refresh=false,$tags=null){
+  // check parameters
   if(!$path){return false;}
-  if($refresh){$refresh="?".rand(1,99999);}
+  if($refresh){$refresh="?".api_random();}
+  // make html source code
   $return="<img src=\"".$path.$refresh."\"";
   if($class){$return.=" class=\"".$class."\"";}
   if($width){$return.=" width=\"".$width."\"";}
   if($height){$return.=" height=\"".$height."\"";}
   if($tags){$return.=" ".$tags;}
   $return.=">";
+  // return
   return $return;
  }
 
  /**
-  * Icon
+  * Make an HTML icon source code
   *
   * @param string $icon Glyphs
   * @param string $title Title
   * @param string $class CSS class
   * @param string $style Custom CSS
   * @param string $tags Custom HTML tags
-  * @return string|boolean Icon html source code or false
+  * @return string|boolean HTML icon source code or false
   */
  function api_icon($icon,$title=null,$class=null,$style=null,$tags=null){
+  // check parameters
   if($icon==null){return false;}
   if(substr($icon,0,2)=="fa"){$icon="fa fa-fw ".$icon;}
   else{$icon="glyphicon glyphicon-".$icon;}
   if(is_int(strpos($class,"hidden-link"))){$icon.=" faa-tada animated-hover";}
+  // make html source code
   $return="<i class=\"".$icon." ".$class."\"";
   if($title){$return.=" title=\"".$title."\"";}
   if($style){$return.=" style=\"".$style."\"";}
   if($tags){$return.=" ".$tags."";}
   $return.=" aria-hidden=\"true\"></i>";
+  // return
   return $return;
  }
 
@@ -250,7 +274,7 @@
   * @return boolean alert saved status
   */
  function api_alerts_add($message,$class="info"){
-  // checks
+  // check parameters
   if(!$message){return false;}
   if(!is_array($_SESSION['coordinator_alerts'])){$_SESSION['coordinator_alerts']=array();}
   // build alert object
@@ -258,6 +282,7 @@
   $alert->timestamp=time();
   $alert->message=$message;
   $alert->class=$class;
+  // add alert to session alerts array
   $_SESSION['coordinator_alerts'][]=$alert;
   // return
   return true;
@@ -312,7 +337,7 @@
   if($inherited && $authorization=="inherited"){return true;}
   // check superuser
   if($superuser && $GLOBALS['session']->user->superuser){
-   if($GLOBALS['debug']){api_alerts_add("Check permission [".$module."][".$action."] = SUPERUSER","warning");}
+   if(DEBUG){api_alerts_add("Check permission [".$module."][".$action."] = SUPERUSER","warning");}
    return true;
   }
   // unauthorized redirection to script

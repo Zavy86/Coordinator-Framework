@@ -69,7 +69,7 @@
    // check for smtp
    if($GLOBALS['settings']->sendmail_method=="smtp"){
     $mailer->isSMTP();
-    //if($GLOBALS['debug']){$mailer->SMTPDebug=2;}
+    //if(DEBUG){$mailer->SMTPDebug=2;}
     $mailer->Host=$GLOBALS['settings']->sendmail_smtp_hostname;
     // check for authentication
     if($GLOBALS['settings']->sendmail_smtp_username){

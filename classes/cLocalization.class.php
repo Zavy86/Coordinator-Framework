@@ -68,7 +68,8 @@
   /**
    * Get Localized String
    *
-   * @param string $property Property name
+   * @param string $key Text key
+   * @param string $localization_code Localization code
    * @return mixed value
    */
   public function getString($key,$localization_code=null){

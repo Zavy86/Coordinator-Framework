@@ -88,5 +88,5 @@ EOS;
  // renderize html page
  $app->render();
  // debug
- if($GLOBALS['debug']){api_dump($menu_obj,"menu");}
+ api_dump($menu_obj,"menu");
 ?>

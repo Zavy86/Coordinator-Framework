@@ -70,5 +70,5 @@
  // renderize html
  $app->render();
  // debug
- if($GLOBALS['debug']){api_dump($module_obj,"selected_module");}
+ api_dump($module_obj,"selected_module");
 ?>

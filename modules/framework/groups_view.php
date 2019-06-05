@@ -48,5 +48,5 @@ $app->addContent($grid->render());
 // renderize html page
 $app->render();
 // debug
-if($GLOBALS['debug']){api_dump($group_obj,"group_obj");}
+api_dump($group_obj,"group_obj");
 ?>

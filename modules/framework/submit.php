@@ -528,7 +528,7 @@ function module_update_source(){
 function module_update_database(){
  // disabled for localhost and 127.0.0.1
  if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){$localhost_update=true;} /** @todo vedere come fare se inibire le query o meno in localhost */
- if($localhost_update && !$GLOBALS['debug']){api_alerts_add(api_text("framework_alert_moduleErrorLocalhost"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
+ if($localhost_update && !DEBUG){api_alerts_add(api_text("framework_alert_moduleErrorLocalhost"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  // get objects
  $module_obj=new cModule($_REQUEST['module']);
  api_dump($module_obj->version,"version");

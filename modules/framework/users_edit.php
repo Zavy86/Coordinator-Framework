@@ -62,5 +62,5 @@
  // renderize html page
  $app->render();
  // debug
- if($GLOBALS['debug']){api_dump($user,"user");}
+ api_dump($user,"user");
 ?>

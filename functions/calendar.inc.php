@@ -13,7 +13,7 @@
   * @param integer $start number of day to start
   * @return array Weekly Days
   */
- function api_calendar_weekly_days($start=null){  /** @todo verificare */
+ function api_calendar_weekly_days($start=null){
   // definitions
   $days_array=array(1=>"monday",2=>"tuesday",3=>"wednesday",4=>"thursday",5=>"friday",6=>"saturday",0=>"sunday");
   /** @todo fare tramite impostazioni con primo giorno della settimana 0 o 1 */
