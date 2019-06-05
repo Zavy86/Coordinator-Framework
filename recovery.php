@@ -1,6 +1,6 @@
 <?php
 /**
- * Login
+ * Recovery
  *
  * @package Coordinator
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -11,7 +11,7 @@
  // build html object
  $html=new cHTML($module_name);
  // set html title
- $html->setTitle("Login");
+ $html->setTitle("Recovery");
  // build recovery form
  $form=new cForm("?mod=framework&scr=submit&act=user_recovery");
  $form->addField("email","mail",api_text("recovery-ff-account"),null,api_text("recovery-ff-account-placeholder"),null,null,null,"required");

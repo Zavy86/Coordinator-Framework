@@ -5,8 +5,9 @@
  * @package Coordinator
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
-  */
+ */
 
+ // start session
  session_start();
 
  // definitions
@@ -155,9 +156,9 @@
   if($GLOBALS['debug']){
    foreach($_SESSION["coordinator_logs"] as $log){if($log[0]!="log"){api_dump($log[1],strtoupper($log[0]),API_DUMP_PRINTR,$log[0]);}}
    api_dump(get_defined_constants(true)["user"],"contants");
-   api_dump($GLOBALS['session']->debug(),"session");
-   api_dump($GLOBALS['settings']->debug(),"settings");
-   //api_dump($GLOBALS['localization']->debug(),"localization");
+   api_dump($GLOBALS['session'],"session");
+   api_dump($GLOBALS['settings'],"settings");
+   //api_dump($GLOBALS['localization'],"localization");
    api_dump($_SESSION["coordinator_logs"],"logs");
   }
  }

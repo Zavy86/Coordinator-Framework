@@ -1,6 +1,6 @@
 <?php
 /**
- * Dashboard - Edit
+ * Dashboard - Customize
  *
  * @package Coordinator\Modules\Dashboard
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -10,10 +10,8 @@
  require_once(MODULE_PATH."template.inc.php");
  // set html title
  $html->setTitle(api_text("dashboard_customize"));
-
  // get objects
  $selected_tile_obj=new cDashboardTile($_REQUEST['idTile']);
-
  // build table
  $table=new cTable(api_text("dashboard_customize-tr-unvalued"));
  // build table header
@@ -95,5 +93,5 @@
  // renderize html page
  $html->render();
  // debug
- if($GLOBALS['debug']){api_dump($selected_tile_obj,"selected tile");}
+ api_dump($selected_tile_obj,"selected tile object");
 ?>

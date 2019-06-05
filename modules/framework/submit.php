@@ -804,7 +804,7 @@ function user_login(){
  $r_password=$_REQUEST['password'];
  //
  api_dump($_SESSION["coordinator_session_id"],"session_id");
- api_dump($GLOBALS['session']->debug(),"session");
+ api_dump($GLOBALS['session'],"session");
  // switch authentication method
  switch($GLOBALS['settings']->sessions_authentication_method){
   case "ldap":
@@ -825,7 +825,7 @@ function user_login(){
  $GLOBALS['session']->build($authentication_result);
  //
  api_dump($_SESSION["coordinator_session_id"],"session_id after");
- api_dump($GLOBALS['session']->debug(),"session after");
+ api_dump($GLOBALS['session'],"session after");
  // build user query objects
  $user_qobj=new stdClass();
  // acquire variables

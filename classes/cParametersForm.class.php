@@ -21,13 +21,6 @@
   protected $current_parameter;
 
   /**
-   * Debug
-   *
-   * @return object Parameters Form object
-   */
-  public function debug(){return $this;}
-
-  /**
    * ParametersForm class
    *
    * @param string $module Module for parameters

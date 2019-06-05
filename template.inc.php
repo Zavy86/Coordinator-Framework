@@ -36,11 +36,9 @@
  $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.7.min.js",true);
  $this->addScript(HELPERS."bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",true);
  $this->addScript(HELPERS."bootstrap-faiconpicker/js/bootstrap-faiconpicker-1.3.0.min.js",true);
-
  // build header navbar object
  $header_navbar=new cNavbar($GLOBALS['settings']->title,"navbar-default navbar-fixed-top");
  $header_navbar->addNav();
-
  // check session
  if($GLOBALS['session']->validity){
   $header_navbar->addItem(api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover"),"?mod=dashboard");
@@ -91,11 +89,9 @@
    if($GLOBALS['session']->user->superuser){$header_navbar->addSubItem(api_text("nav-debug")." ".api_icon("fa-code"),"index.php?debug=".(!$_SESSION['coordinator_debug']),true,"text-right inactive");}
   }
   $header_navbar->addSubItem(api_text("nav-logout")." ".api_icon("fa-sign-out"),"?mod=framework&scr=submit&act=user_logout",true,"text-right");
-
  }else{
   /** @todo collegamenti per i non loggati.. regolamento? privacy? boh? */
  }
-
  // set header
  $this->setHeader($header_navbar->render(false));
  // build footer grid
@@ -104,9 +100,7 @@
  $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; Coordinator - All Rights Reserved".($GLOBALS['debug']?" [ Queries: ".$GLOBALS['database']->query_counter." | Cached queries: ".$GLOBALS['database']->cache_query_counter." | Execution time: ~".number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs ]":null),"col-xs-12 text-right");
  // set footer
  $this->setFooter($footer_grid->render());
-
  // jQuery scripts
  $this->addScript("/* Popover Script */\n$(function(){\$(\"[data-toggle='popover']\").popover({'trigger':'hover'});});");
  $this->addScript("/* Current Row Timeout Script */\n$(function(){setTimeout(function(){\$('.currentrow').removeClass('info');},5000);});");
-
 ?>

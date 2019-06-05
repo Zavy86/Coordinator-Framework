@@ -5,15 +5,14 @@
  ! @package Coordinator\Localizations
  ! @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  ! @link    http://www.coordinator.it
- !
 <!-->
 <locale>
 
  <code>it_IT</code>
  <localization>Italiano</localization>
 
- <text key="yes">Sì</text>
  <text key="no">No</text>
+ <text key="yes">Sì</text>
 
  <!-- datetimes -->
  <text key="time">H:i</text>
