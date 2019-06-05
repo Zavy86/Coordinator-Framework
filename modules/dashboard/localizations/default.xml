@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!-->
+ ! Default localization
+ !
+ ! @package Coordinator\Localizations
+ ! @author  Manuel Zavatta <manuel.zavatta@gmail.com>
+ ! @link    http://www.coordinator.it
+<!-->
 <locale>
 
  <!-- dashboard -->
  <text key="dashboard">Bacheca</text>
  <text key="dashboard-description">Bacheca personale</text>
 
- <!-- alerts @todo verificare forse meglio metterne alcune o tutte nel file di coordinator -->
+ <!-- alerts -->     <!-- @todo verificare forse meglio metterne alcune o tutte nel file di coordinator   -->
  <text key="framework_alert_menuError">Si è verificato un errore durante il salvaraggio del menu</text>
  <text key="framework_alert_menuNotFound">Il menu non è stato trovato</text>
  <text key="framework_alert_menuCreated">Il menu è stato creato</text>
