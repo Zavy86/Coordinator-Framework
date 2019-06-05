@@ -106,7 +106,7 @@
    // load setup dump
    $queries=file(ROOT."queries/setup.sql");
    // check for update queries
-   /** @todo farlo meglio */
+   /** @todo farlo meglio quando necessario (vedi moduli) */
    /*if(file_exists(ROOT."queries/update.sql")){
     // load update queries and add to queries
     $queries_update=file(ROOT."queries/update.sql");
@@ -136,6 +136,7 @@
     `localization`='".$_REQUEST['localization']."',
     `timezone`='".$_REQUEST['timezone']."',
     `password`='".md5($_REQUEST['password'])."',
+    `addTimestamp`='".time()."',
     `pwdTimestamp`='".time()."'
     WHERE `id`='1'";
    $query=$connection->prepare($sql_update);
