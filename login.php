@@ -7,7 +7,7 @@
  * @link    http://www.zavynet.org
  */
  // include functions
- require_once("functions.inc.php");
+ require_once("initializations.inc.php");
  // build html object
  $html=new strApplication($module_name);
  // set html title

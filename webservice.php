@@ -7,7 +7,7 @@
  * @link    http://www.coordinator.it
  */
  // include functions
- require_once("functions.inc.php");
+ require_once("initializations.inc.php");
  // check for debug
  if($_GET['debug']==1){$GLOBALS['debug']=true;}else{$GLOBALS['debug']=false;}
  // load module
