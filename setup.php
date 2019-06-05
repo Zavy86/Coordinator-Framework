@@ -18,7 +18,7 @@
  if(file_exists(ROOT."config.inc.php")){die("Coordinator Framework is already configured..");}
  // include classes
  require_once(ROOT."classes/cLocalization.class.php");
- require_once(ROOT."classes/cHTML.class.php");
+ require_once(ROOT."classes/strHTML.class.php");
  require_once(ROOT."classes/cGrid.class.php");
  require_once(ROOT."classes/cNavbar.class.php");
  require_once(ROOT."classes/cForm.class.php");
@@ -30,7 +30,7 @@
  $settings->owner="Manuel Zavatta";
  $settings->logo=DIR."uploads/framework/logo.default.png";
  // build html object
- $html=new cHTML("Setup");
+ $html=new strHTML("Setup");
  // set html title
  $html->setTitle("Setup");
  // build setup form

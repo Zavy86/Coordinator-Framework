@@ -9,7 +9,7 @@
  // include functions
  require_once("functions.inc.php");
  // build html object
- $html=new cHTML($module_name);
+ $html=new strHTML($module_name);
  // set html title
  $html->setTitle("Login");
  // build login form manually
