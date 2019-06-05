@@ -67,7 +67,7 @@
  require_once(ROOT."functions/sendmail.inc.php");
  require_once(ROOT."functions/timestamp.inc.php");
  require_once(ROOT."functions/date.inc.php");
- 
+
  // include classes
  require_once(ROOT."classes/cLocalization.class.php");
  require_once(ROOT."classes/cDatabase.class.php");
@@ -104,7 +104,7 @@
  // build localization instance
  $localization=new cLocalization();
  // build database instance
- $database=new Database();
+ $database=new cDatabase();
  // build settings instance
  $settings=new cSettings();
  // build session instance

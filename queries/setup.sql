@@ -34,15 +34,6 @@ INSERT INTO `framework__settings` (`setting`, `value`) VALUES
 ('owner', 'Company name'),
 ('title', 'Coordinator Framework'),
 ('show', 'logo_title'),
-('sendmail_asynchronous', '0'),
-('sendmail_from_mail', 'company@domain.tdl'),
-('sendmail_from_name', 'Coordinator'),
-('sendmail_method', 'standard'),
-('sendmail_smtp_encryption', ''),
-('sendmail_smtp_host', ''),
-('sendmail_smtp_hostname', ''),
-('sendmail_smtp_password', ''),
-('sendmail_smtp_username', ''),
 ('sessions_authentication_method', 'standard'),
 ('sessions_idle_timeout', '14400'),
 ('sessions_ldap_cache', '0'),
@@ -54,7 +45,17 @@ INSERT INTO `framework__settings` (`setting`, `value`) VALUES
 ('sessions_multiple', '1'),
 ('users_level_max', '9'),
 ('users_password_expiration', '-1'),
+('sendmail_asynchronous', '0'),
+('sendmail_from_mail', 'company@domain.tdl'),
+('sendmail_from_name', 'Coordinator'),
+('sendmail_method', 'standard'),
+('sendmail_smtp_encryption', ''),
+('sendmail_smtp_host', ''),
+('sendmail_smtp_hostname', ''),
+('sendmail_smtp_password', ''),
+('sendmail_smtp_username', ''),
 ('token_cron', '');
+('token_gtag', '');
 
 -- --------------------------------------------------------
 
