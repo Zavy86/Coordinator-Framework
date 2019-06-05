@@ -1,6 +1,6 @@
 <?php
 /**
- * Functions
+ * Initializations
  *
  * @package Coordinator
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -109,6 +109,7 @@
  require_once(ROOT."classes/cUser.class.php");
  require_once(ROOT."classes/cQuery.class.php");
 
+ // include database class
  require_once(ROOT."classes/cDatabase.class.php");
 
  // build localization instance
