@@ -70,6 +70,8 @@
    api_dump($tile_qobj,"tile query object");
    // update tile
    $GLOBALS['database']->queryUpdate("framework__users__dashboards",$tile_qobj);
+   // alert
+   api_alerts_add(api_text("dashboard_alert_tileUpdated"),"success");
   }else{
    // get maximum position
    $v_order=$GLOBALS['database']->queryUniqueValue("SELECT MAX(`order`) FROM `framework__users__dashboards` WHERE `fkUser`='".$GLOBALS['session']->user->id."'");
@@ -80,6 +82,8 @@
    api_dump($tile_qobj,"tile query object");
    // insert tile
    $tile_qobj->id=$GLOBALS['database']->queryInsert("framework__users__dashboards",$tile_qobj);
+   // alert
+   api_alerts_add(api_text("dashboard_alert_tileCreated"),"success");
   }
   // upload background
   if(intval($_FILES['background']['size'])>0 && $_FILES['background']['error']==UPLOAD_ERR_OK){
@@ -135,7 +139,8 @@
   api_dump($direction,"direction");
   api_dump($tile_obj,"tile_obj");
   api_dump($tile_qobj,"tile_qobj");
-  // redirect
+  // alert and redirect
+  api_alerts_add(api_text("dashboard_alert_tileUpdated"),"success");
   api_redirect("?mod=dashboard&scr=dashboard_customize&idTile=".$tile_obj->id);
  }
 
@@ -161,6 +166,8 @@
   $GLOBALS['database']->queryExecute("UPDATE `framework__users__dashboards` SET `order`=`order`-1 WHERE `order`>'".$tile_obj->order."' AND `fkUser`='".$GLOBALS['session']->user->id."'");
   // remove background if exist
   if(file_exists(ROOT."uploads/dashboard/".$tile_obj->id.".jpg")){unlink(ROOT."uploads/dashboard/".$tile_obj->id.".jpg");}
+  // alert
+  api_alerts_add(api_text("dashboard_alert_tileDeleted"),"warning");
   // redirect
   api_redirect("?mod=".$r_redirect_mod."&scr=".$r_redirect_scr."&tab=".$r_redirect_tab."&idTile=".$tile_obj->id);
  }
@@ -177,7 +184,8 @@
   if(!$tile_obj->id){api_alerts_add(api_text("dashboard_alert_tileNotFound"),"danger");api_redirect("?mod=dashboard&scr=dashboard_customize");}
   // remove background if exist
   if(file_exists(ROOT."uploads/dashboard/".$tile_obj->id.".jpg")){unlink(ROOT."uploads/dashboard/".$tile_obj->id.".jpg");}
-  // redirect
+  // alert and redirect
+  api_alerts_add(api_text("dashboard_alert_tileUpdated"),"success");
   api_redirect("?mod=dashboard&scr=dashboard_customize&idTile=".$tile_obj->id);
  }
 

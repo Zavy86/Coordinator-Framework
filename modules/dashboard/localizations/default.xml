@@ -13,11 +13,11 @@
  <text key="dashboard-description">Bacheca personale</text>
 
  <!-- alerts -->     <!-- @todo verificare forse meglio metterne alcune o tutte nel file di coordinator   -->
- <text key="framework_alert_menuError">Si è verificato un errore durante il salvaraggio del menu</text>
- <text key="framework_alert_menuNotFound">Il menu non è stato trovato</text>
- <text key="framework_alert_menuCreated">Il menu è stato creato</text>
- <text key="framework_alert_menuUpdated">Il menu è stato aggiornato</text>
- <text key="framework_alert_userDeleted">L'utente è stato eliminato</text>
+ <text key="dashboard_alert_tileError">Si è verificato un errore durante il salvaraggio dell'elemento</text>
+ <text key="dashboard_alert_tileNotFound">L'elemento non è stato trovato</text>
+ <text key="dashboard_alert_tileCreated">L'elemento è stato creato</text>
+ <text key="dashboard_alert_tileUpdated">L'elemento è stato aggiornato</text>
+ <text key="dashboard_alert_tileDeleted">L'elemento è stato eliminato</text>
 
  <!-- navigation -->
  <text key="nav-dashboard-add">Aggiungi elemento</text>
