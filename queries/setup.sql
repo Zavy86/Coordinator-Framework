@@ -1,14 +1,17 @@
 --
--- Setup Coordinator Framework
+-- Setup
+--
+-- @package Coordinator\Queries
+-- @author  Manuel Zavatta <manuel.zavatta@gmail.com>
+-- @link    http://www.zavynet.org
 --
 -- Version 1.0.0
 --
 
 -- --------------------------------------------------------
 
-SET TIME_ZONE = "+00:00";
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET FOREIGN_KEY_CHECKS = 0;
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 -- --------------------------------------------------------
 
@@ -17,10 +20,10 @@ SET FOREIGN_KEY_CHECKS = 0;
 --
 
 CREATE TABLE IF NOT EXISTS `framework__settings` (
-  `setting` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `setting` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`setting`)
-) ENGINE=InnoDB DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `framework__settings`
@@ -49,9 +52,26 @@ INSERT INTO `framework__settings` (`setting`, `value`) VALUES
 ('sessions_ldap_hostname', ''),
 ('sessions_ldap_userfield', ''),
 ('sessions_multiple', '1'),
-('users_level_max', '8'),
+('users_level_max', '9'),
 ('users_password_expiration', '-1'),
 ('token_cron', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `framework__sessions`
+--
+
+CREATE TABLE IF NOT EXISTS `framework__sessions` (
+  `id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `fkUser` int(11) unsigned NOT NULL,
+  `ipAddress` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `startTimestamp` int(11) unsigned NOT NULL,
+  `lastTimestamp` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fkUser` (`fkUser`),
+  CONSTRAINT `framework__sessions_ibfk_1` FOREIGN KEY (`fkUser`) REFERENCES `framework__users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -78,64 +98,9 @@ CREATE TABLE IF NOT EXISTS `framework__menus` (
   `updTimestamp` int(11) unsigned DEFAULT NULL,
   `updFkUser` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fkMenu` (`fkMenu`)
-) ENGINE=InnoDB  DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `framework__sessions`
---
-
-CREATE TABLE IF NOT EXISTS `framework__sessions` (
-  `id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `fkUser` int(11) unsigned NOT NULL,
-  `ipAddress` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
-  `startTimestamp` int(11) unsigned NOT NULL,
-  `lastTimestamp` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fkUser` (`fkUser`)
-) ENGINE=InnoDB DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `framework__users`
---
-
-CREATE TABLE IF NOT EXISTS `framework__users` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `username` varchar(32) COLLATE utf8_unicode_ci NULL,
-  `firstname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `lastname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `localization` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
-  `timezone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `secret` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `gender` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'man, woman',
-  `birthday` date DEFAULT NULL,
-  `enabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `superuser` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `level` tinyint(2) unsigned NOT NULL,
-  `addTimestamp` int(11) unsigned NOT NULL,
-  `addFkUser` int(11) unsigned NOT NULL,
-  `updTimestamp` int(11) unsigned DEFAULT NULL,
-  `updFkUser` int(11) unsigned DEFAULT NULL,
-  `lsaTimestamp` int(11) unsigned DEFAULT NULL COMMENT 'last system access',
-  `pwdTimestamp` int(11) unsigned DEFAULT NULL COMMENT 'password change',
-  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `mail` (`mail`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `framework__users`
---
-
-INSERT INTO `framework__users` (`id`, `mail`, `firstname`, `lastname`, `localization`, `timezone`, `password`,`enabled`, `superuser`, `level`, `addTimestamp`, `addFkUser`) VALUES
-(1, 'you@domain.tdl', 'Administrator', 'Coordinator', 'en_EN', 'Europe/London', '5f4dcc3b5aa765d61d8327deb882cf99', 1, 1, 1, 1483228800, 1);
+  KEY `fkMenu` (`fkMenu`),
+  CONSTRAINT `framework__menus_ibfk_1` FOREIGN KEY (`fkMenu`) REFERENCES `framework__menus` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -154,15 +119,56 @@ CREATE TABLE IF NOT EXISTS `framework__groups` (
   `updFkUser` int(11) unsigned DEFAULT NULL,
   `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `fkGroup` (`fkGroup`)
-) ENGINE=InnoDB  DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
+  KEY `fkGroup` (`fkGroup`),
+  CONSTRAINT `framework__groups_ibfk_1` FOREIGN KEY (`fkGroup`) REFERENCES `framework__groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `framework__groups`
 --
 
 INSERT INTO `framework__groups` (`id`, `fkGroup`, `name`, `description`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`, `deleted`) VALUES
-(1, NULL, 'Administrators', 'Coordinator Administrators', 1483228800, 1, NULL, NULL, 0);
+(1, NULL, 'Administrators', 'Coordinator Administrators', 0, 1, NULL, NULL, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `framework__users`
+--
+
+CREATE TABLE IF NOT EXISTS `framework__users` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci NULL,
+  `firstname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `lastname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `localization` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
+  `timezone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `secret` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `gender` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'man, woman',
+  `birthday` date DEFAULT NULL,
+  `enabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `superuser` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `level` tinyint(2) unsigned NOT NULL,
+  `addTimestamp` int(11) unsigned NOT NULL,
+  `addFkUser` int(11) unsigned NOT NULL,
+  `updTimestamp` int(11) unsigned DEFAULT NULL,
+  `updFkUser` int(11) unsigned DEFAULT NULL,
+  `lsaTimestamp` int(11) unsigned DEFAULT NULL COMMENT 'last system access',
+  `pwdTimestamp` int(11) unsigned DEFAULT NULL COMMENT 'last password change',
+  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `mail` (`mail`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `framework__users`
+--
+
+INSERT INTO `framework__users` (`id`, `mail`, `firstname`, `lastname`, `localization`, `timezone`, `password`,`enabled`, `superuser`, `level`, `addTimestamp`, `addFkUser`) VALUES
+(1, 'you@domain.tdl', 'Administrator', 'Coordinator', 'en_EN', 'Europe/London', '5f4dcc3b5aa765d61d8327deb882cf99', 1, 1, 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -176,7 +182,9 @@ CREATE TABLE IF NOT EXISTS `framework__users__groups` (
   `main` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`fkUser`,`fkGroup`),
   KEY `fkUser` (`fkUser`),
-  KEY `fkGroup` (`fkGroup`)
+  KEY `fkGroup` (`fkGroup`),
+  CONSTRAINT `framework__users__groups_ibfk_1` FOREIGN KEY (`fkUser`) REFERENCES `framework__users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `framework__users__groups_ibfk_2` FOREIGN KEY (`fkGroup`) REFERENCES `framework__groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -185,6 +193,22 @@ CREATE TABLE IF NOT EXISTS `framework__users__groups` (
 
 INSERT INTO `framework__users__groups` (`fkUser`, `fkGroup`, `main`) VALUES
 (1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `framework__users__parameters`
+--
+
+CREATE TABLE IF NOT EXISTS `framework__users__parameters` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `fkUser` int(11) unsigned NOT NULL,
+  `parameter` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fkUser` (`fkUser`),
+  CONSTRAINT `framework__users__parameters_ibfk_1` FOREIGN KEY (`fkUser`) REFERENCES `framework__users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -205,75 +229,9 @@ CREATE TABLE IF NOT EXISTS `framework__users__dashboards` (
   `target` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `counter_function` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fkUser` (`fkUser`)
-) ENGINE=InnoDB  DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `framework__modules`
---
-
-CREATE TABLE IF NOT EXISTS `framework__modules` (
-  `module` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `version` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
-  `enabled` tinyint(1) unsigned NOT NULL,
-  `addTimestamp` int(11) unsigned NOT NULL,
-  `addFkUser` int(11) unsigned NOT NULL,
-  `updTimestamp` int(11) unsigned DEFAULT NULL,
-  `updFkUser` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`module`)
-) ENGINE=InnoDB DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `framework__modules`
---
-
-INSERT INTO `framework__modules` (`module`, `version`, `enabled`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`) VALUES
-('framework', '0.0.1', 1, 1483228800, 1, NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `framework__modules__authorizations`
---
-
-CREATE TABLE IF NOT EXISTS `framework__modules__authorizations` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `module` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `action` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `action` (`action`),
-  KEY `module` (`module`)
-) ENGINE=InnoDB  DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `framework__modules__authorizations`
---
-
-INSERT IGNORE INTO `framework__modules__authorizations` (`id`, `module`, `action`) VALUES
-(null, 'framework', 'framework-settings_manage'),
-(null, 'framework', 'framework-menus_manage'),
-(null, 'framework', 'framework-modules_manage'),
-(null, 'framework', 'framework-users_manage'),
-(null, 'framework', 'framework-groups_manage'),
-(null, 'framework', 'framework-sessions_manage'),
-(null, 'framework', 'framework-mails_manage'),
-(null, 'framework', 'framework-attachments_manage');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `framework__modules__authorizations__groups`
---
-
-CREATE TABLE IF NOT EXISTS `framework__modules__authorizations__groups` (
-  `fkAuthorization` int(11) unsigned NOT NULL,
-  `fkGroup` int(11) unsigned NOT NULL,
-  `level` tinyint(2) NOT NULL,
-  KEY `fkAuthorization` (`fkAuthorization`),
-  KEY `fkGroup` (`fkGroup`)
-) ENGINE=InnoDB DEFAULT CHARSET= utf8 COLLATE=utf8_unicode_ci;
+  KEY `fkUser` (`fkUser`),
+  CONSTRAINT `framework__users__dashboards_ibfk_1` FOREIGN KEY (`fkUser`) REFERENCES `framework__users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -303,46 +261,94 @@ CREATE TABLE IF NOT EXISTS `framework__mails` (
 -- --------------------------------------------------------
 
 --
--- Constraints
+-- Table structure for table `framework__attachments`
 --
 
---
--- Constraints for table `framework__menus`
---
-ALTER TABLE `framework__menus`
-  ADD CONSTRAINT `framework__menus_ibfk_1` FOREIGN KEY (`fkMenu`) REFERENCES `framework__menus` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+CREATE TABLE IF NOT EXISTS `framework__attachments` (
+  `id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `typology` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `size` int(11) unsigned NOT NULL,
+  `public` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `downloads` int(11) unsigned NOT NULL DEFAULT '0',
+  `addTimestamp` int(11) unsigned NOT NULL,
+  `addFkUser` int(11) unsigned NOT NULL,
+  `updTimestamp` int(11) unsigned DEFAULT NULL,
+  `updFkUser` int(11) unsigned DEFAULT NULL,
+  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
--- Constraints for table `framework__sessions`
+-- Table structure for table `framework__modules`
 --
-ALTER TABLE `framework__sessions`
-  ADD CONSTRAINT `framework__sessions_ibfk_1` FOREIGN KEY (`fkUser`) REFERENCES `framework__users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE IF NOT EXISTS `framework__modules` (
+  `module` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `version` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `enabled` tinyint(1) unsigned NOT NULL,
+  `addTimestamp` int(11) unsigned NOT NULL,
+  `addFkUser` int(11) unsigned NOT NULL,
+  `updTimestamp` int(11) unsigned DEFAULT NULL,
+  `updFkUser` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`module`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Constraints for table `framework__users__groups`
+-- Dumping data for table `framework__modules`
 --
-ALTER TABLE `framework__users__groups`
-  ADD CONSTRAINT `framework__users__groups_ibfk_1` FOREIGN KEY (`fkUser`) REFERENCES `framework__users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `framework__users__groups_ibfk_2` FOREIGN KEY (`fkGroup`) REFERENCES `framework__groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+INSERT INTO `framework__modules` (`module`, `version`, `enabled`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`) VALUES
+('framework', '0.0.1', 1, 0, 1, NULL, NULL);
+
+-- --------------------------------------------------------
 
 --
--- Constraints for table `framework__users__dashboards`
+-- Table structure for table `framework__modules__authorizations`
 --
-ALTER TABLE `framework__users__dashboards`
-  ADD CONSTRAINT `framework__users__dashboards_ibfk_1` FOREIGN KEY (`fkUser`) REFERENCES `framework__users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE IF NOT EXISTS `framework__modules__authorizations` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `module` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `action` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `action` (`action`),
+  KEY `module` (`module`),
+  CONSTRAINT `framework__modules__authorizations_ibfk_1` FOREIGN KEY (`module`) REFERENCES `framework__modules` (`module`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Constraints for table `framework__modules__authorizations`
+-- Dumping data for table `framework__modules__authorizations`
 --
-ALTER TABLE `framework__modules__authorizations`
-  ADD CONSTRAINT `framework__modules__authorizations_ibfk_1` FOREIGN KEY (`module`) REFERENCES `framework__modules` (`module`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+INSERT IGNORE INTO `framework__modules__authorizations` (`id`, `module`, `action`) VALUES
+(null, 'framework', 'framework-settings_manage'),
+(null, 'framework', 'framework-menus_manage'),
+(null, 'framework', 'framework-modules_manage'),
+(null, 'framework', 'framework-users_manage'),
+(null, 'framework', 'framework-groups_manage'),
+(null, 'framework', 'framework-sessions_manage'),
+(null, 'framework', 'framework-mails_manage'),
+(null, 'framework', 'framework-attachments_manage');
+
+-- --------------------------------------------------------
 
 --
--- Constraints for table `framework__modules__authorizations__groups`
+-- Table structure for table `framework__modules__authorizations__groups`
 --
-ALTER TABLE `framework__modules__authorizations__groups`
-  ADD CONSTRAINT `framework__modules__authorizations__groups_ibfk_1` FOREIGN KEY (`fkAuthorization`) REFERENCES `framework__modules__authorizations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `framework__modules__authorizations__groups_ibfk_2` FOREIGN KEY (`fkGroup`) REFERENCES `framework__groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE IF NOT EXISTS `framework__modules__authorizations__groups` (
+  `fkAuthorization` int(11) unsigned NOT NULL,
+  `fkGroup` int(11) unsigned NOT NULL,
+  `level` tinyint(2) NOT NULL,
+  KEY `fkAuthorization` (`fkAuthorization`),
+  KEY `fkGroup` (`fkGroup`),
+  CONSTRAINT `framework__modules__authorizations__groups_ibfk_1` FOREIGN KEY (`fkAuthorization`) REFERENCES `framework__modules__authorizations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `framework__modules__authorizations__groups_ibfk_2` FOREIGN KEY (`fkGroup`) REFERENCES `framework__groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
