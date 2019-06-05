@@ -15,7 +15,7 @@
  require_once(MODULE_PATH."template.inc.php");
 
  // set html title
- $html->setTitle(api_text("users_edit"));
+ $app->setTitle(api_text("users_edit"));
  // build profile form
  $form=new strForm("?mod=".MODULE."&scr=submit&act=user_edit&idUser=".$user->id,"POST",null,"users_edit");
  /*if(!$user->deleted){
@@ -56,11 +56,11 @@
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // add script to html
- $html->addScript($jquery);
+ $app->addScript($jquery);
  // renderize html page
- $html->render();
+ $app->render();
  // debug
  if($GLOBALS['debug']){api_dump($user,"user");}
 ?>

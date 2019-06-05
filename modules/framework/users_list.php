@@ -10,7 +10,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("users_list"));
+ $app->setTitle(api_text("users_list"));
  // build filter
  $filter=new strFilter();
  $filter->addSearch(array("firstname","lastname","username","mail"));
@@ -66,7 +66,7 @@
  $grid->addRow();
  $grid->addCol($pagination->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html
- $html->render();
+ $app->render();
 ?>

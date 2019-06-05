@@ -9,7 +9,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("mails_add"));
+ $app->setTitle(api_text("mails_add"));
  // acquire variables
  $r_recipient=$_REQUEST['recipient'];
  // make current uri array
@@ -35,7 +35,7 @@
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html page
- $html->render();
+ $app->render();
 ?>

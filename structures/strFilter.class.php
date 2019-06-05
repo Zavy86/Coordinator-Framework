@@ -190,7 +190,7 @@
     $form->addField("select",$item->id."[]",$item->label,$_REQUEST[$item->id],null,null,null,null,"multiple");
     foreach($item->values_array as $value=>$label){$form->addFieldOption($value,$label);}
     // add jQuery script
-    $GLOBALS['html']->addScript("/* Select2 ".$item->id." */\n$(document).ready(function(){\$('select[name=\"".$item->id."[]\"]').select2({width:'100%',allowClear:true,dropdownParent:\$('#modal_".$this->id."')});});");
+    $GLOBALS['app']->addScript("/* Select2 ".$item->id." */\n$(document).ready(function(){\$('select[name=\"".$item->id."[]\"]').select2({width:'100%',allowClear:true,dropdownParent:\$('#modal_".$this->id."')});});");
    }
    // form controls
    $form->addControl("submit",api_text("filters-fc-submit"));
@@ -199,7 +199,7 @@
    $this->modal=new strModal(api_text("filters-modal-title"),null,$this->id);
    $this->modal->SetBody($form->render(2));
    // return modal add to html response
-   return $GLOBALS['html']->addModal($this->modal);
+   return $GLOBALS['app']->addModal($this->modal);
   }
 
   /**

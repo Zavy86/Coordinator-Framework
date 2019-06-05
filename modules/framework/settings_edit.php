@@ -10,7 +10,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("settings_edit"));
+ $app->setTitle(api_text("settings_edit"));
  // check actions
  if(ACTION=="token_cron_randomize"||!$settings->token_cron){$settings->token_cron=md5(date("YmdHis").rand(1,99999));}
  // script tabs
@@ -91,9 +91,9 @@
    $cron_informations_modal=new strModal(api_text("settings_edit-sendmail_asynchronous-modal-title"),null,"requests_view-cron_informations_modal");
    $cron_informations_modal->setBody(api_text("settings_edit-sendmail_asynchronous-modal-body",array(URL,$settings->token_cron)));
    // add modal to html object
-   $html->addModal($cron_informations_modal);
+   $app->addModal($cron_informations_modal);
    // jQuery scripts
-   $html->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_requests_view-cron_informations_modal\").modal('show');});");
+   $app->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_requests_view-cron_informations_modal\").modal('show');});");
   }
  }
  /**
@@ -125,8 +125,8 @@
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html
- $html->addContent($tabs->render(false));
- $html->addContent($grid->render());
+ $app->addContent($tabs->render(false));
+ $app->addContent($grid->render());
  // renderize html page
- $html->render();
+ $app->render();
 ?>

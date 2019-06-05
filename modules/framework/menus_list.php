@@ -10,7 +10,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("menus_list"));
+ $app->setTitle(api_text("menus_list"));
  // build grid object
  $table=new strTable(api_text("menus_list-tr-unvalued"));
  $table->addHeader(api_text("menus_list-th-label"),"nowrap");
@@ -38,7 +38,7 @@
   $table->addRowField($ob->render(),"text-right");
  }
  // add script to html
- $html->addScript("/* Popover Click Script */\n$(function(){\$(\"[data-toggle='popover-click']\").popover({'trigger':'click','placement':'auto top','html':true});});");
+ $app->addScript("/* Popover Click Script */\n$(function(){\$(\"[data-toggle='popover-click']\").popover({'trigger':'click','placement':'auto top','html':true});});");
  // check nesting alert
  if($nesting_alert){api_alerts_add(api_text("framework_alert_menuNesting"),"warning");}
  // build grid object
@@ -46,7 +46,7 @@
  $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html
- $html->render();
+ $app->render();
 ?>

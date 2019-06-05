@@ -10,7 +10,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("modules_add"));
+ $app->setTitle(api_text("modules_add"));
  // build profile form
  $form=new strForm("?mod=".MODULE."&scr=submit&act=module_add","POST",null,"modules_add");
  $form->addField("text","url",api_text("modules_add-url"),null,api_text("modules_add-url-placeholder"),null,null,null,"required");
@@ -25,7 +25,7 @@
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // jQuery script
  $jquery=<<<EOS
 /* Popover Script */
@@ -45,7 +45,7 @@ $(function(){
 });
 EOS;
  // add script to html
- $html->addScript($jquery);
+ $app->addScript($jquery);
  // renderize html page
- $html->render();
+ $app->render();
 ?>

@@ -14,7 +14,7 @@
  // check objects
  if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  // set html title
- $html->setTitle(api_text("modules_view",$module_obj->name));
+ $app->setTitle(api_text("modules_view",$module_obj->name));
  // make version
  $version_td=api_tag("span",$module_obj->version,"label ".($module_obj->enabled?"label-success":"label-default"));
  // build description list
@@ -56,9 +56,9 @@
   $authorizations_modal=new strModal(api_text("modules_view-authorizations_modal-title"),null,"modules_view-authorizations_modal");
   $authorizations_modal->setBody($authorizations_join_form->render());
   // add modal to html object
-  $html->addModal($authorizations_modal);
+  $app->addModal($authorizations_modal);
   // jQuery scripts
-  $html->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_modules_view-authorizations_modal\").modal('show');});");
+  $app->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_modules_view-authorizations_modal\").modal('show');});");
  }
  // build grid object
  $grid=new strGrid();
@@ -66,9 +66,9 @@
  $grid->addCol($dl->render(),"col-xs-12 col-xs-5");
  $grid->addCol($table->render(),"col-xs-12 col-xs-7");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html
- $html->render();
+ $app->render();
  // debug
  if($GLOBALS['debug']){api_dump($module_obj,"selected_module");}
 ?>

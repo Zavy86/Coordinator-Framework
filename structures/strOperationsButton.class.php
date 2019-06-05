@@ -117,7 +117,7 @@
    // script
    $jQuery="/* Operations Button Hover Script */\n$(\"#".$this->id."\").hover(function(){\$(this).find(\"span\").show();},function(){\$(this).find(\"span\").hide();});";
    // add script to html
-   $GLOBALS['html']->addScript($jQuery);
+   $GLOBALS['app']->addScript($jQuery);
    // return html source code
    return $return;
   }

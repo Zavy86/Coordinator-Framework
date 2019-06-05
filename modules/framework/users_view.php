@@ -15,7 +15,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("users_view"));
+ $app->setTitle(api_text("users_view"));
  // avatar delete link
  if(is_numeric(substr($user_obj->avatar,-5,1))){$avatar_delete_link=api_link("#",api_icon("fa-remove",api_text("users_view-avatar-delete"),"hidden-link text-vtop"),null,null,false,api_text("users_view-avatar-delete-confirm"));}
  // build left user description list
@@ -69,9 +69,9 @@
   $groups_modal=new strModal(api_text("users_view-groups_modal-title"),null,"users_view-groups_modal");
   $groups_modal->setBody($group_add_form->render());
   // add modal to html object
-  $html->addModal($groups_modal);
+  $app->addModal($groups_modal);
   // jQuery scripts
-  $html->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_users_view-groups_modal\").modal('show');});");
+  $app->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_users_view-groups_modal\").modal('show');});");
  }
  // build grid object
  $grid=new strGrid();
@@ -79,9 +79,9 @@
  $grid->addCol($dl_left->render(),"col-xs-12 col-sm-5");
  $grid->addCol($dl_right->render(),"col-xs-12 col-sm-7");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html page
- $html->render();
+ $app->render();
  // debug
  if($GLOBALS['debug']){api_dump($user_obj,"user_obj");}
 ?>

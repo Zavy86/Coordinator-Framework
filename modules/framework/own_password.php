@@ -9,7 +9,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("own_password"));
+ $app->setTitle(api_text("own_password"));
  // build profile form
  $form=new strForm("?mod=".MODULE."&scr=submit&act=own_password_update","POST",null,"own_password");
  $form->addField("password","password",api_text("own_password-password"),null,api_text("own_password-password-placeholder"));
@@ -22,7 +22,7 @@
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html page
- $html->render();
+ $app->render();
 ?>

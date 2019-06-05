@@ -18,7 +18,7 @@
  global $database;
  global $settings;
  global $session;
- global $html;
+ global $app;
 
  // reset session logs
  $_SESSION['coordinator_logs']=null;

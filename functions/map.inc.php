@@ -44,10 +44,10 @@
   }
   /*setTimeout(function(){map.invalidateSize();},10);*/
   // Leaf Let CSS
-  $GLOBALS['html']->addStylesheet(HELPERS."leaflet/css/leaflet-1.3.4.css");
+  $GLOBALS['app']->addStylesheet(HELPERS."leaflet/css/leaflet-1.3.4.css");
   // jQuery scripts
-  $GLOBALS['html']->addScript(HELPERS."leaflet/js/leaflet-1.3.4.min.js",true);
-  $GLOBALS['html']->addScript($map_script);
+  $GLOBALS['app']->addScript(HELPERS."leaflet/js/leaflet-1.3.4.min.js",true);
+  $GLOBALS['app']->addScript($map_script);
   // return
   return true;
  }

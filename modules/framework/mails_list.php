@@ -10,7 +10,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("mails_list"));
+ $app->setTitle(api_text("mails_list"));
  // make recipeint filter
  $mails_filters=array();
  $results=$GLOBALS['database']->queryObjects("SELECT DISTINCT(`recipients_to`) FROM `framework__mails`");
@@ -80,9 +80,9 @@
   $mails_modal=new strModal(api_text("mails_list-mails-modal-title"),null,"requests_view-mails_modal");
   $mails_modal->setBody($mail_dl->render().$mail_obj->message);
   // add modal to html object
-  $html->addModal($mails_modal);
+  $app->addModal($mails_modal);
   // jQuery scripts
-  $html->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_requests_view-mails_modal\").modal('show');});");
+  $app->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_requests_view-mails_modal\").modal('show');});");
  }
  // build grid object
  $grid=new strGrid();
@@ -93,9 +93,9 @@
  $grid->addRow();
  $grid->addCol($pagination->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html
- $html->render();
+ $app->render();
  // debug
  api_dump($mails_array);
 ?>

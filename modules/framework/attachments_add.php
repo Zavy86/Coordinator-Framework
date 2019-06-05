@@ -9,7 +9,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("attachments_add"));
+ $app->setTitle(api_text("attachments_add"));
  // build profile form
  $form=new strForm("?mod=".MODULE."&scr=submit&act=attachment_save","POST",null,"attachments_add");
  $form->addField("file","file",api_text("attachments_add-ff-file"),null,null,null,null,null,"required");
@@ -25,9 +25,9 @@
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html
- $html->addContent($grid->render());
+ $app->addContent($grid->render());
  // renderize html page
- $html->render();
+ $app->render();
  // debug
  if($GLOBALS['debug']){api_dump($attachment,"attachment");}
 ?>
