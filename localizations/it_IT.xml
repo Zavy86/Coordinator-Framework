@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-/*
- * Italian localization
- *
- * @package Coordinator\Functions
- * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.coordinator.it
- */
--->
+<!-->
+ ! Italian localization
+ !
+ ! @package Coordinator\Localizations
+ ! @author  Manuel Zavatta <manuel.zavatta@gmail.com>
+ ! @link    http://www.coordinator.it
+<!-->
 <locale>
 
  <code>it_IT</code>
  <localization>Italiano</localization>
 
- <text key="yes">Sì</text>
  <text key="no">No</text>
+ <text key="yes">Sì</text>
 
  <!-- datetimes -->
  <text key="time">H:i</text>
@@ -71,6 +69,8 @@
  <text key="nav-debug">Debug</text>
  <text key="nav-logout">Esci</text>
  <text key="nav-operations">Operazioni</text>
+ <text key="nav-management">Amministrazione</text>
+ <text key="nav-parameters">Parametri personali</text>
 
  <!-- pagination -->
  <text key="pagination-shows">Mostra</text>

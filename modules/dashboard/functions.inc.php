@@ -7,7 +7,29 @@
  * @link    http://www.coordinator.it
  */
 
-// include classes
-require_once(ROOT."modules/dashboard/classes/cDashboardTile.class.php");
+ // include classes
+ require_once(ROOT."modules/dashboard/classes/strDashboardTile.class.php");
+
+ /**
+  * Dashboard - User Tiles
+  *
+  * @param integer $user User object or ID
+  * @return object[]|boolean Array of available tiles or false
+  */
+ function api_crm_userTiles($user=null){
+  // check parameters
+  if(!$user){$user=$GLOBALS['session']->user;}
+  // definitions
+  $tiles_array=array();
+  // get user
+  $user_obj=new cUser($user);
+  // check user
+  if(!$user_obj->id){return false;}
+  // get user tiles
+  $tiles_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users__dashboards` WHERE `fkUser`='".$user_obj->id."' ORDER BY `order`");
+  foreach($tiles_results as $tile_fobj){$tiles_array[$tile_fobj->id]=new strDashboardTile($tile_fobj);}
+  // return
+  return $tiles_array;
+ }
 
 ?>

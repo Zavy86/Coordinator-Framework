@@ -16,7 +16,7 @@
  $results=$GLOBALS['database']->queryObjects("SELECT DISTINCT(`recipients_to`) FROM `framework__mails`",$GLOBALS['debug']);
  foreach($results as $result){$mails_filters[$result->recipients_to]=$result->recipients_to;}
  // build filter
- $filter=new cFilter();
+ $filter=new strFilter();
  $filter->addSearch(array("recipients_to","recipients_cc","recipients_bcc","subject","message"));
  $filter->addItem(api_text("mails_list-filter-status"),array("inserted"=>api_text("mail-status-inserted"),"sended"=>api_text("mail-status-sended"),"failed"=>api_text("mail-status-failed")),"status","framework__mails");
  $filter->addItem(api_text("mails_list-filter-recipient"),$mails_filters,"recipients_to","framework__mails");
@@ -24,9 +24,9 @@
  $query=new cQuery("framework__mails",$filter->getQueryWhere());
  $query->addQueryOrderField("sndTimestamp","DESC",null,true);
  // build pagination
- $pagination=new cPagination($query->getRecordsCount());
+ $pagination=new strPagination($query->getRecordsCount());
  // build table
- $table=new cTable(api_text("mails_list-tr-unvalued"));
+ $table=new strTable(api_text("mails_list-tr-unvalued"));
  $table->addHeader($filter->link(api_icon("fa-filter",api_text("filters-modal-link"),"hidden-link")),"text-center",16);
  $table->addHeader(api_text("mails_list-th-addTimestamp"),"nowrap");
  $table->addHeader(api_text("mails_list-th-recipients"),"nowrap");
@@ -45,7 +45,7 @@
   if(!$recipients_td){$recipients_td=implode(";",$mail_fobj->recipients_cc);}
   if(!$recipients_td){$recipients_td=implode(";",$mail_fobj->recipients_bcc);}
   // build operation button
-  $ob=new cOperationsButton();
+  $ob=new strOperationsButton();
   $ob->addElement("?mod=".MODULE."&scr=mails_list&act=mail_view&idMail=".$mail_fobj->id,"fa-info-circle",api_text("mails_list-td-view"));
   if($mail_fobj->status=="failed"){$ob->addElement("?mod=".MODULE."&scr=submit&act=mail_retry&idMail=".$mail_fobj->id,"fa-refresh",api_text("mails_list-td-retry"));}
   if($mail_fobj->status!="sended"){$ob->addElement("?mod=".MODULE."&scr=submit&act=mail_remove&idMail=".$mail_fobj->id,"fa-trash",api_text("mails_list-td-remove"),true,api_text("mails_list-td-remove-confirm"));}
@@ -67,7 +67,7 @@
  if(ACTION=="mail_view" && $_REQUEST['idMail']){
   $mail_obj=new cMail($_REQUEST['idMail']);
   // build mail description list
-  $mail_dl=new cDescriptionList("br","dl-horizontal");
+  $mail_dl=new strDescriptionList("br","dl-horizontal");
   $mail_dl->addElement(api_text("mails_list-mails-modal-dl-sender"),$mail_obj->sender_name." &lt;".$mail_obj->sender_mail."&gt;");
   if(count($mail_obj->recipients_to)){$mail_dl->addElement(api_text("mails_list-mails-modal-dl-recipients_to"),implode("; ",$mail_obj->recipients_to));}
   if(count($mail_obj->recipients_cc)){$mail_dl->addElement(api_text("mails_list-mails-modal-dl-recipients_cc"),implode("; ",$mail_obj->recipients_cc));}
@@ -77,7 +77,7 @@
   if($mail_obj->errors){$mail_dl->addElement(api_text("mails_list-mails-modal-dl-errors"),api_tag("span",$mail_obj->errors,"text-danger"));}
   $mail_dl->addSeparator("hr");
   // build cron informations modal window
-  $mails_modal=new cModal(api_text("mails_list-mails-modal-title"),null,"requests_view-mails_modal");
+  $mails_modal=new strModal(api_text("mails_list-mails-modal-title"),null,"requests_view-mails_modal");
   $mails_modal->setBody($mail_dl->render().$mail_obj->message);
   // add modal to html object
   $html->addModal($mails_modal);
@@ -85,7 +85,7 @@
   $html->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_requests_view-mails_modal\").modal('show');});");
  }
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($filter->render(),"col-xs-12");
  $grid->addRow();

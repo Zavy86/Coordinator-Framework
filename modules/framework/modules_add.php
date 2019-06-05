@@ -12,7 +12,7 @@
  // set html title
  $html->setTitle(api_text("modules_add"));
  // build profile form
- $form=new cForm("?mod=".MODULE."&scr=submit&act=module_add","POST",null,"modules_add");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=module_add","POST",null,"modules_add");
  $form->addField("text","url",api_text("modules_add-url"),null,api_text("modules_add-url-placeholder"),null,null,null,"required");
  $form->addField("text","directory",api_text("modules_add-directory"),null,api_text("modules_add-directory-placeholder"),null,null,null,"required");
  $form->addField("radio","method",api_text("modules_add-method"),null,null,null,"radio-inline");
@@ -21,7 +21,7 @@
  $form->addControl("submit",api_text("modules_add-submit"));
  $form->addControl("button",api_text("modules_add-cancel"),"?mod=".MODULE."&scr=modules_list");
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html

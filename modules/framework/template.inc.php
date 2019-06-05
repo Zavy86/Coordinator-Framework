@@ -13,9 +13,9 @@
  if($authorization){if(!api_checkAuthorization($authorization)){api_alerts_add(api_text("alert_unauthorized",array(MODULE,$authorization)),"danger");api_redirect("?mod=".MODULE."&scr=dashboard");}}
 
  // build html object
- $html=new cHTML($module_name);
+ $html=new strApplication($module_name);
  // build nav object
- $nav=new cNav("nav-tabs");
+ $nav=new strNav("nav-tabs");
 
  $nav->setTitle(api_text("framework"));
 
@@ -68,6 +68,7 @@
      if($user_obj->enabled){$nav->addSubItem(api_text("nav-operations-user_disable"),"?mod=".MODULE."&scr=submit&act=user_disable&idUser=".$user_obj->id);}
      else{$nav->addSubItem(api_text("nav-operations-user_enable"),"?mod=".MODULE."&scr=submit&act=user_enable&idUser=".$user_obj->id);}
      $nav->addSubItem(api_text("nav-operations-user_group_add"),"?mod=".MODULE."&scr=users_view&act=group_add&idUser=".$user_obj->id);
+     /** @todo popup parametri personali */
     }
    }
    // users edit

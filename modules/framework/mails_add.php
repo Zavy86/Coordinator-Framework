@@ -20,7 +20,7 @@
  unset($uri_array['recipient']);
  //api_dump("?mod=".MODULE."&scr=submit&act=mail_save&".http_build_query($uri_array));
  // build profile form
- $form=new cForm("?mod=".MODULE."&scr=submit&act=mail_save&".http_build_query($uri_array),"POST",null,"mails_add");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=mail_save&".http_build_query($uri_array),"POST",null,"mails_add");
  $form->addField("select","sender",api_text("mails_add-sender"),null,api_text("mails_add-sender-placeholder"),null,null,null,"required");
  $form->addFieldOption($GLOBALS['session']->user->mail,$GLOBALS['session']->user->fullname);
  $form->addFieldOption($GLOBALS['settings']->sendmail_from_mail,$GLOBALS['settings']->sendmail_from_name);
@@ -31,7 +31,7 @@
  $form->addControl("submit",api_text("form-fc-submit"));
  $form->addControl("button",api_text("form-fc-cancel"),"?mod=".MODULE."&scr=mails_view&idMail=".$mail->id);
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html

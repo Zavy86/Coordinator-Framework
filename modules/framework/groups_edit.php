@@ -32,7 +32,7 @@
  }*/
 
  // build profile form
- $form=new cForm("?mod=".MODULE."&scr=submit&act=group_save&idGroup=".$group->id,"POST",null,"groups_edit");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=group_save&idGroup=".$group->id,"POST",null,"groups_edit");
  $form->addField("select","fkGroup",api_text("groups_edit-fkGroup"),$group->fkGroup);
  $form->addFieldOption(null,api_text("groups_edit-fkGroup-main"));
  //api_groups_tree2selectOption($form,$group->id);
@@ -51,7 +51,7 @@
  if(!$group->deleted){$form->addControl("button",api_text("groups_edit-delete"),"?mod=".MODULE."&scr=submit&act=groups_delete&idGroup=".$group->id,"btn-danger",api_text("groups_edit-delete-confirm"));}
   else{$form->addControl("button",api_text("groups_edit-undelete"),"?mod=".MODULE."&scr=submit&act=groups_undelete&idGroup=".$group->id,"btn-warning");}
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form->render("2"),"col-xs-12 col-sm-6");
  // add content to html

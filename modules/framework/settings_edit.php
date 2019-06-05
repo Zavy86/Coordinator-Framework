@@ -14,14 +14,14 @@
  // check actions
  if(ACTION=="token_cron_randomize"||!$settings->token_cron){$settings->token_cron=md5(date("YmdHis").rand(1,99999));}
  // script tabs
- $tabs=new cNav("nav-pills");
+ $tabs=new strNav("nav-pills");
  $tabs->addItem(api_text("settings_edit-general"),"?mod=".MODULE."&scr=settings_edit&tab=general");
  $tabs->addItem(api_text("settings_edit-sessions"),"?mod=".MODULE."&scr=settings_edit&tab=sessions");
  $tabs->addItem(api_text("settings_edit-sendmail"),"?mod=".MODULE."&scr=settings_edit&tab=sendmail");
  $tabs->addItem(api_text("settings_edit-users"),"?mod=".MODULE."&scr=settings_edit&tab=users");
  $tabs->addItem(api_text("settings_edit-token"),"?mod=".MODULE."&scr=settings_edit&tab=token");
  // build settings form
- $form=new cForm("?mod=".MODULE."&scr=submit&act=settings_save&tab=".TAB,"POST",null,"settings_edit");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=settings_save&tab=".TAB,"POST",null,"settings_edit");
  /**
   * Generals
   */
@@ -88,7 +88,7 @@
   // cron informations
   if(ACTION=="cron_informations"){
    // build cron informations modal window
-   $cron_informations_modal=new cModal(api_text("settings_edit-sendmail_asynchronous-modal-title"),null,"requests_view-cron_informations_modal");
+   $cron_informations_modal=new strModal(api_text("settings_edit-sendmail_asynchronous-modal-title"),null,"requests_view-cron_informations_modal");
    $cron_informations_modal->setBody(api_text("settings_edit-sendmail_asynchronous-modal-body",array(URL,$settings->token_cron)));
    // add modal to html object
    $html->addModal($cron_informations_modal);
@@ -121,7 +121,7 @@
  $form->addControl("reset",api_text("settings_edit-reset"));
  $form->addControl("button",api_text("settings_edit-cancel"),"?mod=".MODULE."&scr=dashboard");
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html

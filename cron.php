@@ -7,7 +7,7 @@
  * @link    http://www.coordinator.it
  */
  // include functions
- require_once("functions.inc.php");
+ require_once("initializations.inc.php");
  // check for debug
  if($_GET['debug']==1){$GLOBALS['debug']=true;}else{$GLOBALS['debug']=false;}
  // check token
@@ -54,7 +54,7 @@
   api_dump($cronjobs_weekly_path,"cronjobs_weekly_path");
   foreach($cronjobs_weekly_path as $job_path){if(file_exists($job_path)){include $job_path;}}
  }
- 
+
  /** @todo salvare un log? */
 
  // debug

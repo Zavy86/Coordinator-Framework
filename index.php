@@ -7,7 +7,7 @@
  * @link    http://www.coordinator.it
  */
  // include functions
- require_once("functions.inc.php");
+ require_once("initializations.inc.php");
  // check session
  if(!$session->validity && !(MODULE=="framework" && SCRIPT=="submit" && (ACTION=="user_login" || ACTION=="user_recovery"))){api_redirect("login.php");}
  // check for password expired

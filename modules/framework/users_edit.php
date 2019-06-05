@@ -17,7 +17,7 @@
  // set html title
  $html->setTitle(api_text("users_edit"));
  // build profile form
- $form=new cForm("?mod=".MODULE."&scr=submit&act=user_edit&idUser=".$user->id,"POST",null,"users_edit");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=user_edit&idUser=".$user->id,"POST",null,"users_edit");
  /*if(!$user->deleted){
   $form->addField("checkbox","enabled","&nbsp;",$user->enabled);
   $form->addFieldOption(1,api_text("users_edit-enabled"));
@@ -52,7 +52,7 @@
  // jQuery script
  $jquery="/* Superuser Alert */$(function(){\$(\"input[name='superuser']\").change(function(){if($(\"input[name='superuser']:checked\").val()){alert(\"".api_text("users_edit-superuser-alert")."\");}});});";
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html

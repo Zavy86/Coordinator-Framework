@@ -18,10 +18,10 @@
  if(file_exists(ROOT."config.inc.php")){die("Coordinator Framework is already configured..");}
  // include classes
  require_once(ROOT."classes/cLocalization.class.php");
- require_once(ROOT."classes/cHTML.class.php");
- require_once(ROOT."classes/cGrid.class.php");
- require_once(ROOT."classes/cNavbar.class.php");
- require_once(ROOT."classes/cForm.class.php");
+ require_once(ROOT."classes/strApplication.class.php");
+ require_once(ROOT."classes/strGrid.class.php");
+ require_once(ROOT."classes/strNavbar.class.php");
+ require_once(ROOT."classes/strForm.class.php");
  // build localization instance
  $localization=new cLocalization();
  // build settings instance
@@ -30,11 +30,11 @@
  $settings->owner="Manuel Zavatta";
  $settings->logo=DIR."uploads/framework/logo.default.png";
  // build html object
- $html=new cHTML("Setup");
+ $html=new strApplication("Setup");
  // set html title
  $html->setTitle("Setup");
  // build setup form
- $form=new cForm("setup.php","POST",null,"setup");
+ $form=new strForm("setup.php","POST",null,"setup");
  // check for submit
  if(!$_REQUEST['setup_action']){
   // setup form
@@ -106,7 +106,7 @@
    // load setup dump
    $queries=file(ROOT."queries/setup.sql");
    // check for update queries
-   /** @todo farlo meglio */
+   /** @todo farlo meglio quando necessario (vedi moduli) */
    /*if(file_exists(ROOT."queries/update.sql")){
     // load update queries and add to queries
     $queries_update=file(ROOT."queries/update.sql");
@@ -136,6 +136,7 @@
     `localization`='".$_REQUEST['localization']."',
     `timezone`='".$_REQUEST['timezone']."',
     `password`='".md5($_REQUEST['password'])."',
+    `addTimestamp`='".time()."',
     `pwdTimestamp`='".time()."'
     WHERE `id`='1'";
    $query=$connection->prepare($sql_update);
@@ -166,7 +167,7 @@
   }
  }
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
  // add content to html

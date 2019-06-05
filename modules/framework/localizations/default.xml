@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!-->
+ ! Default localization
+ !
+ ! @package Coordinator\Modules\Framework
+ ! @author  Manuel Zavatta <manuel.zavatta@gmail.com>
+ ! @link    http://www.coordinator.it
+ !
+<!-->
 <locale>
 
  <!-- framework -->
@@ -52,6 +59,7 @@
  <text key="framework_alert_userGroupNotFound">Il gruppo dell'utente non è stato trovato</text>
  <text key="framework_alert_userGroupAdded">Il gruppo è stato aggiunto all'utente</text>
  <text key="framework_alert_userGroupRemoved">Il gruppo è stato rimosso dall'utente</text>
+ <text key="framework_alert_userParametersUpdated">I parametri dell'utente sono stati aggiornati</text>
 
  <text key="framework_alert_userRecoveryNotFound">L'account specificato non è stato trovato.</text>
  <text key="framework_alert_userRecoverySecretError">Si è verificato un errore durante la procedura di ripristino dell'account.</text>

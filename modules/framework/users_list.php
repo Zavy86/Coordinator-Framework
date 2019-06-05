@@ -12,7 +12,7 @@
  // set html title
  $html->setTitle(api_text("users_list"));
  // build filter
- $filter=new cFilter();
+ $filter=new strFilter();
  $filter->addSearch(array("firstname","lastname","username","mail"));
  $filter->addItem(api_text("users_list-filter-enabled"),array(0=>api_text("user-status-disabled"),1=>api_text("user-status-enabled")),"enabled");
  // build query
@@ -22,9 +22,9 @@
  // debug
  //api_dump($query->getQuerySQL());
  // build pagination
- $pagination=new cPagination($query->getRecordsCount());
+ $pagination=new strPagination($query->getRecordsCount());
  // build grid object
- $table=new cTable(api_text("users_list-tr-unvalued"));
+ $table=new strTable(api_text("users_list-tr-unvalued"));
  $table->addHeader($filter->link(api_icon("fa-filter",api_text("filters-modal-link"),"hidden-link")),"text-center",16);
  $table->addHeader(api_text("users_list-th-fullname"),"nowrap");
  $table->addHeader("&nbsp;",null,16);
@@ -38,7 +38,7 @@
  // cycle all users
  foreach($users_array as $user_obj){
   // build operation button
-  $ob=new cOperationsButton();
+  $ob=new strOperationsButton();
   $ob->addElement("?mod=".MODULE."&scr=users_edit&idUser=".$user_obj->id,"fa-pencil",api_text("users_list-td-edit"));
   if($user_obj->deleted){$ob->addElement("?mod=".MODULE."&scr=submit&act=user_undelete&idUser=".$user_obj->id,"fa-trash-o",api_text("users_list-td-undelete"),true,api_text("users_list-td-undelete-confirm"));}
   else{
@@ -58,7 +58,7 @@
   $table->addRowField($ob->render(),"text-right");
  }
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($filter->render(),"col-xs-12");
  $grid->addRow();

@@ -12,7 +12,7 @@
  // set html title
  $html->setTitle(api_text("groups_list"));
  // build grid object
- $table=new cTable(api_text("groups_list-tr-unvalued"));
+ $table=new strTable(api_text("groups_list-tr-unvalued"));
  $table->addHeader("&nbsp;",null,16);
  $table->addHeader(api_text("groups_list-th-name"),"nowrap");
  $table->addHeader(api_text("groups_list-th-description"),null,"100%");
@@ -29,7 +29,7 @@
   $table->addRowFieldAction("?mod=".MODULE."&scr=groups_edit&idGroup=".$group->id,"fa-edit",api_text("groups_list-td-edit"));
  }
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
  // add content to html

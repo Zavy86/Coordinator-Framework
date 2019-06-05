@@ -12,7 +12,7 @@
  // set html title
  $html->setTitle(api_text("sessions_list"));
  // build grid object
- $table=new cTable(api_text("accounts_list-tr-unvalued"));
+ $table=new strTable(api_text("accounts_list-tr-unvalued"));
  $table->addHeader("&nbsp;",null,16);
  $table->addHeader(api_text("sessions_list-th-fullname"),null,"100%");
  $table->addHeader(api_text("sessions_list-th-idle"),"nowrap text-right");
@@ -49,7 +49,7 @@
   }
  }
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
  // add content to html

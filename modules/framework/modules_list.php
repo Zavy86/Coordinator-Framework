@@ -12,7 +12,7 @@
  // set html title
  $html->setTitle(api_text("modules_list"));
  // build grid object
- $table=new cTable(api_text("modules_list-tr-unvalued"));
+ $table=new strTable(api_text("modules_list-tr-unvalued"));
  $table->addHeader("&nbsp;",null,16);
  $table->addHeader(api_text("modules_list-th-name"),"nowrap");
  $table->addHeader(api_text("modules_list-th-installed"),"nowrap text-right");
@@ -88,7 +88,7 @@
  }
  closedir($dir_handle);
  // build grid object
- $grid=new cGrid();
+ $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
  // add content to html
