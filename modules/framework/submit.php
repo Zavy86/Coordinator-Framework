@@ -54,6 +54,7 @@ switch(ACTION){
  case "user_group_add":user_group_add();break;
  case "user_group_remove":user_group_remove();break;
  /** @todo user_group_mainize(); */
+ case "user_parameter_save":user_parameter_save();break;
  // groups
  case "group_save":group_save();break;
  /** @todo delete */
@@ -1111,6 +1112,47 @@ function user_group_remove(){
  // redirect
  api_alerts_add(api_text("framework_alert_userGroupRemoved"),"warning");
  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
+}
+/**
+ * User Parameter Save
+ */
+function user_parameter_save(){
+ api_dump($_REQUEST,"_REQUEST");
+ // get current user
+ $user_obj=new cUser($GLOBALS['session']->user->id);
+ if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=dashboard");}
+ // acquire variables
+ $r_module=$_REQUEST['module'];
+ $r_parameters=$_REQUEST['parameters'];
+ // check variables
+ if(!$r_module){api_alerts_add(api_text("framework_alert_error"),"danger");api_redirect("?mod=dashboard");}
+ if(!is_array($r_parameters)){api_alerts_add(api_text("framework_alert_error"),"danger");api_redirect("?mod=dashboard");}
+ // cycle all parameters
+ foreach($r_parameters as $parameter_fkey=>$parameter_fvalue){
+  // make parameter code
+  $parameter_code=$r_module."-".$parameter_fkey;
+  // get parameter
+  $parameter_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users__parameters` WHERE `fkUser`='".$user_obj->id."' AND `parameter`='".$parameter_code."'",$GLOBALS['debug']);
+  // build user query object
+  $parameter_qobj=new stdClass();
+  $parameter_qobj->id=$parameter_obj->id;
+  $parameter_qobj->fkUser=$user_obj->id;
+  $parameter_qobj->parameter=addslashes($parameter_code);
+  $parameter_qobj->value=addslashes($parameter_fvalue);
+  // debug
+  api_dump($parameter_qobj,"parameter query object");
+  // check parameter
+  if($parameter_obj->id){
+   // update parameter
+   $GLOBALS['database']->queryUpdate("framework__users__parameters",$parameter_qobj);
+  }else{
+   // insert parameter
+   $GLOBALS['database']->queryInsert("framework__users__parameters",$parameter_qobj);
+  }
+ }
+ // redirect
+ api_alerts_add(api_text("framework_alert_userParametersUpdated"),"success");
+ api_redirect("?mod=".$r_module."&scr=parameters");
 }
 
 /**

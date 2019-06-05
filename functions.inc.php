@@ -88,6 +88,7 @@ require_once(ROOT."classes/cGauge.class.php");
 require_once(ROOT."classes/cPagination.class.php");
 require_once(ROOT."classes/cQuery.class.php");
 require_once(ROOT."classes/cAttachment.class.php");
+require_once(ROOT."classes/cParametersForm.class.php");
 
 // build localization instance
 $localization=new cLocalization();
@@ -699,6 +700,33 @@ function api_requireModules($modules=null){                     /** @todo integr
   // load module localization
   $GLOBALS['localization']->load($module_f);
  }
+}
+
+
+/**
+ * Parameter default
+ *
+ * @param string $parameter Parameter name
+ * @param string $module Module name (Default current module)
+ * @param integer $user User ID
+ * @return boolean
+ */
+function api_parameter_default($parameter,$module=null,$user=null){
+ // check parameters
+ if(!$parameter){return false;}
+ if(!$module){$module=MODULE;}
+ if(!$user){$user=$GLOBALS['session']->user->id;}
+ // make parameter id
+ $parameter_code=$module."-".$parameter;
+ // get parameter
+ $parameter_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users__parameters` WHERE `fkUser`='".$user."' AND `parameter`='".$parameter_code."'",$GLOBALS['debug']);
+ //api_dump($parameter_obj,"parameter object");
+ // check and converts
+ if(!$parameter_obj->id){return false;}
+ $parameter_obj->parameter=stripslashes($parameter_obj->parameter);
+ $parameter_obj->value=stripslashes($parameter_obj->value);
+ // return
+ return $parameter_obj->value;
 }
 
 
