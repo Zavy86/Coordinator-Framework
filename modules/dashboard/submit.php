@@ -9,7 +9,7 @@
 
  // check for actions
  if(!defined('ACTION')){die("ERROR EXECUTING SCRIPT: The action was not defined");}
- 
+
  // switch action
  switch(ACTION){
   // tiles
@@ -28,13 +28,18 @@
   * Tile save
   */
  function tile_save(){
+  api_dump($_REQUEST,"_REQUEST");
   // get objects
-  $tile_obj=new strDashboardTile($_REQUEST['idTile']);
+  $tile_obj=new cDashboardTile($_REQUEST['idTile']);
+  // debug
+  api_dump($tile_obj,"tile object");
   // acquire variables
   $r_element=json_decode($_REQUEST['element']);
   $r_redirect_mod=$_REQUEST['redirect_mod'];
   $r_redirect_scr=$_REQUEST['redirect_scr'];
   $r_redirect_tab=$_REQUEST['redirect_tab'];
+  // debug
+  api_dump($r_element,"element");
   // check parameters
   if(!$r_redirect_mod){$r_redirect_mod="dashboard";$r_redirect_scr="dashboard_customize";$r_redirect_tab=null;}
   // build tile query object
@@ -57,10 +62,6 @@
    $tile_qobj->module=addslashes($_REQUEST['module']);
    $tile_qobj->target=addslashes($_REQUEST['target']);
   }
-  // debug
-  api_dump($_REQUEST,"_REQUEST");
-  api_dump($r_element,"element");
-  api_dump($tile_obj,"tile object");
   // check query object
   if(!$tile_qobj->url){api_alerts_add(api_text("dashboard_alert_tileError"),"danger");api_redirect("?mod=".$r_redirect_mod."&scr=".$r_redirect_scr."&tab=".$r_redirect_tab);}
   // check for insert or update
@@ -71,16 +72,14 @@
    $GLOBALS['database']->queryUpdate("framework__users__dashboards",$tile_qobj);
   }else{
    // get maximum position
-   $v_order=$GLOBALS['database']->queryCount("framework__users__dashboards","`fkUser`='".$GLOBALS['session']->user->id."'");
+   $v_order=$GLOBALS['database']->queryUniqueValue("SELECT MAX(`order`) FROM `framework__users__dashboards` WHERE `fkUser`='".$GLOBALS['session']->user->id."'");
    // set new properties
    $tile_qobj->fkUser=$GLOBALS['session']->user->id;
    $tile_qobj->order=($v_order+1);
    // debug
    api_dump($tile_qobj,"tile query object");
-   // insert
-   $GLOBALS['database']->queryInsert("framework__users__dashboards",$tile_qobj);
-   // get last insert id
-   $tile_qobj->id=$GLOBALS['database']->lastInsertedId();
+   // insert tile
+   $tile_qobj->id=$GLOBALS['database']->queryInsert("framework__users__dashboards",$tile_qobj);
   }
   // upload background
   if(intval($_FILES['background']['size'])>0 && $_FILES['background']['error']==UPLOAD_ERR_OK){
@@ -98,7 +97,7 @@
   */
  function tile_move($direction){
   // get objects
-  $tile_obj=new strDashboardTile($_REQUEST['idTile']);
+  $tile_obj=new cDashboardTile($_REQUEST['idTile']);
   // check objects
   if(!$tile_obj->id){api_alerts_add(api_text("dashboard_alert_tileNotFound"),"danger");api_redirect("?mod=dashboard&scr=dashboard_customize");}
   // check parameters
@@ -145,7 +144,7 @@
   */
  function tile_remove(){
   // get objects
-  $tile_obj=new strDashboardTile($_REQUEST['idTile']);
+  $tile_obj=new cDashboardTile($_REQUEST['idTile']);
   // check objects
   if(!$tile_obj->id){api_alerts_add(api_text("dashboard_alert_tileNotFound"),"danger");api_redirect("?mod=dashboard&scr=dashboard_customize");}
   // acquire variables
@@ -171,7 +170,7 @@
   */
  function tile_background_remove(){
   // get objects
-  $tile_obj=new strDashboardTile($_REQUEST['idTile']);
+  $tile_obj=new cDashboardTile($_REQUEST['idTile']);
   // debug
   api_dump($tile_obj);
   // check objects
