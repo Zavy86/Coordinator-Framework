@@ -10,7 +10,7 @@
  */
 
  /**
-  * Operations Button
+  * Operations Button structure class
   */
  class strOperationsButton{
 
@@ -25,7 +25,7 @@
   protected $elements_array;
 
   /**
-   * Operations Button class
+   * Operations Button structure class
    *
    * @param string $icon Icon
    * @param string $label Label

@@ -2,13 +2,15 @@
 /**
  * Parameters Form
  *
+ * Coordinator Structure Class for Parameters Form
+ *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
 
  /**
-  * Parameters Form class
+  * Parameters Form structure class
   */
  class strParametersForm{
 
@@ -21,7 +23,7 @@
   protected $current_parameter;
 
   /**
-   * ParametersForm class
+   * Parameters Form structure class
    *
    * @param string $module Module for parameters
    * @param string $class CSS class

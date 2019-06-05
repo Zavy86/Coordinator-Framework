@@ -2,6 +2,8 @@
 /**
  * Grid
  *
+ * Coordinator Structure Class for Grids
+ *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
@@ -18,7 +20,7 @@
   protected $rows_array;
 
   /**
-   * Grid class
+   * Grid structure class
    *
    * @param string $class Grid css class
    * @return boolean

@@ -2,13 +2,15 @@
 /**
  * Form
  *
+ * Coordinator Structure Class for Forms
+ *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
 
  /**
-  * Form class
+  * Form structure class
   */
  class strForm{
 
@@ -22,7 +24,7 @@
   protected $current_control;
 
   /**
-   * Form class
+   * Form structure class
    *
    * @param string $action Submit URL
    * @param string $method Submit method ( GET | POST )

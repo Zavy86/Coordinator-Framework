@@ -2,6 +2,8 @@
 /**
  * Gauge
  *
+ * Coordinator Structure Class for Gauges
+ *
  * Coordinator Structure Class Gauge
  *
  * @package Coordinator\Classes
@@ -10,7 +12,7 @@
  */
 
  /**
-  * Gauge class
+  * Gauge structure class
   */
  class strGauge{
 
@@ -60,7 +62,7 @@
   );
 
   /**
-   * Gauge class
+   * Gauge structure class
    *
    * @param string $class CSS class
    * @param string $style Custom CSS

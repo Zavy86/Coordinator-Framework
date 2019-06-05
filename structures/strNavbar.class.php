@@ -2,13 +2,15 @@
 /**
  * Navbar
  *
+ * Coordinator Structure Class for Navigationbars
+ *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
 
  /**
-  * Navbar class
+  * Navivagionbar structure class
   */
  class strNavbar{
 
@@ -20,7 +22,7 @@
   protected $current_item;
 
   /**
-   * Navbar class
+   * Navigationbar structure class
    *
    * @param string $title Navbar title
    * @param string $class Navbar class

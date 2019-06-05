@@ -2,13 +2,15 @@
 /**
  * Filter
  *
+ * Coordinator Structure Class for Filters
+ *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
 
  /**
-  * Filter class
+  * Filter structure class
   */
  class strFilter{
 
@@ -22,7 +24,7 @@
   protected $modal;
 
   /**
-   * Filter class
+   * Filter structure class
    *
    * @param string $id Filter ID, if null randomly generated
    * @return boolean

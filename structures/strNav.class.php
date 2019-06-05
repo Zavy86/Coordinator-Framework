@@ -2,13 +2,15 @@
 /**
  * Nav
  *
+ * Coordinator Structure Class for Navigations
+ *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
 
  /**
-  * Nav class
+  * Nav structure class
   */
  class strNav{
 
@@ -20,7 +22,7 @@
   protected $current_item;
 
   /**
-   * Nav class
+   * Nav structure class
    *
    * @param string $class CSS class ( nav-tabs | nav-pills | nav-stacked )
    * @param boolean $container Renderize container

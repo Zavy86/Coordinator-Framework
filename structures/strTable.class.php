@@ -2,13 +2,15 @@
 /**
  * Table
  *
+ * Coordinator Structure Class for Tables
+ *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
 
  /**
-  * Table class
+  * Table structure class
   */
  class strTable{
 
@@ -23,7 +25,7 @@
   /** @todo fare funzioni aggiuntive ( sortable, checkboxes, movable */
 
   /**
-   * Table class
+   * Table structure class
    *
    * @param string $emptyrow Text to show if no results
    * @param string $class CSS class

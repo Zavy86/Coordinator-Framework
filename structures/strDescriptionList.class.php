@@ -2,7 +2,7 @@
 /**
  * Description List
  *
- * Coordinator Structure Class DescriptionList
+ * Coordinator Structure Class for Description Lists
  *
  * @package Coordinator\Classes
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -10,7 +10,7 @@
  */
 
  /**
-  * Description List class
+  * Description List structure class
   */
  class strDescriptionList{
 
@@ -20,7 +20,7 @@
   protected $elements_array;
 
   /**
-   * Description List class
+   * Description List structure class
    *
    * @param string $separator Default elements separator ( null | hr | br )
    * @param string $class CSS class
