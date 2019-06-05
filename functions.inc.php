@@ -731,7 +731,9 @@
   // make parameter id
   $parameter_code=$module."-".$parameter;
   // get parameter
-  $parameter_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users__parameters` WHERE `fkUser`='".$user."' AND `parameter`='".$parameter_code."'",$GLOBALS['debug']);
+  $parameter_result=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users__parameters` WHERE `fkUser`='".$user."' AND `parameter`='".$parameter_code."'",$GLOBALS['debug']);
+  //api_dump($parameter_result,"parameter result");
+  $parameter_obj=new cParameter($parameter_result);
   //api_dump($parameter_obj,"parameter object");
   // check and converts
   if(!$parameter_obj->id){return false;}
