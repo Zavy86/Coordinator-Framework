@@ -25,6 +25,7 @@
   protected $source_path;
   protected $source_version;
   protected $repository_version_url;
+  protected $required_modules_array;
   protected $authorizations_array;
 
   /**
@@ -57,10 +58,13 @@
    // get repository version url
    include(ROOT."modules/".$this->id."/module.inc.php");
    $this->repository_version_url=$module_repository_version_url;
+   $this->required_modules_array=$module_required_modules;
+   if(!is_array($this->required_modules_array)){$this->required_modules_array=array_filter(array($this->required_modules_array),'strlen');}
    // get authorizations
    $this->authorizations_array=array();
    $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules__authorizations` WHERE `fkModule`='".$this->id."' ORDER BY `order`");
    foreach($authorizations_results as $authorization){$this->authorizations_array[$authorization->id]=New cAuthorization($authorization);}
+   // return
    return true;
   }
 

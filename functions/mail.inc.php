@@ -1,6 +1,6 @@
 <?php
 /**
- * Sendmail Functions
+ * Mail Functions
  *
  * @package Coordinator\Functions
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -8,13 +8,13 @@
  */
 
  /**
-  * Sendmail
+  * Save Mail
   *
   * @param string $subject Subject
   * @param
   * @return integer|boolean Return script defined or false
   */
- function api_sendmail($subject,$message,$recipients_to=null,$recipients_cc=null,$recipients_bcc=null,$sender_mail=null,$sender_name=null,$attachments=null,$template=null){
+ function api_mail_save($subject,$message,$recipients_to=null,$recipients_cc=null,$recipients_bcc=null,$sender_mail=null,$sender_name=null,$attachments=null,$template=null){
   // build mail query objects
   $mail_qobj=new stdClass();
   $mail_qobj->subject=addslashes($subject);
@@ -30,26 +30,26 @@
   $mail_qobj->addTimestamp=time();
   $mail_qobj->addFkUser=$GLOBALS['session']->user->id;
   // check for sender
-  if(!$mail_qobj->sender_mail){$mail_qobj->sender_mail=$GLOBALS['settings']->sendmail_from_mail;}
-  if(!$mail_qobj->sender_name){$mail_qobj->sender_name=$GLOBALS['settings']->sendmail_from_name;}
+  if(!$mail_qobj->sender_mail){$mail_qobj->sender_mail=$GLOBALS['settings']->mail_from_mail;}
+  if(!$mail_qobj->sender_name){$mail_qobj->sender_name=$GLOBALS['settings']->mail_from_name;}
   // debug
   api_dump($mail_qobj,"mail query object");
   // execute query
   $mail_qobj->id=$GLOBALS['database']->queryInsert("framework__mails",$mail_qobj);
   // check for mail id
   if(!$mail_qobj->id){return false;}
-  // check for asynchronous sendmail option or send mail now
-  if(!$GLOBALS['settings']->sendmail_asynchronous){api_sendmail_process($mail_qobj->id);}
+  // check for asynchronous mail option or send mail now
+  if(!$GLOBALS['settings']->mail_asynchronous){api_mail_process($mail_qobj->id);}
   // return
   return $mail_qobj->id;
  }
 
  /**
-  * Sendmail Process
+  * Process Mail
   *
   * @param object|integer $mail Mail object or ID
   */
- function api_sendmail_process($mail=null){
+ function api_mail_process($mail=null){
   // get object
   $mail_obj=new cMail($mail);
   // check object
@@ -67,20 +67,20 @@
    $mailer->CharSet="UTF-8";
    $mailer->Port=587;
    // check for smtp
-   if($GLOBALS['settings']->sendmail_method=="smtp"){
+   if($GLOBALS['settings']->mail_method=="smtp"){
     $mailer->isSMTP();
     //if(DEBUG){$mailer->SMTPDebug=2;}
-    $mailer->Host=$GLOBALS['settings']->sendmail_smtp_hostname;
+    $mailer->Host=$GLOBALS['settings']->mail_smtp_hostname;
     // check for authentication
-    if($GLOBALS['settings']->sendmail_smtp_username){
+    if($GLOBALS['settings']->mail_smtp_username){
      $mailer->SMTPAuth=true;
-     $mailer->Username=$GLOBALS['settings']->sendmail_smtp_username;
-     $mailer->Password=$GLOBALS['settings']->sendmail_smtp_password;
+     $mailer->Username=$GLOBALS['settings']->mail_smtp_username;
+     $mailer->Password=$GLOBALS['settings']->mail_smtp_password;
     }else{
      $mailer->SMTPAuth=false;
     }
     // secure
-    switch(strtolower($GLOBALS['settings']->sendmail_smtp_encryption)){
+    switch(strtolower($GLOBALS['settings']->mail_smtp_encryption)){
      case "tls":$mailer->SMTPSecure="tls";break;
      case "ssl":$mailer->SMTPSecure="ssl";break;
      default:
@@ -90,7 +90,7 @@
    }
    // sender
    $mailer->setFrom($mail_obj->sender_mail,$mail_obj->sender_name);
-   /** @todo se non funziona mettere sempre nel form come mittente la mail del dominio smtp */
+   /** @tips se non funziona mettere sempre nel form come mittente la mail del dominio smtp */
    $mailer->addReplyTo($mail_obj->sender_mail);
    // recipients
    foreach($mail_obj->recipients_to as $to_f){$mailer->addAddress($to_f);}
@@ -153,28 +153,26 @@
  }
 
  /**
-  * Sendmail Process
+  * Process all Mails
   *
   * @return integer Number of processed mails
   */
- function api_sendmail_process_all(){
+ function api_mail_processAll(){
   // get inserted mails
-  $mails_array=api_framework_mails("inserted");
+  $mails_array=api_mail_availableMails("inserted");
   // cycle all mails
-  foreach($mails_array as $mail_obj){api_sendmail_process($mail_obj->id);}
+  foreach($mails_array as $mail_obj){api_mail_process($mail_obj->id);}
   // return
   return count($mails_array);
  }
 
-
-
  /**
-  * Mails                        @todo resta qui ???
+  * Available Mails
   *
   * @param boolean $status
   * @return object $return[] Array of mail objects
   */
- function api_framework_mails($status=null){  /** @todo levare framework? */
+ function api_mail_availableMails($status=null){
   // definitions
   $return=array();
   $status_array=array();

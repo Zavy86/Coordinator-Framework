@@ -17,7 +17,7 @@
  $tabs=new strNav("nav-pills");
  $tabs->addItem(api_text("settings_edit-general"),"?mod=".MODULE."&scr=settings_edit&tab=general");
  $tabs->addItem(api_text("settings_edit-sessions"),"?mod=".MODULE."&scr=settings_edit&tab=sessions");
- $tabs->addItem(api_text("settings_edit-sendmail"),"?mod=".MODULE."&scr=settings_edit&tab=sendmail");
+ $tabs->addItem(api_text("settings_edit-mail"),"?mod=".MODULE."&scr=settings_edit&tab=mail");
  $tabs->addItem(api_text("settings_edit-users"),"?mod=".MODULE."&scr=settings_edit&tab=users");
  $tabs->addItem(api_text("settings_edit-token"),"?mod=".MODULE."&scr=settings_edit&tab=token");
  // build settings form
@@ -66,30 +66,30 @@
   $form->addFieldOption(1,api_text("settings_edit-sessions_ldap_cache-allowed"));
  }
  /**
-  * Sendmail
+  * Mail
   */
- if(TAB=="sendmail"){
-  $form->addField("text","sendmail_from_name",api_text("settings_edit-sendmail_from_name"),$settings->sendmail_from_name,api_text("settings_edit-sendmail_from_name-placeholder"));
-  $form->addField("text","sendmail_from_mail",api_text("settings_edit-sendmail_from_mail"),$settings->sendmail_from_mail,api_text("settings_edit-sendmail_from_mail-placeholder"));
-  $form->addField("radio","sendmail_asynchronous",api_text("settings_edit-sendmail_asynchronous"),(int)$settings->sendmail_asynchronous,null,null,"radio-inline");
+ if(TAB=="mail"){
+  $form->addField("text","mail_from_name",api_text("settings_edit-mail_from_name"),$settings->mail_from_name,api_text("settings_edit-mail_from_name-placeholder"));
+  $form->addField("text","mail_from_mail",api_text("settings_edit-mail_from_mail"),$settings->mail_from_mail,api_text("settings_edit-mail_from_mail-placeholder"));
+  $form->addField("radio","mail_asynchronous",api_text("settings_edit-mail_asynchronous"),(int)$settings->mail_asynchronous,null,null,"radio-inline");
   $form->addFieldOption(0,api_text("no"));
-  $form->addFieldOption(1,api_text("settings_edit-sendmail_asynchronous-enabled",api_link("?mod=".MODULE."&scr=settings_edit&tab=sendmail&act=cron_informations",api_icon("fa-question-circle"),null,"hidden-link")));
-  $form->addField("radio","sendmail_method",api_text("settings_edit-sendmail_method"),$settings->sendmail_method,null,null,"radio-inline");
-  $form->addFieldOption("standard",api_text("settings_edit-sendmail_method-standard"));
-  $form->addFieldOption("smtp",api_text("settings_edit-sendmail_method-smtp"));
+  $form->addFieldOption(1,api_text("settings_edit-mail_asynchronous-enabled",api_link("?mod=".MODULE."&scr=settings_edit&tab=mail&act=cron_informations",api_icon("fa-question-circle"),null,"hidden-link")));
+  $form->addField("radio","mail_method",api_text("settings_edit-mail_method"),$settings->mail_method,null,null,"radio-inline");
+  $form->addFieldOption("standard",api_text("settings_edit-mail_method-standard"));
+  $form->addFieldOption("smtp",api_text("settings_edit-mail_method-smtp"));
   $form->addField("splitter");
-  $form->addField("text","sendmail_smtp_hostname",api_text("settings_edit-sendmail_smtp_hostname"),$settings->sendmail_smtp_hostname,api_text("settings_edit-sendmail_smtp_hostname-placeholder"));
-  $form->addField("text","sendmail_smtp_username",api_text("settings_edit-sendmail_smtp_username"),$settings->sendmail_smtp_username,api_text("settings_edit-sendmail_smtp_username-placeholder"));
-  $form->addField("text","sendmail_smtp_password",api_text("settings_edit-sendmail_smtp_password"),null,api_text("settings_edit-sendmail_smtp_password-placeholder"));
-  $form->addField("radio","sendmail_smtp_encryption",api_text("settings_edit-sendmail_smtp_encryption"),$settings->sendmail_smtp_encryption,null,null,"radio-inline");
-  $form->addFieldOption(null,api_text("settings_edit-sendmail_smtp_encryption-none"));
-  $form->addFieldOption("tls",api_text("settings_edit-sendmail_smtp_encryption-tls"));
-  $form->addFieldOption("ssl",api_text("settings_edit-sendmail_smtp_encryption-ssl"));
+  $form->addField("text","mail_smtp_hostname",api_text("settings_edit-mail_smtp_hostname"),$settings->mail_smtp_hostname,api_text("settings_edit-mail_smtp_hostname-placeholder"));
+  $form->addField("text","mail_smtp_username",api_text("settings_edit-mail_smtp_username"),$settings->mail_smtp_username,api_text("settings_edit-mail_smtp_username-placeholder"));
+  $form->addField("text","mail_smtp_password",api_text("settings_edit-mail_smtp_password"),null,api_text("settings_edit-mail_smtp_password-placeholder"));
+  $form->addField("radio","mail_smtp_encryption",api_text("settings_edit-mail_smtp_encryption"),$settings->mail_smtp_encryption,null,null,"radio-inline");
+  $form->addFieldOption(null,api_text("settings_edit-mail_smtp_encryption-none"));
+  $form->addFieldOption("tls",api_text("settings_edit-mail_smtp_encryption-tls"));
+  $form->addFieldOption("ssl",api_text("settings_edit-mail_smtp_encryption-ssl"));
   // cron informations
   if(ACTION=="cron_informations"){
    // build cron informations modal window
-   $cron_informations_modal=new strModal(api_text("settings_edit-sendmail_asynchronous-modal-title"),null,"requests_view-cron_informations_modal");
-   $cron_informations_modal->setBody(api_text("settings_edit-sendmail_asynchronous-modal-body",array(URL,$settings->token_cron)));
+   $cron_informations_modal=new strModal(api_text("settings_edit-mail_asynchronous-modal-title"),null,"requests_view-cron_informations_modal");
+   $cron_informations_modal->setBody(api_text("settings_edit-mail_asynchronous-modal-body",array(URL,$settings->token_cron)));
    // add modal to html object
    $app->addModal($cron_informations_modal);
    // jQuery scripts

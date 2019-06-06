@@ -23,7 +23,7 @@
   * @param integer $level Identation level
   */
  /*function api_groups_tree2selectOption(&$form,$skip=null,$idGroup=null,$level=0){
-  $groups_tree=api_framework_groups($idGroup);
+  $groups_tree=api_availableGroups($idGroup);
   foreach($groups_tree as $group){
    if($group->id==$skip){continue;}
    $form->addFieldOption($group->id,str_repeat("&nbsp;&nbsp;&nbsp;",$level).$group->name);
@@ -37,7 +37,7 @@
  $form->addFieldOption(null,api_text("groups_edit-fkGroup-main"));
  //api_groups_tree2selectOption($form,$group->id);
 
- api_tree_to_array($groups_array,"api_framework_groups","id");
+ api_tree_to_array($groups_array,"api_availableGroups","id");
  foreach($groups_array as $group_option){
   if($group_option->id==$group->id){continue;}
   $form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->fullname);

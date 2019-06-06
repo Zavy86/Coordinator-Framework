@@ -43,7 +43,7 @@
  if($GLOBALS['session']->validity){
   $header_navbar->addItem(api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover"),"?mod=dashboard");
   // cycle all menus
-  foreach(api_framework_menus(null) as $menu_obj){
+  foreach(api_availableMenus(null) as $menu_obj){
    // check for authorization
    if($menu_obj->authorization){
     $authorization=explode("|",$menu_obj->authorization);
@@ -52,7 +52,7 @@
    /** @todo menu titles */
    if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=null;}
    $header_navbar->addItem($icon_source.$menu_obj->label,$menu_obj->url,true,null,null,null,$menu_obj->target);
-   foreach(api_framework_menus($menu_obj->id) as $submenu_obj){
+   foreach(api_availableMenus($menu_obj->id) as $submenu_obj){
     // check for authorization
     $authorized=true;
     if($submenu_obj->authorization){

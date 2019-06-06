@@ -13,8 +13,8 @@
  $deleted_sessions_2=$GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `lastTimestamp`<'".(time()-$GLOBALS['settings']->sessions_idle_timeout)."'");
  // log
  $logs[]="Expired sessions deleted (".($deleted_sessions_1+$deleted_sessions_2).")"; /** @todo verificare ed eventualmente migliorare */
- // sendmail
- $processed_mails=api_sendmail_process_all();
+ // send mails
+ $processed_mails=api_mail_processAll();
  // log
  $logs[]="Mails processed (".$processed_mails.")"; /** @todo verificare ed eventualmente migliorare */
  // debug

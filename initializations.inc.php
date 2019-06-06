@@ -66,14 +66,13 @@
 
  // include functions
  require_once(ROOT."functions/generic.inc.php");
- require_once(ROOT."functions/framework.inc.php");  /** @todo verificare se mantenere framework davanti o se toglierlo */
  require_once(ROOT."functions/attachment.inc.php");
  require_once(ROOT."functions/calendar.inc.php");
  require_once(ROOT."functions/date.inc.php");
  require_once(ROOT."functions/event.inc.php");
+ require_once(ROOT."functions/mail.inc.php");
  require_once(ROOT."functions/map.inc.php");
  require_once(ROOT."functions/number.inc.php");
- require_once(ROOT."functions/sendmail.inc.php");
  require_once(ROOT."functions/timestamp.inc.php");
 
  // include structures

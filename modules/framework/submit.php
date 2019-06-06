@@ -167,9 +167,9 @@ function settings_save(){
   "sessions_authentication_method","sessions_multiple","sessions_idle_timeout",
   "sessions_ldap_hostname","sessions_ldap_dn","sessions_ldap_domain",
   "sessions_ldap_userfield","sessions_ldap_groups","sessions_ldap_cache",
-  /* sendmail */
-  "sendmail_from_name","sendmail_from_mail","sendmail_asynchronous","sendmail_method",
-  "sendmail_smtp_hostname","sendmail_smtp_username","sendmail_smtp_encryption",
+  /* mail */
+  "mail_from_name","mail_from_mail","mail_asynchronous","mail_method",
+  "mail_smtp_hostname","mail_smtp_username","mail_smtp_encryption",
   /* users */
   "users_password_expiration","users_level_max",
   /* tokens */
@@ -179,8 +179,8 @@ function settings_save(){
  api_dump($_REQUEST);
  // cycle all form fields and set availables
  foreach($_REQUEST as $setting=>$value){if(in_array($setting,$availables_settings_array)){$settings_array[$setting]=$value;}}
- // sendmail smtp password (save password only if change)
- if(isset($settings_array['sendmail_smtp_username'])){if($settings_array['sendmail_smtp_username']){if($_REQUEST['sendmail_smtp_password']){$settings_array['sendmail_smtp_password']=$_REQUEST['sendmail_smtp_password'];}}else{$settings_array['sendmail_smtp_password']=null;}}
+ // mail smtp password (save password only if change)
+ if(isset($settings_array['mail_smtp_username'])){if($settings_array['mail_smtp_username']){if($_REQUEST['mail_smtp_password']){$settings_array['mail_smtp_password']=$_REQUEST['mail_smtp_password'];}}else{$settings_array['mail_smtp_password']=null;}}
  // debug
  api_dump($settings_array);
  // cycle all settings
@@ -213,7 +213,7 @@ function mail_save(){
  $r_subject=addslashes($_REQUEST['subject']);
  $r_message=addslashes(nl2br($_REQUEST['message']));
  // save mail
- api_sendmail($r_subject,$r_message,$r_recipient,null,null,$r_sender);
+ api_mail_save($r_subject,$r_message,$r_recipient,null,null,$r_sender);
  // make current uri array
  parse_str(parse_url($_SERVER['REQUEST_URI'])['query'],$uri_array);
  $uri_array['mod']=$uri_array['return_mod'];unset($uri_array['return_mod']);
@@ -870,10 +870,10 @@ function user_recovery(){
   $GLOBALS['database']->queryExecute("UPDATE `framework__users` SET `secret`='".$f_secret."' WHERE `id`='".$user_obj->id."'");
   $recoveryLink=URL."index.php?mod=".MODULE."&scr=submit&act=user_recovery&mail=".$r_mail."&secret=".$f_secret;
   // send recovery link
-  //api_sendmail("Coordinator password recovery",$recoveryLink,$r_mail); /** @todo fare mail come si deve */
-  $mail_id=api_sendmail(api_text("framework_mail-user_recovery-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_recovery-message",array($user_obj->firstname,$GLOBALS['settings']->title,$recoveryLink)),$user_obj->mail);
-  // force sendmail if asynchronous
-  if($GLOBALS['settings']->sendmail_asynchronous){api_sendmail_process($mail_id);}
+  //api_mail_save("Coordinator password recovery",$recoveryLink,$r_mail); /** @todo fare mail come si deve */
+  $mail_id=api_mail_save(api_text("framework_mail-user_recovery-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_recovery-message",array($user_obj->firstname,$GLOBALS['settings']->title,$recoveryLink)),$user_obj->mail);
+  // force mail if asynchronous
+  if($GLOBALS['settings']->mail_asynchronous){api_mail_process($mail_id);}
   // redirect
   api_alerts_add(api_text("framework_alert_userRecoveryLinkSended"),"success");
   api_redirect(DIR."login.php");
@@ -888,10 +888,10 @@ function user_recovery(){
   // update password and reset secret
   $GLOBALS['database']->queryExecute("UPDATE `framework__users` SET `password`='".md5($v_password)."',`secret`=null,`pwdTimestamp`=null WHERE `id`='".$user_obj->id."'");
   // send new password
-  //api_sendmail("Coordinator new password",$f_password,$r_mail); /** @todo fare mail come si deve */
-  $mail_id=api_sendmail(api_text("framework_mail-user_recovery_password-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_recovery_password-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_password)),$user_obj->mail);
-  // force sendmail if asynchronous
-  if($GLOBALS['settings']->sendmail_asynchronous){api_sendmail_process($mail_id);}
+  //api_mail_save("Coordinator new password",$f_password,$r_mail); /** @todo fare mail come si deve */
+  $mail_id=api_mail_save(api_text("framework_mail-user_recovery_password-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_recovery_password-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_password)),$user_obj->mail);
+  // force mail if asynchronous
+  if($GLOBALS['settings']->mail_asynchronous){api_mail_process($mail_id);}
   // redirect
   api_alerts_add(api_text("framework_alert_userRecoveryPasswordSended"),"success");
   api_redirect(DIR."login.php");
@@ -930,10 +930,10 @@ function user_add(){
  // check user
  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
  // send password to user
- //api_sendmail("Coordinator new user welcome","Your access password is:\n\n".$v_password,$user_obj->mail); /** @todo fare mail come si deve */
- $mail_id=api_sendmail(api_text("framework_mail-user_add-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_add-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_password)),$user_obj->mail);
- // force sendmail if asynchronous
- if($GLOBALS['settings']->sendmail_asynchronous){api_sendmail_process($mail_id);}
+ //api_mail_save("Coordinator new user welcome","Your access password is:\n\n".$v_password,$user_obj->mail); /** @todo fare mail come si deve */
+ $mail_id=api_mail_save(api_text("framework_mail-user_add-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_add-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_password)),$user_obj->mail);
+ // force mail if asynchronous
+ if($GLOBALS['settings']->mail_asynchronous){api_mail_process($mail_id);}
  // redirect
  api_alerts_add(api_text("framework_alert_userCreated"),"success");
  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);

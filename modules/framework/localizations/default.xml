@@ -235,28 +235,28 @@
  <text key="settings_edit-sessions_ldap_cache">Cache</text>
  <text key="settings_edit-sessions_ldap_cache-allowed">Password caching abilitato</text>
 
- <text key="settings_edit-sendmail">Mail</text>
- <text key="settings_edit-sendmail_from_name">Mittente</text>
- <text key="settings_edit-sendmail_from_name-placeholder">Nome del mittente predefinito</text>
- <text key="settings_edit-sendmail_from_mail">Indirizzo mail</text>
- <text key="settings_edit-sendmail_from_mail-placeholder">Indirizzo mail del mittente predefinito</text>
- <text key="settings_edit-sendmail_asynchronous">Invio mail asincrono</text>
- <text key="settings_edit-sendmail_asynchronous-enabled">Abilitato (Richiesto Cron <![CDATA[{0}]]>)</text>
- <text key="settings_edit-sendmail_asynchronous-modal-title">Abilitazione invio mail asincrono</text>
- <text key="settings_edit-sendmail_asynchronous-modal-body"><![CDATA[Per abilitare l'invio delle mail asincrono è necessario impostare un <em>Cron job</em>.<br><br>Un esempio di stringa in ambiente Unix è:<br><br><samp>*/5 * * * * wget "{0}cron.php?token={1}" -qO- | cat /dev/null</samp>]]></text>
- <text key="settings_edit-sendmail_method">Metodo di invio</text>
- <text key="settings_edit-sendmail_method-standard">Standard</text>
- <text key="settings_edit-sendmail_method-smtp">SMTP</text>
- <text key="settings_edit-sendmail_smtp_hostname">Server SMTP</text>
- <text key="settings_edit-sendmail_smtp_hostname-placeholder">Hostname indirizzo IP del server SMTP</text>
- <text key="settings_edit-sendmail_smtp_username">Nome utente</text>
- <text key="settings_edit-sendmail_smtp_username-placeholder">Nome utente per l'autenticazione SMTP</text>
- <text key="settings_edit-sendmail_smtp_password">Password</text>
- <text key="settings_edit-sendmail_smtp_password-placeholder">Compilare solo se si desidera modificare la password</text>
- <text key="settings_edit-sendmail_smtp_encryption">Cifratura</text>
- <text key="settings_edit-sendmail_smtp_encryption-none">Nessuna</text>
- <text key="settings_edit-sendmail_smtp_encryption-tls">TLS</text>
- <text key="settings_edit-sendmail_smtp_encryption-ssl">SSL</text>
+ <text key="settings_edit-mail">Mail</text>
+ <text key="settings_edit-mail_from_name">Mittente</text>
+ <text key="settings_edit-mail_from_name-placeholder">Nome del mittente predefinito</text>
+ <text key="settings_edit-mail_from_mail">Indirizzo mail</text>
+ <text key="settings_edit-mail_from_mail-placeholder">Indirizzo mail del mittente predefinito</text>
+ <text key="settings_edit-mail_asynchronous">Invio mail asincrono</text>
+ <text key="settings_edit-mail_asynchronous-enabled">Abilitato (Richiesto Cron <![CDATA[{0}]]>)</text>
+ <text key="settings_edit-mail_asynchronous-modal-title">Abilitazione invio mail asincrono</text>
+ <text key="settings_edit-mail_asynchronous-modal-body"><![CDATA[Per abilitare l'invio delle mail asincrono è necessario impostare un <em>Cron job</em>.<br><br>Un esempio di stringa in ambiente Unix è:<br><br><samp>*/5 * * * * wget "{0}cron.php?token={1}" -qO- | cat /dev/null</samp>]]></text>
+ <text key="settings_edit-mail_method">Metodo di invio</text>
+ <text key="settings_edit-mail_method-standard">Standard</text>
+ <text key="settings_edit-mail_method-smtp">SMTP</text>
+ <text key="settings_edit-mail_smtp_hostname">Server SMTP</text>
+ <text key="settings_edit-mail_smtp_hostname-placeholder">Hostname indirizzo IP del server SMTP</text>
+ <text key="settings_edit-mail_smtp_username">Nome utente</text>
+ <text key="settings_edit-mail_smtp_username-placeholder">Nome utente per l'autenticazione SMTP</text>
+ <text key="settings_edit-mail_smtp_password">Password</text>
+ <text key="settings_edit-mail_smtp_password-placeholder">Compilare solo se si desidera modificare la password</text>
+ <text key="settings_edit-mail_smtp_encryption">Cifratura</text>
+ <text key="settings_edit-mail_smtp_encryption-none">Nessuna</text>
+ <text key="settings_edit-mail_smtp_encryption-tls">TLS</text>
+ <text key="settings_edit-mail_smtp_encryption-ssl">SSL</text>
 
  <text key="settings_edit-users">Utenti</text>
  <text key="settings_edit-users_password_expiration">Scadenza password</text>
