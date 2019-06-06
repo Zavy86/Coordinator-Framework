@@ -468,6 +468,30 @@
  }
 
  /**
+  * Update a database object
+  *
+  * @param string $table Database table
+  * @param mixed $id Object id
+  * @param string $idKey Key field name
+  * @return boolean
+  */
+ function api_object_update($table,$id,$idKey="id"){
+  // check parameters
+  if(!$table || !$id || !$idKey){return false;}
+  // build division query object
+  $update_qobj=new stdClass();
+  $update_qobj->$idKey=$id;
+  $update_qobj->updTimestamp=time();
+  $update_qobj->updFkUser=$GLOBALS['session']->user->id;
+  // debug
+  api_dump($update_qobj,"update query object");
+  // update object
+  $GLOBALS['database']->queryUpdate($table,$update_qobj);
+  // return
+  return true;
+ }
+
+ /**
   * Available Modules
   *
   * @return object[] Array of module objects
