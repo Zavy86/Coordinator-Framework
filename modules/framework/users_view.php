@@ -8,7 +8,7 @@
  */
  api_checkAuthorization("framework-users_manage","dashboard");
   // get objects
- $user_obj=new cUser($_REQUEST['idUser']);
+ $user_obj=new cUser($_REQUEST['idUser'],true);
  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
  // deleted alert
  if($user_obj->deleted){api_alerts_add(api_text("users_view-deleted-alert"),"warning");}
@@ -23,6 +23,7 @@
  $dl_left->addElement(api_tag("strong",$user_obj->fullname),api_image($user_obj->avatar,"img-thumbnail",128).$avatar_delete_link);
  $dl_left->addElement("&nbsp;",$user_obj->getStatus());
  $dl_left->addElement(api_text("users_view-mail"),$user_obj->mail);
+ if($user_obj->username){$dl_left->addElement(api_text("users_view-username"),$user_obj->username);}
  $dl_left->addElement(api_text("users_view-timezone"),$user_obj->timezone);
  $dl_left->addElement(api_text("users_view-localization"),$localization->available_localizations[$user_obj->localization]);
  // build groups table

@@ -16,6 +16,8 @@
  define('HELPERS',DIR."helpers/");
  // die if configuration already exist
  if(file_exists(ROOT."config.inc.php")){die("Coordinator Framework is already configured..");}
+ // include functions
+ require_once(ROOT."functions/generic.inc.php");
  // include structures
  require_once(ROOT."structures/strApplication.class.php");
  require_once(ROOT."structures/strGrid.class.php");

@@ -152,8 +152,8 @@
    // definitions
    $groups_array=array();
    // get groups
-   //$groups_results=$GLOBALS['database']->queryObjects("SELECT `framework__users__groups`.* FROM `framework__users__groups` LEFT JOIN `framework__groups` ON `framework__groups`.`id`=`framework__users__groups`.`fkGroup` WHERE `framework__users__groups`.`fkUser`='".$this->id."' ORDER BY `framework__users__groups`.`main` DESC,`framework__groups`.`name` ASC");
-   $groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users__groups` WHERE `fkUser`='".$this->id."' ORDER BY `main` DESC");
+   //$groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users__groups` WHERE `fkUser`='".$this->id."' ORDER BY `main` DESC");
+   $groups_results=$GLOBALS['database']->queryObjects("SELECT `framework__users__groups`.* FROM `framework__users__groups` LEFT JOIN `framework__groups` ON `framework__groups`.`id`=`framework__users__groups`.`fkGroup` WHERE `framework__users__groups`.`fkUser`='".$this->id."' ORDER BY `framework__users__groups`.`main` DESC,`framework__groups`.`name` ASC");
    foreach($groups_results as $result_f){
     $group=new stdClass();
     $group->id=$result_f->fkGroup;
@@ -196,40 +196,37 @@
      $fkGroup=$group->fkGroup;
     }
    }
-   // remove deuplicated keys from recursive
+   // remove duplicated keys from recursive
    foreach($groups_recursive_array as $group){if(array_key_exists($group,$groups_array)){unset($groups_recursive_array[$group]);}}
-   // make groups query where
-   foreach($groups_array as $group){$authorizations_groups_where.="`framework__modules__authorizations__groups`.`fkGroup`='".$group."' OR ";}
    // make authorization query
-   $authorizations_query="SELECT `framework__modules__authorizations`.`id`,`framework__modules__authorizations`.`module`,`framework__modules__authorizations`.`action`
+   $authorizations_query="SELECT `framework__modules__authorizations`.`id`,`framework__modules__authorizations`.`fkModule`
     FROM `framework__modules__authorizations__groups`
     JOIN `framework__modules__authorizations` ON `framework__modules__authorizations`.`id`=`framework__modules__authorizations__groups`.`fkAuthorization`
-    WHERE `framework__modules__authorizations__groups`.`level`<='".$this->level."' AND
-     ( ".substr($authorizations_groups_where,0,-4)." )
+    WHERE `framework__modules__authorizations__groups`.`level`>='".$this->level."'
+     AND `framework__modules__authorizations__groups`.`fkGroup` IN (".implode(",",$groups_array).")
     GROUP BY `framework__modules__authorizations`.`id`";
    // get authorizations
    $authorizations_results=$GLOBALS['database']->queryObjects($authorizations_query);
-   foreach($authorizations_results as $authorization){$return[$authorization->module][$authorization->action]="authorized";}
+   foreach($authorizations_results as $authorization){$return[$authorization->fkModule][$authorization->id]="authorized";}
    // check for recursive groups
    if(count($groups_recursive_array)){
-    // make recursive groups query where
-    foreach($groups_recursive_array as $group){$authorizations_groups_recursive_where.="`framework__modules__authorizations__groups`.`fkGroup`='".$group."' OR ";}
     // make inherited authorizations query
-    $authorizations_query="SELECT `framework__modules__authorizations`.`id`,`framework__modules__authorizations`.`module`,`framework__modules__authorizations`.`action`,'1' as `inherited`
+    $authorizations_query="SELECT `framework__modules__authorizations`.`id`,`framework__modules__authorizations`.`fkModule`,'1' as `inherited`
      FROM `framework__modules__authorizations__groups`
      JOIN `framework__modules__authorizations` ON `framework__modules__authorizations`.`id`=`framework__modules__authorizations__groups`.`fkAuthorization`
-     WHERE `framework__modules__authorizations__groups`.`level`<='".$this->level."' AND
-      ( ".substr($authorizations_groups_recursive_where,0,-4)." )
+     WHERE `framework__modules__authorizations__groups`.`level`>='".$this->level."'
+      AND `framework__modules__authorizations__groups`.`fkGroup` IN (".implode(",",$groups_recursive_array).")
      GROUP BY `framework__modules__authorizations`.`id`";
     // get inherited authorizations
     $authorizations_recursive_results=$GLOBALS['database']->queryObjects($authorizations_query);
     // merge authorizations
     foreach($authorizations_recursive_results as $authorization){
-     if(!array_key_exists($authorization->action,$return[$authorization->module])){
-      $return[$authorization->module][$authorization->action]="inherited";
+     if(!array_key_exists($authorization->id,$return[$authorization->fkModule])){
+      $return[$authorization->fkModule][$authorization->id]="inherited";
      }
     }
    }
+   // return
    return $return;
   }
 

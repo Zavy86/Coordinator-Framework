@@ -14,21 +14,21 @@
  <text key="framework-description">Coordinator framework</text>
 
  <!-- authorizations -->
- <text key="framework-settings_manage">Gestione impostazioni</text>
+ <text key="framework-settings_manage">Impostazioni</text>
  <text key="framework-settings_manage-description">Gestione delle impostazioni del framework</text>
- <text key="framework-menus_manage">Gestione menu</text>
+ <text key="framework-menus_manage">Menu</text>
  <text key="framework-menus_manage-description">Gestione dei menu del framework</text>
- <text key="framework-modules_manage">Gestione moduli</text>
+ <text key="framework-modules_manage">Moduli</text>
  <text key="framework-modules_manage-description">Gestione dei moduli del framework</text>
- <text key="framework-users_manage">Gestione utenti</text>
+ <text key="framework-users_manage">Utenti</text>
  <text key="framework-users_manage-description">Gestione degli utenti del framework</text>
- <text key="framework-groups_manage">Gestione gruppi</text>
+ <text key="framework-groups_manage">Gruppi</text>
  <text key="framework-groups_manage-description">Gestione dei gruppi del framework</text>
- <text key="framework-sessions_manage">Gestione sessioni</text>
+ <text key="framework-sessions_manage">Sessioni</text>
  <text key="framework-sessions_manage-description">Gestione delle sessioni degli utenti nel framework</text>
- <text key="framework-mails_manage">Gestione mail</text>
+ <text key="framework-mails_manage">Mail</text>
  <text key="framework-mails_manage-description">Gestione dei registri mail</text>
- <text key="framework-attachments_manage">Gestione allegati</text>
+ <text key="framework-attachments_manage">Allegati</text>
  <text key="framework-attachments_manage-description">Gestione degli allegati</text>
 
  <!-- alerts -->
@@ -46,6 +46,7 @@
  <text key="framework_alert_ownPasswordWeak">La nuova password non ha superato il livello minimo di sicurezza</text>
  <text key="framework_alert_ownPasswordOldest">La nuova password coincide con la vecchia password</text>
  <text key="framework_alert_ownPasswordUpdated">La tua password è stata aggiornata</text>
+ <text key="framework_alert_ownAvatarRemoved">Il tuo avatar è stato eliminato</text>
 
  <text key="framework_alert_userError">Si è verificato un errore durante il salvaraggio dell'utente</text>
  <text key="framework_alert_userNotFound">L'utente non è stato trovato</text>
@@ -59,6 +60,7 @@
  <text key="framework_alert_userGroupNotFound">Il gruppo dell'utente non è stato trovato</text>
  <text key="framework_alert_userGroupAdded">Il gruppo è stato aggiunto all'utente</text>
  <text key="framework_alert_userGroupRemoved">Il gruppo è stato rimosso dall'utente</text>
+ <text key="framework_alert_userGroupMainized">Il gruppo è stato impostato come principale</text>
  <text key="framework_alert_userParametersUpdated">I parametri dell'utente sono stati aggiornati</text>
 
  <text key="framework_alert_userRecoveryNotFound">L'account specificato non è stato trovato.</text>
@@ -150,6 +152,7 @@
  <!-- own_profile -->
  <text key="own_profile">Profilo personale</text>
  <text key="own_profile-mail">Indirizzo mail</text>
+ <text key="own_profile-username">Username</text>
  <text key="own_profile-firstname">Nome</text>
  <text key="own_profile-lastname">Cognome</text>
  <text key="own_profile-localization">Lingua</text>
@@ -351,6 +354,7 @@
  <text key="users_view-avatar-delete">Elimina avatar</text>
  <text key="users_view-avatar-delete-confirm">Confermi di voler eliminare definitivamente questa immagine?</text>
  <text key="users_view-mail">Indirizzo mail</text>
+ <text key="users_view-username">Username</text>
  <text key="users_view-timezone">Fuso orario</text>
  <text key="users_view-localization">Lingua</text>
  <text key="users_view-gender">Genere</text>
@@ -463,7 +467,7 @@
  <text key="sessions_list-th-fullname">Utente</text>
  <text key="sessions_list-th-idle">Tempo di inattività</text>
  <text key="sessions_list-th-start">Accesso</text>
- <text key="sessions_list-th-ipAddress">Indirizzo IP</text>
+ <text key="sessions_list-th-address">Indirizzo IP</text>
  <text key="sessions_list-th-id">ID Sessione</text>
  <text key="sessions_list-th-terminate">Termina tutte le sessioni</text>
  <text key="sessions_list-th-terminate-confirm">Confermi di voler terminare tutte le sessioni?</text>

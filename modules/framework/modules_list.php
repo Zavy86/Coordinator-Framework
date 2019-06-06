@@ -23,8 +23,8 @@
  // get module objects
  $modules_array=array();
  $modules_array["framework"]=new cModule("framework");
- $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules` WHERE `module`!='framework' ORDER BY `module`");
- foreach($modules_results as $module){$modules_array[$module->module]=new cModule($module);}
+ $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules` WHERE `id`!='framework' ORDER BY `id`");
+ foreach($modules_results as $module){$modules_array[$module->id]=new cModule($module);}
  // cycle all modules
  foreach($modules_array as $module){
   // get last released version from GitHub
@@ -42,27 +42,27 @@
   // check module status
   if($module_installed){
    if($source_updated){
-    $action_btn=api_link("?mod=".MODULE."&scr=submit&act=module_update_database&module=".$module->module,api_text("modules_list-td-update_database",$module->source_version),null,"btn btn-warning btn-xs");
+    $action_btn=api_link("?mod=".MODULE."&scr=submit&act=module_update_database&idModule=".$module->id,api_text("modules_list-td-update_database",$module->source_version),null,"btn btn-warning btn-xs");
    }elseif($repository_updated){
     // check for git
     if(file_exists($module->source_path."/.git/config")){
-     $action_btn=api_link("?mod=".MODULE."&scr=submit&act=module_update_source&module=".$module->module,api_text("modules_list-td-update_source"),null,"btn btn-info btn-xs",false,api_text("modules_list-td-update_source-confirm"));
+     $action_btn=api_link("?mod=".MODULE."&scr=submit&act=module_update_source&idModule=".$module->id,api_text("modules_list-td-update_source"),null,"btn btn-info btn-xs",false,api_text("modules_list-td-update_source-confirm"));
     }else{
      $action_btn=api_link("@todo module url".$module->url,api_text("modules_list-td-update_source-manual"),null,"btn btn-info btn-xs",false,null,null,null,"_blank");
     }
    }elseif($repository_version===null){
     // check for git
     if(file_exists($module->source_path."/.git/config")){
-     $action_btn=api_link("?mod=".MODULE."&scr=submit&act=module_update_source&module=".$module->module,api_text("modules_list-td-update_source_force"),null,"btn btn-default btn-xs",false,api_text("modules_list-td-update_source_force-confirm"));
+     $action_btn=api_link("?mod=".MODULE."&scr=submit&act=module_update_source&idModule=".$module->id,api_text("modules_list-td-update_source_force"),null,"btn btn-default btn-xs",false,api_text("modules_list-td-update_source_force-confirm"));
     }
    }
   }else{
-   $action_btn=api_link("?mod=".MODULE."&scr=submit&act=module_setup&module=".$module->module,api_text("modules_list-td-setup"),null,"btn btn-success btn-xs");
+   $action_btn=api_link("?mod=".MODULE."&scr=submit&act=module_setup&idModule=".$module->id,api_text("modules_list-td-setup"),null,"btn btn-success btn-xs");
   }
   // build table row
   $table->addRow();
   // build table fields
-  $table->addRowFieldAction("?mod=".MODULE."&scr=modules_view&module=".$module->module,"search",api_text("show")); /** @todo verificare non esiste */
+  $table->addRowFieldAction("?mod=".MODULE."&scr=modules_view&idModule=".$module->id,"search",api_text("show")); /** @todo verificare non esiste */
   $table->addRowField($module->name,"nowrap");
   $table->addRowField(api_tag("span",$module->version,"label ".($source_updated?"label-warning":"label-success")),"nowrap text-right");
   $table->addRowField(api_tag("span",$repository_version,"label ".($repository_updated?"label-info":"label-success")),"nowrap text-right");
@@ -78,7 +78,7 @@
   if(array_key_exists($module_directory,$modules_array)){continue;}
   if(!file_exists(ROOT."modules/".$module_directory."/module.inc.php")){continue;}
   // make action button
-  $action_btn=api_link("?mod=".MODULE."&scr=submit&act=module_initialize&module=$module_directory",api_text("modules_list-td-initialize"),null,"btn btn-info btn-xs");
+  $action_btn=api_link("?mod=".MODULE."&scr=submit&act=module_initialize&idModule=".$module_directory,api_text("modules_list-td-initialize"),null,"btn btn-info btn-xs");
   // build table row
   $table->addRow();
   // build table fields

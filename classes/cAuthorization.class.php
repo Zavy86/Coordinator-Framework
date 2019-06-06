@@ -14,8 +14,7 @@
 
   /** Properties */
   protected $id;
-  protected $module;
-  protected $action;
+  protected $fkModule;
   protected $name;
   protected $description;
   protected $groups_array;
@@ -32,14 +31,11 @@
    if(is_int($authorization)){$authorization=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__modules__authorizations` WHERE `id`='".$authorization."'");}
    if(!$authorization->id){return false;}
    // set properties
-   $this->id=$authorization->id;
-   $this->module=stripslashes($authorization->module);
-   $this->action=stripslashes($authorization->action);
-   // load localization
-   //$GLOBALS['localization']->load($this->module); /** @todo verificare se serve, in teoria avendo caricato il modulo dovrebbe gia esserci */
+   $this->id=stripslashes($authorization->id);
+   $this->fkModule=stripslashes($authorization->fkModule);
    // make name and description
-   $this->name=api_text($authorization->action);
-   $this->description=api_text($authorization->action."-description");
+   $this->name=api_text($authorization->id);
+   $this->description=api_text($authorization->id."-description");
    // get groups
    $this->groups_array=array();
    $this->groups_level_array=array();

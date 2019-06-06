@@ -10,9 +10,9 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // get objects
- $module_obj=new cModule($_REQUEST['module']);
+ $module_obj=new cModule($_REQUEST['idModule']);
  // check objects
- if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
+ if(!$module_obj->id){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  // set html title
  $app->setTitle(api_text("modules_view",$module_obj->name));
  // make version
@@ -27,12 +27,12 @@
  $table=new strTable(api_text("modules_view-authorizations-tr-unvalued"));
  $table->addHeader(api_text("modules_view-authorizations-th-authorization"),"nowrap");
  $table->addHeader(api_text("modules_view-authorizations-th-groups"),null,"100%");
- if(!$module_obj->module){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
+ if(!$module_obj->id){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  // cycle selected module authorizations
  foreach($module_obj->authorizations_array as $authorization){
   // make groups
   $groups_td=null;
-  foreach($authorization->groups_array as $group){$groups_td.=api_link("?mod=".MODULE."&scr=submit&act=module_authorizations_group_remove&module=".$module_obj->module."&fkAuthorization=".$authorization->id."&fkGroup=".$group->id,api_icon("fa-trash",api_text("modules_view-authorizations-td-delete"),"hidden-link"),null,null,false,api_text("modules_view-authorizations-td-delete-confirm"))." ".$group->fullname." (+".$authorization->groups_level_array[$group->id]."&deg;)<br>";}
+  foreach($authorization->groups_array as $group){$groups_td.=api_link("?mod=".MODULE."&scr=submit&act=module_authorizations_group_remove&idModule=".$module_obj->id."&fkAuthorization=".$authorization->id."&fkGroup=".$group->id,api_icon("fa-trash",api_text("modules_view-authorizations-td-delete"),"hidden-link"),null,null,false,api_text("modules_view-authorizations-td-delete-confirm"))." ".$group->fullname." (+".$authorization->groups_level_array[$group->id]."&deg;)<br>";}
   if(!$groups_td){$groups_td=api_tag("span",api_text("modules_view-authorizations-td-groups-none"),"disabled")."<br>";}
   // add authorization row
   $table->addRow();
@@ -42,14 +42,14 @@
  // check for action module_authorizations_group_add
  if(ACTION=="module_authorizations_group_add"){
   // build authorization join form
-  $authorizations_join_form=new strForm("?mod=".MODULE."&scr=submit&act=module_authorizations_group_add&module=".$module_obj->module,"POST",null,"modules_view-authorizations_modal");
+  $authorizations_join_form=new strForm("?mod=".MODULE."&scr=submit&act=module_authorizations_group_add&idModule=".$module_obj->id,"POST",null,"modules_view-authorizations_modal");
   $authorizations_join_form->addField("select","fkGroup",api_text("modules_view-authorizations_modal-ff-group"),null,api_text("modules_view-authorizations_modal-ff-group-placeholder"),null,null,null,"required");
   api_tree_to_array($groups_array,"api_framework_groups","id");
   foreach($groups_array as $group_option){$authorizations_join_form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->fullname);}
   $authorizations_join_form->addField("select","level",api_text("modules_view-authorizations_modal-ff-level"),$user->level,api_text("modules_view-authorizations_modal-ff-level-placeholder"),null,null,null,"required");
   for($level=1;$level<=$GLOBALS['settings']->users_level_max;$level++){$authorizations_join_form->addFieldOption($level,api_text("modules_view-authorizations_modal-ff-level-fo-level",$level));}
   $authorizations_join_form->addField("checkbox","fkAuthorizations[]",api_text("modules_view-authorizations_modal-ff-authorizations"));
-  foreach($module_obj->authorizations_array as $authorization){$authorizations_join_form->addFieldOption($authorization->id,$authorization->name."<br>".$authorization->description);}
+  foreach($module_obj->authorizations_array as $authorization){$authorizations_join_form->addFieldOption($authorization->id,$authorization->name." &rarr; ".api_tag("em",$authorization->description));}
   $authorizations_join_form->addControl("submit",api_text("modules_view-authorizations_modal-fc-submit"));
   $authorizations_join_form->addControl("button",api_text("modules_view-authorizations_modal-fc-cancel"),"#",null,null,null,"data-dismiss='modal'");
   // build group add modal window

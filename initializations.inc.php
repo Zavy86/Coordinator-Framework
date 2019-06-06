@@ -24,7 +24,7 @@
  $_SESSION['coordinator_logs']=null;
 
  // check for configuration file
- if(!file_exists(realpath(dirname(__FILE__))."/config.inc.php")){die("Coordinator Framework is not configured..<br><br>".api_link("setup.php","Setup"));}
+ if(!file_exists(realpath(dirname(__FILE__))."/config.inc.php")){die("Coordinator Framework is not configured..<br><br><a href='setup.php'>Setup</a>");}
 
  // include configuration file
  $configuration=new stdClass();
@@ -105,6 +105,7 @@
  require_once(ROOT."classes/cMail.class.php");
  require_once(ROOT."classes/cMenu.class.php");
  require_once(ROOT."classes/cModule.class.php");
+ require_once(ROOT."classes/cParameter.class.php");
  require_once(ROOT."classes/cSettings.class.php");
  require_once(ROOT."classes/cSession.class.php");
  require_once(ROOT."classes/cUser.class.php");
