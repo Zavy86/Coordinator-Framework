@@ -307,30 +307,30 @@
  /**
   * Check Authorization
   *
-  * @param string $action Action to check
+  * @param string $authorization Authorization to check
   * @param string $redirect If unauthorized redirect to this script
   * @param string $module Module (default current module)
   * @param booelan $inherited If true check also in hinerited permissions
   * @param booelan $superuser If true return true if user is superuser
   * @return boolean authorized or not
   */
- function api_checkAuthorization($action,$redirect=null,$module=null,$inherited=true,$superuser=true){
+ function api_checkAuthorization($authorization,$redirect=null,$module=null,$inherited=true,$superuser=true){
   // check parameters
-  if(!$action){return false;}
+  if(!$authorization){return false;}
   if(!$module){$module=MODULE;}
   // check authorization
-  $authorization=$GLOBALS['session']->user->authorizations_array[$module][$action];
-  if($authorization=="authorized"){return true;}
-  if($inherited && $authorization=="inherited"){return true;}
+  $result=$GLOBALS['session']->user->authorizations_array[$module][$authorization];
+  if($result=="authorized"){return true;}
+  if($inherited && $result=="inherited"){return true;}
   // check superuser
   if($superuser && $GLOBALS['session']->user->superuser){
-   if(DEBUG){api_alerts_add("Check permission [".$module."][".$action."] = SUPERUSER","warning");}
+   if(DEBUG){api_alerts_add("Check permission [".$module."][".$authorization."] = SUPERUSER","warning");}
    return true;
   }
   // unauthorized redirection to script
   if($redirect){
-   api_alerts_add(api_text("alert_unauthorized",array(MODULE,$action)),"danger");
-   api_redirect("?mod=".MODULE."&scr=".$redirect);
+   api_alerts_add(api_text("alert_unauthorized",array($module,$authorization)),"danger");
+   api_redirect("?mod=".$module."&scr=".$redirect);
   }
   // unauthorized return
   return false;
@@ -483,10 +483,6 @@
   //api_dump($parameter_result,"parameter result");
   $parameter_obj=new cParameter($parameter_result);
   //api_dump($parameter_obj,"parameter object");
-  // check and converts
-  if(!$parameter_obj->id){return false;}
-  $parameter_obj->parameter=stripslashes($parameter_obj->parameter);
-  $parameter_obj->value=stripslashes($parameter_obj->value);
   // return
   return $parameter_obj->value;
  }

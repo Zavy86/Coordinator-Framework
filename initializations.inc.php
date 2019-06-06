@@ -105,6 +105,7 @@
  require_once(ROOT."classes/cMail.class.php");
  require_once(ROOT."classes/cMenu.class.php");
  require_once(ROOT."classes/cModule.class.php");
+ require_once(ROOT."classes/cParameter.class.php");
  require_once(ROOT."classes/cSettings.class.php");
  require_once(ROOT."classes/cSession.class.php");
  require_once(ROOT."classes/cUser.class.php");
