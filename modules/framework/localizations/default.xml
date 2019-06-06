@@ -463,7 +463,7 @@
  <text key="sessions_list-th-fullname">Utente</text>
  <text key="sessions_list-th-idle">Tempo di inattività</text>
  <text key="sessions_list-th-start">Accesso</text>
- <text key="sessions_list-th-ipAddress">Indirizzo IP</text>
+ <text key="sessions_list-th-address">Indirizzo IP</text>
  <text key="sessions_list-th-id">ID Sessione</text>
  <text key="sessions_list-th-terminate">Termina tutte le sessioni</text>
  <text key="sessions_list-th-terminate-confirm">Confermi di voler terminare tutte le sessioni?</text>

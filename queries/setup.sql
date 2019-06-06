@@ -68,7 +68,7 @@ INSERT INTO `framework__settings` (`setting`, `value`) VALUES
 CREATE TABLE IF NOT EXISTS `framework__sessions` (
   `id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `fkUser` int(11) unsigned NOT NULL,
-  `ipAddress` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   `startTimestamp` int(11) unsigned NOT NULL,
   `lastTimestamp` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`),

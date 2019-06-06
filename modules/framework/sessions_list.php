@@ -17,7 +17,7 @@
  $table->addHeader(api_text("sessions_list-th-fullname"),null,"100%");
  $table->addHeader(api_text("sessions_list-th-idle"),"nowrap text-right");
  $table->addHeader(api_text("sessions_list-th-start"),"nowrap");
- $table->addHeader(api_text("sessions_list-th-ipAddress"),"nowrap");
+ $table->addHeader(api_text("sessions_list-th-address"),"nowrap");
  $table->addHeader(api_text("sessions_list-th-id"),"nowrap","100%");
  $table->addHeader(api_link("?mod=".MODULE."&scr=submit&act=sessions_terminate_all",api_icon("remove",api_text("sessions_list-th-terminate")),null,null,false,api_text("sessions_list-th-terminate-confirm")),"text-center",16);
  // definitions
@@ -42,7 +42,7 @@
    if($count){$table->addRow();}
    $table->addRowField(round((time()-$session_r->lastTimestamp)/60)." min","nowrap text-right"); /** @todo fare api per timestamp difference */
    $table->addRowField(api_timestamp_format($session_r->startTimestamp,"Y-m-d H:i"),"nowrap");
-   $table->addRowField($session_r->ipAddress,"nowrap");
+   $table->addRowField($session_r->address,"nowrap");
    $table->addRowField($session_r->id,"nowrap");
    /** @todo nome decente per session destroy */
    $table->addRowFieldAction("?mod=".MODULE."&scr=submit&act=sessions_terminate&idSession=".$session_r->id,"remove",api_text("sessions_list-td-terminate"),api_text("sessions_list-td-terminate-confirm"));

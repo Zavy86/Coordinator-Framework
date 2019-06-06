@@ -61,10 +61,10 @@
    // retrieve session from database
    $session_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__sessions` WHERE `id`='".$_SESSION['coordinator_session_id']."'");
    // check if session not exist or is expired
-   if(!$session_obj->id||(time()-$session_obj->lastTimestamp)>$GLOBALS['settings']->sessions_idle_timeout){
+   if(!$_SESSION['coordinator_session_id']||!$session_obj->id||(time()-$session_obj->lastTimestamp)>$GLOBALS['settings']->sessions_idle_timeout){
     // unset session id and return
     unset($_SESSION['coordinator_session_id']);
-    api_redirect(DIR."login.php?alert=sessionExpired");
+    api_redirect(DIR."login.php?alert=sessionExpired");   /** @todo salvare $_REQUEST in modo da poter fare redirect dopo il login */
     return false;
    }
    // set session
@@ -101,7 +101,7 @@
    $session_obj=new stdClass();
    $session_obj->id=$this->id;
    $session_obj->fkUser=$account;
-   $session_obj->ipAddress=$_SERVER["REMOTE_ADDR"];
+   $session_obj->address=$_SERVER["REMOTE_ADDR"];
    $session_obj->startTimestamp=time();
    $session_obj->lastTimestamp=time();
    // debug
