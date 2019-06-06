@@ -19,7 +19,7 @@
  $table->addHeader("&nbsp;",null,16);
  // make array from groups tree
  $groups_array=array();
- api_tree_to_array($groups_array,"api_framework_groups","id");
+ api_tree_to_array($groups_array,"api_availableGroups","id");
  // cycle all groups
  foreach($groups_array as $group){
   $table->addRow();

@@ -10,7 +10,7 @@
  /**
   * Database class
   */
- class cDatabase{                                                  /** @todo commentare bene*/
+ class cDatabase{
 
   /** Properties */
   private $connection;
@@ -21,13 +21,14 @@
   public $cache_query_counter;
 
   /**
+   * Database class
    *
    * @global type $configuration
    */
   public function __construct(){
-   //
+   // aquire global configuration
    global $configuration;
-   //
+   // try to connect
    try{
     $this->connection=new PDO($configuration->db_type.":host=".$configuration->db_host.";port=".$configuration->db_port.";dbname=".$configuration->db_name.";charset=utf8",$configuration->db_user,$configuration->db_pass);
     $this->connection->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND,"SET NAMES utf8");
@@ -39,17 +40,30 @@
     $this->cache_query_array_results=array();
     $_SESSION['coordinator_logs'][]=array("log","PDO connection: connected to ".$configuration->db_name." ".strtoupper($configuration->db_type)." database on server ".$configuration->db_host);
    }catch(PDOException $e){
+    // connection failed
     $_SESSION['coordinator_logs'][]=array("error","PDO connection: ".$e->getMessage());
     die("PDO connection: ".$e->getMessage());
    }
   }
 
-
+  /**
+   * Undefined calls
+   *
+   * @param string $method Called method
+   * @param mixed $args Method arguments
+   */
   public function __call($method,$args){
+   // log error into logs
    $_SESSION['coordinator_logs'][]=array("warn","Method ".$method."(".implode(",",$args).") was not found in ".get_class($this)." class");
   }
 
-
+  /**
+   * Add Query to Cache
+   *
+   * @param string $sql Query statement
+   * @param mixed $result Query result
+   * @return boolean
+   */
   private function addQueryToCache($sql,$result){
    if(substr(strtoupper($sql),0,6)=="SELECT"){
     $this->cache_query_array[$this->query_counter]=$sql;
@@ -60,7 +74,12 @@
    }
   }
 
-
+  /**
+   * Get Query from Cache
+   *
+   * @param string $sql Query statement
+   * @return mixed Query result or false
+   */
   private function getQueryFromCache($sql){
    $cached_query_key=array_search($sql,$this->cache_query_array,true);
    if($cached_query_key){
@@ -73,14 +92,18 @@
    }
   }
 
-
+  /**
+   * Execute Query
+   *
+   * @param string $sql Query statement
+   * @return integer|boolean Affected rows or false
+   */
   public function queryExecute($sql){
    $_SESSION['coordinator_logs'][]=array("log","PDO queryExecute: ".$sql);
    try{
     $query=$this->connection->prepare($sql);
     $query->execute();
     $return=$query->rowCount();
-    //$return=$query->execute();
    }catch(PDOException $e){
     $_SESSION['coordinator_logs'][]=array("error","PDO queryExecute: ".$e->getMessage());
     $return=false;
@@ -89,7 +112,13 @@
    return $return;
   }
 
-
+  /**
+   * Query Objects
+   *
+   * @param string $sql Query statement
+   * @param boolean $cache Try to get from cache
+   * @return object[]|boolean Result objects array or false
+   */
   public function queryObjects($sql,$cache=true){
    $_SESSION['coordinator_logs'][]=array("log","PDO queryObjects: ".$sql);
    // check for cache
@@ -112,7 +141,13 @@
    return $return;
   }
 
-
+  /**
+   * Query Unique Object
+   *
+   * @param string $sql Query statement
+   * @param boolean $cache Try to get from cache
+   * @return object|boolean Result object or false
+   */
   public function queryUniqueObject($sql,$cache=true){
    $sql.=" LIMIT 0,1";
    $_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueObject: ".$sql);
@@ -136,7 +171,13 @@
    return $return;
   }
 
-
+  /**
+   * Query Unique Value
+   *
+   * @param string $sql Query statement
+   * @param boolean $cache Try to get from cache
+   * @return mixed|boolean Result value or false
+   */
   public function queryUniqueValue($sql,$cache=true){
    $sql.=" LIMIT 0,1";
    $_SESSION['coordinator_logs'][]=array("log","PDO queryUniqueValue: ".$sql);
@@ -160,7 +201,13 @@
    return $return;
   }
 
-
+  /**
+   * Count Query
+   *
+   * @param string $table Database table
+   * @param string $where Query condition
+   * @return integer|boolean Rows count or false
+   */
   public function queryCount($table,$where="1"){
    $sql="SELECT COUNT(*) FROM `".$table."` WHERE ".$where;
    $_SESSION['coordinator_logs'][]=array("log","PDO queryCount: ".$sql);
@@ -175,7 +222,13 @@
    return $return;
   }
 
-
+  /**
+   * Insert Query
+   *
+   * @param string $table Database table
+   * @param object $object Query object
+   * @return integer|boolean Inserted id or false
+   */
   public function queryInsert($table,$object){
    $fields_array=array();
    $results=$this->connection->query("SHOW COLUMNS FROM `".$table."`");
@@ -201,7 +254,14 @@
    return $return;
   }
 
-
+  /**
+   * Update Query
+   *
+   * @param string $table Database table
+   * @param object $object Query object
+   * @param string $idKey Key field name
+   * @return boolean
+   */
   public function queryUpdate($table,$object,$idKey="id"){
    $fields_array=array();
    $results=$this->connection->query("SHOW COLUMNS FROM `".$table."`");
@@ -226,7 +286,14 @@
    return $return;
   }
 
-
+  /**
+   * Delete Query
+   *
+   * @param string $table Database table
+   * @param mixed $id Object id
+   * @param string $idKey Key field name
+   * @return boolean
+   */
   public function queryDelete($table,$id,$idKey="id"){
    $sql="DELETE FROM `".$table."` WHERE `".$idKey."`='".$id."'";
    $_SESSION['coordinator_logs'][]=array("log","PDO queryDelete: ".$sql);

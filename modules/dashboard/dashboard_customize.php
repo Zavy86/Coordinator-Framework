@@ -58,8 +58,8 @@
   $tile_form->addFieldOption("",api_text("dashboard_customize-tile-fo-target-standard"));
   $tile_form->addFieldOption("_blank",api_text("dashboard_customize-tile-fo-target-blank"));
   $tile_form->addField("file","background",api_text("dashboard_customize-tile-ff-background"));
-  if(file_exists(ROOT."uploads/dashboard/".$selected_tile_obj->id.".jpg")){
-   $background_field=api_image(DIR."uploads/dashboard/".$selected_tile_obj->id.".jpg","img-polaroid",128,null,true);
+  if(file_exists(DIR."uploads/dashboard/".$selected_tile_obj->id.".jpg")){
+   $background_field=api_image(PATH."uploads/dashboard/".$selected_tile_obj->id.".jpg","img-polaroid",128,null,true);
    $background_field.=api_link("?mod=dashboard&scr=submit&act=tile_background_remove&idTile=".$selected_tile_obj->id,api_icon("fa-remove",api_text("dashboard_customize-tile-ff-background-delete"),"hidden-link text-vtop"),null,null,false,api_text("dashboard_customize-tile-ff-background-confirm"));
    $tile_form->addField("static",null,"&nbsp;",$background_field);
   }

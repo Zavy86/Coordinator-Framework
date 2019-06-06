@@ -27,10 +27,10 @@
    $settings_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__settings` ORDER BY `setting` ASC");
    foreach($settings_results as $setting){$this->settings_array[$setting->setting]=$setting->value;}
    // make logo
-   if(file_exists(ROOT."uploads/framework/logo.png")){
-    $this->settings_array["logo"]=DIR."uploads/framework/logo.png";
+   if(file_exists(DIR."uploads/framework/logo.png")){
+    $this->settings_array["logo"]=PATH."uploads/framework/logo.png";
    }else{
-    $this->settings_array["logo"]=DIR."uploads/framework/logo.default.png";
+    $this->settings_array["logo"]=PATH."uploads/framework/logo.default.png";
    }
    return true;
   }

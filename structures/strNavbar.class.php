@@ -181,7 +181,7 @@
    $return.="    <span class=\"icon-bar\"></span>\n";
    $return.="   </button>\n";
    if(!in_array($GLOBALS['settings']->show,array("logo","title","logo_title"))){
-    $return.="   <a class=\"navbar-brand\" id=\"nav_brand_logo\" href=\"#\"><img alt=\"Brand logo\" src=\"".DIR."uploads/framework/logo.default.png"."\" height=\"20\"></a>\n";
+    $return.="   <a class=\"navbar-brand\" id=\"nav_brand_logo\" href=\"#\"><img alt=\"Brand logo\" src=\"".PATH."uploads/framework/logo.default.png"."\" height=\"20\"></a>\n";
     $return.="   <a class=\"navbar-brand\" id=\"nav_brand_title\" href=\"index.php\">Coordinator Framework</a>\n";
    }
    if(in_array($GLOBALS['settings']->show,array("logo","logo_title"))){ $return.="   <a class=\"navbar-brand\" id=\"nav_brand_logo\" href=\"#\"><img alt=\"Brand logo\" src=\"".$GLOBALS['settings']->logo."\" height=\"20\"></a>\n";}

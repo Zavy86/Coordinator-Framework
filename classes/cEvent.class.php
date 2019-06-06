@@ -26,12 +26,10 @@
    *
    * @param object|integer $event Event object or ID
    * @param string $module Module for event
-   * ----------------@param string $table Events table
    * @return object Return query object for extensions
    */
-  public function __construct($event,$module="framework"/*,$table="framework__events"*/){     /** @todo verificare se serve tabella */
+  public function __construct($event,$module="framework"){
    // get object
-   //if(is_numeric($event)){$event=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `".$table."` WHERE `id`='".$event."'");}
    if(!$event->id){return false;}
    // set properties
    $this->id=(int)$event->id;

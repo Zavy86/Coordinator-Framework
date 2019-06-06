@@ -37,7 +37,7 @@
    // definitions
    $xml_files=array();
    // check for module path
-   if($module){$path=ROOT."modules/".$module."/localizations/";}else{$path=ROOT."localizations/";}
+   if($module){$path=DIR."modules/".$module."/localizations/";}else{$path=DIR."localizations/";}
    // check for directory
    if(!file_exists($path)){return false;}
    // scan all localization files

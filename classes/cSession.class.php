@@ -64,7 +64,7 @@
    if(!$_SESSION['coordinator_session_id']||!$session_obj->id||(time()-$session_obj->lastTimestamp)>$GLOBALS['settings']->sessions_idle_timeout){
     // unset session id and return
     unset($_SESSION['coordinator_session_id']);
-    api_redirect(DIR."login.php?alert=sessionExpired");   /** @todo salvare $_REQUEST in modo da poter fare redirect dopo il login */
+    api_redirect(PATH."login.php?alert=sessionExpired");   /** @todo salvare $_REQUEST in modo da poter fare redirect dopo il login */
     return false;
    }
    // set session
@@ -83,7 +83,7 @@
     }else{
      unset($_SESSION['coordinator_session_id']);
      api_alerts_add(api_text("alert_maintenance"),"danger");
-     api_redirect(DIR."login.php");
+     api_redirect(PATH."login.php");
     }
     return false;
    }

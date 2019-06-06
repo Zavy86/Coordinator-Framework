@@ -72,11 +72,11 @@
  }
  // check for local uninstalled modules
  $module_directory_array=array();
- $dir_handle=opendir(ROOT."modules/");
+ $dir_handle=opendir(DIR."modules/");
  while($module_directory=readdir($dir_handle)){
   if(in_array($module_directory,array(".","..","index.php","dashboard","framework"))){continue;}
   if(array_key_exists($module_directory,$modules_array)){continue;}
-  if(!file_exists(ROOT."modules/".$module_directory."/module.inc.php")){continue;}
+  if(!file_exists(DIR."modules/".$module_directory."/module.inc.php")){continue;}
   // make action button
   $action_btn=api_link("?mod=".MODULE."&scr=submit&act=module_initialize&idModule=".$module_directory,api_text("modules_list-td-initialize"),null,"btn btn-info btn-xs");
   // build table row

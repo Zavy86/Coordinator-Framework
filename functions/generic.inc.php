@@ -51,7 +51,7 @@
   if(DEBUG){
    // renderize redirect link
    echo "<div class='redirect'>".api_tag("strong","REDIRECT")."<br>".api_link($location,$location)."</div>";
-   echo "<link href=\"".HELPERS."bootstrap/css/bootstrap-3.3.7-custom.css\" rel=\"stylesheet\">\n";
+   echo "<link href=\"".PATH."helpers/bootstrap/css/bootstrap-3.3.7-custom.css\" rel=\"stylesheet\">\n";
    // renderize debug
    api_debug();
    // block application
@@ -234,7 +234,7 @@
  }
 
  /**
-  * Parse URL to standard class                  @todo modificare nome qui e in nav class
+  * Parse URL to standard class
   *
   * @param string $url URL to parse
   * @return object Parsed
@@ -444,26 +444,6 @@
  }
 
  /**
-  * Require modules
-  *
-  * @param array $modules Array of module names
-  */
- function api_requireModules($modules=null){                     /** @todo integrare dentro al module.inc.php e nella classe cModule */
-  // check parameters
-  if(!is_array($modules)){$modules=array($modules);}
-   if(!$modules[0]){unset($modules[0]);}
-  // cycle all required module
-  foreach($modules as $module_f){
-   if(!file_exists(ROOT."modules/".$module_f."/functions.inc.php")){api_alerts_add(api_text("alert_requiredModuleNotFound",$module_f),"danger");continue;}
-   // include module functions and classes
-   require_once(ROOT."modules/".$module_f."/functions.inc.php");
-   // load module localization
-   $GLOBALS['localization']->load($module_f);
-  }
- }
-
-
- /**
   * Parameter default
   *
   * @param string $parameter Parameter name
@@ -485,6 +465,121 @@
   //api_dump($parameter_obj,"parameter object");
   // return
   return $parameter_obj->value;
+ }
+
+ /**
+  * Update a database object
+  *
+  * @param string $table Database table
+  * @param mixed $id Object id
+  * @param string $idKey Key field name
+  * @return boolean
+  */
+ function api_object_update($table,$id,$idKey="id"){
+  // check parameters
+  if(!$table || !$id || !$idKey){return false;}
+  // build division query object
+  $update_qobj=new stdClass();
+  $update_qobj->$idKey=$id;
+  $update_qobj->updTimestamp=time();
+  $update_qobj->updFkUser=$GLOBALS['session']->user->id;
+  // debug
+  api_dump($update_qobj,"update query object");
+  // update object
+  $GLOBALS['database']->queryUpdate($table,$update_qobj);
+  // return
+  return true;
+ }
+
+ /**
+  * Available Modules
+  *
+  * @return object[] Array of module objects
+  */
+ function api_availableModules(){
+  // definitions
+  $return=array();
+  // execute query
+  $return["framework"]=new cModule("framework");
+  $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules` WHERE `id`!='framework' ORDER BY `id`");
+  foreach($modules_results as $module_fobj){$return[$module_fobj->id]=new cModule($module_fobj);}
+  // return modules
+  return $return;
+ }
+
+ /**
+  * Available Menus
+  *
+  * @param string $idMenu Start menu branch
+  * @return object[] Array of menu objects
+  */
+ function api_availableMenus($idMenu=null){
+  // definitions
+  $return=array();
+  // query where
+  if(!$idMenu){$query_where="`fkMenu` IS null";}else{$query_where="`fkMenu`='".$idMenu."'";}
+  // execute query
+  $menus_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__menus` WHERE ".$query_where." ORDER BY `order` ASC");
+  foreach($menus_results as $menu){$return[$menu->id]=new cMenu($menu);}
+  // return menus
+  return $return;
+ }
+
+ /**
+  * Available Users
+  *
+  * @param boolean $disabled Show disabled users
+  * @param boolean $deleted Show deleted users
+  * @return object[] Array of user objects
+  */
+ function api_availableUsers($disabled=false,$deleted=false){
+  // definitions
+  $return=array();
+  // query where
+  $query_where="1";
+  if(!$disabled){$query_where.=" AND `enabled`='1'";}
+  if(!$deleted){$query_where.=" AND `deleted`='0'";}
+  // execute query
+  $users_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users` WHERE ".$query_where." ORDER BY `lastname` ASC,`firstname` ASC");
+  foreach($users_results as $user){$return[$user->id]=new cUser($user);}
+  // return groups
+  return $return;
+ }
+
+ /**
+  * Available Groups
+  *
+  * @param string $idGroup Start group branch
+  * @return object[] Array of group objects
+  */
+ function api_availableGroups($idGroup=null){
+  // definitions
+  $return=array();
+  // query where
+  if(!$idGroup){$query_where="`fkGroup` IS null";}else{$query_where="`fkGroup`='".$idGroup."'";}
+  // execute query
+  $groups_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__groups` WHERE ".$query_where." ORDER BY `name` ASC");
+  foreach($groups_results as $group){$return[$group->id]=new cGroup($group);}
+  // return groups
+  return $return;
+ }
+
+ /**
+  * Available Authorizations
+  *
+  * @param string $module Module
+  * @return object[] Array of authorization objects
+  */
+ function api_availableAuthorizations($module=null){
+  // definitions
+  $return=array();
+  // query where
+  if($module){$query_where="`fkModule`='".$module."'";}else{$query_where="1";}
+  // execute query
+  $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules__authorizations` WHERE ".$query_where." ORDER BY `order`");
+  foreach($authorizations_results as $authorization){$return[$authorization->id]=new cAuthorization($authorization);}
+  // return groups
+  return $return;
  }
 
 ?>

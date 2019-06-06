@@ -169,7 +169,7 @@
    */
   public function render($echo=true){
    // load default template
-   require_once(ROOT."template.inc.php");
+   require_once(DIR."template.inc.php");
    // renderize html
    $return="<!DOCTYPE html>\n";
    $return.="<html lang=\"".$this->language."\">\n\n";
@@ -186,7 +186,7 @@
    $return.="  <!-- title and icons -->\n";
    $return.="  <title>".$this->title."</title>\n";
    // rendrizer favicon
-   $return.="  <link rel=\"icon\" href=\"".DIR."uploads/framework/favicon.default.ico\">\n";
+   $return.="  <link rel=\"icon\" href=\"".PATH."uploads/framework/favicon.default.ico\">\n";
    // renderize meta tags
    $return.="  <!-- meta tags -->\n";
    $return.="  <meta charset=\"".$this->charset."\">\n";

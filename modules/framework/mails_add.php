@@ -23,7 +23,7 @@
  $form=new strForm("?mod=".MODULE."&scr=submit&act=mail_save&".http_build_query($uri_array),"POST",null,"mails_add");
  $form->addField("select","sender",api_text("mails_add-sender"),null,api_text("mails_add-sender-placeholder"),null,null,null,"required");
  $form->addFieldOption($GLOBALS['session']->user->mail,$GLOBALS['session']->user->fullname);
- $form->addFieldOption($GLOBALS['settings']->sendmail_from_mail,$GLOBALS['settings']->sendmail_from_name);
+ $form->addFieldOption($GLOBALS['settings']->mail_from_mail,$GLOBALS['settings']->mail_from_name);
  $form->addField("email","recipient",api_text("mails_add-recipient"),$r_recipient,api_text("mails_add-recipient-placeholder"),null,null,null,"required");
  $form->addField("text","subject",api_text("mails_add-subject"),null,api_text("mails_add-subject-placeholder"),null,null,null,"required");
  $form->addField("textarea","message",api_text("mails_add-message"),null,api_text("mails_add-message-placeholder"),null,null,null,"required rows='9'");

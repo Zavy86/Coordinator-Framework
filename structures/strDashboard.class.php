@@ -173,7 +173,7 @@
       // make hyperlink reference
       $href="window.open('".($element->enabled?$element->url:"#")."','".$element->target."');";
       // make background css style
-      if($element->background && file_exists(ROOT.$element->background)){
+      if($element->background && file_exists(DIR.$element->background)){
        $background_style=" style=\"background-image:url('".$element->background."?rand=".md5(rand(1,99999))."')\"";
        $background_class="dashboard-element-background-alpha";
       }else{

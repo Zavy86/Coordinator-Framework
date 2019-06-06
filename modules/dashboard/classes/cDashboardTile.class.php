@@ -49,7 +49,7 @@
    $this->target=stripslashes($tile->target);
    $this->counter_function=stripslashes($tile->counter_function);
    // make background
-   if(file_exists(ROOT."uploads/dashboard/".$this->id.".jpg")){$this->background="uploads/dashboard/".$this->id.".jpg";}
+   if(file_exists(DIR."uploads/dashboard/".$this->id.".jpg")){$this->background="uploads/dashboard/".$this->id.".jpg";}
    // make counter
    /** @todo get from counter_function */
    $this->counter=new stdClass();

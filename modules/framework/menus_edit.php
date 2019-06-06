@@ -18,7 +18,7 @@
  $form->addField("select","fkMenu",api_text("menus_edit-fkMenu"),$menu_obj->fkMenu);
  $form->addFieldOption(null,api_text("menus_edit-fkMenu-main"));
  // cycle all first level menus
- foreach(api_framework_menus(null) as $menu_option_obj){
+ foreach(api_availableMenus(null) as $menu_option_obj){
   if($menu_option_obj->id==$menu_obj->id){continue;}
   $form->addFieldOption($menu_option_obj->id,str_repeat("&nbsp;&nbsp;&nbsp;",$menu_option_obj->nesting).$menu_option_obj->label);
  }
@@ -27,7 +27,7 @@
  $form->addField("text_localized","label_localizations",api_text("menus_edit-label"),$menu_obj->label_localizations,api_text("menus_edit-label-placeholder"));
  $form->addField("text_localized","title_localizations",api_text("menus_edit-title"),$menu_obj->title_localizations,api_text("menus_edit-title-placeholder"));
  $form->addField("select","authorization",api_text("menus_edit-authorization"),$menu_obj->authorization,api_text("menus_edit-authorization-placeholder"));
- foreach(api_framework_authorizations() as $authorization_fobj){$form->addFieldOption($authorization_fobj->module."|".$authorization_fobj->action,$authorization_fobj->action);}
+ foreach(api_availableAuthorizations() as $authorization_fobj){$form->addFieldOption($authorization_fobj->module."|".$authorization_fobj->action,$authorization_fobj->action);}
  $form->addField("radio","target",api_text("menus_edit-target"),$menu_obj->target,null,null,"radio-inline");
  $form->addFieldOption("",api_text("menus_edit-target-standard"));
  $form->addFieldOption("_blank",api_text("menus_edit-target-blank"));
@@ -40,7 +40,7 @@
  $form->addField("text","url",api_text("menus_edit-url"),$menu_obj->url,api_text("menus_edit-url-placeholder"));
  // module typology
  $form->addField("select","module",api_text("menus_edit-module"),$menu_obj->module,api_text("menus_edit-module-placeholder"));
- foreach(api_framework_modules(null) as $module_obj){$form->addFieldOption($module_obj->module,$module_obj->name);}
+ foreach(api_availableModules() as $module_obj){$form->addFieldOption($module_obj->module,$module_obj->name);}
  $form->addField("text","script",api_text("menus_edit-script"),$menu_obj->script,api_text("menus_edit-script-placeholder"));
  $form->addField("text","tab",api_text("menus_edit-tab"),$menu_obj->tab,api_text("menus_edit-tab-placeholder"));
  $form->addField("text","action",api_text("menus_edit-action"),$menu_obj->action,api_text("menus_edit-action-placeholder"));

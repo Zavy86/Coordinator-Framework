@@ -22,7 +22,7 @@
  // check deleted
  if($attachment_obj->deleted){die("ATTACHMENT_DELETED");}
  // make file path
- $file_path=ROOT."uploads/attachments/".$attachment_obj->id;
+ $file_path=DIR."uploads/attachments/".$attachment_obj->id;
  // chekc for file
  if(!file_exists($file_path)){die("FILE_NOT_EXIST");}
  // increment downloads

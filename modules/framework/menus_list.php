@@ -18,7 +18,7 @@
  $table->addHeader("&nbsp;",null,16);
  // get menus tree array
  $menus_array=array();
- api_tree_to_array($menus_array,"api_framework_menus","id");
+ api_tree_to_array($menus_array,"api_availableMenus","id");
  // cycle all menus
  foreach($menus_array as $menu){
   // check selected

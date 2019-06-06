@@ -12,30 +12,30 @@
  $this->setMetaTag("description","Coordinator is an Open Source Modular Framework");
  $this->setMetaTag("owner",$GLOBALS['settings']->owner);
  // add style sheets
- $this->addStylesheet(HELPERS."pace/css/pace-1.0.0-theme-flash.css");
- $this->addStylesheet(HELPERS."font-awesome/css/font-awesome.min.css");
- $this->addStylesheet(HELPERS."font-awesome-animation/css/font-awesome-animation.min.css");
+ $this->addStylesheet(PATH."helpers/pace/css/pace-1.0.0-theme-flash.css");
+ $this->addStylesheet(PATH."helpers/font-awesome/css/font-awesome.min.css");
+ $this->addStylesheet(PATH."helpers/font-awesome-animation/css/font-awesome-animation.min.css");
  /** @todo verificare quali caricare sempre e quali solo alla bisogna */
- $this->addStylesheet(HELPERS."justgage/css/justgage-1.2.2.css");
- $this->addStylesheet(HELPERS."select2/css/select2-4.0.5.min.css");
+ $this->addStylesheet(PATH."helpers/justgage/css/justgage-1.2.2.css");
+ $this->addStylesheet(PATH."helpers/select2/css/select2-4.0.5.min.css");
  /** @todo add some css helpers here */
- $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7.min.css");
- $this->addStylesheet(HELPERS."bootstrap-faiconpicker/css/bootstrap-faiconpicker-1.3.0.min.css");
+ $this->addStylesheet(PATH."helpers/bootstrap/css/bootstrap-3.3.7.min.css");
+ $this->addStylesheet(PATH."helpers/bootstrap-faiconpicker/css/bootstrap-faiconpicker-1.3.0.min.css");
  /** @todo definire temi */
- /*if($GLOBALS['session']->user->theme){$this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-theme-".$GLOBALS['session']->user->theme.".min.css");}*/
- $this->addStylesheet(HELPERS."bootstrap/css/bootstrap-3.3.7-custom.css");
+ /*if($GLOBALS['session']->user->theme){$this->addStylesheet(PATH."helpers/bootstrap/css/bootstrap-3.3.7-theme-".$GLOBALS['session']->user->theme.".min.css");}*/
+ $this->addStylesheet(PATH."helpers/bootstrap/css/bootstrap-3.3.7-custom.css");
  // add scripts
- $this->addScript(HELPERS."jquery/js/jquery-1.12.4.min.js",true);
- $this->addScript(HELPERS."pace/js/pace-1.0.0.min.js",true);
+ $this->addScript(PATH."helpers/jquery/js/jquery-1.12.4.min.js",true);
+ $this->addScript(PATH."helpers/pace/js/pace-1.0.0.min.js",true);
  /** @todo verificare quali caricare sempre e quali solo alla bisogna */
- $this->addScript(HELPERS."peity/js/peity-3.2.1.min.js",true);
- $this->addScript(HELPERS."justgage/js/justgage-1.2.2.js",true);
- $this->addScript(HELPERS."chartjs/js/chart-2.7.0.min.js",true);
- $this->addScript(HELPERS."select2/js/select2-4.0.5.min.js",true);
+ $this->addScript(PATH."helpers/peity/js/peity-3.2.1.min.js",true);
+ $this->addScript(PATH."helpers/justgage/js/justgage-1.2.2.js",true);
+ $this->addScript(PATH."helpers/chartjs/js/chart-2.7.0.min.js",true);
+ $this->addScript(PATH."helpers/select2/js/select2-4.0.5.min.js",true);
  /** @todo add some javascript helpers here */
- $this->addScript(HELPERS."bootstrap/js/bootstrap-3.3.7.min.js",true);
- $this->addScript(HELPERS."bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",true);
- $this->addScript(HELPERS."bootstrap-faiconpicker/js/bootstrap-faiconpicker-1.3.0.min.js",true);
+ $this->addScript(PATH."helpers/bootstrap/js/bootstrap-3.3.7.min.js",true);
+ $this->addScript(PATH."helpers/bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",true);
+ $this->addScript(PATH."helpers/bootstrap-faiconpicker/js/bootstrap-faiconpicker-1.3.0.min.js",true);
  // build header navbar object
  $header_navbar=new strNavbar($GLOBALS['settings']->title,"navbar-default navbar-fixed-top");
  $header_navbar->addNav();
@@ -43,7 +43,7 @@
  if($GLOBALS['session']->validity){
   $header_navbar->addItem(api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover"),"?mod=dashboard");
   // cycle all menus
-  foreach(api_framework_menus(null) as $menu_obj){
+  foreach(api_availableMenus(null) as $menu_obj){
    // check for authorization
    if($menu_obj->authorization){
     $authorization=explode("|",$menu_obj->authorization);
@@ -52,7 +52,7 @@
    /** @todo menu titles */
    if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=null;}
    $header_navbar->addItem($icon_source.$menu_obj->label,$menu_obj->url,true,null,null,null,$menu_obj->target);
-   foreach(api_framework_menus($menu_obj->id) as $submenu_obj){
+   foreach(api_availableMenus($menu_obj->id) as $submenu_obj){
     // check for authorization
     $authorized=true;
     if($submenu_obj->authorization){
@@ -94,10 +94,12 @@
  }
  // set header
  $this->setHeader($header_navbar->render(false));
+ // make execution metrics
+ if(DEBUG){$execution_metrics=" [ Version: ".api_tag("b",VERSION)." | Queries: ".api_tag("b",$GLOBALS['database']->query_counter)." | Cached queries: ".api_tag("b",$GLOBALS['database']->cache_query_counter)." | Execution time: ~".api_tag("b",number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs")." ]";}else{$execution_metrics=null;}
  // build footer grid
  $footer_grid=new strGrid();
  $footer_grid->addRow();
- $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; Coordinator - All Rights Reserved".(DEBUG?" [ Queries: ".$GLOBALS['database']->query_counter." | Cached queries: ".$GLOBALS['database']->cache_query_counter." | Execution time: ~".number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs ]":null),"col-xs-12 text-right");
+ $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; Coordinator - All Rights Reserved".$execution_metrics,"col-xs-12 text-right");
  // set footer
  $this->setFooter($footer_grid->render());
  // jQuery scripts
