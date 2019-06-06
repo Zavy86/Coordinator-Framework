@@ -39,7 +39,7 @@
    // get groups
    $this->groups_array=array();
    $this->groups_level_array=array();
-   /** @todo fare autorizzazioni anche per tutti i gruppi (fkGroup=null) */
+   // get authorized groups
    $groups_results=$GLOBALS['database']->queryObjects("SELECT `framework__modules__authorizations__groups`.* FROM `framework__modules__authorizations__groups` JOIN `framework__groups` ON `framework__groups`.`id`=`framework__modules__authorizations__groups`.`fkGroup` WHERE `fkAuthorization`='".$this->id."' ORDER BY `framework__groups`.`name`");
    foreach($groups_results as $group){
     $this->groups_array[$group->fkGroup]=new cGroup($group->fkGroup);
