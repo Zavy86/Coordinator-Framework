@@ -48,7 +48,8 @@
     if(file_exists($module->source_path."/.git/config")){
      $action_btn=api_link("?mod=".MODULE."&scr=submit&act=module_update_source&idModule=".$module->id,api_text("modules_list-td-update_source"),null,"btn btn-info btn-xs",false,api_text("modules_list-td-update_source-confirm"));
     }else{
-     $action_btn=api_link("@todo module url".$module->url,api_text("modules_list-td-update_source-manual"),null,"btn btn-info btn-xs",false,null,null,null,"_blank");
+     /** @todo module url */
+     $action_btn=api_link("#".$module->url,api_text("modules_list-td-update_source-manual"),null,"btn btn-info btn-xs",false,null,null,null,"_blank");
     }
    }elseif($repository_version===null){
     // check for git

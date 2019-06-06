@@ -11,7 +11,7 @@ if(!defined('ACTION')){die("ERROR EXECUTING SCRIPT: The action was not defined")
 // switch action
 switch(ACTION){
 
- /** @todo check authorization in all submits function */
+ /** @todoissimo check authorization in all submits function */
 
  // own
  case "own_profile_update":own_profile_update();break;
@@ -164,12 +164,11 @@ function settings_save(){
   /* general */
   "maintenance","owner","title","show",
   /* sessions */
-  "sessions_authentication_method","sessions_multiple","sessions_idle_timeout",
-  "sessions_ldap_hostname","sessions_ldap_dn","sessions_ldap_domain",
-  "sessions_ldap_userfield","sessions_ldap_groups","sessions_ldap_cache",
+  "sessions_authentication_method","sessions_multiple","sessions_idle_timeout","sessions_ldap_hostname",
+  "sessions_ldap_dn","sessions_ldap_domain","sessions_ldap_userfield","sessions_ldap_groups","sessions_ldap_cache",
   /* mail */
-  "mail_from_name","mail_from_mail","mail_asynchronous","mail_method",
-  "mail_smtp_hostname","mail_smtp_username","mail_smtp_encryption",
+  "mail_from_name","mail_from_mail","mail_asynchronous","mail_method","mail_smtp_hostname","mail_smtp_username",
+  "mail_smtp_encryption",
   /* users */
   "users_password_expiration","users_level_max",
   /* tokens */
@@ -385,7 +384,7 @@ function menu_move($direction){
  * Module Add
  */
 function module_add(){
- // disabled for localhost and 127.0.0.1 /** @todo verificare se serve */
+ // disabled for localhost
  if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("framework_alert_moduleErrorLocalhost"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
  // acquire variables
  $r_url=$_REQUEST['url'];
@@ -510,7 +509,7 @@ function module_update_source(){
  $module_obj=new cModule($_REQUEST['idModule']);
  // check objects
  if(!$module_obj->id){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
- /** @todo cycle all selected modules (if multiselect in table) */
+ /** @tip cycle all selected modules (if multiselect in table) */
  // exec shell commands
  $shell_output=exec('whoami')."@".exec('hostname').":".shell_exec("cd ".$module_obj->source_path." ; pwd ; git stash 2>&1 ; git stash clear ; git pull 2>&1 ; chmod 755 -R ./");
  // debug
@@ -840,7 +839,7 @@ function user_login(){
  * User Logout
  */
 function user_logout(){
- // destroy session  /** @todo cercare un nome decente.. */
+ // destroy session
  $GLOBALS['session']->destroy();
  // redirect
  api_redirect(PATH."index.php");
@@ -870,7 +869,6 @@ function user_recovery(){
   $GLOBALS['database']->queryExecute("UPDATE `framework__users` SET `secret`='".$f_secret."' WHERE `id`='".$user_obj->id."'");
   $recoveryLink=URL."index.php?mod=".MODULE."&scr=submit&act=user_recovery&mail=".$r_mail."&secret=".$f_secret;
   // send recovery link
-  //api_mail_save("Coordinator password recovery",$recoveryLink,$r_mail); /** @todo fare mail come si deve */
   $mail_id=api_mail_save(api_text("framework_mail-user_recovery-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_recovery-message",array($user_obj->firstname,$GLOBALS['settings']->title,$recoveryLink)),$user_obj->mail);
   // force mail if asynchronous
   if($GLOBALS['settings']->mail_asynchronous){api_mail_process($mail_id);}
@@ -888,7 +886,6 @@ function user_recovery(){
   // update password and reset secret
   $GLOBALS['database']->queryExecute("UPDATE `framework__users` SET `password`='".md5($v_password)."',`secret`=null,`pwdTimestamp`=null WHERE `id`='".$user_obj->id."'");
   // send new password
-  //api_mail_save("Coordinator new password",$f_password,$r_mail); /** @todo fare mail come si deve */
   $mail_id=api_mail_save(api_text("framework_mail-user_recovery_password-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_recovery_password-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_password)),$user_obj->mail);
   // force mail if asynchronous
   if($GLOBALS['settings']->mail_asynchronous){api_mail_process($mail_id);}
@@ -930,7 +927,6 @@ function user_add(){
  // check user
  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
  // send password to user
- //api_mail_save("Coordinator new user welcome","Your access password is:\n\n".$v_password,$user_obj->mail); /** @todo fare mail come si deve */
  $mail_id=api_mail_save(api_text("framework_mail-user_add-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_add-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_password)),$user_obj->mail);
  // force mail if asynchronous
  if($GLOBALS['settings']->mail_asynchronous){api_mail_process($mail_id);}
@@ -1006,6 +1002,7 @@ function user_enabled($enabled){
  * @param boolean $deleted Deleted or Undeleted
  */
 function user_deleted($deleted){
+ api_dump($_REQUEST);
  // get objects
  $user_obj=new cUser($_REQUEST['idUser']);
  // check
@@ -1015,7 +1012,7 @@ function user_deleted($deleted){
  // build user query objects
  $user_qobj=new stdClass();
  $user_qobj->id=$user_obj->id;
- $user_qobj->deleted=($deleted?1:0);  /** @todo verificare perche non esiste piu sul db il campo */
+ $user_qobj->deleted=($deleted?1:0);
  if($deleted){
   $user_qobj->enabled=0;
   $user_qobj->superuser=0;
@@ -1023,7 +1020,6 @@ function user_deleted($deleted){
  $user_qobj->updTimestamp=time();
  $user_qobj->updFkUser=$GLOBALS['session']->user->id;
  // debug
- api_dump($_REQUEST);
  api_dump($user_qobj);
  // update user
  $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
@@ -1037,8 +1033,6 @@ function user_deleted($deleted){
  * User Avatar Remove
  */
 function user_avatar_remove(){
- // check authorizations
- /** @todo check authorizations */
  // get objects
  $user_obj=new cUser($_REQUEST['idUser']);
  // check
