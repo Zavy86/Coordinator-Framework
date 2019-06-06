@@ -46,7 +46,7 @@
    */
   public function addItem($label,$content,$class=null,$style=null,$tags=null,$enabled=true,$id=null){
    $item=new stdClass();
-   if($id){$item->id="tab_".$id;}else{$item->id="list_".md5(rand(1,99999));}
+   $item->id="tab_".$this->id."_item_".($id?$id:api_random());
    $item->label=$label;
    $item->content=$content;
    $item->class=$class;
