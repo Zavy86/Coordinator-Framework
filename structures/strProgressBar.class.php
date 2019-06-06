@@ -27,11 +27,11 @@
    * @param string $class CSS class
    * @param string $style Custom CSS
    * @param string $tags Custom HTML tags
-   * @param string $id ProgressBar ID
+   * @param string $id ProgressBar ID, if null randomly generated
    * @return boolean
    */
   public function __construct($class=null,$style=null,$tags=null,$id=null){
-   if($id){$this->id="progressBar_".$id;}else{$this->id="progressBar_".md5(rand(1,99999));}
+   $this->id="progressBar_".($id?$id:api_random());
    $this->class=$class;
    $this->style=$style;
    $this->tags=$tags;

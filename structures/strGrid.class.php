@@ -15,6 +15,7 @@
  class strGrid{
 
   /** Properties */
+  protected $id;
   protected $class;
   protected $current_row;
   protected $rows_array;
@@ -23,9 +24,11 @@
    * Grid structure class
    *
    * @param string $class Grid css class
+   * @param string $id Grid ID, if null randomly generated
    * @return boolean
    */
-  public function __construct($class=null){
+  public function __construct($class=null,$id=null){
+   $this->id="grid_".($id?$id:api_random());
    $this->class=$class;
    $this->current_row=0;
    $this->rows_array=array();
@@ -75,18 +78,18 @@
    // renderize grid
    if($container){
     $return="<!-- grid container -->\n";
-    $return.="<div class='container ".$this->class."'>\n";
+    $return.="<div id=\"".$this->id."\" class='container ".$this->class."'>\n";
    }
    // cycle all grid rows
    foreach($this->rows_array as $row){
     // renderize grid rows
     $return.=" <!-- grid-row -->\n";
-    $return.=" <div class='row ".$row->class."'>\n";
+    $return.=" <div class=\"row ".$row->class."\">\n";
     // cycle all grid row cols
     foreach($row->cols_array as $col){
      // renderize grid row cols
      $return.="  <!-- grid-row-col -->\n";
-     $return.="  <div class='".$col->class."'>\n\n";
+     $return.="  <div class=\"".$col->class."\">\n\n";
      $return.=$col->content."\n";
      $return.="  </div><!-- /grid-row-col -->\n";
     }

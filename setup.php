@@ -16,12 +16,13 @@
  define('HELPERS',DIR."helpers/");
  // die if configuration already exist
  if(file_exists(ROOT."config.inc.php")){die("Coordinator Framework is already configured..");}
+ // include structures
+ require_once(ROOT."structures/strApplication.class.php");
+ require_once(ROOT."structures/strGrid.class.php");
+ require_once(ROOT."structures/strNavbar.class.php");
+ require_once(ROOT."structures/strForm.class.php");
  // include classes
  require_once(ROOT."classes/cLocalization.class.php");
- require_once(ROOT."classes/strApplication.class.php");
- require_once(ROOT."classes/strGrid.class.php");
- require_once(ROOT."classes/strNavbar.class.php");
- require_once(ROOT."classes/strForm.class.php");
  // build localization instance
  $localization=new cLocalization();
  // build settings instance

@@ -33,7 +33,6 @@
    */
   public function __construct($records,$show=20,$id=null){
    // check parameters
-   if($id){$this->id="pagination_".$id;}else{$this->id="pagination_".md5(rand(1,99999));}
    if($records===null){return false;}
    if(!$show){$show=20;}
    // parse current url
@@ -43,6 +42,8 @@
    if($this->uri_array['psr']){$this->show=$this->uri_array['psr'];}else{$this->show=$show;}
    // unset action if exist
    unset($this->uri_array['act']);
+
+   $this->id="pagination_".($id?$id:api_random());
 
    // check for tab pagination
    /*if(strlen($tab) && $this->uri_array['tab']!=$tab){

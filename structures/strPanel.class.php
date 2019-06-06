@@ -30,12 +30,11 @@
    *
    * @param string $title Title
    * @param string $class CSS class
-   * @param string $id Panel ID
+   * @param string $id Panel ID, if null randomly generated
    * @return boolean
    */
   public function __construct($title=null,$class=null,$id=null){
-   if(!$id){$id=rand(1,99999);}
-   $this->id="panel_".$id;
+   $this->id="panel_".($id?$id:api_random());
    $this->title=$title;
    $this->panel_class=$class;
    return true;

@@ -31,12 +31,12 @@
    * @param string $class CSS class
    * @param string $style Custom CSS
    * @param string $tags Custom HTML tags
-   * @param string $id List ID
+   * @param string $id List ID, if null randomly generated
    * @return boolean
    */
   public function __construct($tag="ul",$icon="fa-chevron-right",$class=null,$style=null,$tags=null,$id=null){
    if(!in_array(strtolower($tag),array("ul","ol"))){return false;}
-   if($id){$this->id="list_".$id;}else{$this->id="list_".md5(rand(1,99999));}
+   $this->id="list_".($id?$id:api_random());
    $this->tag=$tag;
    $this->icon=$icon;
    $this->class=$class;

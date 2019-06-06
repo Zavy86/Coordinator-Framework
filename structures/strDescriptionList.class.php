@@ -15,6 +15,7 @@
  class strDescriptionList{
 
   /** Properties */
+  protected $id;
   protected $separator;
   protected $class;
   protected $elements_array;
@@ -24,10 +25,12 @@
    *
    * @param string $separator Default elements separator ( null | hr | br )
    * @param string $class CSS class
+   * @param string $id Description List ID, if null randomly generated
    * @return boolean
    */
-  public function __construct($separator=null,$class=null){
+  public function __construct($separator=null,$class=null,$id=null){
    if(!in_array(strtolower($separator),array(null,"hr","br"))){return false;}
+   $this->id="descriptionList_".($id?$id:api_random());
    $this->class=$class;
    $this->separator=$separator;
    $this->elements_array=array();
@@ -86,7 +89,7 @@
    if(!count($this->elements_array)){return null;}
    // renderize description list
    $return="<!-- description-list -->\n";
-   $return.="<dl class=\"".$this->class."\">\n";
+   $return.="<dl id=\"".$this->id."\" class=\"".$this->class."\">\n";
    foreach($this->elements_array as $index=>$element){
     switch($element->type){
      case "element":

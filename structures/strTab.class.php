@@ -16,21 +16,17 @@
 
   /** Properties */
   protected $id;
-  protected $class;
-  protected $container;
   protected $items_array;
   protected $current_item;
 
   /**
    * Tab structure class
    *
-   * @param string $id Tab ID
+   * @param string $id Tab ID, if null randomly generated
    * @return boolean
    */
   public function __construct($id=null){
-   if($id){$this->id="tab_".$id;}else{$this->id="list_".md5(rand(1,99999));}
-   $this->class=$class;
-   $this->container=$container;
+   $this->id="tab_".($id?$id:api_random());
    $this->current_item=0;
    $this->items_array=array();
    return true;
@@ -50,7 +46,7 @@
    */
   public function addItem($label,$content,$class=null,$style=null,$tags=null,$enabled=true,$id=null){
    $item=new stdClass();
-   if($id){$item->id="tab_".$id;}else{$item->id="list_".md5(rand(1,99999));}
+   $item->id="tab_".$this->id."_item_".($id?$id:api_random());
    $item->label=$label;
    $item->content=$content;
    $item->class=$class;

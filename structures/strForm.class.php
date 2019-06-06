@@ -36,11 +36,11 @@
    if(!in_array(strtoupper($method),array("GET","POST"))){return false;}
    if(substr($action,0,1)=="?"){$action="index.php".$action;}
    if(!$action){return false;}
+   $this->id="form_".($id?$id:api_random());
    $this->action=$action;
    $this->method=$method;
    $this->class=$class;
    $this->splitted=false;
-   if($id){$this->id="form_".$id;}else{$this->id="form_".md5(rand(1,99999));}
    $this->current_field=0;
    $this->fields_array=array();
    return true;

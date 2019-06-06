@@ -12,7 +12,6 @@
   *
   * @param string $variable Variable to dump
   * @param string $label Dump label
-  * @param string $function Dump function [API_DUMP_PRINTR|API_DUMP_VARDUMP]
   * @param string $class Dump class
   */
  function api_dump($variable,$label=null,$class=null){

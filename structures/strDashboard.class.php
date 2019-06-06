@@ -31,10 +31,11 @@
    * @param string $class CSS class
    * @param string $style Custom CSS
    * @param string $tags Custom HTML tags
+   * @param string $id Dashboard ID, if null randomly generated
    * @return boolean
    */
   public function __construct($label=null,$description=null,$class=null,$style=null,$tags=null,$id=null){
-   if($id){$this->id="dashboard_".$id;}else{$this->id="dashboard_".md5(rand(1,99999));}
+   $this->id="dashboard_".($id?$id:api_random());
    $this->label=$label;
    $this->description=$description;
    $this->class=$class;
