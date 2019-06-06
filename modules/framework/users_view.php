@@ -8,7 +8,7 @@
  */
  api_checkAuthorization("framework-users_manage","dashboard");
   // get objects
- $user_obj=new cUser($_REQUEST['idUser']);
+ $user_obj=new cUser($_REQUEST['idUser'],true);
  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
  // deleted alert
  if($user_obj->deleted){api_alerts_add(api_text("users_view-deleted-alert"),"warning");}

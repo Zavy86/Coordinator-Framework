@@ -14,21 +14,21 @@
  <text key="framework-description">Coordinator framework</text>
 
  <!-- authorizations -->
- <text key="framework-settings_manage">Gestione impostazioni</text>
+ <text key="framework-settings_manage">Impostazioni</text>
  <text key="framework-settings_manage-description">Gestione delle impostazioni del framework</text>
- <text key="framework-menus_manage">Gestione menu</text>
+ <text key="framework-menus_manage">Menu</text>
  <text key="framework-menus_manage-description">Gestione dei menu del framework</text>
- <text key="framework-modules_manage">Gestione moduli</text>
+ <text key="framework-modules_manage">Moduli</text>
  <text key="framework-modules_manage-description">Gestione dei moduli del framework</text>
- <text key="framework-users_manage">Gestione utenti</text>
+ <text key="framework-users_manage">Utenti</text>
  <text key="framework-users_manage-description">Gestione degli utenti del framework</text>
- <text key="framework-groups_manage">Gestione gruppi</text>
+ <text key="framework-groups_manage">Gruppi</text>
  <text key="framework-groups_manage-description">Gestione dei gruppi del framework</text>
- <text key="framework-sessions_manage">Gestione sessioni</text>
+ <text key="framework-sessions_manage">Sessioni</text>
  <text key="framework-sessions_manage-description">Gestione delle sessioni degli utenti nel framework</text>
- <text key="framework-mails_manage">Gestione mail</text>
+ <text key="framework-mails_manage">Mail</text>
  <text key="framework-mails_manage-description">Gestione dei registri mail</text>
- <text key="framework-attachments_manage">Gestione allegati</text>
+ <text key="framework-attachments_manage">Allegati</text>
  <text key="framework-attachments_manage-description">Gestione degli allegati</text>
 
  <!-- alerts -->
@@ -59,6 +59,7 @@
  <text key="framework_alert_userGroupNotFound">Il gruppo dell'utente non è stato trovato</text>
  <text key="framework_alert_userGroupAdded">Il gruppo è stato aggiunto all'utente</text>
  <text key="framework_alert_userGroupRemoved">Il gruppo è stato rimosso dall'utente</text>
+ <text key="framework_alert_userGroupMainized">Il gruppo è stato impostato come principale</text>
  <text key="framework_alert_userParametersUpdated">I parametri dell'utente sono stati aggiornati</text>
 
  <text key="framework_alert_userRecoveryNotFound">L'account specificato non è stato trovato.</text>

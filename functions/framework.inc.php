@@ -18,7 +18,7 @@
   // execute query
   $return["framework"]=new cModule("framework");
   $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules` WHERE `module`!='framework' ORDER BY `module`");
-  foreach($modules_results as $module){$return[$module->module]=new cModule($module);}
+  foreach($modules_results as $module){$return[$module->id]=new cModule($module);}
   // return modules
   return $return;
  }
@@ -90,9 +90,9 @@
   // definitions
   $return=array();
   // query where
-  if($module){$query_where="`module`='".$module."'";}else{$query_where="1";}
+  if($module){$query_where="`fkModule`='".$module."'";}else{$query_where="1";}
   // execute query
-  $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules__authorizations` WHERE ".$query_where." ORDER BY `action`");
+  $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules__authorizations` WHERE ".$query_where." ORDER BY `order`");
   foreach($authorizations_results as $authorization){$return[$authorization->id]=new cAuthorization($authorization);}
   // return groups
   return $return;

@@ -13,7 +13,7 @@
  class cModule{
 
   /** Properties */
-  protected $module;
+  protected $id;
   protected $version;
   protected $enabled;
   protected $name;
@@ -35,10 +35,10 @@
    */
   public function __construct($module){
    // get object
-   if(is_string($module)){$module=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__modules` WHERE `module`='".$module."'");}
-   if(!$module->module){return false;}
+   if(is_string($module)){$module=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__modules` WHERE `id`='".$module."'");}
+   if(!$module->id){return false;}
    // set properties
-   $this->module=stripslashes($module->module);
+   $this->id=stripslashes($module->id);
    $this->version=stripslashes($module->version);
    $this->addTimestamp=$module->addTimestamp;
    $this->addFkUser=$module->addFkUser;
@@ -46,20 +46,20 @@
    $this->updFkUser=$module->updFkUser;
    $this->enabled=(bool)$module->enabled;
    // load localization
-   $GLOBALS['localization']->load($this->module);
+   $GLOBALS['localization']->load($this->id);
    // make name and description
-   $this->name=api_text($module->module);
-   $this->description=api_text($module->module."-description");
+   $this->name=api_text($module->id);
+   $this->description=api_text($module->id."-description");
    // get source version
-   $this->source_path=ROOT."modules/".$this->module."/";
-   if($this->module=="framework"){$this->source_path=ROOT;}
+   $this->source_path=ROOT."modules/".$this->id."/";
+   if($this->id=="framework"){$this->source_path=ROOT;}
    if(file_exists($this->source_path."VERSION.txt")){$this->source_version=file_get_contents($this->source_path."VERSION.txt");}
    // get repository version url
-   include(ROOT."modules/".$this->module."/module.inc.php");
+   include(ROOT."modules/".$this->id."/module.inc.php");
    $this->repository_version_url=$module_repository_version_url;
    // get authorizations
    $this->authorizations_array=array();
-   $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules__authorizations` WHERE `module`='".$this->module."'"); /** @todo in che ordine?? nuovo campo order? ORDER BY `action` */
+   $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules__authorizations` WHERE `fkModule`='".$this->id."' ORDER BY `order`");
    foreach($authorizations_results as $authorization){$this->authorizations_array[$authorization->id]=New cAuthorization($authorization);}
    return true;
   }

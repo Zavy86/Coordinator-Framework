@@ -70,11 +70,11 @@
    $header_navbar->addItem(api_icon("fa-puzzle-piece"));
    $header_navbar->addSubHeader(api_text("nav-modules"),"text-right");
    // get all modules
-   $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules` WHERE `module`!='framework' ORDER BY `module`");
+   $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules` WHERE `id`!='framework' ORDER BY `id`");
    foreach($modules_results as $module){
-    if($module->module==MODULE){continue;}
+    if($module->id==MODULE){continue;}
     $module=new cModule($module);
-    $header_navbar->addSubItem($module->name,"?mod=".$module->module,true,"text-right");
+    $header_navbar->addSubItem($module->name,"?mod=".$module->id,true,"text-right");
    }
   }
   $header_navbar->addItem(api_image($GLOBALS['session']->user->avatar,null,20,20,false,"alt='Brand'"));

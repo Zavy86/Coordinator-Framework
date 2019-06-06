@@ -290,21 +290,21 @@ CREATE TABLE IF NOT EXISTS `framework__attachments` (
 --
 
 CREATE TABLE IF NOT EXISTS `framework__modules` (
-  `module` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `version` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   `enabled` tinyint(1) unsigned NOT NULL,
   `addTimestamp` int(11) unsigned NOT NULL,
   `addFkUser` int(11) unsigned NOT NULL,
   `updTimestamp` int(11) unsigned DEFAULT NULL,
   `updFkUser` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`module`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `framework__modules`
 --
 
-INSERT INTO `framework__modules` (`module`, `version`, `enabled`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`) VALUES
+INSERT INTO `framework__modules` (`id`, `version`, `enabled`, `addTimestamp`, `addFkUser`, `updTimestamp`, `updFkUser`) VALUES
 ('framework', '0.0.1', 1, 0, 1, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -314,28 +314,27 @@ INSERT INTO `framework__modules` (`module`, `version`, `enabled`, `addTimestamp`
 --
 
 CREATE TABLE IF NOT EXISTS `framework__modules__authorizations` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `module` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `action` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `fkModule` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `order` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `action` (`action`),
-  KEY `module` (`module`),
-  CONSTRAINT `framework__modules__authorizations_ibfk_1` FOREIGN KEY (`module`) REFERENCES `framework__modules` (`module`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fkModule` (`fkModule`),
+  CONSTRAINT `framework__modules__authorizations_ibfk_1` FOREIGN KEY (`fkModule`) REFERENCES `framework__modules` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `framework__modules__authorizations`
 --
 
-INSERT IGNORE INTO `framework__modules__authorizations` (`id`, `module`, `action`) VALUES
-(null, 'framework', 'framework-settings_manage'),
-(null, 'framework', 'framework-menus_manage'),
-(null, 'framework', 'framework-modules_manage'),
-(null, 'framework', 'framework-users_manage'),
-(null, 'framework', 'framework-groups_manage'),
-(null, 'framework', 'framework-sessions_manage'),
-(null, 'framework', 'framework-mails_manage'),
-(null, 'framework', 'framework-attachments_manage');
+INSERT IGNORE INTO `framework__modules__authorizations` (`id`, `fkModule`, `order`) VALUES
+('framework-settings_manage','framework',1),
+('framework-menus_manage','framework',2),
+('framework-modules_manage','framework',3),
+('framework-users_manage','framework',4),
+('framework-groups_manage','framework',5),
+('framework-sessions_manage','framework',6),
+('framework-mails_manage','framework',7),
+('framework-attachments_manage','framework',8);
 
 -- --------------------------------------------------------
 
@@ -344,7 +343,7 @@ INSERT IGNORE INTO `framework__modules__authorizations` (`id`, `module`, `action
 --
 
 CREATE TABLE IF NOT EXISTS `framework__modules__authorizations__groups` (
-  `fkAuthorization` int(11) unsigned NOT NULL,
+  `fkAuthorization` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `fkGroup` int(11) unsigned NOT NULL,
   `level` tinyint(2) NOT NULL,
   KEY `fkAuthorization` (`fkAuthorization`),
