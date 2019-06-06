@@ -28,12 +28,11 @@
    *
    * @param string $title Title
    * @param string $class CSS class
-   * @param string $id Modal window ID
+   * @param string $id Modal window ID, if null randomly generated
    * @return boolean
    */
   public function __construct($title=null,$class=null,$id=null){
-   if(!$id){$id=rand(1,99999);}
-   $this->id="modal_".$id;
+   $this->id="modal_".($id?$id:api_random());
    $this->title=$title;
    $this->class=$class;
    $this->size="normal";

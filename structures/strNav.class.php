@@ -15,6 +15,7 @@
  class strNav{
 
   /** Properties */
+  protected $id;
   protected $title;
   protected $class;
   protected $container;
@@ -26,9 +27,11 @@
    *
    * @param string $class CSS class ( nav-tabs | nav-pills | nav-stacked )
    * @param boolean $container Renderize container
+   * @param string $id Nav ID, if null randomly generated
    * @return boolean
    */
-  public function __construct($class="nav-tabs",$container=true){
+  public function __construct($class="nav-tabs",$container=true,$id=null){
+   $this->id="nav_".($id?$id:api_random());
    $this->class=$class;
    $this->container=$container;
    $this->current_item=0;
@@ -161,7 +164,7 @@
     $ident="  ";
    }
    $return.=$ident."<!-- nav -->\n";
-   $return.=$ident."<ul class=\"nav ".$this->class."\" style=\"min-width:".$min_width."px;\">\n";
+   $return.=$ident."<ul id=\"".$this->id."\" class=\"nav ".$this->class."\" style=\"min-width:".$min_width."px;\">\n";
    // title
    if($this->title){$return.=$ident." <li class=\"title\">".$this->title."</li>\n";}
    // cycle all items

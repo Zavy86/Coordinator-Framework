@@ -31,7 +31,7 @@
    */
   public function __construct($id=null){
    // check parameters
-   if($id){$this->id="filter_".$id;}else{$this->id="filter_".md5(rand(1,99999));}
+   $this->id="filter_".($id?$id:api_random());
    // parse current url
    parse_str(parse_url($_SERVER['REQUEST_URI'])['query'],$this->uri_array);
    // initializations

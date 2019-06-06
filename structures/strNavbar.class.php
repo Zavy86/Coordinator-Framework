@@ -15,6 +15,7 @@
  class strNavbar{
 
   /** Properties */
+  protected $id;
   protected $title;
   protected $class;
   protected $navs_array;
@@ -26,9 +27,11 @@
    *
    * @param string $title Navbar title
    * @param string $class Navbar class
+   * @param string $id Navbar ID, if null randomly generated
    * @return boolean
    */
-  public function __construct($title=null,$class="navbar-default"){
+  public function __construct($title=null,$class="navbar-default",$id=null){
+   $this->id="navbar_".($id?$id:api_random());
    $this->title=$title;
    $this->class=$class;
    $this->current_nav=0;
@@ -165,7 +168,7 @@
   public function render($echo=true){
    // renderize navbar
    $return="<!-- navbar -->\n";
-   $return.="<nav class=\"navbar ".$this->class."\">\n";
+   $return.="<nav id=\"".$this->id."\" class=\"navbar ".$this->class."\">\n";
    $return.=" <!-- navbar-container -->\n";
    $return.=" <div class=\"container\">\n";
    // renderize navbar-header
