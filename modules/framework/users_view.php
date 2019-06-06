@@ -23,6 +23,7 @@
  $dl_left->addElement(api_tag("strong",$user_obj->fullname),api_image($user_obj->avatar,"img-thumbnail",128).$avatar_delete_link);
  $dl_left->addElement("&nbsp;",$user_obj->getStatus());
  $dl_left->addElement(api_text("users_view-mail"),$user_obj->mail);
+ if($user_obj->username){$dl_left->addElement(api_text("users_view-username"),$user_obj->username);}
  $dl_left->addElement(api_text("users_view-timezone"),$user_obj->timezone);
  $dl_left->addElement(api_text("users_view-localization"),$localization->available_localizations[$user_obj->localization]);
  // build groups table

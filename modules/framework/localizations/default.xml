@@ -46,6 +46,7 @@
  <text key="framework_alert_ownPasswordWeak">La nuova password non ha superato il livello minimo di sicurezza</text>
  <text key="framework_alert_ownPasswordOldest">La nuova password coincide con la vecchia password</text>
  <text key="framework_alert_ownPasswordUpdated">La tua password è stata aggiornata</text>
+ <text key="framework_alert_ownAvatarRemoved">Il tuo avatar è stato eliminato</text>
 
  <text key="framework_alert_userError">Si è verificato un errore durante il salvaraggio dell'utente</text>
  <text key="framework_alert_userNotFound">L'utente non è stato trovato</text>
@@ -151,6 +152,7 @@
  <!-- own_profile -->
  <text key="own_profile">Profilo personale</text>
  <text key="own_profile-mail">Indirizzo mail</text>
+ <text key="own_profile-username">Username</text>
  <text key="own_profile-firstname">Nome</text>
  <text key="own_profile-lastname">Cognome</text>
  <text key="own_profile-localization">Lingua</text>
@@ -352,6 +354,7 @@
  <text key="users_view-avatar-delete">Elimina avatar</text>
  <text key="users_view-avatar-delete-confirm">Confermi di voler eliminare definitivamente questa immagine?</text>
  <text key="users_view-mail">Indirizzo mail</text>
+ <text key="users_view-username">Username</text>
  <text key="users_view-timezone">Fuso orario</text>
  <text key="users_view-localization">Lingua</text>
  <text key="users_view-gender">Genere</text>

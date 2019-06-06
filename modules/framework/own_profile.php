@@ -17,6 +17,7 @@
  // build profile form
  $form=new strForm("?mod=".MODULE."&scr=submit&act=own_profile_update","POST",null,"own_profile");
  $form->addField("static",null,api_text("own_profile-mail"),$user_obj->mail);
+ if($user_obj->username){$form->addField("static",null,api_text("own_profile-username"),$user_obj->username);}
  $form->addField("text","firstname",api_text("own_profile-firstname"),$user_obj->firstname,api_text("own_profile-firstname-placeholder"),null,null,8,"required");
  $form->addField("text","lastname",api_text("own_profile-lastname"),$user_obj->lastname,api_text("own_profile-lastname-placeholder"),null,null,null,"required");
  $form->addField("select","localization",api_text("own_profile-localization"),$user_obj->localization,api_text("own_profile-localization-placeholder"),null,null,null,"required");
