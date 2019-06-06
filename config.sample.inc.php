@@ -8,7 +8,7 @@
  */
 
  // framework directory with trailing slash
- $configuration->dir="/coordinator-framework/";
+ $configuration->path="/coordinator-framework/";
 
  // database parameters
  $configuration->db_type="mysql";

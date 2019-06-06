@@ -87,8 +87,8 @@
   }
   // upload background
   if(intval($_FILES['background']['size'])>0 && $_FILES['background']['error']==UPLOAD_ERR_OK){
-   if(file_exists(ROOT."uploads/dashboard/".$tile_obj->id.".jpg")){unlink(ROOT."uploads/dashboard/".$tile_obj->id.".jpg");}
-   if(is_uploaded_file($_FILES['background']['tmp_name'])){move_uploaded_file($_FILES['background']['tmp_name'],ROOT."uploads/dashboard/".$tile_obj->id.".jpg");}
+   if(file_exists(DIR."uploads/dashboard/".$tile_obj->id.".jpg")){unlink(DIR."uploads/dashboard/".$tile_obj->id.".jpg");}
+   if(is_uploaded_file($_FILES['background']['tmp_name'])){move_uploaded_file($_FILES['background']['tmp_name'],DIR."uploads/dashboard/".$tile_obj->id.".jpg");}
   }
   // redirect
   api_redirect("?mod=".$r_redirect_mod."&scr=".$r_redirect_scr."&tab=".$r_redirect_tab."&idTile=".$tile_qobj->id);
@@ -165,7 +165,7 @@
   // rebase other tiles
   $GLOBALS['database']->queryExecute("UPDATE `framework__users__dashboards` SET `order`=`order`-1 WHERE `order`>'".$tile_obj->order."' AND `fkUser`='".$GLOBALS['session']->user->id."'");
   // remove background if exist
-  if(file_exists(ROOT."uploads/dashboard/".$tile_obj->id.".jpg")){unlink(ROOT."uploads/dashboard/".$tile_obj->id.".jpg");}
+  if(file_exists(DIR."uploads/dashboard/".$tile_obj->id.".jpg")){unlink(DIR."uploads/dashboard/".$tile_obj->id.".jpg");}
   // alert
   api_alerts_add(api_text("dashboard_alert_tileDeleted"),"warning");
   // redirect
@@ -183,7 +183,7 @@
   // check objects
   if(!$tile_obj->id){api_alerts_add(api_text("dashboard_alert_tileNotFound"),"danger");api_redirect("?mod=dashboard&scr=dashboard_customize");}
   // remove background if exist
-  if(file_exists(ROOT."uploads/dashboard/".$tile_obj->id.".jpg")){unlink(ROOT."uploads/dashboard/".$tile_obj->id.".jpg");}
+  if(file_exists(DIR."uploads/dashboard/".$tile_obj->id.".jpg")){unlink(DIR."uploads/dashboard/".$tile_obj->id.".jpg");}
   // alert and redirect
   api_alerts_add(api_text("dashboard_alert_tileUpdated"),"success");
   api_redirect("?mod=dashboard&scr=dashboard_customize&idTile=".$tile_obj->id);

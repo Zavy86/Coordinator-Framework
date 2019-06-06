@@ -21,7 +21,7 @@
  // load module
  if(file_exists(MODULE_PATH."module.inc.php")){require_once(MODULE_PATH."module.inc.php");}else{die("ERROR LOADING MODULE: File modules/".MODULE."/module.inc.php was not found");}
  if(file_exists(MODULE_PATH."functions.inc.php")){require_once(MODULE_PATH."functions.inc.php");}else{echo "WARNING LOADING MODULE: File modules/".MODULE."/functions.inc.php was not found";}
- foreach($module->required_modules_array as $module_f){if(file_exists(ROOT."modules/".$module_f."/functions.inc.php")){require_once(ROOT."modules/".$module_f."/functions.inc.php");}else{echo "WARNING LOADING REQUIRED MODULE: File modules/".$module_f."/functions.inc.php was not found";}}
+ foreach($module->required_modules_array as $module_f){if(file_exists(DIR."modules/".$module_f."/functions.inc.php")){require_once(DIR."modules/".$module_f."/functions.inc.php");}else{echo "WARNING LOADING REQUIRED MODULE: File modules/".$module_f."/functions.inc.php was not found";}}
  // load module localization
  $localization->load(MODULE);
  // load required module localization

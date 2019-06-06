@@ -58,7 +58,7 @@
    $this->timezone=$user->timezone;
    $this->gender=$user->gender;
    $this->birthday=$user->birthday;
-   $this->avatar=DIR."uploads/framework/users/avatar_".$this->id.".jpg";
+   $this->avatar=PATH."uploads/framework/users/avatar_".$this->id.".jpg";
    $this->enabled=(bool)$user->enabled;
    $this->superuser=(bool)$user->superuser;
    $this->level=(int)$user->level;
@@ -74,11 +74,11 @@
     if($this->pwdExpiration<0){$this->pwdExpired=true;}
    }
    // make avatar
-   if(!file_exists(str_replace("//","/",ROOT.str_replace(DIR,"/",$this->avatar)))){
+   if(!file_exists(str_replace("//","/",DIR.str_replace(PATH,"/",$this->avatar)))){
     switch($this->gender){
-     case "man":$this->avatar=DIR."uploads/framework/users/avatar_man.jpg";break;
-     case "woman":$this->avatar=DIR."uploads/framework/users/avatar_woman.jpg";break;
-     default:$this->avatar=DIR."uploads/framework/users/avatar.jpg";
+     case "man":$this->avatar=PATH."uploads/framework/users/avatar_man.jpg";break;
+     case "woman":$this->avatar=PATH."uploads/framework/users/avatar_woman.jpg";break;
+     default:$this->avatar=PATH."uploads/framework/users/avatar.jpg";
     }
    }
    // load authorizations

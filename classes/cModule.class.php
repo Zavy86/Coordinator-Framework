@@ -52,11 +52,11 @@
    $this->name=api_text($module->id);
    $this->description=api_text($module->id."-description");
    // get source version
-   $this->source_path=ROOT."modules/".$this->id."/";
-   if($this->id=="framework"){$this->source_path=ROOT;}
+   $this->source_path=DIR."modules/".$this->id."/";
+   if($this->id=="framework"){$this->source_path=DIR;}
    if(file_exists($this->source_path."VERSION.txt")){$this->source_version=file_get_contents($this->source_path."VERSION.txt");}
    // get repository version url
-   include(ROOT."modules/".$this->id."/module.inc.php");
+   include(DIR."modules/".$this->id."/module.inc.php");
    $this->repository_version_url=$module_repository_version_url;
    $this->required_modules_array=$module_required_modules;
    if(!is_array($this->required_modules_array)){$this->required_modules_array=array_filter(array($this->required_modules_array),'strlen');}

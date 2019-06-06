@@ -8,7 +8,7 @@
  */
 
  // include classes
- require_once(ROOT."modules/dashboard/classes/cDashboardTile.class.php");
+ require_once(DIR."modules/dashboard/classes/cDashboardTile.class.php");
 
  /**
   * Dashboard - User Tiles

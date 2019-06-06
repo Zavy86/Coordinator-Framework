@@ -41,10 +41,10 @@
   // check for id
   if(!$attachment_qobj->id){return false;}
   // check if file exist and replace
-  if(file_exists(ROOT."uploads/attachments/".$attachment_qobj->id)){unlink(ROOT."uploads/attachments/".$attachment_qobj->id);}
-  if(is_uploaded_file($file['tmp_name'])){move_uploaded_file($file['tmp_name'],ROOT."uploads/attachments/".$attachment_qobj->id);}
+  if(file_exists(DIR."uploads/attachments/".$attachment_qobj->id)){unlink(DIR."uploads/attachments/".$attachment_qobj->id);}
+  if(is_uploaded_file($file['tmp_name'])){move_uploaded_file($file['tmp_name'],DIR."uploads/attachments/".$attachment_qobj->id);}
   // check for uploaded file
-  if(!file_exists(ROOT."uploads/attachments/".$attachment_qobj->id)){return false;}
+  if(!file_exists(DIR."uploads/attachments/".$attachment_qobj->id)){return false;}
   // execute query
   $result=$GLOBALS['database']->queryInsert("framework__attachments",$attachment_qobj);
   // check for result
@@ -68,7 +68,7 @@
   // execute query
   $GLOBALS['database']->queryDelete("framework__attachments",$attachment_obj->id);
   // check if file exist and remove
-  if(file_exists(ROOT."uploads/attachments/".$attachment_obj->id)){unlink(ROOT."uploads/attachments/".$attachment_obj->id);}
+  if(file_exists(DIR."uploads/attachments/".$attachment_obj->id)){unlink(DIR."uploads/attachments/".$attachment_obj->id);}
   // return
   return true;
  }

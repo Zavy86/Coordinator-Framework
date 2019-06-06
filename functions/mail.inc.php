@@ -56,9 +56,9 @@
   if(!$mail_obj->id){return false;}
   api_dump($mail_obj,"mail object");
   // include phpmailer
-  require_once(ROOT."helpers/phpmailer/php/PHPMailer.php");
-  require_once(ROOT."helpers/phpmailer/php/Exception.php");
-  require_once(ROOT."helpers/phpmailer/php/SMTP.php");
+  require_once(DIR."helpers/phpmailer/php/PHPMailer.php");
+  require_once(DIR."helpers/phpmailer/php/Exception.php");
+  require_once(DIR."helpers/phpmailer/php/SMTP.php");
   // build mailer object
   $mailer=new PHPMailer\PHPMailer\PHPMailer(true);
   // try to send mail
@@ -107,9 +107,9 @@
     "{mail-content}"=>$mail_obj->message
    );
    // load template
-   if($mail_obj->template && file_exists(ROOT."modules/".$mail_obj->template))
-   {$template_source=file_get_contents(ROOT."modules/".$mail_obj->template);}
-   else{$template_source=file_get_contents(ROOT."modules/framework/templates/default.mail.html");}
+   if($mail_obj->template && file_exists(DIR."modules/".$mail_obj->template))
+   {$template_source=file_get_contents(DIR."modules/".$mail_obj->template);}
+   else{$template_source=file_get_contents(DIR."modules/framework/templates/default.mail.html");}
    // replace template placeholders
    $mail_obj->body=str_replace(array_keys($placeholders),$placeholders,$template_source);
    // debug
@@ -122,7 +122,7 @@
    //$mailer->Body=$mail_body;
    //$mailer->AltBody=strip_tags(str_replace("<br>","\n",$mail_body));
    // attachments
-   foreach($mail_obj->attachments as $attachment_f){if(file_exists(ROOT.$attachment_f)){$mailer->addAttachment(ROOT.$attachment_f);}}
+   foreach($mail_obj->attachments as $attachment_f){if(file_exists(DIR.$attachment_f)){$mailer->addAttachment(DIR.$attachment_f);}}
    // try to send mail
    $mail_sended=$mailer->send();
    if($mail_sended){api_dump("Mail #".$mail_obj->id." succesfull sended!","mailer return");}

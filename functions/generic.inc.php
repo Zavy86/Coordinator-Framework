@@ -51,7 +51,7 @@
   if(DEBUG){
    // renderize redirect link
    echo "<div class='redirect'>".api_tag("strong","REDIRECT")."<br>".api_link($location,$location)."</div>";
-   echo "<link href=\"".HELPERS."bootstrap/css/bootstrap-3.3.7-custom.css\" rel=\"stylesheet\">\n";
+   echo "<link href=\"".PATH."helpers/bootstrap/css/bootstrap-3.3.7-custom.css\" rel=\"stylesheet\">\n";
    // renderize debug
    api_debug();
    // block application

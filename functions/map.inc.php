@@ -44,9 +44,9 @@
   }
   /*setTimeout(function(){map.invalidateSize();},10);*/
   // Leaf Let CSS
-  $GLOBALS['app']->addStylesheet(HELPERS."leaflet/css/leaflet-1.3.4.css");
+  $GLOBALS['app']->addStylesheet(PATH."helpers/leaflet/css/leaflet-1.3.4.css");
   // jQuery scripts
-  $GLOBALS['app']->addScript(HELPERS."leaflet/js/leaflet-1.3.4.min.js",true);
+  $GLOBALS['app']->addScript(PATH."helpers/leaflet/js/leaflet-1.3.4.min.js",true);
   $GLOBALS['app']->addScript($map_script);
   // return
   return true;

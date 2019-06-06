@@ -10,28 +10,31 @@
  ini_set("display_errors",true);
  error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
  // defines constants
- define('DIR',"");
- define('URL',(isset($_SERVER['HTTPS'])?"https":"http")."://".$_SERVER['HTTP_HOST'].$GLOBALS['configuration']->dir);
- define('ROOT',realpath(dirname(__FILE__))."/");
- define('HELPERS',DIR."helpers/");
+ define('DEBUG',true);
+ define('VERSION',file_get_contents("VERSION.txt"));
+ define("PATH",explode("setup.php",$_SERVER['REQUEST_URI'])[0]);
+ define('HOST',(isset($_SERVER['HTTPS'])?"https":"http")."://".$_SERVER['HTTP_HOST']);
+ define('ROOT',rtrim(str_replace("\\","/",realpath(dirname(__FILE__))."/"),PATH));
+ define('URL',HOST.PATH);
+ define('DIR',ROOT.PATH);
  // die if configuration already exist
- if(file_exists(ROOT."config.inc.php")){die("Coordinator Framework is already configured..");}
+ //if(file_exists(DIR."config.inc.php")){die("Coordinator Framework is already configured..");}
  // include functions
- require_once(ROOT."functions/generic.inc.php");
+ require_once(DIR."functions/generic.inc.php");
  // include structures
- require_once(ROOT."structures/strApplication.class.php");
- require_once(ROOT."structures/strGrid.class.php");
- require_once(ROOT."structures/strNavbar.class.php");
- require_once(ROOT."structures/strForm.class.php");
+ require_once(DIR."structures/strApplication.class.php");
+ require_once(DIR."structures/strGrid.class.php");
+ require_once(DIR."structures/strNavbar.class.php");
+ require_once(DIR."structures/strForm.class.php");
  // include classes
- require_once(ROOT."classes/cLocalization.class.php");
+ require_once(DIR."classes/cLocalization.class.php");
  // build localization instance
  $localization=new cLocalization();
  // build settings instance
  $settings=new stdClass();
  $settings->title="Coordinator Framework";
  $settings->owner="Manuel Zavatta";
- $settings->logo=DIR."uploads/framework/logo.default.png";
+ $settings->logo=PATH."uploads/framework/logo.default.png";
  // build html object
  $app=new strApplication("Setup");
  // set html title
@@ -42,7 +45,7 @@
  if(!$_REQUEST['setup_action']){
   // setup form
   $form->addField("hidden","setup_action",null,"check");
-  $form->addField("text","dir","Directory",substr($_SERVER['SCRIPT_NAME'],0,-9),"Framework directory with trailing slash",null,null,null,"required");
+  $form->addField("text","dir","Directory",PATH,"Framework directory with trailing slash",null,null,null,"required");
   $form->addField("text","firstname","Firstname",null,"Administrator firstname",null,null,null,"required");
   $form->addField("text","lastname","Lastname",null,"Administrator lastname",null,null,null,"required");
   $form->addField("email","mail","Mail address",null,"Administrator e-mail address",null,null,null,"required");
@@ -85,10 +88,10 @@
   // check administrator parameters
   if(!$_REQUEST['firstname'] || !$_REQUEST['lastname'] || !$_REQUEST['mail'] || !$_REQUEST['password'] || !$_REQUEST['localization'] || !$_REQUEST['timezone']){die("Parameters errors..");}
   // check writable permission
-  $fh=fopen(ROOT."config.inc.php","w");
-  if(!$fh){die("Error writing configuration file: ".ROOT."config.inc.php");}
+  $fh=fopen(DIR."config.inc.php","w");
+  if(!$fh){die("Error writing configuration file: ".DIR."config.inc.php");}
   fclose($fh);
-  unlink(ROOT."config.inc.php");
+  unlink(DIR."config.inc.php");
   // check setup action
   if($_REQUEST['setup_action']=="setup"){
    // build configuration file
@@ -103,16 +106,16 @@
    $file_content.=" \$configuration->db_pass=\"".$configuration->db_pass."\";\n";
    $file_content.="?>";
    // write configuration file
-   file_put_contents(ROOT."config.inc.php",$file_content);
+   file_put_contents(DIR."config.inc.php",$file_content);
    // change configuration file permissions
-   chmod(ROOT."config.inc.php",0755);
+   chmod(DIR."config.inc.php",0755);
    // load setup dump
-   $queries=file(ROOT."queries/setup.sql");
+   $queries=file(DIR."queries/setup.sql");
    // check for update queries
    /** @todo farlo meglio quando necessario (vedi moduli) */
-   /*if(file_exists(ROOT."queries/update.sql")){
+   /*if(file_exists(DIR."queries/update.sql")){
     // load update queries and add to queries
-    $queries_update=file(ROOT."queries/update.sql");
+    $queries_update=file(DIR."queries/update.sql");
     $queries=array_merge($queries,$queries_update);
    }*/
    // cycle all queries
