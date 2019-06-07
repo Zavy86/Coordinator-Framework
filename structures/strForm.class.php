@@ -299,7 +299,7 @@
       }
       break;
      // select box
-     case "select": /** @todo integrare con select2 */
+     case "select": /** @todo integrare con select2 ? */
       $return.=$split_identation."   <select".$field_tags.">\n";
       if($field->placeholder){$return.="    <option value=\"\">".$field->placeholder."</option>\n";}
       // cycle all field options

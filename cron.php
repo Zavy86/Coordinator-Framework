@@ -11,7 +11,7 @@
  // check for debug
  if($_GET['debug']==1){$_GET['debug']=true;}else{$_GET['debug']=false;}
  // check token
- if($_REQUEST['token']!==$GLOBALS['settings']->token_cron){die("TOKEN ERROR");} /** @todo attivare dopo i test */
+ if($_REQUEST['token']!==$GLOBALS['settings']->token_cron){die("TOKEN ERROR");}
  // debug
  api_dump("CRON STARTED");
  // definitions

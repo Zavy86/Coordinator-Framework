@@ -49,8 +49,7 @@
     if(file_exists($module->source_path."/.git/config")){
      $action_btn=api_link("?mod=".MODULE."&scr=submit&act=module_update_source&idModule=".$module->id,api_text("modules_list-td-update_source"),null,"btn btn-info btn-xs",false,api_text("modules_list-td-update_source-confirm"));
     }else{
-     /** @todo module url */
-     $action_btn=api_link("#".$module->url,api_text("modules_list-td-update_source-manual"),null,"btn btn-info btn-xs",false,null,null,null,"_blank");
+     $action_btn=api_link($module->repository_url,api_text("modules_list-td-update_source-manual"),null,"btn btn-info btn-xs",false,null,null,null,"_blank");
     }
    }elseif($repository_version===null){
     // check for git
@@ -64,7 +63,7 @@
   // build table row
   $table->addRow();
   // build table fields
-  $table->addRowFieldAction("?mod=".MODULE."&scr=modules_view&idModule=".$module->id,"search",api_text("show")); /** @todo verificare non esiste */
+  $table->addRowFieldAction("?mod=".MODULE."&scr=modules_view&idModule=".$module->id,"search",api_text("show"));
   $table->addRowField($module->name,"nowrap");
   $table->addRowField(api_tag("span",$module->version,"label ".($source_updated?"label-warning":"label-success")),"nowrap text-right");
   $table->addRowField(api_tag("span",$repository_version,"label ".($repository_updated?"label-info":"label-success")),"nowrap text-right");

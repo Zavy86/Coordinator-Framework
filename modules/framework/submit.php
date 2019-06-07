@@ -1200,31 +1200,10 @@
    // alert
    api_alerts_add(api_text("framework_alert_attachmentUpdated"),"success");
   }else{
-   // add
-   $attachment_qobj->name=strtolower(str_replace(" ","_",$_FILES['file']['name']));
-   $attachment_qobj->typology=$_FILES['file']['type'];
-   $attachment_qobj->size=$_FILES['file']['size'];
-   $attachment_qobj->addTimestamp=time();
-   $attachment_qobj->addFkUser=$GLOBALS['session']->user->id;
-   do{
-    // generate attachment id
-    $attachment_qobj->id=md5(date("YmdHis").rand(1,99999));
-    // check for duplicates
-    $check_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework__attachments` WHERE `id`='".$attachment_qobj->id."'");
-   }while($attachment_qobj->id==$check_id);
-   // debug
-   api_dump($attachment_qobj);
-   // check for file
-   if(intval($_FILES['file']['size'])==0 || $_FILES['file']['error']!=UPLOAD_ERR_OK){api_alerts_add(api_text("framework_alert_attachmentError"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
+   // upload attachment
+   $attachment_qobj->id=api_attachment_upload($_FILES['file'],$attachment_qobj->name,$attachment_qobj->description,$attachment_qobj->public);
    // check for id
    if(!$attachment_qobj->id){api_alerts_add(api_text("framework_alert_attachmentError"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
-   // check if file exist and replace
-   if(file_exists(DIR."uploads/attachments/".$attachment_qobj->id)){unlink(DIR."uploads/attachments/".$attachment_qobj->id);}
-   if(is_uploaded_file($_FILES['file']['tmp_name'])){move_uploaded_file($_FILES['file']['tmp_name'],DIR."uploads/attachments/".$attachment_qobj->id);}
-   // check for file
-   if(!file_exists(DIR."uploads/attachments/".$attachment_qobj->id)){api_alerts_add(api_text("framework_alert_attachmentError"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
-   // execute query
-   $GLOBALS['database']->queryInsert("framework__attachments",$attachment_qobj);
    // alert
    api_alerts_add(api_text("framework_alert_attachmentCreated"),"success");
   }
@@ -1269,16 +1248,8 @@
   api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-attachments_manage","dashboard");
-  // get objects
-  $attachment_obj=new cAttachment($_REQUEST['idAttachment']);
-  // check objects
-  if(!$attachment_obj->id){api_alerts_add(api_text("framework_alert_attachmentNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
-  // debug
-  api_dump($attachment_obj,"attachment object");
-  // execute query
-  $GLOBALS['database']->queryDelete("framework__attachments",$attachment_obj->id);
-  // check if file exist and remove
-  if(file_exists(DIR."uploads/attachments/".$attachment_obj->id)){unlink(DIR."uploads/attachments/".$attachment_obj->id);}
+  // remove attachment
+  if(!api_attachment_remove($_REQUEST['idAttachment'])){api_alerts_add(api_text("framework_alert_attachmentNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
   // redirect
   api_alerts_add(api_text("framework_alert_attachmentRemoved"),"warning");
   api_redirect("?mod=".MODULE."&scr=attachments_list");

@@ -24,6 +24,7 @@
   protected $updFkUser;
   protected $source_path;
   protected $source_version;
+  protected $repository_url;
   protected $repository_version_url;
   protected $required_modules_array;
   protected $authorizations_array;
@@ -57,6 +58,7 @@
    if(file_exists($this->source_path."VERSION.txt")){$this->source_version=file_get_contents($this->source_path."VERSION.txt");}
    // get repository version url
    include(DIR."modules/".$this->id."/module.inc.php");
+   $this->repository_url=$module_repository_url;
    $this->repository_version_url=$module_repository_version_url;
    $this->required_modules_array=$module_required_modules;
    if(!is_array($this->required_modules_array)){$this->required_modules_array=array_filter(array($this->required_modules_array),'strlen');}

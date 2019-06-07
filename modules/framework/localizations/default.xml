@@ -549,6 +549,7 @@
  <text key="attachments_list-th-name">Nome</text>
  <text key="attachments_list-th-size">Dimensione</text>
  <text key="attachments_list-td-view">Visualizza dettagli allegato</text>
+ <text key="attachments_list-td-edit">Modifica dettagli allegato</text>
  <text key="attachments_list-td-download">Scarica file allegato</text>
  <text key="attachments_list-td-delete">Elimina allegato</text>
  <text key="attachments_list-td-delete-confirm">Confermi di voler eliminare questo allegato?</text>

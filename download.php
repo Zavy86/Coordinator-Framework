@@ -6,10 +6,10 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
- // include functions
- require_once("initializations.inc.php");
  // check for debug
  if($_GET['debug']==1){$_GET['debug']=true;}else{$_GET['debug']=false;}
+ // include functions
+ require_once("initializations.inc.php");
  // debug
  api_dump($_REQUEST,"_REQUEST");
  // get attachment

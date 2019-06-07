@@ -7,5 +7,7 @@
  * @link    http://www.coordinator.it
  */
  $module_name="dashboard";
+ $module_repository_url=null;
  $module_repository_version_url=null;
+ $module_required_modules=array();
 ?>

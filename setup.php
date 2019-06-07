@@ -147,7 +147,10 @@
     WHERE `id`='1'";
    $query=$connection->prepare($sql_update);
    $query->execute();
-   /** @todo settare un random cron token */
+   // set random cron token
+   $sql_update="UPDATE `framework__settings` SET `value`='".md5(date("YmdHis"))."' WHERE `setting`='token_cron'";
+   $query=$connection->prepare($sql_update);
+   $query->execute();
    // setup complete form
    $form->addField("hidden","setup_action",null,"completed");
    $form->addField("static",null,"Setup","<i class='fa fa-check'></i> Completed");
