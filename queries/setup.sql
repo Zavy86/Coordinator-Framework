@@ -46,7 +46,7 @@ INSERT INTO `framework__settings` (`setting`, `value`) VALUES
 ('sessions_ldap_userfield', ''),
 ('sessions_multiple', '1'),
 ('mail_asynchronous', '0'),
-('mail_from_mail', 'company@domain.tdl'),
+('mail_from_address', 'company@domain.tdl'),
 ('mail_from_name', 'Coordinator'),
 ('mail_method', 'standard'),
 ('mail_smtp_encryption', ''),

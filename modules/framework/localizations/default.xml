@@ -9,7 +9,7 @@
 <!-->
 <locale>
 
- <!-- framework -->
+ <!-- module -->
  <text key="framework">Framework</text>
  <text key="framework-description">Coordinator framework</text>
 
@@ -33,6 +33,7 @@
 
  <!-- alerts -->
  <text key="framework_alert_settingsUpdated">Le impostazioni sono state aggiornate</text>
+ <text key="framework_alert_settingsLogoRemoved">Il logo personalizzato è stato rimosso</text>
 
  <text key="framework_alert_menuError">Si è verificato un errore durante il salvaraggio del menu</text>
  <text key="framework_alert_menuNotFound">Il menu non è stato trovato</text>
@@ -196,7 +197,7 @@
  <text key="settings_edit">Impostazioni</text>
  <text key="settings_edit-description">Gestione delle impostazioni del framework</text>
 
- <text key="settings_edit-general">Generali</text>
+ <text key="settings_edit-generals">Generali</text>
  <text key="settings_edit-maintenance">Manutenzione</text>
  <text key="settings_edit-maintenance-lock">Accesso bloccato</text>
  <text key="settings_edit-owner">Proprietario</text>
@@ -208,6 +209,8 @@
  <text key="settings_edit-show-logo">Logo</text>
  <text key="settings_edit-show-title">Titolo</text>
  <text key="settings_edit-logo">Logo</text>
+ <text key="settings_edit-logo-remove">Rimuovi logo</text>
+ <text key="settings_edit-logo-remove-confirm">Confermi di voler rimuovere definitivamente questo logo e tornare a quello di default?</text>
 
  <text key="settings_edit-sessions">Sessioni e autenticazione</text>
  <text key="settings_edit-sessions_authentication_method">Autenticazione</text>
@@ -235,11 +238,11 @@
  <text key="settings_edit-sessions_ldap_cache">Cache</text>
  <text key="settings_edit-sessions_ldap_cache-allowed">Password caching abilitato</text>
 
- <text key="settings_edit-mail">Mail</text>
+ <text key="settings_edit-mails">Mail</text>
  <text key="settings_edit-mail_from_name">Mittente</text>
  <text key="settings_edit-mail_from_name-placeholder">Nome del mittente predefinito</text>
- <text key="settings_edit-mail_from_mail">Indirizzo mail</text>
- <text key="settings_edit-mail_from_mail-placeholder">Indirizzo mail del mittente predefinito</text>
+ <text key="settings_edit-mail_from_address">Indirizzo mail</text>
+ <text key="settings_edit-mail_from_address-placeholder">Indirizzo mail del mittente predefinito</text>
  <text key="settings_edit-mail_asynchronous">Invio mail asincrono</text>
  <text key="settings_edit-mail_asynchronous-enabled">Abilitato (Richiesto Cron <![CDATA[{0}]]>)</text>
  <text key="settings_edit-mail_asynchronous-modal-title">Abilitazione invio mail asincrono</text>
@@ -268,7 +271,7 @@
  <text key="settings_edit-users_level_max">Livelli</text>
  <text key="settings_edit-users_level_max-placeholder">Numero massimo di livelli</text>
 
- <text key="settings_edit-token">Tokens</text>
+ <text key="settings_edit-tokens">Tokens</text>
  <text key="settings_edit-token_cron">CRON Token</text>
  <text key="settings_edit-token_cron-placeholder">Randomly created cron job token</text>
  <text key="settings_edit-token_cron-randomize">Rigenera</text>

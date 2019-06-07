@@ -2,29 +2,26 @@
 /**
  * Framework - Template
  *
- * @package Coordinator\Modules\Settings
+ * @package Coordinator\Modules\Framework
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
 
- /** @todo rifare gli oggetti prendendoli dalla relativa pagina */
-
- // check authorizations
- if($authorization){if(!api_checkAuthorization($authorization)){api_alerts_add(api_text("alert_unauthorized",array(MODULE,$authorization)),"danger");api_redirect("?mod=".MODULE."&scr=dashboard");}}
-
- // build html object
- $app=new strApplication($module_name);
+ // build application object
+ $app=new strApplication();
  // build nav object
  $nav=new strNav("nav-tabs");
-
- $nav->setTitle(api_text("framework"));
-
- $nav->addItem(api_icon("fa-th-large",null,"test hidden-link"),"?mod=".MODULE."&scr=dashboard");
-
+ $nav->setTitle(api_text(MODULE));
+ // dashboard
+ $nav->addItem(api_icon("fa-th-large",null,"hidden-link"),"?mod=".MODULE."&scr=dashboard");
  // settings
  if(substr(SCRIPT,0,8)=="settings"){
   $nav->addItem(api_text("settings_edit"),"?mod=".MODULE."&scr=settings_edit");
  }
+
+
+
+
 
  // menus
  if(substr(SCRIPT,0,5)=="menus"){
