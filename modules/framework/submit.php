@@ -47,8 +47,7 @@
   case "user_parameter_save":user_parameter_save();break;
   // groups
   case "group_save":group_save();break;
-  /** @todo delete */
-  /** @todo undelete */
+  case "group_remove":group_remove();break;
   // sessions
   case "sessions_terminate":sessions_terminate();break;
   case "sessions_terminate_all":sessions_terminate_all();break;
@@ -808,7 +807,6 @@
   $user_qobj->updTimestamp=time();
   $user_qobj->updFkUser=$GLOBALS['session']->user->id;
   // debug
-  api_dump($_REQUEST,"_REQUEST");
   api_dump($user_qobj,"user_qobj");
   // update user
   $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
@@ -1042,28 +1040,58 @@
   api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-groups_manage","dashboard");
-  // build group objects
-  $group=new stdClass();
-  // acquire variables
-  $group->id=$_REQUEST['idGroup'];
-  $group->fkGroup=$_REQUEST['fkGroup'];
-  $group->name=$_REQUEST['name'];
-  $group->description=$_REQUEST['description'];
-  $group->updTimestamp=time();
-  $group->updFkUser=$GLOBALS['session']->user->id;
-  // debug
-  api_dump($group);
+  // get objects
+  $group_obj=new cGroup($_REQUEST['idGroup']);
+  api_dump($group_obj,"group object");
+  // build group query objects
+  $group_qobj=new stdClass();
+  $group_qobj->id=$group_obj->id;
+  $group_qobj->fkGroup=$_REQUEST['fkGroup'];
+  $group_qobj->name=$_REQUEST['name'];
+  $group_qobj->description=$_REQUEST['description'];
   // check group
-  if($group->id){
-   // update user
-   $GLOBALS['database']->queryUpdate("framework__groups",$group);
+  if($group_obj->id){
+   // update group
+   $group_qobj->updTimestamp=time();
+   $group_qobj->updFkUser=$GLOBALS['session']->user->id;
+   // debug
+   api_dump($group_qobj,"group query object");
+   // execute query
+   $GLOBALS['database']->queryUpdate("framework__groups",$group_qobj);
+   // alert
    api_alerts_add(api_text("framework_alert_groupUpdated"),"success");
   }else{
-   // update user
-   $GLOBALS['database']->queryInsert("framework__groups",$group);
+   // insert group
+   $group_qobj->addTimestamp=time();
+   $group_qobj->addFkUser=$GLOBALS['session']->user->id;
+   // debug
+   api_dump($group_qobj,"group query object");
+   // execute query
+   $group_qobj->id=$GLOBALS['database']->queryInsert("framework__groups",$group_qobj);
+   // alert
    api_alerts_add(api_text("framework_alert_groupCreated"),"success");
   }
   // redirect
+  api_redirect("?mod=".MODULE."&scr=groups_list&idGroup=".$group_qobj->id);
+ }
+
+ /**
+  * Group Remove
+  */
+ function group_remove(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-groups_manage","dashboard");
+  // get objects
+  $group_obj=new cGroup($_REQUEST['idGroup']);
+  api_dump($group_obj,"group object");
+  // check
+  if(!$group_obj->id){api_alerts_add(api_text("framework_alert_groupNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=groups_list");}
+  if($group_obj->id==1){api_alerts_add(api_text("framework_alert_groupError"),"danger");api_redirect("?mod=".MODULE."&scr=groups_list&idGroup=1");}
+  // delete group
+  $GLOBALS['database']->queryExecute("DELETE FROM `framework__groups` WHERE `id`='".$group_obj->id."'");
+  // redirect
+  api_alerts_add(api_text("framework_alert_groupRemoved"),"warning");
   api_redirect("?mod=".MODULE."&scr=groups_list");
  }
 
