@@ -4,13 +4,13 @@
  *
  * @package Coordinator
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
  // include functions
  require_once("initializations.inc.php");
- // build html object
- $app=new strApplication($module_name);
- // set html title
+ // build application
+ $app=new strApplication();
+ // set application title
  $app->setTitle("Recovery");
  // build recovery form
  $form=new strForm("?mod=framework&scr=submit&act=user_recovery");
@@ -21,8 +21,8 @@
  $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
- // add content to html
+ // add content to application
  $app->addContent($grid->render());
- // renderize html page
+ // renderize application
  $app->render();
 ?>

@@ -5,7 +5,7 @@
 --
 -- @package Coordinator\Queries
 -- @author  Manuel Zavatta <manuel.zavatta@gmail.com>
--- @link    http://www.zavynet.org
+-- @link    http://www.coordinator.it
 --
 -- Version 1.0.0
 --

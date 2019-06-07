@@ -30,7 +30,7 @@
   $mail_qobj->addTimestamp=time();
   $mail_qobj->addFkUser=$GLOBALS['session']->user->id;
   // check for sender
-  if(!$mail_qobj->sender_mail){$mail_qobj->sender_mail=$GLOBALS['settings']->mail_from_mail;}
+  if(!$mail_qobj->sender_mail){$mail_qobj->sender_mail=$GLOBALS['settings']->mail_from_address;}
   if(!$mail_qobj->sender_name){$mail_qobj->sender_name=$GLOBALS['settings']->mail_from_name;}
   // debug
   api_dump($mail_qobj,"mail query object");

@@ -10,7 +10,7 @@
  api_checkAuthorization("framework-settings_manage","dashboard");
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // set html title
+ // set application title
  $app->setTitle(api_text("settings_edit"));
  // check actions
  if(ACTION=="token_cron_randomize"||!$settings->token_cron){$settings->token_cron=api_random(32);}
@@ -87,7 +87,7 @@
    // build cron informations modal window
    $cron_informations_modal=new strModal(api_text("settings_edit-mail_asynchronous-modal-title"),null,"requests_view-cron_informations_modal");
    $cron_informations_modal->setBody(api_text("settings_edit-mail_asynchronous-modal-body",array(URL,$settings->token_cron)));
-   // add modal to html object
+   // add modal to application
    $app->addModal($cron_informations_modal);
    // jQuery scripts
    $app->addScript("/* Cron informations modal window opener */\n$(function(){\$(\"#modal_requests_view-cron_informations_modal\").modal('show');});");
@@ -117,9 +117,9 @@
  $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
- // add content to html
+ // add content to application
  $app->addContent($tabs_nav->render(false));
  $app->addContent($grid->render());
- // renderize html page
+ // renderize application
  $app->render();
 ?>

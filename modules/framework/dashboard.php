@@ -4,11 +4,11 @@
  *
  * @package Coordinator\Modules\Framework
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // set html title
+ // set application title
  $app->setTitle(api_text("framework"));
  // build dashboard object
  $dashboard=new strDashboard();
@@ -22,8 +22,8 @@
  $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($dashboard->render(),"col-xs-12");
- // add content to html
+ // add content to application
  $app->addContent($grid->render());
- // renderize html page
+ // renderize application
  $app->render();
 ?>

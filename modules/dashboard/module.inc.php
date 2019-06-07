@@ -4,7 +4,7 @@
  *
  * @package Coordinator\Modules\Dashboard
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
  $module_name="dashboard";
  $module_repository_version_url=null;

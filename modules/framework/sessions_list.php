@@ -54,6 +54,6 @@
  $grid->addCol($table->render(),"col-xs-12");
  // add content to application
  $app->addContent($grid->render());
- // renderize html
+ // renderize application
  $app->render();
 ?>
