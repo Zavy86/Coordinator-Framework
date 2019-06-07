@@ -425,10 +425,6 @@
  <text key="users_edit-birthday">Data di nascita</text>
  <text key="users_edit-delete-confirm">Confermi di voler eliminare questo account?</text>
 
-
-
-
-
  <!-- groups_list -->
  <text key="groups_list">Gruppi</text>
  <text key="groups_list-description">Gestione dei gruppi del framework</text>
@@ -446,19 +442,15 @@
  <text key="groups_view-users_table-tr-unvalued">Non sono presenti utenti da mostrare..</text>
 
  <!-- groups_edit -->
- <text key="groups_add">Nuovo gruppo</text>
  <text key="groups_edit">Modifica gruppo</text>
+ <text key="groups_edit-add">Nuovo gruppo</text>
  <text key="groups_edit-fkGroup">Gruppo</text>
  <text key="groups_edit-fkGroup-main">Gruppo principale</text>
  <text key="groups_edit-name">Nome</text>
  <text key="groups_edit-name-placeholder">Nome del gruppo</text>
  <text key="groups_edit-description">Descrizione</text>
  <text key="groups_edit-description-placeholder">Breve descrizione del gruppo</text>
- <text key="groups_edit-submit">Salva</text>
- <text key="groups_edit-cancel">Annulla</text>
- <text key="groups_edit-delete">Elimina</text>
  <text key="groups_edit-delete-confirm">Confermi di voler eliminare questo gruppo?</text>
- <text key="groups_edit-undelete">Ripristina</text>
 
  <!-- sessions_list -->
  <text key="sessions_list">Sessioni</text>
@@ -473,6 +465,79 @@
  <text key="sessions_list-th-terminate-confirm">Confermi di voler terminare tutte le sessioni?</text>
  <text key="sessions_list-td-terminate">Termina sessione</text>
  <text key="sessions_list-td-terminate-confirm">Confermi di voler terminare questa sessione?</text>
+
+ <!-- mails_list -->
+ <text key="mails_list">Registro mail</text>
+ <text key="mails_list-filter-status">Stato</text>
+ <text key="mails_list-filter-recipient">Destinatario</text>
+ <text key="mails_list-tr-unvalued">Non sono presenti mail da mostrare..</text>
+ <text key="mails_list-th-addTimestamp">Data inserimento</text>
+ <text key="mails_list-th-recipients">Destinatario</text>
+ <text key="mails_list-th-subject">Oggetto</text>
+ <text key="mails_list-th-sndTimestamp">Data invio</text>
+ <text key="mails_list-td-view">Visualizza mail</text>
+ <text key="mails_list-td-retry">Ritenta l'invio della mail</text>
+ <text key="mails_list-td-remove">Elimina mail</text>
+ <text key="mails_list-td-remove-confirm">Confermi di voler rimuovere dal database questa mail?</text>
+ <text key="mails_list-mails-modal-title">Visualizza mail</text>
+ <text key="mails_list-mails-modal-dl-sender">Mittente</text>
+ <text key="mails_list-mails-modal-dl-recipients_to">Destinatari</text>
+ <text key="mails_list-mails-modal-dl-recipients_cc">Destinatari CC</text>
+ <text key="mails_list-mails-modal-dl-recipients_bcc">Destinatari BCC</text>
+ <text key="mails_list-mails-modal-dl-subject">Oggetto</text>
+ <text key="mails_list-mails-modal-dl-attachments">Allegati</text>
+ <text key="mails_list-mails-modal-dl-message">Contenuto</text>
+ <text key="mails_list-mails-modal-dl-errors">Errori</text>
+
+ <!-- mails_add -->
+ <text key="mails_add">Nuova mail</text>
+ <text key="mails_add-sender">Mittente</text>
+ <text key="mails_add-sender-placeholder">Seleziona un mittente..</text>
+ <text key="mails_add-recipient">Destinatario</text>
+ <text key="mails_add-recipient-placeholder">Destinatario della mail</text>
+ <text key="mails_add-subject">Oggetto</text>
+ <text key="mails_add-subject-placeholder">Oggetto della mail</text>
+ <text key="mails_add-message">Messaggio</text>
+ <text key="mails_add-message-placeholder">Contenuto della mail..</text>
+
+ <!-- attachments_list -->
+ <text key="attachments_list">Allegati</text>
+ <text key="attachments_list-tr-unvalued">Non sono presenti allegati da mostrare..</text>
+ <text key="attachments_list-th-id">Allegato</text>
+ <text key="attachments_list-th-name">Nome</text>
+ <text key="attachments_list-th-size">Dimensione</text>
+ <text key="attachments_list-td-view">Visualizza dettagli allegato</text>
+ <text key="attachments_list-td-download">Scarica file allegato</text>
+ <text key="attachments_list-td-delete">Elimina allegato</text>
+ <text key="attachments_list-td-delete-confirm">Confermi di voler eliminare questo allegato?</text>
+ <text key="attachments_list-modal-title-view">Visualizza allegato</text>
+ <text key="attachments_list-modal-title-edit">Modifica allegato</text>
+ <text key="attachments_list-modal-dt-id">Allegato</text>
+ <text key="attachments_list-modal-dt-name">Nome</text>
+ <text key="attachments_list-modal-dt-description">Descrizione</text>
+ <text key="attachments_list-modal-dt-typology">Tipologia</text>
+ <text key="attachments_list-modal-dt-size">Dimensione</text>
+ <text key="attachments_list-modal-dt-public">Pubblico</text>
+ <text key="attachments_list-modal-dt-downloads">Downloads</text>
+ <text key="attachments_list-modal-dt-add">Creazione</text>
+ <text key="attachments_list-modal-dd-add"><![CDATA[{0}]]> il <![CDATA[{1}]]></text>
+ <text key="attachments_list-modal-dt-upd">Modifica</text>
+ <text key="attachments_list-modal-dd-upd"><![CDATA[{0}]]> il <![CDATA[{1}]]></text>
+ <text key="attachments_list-modal-ff-id">Allegato</text>
+ <text key="attachments_list-modal-ff-name">Nome</text>
+ <text key="attachments_list-modal-ff-description">Descrizione</text>
+ <text key="attachments_list-modal-ff-public">Pubblico</text>
+ <text key="attachments_list-modal-fc-delete-confirm">Confermi di voler eliminare questo allegato?</text>
+ <text key="attachments_list-modal-fc-remove-confirm">Confermi di voler rimuovere definitivamente questo allegato?</text>
+
+ <!-- attachments_add -->
+ <text key="attachments_add">Carica allegato</text>
+ <text key="attachments_add-ff-file">Allegato</text>
+ <text key="attachments_add-ff-description">Descrizione</text>
+ <text key="attachments_add-ff-description-placeholder">Descrizione del file caricato</text>
+ <text key="attachments_add-ff-public">Pubblico</text>
+
+
 
  <!-- modules_list -->
  <text key="modules_list">Moduli</text>
@@ -531,76 +596,5 @@
 
 
 
-
- <!-- mails_add -->
- <text key="mails_add">Nuova mail</text>
- <text key="mails_add-sender">Mittente</text>
- <text key="mails_add-sender-placeholder">Seleziona un mittente..</text>
- <text key="mails_add-recipient">Destinatario</text>
- <text key="mails_add-recipient-placeholder">Destinatario della mail</text>
- <text key="mails_add-subject">Oggetto</text>
- <text key="mails_add-subject-placeholder">Oggetto della mail</text>
- <text key="mails_add-message">Messaggio</text>
- <text key="mails_add-message-placeholder">Contenuto della mail..</text>
-
- <!-- mails_list -->
- <text key="mails_list">Registro mail</text>
- <text key="mails_list-filter-status">Stato</text>
- <text key="mails_list-filter-recipient">Destinatario</text>
- <text key="mails_list-tr-unvalued">Non sono presenti mail da mostrare..</text>
- <text key="mails_list-th-addTimestamp">Data inserimento</text>
- <text key="mails_list-th-recipients">Destinatario</text>
- <text key="mails_list-th-subject">Oggetto</text>
- <text key="mails_list-th-sndTimestamp">Data invio</text>
- <text key="mails_list-td-view">Visualizza mail</text>
- <text key="mails_list-td-retry">Ritenta l'invio della mail</text>
- <text key="mails_list-td-remove">Elimina mail</text>
- <text key="mails_list-td-remove-confirm">Confermi di voler rimuovere dal database questa mail?</text>
- <text key="mails_list-mails-modal-title">Visualizza mail</text>
- <text key="mails_list-mails-modal-dl-sender">Mittente</text>
- <text key="mails_list-mails-modal-dl-recipients_to">Destinatari</text>
- <text key="mails_list-mails-modal-dl-recipients_cc">Destinatari CC</text>
- <text key="mails_list-mails-modal-dl-recipients_bcc">Destinatari BCC</text>
- <text key="mails_list-mails-modal-dl-subject">Oggetto</text>
- <text key="mails_list-mails-modal-dl-attachments">Allegati</text>
- <text key="mails_list-mails-modal-dl-message">Contenuto</text>
- <text key="mails_list-mails-modal-dl-errors">Errori</text>
-
- <!-- attachments_list -->
- <text key="attachments_list">Allegati</text>
- <text key="attachments_list-tr-unvalued">Non sono presenti allegati da mostrare..</text>
- <text key="attachments_list-th-id">Allegato</text>
- <text key="attachments_list-th-name">Nome</text>
- <text key="attachments_list-th-size">Dimensione</text>
- <text key="attachments_list-td-view">Visualizza dettagli allegato</text>
- <text key="attachments_list-td-download">Scarica file allegato</text>
- <text key="attachments_list-td-delete">Elimina allegato</text>
- <text key="attachments_list-td-delete-confirm">Confermi di voler eliminare questo allegato?</text>
- <text key="attachments_list-modal-title-view">Visualizza allegato</text>
- <text key="attachments_list-modal-title-edit">Modifica allegato</text>
- <text key="attachments_list-modal-dt-id">Allegato</text>
- <text key="attachments_list-modal-dt-name">Nome</text>
- <text key="attachments_list-modal-dt-description">Descrizione</text>
- <text key="attachments_list-modal-dt-typology">Tipologia</text>
- <text key="attachments_list-modal-dt-size">Dimensione</text>
- <text key="attachments_list-modal-dt-public">Pubblico</text>
- <text key="attachments_list-modal-dt-downloads">Downloads</text>
- <text key="attachments_list-modal-dt-add">Creazione</text>
- <text key="attachments_list-modal-dd-add"><![CDATA[{0}]]> il <![CDATA[{1}]]></text>
- <text key="attachments_list-modal-dt-upd">Modifica</text>
- <text key="attachments_list-modal-dd-upd"><![CDATA[{0}]]> il <![CDATA[{1}]]></text>
- <text key="attachments_list-modal-ff-id">Allegato</text>
- <text key="attachments_list-modal-ff-name">Nome</text>
- <text key="attachments_list-modal-ff-description">Descrizione</text>
- <text key="attachments_list-modal-ff-public">Pubblico</text>
- <text key="attachments_list-modal-fc-delete-confirm">Confermi di voler eliminare questo allegato?</text>
- <text key="attachments_list-modal-fc-remove-confirm">Confermi di voler rimuovere definitivamente questo allegato?</text>
-
- <!-- attachments_add -->
- <text key="attachments_add">Carica allegato</text>
- <text key="attachments_add-ff-file">Allegato</text>
- <text key="attachments_add-ff-description">Descrizione</text>
- <text key="attachments_add-ff-description-placeholder">Descrizione del file caricato</text>
- <text key="attachments_add-ff-public">Pubblico</text>
 
 </locale>
