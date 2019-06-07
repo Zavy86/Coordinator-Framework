@@ -11,20 +11,13 @@
  if(!defined('ACTION')){die("ERROR EXECUTING SCRIPT: The action was not defined");}
  // switch action
  switch(ACTION){
-
-  /** @todoissimo check authorization in all submits function */
-
   // own
   case "own_profile_update":own_profile_update();break;
   case "own_password_update":own_password_update();break;
   case "own_avatar_remove":own_avatar_remove();break;
-
-
   // settings
   case "settings_save":settings_save();break;
   case "settings_logo_remove":settings_logo_remove();break;
-
-
   // menus
   case "menu_save":menu_save();break;
   case "menu_move_left":menu_move("left");break;
@@ -41,13 +34,6 @@
   case "module_authorizations_group_add":module_authorizations_group_add();break;
   case "module_authorizations_group_remove":module_authorizations_group_remove();break;
   case "module_authorizations_reset":module_authorizations_reset();break;
-
-  // users old
-  case "user_login":user_login();break;
-  case "user_logout":user_logout();break;
-  case "user_recovery":user_recovery();break;
-  /** @todo ^ check */
-
   // users
   case "user_add":user_add();break;
   case "user_edit":user_edit();break;
@@ -59,28 +45,27 @@
   case "user_group_remove":user_group_remove();break;
   case "user_group_mainize":user_group_mainize();break;
   case "user_parameter_save":user_parameter_save();break;
-
-
   // groups
   case "group_save":group_save();break;
   /** @todo delete */
   /** @todo undelete */
-
-
   // sessions
   case "sessions_terminate":sessions_terminate();break;
   case "sessions_terminate_all":sessions_terminate_all();break;
-
   // mails
   case "mail_save":mail_save();break;
   case "mail_retry":mail_retry();break;
   case "mail_remove":mail_remove();break;
-
   // attachments
   case "attachment_save":attachment_save();break;
   case "attachment_delete":attachment_delete(true);break;
   case "attachment_undelete":attachment_delete(false);break;
   case "attachment_remove":attachment_remove();break;
+
+  // users   /** @todo spostare nelle api? */
+  case "user_login":user_login();break;
+  case "user_logout":user_logout();break;
+  case "user_recovery":user_recovery();break;
 
   // default
   default:
@@ -118,6 +103,7 @@
   api_alerts_add(api_text("framework_alert_ownProfileUpdated"),"success");
   api_redirect("?mod=".MODULE."&scr=own_profile");
  }
+
  /**
   * Own Password Update
   */
@@ -150,6 +136,7 @@
   api_alerts_add(api_text("framework_alert_ownPasswordUpdated"),"success");
   api_redirect("?mod=".MODULE."&scr=own_profile");
  }
+
  /**
   * Own Avatar Remove
   */
@@ -165,7 +152,7 @@
   * Settings Save
   */
  function settings_save(){
-  api_dump($_REQUEST);
+  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-settings_manage","dashboard");
   // acquire variables
@@ -216,7 +203,7 @@
   * Settings Logo Remove
   */
  function settings_logo_remove(){
-  api_dump($_REQUEST);
+  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-settings_manage","dashboard");
   // acquire variables
@@ -229,33 +216,12 @@
  }
 
  /**
-  * Mail Save
-  */
- function mail_save(){
-  // debug
-  api_dump($_REQUEST);
-  // acquire variables
-  $r_sender=addslashes($_REQUEST['sender']);
-  $r_recipient=addslashes($_REQUEST['recipient']);
-  $r_subject=addslashes($_REQUEST['subject']);
-  $r_message=addslashes(nl2br($_REQUEST['message']));
-  // save mail
-  api_mail_save($r_subject,$r_message,$r_recipient,null,null,$r_sender);
-  // make current uri array
-  parse_str(parse_url($_SERVER['REQUEST_URI'])['query'],$uri_array);
-  $uri_array['mod']=$uri_array['return_mod'];unset($uri_array['return_mod']);
-  $uri_array['scr']=$uri_array['return_scr'];unset($uri_array['return_scr']);
-  $uri_array['tab']=$uri_array['return_tab'];unset($uri_array['return_tab']);
-  unset($uri_array['act']);
-  // redirect
-  if($uri_array['mod']){api_redirect("?".http_build_query($uri_array));}
-  else{api_redirect("?mod=".MODULE."&scr=mails_list");}
- }
-
- /**
   * Menu Save
   */
  function menu_save(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-menus_manage","dashboard");
   // get menu object
   $menu_obj=new cMenu($_REQUEST['idMenu']);
   // acquire variables
@@ -338,12 +304,16 @@
   // redirect
   api_redirect("?mod=".MODULE."&scr=menus_list&idMenu=".$menu_obj->id);
  }
+
  /**
   * Menu Move
   *
   * @param string direction
   */
  function menu_move($direction){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-menus_manage","dashboard");
   // get objects
   $menu_obj=new cMenu($_REQUEST['idMenu']);
   // check objects
@@ -412,6 +382,9 @@
   * Module Add
   */
  function module_add(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-modules_manage","dashboard");
   // disabled for localhost
   if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("framework_alert_moduleErrorLocalhost"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
   // acquire variables
@@ -432,7 +405,6 @@
    // debug
    api_dump($shell_output);
   }
-
   // zip method
   if($r_method=="zip"){
    api_dump("scarico lo zip nella cartella DIR/tmp");
@@ -445,7 +417,6 @@
    api_dump("imposto i permessi di DIR/module/{nome-del-modulo} ricorsivi a 755");
    api_dump("elimino la cartella DIR/tmp/module_setup");
   }
-
   // check for module.inc.php
   if(!file_exists(DIR."modules/".$r_directory."/module.inc.php")){api_alerts_add(api_text("framework_alert_moduleAddError"),"danger");api_redirect("?mod=".MODULE."&scr=modules_add");}
   // include module file
@@ -468,12 +439,14 @@
   // redirect
   api_redirect("?mod=".MODULE."&scr=modules_list");
  }
+
  /**
   * Module Initialize
   */
  function module_initialize(){
-  // debug
-  api_dump($_REQUEST,"$_REQUEST");
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-modules_manage","dashboard");
   // get variables
   $module_directory=$_REQUEST['idModule'];
   // check objects
@@ -498,10 +471,14 @@
   // redirect
   api_redirect("?mod=".MODULE."&scr=modules_list");
  }
+
  /**
   * Module Setup
   */
  function module_setup(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-modules_manage","dashboard");
   // get objects
   $module_obj=new cModule($_REQUEST['idModule']);
   // check objects
@@ -527,10 +504,14 @@
   // redirect
   api_redirect("?mod=".MODULE."&scr=modules_list");
  }
+
  /**
   * Module Update Source
   */
  function module_update_source(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-modules_manage","dashboard");
   // disabled for localhost and 127.0.0.1
   if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){api_alerts_add(api_text("framework_alert_moduleErrorLocalhost"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
   // get objects
@@ -549,10 +530,14 @@
   // redirect
   api_redirect("?mod=".MODULE."&scr=modules_list");
  }
+
  /**
   * Module Updates Database
   */
  function module_update_database(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-modules_manage","dashboard");
   // disabled for localhost and 127.0.0.1
   if(in_array($_SERVER['HTTP_HOST'],array("localhost","127.0.0.1"))){$localhost_update=true;} /** @todo vedere come fare se inibire le query o meno in localhost */
   if($localhost_update && !DEBUG){api_alerts_add(api_text("framework_alert_moduleErrorLocalhost"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
@@ -606,12 +591,16 @@
   api_alerts_add(api_text("framework_alert_moduleUpdateDatabaseUpdated"),"success");
   api_redirect("?mod=".MODULE."&scr=modules_list");
  }
+
  /**
   * Module Enable
   *
   * param boolean $enable Enable status
   */
  function module_enable($enable){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-modules_manage","dashboard");
   // get objects
   $module_obj=new cModule($_REQUEST['idModule']);
   // check objects
@@ -632,11 +621,14 @@
   // redirect
   api_redirect("?mod=".MODULE."&scr=modules_view&idModule=".$module_obj->id);
  }
+
  /**
   * Module Authorizations Group Add
   */
  function module_authorizations_group_add(){
-  api_dump($_REQUEST);
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-modules_manage","dashboard");
   // get objects
   $module_obj=new cModule($_REQUEST['idModule']);
   // check objects
@@ -681,11 +673,14 @@
   // redirect
   api_redirect("?mod=".MODULE."&scr=modules_view&idModule=".$module_obj->id);
  }
+
  /**
   * Module Authorizations Group Remove
   */
  function module_authorizations_group_remove(){
-  api_dump($_REQUEST);
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-modules_manage","dashboard");
   // get objects
   $module_obj=new cModule($_REQUEST['idModule']);
   // check objects
@@ -711,16 +706,20 @@
   // redirect
   api_redirect("?mod=".MODULE."&scr=modules_view&idModule=".$module_obj->id);
  }
+
  /**
   * Module Authorizations Reset
   */
  function module_authorizations_reset(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-modules_manage","dashboard");
   // get objects
   $module_obj=new cModule($_REQUEST['idModule']);
   // check objects
   if(!$module_obj->id){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
   // debug
-  api_dump($_REQUEST);
+  api_dump($_REQUEST,"_REQUEST");
   // cycle all authorizations
   foreach($module_obj->authorizations_array as $authorization){
    // remove authorization
@@ -740,6 +739,552 @@
   // redirect
   api_redirect("?mod=".MODULE."&scr=modules_view&idModule=".$module_obj->id);
  }
+
+ /**
+  * User Add
+  */
+ function user_add(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-users_manage","dashboard");
+  // make password
+  $v_password=substr(md5(date("Y-m-d H:i:s").rand(1,99999)),0,8);
+  // build user objects
+  $user_obj=new stdClass();
+  // acquire variables
+  $user_obj->mail=trim($_REQUEST['mail']);
+  $user_obj->username=trim($_REQUEST['username']);
+  $user_obj->firstname=trim($_REQUEST['firstname']);
+  $user_obj->lastname=trim($_REQUEST['lastname']);
+  $user_obj->localization=$_REQUEST['localization'];
+  $user_obj->timezone=$_REQUEST['timezone'];
+  $user_obj->level=$_REQUEST['level'];
+  $user_obj->password=md5($v_password);
+  $user_obj->enabled=1;
+  $user_obj->addTimestamp=time();
+  $user_obj->addFkUser=$GLOBALS['session']->user->id;
+  // debug
+  api_dump($_REQUEST,"_REQUEST");
+  api_dump($user_obj);
+  // update user
+  $user_obj->id=$GLOBALS['database']->queryInsert("framework__users",$user_obj);
+  // check user
+  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
+  // send password to user
+  $mail_id=api_mail_save(api_text("framework_mail-user_add-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_add-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_password)),$user_obj->mail);
+  // force mail if asynchronous
+  if($GLOBALS['settings']->mail_asynchronous){api_mail_process($mail_id);}
+  // redirect
+  api_alerts_add(api_text("framework_alert_userCreated"),"success");
+  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
+ }
+
+ /**
+  * User Edit
+  */
+ function user_edit(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-users_manage","dashboard");
+  // get objects
+  $user_obj=new cUser($_REQUEST['idUser']);
+  // check objects
+  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
+  // build user query objects
+  $user_qobj=new stdClass();
+  // acquire variables
+  $user_qobj->id=$user_obj->id;
+  //$user_qobj->enabled=$_REQUEST['enabled'];
+  //$user_qobj->mail=$_REQUEST['mail'];
+  //$user_obj->username=$_REQUEST['username'];
+  $user_qobj->firstname=$_REQUEST['firstname'];
+  $user_qobj->lastname=$_REQUEST['lastname'];
+  $user_qobj->localization=$_REQUEST['localization'];
+  $user_qobj->timezone=$_REQUEST['timezone'];
+  $user_qobj->level=$_REQUEST['level'];
+  $user_qobj->superuser=$_REQUEST['superuser'];
+  $user_qobj->gender=$_REQUEST['gender'];
+  $user_qobj->birthday=$_REQUEST['birthday'];
+  $user_qobj->updTimestamp=time();
+  $user_qobj->updFkUser=$GLOBALS['session']->user->id;
+  // debug
+  api_dump($_REQUEST,"_REQUEST");
+  api_dump($user_qobj,"user_qobj");
+  // update user
+  $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
+  // redirect
+  api_alerts_add(api_text("framework_alert_userUpdated"),"success");
+  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
+ }
+
+ /**
+  * User Enabled
+  *
+  * @param boolean $enabled Enabled or Disabled
+  */
+ function user_enabled($enabled){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-users_manage","dashboard");
+  // get objects
+  $user_obj=new cUser($_REQUEST['idUser']);
+  // check
+  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
+  // build user query objects
+  $user_qobj=new stdClass();
+  $user_qobj->id=$user_obj->id;
+  $user_qobj->enabled=($enabled?1:0);
+  if(!$enabled){$user_qobj->superuser=0;}
+  $user_qobj->updTimestamp=time();
+  $user_qobj->updFkUser=$GLOBALS['session']->user->id;
+  // debug
+  api_dump($user_qobj);
+  // update user
+  $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
+  // alert
+  if($enabled){api_alerts_add(api_text("framework_alert_userEnabled"),"success");}
+  else{api_alerts_add(api_text("framework_alert_userDisabled"),"warning");}
+  // redirect
+  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
+ }
+
+ /**
+  * User Deleted
+  *
+  * @param boolean $deleted Deleted or Undeleted
+  */
+ function user_deleted($deleted){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-users_manage","dashboard");
+  // get objects
+  $user_obj=new cUser($_REQUEST['idUser']);
+  // check
+  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
+  if($user_obj->id==1){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
+  if($user_obj->superuser==1){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
+  // build user query objects
+  $user_qobj=new stdClass();
+  $user_qobj->id=$user_obj->id;
+  $user_qobj->deleted=($deleted?1:0);
+  if($deleted){
+   $user_qobj->enabled=0;
+   $user_qobj->superuser=0;
+  }
+  $user_qobj->updTimestamp=time();
+  $user_qobj->updFkUser=$GLOBALS['session']->user->id;
+  // debug
+  api_dump($user_qobj);
+  // update user
+  $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
+  // alert
+  if($deleted){api_alerts_add(api_text("framework_alert_userDeleted"),"warning");}
+  else{api_alerts_add(api_text("framework_alert_userUndeleted"),"success");}
+  // redirect
+  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
+ }
+
+ /**
+  * User Avatar Remove
+  */
+ function user_avatar_remove(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-users_manage","dashboard");
+  // get objects
+  $user_obj=new cUser($_REQUEST['idUser']);
+  // check
+  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
+  // remove avatar if exist
+  if(file_exists(DIR."uploads/framework/users/avatar_".$user_obj->id.".jpg")){unlink(DIR."uploads/framework/users/avatar_".$user_obj->id.".jpg");}
+  // redirect
+  api_alerts_add(api_text("framework_alert_userAvatarRemoved"),"success");
+  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
+ }
+
+ /**
+  * User Group Add
+  */
+ function user_group_add(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-users_manage","dashboard");
+  // get objects
+  $user_obj=new cUser($_REQUEST['idUser']);
+  api_dump($user_obj,"user_obj");
+  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
+  $group_obj=new cGroup($_REQUEST['fkGroup']);
+  api_dump($group_obj,"group_obj");
+  if(!$group_obj->id){api_alerts_add(api_text("framework_alert_groupNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);}
+  // build user join group query object
+  $join_qobj=new stdClass();
+  $join_qobj->fkUser=$user_obj->id;
+  $join_qobj->fkGroup=$group_obj->id;
+  $join_qobj->main=(count($user_obj->getAssignedGroups())?0:1);
+  // debug
+  api_dump($join_qobj,"user_join_group_qobj");
+  // delete previous group if exist
+  $GLOBALS['database']->queryExecute("DELETE FROM `framework__users__groups` WHERE `fkUser`='".$user_obj->id."' AND `fkGroup`='".$group_obj->id."'");
+  // insert group
+  $GLOBALS['database']->queryInsert("framework__users__groups",$join_qobj);
+  // build user query object
+  $user_qobj=new stdClass();
+  $user_qobj->id=$user_obj->id;
+  $user_qobj->updTimestamp=time();
+  $user_qobj->updFkUser=$GLOBALS['session']->user->id;
+  api_dump($user_qobj,"user_qobj");
+  // update user
+  $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);      /** @todo spostare in api event (da fare) */
+  // redirect
+  api_alerts_add(api_text("framework_alert_userGroupAdded"),"success");
+  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
+ }
+
+ /**
+  * User Group Remove
+  */
+ function user_group_remove(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-users_manage","dashboard");
+  // get objects
+  $user_obj=new cUser($_REQUEST['idUser']);
+  // check objects
+  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
+  // check if request group is main for user and not only
+  if(count($user_obj->getAssignedGroups())>1 && $user_obj->getMainGroup()==$_REQUEST['idGroup']){api_alerts_add(api_text("framework_alert_userGroupError"),"danger");api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);}
+  // build user query object
+  $user_qobj=new stdClass();
+  $user_qobj->id=$user_obj->id;
+  $user_qobj->updTimestamp=time();
+  $user_qobj->updFkUser=$GLOBALS['session']->user->id;
+  // debug
+  api_dump($user_obj,"user_obj");
+  api_dump($user_qobj,"user_qobj");
+  // delete group
+  $GLOBALS['database']->queryExecute("DELETE FROM `framework__users__groups` WHERE `fkUser`='".$user_obj->id."' AND `fkGroup`='".$_REQUEST['idGroup']."'");
+  // update user
+  $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
+  // redirect
+  api_alerts_add(api_text("framework_alert_userGroupRemoved"),"warning");
+  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
+ }
+
+ /**
+  * User Group Mainize
+  */
+ function user_group_mainize(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-users_manage","dashboard");
+  // get objects
+  $user_obj=new cUser($_REQUEST['idUser']);
+  // check objects
+  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
+  if(!array_key_exists($_REQUEST['idGroup'],$user_obj->getAssignedGroups())){api_alerts_add(api_text("framework_alert_userGroupError"),"danger");api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);}
+  // remove previous main groups
+  $GLOBALS['database']->queryExecute("UPDATE `framework__users__groups` SET `main`='0' WHERE `fkUser`='".$user_obj->id."'");
+  // set new main group
+  $GLOBALS['database']->queryExecute("UPDATE `framework__users__groups` SET `main`='1' WHERE `fkUser`='".$user_obj->id."' AND `fkGroup`='".$_REQUEST['idGroup']."'");
+  // redirect
+  api_alerts_add(api_text("framework_alert_userGroupMainized"),"success");
+  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
+ }
+
+ /**
+  * User Parameter Save
+  */
+ function user_parameter_save(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-users_manage","dashboard");
+  // get current user
+  $user_obj=new cUser($GLOBALS['session']->user->id);
+  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=dashboard");}
+  // acquire variables
+  $r_module=$_REQUEST['idModule'];
+  $r_parameters=$_REQUEST['parameters'];
+  // check variables
+  if(!$r_module){api_alerts_add(api_text("framework_alert_error"),"danger");api_redirect("?mod=dashboard");}
+  if(!is_array($r_parameters)){api_alerts_add(api_text("framework_alert_error"),"danger");api_redirect("?mod=dashboard");}
+  // cycle all parameters
+  foreach($r_parameters as $parameter_fkey=>$parameter_fvalue){
+   // make parameter code
+   $parameter_code=$r_module."-".$parameter_fkey;
+   // get parameter
+   $parameter_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users__parameters` WHERE `fkUser`='".$user_obj->id."' AND `parameter`='".$parameter_code."'");
+   // build user query object
+   $parameter_qobj=new stdClass();
+   $parameter_qobj->id=$parameter_obj->id;
+   $parameter_qobj->fkUser=$user_obj->id;
+   $parameter_qobj->parameter=addslashes($parameter_code);
+   $parameter_qobj->value=addslashes($parameter_fvalue);
+   // debug
+   api_dump($parameter_qobj,"parameter query object");
+   // check parameter
+   if($parameter_obj->id){
+    // update parameter
+    $GLOBALS['database']->queryUpdate("framework__users__parameters",$parameter_qobj);
+   }else{
+    // insert parameter
+    $GLOBALS['database']->queryInsert("framework__users__parameters",$parameter_qobj);
+   }
+  }
+  // redirect
+  api_alerts_add(api_text("framework_alert_userParametersUpdated"),"success");
+  api_redirect("?mod=".$r_module."&scr=parameters");
+ }
+
+ /**
+  * Group Save
+  */
+ function group_save(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-groups_manage","dashboard");
+  // build group objects
+  $group=new stdClass();
+  // acquire variables
+  $group->id=$_REQUEST['idGroup'];
+  $group->fkGroup=$_REQUEST['fkGroup'];
+  $group->name=$_REQUEST['name'];
+  $group->description=$_REQUEST['description'];
+  $group->updTimestamp=time();
+  $group->updFkUser=$GLOBALS['session']->user->id;
+  // debug
+  api_dump($group);
+  // check group
+  if($group->id){
+   // update user
+   $GLOBALS['database']->queryUpdate("framework__groups",$group);
+   api_alerts_add(api_text("framework_alert_groupUpdated"),"success");
+  }else{
+   // update user
+   $GLOBALS['database']->queryInsert("framework__groups",$group);
+   api_alerts_add(api_text("framework_alert_groupCreated"),"success");
+  }
+  // redirect
+  api_redirect("?mod=".MODULE."&scr=groups_list");
+ }
+
+ /**
+  * Sessions Terminate
+  */
+ function sessions_terminate(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-sessions_manage","dashboard");
+  // acquire variables
+  $idSession=$_REQUEST['idSession'];
+  if(!$idSession){api_alerts_add(api_text("framework_alert_sessionNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=sessions_list");}
+  // delete session
+  $GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `id`='".$idSession."'");
+  // redirect
+  api_alerts_add(api_text("framework_alert_sessionTerminated"),"warning");
+  api_redirect("?mod=".MODULE."&scr=sessions_list");
+ }
+
+ /**
+  * Sessions Terminate All
+  */
+ function sessions_terminate_all(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-sessions_manage","dashboard");
+  // delete all sessions
+  $GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions`");
+  // redirect
+  api_alerts_add(api_text("framework_alert_sessionTerminatedAll"),"warning");
+  api_redirect(PATH."index.php");
+ }
+
+ /**
+  * Mail Save
+  */
+ function mail_save(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-mails_manage","dashboard");
+  // acquire variables
+  $r_sender=addslashes($_REQUEST['sender']);
+  $r_recipient=addslashes($_REQUEST['recipient']);
+  $r_subject=addslashes($_REQUEST['subject']);
+  $r_message=addslashes(nl2br($_REQUEST['message']));
+  // save mail
+  api_mail_save($r_subject,$r_message,$r_recipient,null,null,$r_sender);
+  // make current uri array
+  parse_str(parse_url($_SERVER['REQUEST_URI'])['query'],$uri_array);
+  $uri_array['mod']=$uri_array['return_mod'];unset($uri_array['return_mod']);
+  $uri_array['scr']=$uri_array['return_scr'];unset($uri_array['return_scr']);
+  $uri_array['tab']=$uri_array['return_tab'];unset($uri_array['return_tab']);
+  unset($uri_array['act']);
+  // redirect
+  if($uri_array['mod']){api_redirect("?".http_build_query($uri_array));}
+  else{api_redirect("?mod=".MODULE."&scr=mails_list");}
+ }
+
+ /**
+  * Mail Retry
+  */
+ function mail_retry(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-mails_manage","dashboard");
+  // get objects
+  $mail_obj=new cMail($_REQUEST['idMail']);
+  // check objects
+  if(!$mail_obj->id){api_alerts_add(api_text("framework_alert_mailNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=mails_list");}
+  // debug
+  api_dump($mail_obj,"mail object");
+  // build mail query objects
+  $mail_qobj=new stdClass();
+  $mail_qobj->id=$mail_obj->id;
+  $mail_qobj->status="inserted";
+  $mail_qobj->sndTimestamp=null;
+  // debug
+  api_dump($mail_qobj,"mail query object");
+  // execute query
+  $GLOBALS['database']->queryUpdate("framework__mails",$mail_qobj);
+  // redirect
+  api_alerts_add(api_text("framework_alert_mailRetry"),"success");
+  api_redirect("?mod=".MODULE."&scr=mails_list&idMail=".$mail_obj->id);
+ }
+
+ /**
+  * Mail Remove
+  */
+ function mail_remove(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-mails_manage","dashboard");
+  // get objects
+  $mail_obj=new cMail($_REQUEST['idMail']);
+  // check objects
+  if(!$mail_obj->id){api_alerts_add(api_text("framework_alert_mailNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=mails_list");}
+  // debug
+  api_dump($mail_obj,"mail object");
+  // execute query
+  $GLOBALS['database']->queryDelete("framework__mails",$mail_obj->id);
+  // redirect
+  api_alerts_add(api_text("framework_alert_mailRemoved"),"warning");
+  api_redirect("?mod=".MODULE."&scr=mails_list");
+ }
+
+ /**
+  * Attachment Save
+  */
+ function attachment_save(){
+  api_dump($_REQUEST,"_REQUEST");
+  api_dump($_FILES,"_FILES");
+  // check authorizations
+  api_checkAuthorization("framework-attachments_manage","dashboard");
+  // get object
+  $attachment_obj=new cAttachment($_REQUEST['idAttachment']);
+  api_dump($attachment_obj,"attachment object");
+  // build query objects
+  $attachment_qobj=new stdClass();
+  // acquire variables
+  $attachment_qobj->id=$attachment_obj->id;
+  $attachment_qobj->name=strtolower(str_replace(" ","_",$_REQUEST['name']));
+  $attachment_qobj->description=$_REQUEST['description'];
+  $attachment_qobj->public=($_REQUEST['public']?1:0);
+  // check attachment
+  if($attachment_qobj->id){
+   // update
+   $attachment_qobj->updTimestamp=time();
+   $attachment_qobj->updFkUser=$GLOBALS['session']->user->id;
+   // debug
+   api_dump($attachment_qobj);
+   // execute query
+   $GLOBALS['database']->queryUpdate("framework__attachments",$attachment_qobj);
+   // alert
+   api_alerts_add(api_text("framework_alert_attachmentUpdated"),"success");
+  }else{
+   // add
+   $attachment_qobj->name=strtolower(str_replace(" ","_",$_FILES['file']['name']));
+   $attachment_qobj->typology=$_FILES['file']['type'];
+   $attachment_qobj->size=$_FILES['file']['size'];
+   $attachment_qobj->addTimestamp=time();
+   $attachment_qobj->addFkUser=$GLOBALS['session']->user->id;
+   do{
+    // generate attachment id
+    $attachment_qobj->id=md5(date("YmdHis").rand(1,99999));
+    // check for duplicates
+    $check_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework__attachments` WHERE `id`='".$attachment_qobj->id."'");
+   }while($attachment_qobj->id==$check_id);
+   // debug
+   api_dump($attachment_qobj);
+   // check for file
+   if(intval($_FILES['file']['size'])==0 || $_FILES['file']['error']!=UPLOAD_ERR_OK){api_alerts_add(api_text("framework_alert_attachmentError"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
+   // check for id
+   if(!$attachment_qobj->id){api_alerts_add(api_text("framework_alert_attachmentError"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
+   // check if file exist and replace
+   if(file_exists(DIR."uploads/attachments/".$attachment_qobj->id)){unlink(DIR."uploads/attachments/".$attachment_qobj->id);}
+   if(is_uploaded_file($_FILES['file']['tmp_name'])){move_uploaded_file($_FILES['file']['tmp_name'],DIR."uploads/attachments/".$attachment_qobj->id);}
+   // check for file
+   if(!file_exists(DIR."uploads/attachments/".$attachment_qobj->id)){api_alerts_add(api_text("framework_alert_attachmentError"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
+   // execute query
+   $GLOBALS['database']->queryInsert("framework__attachments",$attachment_qobj);
+   // alert
+   api_alerts_add(api_text("framework_alert_attachmentCreated"),"success");
+  }
+  // redirect
+  api_redirect("?mod=".MODULE."&scr=attachments_list&idAttachment=".$attachment_qobj->id);
+ }
+
+ /**
+  * Attachment Delete
+  *
+  * param boolean $delete
+  */
+ function attachment_delete($deleted){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-attachments_manage","dashboard");
+  // get objects
+  $attachment_obj=new cAttachment($_REQUEST['idAttachment']);
+  api_dump($attachment_obj,"attachment object");
+  // check objects
+  if(!$attachment_obj->id){api_alerts_add(api_text("framework_alert_attachmentNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
+  // build query objects
+  $attachment_qobj=new stdClass();
+  // acquire variables
+  $attachment_qobj->id=$attachment_obj->id;
+  $attachment_qobj->deleted=($deleted?1:0);
+  // debug
+  api_dump($attachment_qobj,"attachment query object");
+  // execute query
+  $GLOBALS['database']->queryUpdate("framework__attachments",$attachment_qobj);
+  // alert
+  if($deleted){api_alerts_add(api_text("framework_alert_attachmentDeleted"),"warning");}
+  else{api_alerts_add(api_text("framework_alert_attachmentUndeleted"),"success");}
+  // redirect
+  api_redirect("?mod=".MODULE."&scr=attachments_list&idAttachment=".$attachment_qobj->id);
+ }
+
+ /**
+  * Attachment Remove
+  */
+ function attachment_remove(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-attachments_manage","dashboard");
+  // get objects
+  $attachment_obj=new cAttachment($_REQUEST['idAttachment']);
+  // check objects
+  if(!$attachment_obj->id){api_alerts_add(api_text("framework_alert_attachmentNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
+  // debug
+  api_dump($attachment_obj,"attachment object");
+  // execute query
+  $GLOBALS['database']->queryDelete("framework__attachments",$attachment_obj->id);
+  // check if file exist and remove
+  if(file_exists(DIR."uploads/attachments/".$attachment_obj->id)){unlink(DIR."uploads/attachments/".$attachment_obj->id);}
+  // redirect
+  api_alerts_add(api_text("framework_alert_attachmentRemoved"),"warning");
+  api_redirect("?mod=".MODULE."&scr=attachments_list");
+ }
+
+
 
  /**
   * User Authentication
@@ -820,6 +1365,7 @@
   // return user object
   return $user_obj->id;
  }
+
  /**
   * User Login
   */
@@ -863,6 +1409,7 @@
   // redirect
   api_redirect(PATH."index.php");
  }
+
  /**
   * User Logout
   */
@@ -872,6 +1419,7 @@
   // redirect
   api_redirect(PATH."index.php");
  }
+
  /**
   * User Recovery   /** @todo rename in own ?
   */
@@ -921,492 +1469,6 @@
    api_alerts_add(api_text("framework_alert_userRecoveryPasswordSended"),"success");
    api_redirect(PATH."login.php");
   }
- }
-
-
-
-
-
- /**
-  * User Add
-  */
- function user_add(){
-  // make password
-  $v_password=substr(md5(date("Y-m-d H:i:s").rand(1,99999)),0,8);
-  // build user objects
-  $user_obj=new stdClass();
-  // acquire variables
-  $user_obj->mail=trim($_REQUEST['mail']);
-  $user_obj->username=trim($_REQUEST['username']);
-  $user_obj->firstname=trim($_REQUEST['firstname']);
-  $user_obj->lastname=trim($_REQUEST['lastname']);
-  $user_obj->localization=$_REQUEST['localization'];
-  $user_obj->timezone=$_REQUEST['timezone'];
-  $user_obj->level=$_REQUEST['level'];
-  $user_obj->password=md5($v_password);
-  $user_obj->enabled=1;
-  $user_obj->addTimestamp=time();
-  $user_obj->addFkUser=$GLOBALS['session']->user->id;
-  // debug
-  api_dump($_REQUEST);
-  api_dump($user_obj);
-  // update user
-  $user_obj->id=$GLOBALS['database']->queryInsert("framework__users",$user_obj);
-  // check user
-  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
-  // send password to user
-  $mail_id=api_mail_save(api_text("framework_mail-user_add-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_add-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_password)),$user_obj->mail);
-  // force mail if asynchronous
-  if($GLOBALS['settings']->mail_asynchronous){api_mail_process($mail_id);}
-  // redirect
-  api_alerts_add(api_text("framework_alert_userCreated"),"success");
-  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
- }
- /**
-  * User Edit
-  */
- function user_edit(){
-  // get objects
-  $user_obj=new cUser($_REQUEST['idUser']);
-  // check objects
-  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
-  // build user query objects
-  $user_qobj=new stdClass();
-  // acquire variables
-  $user_qobj->id=$user_obj->id;
-  //$user_qobj->enabled=$_REQUEST['enabled'];
-  //$user_qobj->mail=$_REQUEST['mail'];
-  //$user_obj->username=$_REQUEST['username'];
-  $user_qobj->firstname=$_REQUEST['firstname'];
-  $user_qobj->lastname=$_REQUEST['lastname'];
-  $user_qobj->localization=$_REQUEST['localization'];
-  $user_qobj->timezone=$_REQUEST['timezone'];
-  $user_qobj->level=$_REQUEST['level'];
-  $user_qobj->superuser=$_REQUEST['superuser'];
-  $user_qobj->gender=$_REQUEST['gender'];
-  $user_qobj->birthday=$_REQUEST['birthday'];
-  $user_qobj->updTimestamp=time();
-  $user_qobj->updFkUser=$GLOBALS['session']->user->id;
-  // debug
-  api_dump($_REQUEST,"_REQUEST");
-  api_dump($user_qobj,"user_qobj");
-  // update user
-  $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
-  // redirect
-  api_alerts_add(api_text("framework_alert_userUpdated"),"success");
-  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
- }
- /**
-  * User Enabled
-  *
-  * @param boolean $enabled Enabled or Disabled
-  */
- function user_enabled($enabled){
-  // get objects
-  $user_obj=new cUser($_REQUEST['idUser']);
-  // check
-  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
-  // build user query objects
-  $user_qobj=new stdClass();
-  $user_qobj->id=$user_obj->id;
-  $user_qobj->enabled=($enabled?1:0);
-  if(!$enabled){$user_qobj->superuser=0;}
-  $user_qobj->updTimestamp=time();
-  $user_qobj->updFkUser=$GLOBALS['session']->user->id;
-  // debug
-  api_dump($_REQUEST);
-  api_dump($user_qobj);
-  // update user
-  $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
-  // alert
-  if($enabled){api_alerts_add(api_text("framework_alert_userEnabled"),"success");}
-  else{api_alerts_add(api_text("framework_alert_userDisabled"),"warning");}
-  // redirect
-  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
- }
- /**
-  * User Deleted
-  *
-  * @param boolean $deleted Deleted or Undeleted
-  */
- function user_deleted($deleted){
-  api_dump($_REQUEST);
-  // get objects
-  $user_obj=new cUser($_REQUEST['idUser']);
-  // check
-  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
-  if($user_obj->id==1){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
-  if($user_obj->superuser==1){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
-  // build user query objects
-  $user_qobj=new stdClass();
-  $user_qobj->id=$user_obj->id;
-  $user_qobj->deleted=($deleted?1:0);
-  if($deleted){
-   $user_qobj->enabled=0;
-   $user_qobj->superuser=0;
-  }
-  $user_qobj->updTimestamp=time();
-  $user_qobj->updFkUser=$GLOBALS['session']->user->id;
-  // debug
-  api_dump($user_qobj);
-  // update user
-  $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
-  // alert
-  if($deleted){api_alerts_add(api_text("framework_alert_userDeleted"),"warning");}
-  else{api_alerts_add(api_text("framework_alert_userUndeleted"),"success");}
-  // redirect
-  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
- }
- /**
-  * User Avatar Remove
-  */
- function user_avatar_remove(){
-  // get objects
-  $user_obj=new cUser($_REQUEST['idUser']);
-  // check
-  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
-  // remove avatar if exist
-  if(file_exists(DIR."uploads/framework/users/avatar_".$user_obj->id.".jpg")){unlink(DIR."uploads/framework/users/avatar_".$user_obj->id.".jpg");}
-  // redirect
-  api_alerts_add(api_text("framework_alert_userAvatarRemoved"),"success");
-  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
- }
- /**
-  * User Group Add
-  */
- function user_group_add(){
-  api_dump($_REQUEST,"_REQUEST");
-  // get objects
-  $user_obj=new cUser($_REQUEST['idUser']);
-  api_dump($user_obj,"user_obj");
-  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
-  $group_obj=new cGroup($_REQUEST['fkGroup']);
-  api_dump($group_obj,"group_obj");
-  if(!$group_obj->id){api_alerts_add(api_text("framework_alert_groupNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);}
-  // build user join group query object
-  $join_qobj=new stdClass();
-  $join_qobj->fkUser=$user_obj->id;
-  $join_qobj->fkGroup=$group_obj->id;
-  $join_qobj->main=(count($user_obj->getAssignedGroups())?0:1);
-  // debug
-  api_dump($join_qobj,"user_join_group_qobj");
-  // delete previous group if exist
-  $GLOBALS['database']->queryExecute("DELETE FROM `framework__users__groups` WHERE `fkUser`='".$user_obj->id."' AND `fkGroup`='".$group_obj->id."'");
-  // insert group
-  $GLOBALS['database']->queryInsert("framework__users__groups",$join_qobj);
-  // build user query object
-  $user_qobj=new stdClass();
-  $user_qobj->id=$user_obj->id;
-  $user_qobj->updTimestamp=time();
-  $user_qobj->updFkUser=$GLOBALS['session']->user->id;
-  api_dump($user_qobj,"user_qobj");
-  // update user
-  $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);      /** @todo spostare in api event (da fare) */
-  // redirect
-  api_alerts_add(api_text("framework_alert_userGroupAdded"),"success");
-  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
- }
- /**
-  * User Group Remove
-  */
- function user_group_remove(){
-  // get objects
-  $user_obj=new cUser($_REQUEST['idUser']);
-  // check objects
-  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
-  // check if request group is main for user and not only
-  if(count($user_obj->getAssignedGroups())>1 && $user_obj->getMainGroup()==$_REQUEST['idGroup']){api_alerts_add(api_text("framework_alert_userGroupError"),"danger");api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);}
-  // build user query object
-  $user_qobj=new stdClass();
-  $user_qobj->id=$user_obj->id;
-  $user_qobj->updTimestamp=time();
-  $user_qobj->updFkUser=$GLOBALS['session']->user->id;
-  // debug
-  api_dump($_REQUEST,"_REQUEST");
-  api_dump($user_obj,"user_obj");
-  api_dump($user_qobj,"user_qobj");
-  // delete group
-  $GLOBALS['database']->queryExecute("DELETE FROM `framework__users__groups` WHERE `fkUser`='".$user_obj->id."' AND `fkGroup`='".$_REQUEST['idGroup']."'");
-  // update user
-  $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
-  // redirect
-  api_alerts_add(api_text("framework_alert_userGroupRemoved"),"warning");
-  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
- }
- /**
-  * User Group Mainize
-  */
- function user_group_mainize(){
-  // get objects
-  $user_obj=new cUser($_REQUEST['idUser']);
-  // check objects
-  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
-  if(!array_key_exists($_REQUEST['idGroup'],$user_obj->getAssignedGroups())){api_alerts_add(api_text("framework_alert_userGroupError"),"danger");api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);}
-  // remove previous main groups
-  $GLOBALS['database']->queryExecute("UPDATE `framework__users__groups` SET `main`='0' WHERE `fkUser`='".$user_obj->id."'");
-  // set new main group
-  $GLOBALS['database']->queryExecute("UPDATE `framework__users__groups` SET `main`='1' WHERE `fkUser`='".$user_obj->id."' AND `fkGroup`='".$_REQUEST['idGroup']."'");
-  // redirect
-  api_alerts_add(api_text("framework_alert_userGroupMainized"),"success");
-  api_redirect("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
- }
- /**
-  * User Parameter Save
-  */
- function user_parameter_save(){
-  api_dump($_REQUEST,"_REQUEST");
-  // get current user
-  $user_obj=new cUser($GLOBALS['session']->user->id);
-  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=dashboard");}
-  // acquire variables
-  $r_module=$_REQUEST['idModule'];
-  $r_parameters=$_REQUEST['parameters'];
-  // check variables
-  if(!$r_module){api_alerts_add(api_text("framework_alert_error"),"danger");api_redirect("?mod=dashboard");}
-  if(!is_array($r_parameters)){api_alerts_add(api_text("framework_alert_error"),"danger");api_redirect("?mod=dashboard");}
-  // cycle all parameters
-  foreach($r_parameters as $parameter_fkey=>$parameter_fvalue){
-   // make parameter code
-   $parameter_code=$r_module."-".$parameter_fkey;
-   // get parameter
-   $parameter_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users__parameters` WHERE `fkUser`='".$user_obj->id."' AND `parameter`='".$parameter_code."'");
-   // build user query object
-   $parameter_qobj=new stdClass();
-   $parameter_qobj->id=$parameter_obj->id;
-   $parameter_qobj->fkUser=$user_obj->id;
-   $parameter_qobj->parameter=addslashes($parameter_code);
-   $parameter_qobj->value=addslashes($parameter_fvalue);
-   // debug
-   api_dump($parameter_qobj,"parameter query object");
-   // check parameter
-   if($parameter_obj->id){
-    // update parameter
-    $GLOBALS['database']->queryUpdate("framework__users__parameters",$parameter_qobj);
-   }else{
-    // insert parameter
-    $GLOBALS['database']->queryInsert("framework__users__parameters",$parameter_qobj);
-   }
-  }
-  // redirect
-  api_alerts_add(api_text("framework_alert_userParametersUpdated"),"success");
-  api_redirect("?mod=".$r_module."&scr=parameters");
- }
-
- /**
-  * Group Save
-  */
- function group_save(){
-  // build group objects
-  $group=new stdClass();
-  // acquire variables
-  $group->id=$_REQUEST['idGroup'];
-  $group->fkGroup=$_REQUEST['fkGroup'];
-  $group->name=$_REQUEST['name'];
-  $group->description=$_REQUEST['description'];
-  $group->updTimestamp=time();
-  $group->updFkUser=$GLOBALS['session']->user->id;
-  // debug
-  api_dump($group);
-  // check group
-  if($group->id){
-   // update user
-   $GLOBALS['database']->queryUpdate("framework__groups",$group);
-   api_alerts_add(api_text("framework_alert_groupUpdated"),"success");
-  }else{
-   // update user
-   $GLOBALS['database']->queryInsert("framework__groups",$group);
-   api_alerts_add(api_text("framework_alert_groupCreated"),"success");
-  }
-  // redirect
-  api_redirect("?mod=".MODULE."&scr=groups_list");
- }
-
-
-
-
- /**
-  * Sessions Terminate
-  */
- function sessions_terminate(){
-  api_dump($_REQUEST);
-  // check authorizations
-  api_checkAuthorization("framework-sessions_manage","dashboard");
-  // acquire variables
-  $idSession=$_REQUEST['idSession'];
-  if(!$idSession){api_alerts_add(api_text("framework_alert_sessionNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=sessions_list");}
-  // delete session
-  $GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `id`='".$idSession."'");
-  // redirect
-  api_alerts_add(api_text("framework_alert_sessionTerminated"),"warning");
-  api_redirect("?mod=".MODULE."&scr=sessions_list");
- }
-
- /**
-  * Sessions Terminate All
-  */
- function sessions_terminate_all(){
-  api_dump($_REQUEST);
-  // check authorizations
-  api_checkAuthorization("framework-sessions_manage","dashboard");
-  // delete all sessions
-  $GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions`");
-  // redirect
-  api_alerts_add(api_text("framework_alert_sessionTerminatedAll"),"warning");
-  api_redirect(PATH."index.php");
- }
-
-
-
-
- 
- /**
-  * Mail Retry
-  */
- function mail_retry(){
-  // get objects
-  $mail_obj=new cMail($_REQUEST['idMail']);
-  // check objects
-  if(!$mail_obj->id){api_alerts_add(api_text("framework_alert_mailNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=mails_list");}
-  // debug
-  api_dump($_REQUEST,"_REQUEST");
-  api_dump($mail_obj,"mail object");
-  // build mail query objects
-  $mail_qobj=new stdClass();
-  $mail_qobj->id=$mail_obj->id;
-  $mail_qobj->status="inserted";
-  $mail_qobj->sndTimestamp=null;
-  // debug
-  api_dump($mail_qobj,"mail query object");
-  // execute query
-  $GLOBALS['database']->queryUpdate("framework__mails",$mail_qobj);
-  // redirect
-  api_alerts_add(api_text("framework_alert_mailRetry"),"success");
-  api_redirect("?mod=".MODULE."&scr=mails_list&idMail=".$mail_obj->id);
- }
- /**
-  * Mail Remove
-  */
- function mail_remove(){
-  // get objects
-  $mail_obj=new cMail($_REQUEST['idMail']);
-  // check objects
-  if(!$mail_obj->id){api_alerts_add(api_text("framework_alert_mailNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=mails_list");}
-  // debug
-  api_dump($_REQUEST,"_REQUEST");
-  api_dump($mail_obj,"mail object");
-  // execute query
-  $GLOBALS['database']->queryDelete("framework__mails",$mail_obj->id);
-  // redirect
-  api_alerts_add(api_text("framework_alert_mailRemoved"),"warning");
-  api_redirect("?mod=".MODULE."&scr=mails_list");
- }
-
-
-
- /**
-  * Attachment Save
-  */
- function attachment_save(){
-  api_dump($_REQUEST,"_REQUEST");
-  api_dump($_FILES,"_FILES");
-  // get object
-  $attachment_obj=new cAttachment($_REQUEST['idAttachment']);
-  api_dump($attachment_obj,"attachment object");
-  // build query objects
-  $attachment_qobj=new stdClass();
-  // acquire variables
-  $attachment_qobj->id=$attachment_obj->id;
-  $attachment_qobj->name=strtolower(str_replace(" ","_",$_REQUEST['name']));
-  $attachment_qobj->description=$_REQUEST['description'];
-  $attachment_qobj->public=($_REQUEST['public']?1:0);
-  // check attachment
-  if($attachment_qobj->id){
-   // update
-   $attachment_qobj->updTimestamp=time();
-   $attachment_qobj->updFkUser=$GLOBALS['session']->user->id;
-   // debug
-   api_dump($attachment_qobj);
-   // execute query
-   $GLOBALS['database']->queryUpdate("framework__attachments",$attachment_qobj);
-   // alert
-   api_alerts_add(api_text("framework_alert_attachmentUpdated"),"success");
-  }else{
-   // add
-   $attachment_qobj->name=strtolower(str_replace(" ","_",$_FILES['file']['name']));
-   $attachment_qobj->typology=$_FILES['file']['type'];
-   $attachment_qobj->size=$_FILES['file']['size'];
-   $attachment_qobj->addTimestamp=time();
-   $attachment_qobj->addFkUser=$GLOBALS['session']->user->id;
-   do{
-    // generate attachment id
-    $attachment_qobj->id=md5(date("YmdHis").rand(1,99999));
-    // check for duplicates
-    $check_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework__attachments` WHERE `id`='".$attachment_qobj->id."'");
-   }while($attachment_qobj->id==$check_id);
-   // debug
-   api_dump($attachment_qobj);
-   // check for file
-   if(intval($_FILES['file']['size'])==0 || $_FILES['file']['error']!=UPLOAD_ERR_OK){api_alerts_add(api_text("framework_alert_attachmentError"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
-   // check for id
-   if(!$attachment_qobj->id){api_alerts_add(api_text("framework_alert_attachmentError"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
-   // check if file exist and replace
-   if(file_exists(DIR."uploads/attachments/".$attachment_qobj->id)){unlink(DIR."uploads/attachments/".$attachment_qobj->id);}
-   if(is_uploaded_file($_FILES['file']['tmp_name'])){move_uploaded_file($_FILES['file']['tmp_name'],DIR."uploads/attachments/".$attachment_qobj->id);}
-   // check for file
-   if(!file_exists(DIR."uploads/attachments/".$attachment_qobj->id)){api_alerts_add(api_text("framework_alert_attachmentError"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
-   // execute query
-   $GLOBALS['database']->queryInsert("framework__attachments",$attachment_qobj);
-   // alert
-   api_alerts_add(api_text("framework_alert_attachmentCreated"),"success");
-  }
-  // redirect
-  api_redirect("?mod=".MODULE."&scr=attachments_list&idAttachment=".$attachment_qobj->id);
- }
- /**
-  * Attachment Delete
-  *
-  * param boolean $delete
-  */
- function attachment_delete($deleted){
-  api_dump($_REQUEST,"_REQUEST");
-  // get objects
-  $attachment_obj=new cAttachment($_REQUEST['idAttachment']);
-  api_dump($attachment_obj,"attachment object");
-  // check objects
-  if(!$attachment_obj->id){api_alerts_add(api_text("framework_alert_attachmentNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
-  // build query objects
-  $attachment_qobj=new stdClass();
-  // acquire variables
-  $attachment_qobj->id=$attachment_obj->id;
-  $attachment_qobj->deleted=($deleted?1:0);
-  // debug
-  api_dump($attachment_qobj,"attachment query object");
-  // execute query
-  $GLOBALS['database']->queryUpdate("framework__attachments",$attachment_qobj);
-  // alert
-  if($deleted){api_alerts_add(api_text("framework_alert_attachmentDeleted"),"warning");}
-  else{api_alerts_add(api_text("framework_alert_attachmentUndeleted"),"success");}
-  // redirect
-  api_redirect("?mod=".MODULE."&scr=attachments_list&idAttachment=".$attachment_qobj->id);
- }
- /**
-  * Attachment Remove
-  */
- function attachment_remove(){
-  api_dump($_REQUEST,"_REQUEST");
-  // get objects
-  $attachment_obj=new cAttachment($_REQUEST['idAttachment']);
-  // check objects
-  if(!$attachment_obj->id){api_alerts_add(api_text("framework_alert_attachmentNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
-  // debug
-  api_dump($attachment_obj,"attachment object");
-  // execute query
-  $GLOBALS['database']->queryDelete("framework__attachments",$attachment_obj->id);
-  // check if file exist and remove
-  if(file_exists(DIR."uploads/attachments/".$attachment_obj->id)){unlink(DIR."uploads/attachments/".$attachment_obj->id);}
-  // redirect
-  api_alerts_add(api_text("framework_alert_attachmentRemoved"),"warning");
-  api_redirect("?mod=".MODULE."&scr=attachments_list");
  }
 
 ?>
