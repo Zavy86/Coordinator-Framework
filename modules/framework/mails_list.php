@@ -4,12 +4,13 @@
  *
  * @package Coordinator\Modules\Framework
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
- $authorization="framework-mails_manage";
+ // check authorizations
+ api_checkAuthorization("framework-mails_manage","dashboard");
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // set html title
+ // set application title
  $app->setTitle(api_text("mails_list"));
  // make recipeint filter
  $mails_filters=array();
@@ -79,7 +80,7 @@
   // build cron informations modal window
   $mails_modal=new strModal(api_text("mails_list-mails-modal-title"),null,"requests_view-mails_modal");
   $mails_modal->setBody($mail_dl->render().$mail_obj->message);
-  // add modal to html object
+  // add modal to application
   $app->addModal($mails_modal);
   // jQuery scripts
   $app->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_requests_view-mails_modal\").modal('show');});");
@@ -92,9 +93,9 @@
  $grid->addCol($table->render(),"col-xs-12");
  $grid->addRow();
  $grid->addCol($pagination->render(),"col-xs-12");
- // add content to html
+ // add content to application
  $app->addContent($grid->render());
- // renderize html
+ // renderize application
  $app->render();
  // debug
  api_dump($mails_array);
