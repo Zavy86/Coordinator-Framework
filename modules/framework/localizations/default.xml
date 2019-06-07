@@ -32,8 +32,6 @@
  <text key="framework-attachments_manage-description">Gestione degli allegati</text>
 
  <!-- alerts -->
- <text key="framework_alert_settingsUpdated">Le impostazioni sono state aggiornate</text>
- <text key="framework_alert_settingsLogoRemoved">Il logo personalizzato è stato rimosso</text>
  <text key="framework_alert_ownProfileUpdated">Il tuo profilo è stato aggiornato</text>
  <text key="framework_alert_ownAvatarRemoved">Il tuo avatar è stato eliminato</text>
  <text key="framework_alert_ownPasswordIncorrect">La password attuale inserita non è corretta</text>
@@ -42,14 +40,30 @@
  <text key="framework_alert_ownPasswordOldest">La nuova password coincide con la vecchia password</text>
  <text key="framework_alert_ownPasswordUpdated">La tua password è stata aggiornata</text>
 
-
-
+ <text key="framework_alert_settingsUpdated">Le impostazioni sono state aggiornate</text>
+ <text key="framework_alert_settingsLogoRemoved">Il logo personalizzato è stato rimosso</text>
 
  <text key="framework_alert_menuError">Si è verificato un errore durante il salvaraggio del menu</text>
  <text key="framework_alert_menuNotFound">Il menu non è stato trovato</text>
  <text key="framework_alert_menuCreated">Il menu è stato creato</text>
  <text key="framework_alert_menuUpdated">Il menu è stato aggiornato</text>
  <text key="framework_alert_menuNesting">Sono presenti menu ad un sotto-livello non renderizzabile</text>
+
+ <text key="framework_alert_moduleError">Si è verificato un errore durante il salvataggio del modulo</text>
+ <text key="framework_alert_moduleNotFound">Il modulo non è stato trovato</text>
+ <text key="framework_alert_moduleAdded">Il modulo è stato scaricato</text>
+ <text key="framework_alert_moduleEnabled">Il modulo è stato abilitato</text>
+ <text key="framework_alert_moduleDisabled">Il modulo è stato disabilitato</text>
+ <text key="framework_alert_moduleErrorLocalhost">L'installazione e l'aggiornamento dei moduli sono bloccati su localhost</text>
+ <text key="framework_alert_moduleUpdateSourceAborted">Si è verificato un errore durante il tentativo di aggiornamento tramite Git</text>
+ <text key="framework_alert_moduleUpdateSourceAlready">La versione dei sorgenti installata non necessita di ulteriori aggiornamenti</text>
+ <text key="framework_alert_moduleUpdateSourceUpdated">L'aggiornamento dei sorgenti tramite Git è avvenuto correttamente</text>
+ <text key="framework_alert_moduleUpdateDatabaseError">Si è verificato un errore durante il tentativo di aggiornamento del database</text>
+ <text key="framework_alert_moduleUpdateDatabaseUpdated">L'aggiornamento del database è avvenuto correttamente</text>
+ <text key="framework_alert_moduleAuthorizationGroupAdded">Il gruppo è stato aggiunto alle autorizzazioni del modulo</text>
+ <text key="framework_alert_moduleAuthorizationGroupRemoved">Il gruppo è stato rimosso dalle autorizzazioni del modulo</text>
+ <text key="framework_alert_moduleAuthorizationResetted">Le autorizzazioni del gruppo sono state ripristinate</text>
+
  <text key="framework_alert_userError">Si è verificato un errore durante il salvaraggio dell'utente</text>
  <text key="framework_alert_userNotFound">L'utente non è stato trovato</text>
  <text key="framework_alert_userCreated">L'utente è stato creato</text>
@@ -78,21 +92,6 @@
  <text key="framework_alert_sessionNotFound">La sessione non è stata trovata</text>
  <text key="framework_alert_sessionTerminated">La sessione è stata terminata</text>
  <text key="framework_alert_sessionTerminatedAll">Tutte le sessioni sono state terminate</text>
-
- <text key="framework_alert_moduleError">Si è verificato un errore durante il salvataggio del modulo</text>
- <text key="framework_alert_moduleNotFound">Il modulo non è stato trovato</text>
- <text key="framework_alert_moduleAdded">Il modulo è stato scaricato</text>
- <text key="framework_alert_moduleEnabled">Il modulo è stato abilitato</text>
- <text key="framework_alert_moduleDisabled">Il modulo è stato disabilitato</text>
- <text key="framework_alert_moduleErrorLocalhost">L'installazione e l'aggiornamento dei moduli sono bloccati su localhost</text>
- <text key="framework_alert_moduleUpdateSourceAborted">Si è verificato un errore durante il tentativo di aggiornamento tramite Git</text>
- <text key="framework_alert_moduleUpdateSourceAlready">La versione dei sorgenti installata non necessita di ulteriori aggiornamenti</text>
- <text key="framework_alert_moduleUpdateSourceUpdated">L'aggiornamento dei sorgenti tramite Git è avvenuto correttamente</text>
- <text key="framework_alert_moduleUpdateDatabaseError">Si è verificato un errore durante il tentativo di aggiornamento del database</text>
- <text key="framework_alert_moduleUpdateDatabaseUpdated">L'aggiornamento del database è avvenuto correttamente</text>
- <text key="framework_alert_moduleAuthorizationGroupAdded">Il gruppo è stato aggiunto alle autorizzazioni del modulo</text>
- <text key="framework_alert_moduleAuthorizationGroupRemoved">Il gruppo è stato rimosso dalle autorizzazioni del modulo</text>
- <text key="framework_alert_moduleAuthorizationResetted">Le autorizzazioni del gruppo sono state ripristinate</text>
 
  <text key="framework_alert_mailError">Si è verificato un errore durante il salvataggio della mail</text>
  <text key="framework_alert_mailNotFound">La mail non è stata trovata</text>
@@ -152,10 +151,6 @@
  <text key="mail-status-sended">Inviata</text>
  <text key="mail-status-failed">Errore</text>
 
-
-
-
-
  <!-- own_profile -->
  <text key="own_profile">Profilo personale</text>
  <text key="own_profile-username">Username</text>
@@ -186,9 +181,6 @@
  <text key="own_password-password_confirm-placeholder">Conferma la nuova password..</text>
  <text key="own_password-submit">Salva</text>
  <text key="own_password-cancel">Annulla</text>
-
-
-
 
  <!-- settings_edit -->
  <text key="settings_edit">Impostazioni</text>
@@ -325,10 +317,60 @@
  <text key="menus_edit-delete">Elimina</text>
  <text key="menus_edit-delete-confirm">Confermi di voler eliminare questo menu?</text>
 
+ <!-- modules_list -->
+ <text key="modules_list">Moduli</text>
+ <text key="modules_list-description">Gestione dei moduli del framework</text>
+ <text key="modules_list-tr-unvalued">Non sono presenti moduli da mostrare..</text>
+ <text key="modules_list-th-name">Modulo</text>
+ <text key="modules_list-th-installed">Versione</text>
+ <text key="modules_list-th-repository">Release</text>
+ <text key="modules_list-th-description">Descrizione</text>
+ <text key="modules_list-td-setup">Installa</text>
+ <text key="modules_list-td-initialize">Inizializza</text>
+ <text key="modules_list-td-update_database">Aggiorna a <![CDATA[{0}]]></text>
+ <text key="modules_list-td-update_source">Ottieni tramite Git</text>
+ <text key="modules_list-td-update_source-confirm">Confermi di voler eseguire il download dell'aggiornamento tramite Git?</text>
+ <text key="modules_list-td-update_source_force">Forza tramite Git</text>
+ <text key="modules_list-td-update_source_force-confirm">Impossibile trovare la versione della release. Vuoi tentare un'aggiornamento forzato tramite Git?</text>
+ <text key="modules_list-td-update_source-manual">Aggiorna manualmente</text>
 
+ <!-- modules_view -->
+ <text key="modules_view">Modulo <![CDATA[{0}]]></text>
+ <text key="modules_view-dt-name">Modulo</text>
+ <text key="modules_view-dt-description">Descrizione</text>
+ <text key="modules_view-dt-version">Versione</text>
+ <text key="modules_view-dd-version-repository_update">Aggiornamento disponibile <![CDATA[{0}]]></text>
+ <text key="modules_view-dd-version-source_update">Aggiornamento database necessario</text>
+ <text key="modules_view-dt-status">Stato</text>
+ <text key="modules_view-dd-enabled">Abilitato</text>
+ <text key="modules_view-dd-disabled">Disabilitato</text>
+ <text key="modules_view-authorizations-tr-unvalued">Non sono presenti autorizzazioni da mostrare..</text>
+ <text key="modules_view-authorizations-th-authorization">Autorizzazione</text>
+ <text key="modules_view-authorizations-th-groups">Gruppi abilitati</text>
+ <text key="modules_view-authorizations-td-groups-none">Nessun gruppo abilitato..</text>
+ <text key="modules_view-authorizations-td-delete">Rimuovi gruppo</text>
+ <text key="modules_view-authorizations-td-delete-confirm">Confermi di voler rimuovere questo gruppo dall'autorizzazione?</text>
+ <text key="modules_view-authorizations_modal-title">Aggiungi un gruppo alle autorizzazioni</text>
+ <text key="modules_view-authorizations_modal-ff-group">Gruppo</text>
+ <text key="modules_view-authorizations_modal-ff-group-placeholder">Seleziona un gruppo..</text>
+ <text key="modules_view-authorizations_modal-ff-level">Livello</text>
+ <text key="modules_view-authorizations_modal-ff-level-placeholder">Seleziona un livello minimo..</text>
+ <text key="modules_view-authorizations_modal-ff-level-fo-level"><![CDATA[{0}]]>° livello o superiore</text>
+ <text key="modules_view-authorizations_modal-ff-authorizations">Autorizzazioni</text>
+ <text key="modules_view-authorizations_modal-fc-submit">Salva</text>
+ <text key="modules_view-authorizations_modal-fc-cancel">Annulla</text>
 
-
-
+ <!-- modules_add -->
+ <text key="modules_add">Nuovo modulo</text>
+ <text key="modules_add-url">URL Modulo</text>
+ <text key="modules_add-url-placeholder">https://github.com/Zavy86/Coordinator-Framework.git</text>
+ <text key="modules_add-directory">Directory</text>
+ <text key="modules_add-directory-placeholder">Directory di installazione, consulta il README del modulo..</text>
+ <text key="modules_add-method">Metodo</text>
+ <text key="modules_add-method-git">Git</text>
+ <text key="modules_add-method-zip">Zip</text>
+ <text key="modules_add-submit">Scarica</text>
+ <text key="modules_add-cancel">Annulla</text>
 
  <!-- users_list -->
  <text key="users_list">Utenti</text>
@@ -536,65 +578,5 @@
  <text key="attachments_add-ff-description">Descrizione</text>
  <text key="attachments_add-ff-description-placeholder">Descrizione del file caricato</text>
  <text key="attachments_add-ff-public">Pubblico</text>
-
-
-
- <!-- modules_list -->
- <text key="modules_list">Moduli</text>
- <text key="modules_list-description">Gestione dei moduli del framework</text>
- <text key="modules_list-tr-unvalued">Non sono presenti moduli da mostrare..</text>
- <text key="modules_list-th-name">Modulo</text>
- <text key="modules_list-th-installed">Versione</text>
- <text key="modules_list-th-repository">Release</text>
- <text key="modules_list-th-description">Descrizione</text>
- <text key="modules_list-td-setup">Installa</text>
- <text key="modules_list-td-initialize">Inizializza</text>
- <text key="modules_list-td-update_database">Aggiorna a <![CDATA[{0}]]></text>
- <text key="modules_list-td-update_source">Ottieni tramite Git</text>
- <text key="modules_list-td-update_source-confirm">Confermi di voler eseguire il download dell'aggiornamento tramite Git?</text>
- <text key="modules_list-td-update_source_force">Forza tramite Git</text>
- <text key="modules_list-td-update_source_force-confirm">Impossibile trovare la versione della release. Vuoi tentare un'aggiornamento forzato tramite Git?</text>
- <text key="modules_list-td-update_source-manual">Aggiorna manualmente</text>
-
- <!-- modules_view -->
- <text key="modules_view">Modulo <![CDATA[{0}]]></text>
- <text key="modules_view-dt-name">Modulo</text>
- <text key="modules_view-dt-description">Descrizione</text>
- <text key="modules_view-dt-version">Versione</text>
- <text key="modules_view-dd-version-repository_update">Aggiornamento disponibile <![CDATA[{0}]]></text>
- <text key="modules_view-dd-version-source_update">Aggiornamento database necessario</text>
- <text key="modules_view-dt-status">Stato</text>
- <text key="modules_view-dd-enabled">Abilitato</text>
- <text key="modules_view-dd-disabled">Disabilitato</text>
- <text key="modules_view-authorizations-tr-unvalued">Non sono presenti autorizzazioni da mostrare..</text>
- <text key="modules_view-authorizations-th-authorization">Autorizzazione</text>
- <text key="modules_view-authorizations-th-groups">Gruppi abilitati</text>
- <text key="modules_view-authorizations-td-groups-none">Nessun gruppo abilitato..</text>
- <text key="modules_view-authorizations-td-delete">Rimuovi gruppo</text>
- <text key="modules_view-authorizations-td-delete-confirm">Confermi di voler rimuovere questo gruppo dall'autorizzazione?</text>
- <text key="modules_view-authorizations_modal-title">Aggiungi un gruppo alle autorizzazioni</text>
- <text key="modules_view-authorizations_modal-ff-group">Gruppo</text>
- <text key="modules_view-authorizations_modal-ff-group-placeholder">Seleziona un gruppo..</text>
- <text key="modules_view-authorizations_modal-ff-level">Livello</text>
- <text key="modules_view-authorizations_modal-ff-level-placeholder">Seleziona un livello minimo..</text>
- <text key="modules_view-authorizations_modal-ff-level-fo-level"><![CDATA[{0}]]>° livello o superiore</text>
- <text key="modules_view-authorizations_modal-ff-authorizations">Autorizzazioni</text>
- <text key="modules_view-authorizations_modal-fc-submit">Salva</text>
- <text key="modules_view-authorizations_modal-fc-cancel">Annulla</text>
-
- <!-- modules_add -->
- <text key="modules_add">Nuovo modulo</text>
- <text key="modules_add-url">URL Modulo</text>
- <text key="modules_add-url-placeholder">https://github.com/Zavy86/Coordinator-Framework.git</text>
- <text key="modules_add-directory">Directory</text>
- <text key="modules_add-directory-placeholder">Directory di installazione, consulta il README del modulo..</text>
- <text key="modules_add-method">Metodo</text>
- <text key="modules_add-method-git">Git</text>
- <text key="modules_add-method-zip">Zip</text>
- <text key="modules_add-submit">Scarica</text>
- <text key="modules_add-cancel">Annulla</text>
-
-
-
 
 </locale>
