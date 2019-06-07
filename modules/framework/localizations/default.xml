@@ -124,6 +124,7 @@
  <text key="nav-operations-user_enable">Abilita utente</text>
  <text key="nav-operations-user_disable">Disabilita utente</text>
  <text key="nav-operations-user_group_add">Aggiungi gruppo</text>
+ <text key="nav-operations-user_parameters_view">Parametri personali</text>
  <text key="nav-operations-user_undelete">Ripristina utente</text>
  <text key="nav-operations-user_undelete-confirm">Confermi di voler ripristinare questo utente?</text>
 
@@ -324,6 +325,11 @@
  <text key="menus_edit-delete">Elimina</text>
  <text key="menus_edit-delete-confirm">Confermi di voler eliminare questo menu?</text>
 
+
+
+
+
+
  <!-- users_list -->
  <text key="users_list">Utenti</text>
  <text key="users_list-description">Gestione degli utenti del framework</text>
@@ -359,22 +365,22 @@
  <text key="users_view-gender">Genere</text>
  <text key="users_view-birthday">Data di nascita</text>
  <text key="users_view-level">Livello autorizzativo</text>
- <text key="users_view-level-level">{0}° livello</text>
+ <text key="users_view-level-level"><![CDATA[{0}]]>° livello</text>
  <text key="users_view-groups">Gruppi assegnati</text>
- <text key="users_view-groups_table-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
- <text key="users_view-groups_table-td-delete">Rimuovi gruppo</text>
- <text key="users_view-groups_table-td-delete-confirm">Confermi di voler rimuovere il gruppo dall'utente?</text>
- <text key="users_view-groups_table-td-main">Gruppo principale</text>
- <text key="users_view-groups_table-td-mainize">Rendi principale</text>
- <text key="users_view-groups_table-td-mainize-confirm">Confermi di voler rendere questo gruppo principale per l'utente?</text>
- <text key="users_view-groups_modal-title">Aggiungi un gruppo all'utente</text>
- <text key="users_view-groups_modal-ff-group">Gruppo</text>
- <text key="users_view-groups_modal-ff-group-placeholder">Seleziona un gruppo..</text>
- <text key="users_view-groups_modal-ff-level">Livello</text>
- <text key="users_view-groups_modal-fo-level">{0}° livello</text>
- <text key="users_view-groups_modal-ff-level-placeholder">Seleziona un livello..</text>
- <text key="users_view-groups_modal-fc-submit">Aggiungi</text>
- <text key="users_view-groups_modal-fc-cancel">Annulla</text>
+ <text key="users_view-groups-table-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
+ <text key="users_view-groups-table-td-delete">Rimuovi gruppo</text>
+ <text key="users_view-groups-table-td-delete-confirm">Confermi di voler rimuovere il gruppo dall'utente?</text>
+ <text key="users_view-groups-table-td-main">Gruppo principale</text>
+ <text key="users_view-groups-table-td-mainize">Rendi principale</text>
+ <text key="users_view-groups-table-td-mainize-confirm">Confermi di voler rendere questo gruppo principale per l'utente?</text>
+ <text key="users_view-groups-modal-title">Aggiungi un gruppo all'utente</text>
+ <text key="users_view-groups-modal-ff-group">Gruppo</text>
+ <text key="users_view-groups-modal-ff-group-placeholder">Seleziona un gruppo..</text>
+ <text key="users_view-groups-modal-ff-level">Livello</text>
+ <text key="users_view-groups-modal-fo-level"><![CDATA[{0}]]>° livello</text>
+ <text key="users_view-groups-modal-ff-level-placeholder">Seleziona un livello..</text>
+ <text key="users_view-parameters-modal-title">Parametri personali di <![CDATA[{0}]]></text>
+ <text key="users_view-parameters-modal-null">Non sono presenti parametri da mostrare..</text>
 
  <!-- users_add -->
  <text key="users_add">Nuovo utente</text>
@@ -393,8 +399,6 @@
  <text key="users_add-level">Livello</text>
  <text key="users_add-level-placeholder">Seleziona un livello..</text>
  <text key="users_add-level-level"><![CDATA[{0}]]>° livello</text>
- <text key="users_add-submit">Salva</text>
- <text key="users_add-cancel">Annulla</text>
 
  <!-- users_edit -->
  <text key="users_edit">Modifica utente</text>
@@ -414,19 +418,16 @@
  <text key="users_edit-level-level"><![CDATA[{0}]]>° livello</text>
  <text key="users_edit-superuser">Amministratore di sistema</text>
  <text key="users_edit-superuser-alert">Attenzione, stai per concedere pieni poteri a questo utente!</text>
-
  <text key="users_edit-gender">Genere</text>
  <text key="users_edit-gender-none">Non dichiarato</text>
  <text key="users_edit-gender-man">Uomo</text>
  <text key="users_edit-gender-woman">Donna</text>
  <text key="users_edit-birthday">Data di nascita</text>
-
- <text key="users_edit-submit">Salva</text>
- <text key="users_edit-cancel">Annulla</text>
- <text key="users_edit-delete">Elimina</text>
  <text key="users_edit-delete-confirm">Confermi di voler eliminare questo account?</text>
- <text key="users_edit-undelete">Ripristina</text>
- <text key="users_edit-interpret">Interpreta</text>
+
+
+
+
 
  <!-- groups_list -->
  <text key="groups_list">Gruppi</text>
@@ -438,7 +439,7 @@
  <text key="groups_list-td-edit">Modifica gruppo</text>
 
  <!-- groups_view -->
- <text key="groups_view">Gruppo {0}</text>
+ <text key="groups_view">Gruppo <![CDATA[{0}]]></text>
  <text key="groups_view-name">Gruppo</text>
  <text key="groups_view-description">Descrizione</text>
  <text key="groups_view-users">Utenti assegnati</text>

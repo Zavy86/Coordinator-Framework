@@ -4,12 +4,13 @@
  *
  * @package Coordinator\Modules\Framework
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
- $authorization="framework-users_manage";
+ // check authorizations
+ api_checkAuthorization("framework-users_manage","dashboard");
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // set html title
+ // set application title
  $app->setTitle(api_text("users_list"));
  // build filter
  $filter=new strFilter();
@@ -19,8 +20,6 @@
  $query=new cQuery("framework__users",$filter->getQueryWhere());
  $query->addQueryOrderField("lastname","ASC",null,true);
  $query->addQueryOrderField("firstname","ASC",null,true);
- // debug
- //api_dump($query->getQuerySQL());
  // build pagination
  $pagination=new strPagination($query->getRecordsCount());
  // build grid object
@@ -32,8 +31,6 @@
  $table->addHeader("&nbsp;",null,16);
  // get user objects
  $users_array=array();
- //$users_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__users` ORDER BY `lastname`,`firstname`");
- //foreach($users_results as $user){$users_array[$user->id]=new cUser($user);}
  foreach($query->getRecords($pagination->getQueryLimits()) as $user){$users_array[$user->id]=new cUser($user);}
  // cycle all users
  foreach($users_array as $user_obj){
@@ -50,7 +47,6 @@
   if($user_obj->deleted){$tr_class="deleted";}else{$tr_class=null;}
   // make user row
   $table->addRow($tr_class);
-  //$table->addRowField(api_link("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id,api_image($user_obj->avatar,null,18),api_text("users_list-td-view")));
   $table->addRowFieldAction("?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id,"search",api_text("users_list-td-view"));
   $table->addRowField($user_obj->fullname,"nowrap");
   $table->addRowField($user_obj->getStatus(true,false));
@@ -65,8 +61,10 @@
  $grid->addCol($table->render(),"col-xs-12");
  $grid->addRow();
  $grid->addCol($pagination->render(),"col-xs-12");
- // add content to html
+ // add content to application
  $app->addContent($grid->render());
- // renderize html
+ // renderize application
  $app->render();
+ // debug
+ api_dump($users_array,"users array");
 ?>
