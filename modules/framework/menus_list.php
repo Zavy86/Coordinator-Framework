@@ -4,12 +4,13 @@
  *
  * @package Coordinator\Modules\Framework
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
- $authorization="framework-menus_manage";
+ // check authorizations
+ api_checkAuthorization("framework-menus_manage","dashboard");
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // set html title
+ // set application title
  $app->setTitle(api_text("menus_list"));
  // build grid object
  $table=new strTable(api_text("menus_list-tr-unvalued"));
@@ -45,8 +46,8 @@
  $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
- // add content to html
+ // add content to application
  $app->addContent($grid->render());
- // renderize html
+ // renderize application
  $app->render();
 ?>
