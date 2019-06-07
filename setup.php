@@ -4,7 +4,7 @@
  *
  * @package Coordinator
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
  // errors configuration
  ini_set("display_errors",true);
@@ -18,7 +18,7 @@
  define('URL',HOST.PATH);
  define('DIR',ROOT.PATH);
  // die if configuration already exist
- //if(file_exists(DIR."config.inc.php")){die("Coordinator Framework is already configured..");}
+ if(file_exists(DIR."config.inc.php")){die("Coordinator Framework is already configured..");}
  // include functions
  require_once(DIR."functions/generic.inc.php");
  // include structures
@@ -35,9 +35,9 @@
  $settings->title="Coordinator Framework";
  $settings->owner="Manuel Zavatta";
  $settings->logo=PATH."uploads/framework/logo.default.png";
- // build html object
+ // build application
  $app=new strApplication("Setup");
- // set html title
+ // set application title
  $app->setTitle("Setup");
  // build setup form
  $form=new strForm("setup.php","POST",null,"setup");
@@ -176,8 +176,8 @@
  $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
- // add content to html
+ // add content to application
  $app->addContent($grid->render());
- // renderize html page
+ // renderize application
  $app->render();
 ?>

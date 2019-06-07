@@ -4,13 +4,13 @@
  *
  * @package Coordinator
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
  // include functions
  require_once("initializations.inc.php");
- // build html object
- $app=new strApplication($module_name);
- // set html title
+ // build application
+ $app=new strApplication();
+ // set application title
  $app->setTitle("Login");
  // build login form manually
  $form_source="<!-- form -->\n";
@@ -31,9 +31,9 @@
  $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form_source,"col-xs-12 col-sm-offset-4 col-sm-4 col-sm-offset-4");
- // add content to html
+ // add content to application
  $app->addContent($grid->render());
- // renderize html page
+ // renderize application
  $app->render();
  // debug
  api_debug();

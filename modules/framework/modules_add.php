@@ -4,12 +4,13 @@
  *
  * @package Coordinator\Modules\Framework
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
- $authorization="framework-modules_manage";
+ // check authorizations
+ api_checkAuthorization("framework-modules_manage","dashboard");
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // set html title
+ // set application title
  $app->setTitle(api_text("modules_add"));
  // build profile form
  $form=new strForm("?mod=".MODULE."&scr=submit&act=module_add","POST",null,"modules_add");
@@ -24,7 +25,7 @@
  $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
- // add content to html
+ // add content to application
  $app->addContent($grid->render());
  // jQuery script
  $jquery=<<<EOS
@@ -46,6 +47,6 @@ $(function(){
 EOS;
  // add script to html
  $app->addScript($jquery);
- // renderize html page
+ // renderize application
  $app->render();
 ?>

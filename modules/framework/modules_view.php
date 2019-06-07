@@ -4,16 +4,17 @@
  *
  * @package Coordinator\Modules\Framework
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
- $authorization="framework-modules_manage";
- // include module template
- require_once(MODULE_PATH."template.inc.php");
+ // check authorizations
+ api_checkAuthorization("framework-modules_manage","dashboard");
  // get objects
  $module_obj=new cModule($_REQUEST['idModule']);
  // check objects
  if(!$module_obj->id){api_alerts_add(api_text("framework_alert_moduleNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=modules_list");}
- // set html title
+ // include module template
+ require_once(MODULE_PATH."template.inc.php");
+ // set application title
  $app->setTitle(api_text("modules_view",$module_obj->name));
  // make version
  $version_td=api_tag("span",$module_obj->version,"label ".($module_obj->enabled?"label-success":"label-default"));
@@ -55,7 +56,7 @@
   // build group add modal window
   $authorizations_modal=new strModal(api_text("modules_view-authorizations_modal-title"),null,"modules_view-authorizations_modal");
   $authorizations_modal->setBody($authorizations_join_form->render());
-  // add modal to html object
+  // add modal to application
   $app->addModal($authorizations_modal);
   // jQuery scripts
   $app->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_modules_view-authorizations_modal\").modal('show');});");
@@ -65,9 +66,9 @@
  $grid->addRow();
  $grid->addCol($dl->render(),"col-xs-12 col-xs-5");
  $grid->addCol($table->render(),"col-xs-12 col-xs-7");
- // add content to html
+ // add content to application
  $app->addContent($grid->render());
- // renderize html
+ // renderize application
  $app->render();
  // debug
  api_dump($module_obj,"selected_module");

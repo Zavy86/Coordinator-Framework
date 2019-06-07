@@ -170,7 +170,7 @@
   public function render($echo=true){
    // load default template
    require_once(DIR."template.inc.php");
-   // renderize html
+   // renderize application
    $return="<!DOCTYPE html>\n";
    $return.="<html lang=\"".$this->language."\">\n\n";
    // renderize head

@@ -4,10 +4,10 @@
  *
  * @package Coordinator\Modules\Dashboard
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
- // build application object
- $app=new strApplication($module_name);
+ // build application
+ $app=new strApplication();
  // build nav object
  $nav=new strNav("nav-tabs");
  $nav->addItem(api_text("dashboard_view"),"?mod=dashboard&scr=dashboard");

@@ -4,12 +4,13 @@
  *
  * @package Coordinator\Modules\Framework
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
- $authorization="framework-modules_manage";
+ // check authorizations
+ api_checkAuthorization("framework-modules_manage","dashboard");
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // set html title
+ // set application title
  $app->setTitle(api_text("modules_list"));
  // build grid object
  $table=new strTable(api_text("modules_list-tr-unvalued"));
@@ -48,7 +49,8 @@
     if(file_exists($module->source_path."/.git/config")){
      $action_btn=api_link("?mod=".MODULE."&scr=submit&act=module_update_source&idModule=".$module->id,api_text("modules_list-td-update_source"),null,"btn btn-info btn-xs",false,api_text("modules_list-td-update_source-confirm"));
     }else{
-     $action_btn=api_link("@todo module url".$module->url,api_text("modules_list-td-update_source-manual"),null,"btn btn-info btn-xs",false,null,null,null,"_blank");
+     /** @todo module url */
+     $action_btn=api_link("#".$module->url,api_text("modules_list-td-update_source-manual"),null,"btn btn-info btn-xs",false,null,null,null,"_blank");
     }
    }elseif($repository_version===null){
     // check for git
@@ -91,8 +93,8 @@
  $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
- // add content to html
+ // add content to application
  $app->addContent($grid->render());
- // renderize html
+ // renderize application
  $app->render();
 ?>

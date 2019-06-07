@@ -4,11 +4,13 @@
  *
  * @package Coordinator\Modules\Framework
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
+ // check authorizations
+ api_checkAuthorization("framework-mails_manage","dashboard");
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // set html title
+ // set application title
  $app->setTitle(api_text("mails_add"));
  // acquire variables
  $r_recipient=$_REQUEST['recipient'];
@@ -23,7 +25,7 @@
  $form=new strForm("?mod=".MODULE."&scr=submit&act=mail_save&".http_build_query($uri_array),"POST",null,"mails_add");
  $form->addField("select","sender",api_text("mails_add-sender"),null,api_text("mails_add-sender-placeholder"),null,null,null,"required");
  $form->addFieldOption($GLOBALS['session']->user->mail,$GLOBALS['session']->user->fullname);
- $form->addFieldOption($GLOBALS['settings']->mail_from_mail,$GLOBALS['settings']->mail_from_name);
+ $form->addFieldOption($GLOBALS['settings']->mail_from_address,$GLOBALS['settings']->mail_from_name);
  $form->addField("email","recipient",api_text("mails_add-recipient"),$r_recipient,api_text("mails_add-recipient-placeholder"),null,null,null,"required");
  $form->addField("text","subject",api_text("mails_add-subject"),null,api_text("mails_add-subject-placeholder"),null,null,null,"required");
  $form->addField("textarea","message",api_text("mails_add-message"),null,api_text("mails_add-message-placeholder"),null,null,null,"required rows='9'");
@@ -34,8 +36,8 @@
  $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
- // add content to html
+ // add content to application
  $app->addContent($grid->render());
- // renderize html page
+ // renderize application
  $app->render();
 ?>

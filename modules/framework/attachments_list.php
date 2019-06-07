@@ -4,12 +4,13 @@
  *
  * @package Coordinator\Modules\Framework
  * @author  Manuel Zavatta <manuel.zavatta@gattachment.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
- $authorization="framework-attachments_manage";
+ // check authorizations
+ api_checkAuthorization("framework-attachments_manage","dashboard");
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // set html title
+ // set application title
  $app->setTitle(api_text("attachments_list"));
  // build filter
  $filter=new strFilter();
@@ -64,7 +65,7 @@
   // build cron informations modal window
   $attachments_modal=new strModal(api_text("attachments_list-modal-title-view"),null,"requests_view-attachments_modal");
   $attachments_modal->setBody($attachment_dl->render());
-  // add modal to html object
+  // add modal to application
   $app->addModal($attachments_modal);
   // jQuery scripts
   $app->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_requests_view-attachments_modal\").modal('show');});");
@@ -89,7 +90,7 @@
   // build modal window
   $attachments_modal=new strModal(api_text("attachments_list-modal-title-edit"),null,"requests_view-attachments_modal");
   $attachments_modal->setBody($attachments_form->render(2));
-  // add modal to html object
+  // add modal to application
   $app->addModal($attachments_modal);
   // jQuery scripts
   $app->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_requests_view-attachments_modal\").modal('show');});");
@@ -102,9 +103,9 @@
  $grid->addCol($table->render(),"col-xs-12");
  $grid->addRow();
  $grid->addCol($pagination->render(),"col-xs-12");
- // add content to html
+ // add content to application
  $app->addContent($grid->render());
- // renderize html
+ // renderize application
  $app->render();
  // debug
  api_dump($attachments_array,"attachments_array");

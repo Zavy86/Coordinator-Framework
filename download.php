@@ -11,7 +11,7 @@
  // check for debug
  if($_GET['debug']==1){$_GET['debug']=true;}else{$_GET['debug']=false;}
  // debug
- api_dump($_REQUEST);
+ api_dump($_REQUEST,"_REQUEST");
  // get attachment
  $attachment_obj=new cAttachment($_REQUEST['attachment']);
  api_dump($attachment_obj);

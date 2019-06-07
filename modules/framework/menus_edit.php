@@ -4,14 +4,15 @@
  *
  * @package Coordinator\Modules\Framework
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
- $authorization="framework-menus_manage";
- // include module template
- require_once(MODULE_PATH."template.inc.php");
+ // check authorizations
+ api_checkAuthorization("framework-menus_manage","dashboard");
  // get objects
  $menu_obj=new cMenu($_REQUEST['idMenu']);
- // set html title
+ // include module template
+ require_once(MODULE_PATH."template.inc.php");
+ // set application title
  $app->setTitle(($menu_obj->id?api_text("menus_edit"):api_text("menus_add")));
  // build profile form
  $form=new strForm("?mod=".MODULE."&scr=submit&act=menu_save&idMenu=".$menu_obj->id,"POST",null,"menus_edit");
@@ -80,12 +81,12 @@ EOS;
  $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
- // add content to html
+ // add content to application
  $app->addContent($grid->render());
  // add scripts to html
  $app->addScript($jquery);
  $app->addScript("/* Font Awesome Icon Picker */\n$(function(){\$(\"#form_menus_edit_input_icon\").iconpicker();});");
- // renderize html page
+ // renderize application
  $app->render();
  // debug
  api_dump($menu_obj,"menu");

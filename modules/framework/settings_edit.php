@@ -6,42 +6,41 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
- $authorization="framework-settings_manage";
+ // check authorizations
+ api_checkAuthorization("framework-settings_manage","dashboard");
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // set html title
+ // set application title
  $app->setTitle(api_text("settings_edit"));
  // check actions
- if(ACTION=="token_cron_randomize"||!$settings->token_cron){$settings->token_cron=md5(date("YmdHis").rand(1,99999));}
- // script tabs
- $tabs=new strNav("nav-pills");
- $tabs->addItem(api_text("settings_edit-general"),"?mod=".MODULE."&scr=settings_edit&tab=general");
- $tabs->addItem(api_text("settings_edit-sessions"),"?mod=".MODULE."&scr=settings_edit&tab=sessions");
- $tabs->addItem(api_text("settings_edit-mail"),"?mod=".MODULE."&scr=settings_edit&tab=mail");
- $tabs->addItem(api_text("settings_edit-users"),"?mod=".MODULE."&scr=settings_edit&tab=users");
- $tabs->addItem(api_text("settings_edit-token"),"?mod=".MODULE."&scr=settings_edit&tab=token");
+ if(ACTION=="token_cron_randomize"||!$settings->token_cron){$settings->token_cron=api_random(32);}
+ // make logo remove link
+ if(substr($settings->logo,-8)=="logo.png"){$logo_remove_link=api_link("?mod=".MODULE."&scr=submit&act=settings_logo_remove&tab=generals",api_icon("fa-remove",api_text("settings_edit-logo-remove"),"hidden-link text-vtop"),null,null,false,api_text("settings_edit-logo-remove-confirm"));}
+ // build settings tabs
+ $tabs_nav=new strNav("nav-pills"); /** @tip modificare api form in modo da poter renderizzare separatamente nei tabs */
+ $tabs_nav->addItem(api_text("settings_edit-generals"),"?mod=".MODULE."&scr=settings_edit&tab=generals");
+ $tabs_nav->addItem(api_text("settings_edit-sessions"),"?mod=".MODULE."&scr=settings_edit&tab=sessions");
+ $tabs_nav->addItem(api_text("settings_edit-mails"),"?mod=".MODULE."&scr=settings_edit&tab=mails");
+ $tabs_nav->addItem(api_text("settings_edit-users"),"?mod=".MODULE."&scr=settings_edit&tab=users");
+ $tabs_nav->addItem(api_text("settings_edit-tokens"),"?mod=".MODULE."&scr=settings_edit&tab=tokens");
  // build settings form
  $form=new strForm("?mod=".MODULE."&scr=submit&act=settings_save&tab=".TAB,"POST",null,"settings_edit");
- /**
-  * Generals
-  */
- if(TAB=="general"){
+ // generals
+ if(TAB=="generals"){
   $form->addField("radio","maintenance",api_text("settings_edit-maintenance"),(int)$settings->maintenance,null,null,"radio-inline");
   $form->addFieldOption(0,api_text("no"));
   $form->addFieldOption(1,api_text("settings_edit-maintenance-lock"));
   $form->addField("text","owner",api_text("settings_edit-owner"),$settings->owner,api_text("settings_edit-owner-placeholder"));
   $form->addField("text","title",api_text("settings_edit-title"),$settings->title,api_text("settings_edit-title-placeholder"));
-  $form->addField("radio","show",api_text("settings_edit-show"),$settings->show,null,null,"radio-inline"); /** @todo spostare in impostazioni menu */
+  $form->addField("radio","show",api_text("settings_edit-show"),$settings->show,null,null,"radio-inline");
   $form->addFieldOption("logo_title",api_text("settings_edit-show-logo_title"));
   $form->addFieldOption("logo",api_text("settings_edit-show-logo"));
   $form->addFieldOption("title",api_text("settings_edit-show-title"));
   $form->addField("splitter");
-  $form->addField("file","logo",api_text("settings_edit-logo"));
-  $form->addField("static",null,null,api_image($settings->logo,"img-thumbnail",80));
+  $form->addField("file","logo",api_text("settings_edit-logo"),null,null,null,null,null,"accept='.png'");
+  $form->addField("static",null,null,api_image($settings->logo,"img-thumbnail",80).$logo_remove_link);
  }
- /**
-  * Sessions
-  */
+ // sessions
  if(TAB=="sessions"){
   $form->addField("radio","sessions_authentication_method",api_text("settings_edit-sessions_authentication_method"),$settings->sessions_authentication_method,null,null,"radio-inline");
   $form->addFieldOption("standard",api_text("settings_edit-sessions_authentication_method-standard"));
@@ -65,15 +64,13 @@
   $form->addFieldOption(0,api_text("no"));
   $form->addFieldOption(1,api_text("settings_edit-sessions_ldap_cache-allowed"));
  }
- /**
-  * Mail
-  */
- if(TAB=="mail"){
+ // mails
+ if(TAB=="mails"){
   $form->addField("text","mail_from_name",api_text("settings_edit-mail_from_name"),$settings->mail_from_name,api_text("settings_edit-mail_from_name-placeholder"));
-  $form->addField("text","mail_from_mail",api_text("settings_edit-mail_from_mail"),$settings->mail_from_mail,api_text("settings_edit-mail_from_mail-placeholder"));
+  $form->addField("text","mail_from_address",api_text("settings_edit-mail_from_address"),$settings->mail_from_address,api_text("settings_edit-mail_from_address-placeholder"));
   $form->addField("radio","mail_asynchronous",api_text("settings_edit-mail_asynchronous"),(int)$settings->mail_asynchronous,null,null,"radio-inline");
   $form->addFieldOption(0,api_text("no"));
-  $form->addFieldOption(1,api_text("settings_edit-mail_asynchronous-enabled",api_link("?mod=".MODULE."&scr=settings_edit&tab=mail&act=cron_informations",api_icon("fa-question-circle"),null,"hidden-link")));
+  $form->addFieldOption(1,api_text("settings_edit-mail_asynchronous-enabled",api_link("?mod=".MODULE."&scr=settings_edit&tab=mails&act=cron_informations",api_icon("fa-question-circle"),null,"hidden-link")));
   $form->addField("radio","mail_method",api_text("settings_edit-mail_method"),$settings->mail_method,null,null,"radio-inline");
   $form->addFieldOption("standard",api_text("settings_edit-mail_method-standard"));
   $form->addFieldOption("smtp",api_text("settings_edit-mail_method-smtp"));
@@ -90,15 +87,13 @@
    // build cron informations modal window
    $cron_informations_modal=new strModal(api_text("settings_edit-mail_asynchronous-modal-title"),null,"requests_view-cron_informations_modal");
    $cron_informations_modal->setBody(api_text("settings_edit-mail_asynchronous-modal-body",array(URL,$settings->token_cron)));
-   // add modal to html object
+   // add modal to application
    $app->addModal($cron_informations_modal);
    // jQuery scripts
-   $app->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_requests_view-cron_informations_modal\").modal('show');});");
+   $app->addScript("/* Cron informations modal window opener */\n$(function(){\$(\"#modal_requests_view-cron_informations_modal\").modal('show');});");
   }
  }
- /**
-  * Users
-  */
+ // users
  if(TAB=="users"){
   $form->addField("select","users_password_expiration",api_text("settings_edit-users_password_expiration"),(int)$settings->users_password_expiration,api_text("settings_edit-users_password_expiration-placeholder"));
   $form->addFieldOption(-1,api_text("settings_edit-users_password_expiration-never"));
@@ -106,27 +101,25 @@
   $form->addFieldOption(5184000,api_text("settings_edit-users_password_expiration-60days"));
   $form->addFieldOption(7776000,api_text("settings_edit-users_password_expiration-90days"));
   $form->addField("splitter");
-  $form->addField("text","users_level_max",api_text("settings_edit-users_level_max"),$settings->users_level_max,api_text("settings_edit-users_level_max-placeholder"));
+  $form->addField("number","users_level_max",api_text("settings_edit-users_level_max"),$settings->users_level_max,api_text("settings_edit-users_level_max-placeholder"),null,null,null,"min='1' max='99'");
  }
- /**
-  * Tokens
-  */
- if(TAB=="token"){
+ // tokens
+ if(TAB=="tokens"){
   $form->addField("text","token_cron",api_text("settings_edit-token_cron"),$settings->token_cron,api_text("settings_edit-token_cron-placeholder"));
-  $form->addFieldAddonButton("?mod=".MODULE."&scr=settings_edit&tab=token&act=token_cron_randomize",api_text("settings_edit-token_cron-randomize"));
+  $form->addFieldAddonButton("?mod=".MODULE."&scr=settings_edit&tab=tokens&act=token_cron_randomize",api_text("settings_edit-token_cron-randomize"));
   $form->addField("text","token_gtag",api_text("settings_edit-token_gtag"),$settings->token_gtag,api_text("settings_edit-token_gtag-placeholder"));
  }
- // form controls
- $form->addControl("submit",api_text("settings_edit-submit"));
+ // controls
+ $form->addControl("submit",api_text("form-fc-submit"));
  $form->addControl("reset",api_text("settings_edit-reset"));
  $form->addControl("button",api_text("settings_edit-cancel"),"?mod=".MODULE."&scr=dashboard");
  // build grid object
  $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($form->render(),"col-xs-12");
- // add content to html
- $app->addContent($tabs->render(false));
+ // add content to application
+ $app->addContent($tabs_nav->render(false));
  $app->addContent($grid->render());
- // renderize html page
+ // renderize application
  $app->render();
 ?>

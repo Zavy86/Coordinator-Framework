@@ -9,14 +9,14 @@
  // definitions
  $logs=array();
  // delete expired sessions
- $deleted_sessions_1=$GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `startTimestamp`<'".(time()-36000)."'");
- $deleted_sessions_2=$GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `lastTimestamp`<'".(time()-$GLOBALS['settings']->sessions_idle_timeout)."'");
+ $deleted_sessions_start=$GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `startTimestamp`<'".(time()-36000)."'");
+ $deleted_sessions_last=$GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `lastTimestamp`<'".(time()-$GLOBALS['settings']->sessions_idle_timeout)."'");
  // log
- $logs[]="Expired sessions deleted (".($deleted_sessions_1+$deleted_sessions_2).")"; /** @todo verificare ed eventualmente migliorare */
+ $logs[]="Expired sessions deleted (".intval($deleted_sessions_start+$deleted_sessions_last).")";
  // send mails
  $processed_mails=api_mail_processAll();
  // log
- $logs[]="Mails processed (".$processed_mails.")"; /** @todo verificare ed eventualmente migliorare */
+ $logs[]="Mails processed (".intval($processed_mails).")";
  // debug
  api_dump($logs,"framework");
 ?>
