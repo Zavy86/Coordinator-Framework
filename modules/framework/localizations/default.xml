@@ -88,6 +88,7 @@
  <text key="framework_alert_groupNotFound">Il gruppo non è stato trovato</text>
  <text key="framework_alert_groupCreated">Il gruppo è stato creato</text>
  <text key="framework_alert_groupUpdated">Il gruppo è stato aggiornato</text>
+ <text key="framework_alert_groupRemoved">Il gruppo è stato rimosso</text>
 
  <text key="framework_alert_sessionNotFound">La sessione non è stata trovata</text>
  <text key="framework_alert_sessionTerminated">La sessione è stata terminata</text>
@@ -110,11 +111,11 @@
  <text key="framework_mail-user_add-subject"><![CDATA[{0}]]> account</text>
  <text key="framework_mail-user_add-message"><![CDATA[<p>Ciao {0}, il tuo account su {1} è stato attivato.</p><p>Il link di accesso è {2}</p><p>La password per il tuo primo accesso è: {3}</p>]]></text>
 
- <text key="framework_mail-user_recovery-subject">Ripristino account <![CDATA[{0}]]></text>
- <text key="framework_mail-user_recovery-message"><![CDATA[<p>Ciao {0}, per ripristinare la password del tuo account su {1} premi il seguente link:</p><br><p><a href="{2}">{2}</a></p>]]></text>
+ <text key="framework_mail-own_password_recovery-subject">Ripristino account <![CDATA[{0}]]></text>
+ <text key="framework_mail-own_password_recovery-message"><![CDATA[<p>Ciao {0}, per ripristinare la password del tuo account su {1} premi il seguente link:</p><br><p><a href="{2}">{2}</a></p>]]></text>
 
- <text key="framework_mail-user_recovery_password-subject">Ripristino account <![CDATA[{0}]]></text>
- <text key="framework_mail-user_recovery_password-message"><![CDATA[<p>Ciao {0}, il tuo account su {1} è stato ripristinato.</p><p>Il link di accesso è {2}</p><p>La nuova password per il tuo prossimo accesso è: {3}</p>]]></text>
+ <text key="framework_mail-own_password_recovery_password-subject">Ripristino account <![CDATA[{0}]]></text>
+ <text key="framework_mail-own_password_recovery_password-message"><![CDATA[<p>Ciao {0}, il tuo account su {1} è stato ripristinato.</p><p>Il link di accesso è {2}</p><p>La nuova password per il tuo prossimo accesso è: {3}</p>]]></text>
 
  <!-- operations -->
  <text key="nav-operations-user_interpret">Interpreta utente</text>
@@ -473,15 +474,19 @@
  <text key="groups_list-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
  <text key="groups_list-th-name">Gruppo</text>
  <text key="groups_list-th-description">Descrizione</text>
+ <text key="groups_list-td-tree">Visualizzazione ad albero</text>
  <text key="groups_list-td-view">Visualizza gruppo</text>
  <text key="groups_list-td-edit">Modifica gruppo</text>
+ <text key="groups_list-td-remove">Rimuovi gruppo</text>
+ <text key="groups_list-td-remove-confirm">Confermi di voler rimuovere definitivamente questo gruppo ed i suoi sottogruppi?</text>
+ <text key="groups_list-modal-title">Gruppo <![CDATA[{0}]]></text>
+ <text key="groups_list-modal-dt-name">Gruppo</text>
+ <text key="groups_list-modal-dt-description">Descrizione</text>
+ <text key="groups_list-modal-dt-users">Utenti assegnati</text>
+ <text key="groups_list-modal-users-tr-unvalued">Non sono presenti utenti da mostrare..</text>
 
  <!-- groups_view -->
  <text key="groups_view">Gruppo <![CDATA[{0}]]></text>
- <text key="groups_view-name">Gruppo</text>
- <text key="groups_view-description">Descrizione</text>
- <text key="groups_view-users">Utenti assegnati</text>
- <text key="groups_view-users_table-tr-unvalued">Non sono presenti utenti da mostrare..</text>
 
  <!-- groups_edit -->
  <text key="groups_edit">Modifica gruppo</text>
@@ -492,7 +497,7 @@
  <text key="groups_edit-name-placeholder">Nome del gruppo</text>
  <text key="groups_edit-description">Descrizione</text>
  <text key="groups_edit-description-placeholder">Breve descrizione del gruppo</text>
- <text key="groups_edit-delete-confirm">Confermi di voler eliminare questo gruppo?</text>
+ <text key="groups_edit-remove-confirm">Confermi di voler rimuovere definitivamente questo gruppo ed i suoi sottogruppi?</text>
 
  <!-- sessions_list -->
  <text key="sessions_list">Sessioni</text>
@@ -549,6 +554,7 @@
  <text key="attachments_list-th-name">Nome</text>
  <text key="attachments_list-th-size">Dimensione</text>
  <text key="attachments_list-td-view">Visualizza dettagli allegato</text>
+ <text key="attachments_list-td-edit">Modifica dettagli allegato</text>
  <text key="attachments_list-td-download">Scarica file allegato</text>
  <text key="attachments_list-td-delete">Elimina allegato</text>
  <text key="attachments_list-td-delete-confirm">Confermi di voler eliminare questo allegato?</text>

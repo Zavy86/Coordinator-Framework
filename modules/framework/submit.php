@@ -14,6 +14,7 @@
   // own
   case "own_profile_update":own_profile_update();break;
   case "own_password_update":own_password_update();break;
+  case "own_password_recovery":own_password_recovery();break;
   case "own_avatar_remove":own_avatar_remove();break;
   // settings
   case "settings_save":settings_save();break;
@@ -47,11 +48,12 @@
   case "user_parameter_save":user_parameter_save();break;
   // groups
   case "group_save":group_save();break;
-  /** @todo delete */
-  /** @todo undelete */
+  case "group_remove":group_remove();break;
   // sessions
-  case "sessions_terminate":sessions_terminate();break;
-  case "sessions_terminate_all":sessions_terminate_all();break;
+  case "session_login":session_login();break;
+  case "session_logout":session_logout();break;
+  case "session_terminate":session_terminate();break;
+  case "session_terminate_all":session_terminate_all();break;
   // mails
   case "mail_save":mail_save();break;
   case "mail_retry":mail_retry();break;
@@ -61,12 +63,6 @@
   case "attachment_delete":attachment_delete(true);break;
   case "attachment_undelete":attachment_delete(false);break;
   case "attachment_remove":attachment_remove();break;
-
-  // users   /** @todo spostare nelle api? */
-  case "user_login":user_login();break;
-  case "user_logout":user_logout();break;
-  case "user_recovery":user_recovery();break;
-
   // default
   default:
    api_alerts_add(api_text("alert_submitFunctionNotFound",array(MODULE,SCRIPT,ACTION)),"danger");
@@ -77,6 +73,7 @@
   * Own Profile Update
   */
  function own_profile_update(){
+  api_dump($_REQUEST,"_REQUEST");
   // build user query objects
   $user_qobj=new stdClass();
   $user_qobj->id=$GLOBALS['session']->user->id;
@@ -108,10 +105,11 @@
   * Own Password Update
   */
  function own_password_update(){
+  api_dump($_REQUEST,"_REQUEST");
   // retrieve user object
   $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `id`='".$GLOBALS['session']->user->id."'");
   // check
-  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect(PATH."index.php");}
+  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("index.php");}
   // acquire variables
   $r_password=$_REQUEST['password'];
   $r_password_new=$_REQUEST['password_new'];
@@ -138,9 +136,57 @@
  }
 
  /**
+  * Own Password Recovery
+  */
+ function own_password_recovery(){
+  api_dump($_REQUEST,"_REQUEST");
+  // acquire variables
+  $r_mail=$_REQUEST['mail'];
+  $r_secret=$_REQUEST['secret'];
+  // retrieve user object
+  $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `mail`='".$r_mail."'");
+  // check user
+  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userRecoveryNotFound"),"warning");api_redirect("login.php");}
+  // remove all user sessions
+  $GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `fkUser`='".$user_obj->id."'");
+  // check for secret
+  if(!$r_secret){
+   // generate new secret code and save into database
+   $f_secret=api_random_id();
+   $GLOBALS['database']->queryExecute("UPDATE `framework__users` SET `secret`='".$f_secret."' WHERE `id`='".$user_obj->id."'");
+   $recoveryLink=URL."index.php?mod=".MODULE."&scr=submit&act=own_password_recovery&mail=".$r_mail."&secret=".$f_secret;
+   // send recovery link
+   $mail_id=api_mail_save(api_text("framework_mail-own_password_recovery-subject",$GLOBALS['settings']->title),api_text("framework_mail-own_password_recovery-message",array($user_obj->firstname,$GLOBALS['settings']->title,$recoveryLink)),$user_obj->mail);
+   // force mail if asynchronous
+   if($GLOBALS['settings']->mail_asynchronous){api_mail_process($mail_id);}
+   // redirect
+   api_alerts_add(api_text("framework_alert_userRecoveryLinkSended"),"success");
+   api_redirect("login.php");
+  }else{
+   // check secret code
+   if($r_secret!==$user_obj->secret){
+    api_alerts_add(api_text("framework_alert_userRecoverySecretError"),"warning");
+    api_redirect("login.php?error=userRecoverySecretError");
+   }
+   // generate new password
+   $v_password=substr(md5(date("Y-m-d H:i:s").rand(1,99999)),0,8);
+   // update password and reset secret
+   $GLOBALS['database']->queryExecute("UPDATE `framework__users` SET `password`='".md5($v_password)."',`secret`=null,`pwdTimestamp`=null WHERE `id`='".$user_obj->id."'");
+   // send new password
+   $mail_id=api_mail_save(api_text("framework_mail-own_password_recovery_password-subject",$GLOBALS['settings']->title),api_text("framework_mail-own_password_recovery_password-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_password)),$user_obj->mail);
+   // force mail if asynchronous
+   if($GLOBALS['settings']->mail_asynchronous){api_mail_process($mail_id);}
+   // redirect
+   api_alerts_add(api_text("framework_alert_userRecoveryPasswordSended"),"success");
+   api_redirect("login.php");
+  }
+ }
+
+ /**
   * Own Avatar Remove
   */
  function own_avatar_remove(){
+  api_dump($_REQUEST,"_REQUEST");
   // remove avatar if exist
   if(file_exists(DIR."uploads/framework/users/avatar_".$GLOBALS['session']->user->id.".jpg")){unlink(DIR."uploads/framework/users/avatar_".$GLOBALS['session']->user->id.".jpg");}
   // redirect
@@ -808,7 +854,6 @@
   $user_qobj->updTimestamp=time();
   $user_qobj->updFkUser=$GLOBALS['session']->user->id;
   // debug
-  api_dump($_REQUEST,"_REQUEST");
   api_dump($user_qobj,"user_qobj");
   // update user
   $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
@@ -1042,35 +1087,93 @@
   api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-groups_manage","dashboard");
-  // build group objects
-  $group=new stdClass();
-  // acquire variables
-  $group->id=$_REQUEST['idGroup'];
-  $group->fkGroup=$_REQUEST['fkGroup'];
-  $group->name=$_REQUEST['name'];
-  $group->description=$_REQUEST['description'];
-  $group->updTimestamp=time();
-  $group->updFkUser=$GLOBALS['session']->user->id;
-  // debug
-  api_dump($group);
+  // get objects
+  $group_obj=new cGroup($_REQUEST['idGroup']);
+  api_dump($group_obj,"group object");
+  // build group query objects
+  $group_qobj=new stdClass();
+  $group_qobj->id=$group_obj->id;
+  $group_qobj->fkGroup=$_REQUEST['fkGroup'];
+  $group_qobj->name=$_REQUEST['name'];
+  $group_qobj->description=$_REQUEST['description'];
   // check group
-  if($group->id){
-   // update user
-   $GLOBALS['database']->queryUpdate("framework__groups",$group);
+  if($group_obj->id){
+   // update group
+   $group_qobj->updTimestamp=time();
+   $group_qobj->updFkUser=$GLOBALS['session']->user->id;
+   // debug
+   api_dump($group_qobj,"group query object");
+   // execute query
+   $GLOBALS['database']->queryUpdate("framework__groups",$group_qobj);
+   // alert
    api_alerts_add(api_text("framework_alert_groupUpdated"),"success");
   }else{
-   // update user
-   $GLOBALS['database']->queryInsert("framework__groups",$group);
+   // insert group
+   $group_qobj->addTimestamp=time();
+   $group_qobj->addFkUser=$GLOBALS['session']->user->id;
+   // debug
+   api_dump($group_qobj,"group query object");
+   // execute query
+   $group_qobj->id=$GLOBALS['database']->queryInsert("framework__groups",$group_qobj);
+   // alert
    api_alerts_add(api_text("framework_alert_groupCreated"),"success");
   }
   // redirect
+  api_redirect("?mod=".MODULE."&scr=groups_list&idGroup=".$group_qobj->id);
+ }
+
+ /**
+  * Group Remove
+  */
+ function group_remove(){
+  api_dump($_REQUEST,"_REQUEST");
+  // check authorizations
+  api_checkAuthorization("framework-groups_manage","dashboard");
+  // get objects
+  $group_obj=new cGroup($_REQUEST['idGroup']);
+  api_dump($group_obj,"group object");
+  // check
+  if(!$group_obj->id){api_alerts_add(api_text("framework_alert_groupNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=groups_list");}
+  if($group_obj->id==1){api_alerts_add(api_text("framework_alert_groupError"),"danger");api_redirect("?mod=".MODULE."&scr=groups_list&idGroup=1");}
+  // delete group
+  $GLOBALS['database']->queryExecute("DELETE FROM `framework__groups` WHERE `id`='".$group_obj->id."'");
+  // redirect
+  api_alerts_add(api_text("framework_alert_groupRemoved"),"warning");
   api_redirect("?mod=".MODULE."&scr=groups_list");
+ }
+
+ /**
+  * Session Login
+  */
+ function session_login(){
+  api_dump($_REQUEST,"_REQUEST");
+  // acquire variables
+  $r_username=$_REQUEST['username'];
+  $r_password=$_REQUEST['password'];
+  // try to authenticate
+  if(!$GLOBALS['session']->login($r_username,$r_password)){api_alerts_add(api_text("alert_authenticationFailed"),"warning");api_redirect("login.php");}
+
+  // check for redirect before session expired
+
+  // redirect
+  api_redirect("index.php");
+ }
+
+ /**
+  * Session Logout
+  */
+ function session_logout(){
+  api_dump($_REQUEST,"_REQUEST");
+  // destroy session
+  $GLOBALS['session']->logout();
+  // redirect
+  api_redirect("index.php");
  }
 
  /**
   * Sessions Terminate
   */
- function sessions_terminate(){
+ function session_terminate(){
   api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-sessions_manage","dashboard");
@@ -1087,7 +1190,7 @@
  /**
   * Sessions Terminate All
   */
- function sessions_terminate_all(){
+ function session_terminate_all(){
   api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-sessions_manage","dashboard");
@@ -1095,7 +1198,7 @@
   $GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions`");
   // redirect
   api_alerts_add(api_text("framework_alert_sessionTerminatedAll"),"warning");
-  api_redirect(PATH."index.php");
+  api_redirect("index.php");
  }
 
  /**
@@ -1200,31 +1303,10 @@
    // alert
    api_alerts_add(api_text("framework_alert_attachmentUpdated"),"success");
   }else{
-   // add
-   $attachment_qobj->name=strtolower(str_replace(" ","_",$_FILES['file']['name']));
-   $attachment_qobj->typology=$_FILES['file']['type'];
-   $attachment_qobj->size=$_FILES['file']['size'];
-   $attachment_qobj->addTimestamp=time();
-   $attachment_qobj->addFkUser=$GLOBALS['session']->user->id;
-   do{
-    // generate attachment id
-    $attachment_qobj->id=md5(date("YmdHis").rand(1,99999));
-    // check for duplicates
-    $check_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework__attachments` WHERE `id`='".$attachment_qobj->id."'");
-   }while($attachment_qobj->id==$check_id);
-   // debug
-   api_dump($attachment_qobj);
-   // check for file
-   if(intval($_FILES['file']['size'])==0 || $_FILES['file']['error']!=UPLOAD_ERR_OK){api_alerts_add(api_text("framework_alert_attachmentError"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
+   // upload attachment
+   $attachment_qobj->id=api_attachment_upload($_FILES['file'],$attachment_qobj->name,$attachment_qobj->description,$attachment_qobj->public);
    // check for id
    if(!$attachment_qobj->id){api_alerts_add(api_text("framework_alert_attachmentError"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
-   // check if file exist and replace
-   if(file_exists(DIR."uploads/attachments/".$attachment_qobj->id)){unlink(DIR."uploads/attachments/".$attachment_qobj->id);}
-   if(is_uploaded_file($_FILES['file']['tmp_name'])){move_uploaded_file($_FILES['file']['tmp_name'],DIR."uploads/attachments/".$attachment_qobj->id);}
-   // check for file
-   if(!file_exists(DIR."uploads/attachments/".$attachment_qobj->id)){api_alerts_add(api_text("framework_alert_attachmentError"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
-   // execute query
-   $GLOBALS['database']->queryInsert("framework__attachments",$attachment_qobj);
    // alert
    api_alerts_add(api_text("framework_alert_attachmentCreated"),"success");
   }
@@ -1269,206 +1351,11 @@
   api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-attachments_manage","dashboard");
-  // get objects
-  $attachment_obj=new cAttachment($_REQUEST['idAttachment']);
-  // check objects
-  if(!$attachment_obj->id){api_alerts_add(api_text("framework_alert_attachmentNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
-  // debug
-  api_dump($attachment_obj,"attachment object");
-  // execute query
-  $GLOBALS['database']->queryDelete("framework__attachments",$attachment_obj->id);
-  // check if file exist and remove
-  if(file_exists(DIR."uploads/attachments/".$attachment_obj->id)){unlink(DIR."uploads/attachments/".$attachment_obj->id);}
+  // remove attachment
+  if(!api_attachment_remove($_REQUEST['idAttachment'])){api_alerts_add(api_text("framework_alert_attachmentNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=attachments_list");}
   // redirect
   api_alerts_add(api_text("framework_alert_attachmentRemoved"),"warning");
   api_redirect("?mod=".MODULE."&scr=attachments_list");
- }
-
-
-
- /**
-  * User Authentication
-  *
-  * @param string $username Username (Mail address)
-  * @param string $password Password
-  * @return integer Account User ID or Error Code
-  *                 -1 User account was not found
-  *                 -2 Password does not match
-  */
- function user_authentication($username,$password){
-  // retrieve user object
-  $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `mail`='".$username."'");
-  // check for user object
-  if(!$user_obj->id){return -1;}
-  // check password
-  if(md5($password)!==$user_obj->password){return -2;}
-  // return user object
-  return $user_obj->id;
- }
- /**
-  * User Authentication LDAP
-  *
-  * @param string $username Username
-  * @param string $password Password
-  * @return integer Account User ID or Error Code
-  *                 -1 User account was not found
-  *                 -2 Binding error
-  *                 -3 Groups error
-  */
- function user_authentication_ldap($username,$password){
-  // definitions
-  $binded=false;
-  /** @todo check ping or use ldap cache */
-  // connect to ldap server
-  $ldap=@ldap_connect($GLOBALS['settings']->sessions_ldap_hostname);
-  // set ldap options
-  @ldap_set_option($ldap,LDAP_OPT_PROTOCOL_VERSION,3);
-  @ldap_set_option($ldap,LDAP_OPT_REFERRALS,0);
-  // try to bind with specified credentials
-  $bind=@ldap_bind($ldap,$username.$GLOBALS['settings']->sessions_ldap_domain,$password);
-  // check for bind
-  if(!$bind){return -2;}
-  // Check ldap groups if defined
-  if($GLOBALS['settings']->sessions_ldap_groups){
-   // check presence in groups
-   $filter="(".$GLOBALS['settings']->sessions_ldap_userfield."=".$username.")"; //
-   $attr=array("memberof");
-   $result=ldap_search($ldap,$GLOBALS['settings']->sessions_ldap_dn,$filter,$attr);
-   $entries=ldap_get_entries($ldap, $result);
-   // cycle all ldap memberof user group
-   foreach($entries[0]['memberof'] as $groups){if(strpos($groups,$GLOBALS['settings']->sessions_ldap_groups)){$binded=true;}}
-  }else{
-   // or set binded to true
-   $binded=true;
-  }
-  // disconnect from ldap
-  @ldap_unbind($ldap);
-  // check for binded value
-  if(!$binded){return -3;}
-  // retrieve user object
-  $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `username`='".$username."'");
-  // check for user object
-  if(!$user_obj->id){return -1;}
-  // check for password caching
-  if($GLOBALS['settings']->sessions_ldap_cache){
-   // build user query objects
-   $user_qobj=new stdClass();
-   // acquire variables
-   $user_qobj->id=$user_obj->id;
-   $user_qobj->password=md5($password);
-   $user_qobj->pwdTimestamp=time();
-   // debug
-   api_dump($user_qobj,"user_qobj");
-   // update user
-   $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
-  }
-  // return user object
-  return $user_obj->id;
- }
-
- /**
-  * User Login
-  */
- function user_login(){
-  // acquire variables
-  $r_username=$_REQUEST['username'];
-  $r_password=$_REQUEST['password'];
-  //
-  api_dump($_SESSION["coordinator_session_id"],"session_id");
-  api_dump($GLOBALS['session'],"session");
-  // switch authentication method
-  switch($GLOBALS['settings']->sessions_authentication_method){
-   case "ldap":
-    // ldap authentication
-    $authentication_result=user_authentication_ldap($r_username,$r_password);
-    // check authentication
-    if($authentication_result==-2){$authentication_result=user_authentication($r_username,$r_password);}
-    break;
-   default:
-    // standard authentication
-    $authentication_result=user_authentication($r_username,$r_password);
-  }
-  // debug authentication result
-  api_dump($authentication_result,"authentication_result");
-  // check authentication result
-  if($authentication_result<1){api_alerts_add(api_text("alert_authenticationFailed"),"warning");api_redirect(PATH."login.php");}
-  // build session
-  $GLOBALS['session']->build($authentication_result);
-  //
-  api_dump($_SESSION["coordinator_session_id"],"session_id after");
-  api_dump($GLOBALS['session'],"session after");
-  // build user query objects
-  $user_qobj=new stdClass();
-  // acquire variables
-  $user_qobj->id=$authentication_result;
-  $user_qobj->lsaTimestamp=time();
-  // debug
-  api_dump($user_qobj,"user_qobj");
-  // update user
-  $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
-  // redirect
-  api_redirect(PATH."index.php");
- }
-
- /**
-  * User Logout
-  */
- function user_logout(){
-  // destroy session
-  $GLOBALS['session']->destroy();
-  // redirect
-  api_redirect(PATH."index.php");
- }
-
- /**
-  * User Recovery   /** @todo rename in own ?
-  */
- function user_recovery(){
-  // debug
-  api_dump($_REQUEST,"_REQUEST");
-  // acquire variables
-  $r_mail=$_REQUEST['mail'];
-  $r_secret=$_REQUEST['secret'];
-  // retrieve user object
-  $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `mail`='".$r_mail."'");
-  // check user
-  if(!$user_obj->id){
-   api_alerts_add(api_text("framework_alert_userRecoveryNotFound"),"warning");
-   api_redirect(PATH."login.php");
-  }
-  // remove all user sessions
-  $GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `fkUser`='".$user_obj->id."'");
-  // check for secret
-  if(!$r_secret){
-   // generate new secret code and save into database
-   $f_secret=md5(date("Y-m-d H:i:s").rand(1,99999));
-   $GLOBALS['database']->queryExecute("UPDATE `framework__users` SET `secret`='".$f_secret."' WHERE `id`='".$user_obj->id."'");
-   $recoveryLink=URL."index.php?mod=".MODULE."&scr=submit&act=user_recovery&mail=".$r_mail."&secret=".$f_secret;
-   // send recovery link
-   $mail_id=api_mail_save(api_text("framework_mail-user_recovery-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_recovery-message",array($user_obj->firstname,$GLOBALS['settings']->title,$recoveryLink)),$user_obj->mail);
-   // force mail if asynchronous
-   if($GLOBALS['settings']->mail_asynchronous){api_mail_process($mail_id);}
-   // redirect
-   api_alerts_add(api_text("framework_alert_userRecoveryLinkSended"),"success");
-   api_redirect(PATH."login.php");
-  }else{
-   // check secret code
-   if($r_secret!==$user_obj->secret){
-    api_alerts_add(api_text("framework_alert_userRecoverySecretError"),"warning");
-    api_redirect(PATH."login.php?error=userRecoverySecretError");
-   }
-   // generate new password
-   $v_password=substr(md5(date("Y-m-d H:i:s").rand(1,99999)),0,8);
-   // update password and reset secret
-   $GLOBALS['database']->queryExecute("UPDATE `framework__users` SET `password`='".md5($v_password)."',`secret`=null,`pwdTimestamp`=null WHERE `id`='".$user_obj->id."'");
-   // send new password
-   $mail_id=api_mail_save(api_text("framework_mail-user_recovery_password-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_recovery_password-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_password)),$user_obj->mail);
-   // force mail if asynchronous
-   if($GLOBALS['settings']->mail_asynchronous){api_mail_process($mail_id);}
-   // redirect
-   api_alerts_add(api_text("framework_alert_userRecoveryPasswordSended"),"success");
-   api_redirect(PATH."login.php");
-  }
  }
 
 ?>

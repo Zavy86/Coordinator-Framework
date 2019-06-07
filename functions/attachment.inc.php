@@ -13,9 +13,10 @@
   * @param array $file Uploaded file
   * @param string $name File name with extension
   * @param string $description Attachment description
+  * @param boolean $public Public downloadable file
   * @return boolean
   */
- function api_attachment_upload($file,$name=null,$description=null){
+ function api_attachment_upload($file,$name=null,$description=null,$public=false){
   // check parameters
   if(!is_array($file)){return false;}
   // check for file
@@ -27,17 +28,18 @@
   $attachment_qobj->description=$description;
   $attachment_qobj->typology=$file['type'];
   $attachment_qobj->size=$file['size'];
+  $attachment_qobj->public=($public?1:0);
   $attachment_qobj->addTimestamp=time();
   $attachment_qobj->addFkUser=$GLOBALS['session']->user->id;
   // loop for new id
   do{
    // generate attachment id
-   $attachment_qobj->id=md5(date("YmdHis").rand(1,99999));
+   $attachment_qobj->id=api_random_id();
    // check for duplicates
    $check_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework__attachments` WHERE `id`='".$attachment_qobj->id."'");
   }while($attachment_qobj->id==$check_id);
   // debug
-  api_dump($attachment_qobj);
+  api_dump($attachment_qobj,"attachment query object");
   // check for id
   if(!$attachment_qobj->id){return false;}
   // check if file exist and replace

@@ -154,7 +154,7 @@
 
      //
      //$where_array[]=$filter;
-     $where_array[]="( ".implode(" OR ",$values_array)." )";   /** @todo migliorabile con IN al posto di OR */
+     $where_array[]="( ".implode(" OR ",$values_array)." )";   /** migliorabile con IN al posto di OR */
     }
     //
    }
@@ -169,7 +169,7 @@
 
      $search_array[]=$filter;
     }
-    $where_array[]="( ".implode(" OR ",$search_array)." )";
+    $where_array[]="( ".implode(" OR ",$search_array)." )"; 
    }
 
    //

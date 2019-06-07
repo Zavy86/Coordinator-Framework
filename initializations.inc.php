@@ -69,6 +69,7 @@
  // include functions
  require_once(DIR."functions/generic.inc.php");
  require_once(DIR."functions/attachment.inc.php");
+ require_once(DIR."functions/authentication.inc.php");
  require_once(DIR."functions/calendar.inc.php");
  require_once(DIR."functions/date.inc.php");
  require_once(DIR."functions/event.inc.php");

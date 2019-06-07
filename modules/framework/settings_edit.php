@@ -13,7 +13,7 @@
  // set application title
  $app->setTitle(api_text("settings_edit"));
  // check actions
- if(ACTION=="token_cron_randomize"||!$settings->token_cron){$settings->token_cron=api_random(32);}
+ if(ACTION=="token_cron_randomize"||!$settings->token_cron){$settings->token_cron=api_random_id();}
  // make logo remove link
  if(substr($settings->logo,-8)=="logo.png"){$logo_remove_link=api_link("?mod=".MODULE."&scr=submit&act=settings_logo_remove&tab=generals",api_icon("fa-remove",api_text("settings_edit-logo-remove"),"hidden-link text-vtop"),null,null,false,api_text("settings_edit-logo-remove-confirm"));}
  // build settings tabs
