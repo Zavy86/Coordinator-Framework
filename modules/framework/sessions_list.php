@@ -4,12 +4,13 @@
  *
  * @package Coordinator\Modules\Framework
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
- * @link    http://www.zavynet.org
+ * @link    http://www.coordinator.it
  */
- $authorization="framework-sessions_manage";
+ // check authorizations
+ api_checkAuthorization("framework-sessions_manage","dashboard");
  // include module template
  require_once(MODULE_PATH."template.inc.php");
- // set html title
+ // set application title
  $app->setTitle(api_text("sessions_list"));
  // build grid object
  $table=new strTable(api_text("accounts_list-tr-unvalued"));
@@ -40,11 +41,10 @@
   // cycle all user sessions
   foreach($user->sessions as $count=>$session_r){
    if($count){$table->addRow();}
-   $table->addRowField(round((time()-$session_r->lastTimestamp)/60)." min","nowrap text-right"); /** @todo fare api per timestamp difference */
+   $table->addRowField(api_timestamp_intervalTextual(time()-$session_r->lastTimestamp),"nowrap text-right");
    $table->addRowField(api_timestamp_format($session_r->startTimestamp,"Y-m-d H:i"),"nowrap");
    $table->addRowField($session_r->address,"nowrap");
-   $table->addRowField($session_r->id,"nowrap");
-   /** @todo nome decente per session destroy */
+   $table->addRowField(api_tag("samp",$session_r->id),"nowrap");
    $table->addRowFieldAction("?mod=".MODULE."&scr=submit&act=sessions_terminate&idSession=".$session_r->id,"remove",api_text("sessions_list-td-terminate"),api_text("sessions_list-td-terminate-confirm"));
   }
  }
@@ -52,7 +52,7 @@
  $grid=new strGrid();
  $grid->addRow();
  $grid->addCol($table->render(),"col-xs-12");
- // add content to html
+ // add content to application
  $app->addContent($grid->render());
  // renderize html
  $app->render();

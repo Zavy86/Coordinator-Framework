@@ -25,8 +25,6 @@
   case "settings_logo_remove":settings_logo_remove();break;
 
 
-  // mails
-  case "mail_save":mail_save();break;
   // menus
   case "menu_save":menu_save();break;
   case "menu_move_left":menu_move("left");break;
@@ -61,15 +59,20 @@
   case "user_group_remove":user_group_remove();break;
   case "user_group_mainize":user_group_mainize();break;
   case "user_parameter_save":user_parameter_save();break;
+
+
   // groups
   case "group_save":group_save();break;
   /** @todo delete */
   /** @todo undelete */
+
+
   // sessions
   case "sessions_terminate":sessions_terminate();break;
   case "sessions_terminate_all":sessions_terminate_all();break;
 
   // mails
+  case "mail_save":mail_save();break;
   case "mail_retry":mail_retry();break;
   case "mail_remove":mail_remove();break;
 
@@ -1218,10 +1221,17 @@
   api_redirect("?mod=".MODULE."&scr=groups_list");
  }
 
+
+
+
  /**
   * Sessions Terminate
   */
  function sessions_terminate(){
+  api_dump($_REQUEST);
+  // check authorizations
+  api_checkAuthorization("framework-sessions_manage","dashboard");
+  // acquire variables
   $idSession=$_REQUEST['idSession'];
   if(!$idSession){api_alerts_add(api_text("framework_alert_sessionNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=sessions_list");}
   // delete session
@@ -1230,10 +1240,14 @@
   api_alerts_add(api_text("framework_alert_sessionTerminated"),"warning");
   api_redirect("?mod=".MODULE."&scr=sessions_list");
  }
+
  /**
   * Sessions Terminate All
   */
  function sessions_terminate_all(){
+  api_dump($_REQUEST);
+  // check authorizations
+  api_checkAuthorization("framework-sessions_manage","dashboard");
   // delete all sessions
   $GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions`");
   // redirect
@@ -1241,6 +1255,10 @@
   api_redirect(PATH."index.php");
  }
 
+
+
+
+ 
  /**
   * Mail Retry
   */
