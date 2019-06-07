@@ -15,7 +15,7 @@
  // build login form manually
  $form_source="<!-- form -->\n";
  $form_source.="<h2>".$GLOBALS['settings']->title."</h2>\n";
- $form_source.="<form class=\"\" action=\"index.php?mod=framework&scr=submit&act=user_login\" method=\"POST\" id=\"form_login\">\n";
+ $form_source.="<form class=\"\" action=\"index.php?mod=framework&scr=submit&act=session_login\" method=\"POST\" id=\"form_login\">\n";
  $form_source.=" <div class=\"form-group\">\n";
  $form_source.="  <input type=\"text\" name=\"username\" class=\"form-control\" id=\"form_login_input_username\" placeholder=\"".api_text("login-ff-account")."\" required autofocus>\n";
  $form_source.=" </div><!-- /form-group -->\n";

@@ -34,7 +34,7 @@
   // loop for new id
   do{
    // generate attachment id
-   $attachment_qobj->id=api_random(32);
+   $attachment_qobj->id=api_random_id();
    // check for duplicates
    $check_id=$GLOBALS['database']->queryUniqueValue("SELECT `id` FROM `framework__attachments` WHERE `id`='".$attachment_qobj->id."'");
   }while($attachment_qobj->id==$check_id);

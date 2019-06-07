@@ -356,6 +356,14 @@
   return $return;
  }
 
+ /*
+  * Random ID generator
+  */
+ function api_random_id(){
+  // generate random code
+  return api_random(32);
+ }
+
 
  /**
   * Tree to array

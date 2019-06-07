@@ -9,7 +9,7 @@
  // include functions
  require_once("initializations.inc.php");
  // check session
- if(!$session->validity && !(MODULE=="framework" && SCRIPT=="submit" && (ACTION=="user_login" || ACTION=="user_recovery"))){api_redirect("login.php");}
+ if(!$session->validity && !(MODULE=="framework" && SCRIPT=="submit" && (ACTION=="session_login" || ACTION=="own_password_recovery"))){api_redirect("login.php");}
  // check for password expired
  if($settings->sessions_authentication_method=="standard" && $session->user->pwdExpired && !((MODULE=="framework" && SCRIPT=="own_password") || (MODULE=="framework" && SCRIPT=="submit" && ACTION=="own_password_update"))){api_alerts_add(api_text("alert_passwordExpired"),"warning");api_redirect("?mod=framework&scr=own_password");}
  // check if module is enabled

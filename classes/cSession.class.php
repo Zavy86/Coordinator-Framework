@@ -30,27 +30,17 @@
     $this->load();
    }else{
     // generate new session id
-    $this->id=md5(date("YmdHis").rand(1,99999));
+    $this->id=api_random_id();
    }
   }
 
- /**
-  * Get
-  *
-  * @param string $property Property name
-  * @return mixed value
-  */
-  public function __get($property){
-   // switch properties
-   switch($property){
-    case "id":return $this->id;
-    case "validity":return $this->validity;
-    case "duration":return $this->duration;
-    case "idle":return $this->idle;
-    case "user":return $this->user;
-    default:return false;
-   }
-  }
+  /**
+   * Get
+   *
+   * @param string $property Property name
+   * @return string Property value
+   */
+  public function __get($property){return $this->$property;}
 
   /**
    * Load
@@ -91,35 +81,9 @@
   }
 
   /**
-   * Build
-   *
-   * @param integer $account Account User ID
-   * @return boolean
+   * Logout
    */
-  public function build($account){
-   // build session object
-   $session_obj=new stdClass();
-   $session_obj->id=$this->id;
-   $session_obj->fkUser=$account;
-   $session_obj->address=$_SERVER["REMOTE_ADDR"];
-   $session_obj->startTimestamp=time();
-   $session_obj->lastTimestamp=time();
-   // debug
-   api_dump($session_obj,"session_obj");
-   // if multiple sessions are not allowed delete previous account sessions
-   if(!$GLOBALS['settings']->sessions_multiple){$GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `fkUser`='".$session_obj->fkUser."'");}
-   // insert session to database
-   $GLOBALS['database']->queryInsert("framework__sessions",$session_obj);
-   // set coordinator session id
-   $_SESSION['coordinator_session_id']=$session_obj->id;
-   // load session
-   $this->load();
-  }
-
-  /**
-   * Destroy
-   */
-  public function destroy(){
+  public function logout(){
    // destroy session
    $_SESSION['coordinator_debug']=null;
    $_SESSION['coordinator_session_id']=null;
@@ -129,6 +93,78 @@
    $_SESSION['coordinator']=null;
    unset($_SESSION['coordinator']);
    */
+  }
+
+  /**
+   * Login
+   *
+   * @param string $username Username or mail address
+   * @param string $password Account password
+   * @return boolean
+   */
+  public function login($username,$password){
+   // generate new session id
+   $this->id=api_random_id();
+   $_SESSION['coordinator_session_id']=$this->id;
+   // debug
+   api_dump($GLOBALS['settings']->sessions_authentication_method,"authentication method");
+   // switch authentication method
+   switch($GLOBALS['settings']->sessions_authentication_method){
+    case "ldap":
+     // ldap authentication
+     $authentication_result=api_authentication_ldap($username,$password);
+     // if binding error try with standard authentication
+     if($authentication_result==-2){$authentication_result=api_authentication($username,$password);}
+     break;
+    default:
+     // standard authentication
+     $authentication_result=api_authentication($username,$password);
+   }
+   // debug authentication result
+   api_dump($authentication_result,"authentication_result");
+   // check authentication result
+   if($authentication_result<1){return false;}
+   // set user id
+   $user_id=$authentication_result;
+   // build session
+   $this->build($user_id);
+   // build user query objects
+   $user_qobj=new stdClass();
+   // acquire variables
+   $user_qobj->id=$user_id;
+   $user_qobj->lsaTimestamp=time();
+   // debug
+   api_dump($user_qobj,"user query object");
+   // update user
+   $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
+   // return
+   return true;
+  }
+
+  /**
+   * Build
+   *
+   * @param integer $account Account User ID
+   * @return boolean
+   */
+  private function build($account){
+   // build session object
+   $session_qobj=new stdClass();
+   $session_qobj->id=$this->id;
+   $session_qobj->fkUser=$account;
+   $session_qobj->address=$_SERVER["REMOTE_ADDR"];
+   $session_qobj->startTimestamp=time();
+   $session_qobj->lastTimestamp=time();
+   // debug
+   api_dump($session_qobj,"session query object");
+   // if multiple sessions are not allowed delete previous account sessions
+   if(!$GLOBALS['settings']->sessions_multiple){$GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `fkUser`='".$session_qobj->fkUser."'");}
+   // insert session to database
+   $GLOBALS['database']->queryInsert("framework__sessions",$session_qobj);
+   // set coordinator session id
+   $_SESSION['coordinator_session_id']=$session_qobj->id;
+   // load session
+   $this->load();
   }
 
  }

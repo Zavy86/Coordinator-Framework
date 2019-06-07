@@ -88,7 +88,7 @@
    $header_navbar->addSubItem(api_text("nav-attachments")." ".api_icon("fa-cloud-upload"),"?mod=framework&scr=attachments_list",true,"text-right");
    if($GLOBALS['session']->user->superuser){$header_navbar->addSubItem(api_text("nav-debug")." ".api_icon("fa-code"),"index.php?debug=".(!$_SESSION['coordinator_debug']),true,"text-right inactive");}
   }
-  $header_navbar->addSubItem(api_text("nav-logout")." ".api_icon("fa-sign-out"),"?mod=framework&scr=submit&act=user_logout",true,"text-right");
+  $header_navbar->addSubItem(api_text("nav-logout")." ".api_icon("fa-sign-out"),"?mod=framework&scr=submit&act=session_logout",true,"text-right");
  }else{
   /** @todo collegamenti per i non loggati.. regolamento? privacy? boh? */
  }
