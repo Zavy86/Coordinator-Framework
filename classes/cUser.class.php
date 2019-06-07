@@ -21,6 +21,7 @@
   protected $fullname;
   protected $localization;
   protected $timezone;
+  protected $authentication;
   protected $gender;
   protected $birthday;
   protected $avatar;
@@ -53,12 +54,11 @@
    $this->username=stripslashes($user->username);
    $this->firstname=stripslashes($user->firstname);
    $this->lastname=stripslashes($user->lastname);
-   $this->fullname=$this->lastname." ".$this->firstname;
-   $this->localization=$user->localization;
-   $this->timezone=$user->timezone;
-   $this->gender=$user->gender;
-   $this->birthday=$user->birthday;
-   $this->avatar=PATH."uploads/framework/users/avatar_".$this->id.".jpg";
+   $this->localization=stripslashes($user->localization);
+   $this->timezone=stripslashes($user->timezone);
+   $this->authentication=stripslashes($user->authentication);
+   $this->gender=stripslashes($user->gender);
+   $this->birthday=stripslashes($user->birthday);
    $this->enabled=(bool)$user->enabled;
    $this->superuser=(bool)$user->superuser;
    $this->level=(int)$user->level;
@@ -68,12 +68,15 @@
    $this->updFkUser=(int)$user->updFkUser;
    $this->lsaTimestamp=(int)$user->lsaTimestamp;
    $this->deleted=(bool)$user->deleted;
+   // make fullname
+   $this->fullname=$this->lastname." ".$this->firstname;
    // check for password expiration
    if($GLOBALS['settings']->users_password_expiration>-1){
     $this->pwdExpiration=$GLOBALS['settings']->users_password_expiration-(time()-$user->pwdTimestamp);
     if($this->pwdExpiration<0){$this->pwdExpired=true;}
    }
    // make avatar
+   $this->avatar=PATH."uploads/framework/users/avatar_".$this->id.".jpg";
    if(!file_exists(str_replace("//","/",DIR.str_replace(PATH,"/",$this->avatar)))){
     switch($this->gender){
      case "man":$this->avatar=PATH."uploads/framework/users/avatar_man.jpg";break;

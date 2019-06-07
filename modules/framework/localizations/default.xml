@@ -34,21 +34,22 @@
  <!-- alerts -->
  <text key="framework_alert_settingsUpdated">Le impostazioni sono state aggiornate</text>
  <text key="framework_alert_settingsLogoRemoved">Il logo personalizzato è stato rimosso</text>
+ <text key="framework_alert_ownProfileUpdated">Il tuo profilo è stato aggiornato</text>
+ <text key="framework_alert_ownAvatarRemoved">Il tuo avatar è stato eliminato</text>
+ <text key="framework_alert_ownPasswordIncorrect">La password attuale inserita non è corretta</text>
+ <text key="framework_alert_ownPasswordNotMatch">Le nuove password non coincidono</text>
+ <text key="framework_alert_ownPasswordWeak">La nuova password non ha superato il livello minimo di sicurezza</text>
+ <text key="framework_alert_ownPasswordOldest">La nuova password coincide con la vecchia password</text>
+ <text key="framework_alert_ownPasswordUpdated">La tua password è stata aggiornata</text>
+
+
+
 
  <text key="framework_alert_menuError">Si è verificato un errore durante il salvaraggio del menu</text>
  <text key="framework_alert_menuNotFound">Il menu non è stato trovato</text>
  <text key="framework_alert_menuCreated">Il menu è stato creato</text>
  <text key="framework_alert_menuUpdated">Il menu è stato aggiornato</text>
  <text key="framework_alert_menuNesting">Sono presenti menu ad un sotto-livello non renderizzabile</text>
-
- <text key="framework_alert_ownProfileUpdated">Il tuo profilo è stato aggiornato</text>
- <text key="framework_alert_ownPasswordIncorrect">La password attuale inserita non è corretta</text>
- <text key="framework_alert_ownPasswordNotMatch">Le nuove password non coincidono</text>
- <text key="framework_alert_ownPasswordWeak">La nuova password non ha superato il livello minimo di sicurezza</text>
- <text key="framework_alert_ownPasswordOldest">La nuova password coincide con la vecchia password</text>
- <text key="framework_alert_ownPasswordUpdated">La tua password è stata aggiornata</text>
- <text key="framework_alert_ownAvatarRemoved">Il tuo avatar è stato eliminato</text>
-
  <text key="framework_alert_userError">Si è verificato un errore durante il salvaraggio dell'utente</text>
  <text key="framework_alert_userNotFound">L'utente non è stato trovato</text>
  <text key="framework_alert_userCreated">L'utente è stato creato</text>
@@ -150,10 +151,14 @@
  <text key="mail-status-sended">Inviata</text>
  <text key="mail-status-failed">Errore</text>
 
+
+
+
+
  <!-- own_profile -->
  <text key="own_profile">Profilo personale</text>
- <text key="own_profile-mail">Indirizzo mail</text>
  <text key="own_profile-username">Username</text>
+ <text key="own_profile-mail">Indirizzo mail</text>
  <text key="own_profile-firstname">Nome</text>
  <text key="own_profile-lastname">Cognome</text>
  <text key="own_profile-localization">Lingua</text>
@@ -167,12 +172,11 @@
  <text key="own_profile-birthday">Data di nascita</text>
  <text key="own_profile-avatar">Avatar</text>
  <text key="own_profile-avatar-delete">Elimina avatar</text>
- <text key="own_profile-avatar-delete-confirm">Confermi di voler eliminare definitivamente questa immagine?</text>
- <text key="own_profile-submit">Salva</text>
- <text key="own_profile-cancel">Annulla</text>
+ <text key="own_profile-avatar-delete-confirm">Confermi di voler eliminare definitivamente il tuo avatar?</text>
 
  <!-- own_password -->
  <text key="own_password">Modifica password</text>
+ <text key="own_password-authentication-alert">Il tuo account risulta gestito tramite un servizio di autenticazione esterno, il cambio della password non avrà effetto..</text>
  <text key="own_password-password">Password attuale</text>
  <text key="own_password-password-placeholder">Inserisci la tua password attuale..</text>
  <text key="own_password-password_new">Nuova password</text>
@@ -182,16 +186,8 @@
  <text key="own_password-submit">Salva</text>
  <text key="own_password-cancel">Annulla</text>
 
- <!-- mails_add -->
- <text key="mails_add">Nuova mail</text>
- <text key="mails_add-sender">Mittente</text>
- <text key="mails_add-sender-placeholder">Seleziona un mittente..</text>
- <text key="mails_add-recipient">Destinatario</text>
- <text key="mails_add-recipient-placeholder">Destinatario della mail</text>
- <text key="mails_add-subject">Oggetto</text>
- <text key="mails_add-subject-placeholder">Oggetto della mail</text>
- <text key="mails_add-message">Messaggio</text>
- <text key="mails_add-message-placeholder">Contenuto della mail..</text>
+
+
 
  <!-- settings_edit -->
  <text key="settings_edit">Impostazioni</text>
@@ -531,6 +527,20 @@
  <text key="modules_add-method-zip">Zip</text>
  <text key="modules_add-submit">Scarica</text>
  <text key="modules_add-cancel">Annulla</text>
+
+
+
+
+ <!-- mails_add -->
+ <text key="mails_add">Nuova mail</text>
+ <text key="mails_add-sender">Mittente</text>
+ <text key="mails_add-sender-placeholder">Seleziona un mittente..</text>
+ <text key="mails_add-recipient">Destinatario</text>
+ <text key="mails_add-recipient-placeholder">Destinatario della mail</text>
+ <text key="mails_add-subject">Oggetto</text>
+ <text key="mails_add-subject-placeholder">Oggetto della mail</text>
+ <text key="mails_add-message">Messaggio</text>
+ <text key="mails_add-message-placeholder">Contenuto della mail..</text>
 
  <!-- mails_list -->
  <text key="mails_list">Registro mail</text>

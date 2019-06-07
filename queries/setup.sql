@@ -147,6 +147,7 @@ CREATE TABLE IF NOT EXISTS `framework__users` (
   `lastname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `localization` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
   `timezone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `authentication` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'standard',
   `password` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `secret` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `gender` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'man, woman',

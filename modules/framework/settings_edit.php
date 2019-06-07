@@ -14,11 +14,8 @@
  $app->setTitle(api_text("settings_edit"));
  // check actions
  if(ACTION=="token_cron_randomize"||!$settings->token_cron){$settings->token_cron=api_random(32);}
-
  // make logo remove link
  if(substr($settings->logo,-8)=="logo.png"){$logo_remove_link=api_link("?mod=".MODULE."&scr=submit&act=settings_logo_remove&tab=generals",api_icon("fa-remove",api_text("settings_edit-logo-remove"),"hidden-link text-vtop"),null,null,false,api_text("settings_edit-logo-remove-confirm"));}
-
-
  // build settings tabs
  $tabs_nav=new strNav("nav-pills"); /** @tip modificare api form in modo da poter renderizzare separatamente nei tabs */
  $tabs_nav->addItem(api_text("settings_edit-generals"),"?mod=".MODULE."&scr=settings_edit&tab=generals");
