@@ -61,13 +61,14 @@
 
  <!-- nav -->
  <text key="nav-dashboard">Bacheca</text>
+ <text key="nav-menu">Menu principale</text>
  <text key="nav-modules">Moduli abilitati</text>
  <text key="nav-own-profile">Profilo personale</text>
  <text key="nav-settings">Impostazioni</text>
  <text key="nav-mails">Registro mail</text>
  <text key="nav-attachments">Allegati</text>
  <text key="nav-debug">Debug</text>
- <text key="nav-logout">Esci</text>
+ <text key="nav-logout">Disconnetti</text>
  <text key="nav-operations">Operazioni</text>
  <text key="nav-management">Amministrazione</text>
  <text key="nav-parameters">Parametri personali</text>
