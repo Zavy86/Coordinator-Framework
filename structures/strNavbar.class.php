@@ -197,7 +197,7 @@
     foreach($nav->items_array as $item){
      // check for active
      $active=false;
-     if($item->urlParsed->query_array['mod']==MODULE){$active=true;}
+     /*if($item->urlParsed->query_array['mod']==MODULE){$active=true;}
      if($item->urlParsed->query_array['scr']&&$item->urlParsed->query_array['scr']!=SCRIPT){$active=false;}
      elseif(count($item->subItems_array)){
       foreach($item->subItems_array as $subItem){
@@ -206,7 +206,7 @@
        if($active){break;}
       }
      }
-     if(is_int(strpos($item->class,"inactive"))){$active=false;}
+     if(is_int(strpos($item->class,"inactive"))){$active=false;}*/
      // lock url if active or disabled
      if($active||!$item->enabled){$item->url="#";}
      // make item class
@@ -228,8 +228,8 @@
       // cycle all sub items
       foreach($item->subItems_array as $subItem){
        // check for sub active
-       if($subItem->urlParsed->query_array['mod']==MODULE){$sub_active=true;}else{$sub_active=false;}
-       if($subItem->urlParsed->query_array['scr']&&$subItem->urlParsed->query_array['scr']!=SCRIPT){$sub_active=false;}
+       /*if($subItem->urlParsed->query_array['mod']==MODULE){$sub_active=true;}else{$sub_active=false;}
+       if($subItem->urlParsed->query_array['scr']&&$subItem->urlParsed->query_array['scr']!=SCRIPT){$sub_active=false;}*/
        if(is_int(strpos($subItem->class,"inactive"))){$sub_active=false;}
        // lock url if active or disabled
        if($sub_active||!$subItem->enabled){$subItem->url="#";}

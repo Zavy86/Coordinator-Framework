@@ -111,7 +111,7 @@
    */
   public function setTitle($title=null){
    if(!$title){return false;}
-   $this->title=$title." - ".$GLOBALS['settings']->title;
+   $this->title=$title;
    return true;
   }
 
@@ -184,7 +184,7 @@
    }
    // renderize title
    $return.="  <!-- title and icons -->\n";
-   $return.="  <title>".$this->title."</title>\n";
+   $return.="  <title>".$this->title." - ".$GLOBALS['settings']->title."</title>\n";
    // rendrizer favicon
    $return.="  <link rel=\"icon\" href=\"".PATH."uploads/framework/favicon.default.ico\">\n";
    // renderize meta tags

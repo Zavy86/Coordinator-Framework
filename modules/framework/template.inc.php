@@ -10,7 +10,7 @@
  $app=new strApplication();
  // build nav object
  $nav=new strNav("nav-tabs");
- $nav->setTitle(api_text(MODULE));
+ //$nav->setTitle(api_text(MODULE));
  // dashboard
  $nav->addItem(api_icon("fa-th-large",null,"hidden-link"),"?mod=".MODULE."&scr=dashboard");
  // own
@@ -32,7 +32,7 @@
    $nav->addSubItem(api_text("menus_edit"),"?mod=".MODULE."&scr=menus_edit&idMenu=".$menu_obj->id);
   }else{
    // menu add
-   $nav->addItem(api_text("menus_add"),"?mod=".MODULE."&scr=menus_edit");
+   $nav->addItem(api_text("menus_edit-add"),"?mod=".MODULE."&scr=menus_edit");
   }
  }
  // modules
