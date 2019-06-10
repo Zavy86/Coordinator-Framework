@@ -56,7 +56,7 @@ INSERT INTO `framework__settings` (`setting`, `value`) VALUES
 ('mail_smtp_username', ''),
 ('users_level_max', '9'),
 ('users_password_expiration', '-1'),
-('token_cron', '');
+('token_cron', ''),
 ('token_gtag', '');
 
 -- --------------------------------------------------------
