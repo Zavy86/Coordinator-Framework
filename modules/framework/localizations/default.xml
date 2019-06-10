@@ -108,13 +108,14 @@
  <text key="framework_alert_attachmentRemoved">L'allegato è stato rimosso</text>
 
  <!-- mails -->
- <text key="framework_mail-user_add-subject"><![CDATA[{0}]]> account</text>
- <text key="framework_mail-user_add-message"><![CDATA[<p>Ciao {0}, il tuo account su {1} è stato attivato.</p><p>Il link di accesso è {2}</p><p>La password per il tuo primo accesso è: {3}</p>]]></text>
+ <text key="framework_mail-user_add-subject"><![CDATA[{0}]]> - Attivazione account personale</text>
+ <text key="framework_mail-user_add-message"><![CDATA[<p>Benvenuto {0}, il tuo account su {1} è stato attivato.</p><p>Il link di accesso è {2}</p><p>Puoi accedere con il tuo indirizzo mail {3} e password {4}</p>]]></text>
+ <text key="framework_mail-user_add-message-ldap"><![CDATA[<p>Benvenuto {0}, il tuo account su {1} è stato attivato.</p><p>Il link di accesso è {2}</p><p>Puoi accedere con il tuo account di sistema {3} e relativa password</p>]]></text>
 
- <text key="framework_mail-own_password_recovery-subject">Ripristino account <![CDATA[{0}]]></text>
+ <text key="framework_mail-own_password_recovery-subject"><![CDATA[{0}]]> - Ripristino account personale</text>
  <text key="framework_mail-own_password_recovery-message"><![CDATA[<p>Ciao {0}, per ripristinare la password del tuo account su {1} premi il seguente link:</p><br><p><a href="{2}">{2}</a></p>]]></text>
 
- <text key="framework_mail-own_password_recovery_password-subject">Ripristino account <![CDATA[{0}]]></text>
+ <text key="framework_mail-own_password_recovery_password-subject"><![CDATA[{0}]]> - Ripristino account personale</text>
  <text key="framework_mail-own_password_recovery_password-message"><![CDATA[<p>Ciao {0}, il tuo account su {1} è stato ripristinato.</p><p>Il link di accesso è {2}</p><p>La nuova password per il tuo prossimo accesso è: {3}</p>]]></text>
 
  <!-- operations -->
@@ -285,8 +286,8 @@
  <text key="menus_list-td-move-down">Sposta in basso</text>
 
  <!-- menus_edit -->
- <text key="menus_add">Nuovo menu</text>
- <text key="menus_edit">Modifica menu</text>
+ <text key="menus_edit">Modifica menu: <![CDATA[{0}]]></text>
+ <text key="menus_edit-add">Nuovo menu</text>
  <text key="menus_edit-fkMenu">Menu</text>
  <text key="menus_edit-fkMenu-main">Menu principale</text>
  <text key="menus_edit-typology">Tipologia</text>

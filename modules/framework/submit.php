@@ -298,7 +298,7 @@
   // switch menu typology
   switch($menu_qobj->typology){
    // standard
-   case "module":
+   case "standard":
     $menu_qobj->url=null;
     $menu_qobj->module=$r_module;
     $menu_qobj->script=$r_script;
@@ -313,8 +313,8 @@
     $menu_qobj->tab=null;
     $menu_qobj->action=null;
     break;
-   // grouy
-   case "link":
+   // group
+   case "group":
     $menu_qobj->url="#";
     $menu_qobj->module=null;
     $menu_qobj->script=null;
@@ -819,14 +819,19 @@
   $user_obj->addTimestamp=time();
   $user_obj->addFkUser=$GLOBALS['session']->user->id;
   // debug
-  api_dump($_REQUEST,"_REQUEST");
-  api_dump($user_obj);
+  api_dump($user_obj,"user query object");
   // update user
   $user_obj->id=$GLOBALS['database']->queryInsert("framework__users",$user_obj);
   // check user
   if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userError"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
-  // send password to user
-  $mail_id=api_mail_save(api_text("framework_mail-user_add-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_add-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_password)),$user_obj->mail);
+  // check for username
+  if($user_obj->username){
+   // send notification to user
+   $mail_id=api_mail_save(api_text("framework_mail-user_add-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_add-message-ldap",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$user_obj->username)),$user_obj->mail);
+  }else{
+   // send password to user
+   $mail_id=api_mail_save(api_text("framework_mail-user_add-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_add-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_login,$v_password)),$user_obj->mail);
+  }
   // force mail if asynchronous
   if($GLOBALS['settings']->mail_asynchronous){api_mail_process($mail_id);}
   // redirect

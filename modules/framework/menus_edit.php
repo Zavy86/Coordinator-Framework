@@ -13,7 +13,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set application title
- $app->setTitle(($menu_obj->id?api_text("menus_edit"):api_text("menus_add")));
+ $app->setTitle(($menu_obj->id?api_text("menus_edit",$menu_obj->label):api_text("menus_edit-add")));
  // build profile form
  $form=new strForm("?mod=".MODULE."&scr=submit&act=menu_save&idMenu=".$menu_obj->id,"POST",null,"menus_edit");
  $form->addField("select","fkMenu",api_text("menus_edit-fkMenu"),$menu_obj->fkMenu);
@@ -38,14 +38,14 @@
  $form->addFieldOption("standard",api_text("menus_edit-typology-standard"));
  $form->addFieldOption("link",api_text("menus_edit-typology-link"));
  $form->addFieldOption("group",api_text("menus_edit-typology-group"));
- // link typology
- $form->addField("text","url",api_text("menus_edit-url"),$menu_obj->url,api_text("menus_edit-url-placeholder"));
- // module typology
+ // standard typology
  $form->addField("select","module",api_text("menus_edit-module"),$menu_obj->module,api_text("menus_edit-module-placeholder"));
- foreach(api_availableModules() as $module_obj){$form->addFieldOption($module_obj->module,$module_obj->name);}
+ foreach(api_availableModules() as $module_obj){$form->addFieldOption($module_obj->id,$module_obj->name);}
  $form->addField("text","script",api_text("menus_edit-script"),$menu_obj->script,api_text("menus_edit-script-placeholder"));
  $form->addField("text","tab",api_text("menus_edit-tab"),$menu_obj->tab,api_text("menus_edit-tab-placeholder"));
  $form->addField("text","action",api_text("menus_edit-action"),$menu_obj->action,api_text("menus_edit-action-placeholder"));
+ // link typology
+ $form->addField("text","url",api_text("menus_edit-url"),$menu_obj->url,api_text("menus_edit-url-placeholder"));
  // controls
  $form->addControl("submit",api_text("menus_edit-submit"));
  $form->addControl("button",api_text("menus_edit-cancel"),"?mod=".MODULE."&scr=menus_list");
