@@ -108,13 +108,14 @@
  <text key="framework_alert_attachmentRemoved">L'allegato è stato rimosso</text>
 
  <!-- mails -->
- <text key="framework_mail-user_add-subject"><![CDATA[{0}]]> account</text>
- <text key="framework_mail-user_add-message"><![CDATA[<p>Ciao {0}, il tuo account su {1} è stato attivato.</p><p>Il link di accesso è {2}</p><p>La password per il tuo primo accesso è: {3}</p>]]></text>
+ <text key="framework_mail-user_add-subject"><![CDATA[{0}]]> - Attivazione account personale</text>
+ <text key="framework_mail-user_add-message"><![CDATA[<p>Benvenuto {0}, il tuo account su {1} è stato attivato.</p><p>Il link di accesso è {2}</p><p>Puoi accedere con il tuo indirizzo mail {3} e password {4}</p>]]></text>
+ <text key="framework_mail-user_add-message-ldap"><![CDATA[<p>Benvenuto {0}, il tuo account su {1} è stato attivato.</p><p>Il link di accesso è {2}</p><p>Puoi accedere con il tuo account di sistema {3} e relativa password</p>]]></text>
 
- <text key="framework_mail-own_password_recovery-subject">Ripristino account <![CDATA[{0}]]></text>
+ <text key="framework_mail-own_password_recovery-subject"><![CDATA[{0}]]> - Ripristino account personale</text>
  <text key="framework_mail-own_password_recovery-message"><![CDATA[<p>Ciao {0}, per ripristinare la password del tuo account su {1} premi il seguente link:</p><br><p><a href="{2}">{2}</a></p>]]></text>
 
- <text key="framework_mail-own_password_recovery_password-subject">Ripristino account <![CDATA[{0}]]></text>
+ <text key="framework_mail-own_password_recovery_password-subject"><![CDATA[{0}]]> - Ripristino account personale</text>
  <text key="framework_mail-own_password_recovery_password-message"><![CDATA[<p>Ciao {0}, il tuo account su {1} è stato ripristinato.</p><p>Il link di accesso è {2}</p><p>La nuova password per il tuo prossimo accesso è: {3}</p>]]></text>
 
  <!-- operations -->
@@ -275,7 +276,7 @@
 
  <!-- menus_list -->
  <text key="menus_list">Menu</text>
- <text key="menus_list-description">Gestione dei menu del framework</text>
+ <text key="menus_list-description">Gestione del menu principale del framework</text>
  <text key="menus_list-tr-unvalued">Non sono presenti menu da mostrare..</text>
  <text key="menus_list-th-label">Menu</text>
  <text key="menus_list-th-title">Descrizione</text>
@@ -285,13 +286,14 @@
  <text key="menus_list-td-move-down">Sposta in basso</text>
 
  <!-- menus_edit -->
- <text key="menus_add">Nuovo menu</text>
- <text key="menus_edit">Modifica menu</text>
+ <text key="menus_edit">Modifica menu: <![CDATA[{0}]]></text>
+ <text key="menus_edit-add">Nuovo menu</text>
  <text key="menus_edit-fkMenu">Menu</text>
  <text key="menus_edit-fkMenu-main">Menu principale</text>
  <text key="menus_edit-typology">Tipologia</text>
+ <text key="menus_edit-typology-standard">Standard</text>
  <text key="menus_edit-typology-link">Link</text>
- <text key="menus_edit-typology-module">Modulo</text>
+ <text key="menus_edit-typology-group">Gruppo</text>
  <text key="menus_edit-icon">Icona</text>
  <text key="menus_edit-icon-placeholder">Icona del menu</text>
  <text key="menus_edit-label">Etichetta</text>
@@ -411,8 +413,8 @@
  <text key="users_view-level-level"><![CDATA[{0}]]>° livello</text>
  <text key="users_view-groups">Gruppi assegnati</text>
  <text key="users_view-groups-table-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
- <text key="users_view-groups-table-td-delete">Rimuovi gruppo</text>
- <text key="users_view-groups-table-td-delete-confirm">Confermi di voler rimuovere il gruppo dall'utente?</text>
+ <text key="users_view-groups-table-td-remove">Rimuovi gruppo</text>
+ <text key="users_view-groups-table-td-remove-confirm">Confermi di voler rimuovere il gruppo dall'utente?</text>
  <text key="users_view-groups-table-td-main">Gruppo principale</text>
  <text key="users_view-groups-table-td-mainize">Rendi principale</text>
  <text key="users_view-groups-table-td-mainize-confirm">Confermi di voler rendere questo gruppo principale per l'utente?</text>

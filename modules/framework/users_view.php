@@ -66,7 +66,7 @@
   // add modal to application
   $app->addModal($groups_modal);
   // jQuery scripts
-  $app->addScript("/* User Groups Modal window opener */\n$(function(){\$(\"#modal_users_view-groups-modal\").modal('show');});");
+  $app->addScript("/* User Groups Modal window opener */\n$(function(){\$(\"#modal_users_view-groups\").modal('show');});");
  }
  // check for action parameters_view
  if(ACTION=="parameters_view"){

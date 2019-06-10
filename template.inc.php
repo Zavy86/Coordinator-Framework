@@ -42,6 +42,8 @@
  // check session
  if($GLOBALS['session']->validity){
   $header_navbar->addItem(api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover"),"?mod=dashboard");
+  $header_navbar->addItem(api_icon("fa-th-list",api_text("nav-menu"),"faa-tada animated-hover"),"#");
+  $header_navbar->addSubHeader("Menu principale");
   // cycle all menus
   foreach(api_availableMenus(null) as $menu_obj){
    // check for authorization
@@ -51,7 +53,7 @@
    }
    /** @todo menu titles */
    if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=null;}
-   $header_navbar->addItem($icon_source.$menu_obj->label,$menu_obj->url,true,null,null,null,$menu_obj->target);
+   $header_navbar->addSubItem($icon_source.$menu_obj->label,$menu_obj->url,true,null,null,null,$menu_obj->target);
    foreach(api_availableMenus($menu_obj->id) as $submenu_obj){
     // check for authorization
     $authorized=true;
@@ -60,9 +62,11 @@
      if(!api_checkAuthorization($authorization[1],null,$authorization[0],true,false)){$authorized=false;}
     }
     if($submenu_obj->icon){$icon_source=api_icon($submenu_obj->icon)." ";}else{$icon_source=null;}
-    $header_navbar->addSubItem($icon_source.$submenu_obj->label,$submenu_obj->url,$authorized,null,null,null,$submenu_obj->target);
+    $header_navbar->addSubItem("&nbsp;&nbsp;&nbsp;".$icon_source.$submenu_obj->label,$submenu_obj->url,$authorized,null,null,null,$submenu_obj->target);
    }
   }
+  $header_navbar->addItem(api_tag("strong",api_text(MODULE)),"?mod=".MODULE."&scr=dashboard",true,(!SCRIPT?"active":null));  // ok cosi
+  if(SCRIPT!="dashboard"){$header_navbar->addItem($this->title,"#",true,"active");}      // prendere il title.. senza il - coordinator
   // account and settings
   $header_navbar->addNav("navbar-right");
   // check for administrators

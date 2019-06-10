@@ -360,6 +360,9 @@
       $jquery.="  $(\"#modal_".$this->id."_input_".$field->name."\").modal('hide');";
       $jquery.=" }else{alert(\"".api_text("form-input-text_localized-alert")."\");}\n";
       $jquery.="}";
+
+      /** @todo bottone per resettare tutti i campi a null */
+
       // add script to html
       $GLOBALS['app']->addScript($jquery);
       break;

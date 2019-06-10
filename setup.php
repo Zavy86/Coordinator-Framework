@@ -45,7 +45,7 @@
  if(!$_REQUEST['setup_action']){
   // setup form
   $form->addField("hidden","setup_action",null,"check");
-  $form->addField("text","dir","Directory",PATH,"Framework directory with trailing slash",null,null,null,"required");
+  $form->addField("text","path","Directory",PATH,"Framework directory with trailing slash",null,null,null,"required");
   $form->addField("text","firstname","Firstname",null,"Administrator firstname",null,null,null,"required");
   $form->addField("text","lastname","Lastname",null,"Administrator lastname",null,null,null,"required");
   $form->addField("email","mail","Mail address",null,"Administrator e-mail address",null,null,null,"required");
@@ -68,14 +68,14 @@
   if(!in_array($_REQUEST['setup_action'],array("check","setup"))){die("Setup action error..");}
   // set configuration object
   $configuration=new stdClass();
-  $configuration->dir=$_REQUEST['dir'];
+  $configuration->path=$_REQUEST['path'];
   $configuration->db_type=$_REQUEST['db_type'];
   $configuration->db_host=$_REQUEST['db_host'];
   $configuration->db_name=$_REQUEST['db_name'];
   $configuration->db_user=$_REQUEST['db_user'];
   $configuration->db_pass=$_REQUEST['db_pass'];
   // check parameters
-  if(!substr($configuration->dir,-1)=="/"){$configuration->dir.="/";}
+  if(!substr($configuration->path,-1)=="/"){$configuration->path.="/";}
   // try database connection
   try{
    $connection=new PDO($configuration->db_type.":host=".$configuration->db_host.";port=".$configuration->db_port.";dbname=".$configuration->db_name.";charset=utf8",$configuration->db_user,$configuration->db_pass);
@@ -97,7 +97,7 @@
    // build configuration file
    $file_content="<?php\n";
    $file_content.=" // directory\n";
-   $file_content.=" \$configuration->dir=\"".$configuration->dir."\";\n";
+   $file_content.=" \$configuration->path=\"".$configuration->path."\";\n";
    $file_content.=" // database parameters\n";
    $file_content.=" \$configuration->db_type=\"".$configuration->db_type."\";\n";
    $file_content.=" \$configuration->db_host=\"".$configuration->db_host."\";\n";
@@ -158,7 +158,7 @@
   }else{
    // check form
    $form->addField("hidden","setup_action",null,"setup");
-   $form->addField("hidden","dir",null,$configuration->dir);
+   $form->addField("hidden","path",null,$configuration->path);
    $form->addField("hidden","db_type",null,$configuration->db_type);
    $form->addField("hidden","db_host",null,$configuration->db_host);
    $form->addField("hidden","db_name",null,$configuration->db_name);
