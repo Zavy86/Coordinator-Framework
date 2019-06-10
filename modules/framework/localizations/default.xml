@@ -109,8 +109,8 @@
 
  <!-- mails -->
  <text key="framework_mail-user_add-subject"><![CDATA[{0}]]> - Attivazione account personale</text>
- <text key="framework_mail-user_add-message"><![CDATA[<p>Benvenuto {0}, il tuo account su {1} è stato attivato.</p><p>Il link di accesso è {2}</p><p>Puoi accedere con il tuo indirizzo mail {3} e password {4}</p>]]></text>
- <text key="framework_mail-user_add-message-ldap"><![CDATA[<p>Benvenuto {0}, il tuo account su {1} è stato attivato.</p><p>Il link di accesso è {2}</p><p>Puoi accedere con il tuo account di sistema {3} e relativa password</p>]]></text>
+ <text key="framework_mail-user_add-message"><![CDATA[<p>Benvenuto {0}, il tuo account su {1} è stato attivato.</p><p>Il link di accesso è {2}</p><p>Puoi accedere con il tuo indirizzo mail <samp>{3}</samp> e password <samp>{4}</samp></p>]]></text>
+ <text key="framework_mail-user_add-message-ldap"><![CDATA[<p>Benvenuto {0}, il tuo account su {1} è stato attivato.</p><p>Il link di accesso è {2}</p><p>Puoi accedere con il tuo account di sistema <samp>{3}</samp> e relativa password</p>]]></text>
 
  <text key="framework_mail-own_password_recovery-subject"><![CDATA[{0}]]> - Ripristino account personale</text>
  <text key="framework_mail-own_password_recovery-message"><![CDATA[<p>Ciao {0}, per ripristinare la password del tuo account su {1} premi il seguente link:</p><br><p><a href="{2}">{2}</a></p>]]></text>

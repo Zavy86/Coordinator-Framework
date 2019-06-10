@@ -16,6 +16,8 @@
 @media(min-width:1400px){.container{width:1370px;}}
 @media(min-width:1900px){.container{width:1870px;}}
 
+body{padding-top:70px;}
+
 pre.debug{margin:9px;padding:9px;font-size:9pt;}
 pre.warn{background-color:#FCF8E3;border-color:#FAEBCC;}
 pre.error{background-color:#F2DEDE;border-color:#EBCCD1;}
@@ -349,4 +351,46 @@ td .btn{
 
 .dashboard-element-disabled .dashboard-element-icon{
  color:#999999;
+}
+
+.dropdown-submenu {
+ position:relative;
+}
+.dropdown-submenu>.dropdown-menu {
+ top:0;
+ left:100%;
+ margin-top:-6px;
+ margin-left:-1px;
+ -webkit-border-radius:0 4px 4px 4px;
+ -moz-border-radius:0 4px 4px 4px;
+ border-radius:0 4px 4px 4px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+ display:block;
+}
+/*.dropdown-submenu>a:after {
+ display:block;
+ content:" ";
+ float:right;
+ width:0;
+ height:0;
+ border-color:transparent;
+ border-style:solid;
+ border-width:5px 0 5px 5px;
+ border-left-color:#333333;
+ margin-top:5px;
+ margin-right:-10px;
+}*/
+.dropdown-submenu:hover>a:after {
+ border-left-color:#ffffff;
+}
+.dropdown-submenu.pull-left {
+ float:none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+ left:-100%;
+ margin-left:10px;
+ -webkit-border-radius:4px 0 4px 4px;
+ -moz-border-radius:4px 0 4px 4px;
+ border-radius:4px 0 4px 4px;
 }

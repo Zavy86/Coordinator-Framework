@@ -827,10 +827,10 @@
   // check for username
   if($user_obj->username){
    // send notification to user
-   $mail_id=api_mail_save(api_text("framework_mail-user_add-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_add-message-ldap",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$user_obj->username)),$user_obj->mail);
+   $mail_id=api_mail_save(api_text("framework_mail-user_add-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_add-message-ldap",array($user_obj->fullname,$GLOBALS['settings']->title,URL,$user_obj->username)),$user_obj->mail);
   }else{
    // send password to user
-   $mail_id=api_mail_save(api_text("framework_mail-user_add-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_add-message",array($user_obj->firstname,$GLOBALS['settings']->title,URL,$v_login,$v_password)),$user_obj->mail);
+   $mail_id=api_mail_save(api_text("framework_mail-user_add-subject",$GLOBALS['settings']->title),api_text("framework_mail-user_add-message",array($user_obj->fullname,$GLOBALS['settings']->title,URL,$user_obj->mail,$v_password)),$user_obj->mail);
   }
   // force mail if asynchronous
   if($GLOBALS['settings']->mail_asynchronous){api_mail_process($mail_id);}
@@ -1053,10 +1053,8 @@
  /**
   * User Parameter Save
   */
- function user_parameter_save(){
+ function user_parameter_save(){ /** @todo convertire in own? */
   api_dump($_REQUEST,"_REQUEST");
-  // check authorizations
-  api_checkAuthorization("framework-users_manage","dashboard");
   // get current user
   $user_obj=new cUser($GLOBALS['session']->user->id);
   if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=dashboard");}

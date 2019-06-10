@@ -22,7 +22,6 @@
   protected $styleSheets_array;
   protected $scripts_array;
   protected $modals_array;
-  protected $header;
   protected $content;
   protected $footer;
 
@@ -116,17 +115,6 @@
   }
 
   /**
-   * Set Header
-   *
-   * @param string $header Body header
-   * @return boolean
-   */
-  public function setHeader($header=null){
-   $this->header=$header;
-   return true;
-  }
-
-  /**
    * Set Content
    *
    * @param string $footer Body footer
@@ -167,14 +155,44 @@
    * @param boolean $echo Echo HTML source code or return
    * @return boolean|string HTML source code
    */
-  public function render($echo=true){
-   // load default template
-   require_once(DIR."template.inc.php");
+  public function render($echo=true){    /** @todoissimo migliorare */
+   // set meta tags
+   $this->setMetaTag("author","Manuel Zavatta [www.zavynet.org]");
+   $this->setMetaTag("copyright","2009-".date("Y")." © Coordinator [www.coordinator.it]");
+   $this->setMetaTag("description","Coordinator is an Open Source Modular Framework");
+   $this->setMetaTag("owner",$GLOBALS['settings']->owner);
+   // add style sheets
+   $this->addStylesheet(PATH."helpers/pace/css/pace-1.0.0-theme-flash.css");
+   $this->addStylesheet(PATH."helpers/font-awesome/css/font-awesome.min.css");
+   $this->addStylesheet(PATH."helpers/font-awesome-animation/css/font-awesome-animation.min.css");
+   /** @todo verificare quali caricare sempre e quali solo alla bisogna */
+   $this->addStylesheet(PATH."helpers/justgage/css/justgage-1.2.2.css");
+   $this->addStylesheet(PATH."helpers/select2/css/select2-4.0.5.min.css");
+   /** @todo add some css helpers here */
+   $this->addStylesheet(PATH."helpers/bootstrap/css/bootstrap-3.3.7.min.css");
+   $this->addStylesheet(PATH."helpers/bootstrap-faiconpicker/css/bootstrap-faiconpicker-1.3.0.min.css");
+   /** @todo definire temi */
+   /*if($GLOBALS['session']->user->theme){$this->addStylesheet(PATH."helpers/bootstrap/css/bootstrap-3.3.7-theme-".$GLOBALS['session']->user->theme.".min.css");}*/
+   $this->addStylesheet(PATH."helpers/bootstrap/css/bootstrap-3.3.7-custom.css");
+   // add scripts
+   $this->addScript(PATH."helpers/jquery/js/jquery-1.12.4.min.js",true);
+   $this->addScript(PATH."helpers/pace/js/pace-1.0.0.min.js",true);
+   /** @todo verificare quali caricare sempre e quali solo alla bisogna */
+   $this->addScript(PATH."helpers/peity/js/peity-3.2.1.min.js",true);
+   $this->addScript(PATH."helpers/justgage/js/justgage-1.2.2.js",true);
+   $this->addScript(PATH."helpers/chartjs/js/chart-2.7.0.min.js",true);
+   $this->addScript(PATH."helpers/select2/js/select2-4.0.5.min.js",true);
+   /** @todo add some javascript helpers here */
+   $this->addScript(PATH."helpers/bootstrap/js/bootstrap-3.3.7.min.js",true);
+   $this->addScript(PATH."helpers/bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",true);
+   $this->addScript(PATH."helpers/bootstrap-faiconpicker/js/bootstrap-faiconpicker-1.3.0.min.js",true);
+
    // renderize application
    $return="<!DOCTYPE html>\n";
-   $return.="<html lang=\"".$this->language."\">\n\n";
+   $return.="<html lang=\"".$this->language."\">\n";
    // renderize head
-   $return.=" <head>\n\n";
+   $return.=" <!-- heading -->\n";
+   $return.=" <head>\n";
    // trackers
    if($GLOBALS['settings']->token_gtag){
     // Google Analytics
@@ -194,17 +212,131 @@
    // renderize style sheets
    $return.="  <!-- style sheets -->\n";
    foreach($this->styleSheets_array as $styleSheet_url){$return.="  <link href=\"".$styleSheet_url."\" rel=\"stylesheet\">\n";}
-   // navbar-fixed-top specific class
-   if(strpos($this->header,"navbar-fixed-top")){$return.="  <style>body{padding-top:70px;}</style>\n";}
-   $return.="\n </head>\n\n";
+   $return.=" </head>\n";
    // renderize body
-   $return.=" <body lang=\"".$this->language."\">\n\n";
+   $return.=" <!-- body -->\n";
+   $return.=" <body lang=\"".$this->language."\">\n";
    // renderize header
-   if($this->header){
-    $return.="  <header>\n\n";
-    $return.=$this->header;
-    $return.="  </header>\n\n";
+   $return.="  <!-- header -->\n";
+   $return.="  <header>\n";
+   // renderize navbar
+   $return.="   <!-- navbar -->\n";
+   $return.="   <nav class=\"navbar navbar-default navbar-fixed-top\">\n";
+   $return.="    <!-- navbar-container -->\n";
+   $return.="    <div class=\"container\">\n";
+   // renderize navbar-header
+   $return.="     <!-- navbar-header -->\n";
+   $return.="     <div class=\"navbar-header\">\n";
+   $return.="      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n";
+   $return.="       <span class=\"sr-only\">Toggle navigation</span>\n";
+   $return.="       <span class=\"icon-bar\"></span>\n";
+   $return.="       <span class=\"icon-bar\"></span>\n";
+   $return.="       <span class=\"icon-bar\"></span>\n";
+   $return.="      </button>\n";
+   // renderize logo and title
+   if(!in_array($GLOBALS['settings']->show,array("logo","title","logo_title"))){
+    $return.="      <a class=\"navbar-brand\" id=\"nav_brand_logo\" href=\"#\"><img alt=\"Brand logo\" src=\"".PATH."uploads/framework/logo.default.png"."\" height=\"20\"></a>\n";
+    $return.="      <a class=\"navbar-brand\" id=\"nav_brand_title\" href=\"index.php\">Coordinator Framework</a>\n";
    }
+   if(in_array($GLOBALS['settings']->show,array("logo","logo_title"))){ $return.="      <a class=\"navbar-brand\" id=\"nav_brand_logo\" href=\"#\"><img alt=\"Brand logo\" src=\"".$GLOBALS['settings']->logo."\" height=\"20\"></a>\n";}
+   if(in_array($GLOBALS['settings']->show,array("title","logo_title"))){$return.="      <a class=\"navbar-brand\" id=\"nav_brand_title\" href=\"index.php\">".$GLOBALS['settings']->title."</a>\n";}
+   $return.="     </div><!--/navbar-header -->\n";
+   // renderize navbar collapse
+   $return.="     <!-- navbar-collapse-->\n";
+   $return.="     <div id=\"navbar\" class=\"navbar-collapse collapse\">\n";
+   // main navigation
+   $return.="      <!-- main-nav-->\n";
+   $return.="      <ul class=\"nav navbar-nav\">\n";
+   // dashboard
+   $return.="       <li><a href=\"?mod=dashboard\">".api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover")."</a></li>\n";
+   // main menu
+   $return.="       <!-- main-menu-->\n";
+   $return.="       <li class=\"dropdown\">\n";
+   $return.="        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_icon("fa-th-list",api_text("nav-menu"),"faa-tada animated-hover")." <span class=\"caret\"></span></a>\n";
+   $return.="        <ul class=\"dropdown-menu\">\n";
+   $return.="         <li class=\"dropdown-header\">".api_text("nav-menu")."</li>\n";
+   // cycle all menus
+   foreach(api_availableMenus(null) as $menu_obj){
+    // check for authorization
+    if($menu_obj->authorization){
+     $authorization=explode("|",$menu_obj->authorization);
+     if(!api_checkAuthorization($authorization[1],null,$authorization[0],true,false)){continue;}
+    }
+    // get subitems
+    $subMenus_array=api_availableMenus($menu_obj->id);
+    if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=null;}
+    // check for sub menus
+    if(!count($subMenus_array)){
+     $return.="         <li><a href=\"".$menu_obj->url."\" target=\"".$menu_obj->target."\">".$icon_source.$menu_obj->label."</a></li>\n";
+    }else{
+     $return.="         <!-- sub-menu-->\n";
+     $return.="         <li class=\"dropdown dropdown-submenu\">\n";
+     $return.="          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".$icon_source.$menu_obj->label." <i class=\"fa fa-fw fa-caret-right\"></i></a>\n";
+     $return.="          <ul class=\"dropdown-menu\">\n";
+     // cycle all menus
+     foreach($subMenus_array as $subMenu_fobj){
+      // check for authorization @todo
+      if($subMenu_fobj->icon){$icon_source=api_icon($subMenu_fobj->icon)." ";}else{$icon_source=null;}
+      $return.="           <li><a href=\"".$subMenu_fobj->url."\" target=\"".$subMenu_fobj->target."\">".$icon_source.$subMenu_fobj->label."</a></li>\n";
+     }
+     $return.="          </ul><!-- dropdown -->\n";
+     $return.="         </li><!-- sub-menu-->\n";
+    }
+   }
+   $return.="        </ul><!-- dropdown -->\n";
+   $return.="       </li><!-- main-menu-->\n";
+   // module
+   $return.="       <li class=\"navbar-module ".(SCRIPT=="dashboard"?"active":null)."\"><a href=\"?mod=".MODULE."\"><strong>".api_text(MODULE)."</strong></a></li>\n";
+   // script
+   if(SCRIPT!="dashboard"){$return.="       <li class=\"active\"><a href=\"#\">".$this->title."</a></li>\n";}
+   // close main navigation
+   $return.="   </ul><!-- main-nav-->\n";
+   // right navigation
+   $return.="      <!-- right-nav-->\n";
+   $return.="      <ul class=\"nav navbar-nav navbar-right\">\n";
+   // check for administrators
+   if($GLOBALS['session']->user->superuser){
+    // modules menu
+    $return.="       <!-- modules-menu-->\n";
+    $return.="       <li class=\"dropdown\">\n";
+    $return.="        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_icon("fa-th-list",api_text("nav-menu"),"faa-tada animated-hover")." <span class=\"caret\"></span></a>\n";
+    $return.="        <ul class=\"dropdown-menu\">\n";
+    $return.="         <li class=\"dropdown-header text-right\">".api_text("nav-modules")."</li>\n";
+    // get all modules
+    $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules` WHERE `id`!='framework' ORDER BY `id`");
+    foreach($modules_results as $module){
+     if($module->id==MODULE){continue;}
+     $module=new cModule($module);
+     $return.="         <li class=\"text-right\"><a href=\"?mod=".$module->id."\">".$module->name."</a></li>\n";
+    }
+    $return.="        </ul><!-- dropdown -->\n";
+    $return.="       </li><!-- modules-menu-->\n";
+   }
+   // own menu
+   $return.="       <!-- own-menu-->\n";
+   $return.="       <li class=\"dropdown\">\n";
+   $return.="        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_image($GLOBALS['session']->user->avatar,null,20,20,false,"alt='Brand'")." <span class=\"caret\"></span></a>\n";
+   $return.="        <ul class=\"dropdown-menu\">\n";
+   $return.="         <li class=\"dropdown-header text-right\">".$GLOBALS['session']->user->fullname."</li>\n";
+   $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=own_profile\">".api_text("nav-own-profile")." ".api_icon("fa-user-circle-o")."</a></li>\n";
+   $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=submit&act=session_logout\">".api_text("nav-logout")." ".api_icon("fa-sign-out")."</a></li>\n";
+   // show link for administrators
+   if(api_checkAuthorization("framework-settings_manage",null,"framework")){
+    $return.="         <li class=\"divider\" role=\"separator\">&nbsp;</li>\n";
+    $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=dashboard\">".api_text("nav-settings")." ".api_icon("fa-toggle-on")."</a></li>\n";
+    $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=mails_list\">".api_text("nav-mails")." ".api_icon("fa-envelope-o")."</a></li>\n";
+    $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=attachments_list\">".api_text("nav-attachments")." ".api_icon("fa-cloud-upload")."</a></li>\n";
+    if($GLOBALS['session']->user->superuser){$return.="         <li class=\"text-right\"><a href=\"?".http_build_query($_GET)."&debug=".(!$_SESSION['coordinator_debug'])."\">".api_text("nav-debug")." ".api_icon("fa-code")."</a></li>\n";}
+   }
+   $return.="        </ul><!-- dropdown -->\n";
+   $return.="       </li><!-- own-menu-->\n";
+   // close right navigation
+   $return.="      </ul><!-- right-nav-->\n";
+   // renderize closures
+   $return.="     </div><!-- /navbar-collapse -->\n";
+   $return.="    </div><!-- /navbar-container -->\n";
+   $return.="   </nav><!-- /navbar -->\n";
+   $return.="  </header>\n\n";
    // renderize content
    $return.="  <content>\n\n";
    // add warning and errors log to alerts
@@ -237,11 +369,21 @@
    $return.=$this->content;
    $return.="  </content>\n\n";
    // renderize footer
-   if($this->footer){
-    $return.="  <footer>\n\n";
-    $return.=$this->footer;
-    $return.="  </footer>\n\n";
-   }
+   $return.="  <!-- footer -->\n";
+   $return.="  <footer>\n";
+   // make execution metrics
+   if(DEBUG){$execution_metrics=" [ Version: ".api_tag("b",VERSION)." | Queries: ".api_tag("b",$GLOBALS['database']->query_counter)." | Cached queries: ".api_tag("b",$GLOBALS['database']->cache_query_counter)." | Execution time: ~".api_tag("b",number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs")." ]";}else{$execution_metrics=null;}
+   // build footer grid
+   $footer_grid=new strGrid();
+   $footer_grid->addRow();
+   $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; Coordinator - All Rights Reserved".$execution_metrics,"col-xs-12 text-right");
+   // set footer
+   $return.=$footer_grid->render();
+   // jQuery scripts
+   $this->addScript("/* Popover Script */\n$(function(){\$(\"[data-toggle='popover']\").popover({'trigger':'hover'});});");
+   $this->addScript("/* Current Row Timeout Script */\n$(function(){setTimeout(function(){\$('.currentrow').removeClass('info');},5000);});");
+   // renderize closures
+   $return.="  </footer>\n\n";
    // renderize modals
    if(count($this->modals_array)){
     $return.="<!-- modal-windows -->\n\n";
