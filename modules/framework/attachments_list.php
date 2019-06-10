@@ -22,7 +22,7 @@
  $pagination=new strPagination($query->getRecordsCount());
  // build table
  $table=new strTable(api_text("attachments_list-tr-unvalued"));
- $table->addHeader($filter->link(api_icon("fa-filter",api_text("filters-modal-link"),"hidden-link"))." ".api_text("attachments_list-th-id"),null,16);
+ $table->addHeader($filter->link(api_icon("fa-filter",api_text("filters-modal-link"),"hidden-link"))." ".api_text("attachments_list-th-id"),"nowrap");
  $table->addHeader(api_text("attachments_list-th-name"),null,"100%");
  $table->addHeader(api_text("attachments_list-th-size"),"nowrap text-right");
  $table->addHeader("&nbsp;",null,16);
