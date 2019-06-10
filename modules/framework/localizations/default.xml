@@ -275,7 +275,7 @@
 
  <!-- menus_list -->
  <text key="menus_list">Menu</text>
- <text key="menus_list-description">Gestione dei menu del framework</text>
+ <text key="menus_list-description">Gestione del menu principale del framework</text>
  <text key="menus_list-tr-unvalued">Non sono presenti menu da mostrare..</text>
  <text key="menus_list-th-label">Menu</text>
  <text key="menus_list-th-title">Descrizione</text>
@@ -290,8 +290,9 @@
  <text key="menus_edit-fkMenu">Menu</text>
  <text key="menus_edit-fkMenu-main">Menu principale</text>
  <text key="menus_edit-typology">Tipologia</text>
+ <text key="menus_edit-typology-standard">Standard</text>
  <text key="menus_edit-typology-link">Link</text>
- <text key="menus_edit-typology-module">Modulo</text>
+ <text key="menus_edit-typology-group">Gruppo</text>
  <text key="menus_edit-icon">Icona</text>
  <text key="menus_edit-icon-placeholder">Icona del menu</text>
  <text key="menus_edit-label">Etichetta</text>
@@ -411,8 +412,8 @@
  <text key="users_view-level-level"><![CDATA[{0}]]>° livello</text>
  <text key="users_view-groups">Gruppi assegnati</text>
  <text key="users_view-groups-table-tr-unvalued">Non sono presenti gruppi da mostrare..</text>
- <text key="users_view-groups-table-td-delete">Rimuovi gruppo</text>
- <text key="users_view-groups-table-td-delete-confirm">Confermi di voler rimuovere il gruppo dall'utente?</text>
+ <text key="users_view-groups-table-td-remove">Rimuovi gruppo</text>
+ <text key="users_view-groups-table-td-remove-confirm">Confermi di voler rimuovere il gruppo dall'utente?</text>
  <text key="users_view-groups-table-td-main">Gruppo principale</text>
  <text key="users_view-groups-table-td-mainize">Rendi principale</text>
  <text key="users_view-groups-table-td-mainize-confirm">Confermi di voler rendere questo gruppo principale per l'utente?</text>

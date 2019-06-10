@@ -86,6 +86,7 @@ CREATE TABLE IF NOT EXISTS `framework__menus` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fkMenu` int(11) unsigned DEFAULT NULL,
   `order` int(11) unsigned NOT NULL,
+  `typology` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `icon` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `label_localizations` text COLLATE utf8_unicode_ci NOT NULL,
   `title_localizations` text COLLATE utf8_unicode_ci,

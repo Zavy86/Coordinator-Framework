@@ -23,10 +23,10 @@
   if($menu_option_obj->id==$menu_obj->id){continue;}
   $form->addFieldOption($menu_option_obj->id,str_repeat("&nbsp;&nbsp;&nbsp;",$menu_option_obj->nesting).$menu_option_obj->label);
  }
- // icon, label and title
- $form->addField("text","icon",api_text("menus_edit-icon"),$menu_obj->icon,api_text("menus_edit-icon-placeholder"));
+ // label, title and icon
  $form->addField("text_localized","label_localizations",api_text("menus_edit-label"),$menu_obj->label_localizations,api_text("menus_edit-label-placeholder"));
  $form->addField("text_localized","title_localizations",api_text("menus_edit-title"),$menu_obj->title_localizations,api_text("menus_edit-title-placeholder"));
+ $form->addField("text","icon",api_text("menus_edit-icon"),$menu_obj->icon,api_text("menus_edit-icon-placeholder"));
  $form->addField("select","authorization",api_text("menus_edit-authorization"),$menu_obj->authorization,api_text("menus_edit-authorization-placeholder"));
  foreach(api_availableAuthorizations() as $authorization_fobj){$form->addFieldOption($authorization_fobj->module."|".$authorization_fobj->action,$authorization_fobj->action);}
  $form->addField("radio","target",api_text("menus_edit-target"),$menu_obj->target,null,null,"radio-inline");
@@ -34,9 +34,10 @@
  $form->addFieldOption("_blank",api_text("menus_edit-target-blank"));
  $form->addField("splitter");
  // typologies
- $form->addField("radio","typology",api_text("menus_edit-typology"),($menu_obj->module?"module":"link"),null,null,"radio-inline");
+ $form->addField("radio","typology",api_text("menus_edit-typology"),$menu_obj->typology,null,null,"radio-inline");
+ $form->addFieldOption("standard",api_text("menus_edit-typology-standard"));
  $form->addFieldOption("link",api_text("menus_edit-typology-link"));
- $form->addFieldOption("module",api_text("menus_edit-typology-module"));
+ $form->addFieldOption("group",api_text("menus_edit-typology-group"));
  // link typology
  $form->addField("text","url",api_text("menus_edit-url"),$menu_obj->url,api_text("menus_edit-url-placeholder"));
  // module typology
@@ -54,6 +55,15 @@
 /* Toggle Typology Script */
 function menus_edit_toggle_typology() {
  switch($("input[name='typology']:checked").val()){
+  // standard
+  case "standard":
+   $("#form_menus_edit_input_url_form_group").hide();
+   $("#form_menus_edit_input_module_form_group").show();
+   $("#form_menus_edit_input_script_form_group").show();
+   $("#form_menus_edit_input_tab_form_group").show();
+   $("#form_menus_edit_input_action_form_group").show();
+   $("#form_menus_edit_input_target_form_group").show();
+   break;
   // link
   case "link":
    $("#form_menus_edit_input_url_form_group").show();
@@ -61,14 +71,16 @@ function menus_edit_toggle_typology() {
    $("#form_menus_edit_input_script_form_group").hide();
    $("#form_menus_edit_input_tab_form_group").hide();
    $("#form_menus_edit_input_action_form_group").hide();
+   $("#form_menus_edit_input_target_form_group").show();
    break;
-  // module
-  case "module":
+  // group
+  case "group":
    $("#form_menus_edit_input_url_form_group").hide();
-   $("#form_menus_edit_input_module_form_group").show();
-   $("#form_menus_edit_input_script_form_group").show();
-   $("#form_menus_edit_input_tab_form_group").show();
-   $("#form_menus_edit_input_action_form_group").show();
+   $("#form_menus_edit_input_module_form_group").hide();
+   $("#form_menus_edit_input_script_form_group").hide();
+   $("#form_menus_edit_input_tab_form_group").hide();
+   $("#form_menus_edit_input_action_form_group").hide();
+   $("#form_menus_edit_input_target_form_group").hide();
    break;
  }
 }

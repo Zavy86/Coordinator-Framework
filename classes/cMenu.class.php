@@ -16,6 +16,7 @@
   protected $id;
   protected $fkMenu;
   protected $order;
+  protected $typology;
   protected $icon;
   protected $label;
   protected $title;
@@ -45,8 +46,9 @@
    if(!$menu->id){return false;}
    // set properties
    $this->id=(int)$menu->id;
-   $this->fkMenu=$menu->fkMenu;
-   $this->order=$menu->order;
+   $this->fkMenu=$menu->fkMenu; /** @todo verificare come fare (int) ma non sui null */
+   $this->order=(int)$menu->order;
+   $this->typology=stripslashes($menu->typology);
    $this->icon=stripslashes($menu->icon);
    $this->label_localizations=json_decode($menu->label_localizations,true);
    $this->title_localizations=json_decode($menu->title_localizations,true);
@@ -57,10 +59,10 @@
    $this->action=stripslashes($menu->action);
    $this->target=stripslashes($menu->target);
    $this->authorization=stripslashes($menu->authorization);
-   $this->addTimestamp=$menu->addTimestamp;
-   $this->addFkUser=$menu->addFkUser;
-   $this->updTimestamp=$menu->updTimestamp;
-   $this->updFkUser=$menu->updFkUser;
+   $this->addTimestamp=(int)$menu->addTimestamp;
+   $this->addFkUser=(int)$menu->addFkUser;
+   $this->updTimestamp=(int)$menu->updTimestamp;
+   $this->updFkUser=(int)$menu->updFkUser;
    // make label and title localized
    $this->label=$this->label_localizations[$GLOBALS['session']->user->localization];
    if(!$this->label){$this->label=$this->label_localizations["en_EN"];}
