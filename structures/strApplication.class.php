@@ -376,11 +376,11 @@
    $return.="  <!-- footer -->\n";
    $return.="  <footer>\n";
    // make execution metrics
-   if(DEBUG){$execution_metrics=" [ Version: ".api_tag("b",VERSION)." | Queries: ".api_tag("b",$GLOBALS['database']->query_counter)." | Cached queries: ".api_tag("b",$GLOBALS['database']->cache_query_counter)." | Execution time: ~".api_tag("b",number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs")." ]";}else{$execution_metrics=null;}
+   if(DEBUG){$execution_metrics=" [ Queries: ".api_tag("b",$GLOBALS['database']->query_counter)." | Cached queries: ".api_tag("b",$GLOBALS['database']->cache_query_counter)." | Execution time: ~".api_tag("b",number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs")." ]";}else{$execution_metrics=null;}
    // build footer grid
    $footer_grid=new strGrid();
    $footer_grid->addRow();
-   $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; Coordinator - All Rights Reserved".$execution_metrics,"col-xs-12 text-right");
+   $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; <b>Coordinator</b> ".VERSION." - All Rights Reserved - <b>".$GLOBALS['settings']->owner."</b>".$execution_metrics,"col-xs-12 text-right");
    // set footer
    $return.=$footer_grid->render();
    // jQuery scripts
