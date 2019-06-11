@@ -1059,7 +1059,7 @@
   $user_obj=new cUser($GLOBALS['session']->user->id);
   if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=dashboard");}
   // acquire variables
-  $r_module=$_REQUEST['idModule'];
+  $r_module=$_REQUEST['module'];
   $r_parameters=$_REQUEST['parameters'];
   // check variables
   if(!$r_module){api_alerts_add(api_text("framework_alert_error"),"danger");api_redirect("?mod=dashboard");}

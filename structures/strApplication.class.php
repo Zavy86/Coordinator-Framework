@@ -212,6 +212,7 @@
    // renderize style sheets
    $return.="  <!-- style sheets -->\n";
    foreach($this->styleSheets_array as $styleSheet_url){$return.="  <link href=\"".$styleSheet_url."\" rel=\"stylesheet\">\n";}
+   $return.="  <style>body{padding-top:70px;}</style>\n";
    $return.=" </head>\n";
    // renderize body
    $return.=" <!-- body -->\n";
@@ -244,94 +245,97 @@
    // renderize navbar collapse
    $return.="     <!-- navbar-collapse-->\n";
    $return.="     <div id=\"navbar\" class=\"navbar-collapse collapse\">\n";
-   // main navigation
-   $return.="      <!-- main-nav-->\n";
-   $return.="      <ul class=\"nav navbar-nav\">\n";
-   // dashboard
-   $return.="       <li><a href=\"?mod=dashboard\">".api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover")."</a></li>\n";
-   // main menu
-   $return.="       <!-- main-menu-->\n";
-   $return.="       <li class=\"dropdown\">\n";
-   $return.="        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_icon("fa-th-list",api_text("nav-menu"),"faa-tada animated-hover")." <span class=\"caret\"></span></a>\n";
-   $return.="        <ul class=\"dropdown-menu\">\n";
-   $return.="         <li class=\"dropdown-header\">".api_text("nav-menu")."</li>\n";
-   // cycle all menus
-   foreach(api_availableMenus(null) as $menu_obj){
-    // check for authorization
-    if($menu_obj->authorization){
-     $authorization=explode("|",$menu_obj->authorization);
-     if(!api_checkAuthorization($authorization[1],null,$authorization[0],true,false)){continue;}
-    }
-    // get subitems
-    $subMenus_array=api_availableMenus($menu_obj->id);
-    if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=null;}
-    // check for sub menus
-    if(!count($subMenus_array)){
-     $return.="         <li><a href=\"".$menu_obj->url."\" target=\"".$menu_obj->target."\">".$icon_source.$menu_obj->label."</a></li>\n";
-    }else{
-     $return.="         <!-- sub-menu-->\n";
-     $return.="         <li class=\"dropdown dropdown-submenu\">\n";
-     $return.="          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".$icon_source.$menu_obj->label." <i class=\"fa fa-fw fa-caret-right\"></i></a>\n";
-     $return.="          <ul class=\"dropdown-menu\">\n";
-     // cycle all menus
-     foreach($subMenus_array as $subMenu_fobj){
-      // check for authorization @todo
-      if($subMenu_fobj->icon){$icon_source=api_icon($subMenu_fobj->icon)." ";}else{$icon_source=null;}
-      $return.="           <li><a href=\"".$subMenu_fobj->url."\" target=\"".$subMenu_fobj->target."\">".$icon_source.$subMenu_fobj->label."</a></li>\n";
-     }
-     $return.="          </ul><!-- dropdown -->\n";
-     $return.="         </li><!-- sub-menu-->\n";
-    }
-   }
-   $return.="        </ul><!-- dropdown -->\n";
-   $return.="       </li><!-- main-menu-->\n";
-   // module
-   $return.="       <li class=\"navbar-module ".(SCRIPT=="dashboard"?"active":null)."\"><a href=\"?mod=".MODULE."\"><strong>".api_text(MODULE)."</strong></a></li>\n";
-   // script
-   if(SCRIPT!="dashboard"){$return.="       <li class=\"active\"><a href=\"#\">".$this->title."</a></li>\n";}
-   // close main navigation
-   $return.="   </ul><!-- main-nav-->\n";
-   // right navigation
-   $return.="      <!-- right-nav-->\n";
-   $return.="      <ul class=\"nav navbar-nav navbar-right\">\n";
-   // check for administrators
-   if($GLOBALS['session']->user->superuser){
-    // modules menu
-    $return.="       <!-- modules-menu-->\n";
+   // check for session
+   if($GLOBALS['session']->validity){
+    // main navigation
+    $return.="      <!-- main-nav-->\n";
+    $return.="      <ul class=\"nav navbar-nav\">\n";
+    // dashboard
+    $return.="       <li><a href=\"?mod=dashboard\">".api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover")."</a></li>\n";
+    // main menu
+    $return.="       <!-- main-menu-->\n";
     $return.="       <li class=\"dropdown\">\n";
     $return.="        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_icon("fa-th-list",api_text("nav-menu"),"faa-tada animated-hover")." <span class=\"caret\"></span></a>\n";
     $return.="        <ul class=\"dropdown-menu\">\n";
-    $return.="         <li class=\"dropdown-header text-right\">".api_text("nav-modules")."</li>\n";
-    // get all modules
-    $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules` WHERE `id`!='framework' ORDER BY `id`");
-    foreach($modules_results as $module){
-     if($module->id==MODULE){continue;}
-     $module=new cModule($module);
-     $return.="         <li class=\"text-right\"><a href=\"?mod=".$module->id."\">".$module->name."</a></li>\n";
+    $return.="         <li class=\"dropdown-header\">".api_text("nav-menu")."</li>\n";
+    // cycle all menus
+    foreach(api_availableMenus(null) as $menu_obj){
+     // check for authorization
+     if($menu_obj->authorization){
+      $authorization=explode("|",$menu_obj->authorization);
+      if(!api_checkAuthorization($authorization[1],null,$authorization[0],true,false)){continue;}
+     }
+     // get subitems
+     $subMenus_array=api_availableMenus($menu_obj->id);
+     if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=null;}
+     // check for sub menus
+     if(!count($subMenus_array)){
+      $return.="         <li><a href=\"".$menu_obj->url."\" target=\"".$menu_obj->target."\">".$icon_source.$menu_obj->label."</a></li>\n";
+     }else{
+      $return.="         <!-- sub-menu-->\n";
+      $return.="         <li class=\"dropdown dropdown-submenu\">\n";
+      $return.="          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".$icon_source.$menu_obj->label." <i class=\"fa fa-fw fa-caret-right\"></i></a>\n";
+      $return.="          <ul class=\"dropdown-menu\">\n";
+      // cycle all menus
+      foreach($subMenus_array as $subMenu_fobj){
+       // check for authorization @todo
+       if($subMenu_fobj->icon){$icon_source=api_icon($subMenu_fobj->icon)." ";}else{$icon_source=null;}
+       $return.="           <li><a href=\"".$subMenu_fobj->url."\" target=\"".$subMenu_fobj->target."\">".$icon_source.$subMenu_fobj->label."</a></li>\n";
+      }
+      $return.="          </ul><!-- dropdown -->\n";
+      $return.="         </li><!-- sub-menu-->\n";
+     }
     }
     $return.="        </ul><!-- dropdown -->\n";
-    $return.="       </li><!-- modules-menu-->\n";
+    $return.="       </li><!-- main-menu-->\n";
+    // module
+    $return.="       <li class=\"navbar-module ".(SCRIPT=="dashboard"?"active":null)."\"><a href=\"?mod=".MODULE."\"><strong>".api_text(MODULE)."</strong></a></li>\n";
+    // script
+    if(SCRIPT!="dashboard"){$return.="       <li class=\"active\"><a href=\"#\">".$this->title."</a></li>\n";}
+    // close main navigation
+    $return.="   </ul><!-- main-nav-->\n";
+    // right navigation
+    $return.="      <!-- right-nav-->\n";
+    $return.="      <ul class=\"nav navbar-nav navbar-right\">\n";
+    // check for administrators
+    if($GLOBALS['session']->user->superuser){
+     // modules menu
+     $return.="       <!-- modules-menu-->\n";
+     $return.="       <li class=\"dropdown\">\n";
+     $return.="        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_icon("fa-th-list",api_text("nav-modules"),"faa-tada animated-hover")." <span class=\"caret\"></span></a>\n";
+     $return.="        <ul class=\"dropdown-menu\">\n";
+     $return.="         <li class=\"dropdown-header text-right\">".api_text("nav-modules")."</li>\n";
+     // get all modules
+     $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules` WHERE `id`!='framework' ORDER BY `id`");
+     foreach($modules_results as $module){
+      if($module->id==MODULE){continue;}
+      $module=new cModule($module);
+      $return.="         <li class=\"text-right\"><a href=\"?mod=".$module->id."\">".$module->name."</a></li>\n";
+     }
+     $return.="        </ul><!-- dropdown -->\n";
+     $return.="       </li><!-- modules-menu-->\n";
+    }
+    // own menu
+    $return.="       <!-- own-menu-->\n";
+    $return.="       <li class=\"dropdown\">\n";
+    $return.="        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_image($GLOBALS['session']->user->avatar,null,20,20)." <span class=\"caret\"></span></a>\n";
+    $return.="        <ul class=\"dropdown-menu\">\n";
+    $return.="         <li class=\"dropdown-header text-right\">".$GLOBALS['session']->user->fullname."</li>\n";
+    $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=own_profile\">".api_text("nav-own-profile")." ".api_icon("fa-user-circle-o")."</a></li>\n";
+    $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=submit&act=session_logout\">".api_text("nav-logout")." ".api_icon("fa-sign-out")."</a></li>\n";
+    // show link for administrators
+    if(api_checkAuthorization("framework-settings_manage",null,"framework")){
+     $return.="         <li class=\"divider\" role=\"separator\">&nbsp;</li>\n";
+     $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=dashboard\">".api_text("nav-settings")." ".api_icon("fa-toggle-on")."</a></li>\n";
+     $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=mails_list\">".api_text("nav-mails")." ".api_icon("fa-envelope-o")."</a></li>\n";
+     $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=attachments_list\">".api_text("nav-attachments")." ".api_icon("fa-cloud-upload")."</a></li>\n";
+     if($GLOBALS['session']->user->superuser){$return.="         <li class=\"text-right\"><a href=\"?".http_build_query($_GET)."&debug=".(!$_SESSION['coordinator_debug'])."\">".api_text("nav-debug")." ".api_icon("fa-code")."</a></li>\n";}
+    }
+    $return.="        </ul><!-- dropdown -->\n";
+    $return.="       </li><!-- own-menu-->\n";
+    // close right navigation
+    $return.="      </ul><!-- right-nav-->\n";
    }
-   // own menu
-   $return.="       <!-- own-menu-->\n";
-   $return.="       <li class=\"dropdown\">\n";
-   $return.="        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_image($GLOBALS['session']->user->avatar,null,20,20,false,"alt='Brand'")." <span class=\"caret\"></span></a>\n";
-   $return.="        <ul class=\"dropdown-menu\">\n";
-   $return.="         <li class=\"dropdown-header text-right\">".$GLOBALS['session']->user->fullname."</li>\n";
-   $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=own_profile\">".api_text("nav-own-profile")." ".api_icon("fa-user-circle-o")."</a></li>\n";
-   $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=submit&act=session_logout\">".api_text("nav-logout")." ".api_icon("fa-sign-out")."</a></li>\n";
-   // show link for administrators
-   if(api_checkAuthorization("framework-settings_manage",null,"framework")){
-    $return.="         <li class=\"divider\" role=\"separator\">&nbsp;</li>\n";
-    $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=dashboard\">".api_text("nav-settings")." ".api_icon("fa-toggle-on")."</a></li>\n";
-    $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=mails_list\">".api_text("nav-mails")." ".api_icon("fa-envelope-o")."</a></li>\n";
-    $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=attachments_list\">".api_text("nav-attachments")." ".api_icon("fa-cloud-upload")."</a></li>\n";
-    if($GLOBALS['session']->user->superuser){$return.="         <li class=\"text-right\"><a href=\"?".http_build_query($_GET)."&debug=".(!$_SESSION['coordinator_debug'])."\">".api_text("nav-debug")." ".api_icon("fa-code")."</a></li>\n";}
-   }
-   $return.="        </ul><!-- dropdown -->\n";
-   $return.="       </li><!-- own-menu-->\n";
-   // close right navigation
-   $return.="      </ul><!-- right-nav-->\n";
    // renderize closures
    $return.="     </div><!-- /navbar-collapse -->\n";
    $return.="    </div><!-- /navbar-container -->\n";
