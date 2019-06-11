@@ -302,7 +302,7 @@
      // modules menu
      $return.="       <!-- modules-menu-->\n";
      $return.="       <li class=\"dropdown\">\n";
-     $return.="        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_icon("fa-th-list",api_text("nav-modules"),"faa-tada animated-hover")." <span class=\"caret\"></span></a>\n";
+     $return.="        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_icon("fa-puzzle-piece",api_text("nav-modules"),"faa-tada animated-hover")." <span class=\"caret\"></span></a>\n";
      $return.="        <ul class=\"dropdown-menu\">\n";
      $return.="         <li class=\"dropdown-header text-right\">".api_text("nav-modules")."</li>\n";
      // get all modules
