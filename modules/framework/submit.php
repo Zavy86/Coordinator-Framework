@@ -1207,10 +1207,10 @@
   // check authorizations
   api_checkAuthorization("framework-sessions_manage","dashboard");
   // delete all sessions
-  $GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions`");
+  $GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `id`<>'".$GLOBALS['session']->id."'");
   // redirect
   api_alerts_add(api_text("framework_alert_sessionTerminatedAll"),"warning");
-  api_redirect("index.php");
+  api_redirect("?mod=".MODULE."&scr=sessions_list");
  }
 
  /**
