@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-->
- ! Default localization
+ ! Dashboard - Default localization
  !
- ! @package Coordinator\Localizations
+ ! @package Coordinator\Modules\Dashboard
  ! @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  ! @link    http://www.coordinator.it
 <!-->
@@ -10,7 +10,7 @@
 
  <!-- dashboard -->
  <text key="dashboard">Bacheca</text>
- <text key="dashboard-description">Bacheca personale</text>
+ <text key="dashboard-description">Bacheca</text>
 
  <!-- alerts -->
  <text key="dashboard_alert_tileError">Si è verificato un errore durante il salvaraggio dell'elemento</text>
@@ -22,9 +22,9 @@
  <!-- navigation -->
  <text key="nav-dashboard-add">Aggiungi elemento</text>
 
- <!-- dashboard_view -->
- <text key="dashboard_view">Bacheca</text>
- <text key="dashboard_view-welcome">Bevenuto <![CDATA[{0}]]></text>
+ <!-- dashboard_own -->
+ <text key="dashboard_own">Preferiti</text>
+ <text key="dashboard_own-welcome">Bevenuto <![CDATA[{0}]]>, non è presente nessun preferito da mostrare..</text>
 
  <!-- dashboard_customize -->
  <text key="dashboard_customize">Personalizza</text>

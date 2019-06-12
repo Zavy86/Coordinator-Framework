@@ -9,25 +9,34 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set application title
- $app->setTitle(api_text("dashboard_view"));
+ $app->setTitle(api_text(MODULE));
  // build grid object
  $grid=new strGrid();
  $grid->addRow();
- // get user tiles
- $tiles_array=api_dashboard_userTiles();
- // check for tiles
- if(count($tiles_array)){
-  // build dashboard
-  $dashboard=new strDashboard();
-  // cycle all tiles
-  foreach($tiles_array as $tile_fobj){
-   // add dashboard element
-   $dashboard->addTile($tile_fobj->url,$tile_fobj->label,$tile_fobj->description,true,$tile_fobj->size,$tile_fobj->icon,$tile_fobj->counter->count,$tile_fobj->counter->class,$tile_fobj->background,$tile_fobj->target);
+ // build dashboard
+ $dashboard_menu=new strDashboard();
+ // cycle all menus
+ foreach(api_availableMenus(null) as $menu_obj){
+  // check for authorization
+  if(!$menu_obj->checkAuthorizations()){continue;}
+  // check for typology
+  if($menu_obj->typology=="group"){
+   // add dashboard container
+   $dashboard_menu->addContainer($menu_obj->label,$menu_obj->title);
+  }else{
+   // add menu tile to dashboard
+   $dashboard_menu->addTile($menu_obj->url,$menu_obj->label,$menu_obj->title,true,null,$menu_obj->icon,null,null,null,$menu_obj->target);
+  }
+  // cycle all sub menus
+  foreach(api_availableMenus($menu_obj->id) as $subMenu_obj){
+   // check for authorization
+   if(!$subMenu_obj->checkAuthorizations()){continue;}
+   // add menu tile to dashboard
+   $dashboard_menu->addTile($subMenu_obj->url,$subMenu_obj->label,$subMenu_obj->title,true,null,$subMenu_obj->icon,null,null,null,$subMenu_obj->target);
   }
  }
- // check for elements
- if(count($tiles_array)){$grid->addCol($dashboard->render(),"col-xs-12");}
- else{$grid->addCol(api_tag("p",api_text("dashboard_view-welcome",$GLOBALS['session']->user->fullname)),"col-xs-12");}
+ //
+ $grid->addCol($dashboard_menu->render(),"col-xs-12");
  // add content to application
  $app->addContent($grid->render());
  // renderize application
