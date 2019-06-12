@@ -261,29 +261,35 @@
     // cycle all menus
     foreach(api_availableMenus(null) as $menu_obj){
      // check for authorization
-     if($menu_obj->authorization){
-      $authorization=explode("|",$menu_obj->authorization);
-      if(!api_checkAuthorization($authorization[1],null,$authorization[0],true,false)){continue;}
-     }
+     if(!$menu_obj->checkAuthorizations()){continue;}
      // get subitems
      $subMenus_array=api_availableMenus($menu_obj->id);
+     // make icon
      if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=null;}
      // check for sub menus
      if(!count($subMenus_array)){
       $return.="         <li><a href=\"".$menu_obj->url."\" target=\"".$menu_obj->target."\">".$icon_source.$menu_obj->label."</a></li>\n";
      }else{
-      $return.="         <!-- sub-menu-->\n";
-      $return.="         <li class=\"dropdown dropdown-submenu\">\n";
-      $return.="          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".$icon_source.$menu_obj->label." <i class=\"fa fa-fw fa-caret-right\"></i></a>\n";
-      $return.="          <ul class=\"dropdown-menu\">\n";
+      // make sub menu source
+      $submenu_source=null;
       // cycle all menus
       foreach($subMenus_array as $subMenu_fobj){
-       // check for authorization @todo
+       // check for authorization
+       if(!$subMenu_fobj->checkAuthorizations()){continue;}
+       // make icon
        if($subMenu_fobj->icon){$icon_source=api_icon($subMenu_fobj->icon)." ";}else{$icon_source=null;}
-       $return.="           <li><a href=\"".$subMenu_fobj->url."\" target=\"".$subMenu_fobj->target."\">".$icon_source.$subMenu_fobj->label."</a></li>\n";
+       $submenu_source.="           <li><a href=\"".$subMenu_fobj->url."\" target=\"".$subMenu_fobj->target."\">".$icon_source.$subMenu_fobj->label."</a></li>\n";
       }
-      $return.="          </ul><!-- dropdown -->\n";
-      $return.="         </li><!-- sub-menu-->\n";
+      // check for submenu source
+      if(strlen($submenu_source)){
+       $return.="         <!-- sub-menu-->\n";
+       $return.="         <li class=\"dropdown dropdown-submenu\">\n";
+       $return.="          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".$icon_source.$menu_obj->label." <i class=\"fa fa-fw fa-caret-right\"></i></a>\n";
+       $return.="          <ul class=\"dropdown-menu\">\n";
+       $return.=$submenu_source;
+       $return.="          </ul><!-- dropdown -->\n";
+       $return.="         </li><!-- sub-menu-->\n";
+      }
      }
     }
     $return.="        </ul><!-- dropdown -->\n";
@@ -302,7 +308,7 @@
      // modules menu
      $return.="       <!-- modules-menu-->\n";
      $return.="       <li class=\"dropdown\">\n";
-     $return.="        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_icon("fa-th-list",api_text("nav-modules"),"faa-tada animated-hover")." <span class=\"caret\"></span></a>\n";
+     $return.="        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_icon("fa-puzzle-piece",api_text("nav-modules"),"faa-tada animated-hover")." <span class=\"caret\"></span></a>\n";
      $return.="        <ul class=\"dropdown-menu\">\n";
      $return.="         <li class=\"dropdown-header text-right\">".api_text("nav-modules")."</li>\n";
      // get all modules
@@ -376,11 +382,11 @@
    $return.="  <!-- footer -->\n";
    $return.="  <footer>\n";
    // make execution metrics
-   if(DEBUG){$execution_metrics=" [ Version: ".api_tag("b",VERSION)." | Queries: ".api_tag("b",$GLOBALS['database']->query_counter)." | Cached queries: ".api_tag("b",$GLOBALS['database']->cache_query_counter)." | Execution time: ~".api_tag("b",number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs")." ]";}else{$execution_metrics=null;}
+   if(DEBUG){$execution_metrics=" [ Queries: ".api_tag("b",$GLOBALS['database']->query_counter)." | Cached queries: ".api_tag("b",$GLOBALS['database']->cache_query_counter)." | Execution time: ~".api_tag("b",number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs")." ]";}else{$execution_metrics=null;}
    // build footer grid
    $footer_grid=new strGrid();
    $footer_grid->addRow();
-   $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; Coordinator - All Rights Reserved".$execution_metrics,"col-xs-12 text-right");
+   $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; <b>Coordinator</b> ".VERSION." - All Rights Reserved - <b>".$GLOBALS['settings']->owner."</b>".$execution_metrics,"col-xs-12 text-right");
    // set footer
    $return.=$footer_grid->render();
    // jQuery scripts

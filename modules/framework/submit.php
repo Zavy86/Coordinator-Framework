@@ -285,15 +285,15 @@
   $r_target=addslashes($_REQUEST['target']);
   // check variables
   if(!$r_url){$r_url="#";}
+  if($r_authorization=="module|*" && $r_typology=="standard"){$r_authorization=$r_module."|*";}
   // build menu query objects
   $menu_qobj=new stdClass();
   $menu_qobj->id=$menu_obj->id;
   $menu_qobj->fkMenu=$r_fkMenu;
   $menu_qobj->typology=$r_typology;
-  $menu_qobj->icon=$r_icon;
   $menu_qobj->label_localizations=$r_label_localizations;
   $menu_qobj->title_localizations=$r_title_localizations;
-  $menu_qobj->target=$r_target;
+  $menu_qobj->icon=$r_icon;
   $menu_qobj->authorization=$r_authorization;
   // switch menu typology
   switch($menu_qobj->typology){
@@ -304,6 +304,7 @@
     $menu_qobj->script=$r_script;
     $menu_qobj->tab=$r_tab;
     $menu_qobj->action=$r_action;
+    $menu_qobj->target=$r_target;
     break;
    // link
    case "link":
@@ -312,6 +313,7 @@
     $menu_qobj->script=null;
     $menu_qobj->tab=null;
     $menu_qobj->action=null;
+    $menu_qobj->target=$r_target;
     break;
    // group
    case "group":
@@ -320,6 +322,7 @@
     $menu_qobj->script=null;
     $menu_qobj->tab=null;
     $menu_qobj->action=null;
+    $menu_qobj->target=null;
     break;
   }
   // get last order of new fkMenu
@@ -1207,10 +1210,10 @@
   // check authorizations
   api_checkAuthorization("framework-sessions_manage","dashboard");
   // delete all sessions
-  $GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions`");
+  $GLOBALS['database']->queryExecute("DELETE FROM `framework__sessions` WHERE `id`<>'".$GLOBALS['session']->id."'");
   // redirect
   api_alerts_add(api_text("framework_alert_sessionTerminatedAll"),"warning");
-  api_redirect("index.php");
+  api_redirect("?mod=".MODULE."&scr=sessions_list");
  }
 
  /**

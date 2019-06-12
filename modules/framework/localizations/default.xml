@@ -288,20 +288,18 @@
  <!-- menus_edit -->
  <text key="menus_edit">Modifica menu: <![CDATA[{0}]]></text>
  <text key="menus_edit-add">Nuovo menu</text>
- <text key="menus_edit-fkMenu">Menu</text>
- <text key="menus_edit-fkMenu-main">Menu principale</text>
  <text key="menus_edit-typology">Tipologia</text>
  <text key="menus_edit-typology-standard">Standard</text>
  <text key="menus_edit-typology-link">Link</text>
  <text key="menus_edit-typology-group">Gruppo</text>
- <text key="menus_edit-icon">Icona</text>
- <text key="menus_edit-icon-placeholder">Icona del menu</text>
+ <text key="menus_edit-fkMenu">Menu</text>
+ <text key="menus_edit-fkMenu-main">Menu principale</text>
  <text key="menus_edit-label">Etichetta</text>
  <text key="menus_edit-label-placeholder">Etichetta del menu</text>
  <text key="menus_edit-title">Descrizione</text>
  <text key="menus_edit-title-placeholder">Breve descrizione del menu</text>
- <text key="menus_edit-url">URL</text>
- <text key="menus_edit-url-placeholder">http://www.url.tdl</text>
+ <text key="menus_edit-icon">Icona</text>
+ <text key="menus_edit-icon-placeholder">Icona del menu</text>
  <text key="menus_edit-module">Modulo</text>
  <text key="menus_edit-module-placeholder">Seleziona un modulo..</text>
  <text key="menus_edit-script">Script</text>
@@ -310,8 +308,11 @@
  <text key="menus_edit-tab-placeholder">Tab da visualizzare</text>
  <text key="menus_edit-action">Azione</text>
  <text key="menus_edit-action-placeholder">Azione da eseguire</text>
+ <text key="menus_edit-url">URL</text>
+ <text key="menus_edit-url-placeholder">http://www.url.tdl</text>
  <text key="menus_edit-authorization">Autorizzazione</text>
- <text key="menus_edit-authorization-placeholder">Seleziona un'autorizzazione..</text>
+ <text key="menus_edit-authorization-none">Nessuna autorizzazione..</text>
+ <text key="menus_edit-authorization-module">Almeno un'autorizzazione del modulo..</text>
  <text key="menus_edit-target">Target</text>
  <text key="menus_edit-target-standard">Standard</text>
  <text key="menus_edit-target-blank">Nuova finestra</text>

@@ -354,11 +354,10 @@
       $jquery.=" var lang_json=JSON.stringify(lang_texts);\n";
       $jquery.=" var lang_show=lang_texts[\"".$GLOBALS['session']->user->localization."\"];\n";
       $jquery.=" if(lang_show==null){lang_show=lang_texts[\"en_EN\"];}\n";
-      $jquery.=" if(lang_texts[\"en_EN\"]!=null){\n";
-      $jquery.="  $(\"#".$this->id."_input_".substr($field->name,0,-10)."\").val(lang_json);\n";
-      $jquery.="  $(\"#".$this->id."_input_".$field->name."\").val(lang_show);\n";
-      $jquery.="  $(\"#modal_".$this->id."_input_".$field->name."\").modal('hide');";
-      $jquery.=" }else{alert(\"".api_text("form-input-text_localized-alert")."\");}\n";
+      $jquery.=" if(lang_texts[\"en_EN\"]==null){alert(\"".api_text("form-input-text_localized-alert")."\");}\n";
+      $jquery.=" $(\"#".$this->id."_input_".substr($field->name,0,-10)."\").val(lang_json);\n";
+      $jquery.=" $(\"#".$this->id."_input_".$field->name."\").val(lang_show);\n";
+      $jquery.=" $(\"#modal_".$this->id."_input_".$field->name."\").modal('hide');";
       $jquery.="}";
 
       /** @todo bottone per resettare tutti i campi a null */
