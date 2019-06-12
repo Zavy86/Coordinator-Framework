@@ -261,29 +261,35 @@
     // cycle all menus
     foreach(api_availableMenus(null) as $menu_obj){
      // check for authorization
-     if($menu_obj->authorization){
-      $authorization=explode("|",$menu_obj->authorization);
-      if(!api_checkAuthorization($authorization[1],null,$authorization[0],true,false)){continue;}
-     }
+     if(!$menu_obj->checkAuthorizations()){continue;}
      // get subitems
      $subMenus_array=api_availableMenus($menu_obj->id);
+     // make icon
      if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=null;}
      // check for sub menus
      if(!count($subMenus_array)){
       $return.="         <li><a href=\"".$menu_obj->url."\" target=\"".$menu_obj->target."\">".$icon_source.$menu_obj->label."</a></li>\n";
      }else{
-      $return.="         <!-- sub-menu-->\n";
-      $return.="         <li class=\"dropdown dropdown-submenu\">\n";
-      $return.="          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".$icon_source.$menu_obj->label." <i class=\"fa fa-fw fa-caret-right\"></i></a>\n";
-      $return.="          <ul class=\"dropdown-menu\">\n";
+      // make sub menu source
+      $submenu_source=null;
       // cycle all menus
       foreach($subMenus_array as $subMenu_fobj){
-       // check for authorization @todo
+       // check for authorization
+       if(!$subMenu_fobj->checkAuthorizations()){continue;}
+       // make icon
        if($subMenu_fobj->icon){$icon_source=api_icon($subMenu_fobj->icon)." ";}else{$icon_source=null;}
-       $return.="           <li><a href=\"".$subMenu_fobj->url."\" target=\"".$subMenu_fobj->target."\">".$icon_source.$subMenu_fobj->label."</a></li>\n";
+       $submenu_source.="           <li><a href=\"".$subMenu_fobj->url."\" target=\"".$subMenu_fobj->target."\">".$icon_source.$subMenu_fobj->label."</a></li>\n";
       }
-      $return.="          </ul><!-- dropdown -->\n";
-      $return.="         </li><!-- sub-menu-->\n";
+      // check for submenu source
+      if(strlen($submenu_source)){
+       $return.="         <!-- sub-menu-->\n";
+       $return.="         <li class=\"dropdown dropdown-submenu\">\n";
+       $return.="          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".$icon_source.$menu_obj->label." <i class=\"fa fa-fw fa-caret-right\"></i></a>\n";
+       $return.="          <ul class=\"dropdown-menu\">\n";
+       $return.=$submenu_source;
+       $return.="          </ul><!-- dropdown -->\n";
+       $return.="         </li><!-- sub-menu-->\n";
+      }
      }
     }
     $return.="        </ul><!-- dropdown -->\n";

@@ -285,6 +285,7 @@
   $r_target=addslashes($_REQUEST['target']);
   // check variables
   if(!$r_url){$r_url="#";}
+  if($r_authorization=="module|*" && $r_typology=="standard"){$r_authorization=$r_module."|*";}
   // build menu query objects
   $menu_qobj=new stdClass();
   $menu_qobj->id=$menu_obj->id;

@@ -17,7 +17,7 @@
  // build profile form
  $form=new strForm("?mod=".MODULE."&scr=submit&act=menu_save&idMenu=".$menu_obj->id,"POST",null,"menus_edit");
  // typologies
- $form->addField("radio","typology",api_text("menus_edit-typology"),$menu_obj->typology,null,null,"radio-inline");
+ $form->addField("radio","typology",api_text("menus_edit-typology"),($menu_obj->typology?$menu_obj->typology:"standard"),null,null,"radio-inline");
  $form->addFieldOption("standard",api_text("menus_edit-typology-standard"));
  $form->addFieldOption("link",api_text("menus_edit-typology-link"));
  $form->addFieldOption("group",api_text("menus_edit-typology-group"));
@@ -26,7 +26,7 @@
  $form->addFieldOption(null,api_text("menus_edit-fkMenu-main"));
  // cycle all first level menus
  foreach(api_availableMenus(null) as $menu_option_obj){
-  if($menu_option_obj->id==$menu_obj->id){continue;}
+  if($menu_option_obj->typology!="group" || $menu_option_obj->id==$menu_obj->id){continue;}
   $form->addFieldOption($menu_option_obj->id,str_repeat("&nbsp;&nbsp;&nbsp;",$menu_option_obj->nesting).$menu_option_obj->label);
  }
  // label, title and icon
@@ -45,8 +45,8 @@
  // authorization
  $form->addField("select","authorization",api_text("menus_edit-authorization"),$menu_obj->authorization);
  $form->addFieldOption("",api_text("menus_edit-authorization-none"));
- $form->addFieldOption("module",api_text("menus_edit-authorization-module"));
- foreach(api_availableAuthorizations() as $authorization_fobj){$form->addFieldOption($authorization_fobj->id,$authorization_fobj->id);}
+ $form->addFieldOption("module|*",api_text("menus_edit-authorization-module"));
+ foreach(api_availableAuthorizations() as $authorization_fobj){$form->addFieldOption($authorization_fobj->fkModule."|".$authorization_fobj->id,$authorization_fobj->id);}
  // target
  $form->addField("radio","target",api_text("menus_edit-target"),$menu_obj->target,null,null,"radio-inline");
  $form->addFieldOption("",api_text("menus_edit-target-standard"));

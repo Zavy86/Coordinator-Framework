@@ -81,5 +81,24 @@
    */
   public function __get($property){return $this->$property;}
 
+  /**
+   * Check Authorizations
+   *
+   * @return boolean
+   */
+  public function checkAuthorizations(){
+   // no authorizations required
+   if(!trim($this->authorization)){return true;}
+   // explode authorizations
+   $authorization=explode("|",$this->authorization);
+   // check authorization array
+   if(count($authorization)!=2){api_alerts_add("Authorization error in menu \"".$this->label."\"","danger");}
+   // check authorization for user
+   if(api_checkAuthorization($authorization[1],null,$authorization[0],true,DEBUG)){return true;}
+   // return false
+   return false;
+  }
+
  }
+
 ?>

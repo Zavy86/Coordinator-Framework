@@ -318,10 +318,23 @@
   // check parameters
   if(!$authorization){return false;}
   if(!$module){$module=MODULE;}
-  // check authorization
-  $result=$GLOBALS['session']->user->authorizations_array[$module][$authorization];
-  if($result=="authorized"){return true;}
-  if($inherited && $result=="inherited"){return true;}
+  // check for all actions
+  if($authorization=="*"){
+   // get all module action authorizations
+   $results_array=$GLOBALS['session']->user->authorizations_array[$module];
+   // check all actions
+   foreach($results_array as $result){
+    // check for action
+    if($result=="authorized"){return true;}
+    if($inherited && $result=="inherited"){return true;}
+   }
+  }else{
+   // get module action authorization
+   $result=$GLOBALS['session']->user->authorizations_array[$module][$authorization];
+   // check for action
+   if($result=="authorized"){return true;}
+   if($inherited && $result=="inherited"){return true;}
+  }
   // check superuser
   if($superuser && $GLOBALS['session']->user->superuser){
    if(DEBUG){api_alerts_add("Check permission [".$module."][".$authorization."] = SUPERUSER","warning");}
