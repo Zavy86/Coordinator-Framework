@@ -86,6 +86,12 @@
  <text key="dl-dt-upd">Aggiornamento</text>
  <text key="dl-dd-upd"><![CDATA[{0}]]> il <![CDATA[{1}]]></text>
 
+ <!-- tables -->
+ <text key="table-td-view">Visualizza</text>
+ <text key="table-td-edit">Modifica</text>
+ <text key="table-td-delete">Elimina</text>
+ <text key="table-td-remove">Rimuovi</text>
+
  <!-- forms -->
  <text key="form-fc-submit">Salva</text>
  <text key="form-fc-cancel">Annulla</text>
