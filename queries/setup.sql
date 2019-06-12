@@ -71,6 +71,7 @@ CREATE TABLE IF NOT EXISTS `framework__sessions` (
   `address` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   `startTimestamp` int(11) unsigned NOT NULL,
   `lastTimestamp` int(11) unsigned NOT NULL,
+  `interpreterFkUser` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fkUser` (`fkUser`),
   CONSTRAINT `framework__sessions_ibfk_1` FOREIGN KEY (`fkUser`) REFERENCES `framework__users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
