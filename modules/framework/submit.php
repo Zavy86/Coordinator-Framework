@@ -290,10 +290,9 @@
   $menu_qobj->id=$menu_obj->id;
   $menu_qobj->fkMenu=$r_fkMenu;
   $menu_qobj->typology=$r_typology;
-  $menu_qobj->icon=$r_icon;
   $menu_qobj->label_localizations=$r_label_localizations;
   $menu_qobj->title_localizations=$r_title_localizations;
-  $menu_qobj->target=$r_target;
+  $menu_qobj->icon=$r_icon;
   $menu_qobj->authorization=$r_authorization;
   // switch menu typology
   switch($menu_qobj->typology){
@@ -304,6 +303,7 @@
     $menu_qobj->script=$r_script;
     $menu_qobj->tab=$r_tab;
     $menu_qobj->action=$r_action;
+    $menu_qobj->target=$r_target;
     break;
    // link
    case "link":
@@ -312,6 +312,7 @@
     $menu_qobj->script=null;
     $menu_qobj->tab=null;
     $menu_qobj->action=null;
+    $menu_qobj->target=$r_target;
     break;
    // group
    case "group":
@@ -320,6 +321,7 @@
     $menu_qobj->script=null;
     $menu_qobj->tab=null;
     $menu_qobj->action=null;
+    $menu_qobj->target=null;
     break;
   }
   // get last order of new fkMenu
