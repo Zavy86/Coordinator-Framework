@@ -7,6 +7,8 @@
  * @link    http://www.coordinator.it
  */
 
+ // debug
+ api_dump($_REQUEST,"_REQUEST");
  // check for actions
  if(!defined('ACTION')){die("ERROR EXECUTING SCRIPT: The action was not defined");}
  // switch action
@@ -54,6 +56,8 @@
   case "session_logout":session_logout();break;
   case "session_terminate":session_terminate();break;
   case "session_terminate_all":session_terminate_all();break;
+  case "session_interpret":session_interpret();break;
+  case "session_interpret_terminate":session_interpret_terminate();break;
   // mails
   case "mail_save":mail_save();break;
   case "mail_retry":mail_retry();break;
@@ -73,7 +77,6 @@
   * Own Profile Update
   */
  function own_profile_update(){
-  api_dump($_REQUEST,"_REQUEST");
   // build user query objects
   $user_qobj=new stdClass();
   $user_qobj->id=$GLOBALS['session']->user->id;
@@ -105,7 +108,6 @@
   * Own Password Update
   */
  function own_password_update(){
-  api_dump($_REQUEST,"_REQUEST");
   // retrieve user object
   $user_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users` WHERE `id`='".$GLOBALS['session']->user->id."'");
   // check
@@ -139,7 +141,6 @@
   * Own Password Recovery
   */
  function own_password_recovery(){
-  api_dump($_REQUEST,"_REQUEST");
   // acquire variables
   $r_mail=$_REQUEST['mail'];
   $r_secret=$_REQUEST['secret'];
@@ -186,7 +187,6 @@
   * Own Avatar Remove
   */
  function own_avatar_remove(){
-  api_dump($_REQUEST,"_REQUEST");
   // remove avatar if exist
   if(file_exists(DIR."uploads/framework/users/avatar_".$GLOBALS['session']->user->id.".jpg")){unlink(DIR."uploads/framework/users/avatar_".$GLOBALS['session']->user->id.".jpg");}
   // redirect
@@ -198,7 +198,6 @@
   * Settings Save
   */
  function settings_save(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-settings_manage","dashboard");
   // acquire variables
@@ -249,7 +248,6 @@
   * Settings Logo Remove
   */
  function settings_logo_remove(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-settings_manage","dashboard");
   // acquire variables
@@ -265,7 +263,6 @@
   * Menu Save
   */
  function menu_save(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-menus_manage","dashboard");
   // get menu object
@@ -369,7 +366,6 @@
   * @param string direction
   */
  function menu_move($direction){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-menus_manage","dashboard");
   // get objects
@@ -440,7 +436,6 @@
   * Module Add
   */
  function module_add(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-modules_manage","dashboard");
   // disabled for localhost
@@ -502,7 +497,6 @@
   * Module Initialize
   */
  function module_initialize(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-modules_manage","dashboard");
   // get variables
@@ -534,7 +528,6 @@
   * Module Setup
   */
  function module_setup(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-modules_manage","dashboard");
   // get objects
@@ -567,7 +560,6 @@
   * Module Update Source
   */
  function module_update_source(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-modules_manage","dashboard");
   // disabled for localhost and 127.0.0.1
@@ -593,7 +585,6 @@
   * Module Updates Database
   */
  function module_update_database(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-modules_manage","dashboard");
   // disabled for localhost and 127.0.0.1
@@ -656,7 +647,6 @@
   * param boolean $enable Enable status
   */
  function module_enable($enable){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-modules_manage","dashboard");
   // get objects
@@ -684,7 +674,6 @@
   * Module Authorizations Group Add
   */
  function module_authorizations_group_add(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-modules_manage","dashboard");
   // get objects
@@ -736,7 +725,6 @@
   * Module Authorizations Group Remove
   */
  function module_authorizations_group_remove(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-modules_manage","dashboard");
   // get objects
@@ -769,7 +757,6 @@
   * Module Authorizations Reset
   */
  function module_authorizations_reset(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-modules_manage","dashboard");
   // get objects
@@ -802,7 +789,6 @@
   * User Add
   */
  function user_add(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-users_manage","dashboard");
   // make password
@@ -846,7 +832,6 @@
   * User Edit
   */
  function user_edit(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-users_manage","dashboard");
   // get objects
@@ -885,7 +870,6 @@
   * @param boolean $enabled Enabled or Disabled
   */
  function user_enabled($enabled){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-users_manage","dashboard");
   // get objects
@@ -916,7 +900,6 @@
   * @param boolean $deleted Deleted or Undeleted
   */
  function user_deleted($deleted){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-users_manage","dashboard");
   // get objects
@@ -950,7 +933,6 @@
   * User Avatar Remove
   */
  function user_avatar_remove(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-users_manage","dashboard");
   // get objects
@@ -968,7 +950,6 @@
   * User Group Add
   */
  function user_group_add(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-users_manage","dashboard");
   // get objects
@@ -1006,7 +987,6 @@
   * User Group Remove
   */
  function user_group_remove(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-users_manage","dashboard");
   // get objects
@@ -1036,7 +1016,6 @@
   * User Group Mainize
   */
  function user_group_mainize(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-users_manage","dashboard");
   // get objects
@@ -1057,7 +1036,6 @@
   * User Parameter Save
   */
  function user_parameter_save(){ /** @todo convertire in own? */
-  api_dump($_REQUEST,"_REQUEST");
   // get current user
   $user_obj=new cUser($GLOBALS['session']->user->id);
   if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=dashboard");}
@@ -1099,7 +1077,6 @@
   * Group Save
   */
  function group_save(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-groups_manage","dashboard");
   // get objects
@@ -1141,7 +1118,6 @@
   * Group Remove
   */
  function group_remove(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-groups_manage","dashboard");
   // get objects
@@ -1161,7 +1137,6 @@
   * Session Login
   */
  function session_login(){
-  api_dump($_REQUEST,"_REQUEST");
   // acquire variables
   $r_username=$_REQUEST['username'];
   $r_password=$_REQUEST['password'];
@@ -1178,7 +1153,6 @@
   * Session Logout
   */
  function session_logout(){
-  api_dump($_REQUEST,"_REQUEST");
   // destroy session
   $GLOBALS['session']->logout();
   // redirect
@@ -1189,7 +1163,6 @@
   * Sessions Terminate
   */
  function session_terminate(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-sessions_manage","dashboard");
   // acquire variables
@@ -1206,7 +1179,6 @@
   * Sessions Terminate All
   */
  function session_terminate_all(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-sessions_manage","dashboard");
   // delete all sessions
@@ -1217,10 +1189,37 @@
  }
 
  /**
+  * Session Interpret
+  */
+ function session_interpret(){
+  // check for super user
+  if(!$GLOBALS['session']->user->superuser){api_alerts_add(api_text("alert_unauthorized"),"danger");api_redirect("index.php");}
+  // get objects
+  $user_obj=new cUser($_REQUEST['idUser']);
+  // check objects
+  if(!$user_obj->id){api_alerts_add(api_text("framework_alert_userNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=users_list");}
+  // destroy session
+  $GLOBALS['session']->interpret($user_obj->id);
+  // redirect
+  api_redirect("index.php");
+ }
+
+ /**
+  * Session Interpret Terminate
+  */
+ function session_interpret_terminate(){
+  // check for interpretation
+  if(!$GLOBALS['session']->interpreter){api_alerts_add(api_text("alert_unauthorized"),"danger");api_redirect("index.php");}
+  // terminate session interpretation
+  $GLOBALS['session']->interpret_terminate();
+  // redirect
+  api_redirect("index.php");
+ }
+
+ /**
   * Mail Save
   */
  function mail_save(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-mails_manage","dashboard");
   // acquire variables
@@ -1245,7 +1244,6 @@
   * Mail Retry
   */
  function mail_retry(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-mails_manage","dashboard");
   // get objects
@@ -1272,7 +1270,6 @@
   * Mail Remove
   */
  function mail_remove(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-mails_manage","dashboard");
   // get objects
@@ -1292,7 +1289,6 @@
   * Attachment Save
   */
  function attachment_save(){
-  api_dump($_REQUEST,"_REQUEST");
   api_dump($_FILES,"_FILES");
   // check authorizations
   api_checkAuthorization("framework-attachments_manage","dashboard");
@@ -1335,7 +1331,6 @@
   * param boolean $delete
   */
  function attachment_delete($deleted){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-attachments_manage","dashboard");
   // get objects
@@ -1363,7 +1358,6 @@
   * Attachment Remove
   */
  function attachment_remove(){
-  api_dump($_REQUEST,"_REQUEST");
   // check authorizations
   api_checkAuthorization("framework-attachments_manage","dashboard");
   // remove attachment

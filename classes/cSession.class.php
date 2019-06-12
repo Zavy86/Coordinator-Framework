@@ -18,6 +18,7 @@
   protected $duration;
   protected $idle;
   protected $user;
+  protected $interpreter;
 
   /**
    * Session class
@@ -66,6 +67,8 @@
    $GLOBALS['database']->queryExecute("UPDATE `framework__sessions` SET `lastTimestamp`='".time()."' WHERE `id`='".$this->id."'");
    // build user object
    $this->user=new cUser($session_obj->fkUser,true);
+   // interpreter
+   $this->interpreter=$session_obj->interpreterFkUser;
    // check maintenance
    if($GLOBALS['settings']->maintenance){
     if($this->user->superuser){
@@ -139,6 +142,50 @@
    $GLOBALS['database']->queryUpdate("framework__users",$user_qobj);
    // return
    return true;
+  }
+
+  /**
+   * Interpretation
+   */
+  public function interpret($user_id){
+   // check for super user
+   if(!$GLOBALS['session']->user->superuser){return false;}
+   // get user
+   $user_obj=new cUser($user_id);
+   // check for user
+   if(!$user_obj->id){return false;}
+   // build session query objects
+   $session_qobj=new stdClass();
+   // acquire variables
+   $session_qobj->id=$this->id;
+   $session_qobj->fkUser=$user_obj->id;
+   $session_qobj->interpreterFkUser=$this->user->id;
+   // debug
+   api_dump($session_qobj,"session query object");
+   // update user
+   $GLOBALS['database']->queryUpdate("framework__sessions",$session_qobj);
+  }
+
+  /**
+   * Terminate Interpretation
+   */
+  public function interpret_terminate(){
+   // check for super user
+   if(!$this->interpreter){return false;}
+   // get user
+   $user_obj=new cUser($this->interpreter);
+   // check for user
+   if(!$user_obj->id){return false;}
+   // build session query objects
+   $session_qobj=new stdClass();
+   // acquire variables
+   $session_qobj->id=$this->id;
+   $session_qobj->fkUser=$user_obj->id;
+   $session_qobj->interpreterFkUser=null;
+   // debug
+   api_dump($session_qobj,"session query object");
+   // update user
+   $GLOBALS['database']->queryUpdate("framework__sessions",$session_qobj);
   }
 
   /**

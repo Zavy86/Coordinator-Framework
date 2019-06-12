@@ -77,7 +77,7 @@
     }else{
      // check superuser authorization
      if($GLOBALS['session']->user->superuser && $user_obj->id!=$GLOBALS['session']->user->id){
-      $nav->addSubItem(api_text("nav-operations-user_interpret"),"?mod=".MODULE."&scr=submit&act=user_interpret&idUser=".$user_obj->id,true,api_text("nav-operations-user_interpret-confirm"));
+      $nav->addSubItem(api_text("nav-operations-user_interpret"),"?mod=".MODULE."&scr=submit&act=session_interpret&idUser=".$user_obj->id,true,api_text("nav-operations-user_interpret-confirm"));
       $nav->addSubSeparator();
      }
      $nav->addSubItem(api_text("nav-operations-user_edit"),"?mod=".MODULE."&scr=users_edit&idUser=".$user_obj->id);
