@@ -42,7 +42,7 @@
  }
 
  /**
-  * Redirect or show redirection link in debug mode)
+  * Redirect or show redirection link in debug mode
   *
   * @param string $location Location URL
   */
@@ -59,6 +59,18 @@
   }
   // direct redirect
   exit(header("location: ".$location));
+ }
+
+ /**
+  * Dump exception, set alert and redirect
+  *
+  * @param string $exception Exception object
+  * @param string $location Location URL
+  */
+ function api_redirect_exception($exception,$location,$alert=null){
+  api_dump($exception,"EXCEPTION: \"".$exception->getMessage()."\"","error");
+  if($alert){api_alerts_add(api_text($alert),"danger");}
+  api_redirect($location);
  }
 
  /**
@@ -271,6 +283,8 @@
   $alert->class=$class;
   // add alert to session alerts array
   $_SESSION['coordinator_alerts'][]=$alert;
+  // dump alert for submit
+  if(SCRIPT=="submit"){api_dump($alert->message,"ALERT","alert-".$alert->class);}
   // return
   return true;
  }

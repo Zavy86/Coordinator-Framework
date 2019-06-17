@@ -63,7 +63,7 @@
   // build table row
   $table->addRow();
   // build table fields
-  $table->addRowFieldAction("?mod=".MODULE."&scr=modules_view&idModule=".$module->id,"search",api_text("show"));
+  $table->addRowFieldAction("?mod=".MODULE."&scr=modules_view&idModule=".$module->id,"search",api_text("table-td-view"));
   $table->addRowField($module->name,"nowrap");
   $table->addRowField(api_tag("span",$module->version,"label ".($source_updated?"label-warning":"label-success")),"nowrap text-right");
   $table->addRowField(api_tag("span",$repository_version,"label ".($repository_updated?"label-info":"label-success")),"nowrap text-right");

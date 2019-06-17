@@ -328,7 +328,8 @@
     $return.="        <ul class=\"dropdown-menu\">\n";
     $return.="         <li class=\"dropdown-header text-right\">".$GLOBALS['session']->user->fullname."</li>\n";
     $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=own_profile\">".api_text("nav-own-profile")." ".api_icon("fa-user-circle-o")."</a></li>\n";
-    $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=submit&act=session_logout\">".api_text("nav-logout")." ".api_icon("fa-sign-out")."</a></li>\n";
+    if($GLOBALS['session']->interpreter){$return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=submit&act=session_interpret_terminate\">".api_text("nav-interpret_terminate")." ".api_icon("fa-user-secret")."</a></li>\n";}
+    else{$return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=submit&act=session_logout\">".api_text("nav-logout")." ".api_icon("fa-sign-out")."</a></li>\n";}
     // show link for administrators
     if(api_checkAuthorization("framework-settings_manage",null,"framework")){
      $return.="         <li class=\"divider\" role=\"separator\">&nbsp;</li>\n";

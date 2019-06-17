@@ -64,11 +64,12 @@
  <text key="nav-menu">Menu principale</text>
  <text key="nav-modules">Moduli abilitati</text>
  <text key="nav-own-profile">Profilo personale</text>
+ <text key="nav-interpret_terminate">Termina interpretazione</text>
+ <text key="nav-logout">Disconnetti</text>
  <text key="nav-settings">Impostazioni</text>
  <text key="nav-mails">Registro mail</text>
  <text key="nav-attachments">Allegati</text>
  <text key="nav-debug">Debug</text>
- <text key="nav-logout">Disconnetti</text>
  <text key="nav-operations">Operazioni</text>
  <text key="nav-management">Amministrazione</text>
  <text key="nav-parameters">Parametri personali</text>
@@ -85,6 +86,12 @@
  <text key="dl-dd-add"><![CDATA[{0}]]> il <![CDATA[{1}]]></text>
  <text key="dl-dt-upd">Aggiornamento</text>
  <text key="dl-dd-upd"><![CDATA[{0}]]> il <![CDATA[{1}]]></text>
+
+ <!-- tables -->
+ <text key="table-td-view">Visualizza</text>
+ <text key="table-td-edit">Modifica</text>
+ <text key="table-td-delete">Elimina</text>
+ <text key="table-td-remove">Rimuovi</text>
 
  <!-- forms -->
  <text key="form-fc-submit">Salva</text>

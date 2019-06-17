@@ -32,7 +32,7 @@
  // label, title and icon
  $form->addField("text_localized","label_localizations",api_text("menus_edit-label"),$menu_obj->label_localizations,api_text("menus_edit-label-placeholder"));
  $form->addField("text_localized","title_localizations",api_text("menus_edit-title"),$menu_obj->title_localizations,api_text("menus_edit-title-placeholder"));
- $form->addField("text","icon",api_text("menus_edit-icon"),$menu_obj->icon,api_text("menus_edit-icon-placeholder"));
+ $form->addField("text","icon",api_text("menus_edit-icon"),$menu_obj->icon,api_text("menus_edit-icon-placeholder"),null,null,null,"autocomplete='off'");
  $form->addField("splitter");
  // standard typology
  $form->addField("select","module",api_text("menus_edit-module"),$menu_obj->module,api_text("menus_edit-module-placeholder"));

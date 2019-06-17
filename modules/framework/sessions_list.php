@@ -19,6 +19,7 @@
  $table->addHeader(api_text("sessions_list-th-idle"),"nowrap text-right");
  $table->addHeader(api_text("sessions_list-th-start"),"nowrap");
  $table->addHeader(api_text("sessions_list-th-address"),"nowrap");
+ $table->addHeader("&nbsp;",null,16);
  $table->addHeader(api_text("sessions_list-th-id"),"nowrap","100%");
  $table->addHeader(api_link("?mod=".MODULE."&scr=submit&act=session_terminate_all",api_icon("remove",api_text("sessions_list-th-terminate")),null,null,false,api_text("sessions_list-th-terminate-confirm")),"text-center",16);
  // definitions
@@ -44,6 +45,7 @@
    $table->addRowField(api_timestamp_intervalTextual(time()-$session_r->lastTimestamp),"nowrap text-right");
    $table->addRowField(api_timestamp_format($session_r->startTimestamp,"Y-m-d H:i"),"nowrap");
    $table->addRowField($session_r->address,"nowrap");
+   $table->addRowField(($session_r->interpreterFkUser?api_icon("fa-user-secret",(new cUser($session_r->interpreterFkUser))->fullname):"&nbsp"),"nowrap");
    $table->addRowField(api_tag("samp",$session_r->id),"nowrap");
    $table->addRowFieldAction("?mod=".MODULE."&scr=submit&act=session_terminate&idSession=".$session_r->id,"remove",api_text("sessions_list-td-terminate"),api_text("sessions_list-td-terminate-confirm"));
   }
