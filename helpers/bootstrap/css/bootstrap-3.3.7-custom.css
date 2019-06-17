@@ -17,8 +17,9 @@
 @media(min-width:1900px){.container{width:1870px;}}
 
 pre.debug{margin:9px;padding:9px;font-size:9pt;}
-pre.warn{background-color:#FCF8E3;border-color:#FAEBCC;}
-pre.error{background-color:#F2DEDE;border-color:#EBCCD1;}
+pre.info,pre.alert-info{background-color:#F7F7F9;border-color:#DDDDDD;}
+pre.warn,pre.alert-warning{background-color:#FCF8E3;border-color:#FAEBCC;}
+pre.error,pre.alert-danger{background-color:#F2DEDE;border-color:#EBCCD1;}
 
 div.redirect{margin:9px;padding:18px 9px 18px 9px;font-size:9pt;font-family:monospace;background-color:#D9EDF7;border-color:#BCE8F1;}
 div.redirect a{color:#000000;text-decoration:none;}div.redirect a:hover{color:#000000;text-decoration:underline;}
