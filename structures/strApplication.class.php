@@ -295,11 +295,13 @@
     $return.="        </ul><!-- dropdown -->\n";
     $return.="       </li><!-- main-menu-->\n";
     // module
-    $return.="       <li class=\"navbar-module ".(SCRIPT=="dashboard"?"active":null)."\"><a href=\"?mod=".MODULE."\"><strong>".api_text(MODULE)."</strong></a></li>\n";
+    $return.="       <li class=\"navbar-module ".(SCRIPT=="dashboard"?"active":null)." hidden-xs\"><a href=\"?mod=".MODULE."\"><strong>".api_text(MODULE)."</strong></a></li>\n";
     // script
-    if(SCRIPT!="dashboard"){$return.="       <li class=\"active\"><a href=\"#\">".$this->title."</a></li>\n";}
+    if(SCRIPT!="dashboard"){
+     $return.="       <li class=\"active hidden-xs hidden-sm\"><a href=\"#\">".$this->title."</a></li>\n";
+    }
     // close main navigation
-    $return.="   </ul><!-- main-nav-->\n";
+    $return.="      </ul><!-- main-nav-->\n";
     // right navigation
     $return.="      <!-- right-nav-->\n";
     $return.="      <ul class=\"nav navbar-nav navbar-right\">\n";

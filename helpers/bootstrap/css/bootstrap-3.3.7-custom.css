@@ -97,7 +97,6 @@ footer{
 }
 
 .table td.truncate-ellipsis > * {
- overflow:hidden;
  white-space:nowrap;
  display:table-cell;
  overflow:hidden;
