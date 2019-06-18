@@ -239,8 +239,9 @@
     $return.="      <a class=\"navbar-brand\" id=\"nav_brand_logo\" href=\"#\"><img alt=\"Brand logo\" src=\"".PATH."uploads/framework/logo.default.png"."\" height=\"20\"></a>\n";
     $return.="      <a class=\"navbar-brand\" id=\"nav_brand_title\" href=\"index.php\">Coordinator Framework</a>\n";
    }
-   if(in_array($GLOBALS['settings']->show,array("logo","logo_title"))){ $return.="      <a class=\"navbar-brand\" id=\"nav_brand_logo\" href=\"#\"><img alt=\"Brand logo\" src=\"".$GLOBALS['settings']->logo."\" height=\"20\"></a>\n";}
+   if(in_array($GLOBALS['settings']->show,array("logo","logo_title"))){$return.="      <a class=\"navbar-brand\" id=\"nav_brand_logo\" href=\"#\"><img alt=\"Brand logo\" src=\"".$GLOBALS['settings']->logo."\" height=\"20\"></a>\n";}
    if(in_array($GLOBALS['settings']->show,array("title","logo_title"))){$return.="      <a class=\"navbar-brand\" id=\"nav_brand_title\" href=\"index.php\">".$GLOBALS['settings']->title."</a>\n";}
+   $return.="      <a class=\"navbar-brand-small visible-xs\" href=\"?mod=".MODULE."\">".api_text(MODULE)."</a>\n";
    $return.="     </div><!--/navbar-header -->\n";
    // renderize navbar collapse
    $return.="     <!-- navbar-collapse-->\n";
@@ -251,10 +252,12 @@
     $return.="      <!-- main-nav-->\n";
     $return.="      <ul class=\"nav navbar-nav\">\n";
     // dashboard
-    $return.="       <li><a href=\"?mod=dashboard\">".api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover")."</a></li>\n";
+    $return.="       <li class=\"hidden-xs\"><a href=\"?mod=dashboard\">".api_icon("fa-th-large",api_text("nav-dashboard"),"faa-tada animated-hover")."</a></li>\n";
+    // dashboard xs
+    $return.="       <li class=\"visible-xs\"><a href=\"?mod=dashboard\">".api_icon("fa-th-large")."&nbsp;".api_text("nav-dashboard")."</a></li>\n";
     // main menu
     $return.="       <!-- main-menu-->\n";
-    $return.="       <li class=\"dropdown\">\n";
+    $return.="       <li class=\"dropdown hidden-xs\">\n";
     $return.="        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_icon("fa-th-list",api_text("nav-menu"),"faa-tada animated-hover")." <span class=\"caret\"></span></a>\n";
     $return.="        <ul class=\"dropdown-menu\">\n";
     $return.="         <li class=\"dropdown-header\">".api_text("nav-menu")."</li>\n";
@@ -294,6 +297,42 @@
     }
     $return.="        </ul><!-- dropdown -->\n";
     $return.="       </li><!-- main-menu-->\n";
+    // main menu xs
+    $return.="       <li class=\"visible-xs\"><a href=\"#\">".api_icon("fa-th-list")."&nbsp;".api_text("nav-menu")."</a></li>\n";
+    // cycle all menus
+    foreach(api_availableMenus(null) as $menu_obj){
+     // check for authorization
+     if(!$menu_obj->checkAuthorizations()){continue;}
+     // get subitems
+     $subMenus_array=api_availableMenus($menu_obj->id);
+     // make icon
+     if($menu_obj->icon){$icon_source=api_icon($menu_obj->icon)." ";}else{$icon_source=null;}
+     // check for sub menus
+     if(!count($subMenus_array)){
+      $return.="         <li class=\"visible-xs\"><a href=\"".$menu_obj->url."\" target=\"".$menu_obj->target."\">".$icon_source.$menu_obj->label."</a></li>\n";
+     }else{
+      // make sub menu source
+      $submenu_source=null;
+      // cycle all menus
+      foreach($subMenus_array as $subMenu_fobj){
+       // check for authorization
+       if(!$subMenu_fobj->checkAuthorizations()){continue;}
+       // make icon
+       if($subMenu_fobj->icon){$icon_source=api_icon($subMenu_fobj->icon)." ";}else{$icon_source=null;}
+       $submenu_source.="           <li><a href=\"".$subMenu_fobj->url."\" target=\"".$subMenu_fobj->target."\">".$icon_source.$subMenu_fobj->label."</a></li>\n";
+      }
+      // check for submenu source
+      if(strlen($submenu_source)){
+       $return.="         <!-- dropdown-->\n";
+       $return.="         <li class=\"dropdown visible-xs\">\n";
+       $return.="          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".$icon_source.$menu_obj->label." <span class=\"caret\"></span></a>\n";
+       $return.="          <ul class=\"dropdown-menu\">\n";
+       $return.=$submenu_source;
+       $return.="          </ul><!-- dropdown -->\n";
+       $return.="         </li><!-- sub-menu-->\n";
+      }
+     }
+    }
     // module
     $return.="       <li class=\"navbar-module ".(SCRIPT=="dashboard"?"active":null)." hidden-xs\"><a href=\"?mod=".MODULE."\"><strong>".api_text(MODULE)."</strong></a></li>\n";
     // script
@@ -310,9 +349,10 @@
      // modules menu
      $return.="       <!-- modules-menu-->\n";
      $return.="       <li class=\"dropdown\">\n";
-     $return.="        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_icon("fa-puzzle-piece",api_text("nav-modules"),"faa-tada animated-hover")." <span class=\"caret\"></span></a>\n";
+     $return.="        <a href=\"#\" class=\"dropdown-toggle hidden-xs text-right\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_icon("fa-puzzle-piece",api_text("nav-modules"),"faa-tada animated-hover")." <span class=\"caret\"></span></a>\n";
+     $return.="        <a href=\"#\" class=\"dropdown-toggle visible-xs text-right\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_text("nav-modules")."&nbsp;".api_icon("fa-puzzle-piece",api_text("nav-modules"),"faa-tada animated-hover")." <span class=\"caret\"></span></a>\n";
      $return.="        <ul class=\"dropdown-menu\">\n";
-     $return.="         <li class=\"dropdown-header text-right\">".api_text("nav-modules")."</li>\n";
+     $return.="         <li class=\"dropdown-header hidden-xs text-right\">".api_text("nav-modules")."</li>\n";
      // get all modules
      $modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules` WHERE `id`!='framework' ORDER BY `id`");
      foreach($modules_results as $module){
@@ -326,9 +366,10 @@
     // own menu
     $return.="       <!-- own-menu-->\n";
     $return.="       <li class=\"dropdown\">\n";
-    $return.="        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_image($GLOBALS['session']->user->avatar,null,20,20)." <span class=\"caret\"></span></a>\n";
+    $return.="        <a href=\"#\" class=\"dropdown-toggle hidden-xs text-right\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".api_image($GLOBALS['session']->user->avatar,null,20,20)." <span class=\"caret\"></span></a>\n";
+    $return.="        <a href=\"#\" class=\"dropdown-toggle visible-xs text-right\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".$GLOBALS['session']->user->fullname."&nbsp;".api_image($GLOBALS['session']->user->avatar,null,20,20)." <span class=\"caret\"></span></a>\n";
     $return.="        <ul class=\"dropdown-menu\">\n";
-    $return.="         <li class=\"dropdown-header text-right\">".$GLOBALS['session']->user->fullname."</li>\n";
+    $return.="         <li class=\"dropdown-header hidden-xs text-right\">".$GLOBALS['session']->user->fullname."</li>\n";
     $return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=own_profile\">".api_text("nav-own-profile")." ".api_icon("fa-user-circle-o")."</a></li>\n";
     if($GLOBALS['session']->interpreter){$return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=submit&act=session_interpret_terminate\">".api_text("nav-interpret_terminate")." ".api_icon("fa-user-secret")."</a></li>\n";}
     else{$return.="         <li class=\"text-right\"><a href=\"?mod=framework&scr=submit&act=session_logout\">".api_text("nav-logout")." ".api_icon("fa-sign-out")."</a></li>\n";}
