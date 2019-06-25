@@ -68,7 +68,7 @@
   * @param string $location Location URL
   */
  function api_redirect_exception($exception,$location,$alert=null){
-  api_dump($exception,"EXCEPTION: \"".$exception->getMessage()."\"","error");
+  api_dump($exception,"EXCEPTION: ".$exception->getMessage(),"error");
   if($alert){api_alerts_add(api_text($alert),"danger");}
   api_redirect($location);
  }
