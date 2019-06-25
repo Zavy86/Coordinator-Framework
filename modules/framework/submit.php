@@ -519,7 +519,7 @@
   // update module
   $GLOBALS['database']->queryInsert("framework__modules",$module_qobj);
   // alert
-  api_alerts_add(api_text("framework_alert_moduleAdded"),"success");
+  api_alerts_add(api_text("framework_alert_moduleInitialized"),"success");
   // redirect
   api_redirect("?mod=".MODULE."&scr=modules_list");
  }

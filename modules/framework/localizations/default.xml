@@ -52,6 +52,7 @@
  <text key="framework_alert_moduleError">Si è verificato un errore durante il salvataggio del modulo</text>
  <text key="framework_alert_moduleNotFound">Il modulo non è stato trovato</text>
  <text key="framework_alert_moduleAdded">Il modulo è stato scaricato</text>
+ <text key="framework_alert_moduleInitialized">Il modulo è stato inizializzato</text>
  <text key="framework_alert_moduleEnabled">Il modulo è stato abilitato</text>
  <text key="framework_alert_moduleDisabled">Il modulo è stato disabilitato</text>
  <text key="framework_alert_moduleErrorLocalhost">L'installazione e l'aggiornamento dei moduli sono bloccati su localhost</text>
