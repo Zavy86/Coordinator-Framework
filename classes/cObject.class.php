@@ -13,8 +13,6 @@
  abstract class cObject{
 
   /** Parameters */
-  static protected $module=null;
-  static protected $object=null;
   static protected $table=null;
   static protected $logs=false;
 
@@ -53,6 +51,31 @@
   }
 
   /**
+   * Convert Available
+   *
+   * @param boolean $showIcon Return icon
+   * @param boolean $showText Return text
+   * @param string $iconAlign Icon alignment [left|right]
+   * @return string
+   */
+  protected static function convertAvailable($code,array $availables,$showIcon=true,$showText=true,$iconAlign="left"){
+   // check parameters
+   if(!array_key_exists($code,$availables)){return false;}
+   if(!in_array($iconAlign,array("left","right"))){$iconAlign="left";}
+   // get from availables by code
+   $result=$availables[$code];
+   // make return
+   if($showIcon){$return=$result->icon;}
+   if($showText){$return=$result->text;}
+   if($showIcon && $showText){
+    if($iconAlign=="left"){$return=$result->icon." ".$result->text;}
+    elseif($iconAlign=="right"){$return=$result->text." ".$result->icon;}
+   }
+   // return
+   return $return;
+  }
+
+  /**
    * Object class
    *
    * @param mixed $object Object or ID
@@ -60,8 +83,6 @@
    */
   public function __construct($object=null){
    // check parameters
-   if(!static::$object){trigger_error("Object was not defined in class: \"".static::class."\"",E_USER_ERROR);}
-   if(!static::$module){trigger_error("Object module was not defined in class: \"".static::class."\"",E_USER_ERROR);}
    if(!static::$table){trigger_error("Object database table was not defined in class: \"".static::class."\"",E_USER_ERROR);}
    // load object
    if($object){$this->load($object);}
@@ -92,50 +113,25 @@
    //api_dump($query,static::class."->getLogs query");
    // get customer events
    $events_results=$GLOBALS['database']->queryObjects($query);
-   foreach($events_results as $event){$events_array[$event->id]=new cLog($event,static::$module,static::$object);}
+   foreach($events_results as $event){$events_array[$event->id]=new cLog($event,static::class);}
    // return
    return $events_array;
   }
 
-  /**
-   * Set Properties
-   *
-   * @param mixed[] $properties Array of properties
-   */
-  public function setProperties(array $properties){
-   // cycle all properties
-   foreach($properties as $property=>$value){
-    // skip undefined properties
-    if(!array_key_exists($property,get_object_vars($this))){continue;}
-    // set property value
-    $this->$property=trim($value);
-   }
-  }
-
-  /**
-   * Convert Available
-   *
-   * @param boolean $showIcon Return icon
-   * @param boolean $showText Return text
-   * @param string $iconAlign Icon alignment [left|right]
-   * @return string
-   */
-  protected function convertAvailable($code,array $availables,$showIcon=true,$showText=true,$iconAlign="left"){
-   // check parameters
-   if(!array_key_exists($code,$availables)){return false;}
-   if(!in_array($iconAlign,array("left","right"))){$iconAlign="left";}
-   // get from availables by code
-   $result=$availables[$code];
-   // make return
-   if($showIcon){$return=$result->icon;}
-   if($showText){$return=$result->text;}
-   if($showIcon && $showText){
-    if($iconAlign=="left"){$return=$result->icon." ".$result->text;}
-    elseif($iconAlign=="right"){$return=$result->text." ".$result->icon;}
-   }
-   // return
-   return $return;
-  }
+           /**
+            * Set Properties
+            *
+            * @param mixed[] $properties Array of properties
+            */
+           public function setProperties__deprecated(array $properties){
+            // cycle all properties
+            foreach($properties as $property=>$value){
+             // skip undefined properties
+             if(!array_key_exists($property,get_object_vars($this))){continue;}
+             // set property value
+             $this->$property=trim($value);
+            }
+           }
 
   /**
    * Check if current object exist in database
@@ -181,12 +177,64 @@
    return true;
   }
 
+           /**
+            * Save
+            *
+            * @return boolean
+            */
+           public function save_deprecated(){
+            // build query object
+            $query_obj=new stdClass();
+
+            //--- @todo rifare meglio
+            foreach(get_object_vars($this) as $property=>$value){
+             if($property=="deleted"){continue;}
+             $query_obj->$property=$value;
+            } //---
+
+            // check properties
+            if(!$this->check()){return false;}
+            // check existence
+            if($this->exists()){
+             // update object
+             api_dump($query_obj,static::class." update query object");
+             // execute query
+             $GLOBALS['database']->queryUpdate(static::$table,$query_obj);
+             /* @todo check? */
+             // throw event
+             $this->event("information","updated");
+             // return
+             return true;
+            }else{
+             // insert object
+             api_dump($query_obj,static::class." insert query object");
+             // execute query
+             $this->id=$GLOBALS['database']->queryInsert(static::$table,$query_obj);
+             // check
+             if(!$this->id){return false;}
+             // throw event
+             $this->event("information","created");
+             // return
+             return true;
+            }
+            // return
+            return false;
+           }
+
   /**
-   * Save
+   * Store
    *
+   * @param mixed[] $properties Array of properties
    * @return boolean
    */
-  public function save(){
+  public function store(array $properties){
+   // cycle all properties
+   foreach($properties as $property=>$value){
+    // skip undefined properties
+    if(!array_key_exists($property,get_object_vars($this))){continue;}
+    // set property value
+    $this->$property=trim($value);
+   }
    // build query object
    $query_obj=new stdClass();
 
@@ -201,17 +249,17 @@
    // check existence
    if($this->exists()){
     // update object
-    api_dump($query_obj,static::class." update query object");
+    api_dump($query_obj,static::class."->store update query object");
     // execute query
     $GLOBALS['database']->queryUpdate(static::$table,$query_obj);
-    /* check? */
+    /* @todo check? */
     // throw event
     $this->event("information","updated");
     // return
     return true;
    }else{
     // insert object
-    api_dump($query_obj,static::class." insert query object");
+    api_dump($query_obj,static::class."->store insert query object");
     // execute query
     $this->id=$GLOBALS['database']->queryInsert(static::$table,$query_obj);
     // check
@@ -223,6 +271,41 @@
    }
    // return
    return false;
+  }
+
+  /**
+   * Status
+   *
+   * @param string $status New status code
+   * @param string $note Event note
+   * @return boolean
+   */
+  public function status($status,$note=null){
+   // check for status property
+   if(!array_key_exists("status",get_object_vars($this))){trigger_error("Status property does not exist in class: \"".static::class."\"",E_USER_ERROR);}
+   // check parameters
+   if(!$status){trigger_error("Status parameter cannot be null in class: \"".static::class."\"",E_USER_ERROR);}
+   // check existence
+   if(!$this->exists()){return false;}
+   // get current status
+   $previous_status=$this->status;
+   // change current status
+   $this->status=$status;
+   // check properties
+   if(!$this->check()){return false;}
+   // build query object
+   $query_obj=new stdClass();
+   $query_obj->id=$this->id;
+   $query_obj->status=$this->status;
+   // debug
+   api_dump($query_obj,static::class."->status query object");
+   // execute query
+   $GLOBALS['database']->queryUpdate(static::$table,$query_obj);
+   /* @todo check? */
+   // throw event
+   $this->event("information","status",array("previous"=>$previous_status,"current"=>$this->status,"note"=>$note));
+   // return
+   return true;
   }
 
   /**
@@ -241,7 +324,7 @@
    api_dump($query_obj,static::class."->delete query object");
    // execute query
    $GLOBALS['database']->queryUpdate(static::$table,$query_obj);
-   /* check? */
+   /* @todo check? */
    // throw event
    $this->event("warning","deleted");
    // return
@@ -264,7 +347,7 @@
    api_dump($query_obj,static::class."->undelete query object");
    // execute query
    $GLOBALS['database']->queryUpdate(static::$table,$query_obj);
-   /* check? */
+   /* @todo check? */
    // throw event
    $this->event("warning","undeleted");
    // return
@@ -285,6 +368,91 @@
    $GLOBALS['database']->queryDelete(static::$table,$this->id);
    // throw event
    $this->event("warning","removed");
+   // return
+   return true;
+  }
+
+  /**
+   * Get Joined Objects
+   *
+   * @param string $table Join table name
+   * @param string $this_key This class key in join table
+   * @param string $object_class Joined object class
+   * @param string $object_key Joined object key in join table
+   * @param string $event Event to throw
+   * @return object[]|false Array of joined objects or false
+   */
+  protected function joined_availables($table,$this_key,$object_class,$object_key,$event="joined_loaded"){
+   // check parameters
+   if(!$table || !$this_key || !$object_class || !$object_key){trigger_error("All parameters is mandatory in class: \"".static::class."\" ",E_USER_ERROR);}
+   // definitions
+   $return_array=array();
+   // make query
+   $query="SELECT * FROM `".$table."` WHERE `".$this_key."`='".$this->id."'";
+   //api_dump($query,static::class."->get_joined_objects query");
+   // fetch query results
+   $results=$GLOBALS['database']->queryObjects($query);
+   foreach($results as $result){$return_array[$result->$object_key]=new $object_class($result->$object_key);}
+   // throw event
+   $this->event("trace",$event,array("table"=>$table));
+   // return
+   return $return_array;
+  }
+
+  /**
+   * Add Joined Object
+   *
+   * @param string $table Join table name
+   * @param string $this_key This class key in join table
+   * @param string $object_class Joined object class
+   * @param string $object_key Joined object key in join table
+   * @param object $object Object to add
+   * @param string $event Event to throw
+   * @return boolean
+   */
+  protected function joined_add($table,$this_key,$object_class,$object_key,$object,$event="joined_added"){
+   // check parameters
+   if(!$table || !$this_key || !$object_class || !$object_key || !$object->id){trigger_error("All parameters is mandatory in class: \"".static::class."\" ",E_USER_ERROR);}
+   // check object class
+   if(!is_a($object,$object_class)){trigger_error("Joined object class must be \"".$object_class."\" in class: \"".static::class."\" ",E_USER_ERROR);}
+   // make query
+   $query="INSERT IGNORE INTO `".$table."` (`".$this_key."`,`".$object_key."`) VALUES ('".$this->id."','".$object->id."')";
+   api_dump($query,static::class."->addJoinedObject query");
+   // execute query
+   $result=$GLOBALS['database']->queryExecute($query);
+   // check query result
+   if(!$result){return false;}
+   // throw event
+   $this->event("information",$event,array("class"=>$object_class,"id"=>$object->id));
+   // return
+   return true;
+  }
+
+  /**
+   * Remove Joined Object
+   *
+   * @param string $table Join table name
+   * @param string $this_key This class key in join table
+   * @param string $object_class Joined object class
+   * @param string $object_key Joined object key in join table
+   * @param object $object Object to remove
+   * @param string $event Event to throw
+   * @return boolean
+   */
+  protected function joined_remove($table,$this_key,$object_class,$object_key,$object,$event="joined_removed"){
+   // check parameters
+   if(!$table || !$this_key || !$object_class || !$object_key || !$object->id){trigger_error("All parameters is mandatory in class: \"".static::class."\" ",E_USER_ERROR);}
+   // check object class
+   if(!is_a($object,$object_class)){trigger_error("Joined object class must be \"".$object_class."\" in class: \"".static::class."\" ",E_USER_ERROR);}
+   // make query
+   $query="DELETE FROM `".$table."` WHERE `".$this_key."`='".$this->id."' AND `".$object_key."`='".$object->id."'";
+   api_dump($query,static::class."->removeJoinedObject query");
+   // execute query
+   $result=$GLOBALS['database']->queryExecute($query);
+   // check query result
+   if(!$result){return false;}
+   // throw event
+   $this->event("warning",$event,array("class"=>$object_class,"id"=>$object->id));
    // return
    return true;
   }
@@ -320,7 +488,7 @@
    *
    * @return boolean
    */
-  private function event_log($typology,$action,$properties=null){
+  private function event_log($typology,$action,array $properties=null){
    // check parameters
    if(!static::$logs){trigger_error("Object events logs in not enabled in class: \"".static::class."\"",E_USER_WARNING);return false;}
    if(!in_array($typology,array("information","warning"))){trigger_error("Event typology \"".$typology."\" will not be logged",E_USER_ERROR);return false;}
@@ -333,7 +501,7 @@
    $query_obj->timestamp=time();
    $query_obj->alert=($typology=="warning"?1:0);
    $query_obj->event=$action;
-   $query_obj->properties_json=json_encode($properties);
+   $query_obj->properties_json=(count($properties)?json_encode($properties):null);
    // event object
    api_dump($query_obj,static::class." event query object");
    // execute query
