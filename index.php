@@ -29,6 +29,8 @@
  // check script and tab constants or set to default
  if(!defined('SCRIPT')){if($module_default_script){define('SCRIPT',$module_default_script);}else{if(file_exists(MODULE_PATH."dashboard.php")){define('SCRIPT',"dashboard");}else{die("ERROR LOADING MODULE: Default script was not defined and module's dashboard was not found");}}}
  if(!defined('TAB')){if($module_default_tab){define('TAB',$module_default_tab);}}
+ // check for submit action
+ if(SCRIPT=="submit" && !defined('ACTION')){die("ERROR EXECUTING SCRIPT: The action was not defined");}
  // load script if exist
  if(file_exists(MODULE_PATH.SCRIPT.".php")){require_once(MODULE_PATH.SCRIPT.".php");}else{die("ERROR LOADING MODULE: File ".MODULE."/".SCRIPT.".php was not found");}
  // debug
