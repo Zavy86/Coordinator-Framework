@@ -86,7 +86,7 @@
    */
   public function render(){
    // check for elements
-   if(!count($this->elements_array)){return null;}
+   if(!count($this->elements_array)){return "<!-- description-list/ -->\n";}
    // renderize description list
    $return="<!-- description-list -->\n";
    $return.="<dl id=\"".$this->id."\" class=\"".$this->class."\">\n";
