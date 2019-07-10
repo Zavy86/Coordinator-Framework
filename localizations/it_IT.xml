@@ -91,6 +91,7 @@
  <text key="table-td-view">Visualizza</text>
  <text key="table-td-edit">Modifica</text>
  <text key="table-td-delete">Elimina</text>
+ <text key="table-td-undelete">Ripristina</text>
  <text key="table-td-remove">Rimuovi</text>
 
  <!-- forms -->
@@ -105,8 +106,9 @@
  <text key="form-fc-undelete-confirm">Confermi di voler ripristinare questo oggetto?</text>
  <text key="form-fc-remove">Rimuovi</text>
  <text key="form-fc-remove-confirm">Confermi di voler rimuovere definitivamente questo oggetto?</text>
- <text key="form-input-select-placeholder">Seleziona un elemento..</text>
- <text key="form-input-file-placeholder">Seleziona un file..</text>
+ <text key="form-input-note-placeholder">Inserisci un'eventuale nota</text>
+ <text key="form-input-select-placeholder">Seleziona un elemento</text>
+ <text key="form-input-file-placeholder">Seleziona un file</text>
  <text key="form-input-text_localized-default">Principale</text>
  <text key="form-input-text_localized-default-placeholder">Inserisci la traduzione principale</text>
  <text key="form-input-text_localized-language-placeholder">Inserisci la traduzione in <![CDATA[{0}]]></text>
