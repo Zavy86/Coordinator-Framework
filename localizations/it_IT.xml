@@ -100,6 +100,7 @@
  <text key="form-fc-close">Chiudi</text>
  <text key="form-fc-search">Cerca</text>
  <text key="form-fc-reset">Reset</text>
+ <text key="form-fc-export">Esporta</text>
  <text key="form-fc-delete">Elimina</text>
  <text key="form-fc-delete-confirm">Confermi di voler eliminare questo oggetto?</text>
  <text key="form-fc-undelete">Rispritina</text>
@@ -148,5 +149,11 @@
  <text key="events-th-event">Evento</text>
  <text key="events-th-note">Note</text>
  <text key="events-th-fkUser">Utente</text>
+
+ <!-- logs table -->
+ <text key="logs-tr-unvalued">Non sono presenti eventi da mostrare..</text>
+ <text key="logs-th-timestamp">Data</text>
+ <text key="logs-th-event">Evento</text>
+ <text key="logs-th-user">Utente</text>
 
 </locale>
