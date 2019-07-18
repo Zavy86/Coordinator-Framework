@@ -446,7 +446,7 @@
  }
 
  /**
-  * Return Script
+  * Return Script   *** OBSOLETO api_return(array) ***
   *
   * @param string $default Default script
   * @return string|boolean Return script defined or false
@@ -459,6 +459,61 @@
   if(!$return){$return=$default;}
   // return
   return $return;
+ }
+
+ /**
+  * URL (from array)
+  *
+  * @param string[] $array Array of url example: array("mod"=>MODULE,"scr"=>SCRIPT,"idObject"=>1)
+  * @return string|boolean Return url or false
+  */
+ function api_url(array $array){
+  // check parameters
+  if(!$array['scr']){return false;}
+  // definitions
+  $static=array("mod"=>MODULE,"scr"=>null);
+  // merge arrays
+  $url_array=array_merge($static,$array);
+  // make url
+  $url="?".http_build_query($url_array);
+  // debug
+  /*api_dump($array,"array");
+  api_dump($url_array,"url_array");
+  api_dump($url,"url");*/
+  // return
+  return $url;
+ }
+
+ /**
+  * Return array
+  *
+  * @param string[] $default Array of default return url example: array("mod"=>MODULE,"scr"=>SCRIPT,"idObject"=>1)
+  * @return string|boolean Return url or false
+  */
+ function api_return(array $default){
+  // check parameters
+  if(!strlen($default['scr'])){return false;}
+  // acquire variables
+  $request=$_REQUEST['return'];
+  // check for return and merge
+  if(is_array($request) && strlen($request['scr'])){$return_array=array_merge($default,$request);}
+  else{$return_array=array_merge($default);}
+  // debug
+  /*api_dump($default,"default");
+  api_dump($return,"return");
+  api_dump($url_array,"url_array");*/
+  // return
+  return $return_array;
+ }
+
+ /**
+  * Return URL
+  *
+  * @param string[] $default Array of default return url example: array("mod"=>MODULE,"scr"=>SCRIPT,"idObject"=>1)
+  * @return string|boolean Return url or false
+  */
+ function api_return_url(array $default){
+  return api_url(api_return($default));
  }
 
  /**
@@ -616,5 +671,41 @@
   // return groups
   return $return;
  }
+
+ /**
+  * Sort Objects Array
+  *
+  * @param array $objects_array Array of objects to sort
+  * @param type $property Property name for sorting
+  * @return objects[]|false Array of sorted objects or false
+  */
+ function api_sortObjectsArray(array $objects_array,$property){
+  // check properties
+  if(!$property){return false;}
+  // define and set global variable
+  global $sort_property;
+  $sort_property=$property;
+  // sort objects array
+  usort($objects_array,"api_sortObjectsArray_compare");
+  // return
+  return $objects_array;
+ }
+ // Comparing function
+ function api_sortObjectsArray_compare($a,$b){return strcmp($a->$GLOBALS['sort_property'],$b->$GLOBALS['sort_property']);}
+
+ /**
+  * Join array elements with a string
+  *
+  * @param string $glue Defaults to an empty string
+  * @param array $pieces The array of strings to implode
+  * @param string $unvalued String returned if array is empty
+  * @return string Returns a string containing a string representation of all the array elements in the same order, with the glue string between each element
+  */
+  function api_implode($glue,array $pieces,$unvalued=null){
+   // check parameters
+   if(!count($pieces)){return $unvalued;}
+   // return imploded pieces
+   return implode($glue,$pieces);
+  }
 
 ?>
