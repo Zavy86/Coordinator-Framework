@@ -122,6 +122,21 @@
   }
 
   /**
+   * Get Filter
+   *
+   * @param string $id Filter ID
+   * @return array of filter values
+   */
+  public function getFilter($id){
+   // check for filter id
+   if(!isset($this->items_array["filter_".$id])){return false;}
+   // get filter values
+   $values_array=$_REQUEST["filter_".$id];
+   // return
+   return $values_array;
+  }
+
+  /**
    *
    * @return type
    */
@@ -169,7 +184,7 @@
 
      $search_array[]=$filter;
     }
-    $where_array[]="( ".implode(" OR ",$search_array)." )"; 
+    $where_array[]="( ".implode(" OR ",$search_array)." )";
    }
 
    //
@@ -199,7 +214,7 @@
    $form->addControl("button",api_text("filters-fc-reset"),$this->url);
    // build filters modal window
    $this->modal=new strModal(api_text("filters-modal-title"),null,$this->id);
-   $this->modal->SetBody($form->render(2));
+   $this->modal->setBody($form->render(2));
    // return modal add to html response
    return $GLOBALS['app']->addModal($this->modal);
   }

@@ -91,6 +91,7 @@
  <text key="table-td-view">Visualizza</text>
  <text key="table-td-edit">Modifica</text>
  <text key="table-td-delete">Elimina</text>
+ <text key="table-td-undelete">Ripristina</text>
  <text key="table-td-remove">Rimuovi</text>
 
  <!-- forms -->
@@ -99,14 +100,16 @@
  <text key="form-fc-close">Chiudi</text>
  <text key="form-fc-search">Cerca</text>
  <text key="form-fc-reset">Reset</text>
+ <text key="form-fc-export">Esporta</text>
  <text key="form-fc-delete">Elimina</text>
  <text key="form-fc-delete-confirm">Confermi di voler eliminare questo oggetto?</text>
  <text key="form-fc-undelete">Rispritina</text>
  <text key="form-fc-undelete-confirm">Confermi di voler ripristinare questo oggetto?</text>
  <text key="form-fc-remove">Rimuovi</text>
  <text key="form-fc-remove-confirm">Confermi di voler rimuovere definitivamente questo oggetto?</text>
- <text key="form-input-select-placeholder">Seleziona un elemento..</text>
- <text key="form-input-file-placeholder">Seleziona un file..</text>
+ <text key="form-input-note-placeholder">Inserisci un'eventuale nota</text>
+ <text key="form-input-select-placeholder">Seleziona un elemento</text>
+ <text key="form-input-file-placeholder">Seleziona un file</text>
  <text key="form-input-text_localized-default">Principale</text>
  <text key="form-input-text_localized-default-placeholder">Inserisci la traduzione principale</text>
  <text key="form-input-text_localized-language-placeholder">Inserisci la traduzione in <![CDATA[{0}]]></text>
@@ -146,5 +149,11 @@
  <text key="events-th-event">Evento</text>
  <text key="events-th-note">Note</text>
  <text key="events-th-fkUser">Utente</text>
+
+ <!-- logs table -->
+ <text key="logs-tr-unvalued">Non sono presenti eventi da mostrare..</text>
+ <text key="logs-th-timestamp">Data</text>
+ <text key="logs-th-event">Evento</text>
+ <text key="logs-th-user">Utente</text>
 
 </locale>

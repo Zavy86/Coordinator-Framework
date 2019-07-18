@@ -91,6 +91,7 @@
  <text key="table-td-view">View</text>
  <text key="table-td-edit">Edit</text>
  <text key="table-td-delete">Delete</text>
+ <text key="table-td-undelete">Undelete</text>
  <text key="table-td-remove">Remove</text>
 
  <!-- forms -->
@@ -99,14 +100,16 @@
  <text key="form-fc-close">Close</text>
  <text key="form-fc-search">Search</text>
  <text key="form-fc-reset">Reset</text>
+ <text key="form-fc-export">Export</text>
  <text key="form-fc-delete">Delete</text>
  <text key="form-fc-delete-confirm">Are you sure you want to delete this object?</text>
  <text key="form-fc-undelete">Undelete</text>
  <text key="form-fc-undelete-confirm">Are you sure you want to undelete this object?</text>
  <text key="form-fc-remove">Remove</text>
  <text key="form-fc-remove-confirm">Are you sure you want to permanently remove this object?</text>
- <text key="form-input-select-placeholder">Select an option..</text>
- <text key="form-input-file-placeholder">Select a file..</text>
+ <text key="form-input-note-placeholder">Enter a note if necessary</text>
+ <text key="form-input-select-placeholder">Select an option</text>
+ <text key="form-input-file-placeholder">Select a file</text>
  <text key="form-input-text_localized-default">Default</text>
  <text key="form-input-text_localized-default-placeholder">Insert default translation</text>
  <text key="form-input-text_localized-language-placeholder">Insert the <![CDATA[{0}]]> translation</text>
@@ -141,10 +144,16 @@
  <text key="dashboard-tile-remove">Remove from dashboard</text>
 
  <!-- events table -->
- <text key="events-tr-unvalued">There are no events to show</text>
+ <text key="events-tr-unvalued">There are no events to show..</text>
  <text key="events-th-timestamp">Timestamp</text>
  <text key="events-th-event">Event</text>
  <text key="events-th-note">Note</text>
  <text key="events-th-fkUser">User</text>
+
+ <!-- logs table -->
+ <text key="logs-tr-unvalued">There are no logs to show..</text>
+ <text key="logs-th-timestamp">Timestamp</text>
+ <text key="logs-th-event">Event</text>
+ <text key="logs-th-user">User</text>
 
 </locale>

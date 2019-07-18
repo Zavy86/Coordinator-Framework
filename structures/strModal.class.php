@@ -77,7 +77,7 @@
    * @param string $content Content of the body
    * @return boolean
    */
-  public function SetBody($content){
+  public function setBody($content){
    if(!$content){return false;}
    $this->body=$content;
    return true;
@@ -89,7 +89,7 @@
    * @param string $content Content of the footer
    * @return boolean
    */
-  public function SetFooter($content){
+  public function setFooter($content){
    if(!$content){return false;}
    $this->footer=$content;
    return true;

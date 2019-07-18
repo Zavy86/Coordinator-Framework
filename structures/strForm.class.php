@@ -218,6 +218,28 @@
   }
 
   /**
+   * Remove Field
+   *
+   * @param string $field Field name to remove
+   * @return boolean
+   */
+  public function removeField($field){
+   //api_dump("remove field ".$field);
+   // cycle all fields
+   foreach($this->fields_array as $field_key=>$field_obj){
+    // chekc for field name
+    if($field_obj->name==$field){
+     // remove field
+     unset($this->fields_array[$field_key]);
+     // return
+     return true;
+    }
+   }
+   // return
+   return false;
+  }
+
+  /**
    * Renderize Form object
    *
    * @param integer scaleFactor Scale factor
@@ -337,7 +359,7 @@
       $translation_form->addControl("button",api_text("form-fc-cancel"),"#",null,null,null,"data-dismiss='modal'");
       // build translation modal window
       $translation_modal=new strModal($field->label,null,$this->id."_input_".$field->name);
-      $translation_modal->SetBody($translation_form->render());
+      $translation_modal->setBody($translation_form->render());
       // add translation modal window to html
       $GLOBALS['app']->addModal($translation_modal);
       // text localized jQuery script

@@ -8,7 +8,46 @@
  */
 
  /**
-  * Events table
+  * Logs table
+  *
+  * @param objects $logs_array Array of log objects
+  * @return object Return strTable object
+  */
+ function api_logs_table($logs_array){
+  // build logs table
+  $logs_table=new strTable(api_text("logs-tr-unvalued"));
+  $logs_table->addHeader("&nbsp;",null,16);
+  $logs_table->addHeader(api_text("logs-th-timestamp"),"nowrap");
+  $logs_table->addHeader(api_text("logs-th-event"),"nowrap");
+  $logs_table->addHeader("&nbsp;",null,"100%");
+  $logs_table->addHeader(api_text("logs-th-user"),"nowrap text-right");
+  // check parameters
+  if(is_array($logs_array)){
+   // cycle logs
+   foreach($logs_array as $log_fobj){
+    // make table row class
+    $tr_class_array=array();
+    if($log_fobj->id==$_REQUEST['idEvent']){$tr_class_array[]="info";}
+    if($log_fobj->alert){$tr_class_array[]="warning";}
+    // make area row
+    $logs_table->addRow(implode(" ",$tr_class_array));
+    $logs_table->addRowField($log_fobj->getLevel(true,false),"nowrap");
+    $logs_table->addRowField(api_timestamp_format($log_fobj->timestamp,api_text("datetime")),"nowrap");
+    $logs_table->addRowField($log_fobj->getEvent(),"nowrap");
+    $logs_table->addRowField($log_fobj->decodeProperties(),"truncate-ellipsis");
+    $logs_table->addRowField((new cUser($log_fobj->fkUser))->fullname,"nowrap text-right");
+   }
+  }
+  // return
+  return $logs_table;
+ }
+
+
+
+
+
+ /**
+  * Events table      @deprecated api_logs_table
   *
   * @param objects $events_array Array of event objects
   * @return object Return strTable object

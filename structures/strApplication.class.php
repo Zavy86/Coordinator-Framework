@@ -241,7 +241,7 @@
    }
    if(in_array($GLOBALS['settings']->show,array("logo","logo_title"))){$return.="      <a class=\"navbar-brand\" id=\"nav_brand_logo\" href=\"#\"><img alt=\"Brand logo\" src=\"".$GLOBALS['settings']->logo."\" height=\"20\"></a>\n";}
    if(in_array($GLOBALS['settings']->show,array("title","logo_title"))){$return.="      <a class=\"navbar-brand\" id=\"nav_brand_title\" href=\"index.php\">".$GLOBALS['settings']->title."</a>\n";}
-   $return.="      <a class=\"navbar-brand-small visible-xs\" href=\"?mod=".MODULE."\">".api_text(MODULE)."</a>\n";
+   if($GLOBALS['session']->validity){$return.="      <a class=\"navbar-brand-small visible-xs\" href=\"?mod=".MODULE."\">".api_text(MODULE)."</a>\n";}
    $return.="     </div><!--/navbar-header -->\n";
    // renderize navbar collapse
    $return.="     <!-- navbar-collapse-->\n";

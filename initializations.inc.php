@@ -99,9 +99,11 @@
  require_once(DIR."structures/strTable.class.php");
 
  // include classes
+ require_once(DIR."classes/cObject.class.php");
+ require_once(DIR."classes/cLog.class.php");
+ require_once(DIR."classes/cEvent.class.php");   //--
  require_once(DIR."classes/cAttachment.class.php");
  require_once(DIR."classes/cAuthorization.class.php");
- require_once(DIR."classes/cEvent.class.php");
  require_once(DIR."classes/cGroup.class.php");
  require_once(DIR."classes/cLocalization.class.php");
  require_once(DIR."classes/cMail.class.php");

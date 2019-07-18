@@ -81,7 +81,7 @@
    * @param string $class CSS class
    * @return boolean
    */
-  public function SetBody($content,$class){
+  public function setBody($content,$class){
    if(!$content){return false;}
    $this->body=$content;
    $this->body_class=$class;
@@ -95,7 +95,7 @@
    * @param string $class CSS class
    * @return boolean
    */
-  public function SetFooter($content,$class){
+  public function setFooter($content,$class){
    if(!$content){return false;}
    $this->footer=$content;
    $this->footer_class=$class;
