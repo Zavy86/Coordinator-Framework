@@ -13,7 +13,7 @@
  // set application title
  $app->setTitle(api_text("modules_add"));
  // build profile form
- $form=new strForm("?mod=".MODULE."&scr=submit&act=module_add","POST",null,"modules_add");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=module_add","POST",null,null,"modules_add");
  $form->addField("text","url",api_text("modules_add-url"),null,api_text("modules_add-url-placeholder"),null,null,null,"required");
  $form->addField("text","directory",api_text("modules_add-directory"),null,api_text("modules_add-directory-placeholder"),null,null,null,"required");
  $form->addField("radio","method",api_text("modules_add-method"),null,null,null,"radio-inline");

@@ -13,7 +13,7 @@
  // set application title
  $app->setTitle(api_text("users_add"));
  // build form
- $form=new strForm("?mod=".MODULE."&scr=submit&act=user_add","POST",null,"users_add");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=user_add","POST",null,null,"users_add");
  if($GLOBALS['settings']->sessions_authentication_method=='ldap'){$form->addField("text","username",api_text("users_add-username"),$user->username,api_text("users_add-username-placeholder"));}
  $form->addField("text","mail",api_text("users_add-mail"),$user->mail,api_text("users_add-mail-placeholder"),null,null,null,($GLOBALS['settings']->sessions_authentication_method=='standard'?"required":null));
  $form->addField("text","firstname",api_text("users_add-firstname"),$user->firstname,api_text("users_add-firstname-placeholder"),null,null,8,"required");

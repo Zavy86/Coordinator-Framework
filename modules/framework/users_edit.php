@@ -16,7 +16,7 @@
  // set application title
  $app->setTitle(api_text("users_edit"));
  // build profile form
- $form=new strForm("?mod=".MODULE."&scr=submit&act=user_edit&idUser=".$user_obj->id,"POST",null,"users_edit");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=user_edit&idUser=".$user_obj->id,"POST",null,null,"users_edit");
  /*if(!$user_obj->deleted){
   $form->addField("checkbox","enabled","&nbsp;",$user_obj->enabled);
   $form->addFieldOption(1,api_text("users_edit-enabled"));

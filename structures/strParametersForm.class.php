@@ -106,7 +106,7 @@
    // renderize parameters form
    $return.="<!-- parameters_form -->\n";
    // build form
-   $form=new strForm("?mod=framework&scr=submit&act=user_parameter_save","POST",$this->class,$this->id);
+   $form=new strForm("?mod=framework&scr=submit&act=user_parameter_save","POST",$this->class,null,$this->id);
    $form->addField("hidden","module",null,$this->module);
    // cycle all parameters
    foreach($this->parameters_array as $parameter_fobj){

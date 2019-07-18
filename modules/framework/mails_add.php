@@ -22,7 +22,7 @@
  unset($uri_array['recipient']);
  //api_dump("?mod=".MODULE."&scr=submit&act=mail_save&".http_build_query($uri_array));
  // build profile form
- $form=new strForm("?mod=".MODULE."&scr=submit&act=mail_save&".http_build_query($uri_array),"POST",null,"mails_add");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=mail_save&".http_build_query($uri_array),"POST",null,null,"mails_add");
  $form->addField("select","sender",api_text("mails_add-sender"),null,api_text("mails_add-sender-placeholder"),null,null,null,"required");
  $form->addFieldOption($GLOBALS['session']->user->mail,$GLOBALS['session']->user->fullname);
  $form->addFieldOption($GLOBALS['settings']->mail_from_address,$GLOBALS['settings']->mail_from_name);

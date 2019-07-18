@@ -17,6 +17,7 @@
   /** Properties */
   protected $id;
   protected $class;
+  protected $tags;
   protected $splitted;
   protected $fields_array;
   protected $control_array;
@@ -28,11 +29,12 @@
    *
    * @param string $action Submit URL
    * @param string $method Submit method ( GET | POST )
-   * @param string $class CSS class
+   * @param string $class CSS classCSS
+   * @param string $tags Custom HTML tags
    * @param string $id Form ID, if null randomly generated
    * @return boolean
    */
-  public function __construct($action,$method="POST",$class=null,$id=null){
+  public function __construct($action,$method="POST",$class=null,$tags=null,$id=null){
    if(!in_array(strtoupper($method),array("GET","POST"))){return false;}
    if(substr($action,0,1)=="?"){$action="index.php".$action;}
    if(!$action){return false;}
@@ -40,6 +42,7 @@
    $this->action=$action;
    $this->method=$method;
    $this->class=$class;
+   $this->tags=$tags;
    $this->splitted=false;
    $this->current_field=0;
    $this->fields_array=array();
@@ -248,7 +251,7 @@
   public function render($scaleFactor=null){
    // renderize form
    $return.="<!-- form -->\n";
-   $return.="<form class=\"form-horizontal ".$this->class."\" action=\"".$this->action."\" method=\"".$this->method."\" id=\"".$this->id."\" enctype=\"multipart/form-data\">\n";
+   $return.="<form class=\"form-horizontal ".$this->class."\" action=\"".$this->action."\" method=\"".$this->method."\" id=\"".$this->id."\" $this->tags enctype=\"multipart/form-data\">\n";
    // check for split
    if($this->splitted){
     $split_identation="  ";
@@ -349,7 +352,7 @@
       if($value_localizations=="null"){$value_localizations=null;}
       $return.=$split_identation."   <input type=\"hidden\" name=\"".substr($field->name,0,-10)."\" id=\"".$this->id."_input_".substr($field->name,0,-10)."\" value=\"".$value_localizations."\">\n";
       // build translation form
-      $translation_form=new strForm("#","POST",null,$this->id."_input_".$field->name);
+      $translation_form=new strForm("#","POST",null,null,$this->id."_input_".$field->name);
       foreach($GLOBALS['localization']->available_localizations as $code=>$language){
        if($code=="en_EN"){$language="Default";$label=api_text("form-input-text_localized-default");$text_key="default";}
        else{$label=$language;$text_key="language";}

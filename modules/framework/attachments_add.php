@@ -13,7 +13,7 @@
  // set application title
  $app->setTitle(api_text("attachments_add"));
  // build profile form
- $form=new strForm("?mod=".MODULE."&scr=submit&act=attachment_save","POST",null,"attachments_add");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=attachment_save","POST",null,null,"attachments_add");
  $form->addField("file","file",api_text("attachments_add-ff-file"),null,null,null,null,null,"required");
  $form->addField("textarea","description",api_text("attachments_add-ff-description"),null,api_text("attachments_add-ff-description-placeholder"));
  $form->addField("radio","public",api_text("attachments_add-ff-public"),0,null,null,"radio-inline");

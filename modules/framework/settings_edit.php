@@ -24,7 +24,7 @@
  $tabs_nav->addItem(api_text("settings_edit-users"),"?mod=".MODULE."&scr=settings_edit&tab=users");
  $tabs_nav->addItem(api_text("settings_edit-tokens"),"?mod=".MODULE."&scr=settings_edit&tab=tokens");
  // build settings form
- $form=new strForm("?mod=".MODULE."&scr=submit&act=settings_save&tab=".TAB,"POST",null,"settings_edit");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=settings_save&tab=".TAB,"POST",null,null,"settings_edit");
  // generals
  if(TAB=="generals"){
   $form->addField("radio","maintenance",api_text("settings_edit-maintenance"),(int)$settings->maintenance,null,null,"radio-inline");

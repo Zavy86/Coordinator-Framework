@@ -40,7 +40,7 @@
  // set application title
  $app->setTitle("Setup");
  // build setup form
- $form=new strForm("setup.php","POST",null,"setup");
+ $form=new strForm("setup.php","POST",null,null,"setup");
  // check for submit
  if(!$_REQUEST['setup_action']){
   // setup form

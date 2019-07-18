@@ -13,7 +13,7 @@
  // alert for non standard authenticated accounts
  if($session->user->authentication!="standard"){api_alerts_add(api_text("own_password-authentication-alert"),"warning");}
  // build profile form
- $form=new strForm("?mod=".MODULE."&scr=submit&act=own_password_update","POST",null,"own_password");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=own_password_update","POST",null,null,"own_password");
  $form->addField("password","password",api_text("own_password-password"),null,api_text("own_password-password-placeholder"),null,null,null,"required");
  $form->addField("password","password_new",api_text("own_password-password_new"),null,api_text("own_password-password_new-placeholder"),null,null,null,"required");
  $form->addField("password","password_confirm",api_text("own_password-password_confirm"),null,api_text("own_password-password_confirm-placeholder"),null,null,null,"required");

@@ -54,7 +54,7 @@
  // check for action group_add
  if(ACTION=="group_add"){
   // build group add form
-  $group_add_form=new strForm("?mod=".MODULE."&scr=submit&act=user_group_add&idUser=".$user_obj->id,"POST",null,"users_view-groups");
+  $group_add_form=new strForm("?mod=".MODULE."&scr=submit&act=user_group_add&idUser=".$user_obj->id,"POST",null,null,"users_view-groups");
   $group_add_form->addField("select","fkGroup",api_text("users_view-groups-modal-ff-group"),null,api_text("users_view-groups-modal-ff-group-placeholder"),null,null,null,"required");
   api_tree_to_array($groups_array,"api_availableGroups","id");
   foreach($groups_array as $group_option){$group_add_form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->fullname);}

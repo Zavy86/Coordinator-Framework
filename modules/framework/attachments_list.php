@@ -74,7 +74,7 @@
  if(ACTION=="attachment_edit" && $_REQUEST['idAttachment']){
   $selected_attachment_obj=new cAttachment($_REQUEST['idAttachment']);
   // build attachment form
-  $attachments_form=new strForm("?mod=".MODULE."&scr=submit&act=attachment_save&idAttachment=".$selected_attachment_obj->id,"POST",null,"attachments_list-edit");
+  $attachments_form=new strForm("?mod=".MODULE."&scr=submit&act=attachment_save&idAttachment=".$selected_attachment_obj->id,"POST",null,null,"attachments_list-edit");
   $attachments_form->addField("static","id",api_text("attachments_list-modal-ff-id"),$selected_attachment_obj->id);
   $attachments_form->addField("text","name",api_text("attachments_list-modal-ff-name"),$selected_attachment_obj->name);
   $attachments_form->addField("textarea","description",api_text("attachments_list-modal-ff-description"),$selected_attachment_obj->description);

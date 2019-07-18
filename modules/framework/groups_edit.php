@@ -19,7 +19,7 @@
  // make tree array
  api_tree_to_array($groups_array,"api_availableGroups","id");
  // build form
- $form=new strForm("?mod=".MODULE."&scr=submit&act=group_save&idGroup=".$group_obj->id,"POST",null,"groups_edit");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=group_save&idGroup=".$group_obj->id,"POST",null,null,"groups_edit");
  $form->addField("select","fkGroup",api_text("groups_edit-fkGroup"),$group_obj->fkGroup);
  $form->addFieldOption(null,api_text("groups_edit-fkGroup-main"));
  foreach($groups_array as $group_fobj){
