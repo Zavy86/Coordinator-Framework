@@ -39,6 +39,55 @@
   protected $authorizations_array;
 
   /**
+   * Availables           @todo temporaneo estendere cObject appena possibile
+   *
+   * @param $deleted Select also deleted objects
+   * @return object[] Array of available developments
+   */
+  public static function availables($deleted=false,array $conditions=null){
+   // definitions
+   $query_where="1";
+   // check for deleted
+   if(!$deleted){$query_where.=" AND `deleted`='0'";}
+   // cycle all conditions
+   foreach($conditions as $field=>$value){
+    $query_where.=" AND `".$field."`";
+    // check for value array
+    if(is_array($value)){
+     $query_where.=" IN ('".implode("','",$value)."')";
+    }else{
+     $query_where.="='$value'";
+    }
+   }
+   // debug
+   //api_dump($query_where,"where");
+   // return
+   return static::select($query_where);
+  }
+
+  /**
+   * Select                   @todo temporaneo estendere cObject appena possibile
+   *
+   * @return object[] Array of available objects
+   */
+  public static function select($where=null,$order=null,$limit=null){
+   // check parameters
+   if(!$where){$where="1";}
+   if(!$order){$order="`lastname` ASC,`firstname` ASC";}
+   // definitions
+   $return_array=array();
+   // make query
+   $query="SELECT * FROM `framework__users` WHERE ".$where." ORDER BY ".$order;
+   if(strlen($limit)){$query.=" LIMIT ".$limit;}
+   //api_dump($query,static::class."->availables query");
+   // fetch query results
+   $results=$GLOBALS['database']->queryObjects($query);
+   foreach($results as $result){$return_array[$result->id]=new static($result);}
+   // return
+   return $return_array;
+  }
+
+  /**
    * User class
    *
    * @param integer $user User object or ID
