@@ -35,11 +35,10 @@
    $this->fkObject=$event->fkObject;
    $this->fkUser=$event->fkUser;
    $this->timestamp=$event->timestamp;
-   $this->alert=$event->level;
+   $this->alert=$event->alert;
    $this->event=$event->event;
    $this->properties=json_decode($event->properties_json);
    $this->class=$class;
-   $this->note=$event->properties_json;
   }
 
   /**
@@ -49,6 +48,20 @@
    * @return string
    */
   public function __get($property){return $this->$property;}
+
+  /**
+   * Get User
+   *
+   * @return object
+   */
+  public function getUser(){return new cUser($this->fkUser);}
+
+  /**
+   * Get Event
+   *
+   * @return string Event name
+   */
+  public function getEvent(){return api_text($this->class."-event-".$this->event);}
 
   /**
    * Get Level
@@ -72,11 +85,25 @@
   }
 
   /**
-   * Get Event
+   * Decode properties
    *
-   * @return string Event name
+   * @return string
    */
-  public function getEvent(){return api_text($this->class."-event-".$this->event);}
+  public function decodeProperties(){
+   // definitions
+   $return=null;
+   // check for properties
+   if(count($this->properties)){
+    // check for decode function
+    if(method_exists($this->class,"log_decode")){
+     $return=call_user_func_array(array($this->class,"log_decode"),array($this->event,$this->properties));
+    }
+    // check for return
+    if(!$return){$return=json_encode($this->properties);}
+   }
+   // return
+   return $return;
+  }
 
  }
 

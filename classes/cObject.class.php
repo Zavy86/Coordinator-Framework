@@ -22,18 +22,28 @@
 
   /**
    * Check
-   * Abstract function to be overridden (executed before saving or manually)
+   * (Abstract function to be overridden)
+   * Executed automatically before saving
    *
    * @return booelan
    */
   abstract protected function check();
 
   /**
-   * Availables
+   * Decode log properties
+   *
+   * @param string $event Log event
+   * @param object $properties Event properties
+   * @return string decoded properties
+   */
+  public static function log_decode($event,$properties){}
+
+  /**
+   * Select
    *
    * @return object[] Array of available objects
    */
-  public static function availables($where=null,$order=null,$limit=null){
+  public static function select($where=null,$order=null,$limit=null){     /** @todo protected? */
    // check parameters
    if(!$where){$where="1";}
    if(!$order){$order="`id` ASC";}
@@ -42,7 +52,7 @@
    // make query
    $query="SELECT * FROM `".static::$table."` WHERE ".$where." ORDER BY ".$order;
    if(strlen($limit)){$query.=" LIMIT ".$limit;}
-   //api_dump($query,static::class."->availables query");
+   //api_dump($query,static::class."->select query");
    // fetch query results
    $results=$GLOBALS['database']->queryObjects($query);
    foreach($results as $result){$return_array[$result->id]=new static($result);}
@@ -51,14 +61,70 @@
   }
 
   /**
-   * Convert Available
+   * Availables
+   *
+   * @param $deleted Select also deleted objects
+   * @return object[] Array of available objects
+   */
+  public static function availables($deleted=false,array $conditions=null){
+   // definitions
+   $query_where="1";
+   // check for deleted
+   if(!$deleted){$query_where.=" AND `deleted`='0'";}
+   // cycle all conditions
+   foreach($conditions as $field=>$value){
+    $query_where.=" AND `".$field."`";
+    // check for value array
+    if(is_array($value)){
+     $query_where.=" IN ('".implode("','",$value)."')";
+    }else{
+     $query_where.="='$value'";
+    }
+   }
+   // debug
+   //api_dump($query_where,"where");
+   // return
+   return static::select($query_where);
+  }
+
+  /**
+   * Count
+   *
+   * @param $deleted Count also deleted objects
+   * @return integer Objects count
+   */
+  public static function count($deleted=false,array $conditions=null){
+   // definitions
+   $query_where="1";
+   // check for deleted
+   if(!$deleted){$query_where.=" AND `deleted`='0'";}
+   // cycle all conditions
+   foreach($conditions as $field=>$value){
+    $query_where.=" AND `".$field."`";
+    // check for value array
+    if(is_array($value)){
+     $query_where.=" IN ('".implode("','",$value)."')";
+    }else{
+     $query_where.="='$value'";
+    }
+   }
+   // debug
+   //api_dump($query_where,"where");
+   // get result
+   $results=(int)$GLOBALS['database']->queryCount(static::$table,$query_where);
+   // return
+   return $results;
+  }
+
+  /**
+   * Decode
    *
    * @param boolean $showIcon Return icon
    * @param boolean $showText Return text
    * @param string $iconAlign Icon alignment [left|right]
    * @return string
    */
-  protected static function convertAvailable($code,array $availables,$showIcon=true,$showText=true,$iconAlign="left"){
+  protected static function decode($code,array $availables,$showIcon=true,$showText=true,$iconAlign="left"){
    // check parameters
    if(!array_key_exists($code,$availables)){return false;}
    if(!in_array($iconAlign,array("left","right"))){$iconAlign="left";}
@@ -118,21 +184,6 @@
    return $events_array;
   }
 
-           /**
-            * Set Properties
-            *
-            * @param mixed[] $properties Array of properties
-            */
-           public function setProperties__deprecated(array $properties){
-            // cycle all properties
-            foreach($properties as $property=>$value){
-             // skip undefined properties
-             if(!array_key_exists($property,get_object_vars($this))){continue;}
-             // set property value
-             $this->$property=trim($value);
-            }
-           }
-
   /**
    * Check if current object exist in database
    */
@@ -165,61 +216,19 @@
     $object=$GLOBALS['database']->queryUniqueObject($query);
    }
    // check object
-   if(!$object->id){
-    /* thrown? */
-    return false;
+   if(!$object->id){return false;}
+   // cycle object properties
+   foreach(get_object_vars($object) as $property=>$value){
+    // skip undefined properties
+    if(!array_key_exists($property,get_object_vars($this))){continue;}
+    // set property value
+    $this->$property=trim($value);
    }
-   // set properties
-   $this->setProperties((array)$object);
    // throw event
    $this->event("trace","loaded");
    // return
    return true;
   }
-
-           /**
-            * Save
-            *
-            * @return boolean
-            */
-           public function save_deprecated(){
-            // build query object
-            $query_obj=new stdClass();
-
-            //--- @todo rifare meglio
-            foreach(get_object_vars($this) as $property=>$value){
-             if($property=="deleted"){continue;}
-             $query_obj->$property=$value;
-            } //---
-
-            // check properties
-            if(!$this->check()){return false;}
-            // check existence
-            if($this->exists()){
-             // update object
-             api_dump($query_obj,static::class." update query object");
-             // execute query
-             $GLOBALS['database']->queryUpdate(static::$table,$query_obj);
-             /* @todo check? */
-             // throw event
-             $this->event("information","updated");
-             // return
-             return true;
-            }else{
-             // insert object
-             api_dump($query_obj,static::class." insert query object");
-             // execute query
-             $this->id=$GLOBALS['database']->queryInsert(static::$table,$query_obj);
-             // check
-             if(!$this->id){return false;}
-             // throw event
-             $this->event("information","created");
-             // return
-             return true;
-            }
-            // return
-            return false;
-           }
 
   /**
    * Store
@@ -232,20 +241,20 @@
    foreach($properties as $property=>$value){
     // skip undefined properties
     if(!array_key_exists($property,get_object_vars($this))){continue;}
-    // set property value
+    // overwrite property value
     $this->$property=trim($value);
    }
-   // build query object
-   $query_obj=new stdClass();
-
-   //--- @todo rifare meglio
-   foreach(get_object_vars($this) as $property=>$value){
-    if($property=="deleted"){continue;}
-    $query_obj->$property=$value;
-   } //---
-
    // check properties
    if(!$this->check()){return false;}
+   // build query object
+   $query_obj=new stdClass();
+   // cycle all properties
+   foreach(get_object_vars($this) as $property=>$value){
+    // skip deleted properties
+    if($property=="deleted"){continue;}
+    // get property value
+    $query_obj->$property=$value;
+   }
    // check existence
    if($this->exists()){
     // update object
@@ -382,7 +391,7 @@
    * @param string $event Event to throw
    * @return object[]|false Array of joined objects or false
    */
-  protected function joined_availables($table,$this_key,$object_class,$object_key,$event="joined_loaded"){
+  protected function joined_select($table,$this_key,$object_class,$object_key,$event="joined_loaded"){
    // check parameters
    if(!$table || !$this_key || !$object_class || !$object_key){trigger_error("All parameters is mandatory in class: \"".static::class."\" ",E_USER_ERROR);}
    // definitions
