@@ -15,7 +15,7 @@
  // make avatar delete link
  if(is_numeric(substr($user_obj->avatar,-5,1))){$avatar_delete_link=api_link("?mod=".MODULE."&scr=submit&act=own_avatar_remove",api_icon("fa-remove",api_text("own_profile-avatar-delete"),"hidden-link text-vtop"),null,null,false,api_text("own_profile-avatar-delete-confirm"));}
  // build profile form
- $form=new strForm("?mod=".MODULE."&scr=submit&act=own_profile_update","POST",null,"own_profile");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=own_profile_update","POST",null,null,"own_profile");
  if($user_obj->username){$form->addField("static",null,api_text("own_profile-username"),$user_obj->username);}
  $form->addField("static",null,api_text("own_profile-mail"),$user_obj->mail);
  $form->addField("text","firstname",api_text("own_profile-firstname"),$user_obj->firstname,null,null,null,null,"required");

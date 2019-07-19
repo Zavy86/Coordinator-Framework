@@ -199,7 +199,7 @@
    */
   protected function buildModal(){
    // build filters form
-   $form=new strForm($this->url,"POST",null,$this->id);
+   $form=new strForm($this->url,"POST",null,null,$this->id);
    // check for search field
    if(count($this->search_fields_array)){$form->addField("text","filter_search",api_text("filters-ff-search"),$_REQUEST['filter_search'],api_text("filters-ff-search-placeholder"));}
    // cycle all items

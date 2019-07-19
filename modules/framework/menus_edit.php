@@ -15,7 +15,7 @@
  // set application title
  $app->setTitle(($menu_obj->id?api_text("menus_edit",$menu_obj->label):api_text("menus_edit-add")));
  // build profile form
- $form=new strForm("?mod=".MODULE."&scr=submit&act=menu_save&idMenu=".$menu_obj->id,"POST",null,"menus_edit");
+ $form=new strForm("?mod=".MODULE."&scr=submit&act=menu_save&idMenu=".$menu_obj->id,"POST",null,null,"menus_edit");
  // typologies
  $form->addField("radio","typology",api_text("menus_edit-typology"),($menu_obj->typology?$menu_obj->typology:"standard"),null,null,"radio-inline");
  $form->addFieldOption("standard",api_text("menus_edit-typology-standard"));

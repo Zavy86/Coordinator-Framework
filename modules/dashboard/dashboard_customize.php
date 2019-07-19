@@ -44,7 +44,7 @@
  // check for actions
  if(in_array(ACTION,array("addTile","editTile"))){
   // build form
-  $tile_form=new strForm("?mod=dashboard&scr=submit&act=tile_save&idTile=".$selected_tile_obj->id,"POST",null,"dashboard_customize_tile");
+  $tile_form=new strForm("?mod=dashboard&scr=submit&act=tile_save&idTile=".$selected_tile_obj->id,"POST",null,null,"dashboard_customize_tile");
   $tile_form->addField("hidden","redirect_mod",null,"dashboard");
   $tile_form->addField("hidden","redirect_scr",null,"dashboard_customize");
   $tile_form->addField("text","icon",api_text("dashboard_customize-tile-ff-icon"),$selected_tile_obj->icon,api_text("dashboard_customize-tile-ff-icon-placeholder"));
