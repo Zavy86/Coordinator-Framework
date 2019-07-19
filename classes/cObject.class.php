@@ -234,9 +234,10 @@
    * Store
    *
    * @param mixed[] $properties Array of properties
+   * @param boolean $log Log event
    * @return boolean
    */
-  public function store(array $properties){
+  public function store(array $properties,$log=true){
    // cycle all properties
    foreach($properties as $property=>$value){
     // skip undefined properties
@@ -263,7 +264,7 @@
     $GLOBALS['database']->queryUpdate(static::$table,$query_obj);
     /* @todo check? */
     // throw event
-    $this->event("information","updated");
+    $this->event("information","updated",null,$log);
     // return
     return true;
    }else{
@@ -274,7 +275,7 @@
     // check
     if(!$this->id){return false;}
     // throw event
-    $this->event("information","created");
+    $this->event("information","created",null,$log);
     // return
     return true;
    }
@@ -286,10 +287,11 @@
    * Status
    *
    * @param string $status New status code
-   * @param string $note Event note
+   * @param mixed[] $additional_parameters Array of additional parameters
+   * @param boolean $log Log event
    * @return boolean
    */
-  public function status($status,$note=null){
+  public function status($status,array $additional_parameters=null,$log=true){
    // check for status property
    if(!array_key_exists("status",get_object_vars($this))){trigger_error("Status property does not exist in class: \"".static::class."\"",E_USER_ERROR);}
    // check parameters
@@ -311,8 +313,10 @@
    // execute query
    $GLOBALS['database']->queryUpdate(static::$table,$query_obj);
    /* @todo check? */
+   // make event properties
+   $properties_array=array_merge(["previous"=>$previous_status,"current"=>$this->status],$additional_parameters);
    // throw event
-   $this->event("information","status",array("previous"=>$previous_status,"current"=>$this->status,"note"=>$note));
+   $this->event("information","status",$properties_array,$log);
    // return
    return true;
   }
@@ -320,9 +324,10 @@
   /**
    * Delete
    *
+   * @param boolean $log Log event
    * @return boolean
    */
-  public function delete(){
+  public function delete($log=true){
    // check existence
    if(!$this->exists()){return false;}
    // build query object
@@ -335,7 +340,7 @@
    $GLOBALS['database']->queryUpdate(static::$table,$query_obj);
    /* @todo check? */
    // throw event
-   $this->event("warning","deleted");
+   $this->event("warning","deleted",null,$log);
    // return
    return true;
   }
@@ -343,9 +348,10 @@
   /**
    * Undelete
    *
+   * @param boolean $log Log event
    * @return boolean
    */
-  public function undelete(){
+  public function undelete($log=true){
    // check existence
    if(!$this->exists()){return false;}
    // build query object
@@ -358,7 +364,7 @@
    $GLOBALS['database']->queryUpdate(static::$table,$query_obj);
    /* @todo check? */
    // throw event
-   $this->event("warning","undeleted");
+   $this->event("warning","undeleted",null,$log);
    // return
    return true;
   }
@@ -389,9 +395,10 @@
    * @param string $object_class Joined object class
    * @param string $object_key Joined object key in join table
    * @param string $event Event to throw
+   * @param boolean $log Log event
    * @return object[]|false Array of joined objects or false
    */
-  protected function joined_select($table,$this_key,$object_class,$object_key,$event="joined_loaded"){
+  protected function joined_select($table,$this_key,$object_class,$object_key,$event="joined_loaded",$log=true){
    // check parameters
    if(!$table || !$this_key || !$object_class || !$object_key){trigger_error("All parameters is mandatory in class: \"".static::class."\" ",E_USER_ERROR);}
    // definitions
@@ -403,7 +410,7 @@
    $results=$GLOBALS['database']->queryObjects($query);
    foreach($results as $result){$return_array[$result->$object_key]=new $object_class($result->$object_key);}
    // throw event
-   $this->event("trace",$event,array("table"=>$table));
+   $this->event("trace",$event,["table"=>$table],$log);
    // return
    return $return_array;
   }
@@ -417,9 +424,10 @@
    * @param string $object_key Joined object key in join table
    * @param object $object Object to add
    * @param string $event Event to throw
+   * @param boolean $log Log event
    * @return boolean
    */
-  protected function joined_add($table,$this_key,$object_class,$object_key,$object,$event="joined_added"){
+  protected function joined_add($table,$this_key,$object_class,$object_key,$object,$event="joined_added",$log=true){
    // check parameters
    if(!$table || !$this_key || !$object_class || !$object_key || !$object->id){trigger_error("All parameters is mandatory in class: \"".static::class."\" ",E_USER_ERROR);}
    // check object class
@@ -432,7 +440,7 @@
    // check query result
    if(!$result){return false;}
    // throw event
-   $this->event("information",$event,array("class"=>$object_class,"id"=>$object->id));
+   $this->event("information",$event,["class"=>$object_class,"id"=>$object->id],$log);
    // return
    return true;
   }
@@ -446,9 +454,10 @@
    * @param string $object_key Joined object key in join table
    * @param object $object Object to remove
    * @param string $event Event to throw
+   * @param boolean $log Log event
    * @return boolean
    */
-  protected function joined_remove($table,$this_key,$object_class,$object_key,$object,$event="joined_removed"){
+  protected function joined_remove($table,$this_key,$object_class,$object_key,$object,$event="joined_removed",$log=true){
    // check parameters
    if(!$table || !$this_key || !$object_class || !$object_key || !$object->id){trigger_error("All parameters is mandatory in class: \"".static::class."\" ",E_USER_ERROR);}
    // check object class
@@ -461,7 +470,7 @@
    // check query result
    if(!$result){return false;}
    // throw event
-   $this->event("warning",$event,array("class"=>$object_class,"id"=>$object->id));
+   $this->event("warning",$event,["class"=>$object_class,"id"=>$object->id],$log);
    // return
    return true;
   }
@@ -473,9 +482,10 @@
    * @param string $typology Event typology (traces will not be logged) [trace|information|warning]
    * @param string $action Action occurred
    * @param mixed[] $properties Array of additional properties (key=>value)
+   * @param boolean $log Log event
    * @return boolean
    */
-  public function event($typology,$action,array $properties=null){
+  public function event($typology,$action,array $properties=null,$log=true){
    // check parameters
    if(!in_array($typology,array("trace","information","warning"))){trigger_error("Event typology \"".$typology."\" was not defined",E_USER_ERROR);return false;}
    // build event object
@@ -486,7 +496,7 @@
    // triggers an event
    $this->event_triggered($event_obj);
    // check logs parameter, typology and action
-   if(static::$logs && $typology!="trace" && $action!="removed"){
+   if(static::$logs && $log && $typology!="trace" && $action!="removed"){
     // log event to database
     $this->event_log($typology,$action,$properties);
    }

@@ -251,7 +251,12 @@
   public function render($scaleFactor=null){
    // renderize form
    $return.="<!-- form -->\n";
-   $return.="<form class=\"form-horizontal ".$this->class."\" action=\"".$this->action."\" method=\"".$this->method."\" id=\"".$this->id."\" $this->tags enctype=\"multipart/form-data\">\n";
+   $return.="<form class=\"form-horizontal ".$this->class."\"";
+   $return.=" action=\"".$this->action."\"";
+   $return.=" method=\"".$this->method."\"";
+   $return.=" id=\"".$this->id."\"";
+   if($this->tags){$return.=" ".$this->tags;}
+   $return.=" enctype=\"multipart/form-data\">\n";
    // check for split
    if($this->splitted){
     $split_identation="  ";

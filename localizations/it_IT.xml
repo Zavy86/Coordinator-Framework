@@ -93,6 +93,7 @@
  <text key="table-td-delete">Elimina</text>
  <text key="table-td-undelete">Ripristina</text>
  <text key="table-td-remove">Rimuovi</text>
+ <text key="table-td-status">Aggiorna stato</text>
 
  <!-- forms -->
  <text key="form-fc-submit">Salva</text>
