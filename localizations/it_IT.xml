@@ -88,6 +88,7 @@
  <text key="dl-dd-upd"><![CDATA[{0}]]> il <![CDATA[{1}]]></text>
 
  <!-- tables -->
+ <text key="table-td-add">Aggiungi</text>
  <text key="table-td-view">Visualizza</text>
  <text key="table-td-edit">Modifica</text>
  <text key="table-td-delete">Elimina</text>
