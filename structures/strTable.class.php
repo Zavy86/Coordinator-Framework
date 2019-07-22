@@ -71,6 +71,32 @@
   }
 
   /**
+   * Add Table Row Field Action
+   *
+   * @param string $url Action URL
+   * @param string $icon Button icon
+   * @param string $label Button label
+   * @param string $confirm Confirmation popuop
+   * @param string $class CSS class
+   * @param string $style Custom CSS
+   * @param string $tags Custom HTML tags
+   * @return boolean
+   */
+  function addHeaderAction($url,$icon,$label,$confirm=null,$class=null,$style=null,$tags=null,$target=null){
+   if(!$url){echo "ERROR - Table->addHeaderAction - URL is required";return false;}
+   if(!$label){$label="&nbsp;";}
+   // build field object
+   $th=new stdClass();
+   $th->label=api_link($url,api_icon($icon,$label,"hidden-link"),null,"btn btn-default btn-xs",false,$confirm,null,null,$target);
+   $th->class=$class;
+   $th->style=$style;
+   $th->tags=$tags;
+   // add header to headers
+   $this->rows_array["headers"][]=$th;
+   return true;
+  }
+
+  /**
    * Add Table Row
    *
    * @param string $class CSS class
