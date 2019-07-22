@@ -388,6 +388,25 @@
   }
 
   /**
+   * Count Joined Objects
+   *
+   * @param string $table Join table name
+   * @param string $this_key This class key in join table
+   * @return object[]|false Array of joined objects or false
+   */
+  protected function joined_count($table,$this_key){
+   // check parameters
+   if(!$table || !$this_key){trigger_error("All parameters is mandatory in class: \"".static::class."\" ",E_USER_ERROR);}
+   // make query
+   $query="SELECT COUNT(*) FROM `".$table."` WHERE `".$this_key."`='".$this->id."'";
+   //api_dump($query,static::class."->joined_count query");
+   // fetch query result
+   $result=intval($GLOBALS['database']->queryUniqueValue($query));
+   // return
+   return $result;
+  }
+
+  /**
    * Get Joined Objects
    *
    * @param string $table Join table name
@@ -405,7 +424,7 @@
    $return_array=array();
    // make query
    $query="SELECT * FROM `".$table."` WHERE `".$this_key."`='".$this->id."'";
-   //api_dump($query,static::class."->get_joined_objects query");
+   //api_dump($query,static::class."->joined_select query");
    // fetch query results
    $results=$GLOBALS['database']->queryObjects($query);
    foreach($results as $result){$return_array[$result->$object_key]=new $object_class($result->$object_key);}
