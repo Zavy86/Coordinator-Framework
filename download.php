@@ -27,12 +27,15 @@
  if(!file_exists($file_path)){die("FILE_NOT_EXIST");}
  // increment downloads
  $GLOBALS['database']->queryExecute("UPDATE `framework__attachments` SET `downloads`=`downloads`+1 WHERE `id`='".$attachment_obj->id."'");
+ // check disposition
+ if(in_array($_REQUEST['disposition'],["inline","attachment"])){$disposition=$_REQUEST['disposition'];}else{$disposition="attachment";}
  // debug
  api_debug();
  // build header
  header("Content-Description: File Transfer");
- header("Content-Type: application/octet-stream");
- header("Content-Disposition: attachment;filename=\"".$attachment_obj->name."\"");
+ //header("Content-Type: application/octet-stream");
+ header("Content-Type: ".$attachment_obj->typology);
+ header("Content-Disposition: ".$disposition.";filename=\"".$attachment_obj->name."\"");
  header("Expires: 0");
  header("Cache-Control: must-revalidate");
  header("Pragma: public");
