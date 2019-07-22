@@ -102,6 +102,7 @@
  <text key="form-fc-search">Cerca</text>
  <text key="form-fc-reset">Reset</text>
  <text key="form-fc-export">Esporta</text>
+ <text key="form-fc-edit">Modifica</text>
  <text key="form-fc-delete">Elimina</text>
  <text key="form-fc-delete-confirm">Confermi di voler eliminare questo oggetto?</text>
  <text key="form-fc-undelete">Rispritina</text>

@@ -391,6 +391,14 @@
   return api_random(32);
  }
 
+ /*
+  * Random Color generator
+  */
+ function api_random_color(){
+  // generate random code
+  return "#".substr(md5(rand()),0,6);
+ }
+
 
  /**
   * Tree to array

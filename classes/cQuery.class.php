@@ -50,7 +50,7 @@
    * @param type $fk_field Foreign field
    * @return boolean
    */
-  public function addQueryJoin($join_table,$join_field,$fk_table,$fk_field){
+  public function addQueryJoin($join_table,$join_field,$fk_table,$fk_field,$join_method=null){
    // check parameters
    if(!$join_table || !$join_field){return false;}
    // build field order object
@@ -59,6 +59,7 @@
    $join->jk_field=$join_field;
    $join->fk_table=$fk_table;
    $join->fk_field=$fk_field;
+   $join->method=$join_method;
    // add order field to order fields array
    $this->query_joins_array[]=$join;
    // return
@@ -138,7 +139,7 @@
    // query joins
    if(count($this->query_joins_array)){
     foreach($this->query_joins_array as $join_fobj){
-     $sql.="\nJOIN `".$join_fobj->jk_table."` ON ";
+     $sql.="\n".$join_fobj->method." JOIN `".$join_fobj->jk_table."` ON ";
      $sql.="`".$join_fobj->jk_table."`.`".$join_fobj->jk_field."`=";
      $sql.="`".$join_fobj->fk_table."`.`".$join_fobj->fk_field."`";
     }

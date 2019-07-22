@@ -434,7 +434,7 @@
    if(!is_a($object,$object_class)){trigger_error("Joined object class must be \"".$object_class."\" in class: \"".static::class."\" ",E_USER_ERROR);}
    // make query
    $query="INSERT IGNORE INTO `".$table."` (`".$this_key."`,`".$object_key."`) VALUES ('".$this->id."','".$object->id."')";
-   api_dump($query,static::class."->addJoinedObject query");
+   api_dump($query,static::class."->joined_add query");
    // execute query
    $result=$GLOBALS['database']->queryExecute($query);
    // check query result
@@ -464,13 +464,38 @@
    if(!is_a($object,$object_class)){trigger_error("Joined object class must be \"".$object_class."\" in class: \"".static::class."\" ",E_USER_ERROR);}
    // make query
    $query="DELETE FROM `".$table."` WHERE `".$this_key."`='".$this->id."' AND `".$object_key."`='".$object->id."'";
-   api_dump($query,static::class."->removeJoinedObject query");
+   api_dump($query,static::class."->joined_remove query");
    // execute query
    $result=$GLOBALS['database']->queryExecute($query);
    // check query result
    if(!$result){return false;}
    // throw event
    $this->event("warning",$event,["class"=>$object_class,"id"=>$object->id],$log);
+   // return
+   return true;
+  }
+
+  /**
+   * Reset Joined Object
+   *
+   * @param string $table Join table name
+   * @param string $this_key This class key in join table
+   * @param string $event Event to throw
+   * @param boolean $log Log event
+   * @return boolean
+   */
+  protected function joined_reset($table,$this_key,$event="joined_removed",$log=true){
+   // check parameters
+   if(!$table || !$this_key){trigger_error("All parameters is mandatory in class: \"".static::class."\" ",E_USER_ERROR);}
+   // make query
+   $query="DELETE FROM `".$table."` WHERE `".$this_key."`='".$this->id."'";
+   api_dump($query,static::class."->joined_reset query");
+   // execute query
+   $result=$GLOBALS['database']->queryExecute($query);
+   // check query result
+   if(!$result){return false;}
+   // throw event
+   $this->event("warning",$event,null,$log);
    // return
    return true;
   }
