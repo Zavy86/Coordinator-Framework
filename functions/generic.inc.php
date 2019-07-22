@@ -716,4 +716,9 @@
    return implode($glue,$pieces);
   }
 
+
+  function api_label($label,$class,$style,$tags){
+   return api_tag("span",$label,"label ".$class,$style,$tags);
+  }
+
 ?>
