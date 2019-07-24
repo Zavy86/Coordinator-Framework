@@ -27,6 +27,8 @@
  $form_source.="  <a href=\"recovery.php\" class=\"btn btn-link\" id=\"form_login_control_recovery\">".api_text("login-fc-recovery")."</a>\n";
  $form_source.=" </div><!-- /form-group -->\n";
  $form_source.="</form><!-- /form -->\n";
+ // submit button disabler script
+ $app->addScript("$(document).on('submit','#form_login',function(){\$('#form_login_control_submit').attr('disabled',true);});");
  // build grid object
  $grid=new strGrid();
  $grid->addRow();
