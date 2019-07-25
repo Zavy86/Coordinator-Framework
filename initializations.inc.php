@@ -89,7 +89,7 @@
  require_once(DIR."structures/strList.class.php");
  require_once(DIR."structures/strModal.class.php");
  require_once(DIR."structures/strNav.class.php");
- //require_once(DIR."structures/strNavbar.class.php");
+ //require_once(DIR."structures/strNavbar.class.php"); // @todo verificare ed eliminare */
  require_once(DIR."structures/strOperationsButton.class.php");
  require_once(DIR."structures/strPagination.class.php");
  require_once(DIR."structures/strPanel.class.php");
