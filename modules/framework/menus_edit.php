@@ -43,7 +43,7 @@
  // link typology
  $form->addField("text","url",api_text("menus_edit-url"),$menu_obj->url,api_text("menus_edit-url-placeholder"));
  // authorization
- $form->addField("select","authorization",api_text("menus_edit-authorization"),$menu_obj->authorization);
+ $form->addField("select","authorization",api_text("menus_edit-authorization"),(strpos($menu_obj->authorization,"|*")?"module|*":$menu_obj->authorization));
  $form->addFieldOption("",api_text("menus_edit-authorization-none"));
  $form->addFieldOption("module|*",api_text("menus_edit-authorization-module"));
  foreach(api_availableAuthorizations() as $authorization_fobj){$form->addFieldOption($authorization_fobj->fkModule."|".$authorization_fobj->id,$authorization_fobj->id);}

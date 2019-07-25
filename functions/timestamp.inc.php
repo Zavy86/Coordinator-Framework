@@ -20,7 +20,7 @@
   // build date time object
   $dt=new DateTime($datetime);
   // set date time timezone
-  $dt->setTimeZone(new DateTimeZone($timezone));
+  if($timezone){$dt->setTimeZone(new DateTimeZone($timezone));}
   // return timestamp
   return $dt->getTimestamp();
  }
@@ -57,7 +57,7 @@
   // build date time object
   $dt=new DateTime();
   // set date time timezone
-  $dt->setTimeZone(new DateTimeZone($timezone));
+  if($timezone){$dt->setTimeZone(new DateTimeZone($timezone));}
   // set timestamp
   $dt->setTimestamp($timestamp);
   // make begin
