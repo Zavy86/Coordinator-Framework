@@ -20,7 +20,7 @@
   // build date time object
   $dt=new DateTime();
   // set date time timezone
-  $dt->setTimeZone(new DateTimeZone($timezone));
+  if($timezone){$dt->setTimeZone(new DateTimeZone($timezone));}
   $dt->setTimestamp($timestamp);
   // return date formatted
   return $dt->format("Y-m-d");
@@ -40,7 +40,7 @@
   // build date time object
   $dt=new DateTime($datetime);
   // set date time timezone
-  $dt->setTimeZone(new DateTimeZone($timezone));
+  if($timezone){$dt->setTimeZone(new DateTimeZone($timezone));}
   // return date time formatted
   return $dt->format($format);
  }
