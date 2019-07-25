@@ -1142,6 +1142,8 @@
   $r_password=$_REQUEST['password'];
   // try to authenticate
   if(!$GLOBALS['session']->login($r_username,$r_password)){api_alerts_add(api_text("alert_authenticationFailed"),"warning");api_redirect("login.php");}
+  // set cookie
+  setcookie("login-username",$r_username,(time()+(60*60*24*365)));
 
   // check for redirect before session expired
 
