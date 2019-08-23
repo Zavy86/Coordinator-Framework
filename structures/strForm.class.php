@@ -331,7 +331,7 @@
      // select box
      case "select": /** @todo integrare con select2 ? */
       $return.=$split_identation."   <select".$field_tags.">\n";
-      if($field->placeholder){$return.="    <option value=\"\">".$field->placeholder."</option>\n";}
+      if($field->placeholder){$return.="      <option value=\"\">".$field->placeholder."</option>\n";}
       // cycle all field options
       foreach($field->options_array as $option_id=>$option){
        $return.=$split_identation."    <option value=\"".$option->value."\"";
