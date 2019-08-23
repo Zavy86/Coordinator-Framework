@@ -21,13 +21,14 @@
   $logs_table->addHeader(api_text("logs-th-event"),"nowrap");
   $logs_table->addHeader("&nbsp;",null,"100%");
   $logs_table->addHeader(api_text("logs-th-user"),"nowrap text-right");
+  if($GLOBALS['session']->user->superuser){$logs_table->addHeader("&nbsp;",null,16);}
   // check parameters
   if(is_array($logs_array)){
    // cycle logs
    foreach($logs_array as $log_fobj){
     // make table row class
     $tr_class_array=array();
-    if($log_fobj->id==$_REQUEST['idEvent']){$tr_class_array[]="info";}
+    if($log_fobj->id==$_REQUEST['idLog']){$tr_class_array[]="info";}
     if($log_fobj->alert){$tr_class_array[]="warning";}
     // make area row
     $logs_table->addRow(implode(" ",$tr_class_array));
@@ -36,6 +37,20 @@
     $logs_table->addRowField($log_fobj->getEvent(),"nowrap");
     $logs_table->addRowField($log_fobj->decodeProperties(),"truncate-ellipsis");
     $logs_table->addRowField((new cUser($log_fobj->fkUser))->fullname,"nowrap text-right");
+    // check for superuser
+    if($GLOBALS['session']->user->superuser){
+     // check for properties
+     if($log_fobj->properties){
+      // build log modal
+      $log_modal=new strModal(api_text("logs-modal-title"));
+      $log_modal->setBody("<pre style='background:#ffffff'>".print_r(json_encode($log_fobj->properties,JSON_PRETTY_PRINT),true)."</pre>");
+      $logs_table->addRowField($log_modal->link(api_icon("fa-code"),"","btn btn-default btn-xs"));
+      // add modal to application
+      $GLOBALS['app']->addModal($log_modal);
+     }else{
+      $logs_table->addRowField("&nbsp;");
+     }
+    }
    }
   }
   // return
