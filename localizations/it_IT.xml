@@ -158,5 +158,6 @@
  <text key="logs-th-timestamp">Data</text>
  <text key="logs-th-event">Evento</text>
  <text key="logs-th-user">Utente</text>
+ <text key="logs-modal-title">Proprietà dell'evento</text>
 
 </locale>

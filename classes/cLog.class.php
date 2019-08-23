@@ -37,7 +37,7 @@
    $this->timestamp=$event->timestamp;
    $this->alert=$event->alert;
    $this->event=$event->event;
-   $this->properties=json_decode($event->properties_json);
+   $this->properties=json_decode($event->properties_json,true);
    $this->class=$class;
   }
 
@@ -98,8 +98,8 @@
     if(method_exists($this->class,"log_decode")){
      $return=call_user_func_array(array($this->class,"log_decode"),array($this->event,$this->properties));
     }
-    // check for return
-    if(!$return){$return=json_encode($this->properties);}
+    // check for return @todo verificare (disattivato in seguito ad aggiunta del tasto per visualizzare modal con le proprietà)
+    //if(!$return){$return=json_encode($this->properties);}
    }
    // return
    return $return;

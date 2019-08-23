@@ -238,12 +238,19 @@
    * @return boolean
    */
   public function store(array $properties,$log=true){
+   // definitions
+   $event_properties_array=array();
    // cycle all properties
    foreach($properties as $property=>$value){
     // skip undefined properties
     if(!array_key_exists($property,get_object_vars($this))){continue;}
-    // overwrite property value
-    $this->$property=trim($value);
+    // check for change
+    if($this->$property!==trim($value)){
+     // save previous and current value for event
+     $event_properties_array[$property]=array("previous"=>$this->$property,"current"=>trim($value));
+     // overwrite property value
+     $this->$property=trim($value);
+    }
    }
    // check properties
    if(!$this->check()){return false;}
@@ -264,7 +271,7 @@
     $GLOBALS['database']->queryUpdate(static::$table,$query_obj);
     /* @todo check? */
     // throw event
-    $this->event("information","updated",null,$log);
+    $this->event("information","updated",$event_properties_array,$log);
     // return
     return true;
    }else{
@@ -314,9 +321,9 @@
    $GLOBALS['database']->queryUpdate(static::$table,$query_obj);
    /* @todo check? */
    // make event properties
-   $properties_array=array_merge(["previous"=>$previous_status,"current"=>$this->status],$additional_parameters);
+   $event_properties_array=array_merge(["previous"=>$previous_status,"current"=>$this->status],$additional_parameters);
    // throw event
-   $this->event("information","status",$properties_array,$log);
+   $this->event("information","status",$event_properties_array,$log);
    // return
    return true;
   }

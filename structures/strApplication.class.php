@@ -426,7 +426,7 @@
    $return.="  <!-- footer -->\n";
    $return.="  <footer>\n";
    // make execution metrics
-   if(DEBUG){$execution_metrics=" [ Queries: ".api_tag("b",$GLOBALS['database']->query_counter)." | Cached queries: ".api_tag("b",$GLOBALS['database']->cache_query_counter)." | Execution time: ~".api_tag("b",number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs")." ]";}else{$execution_metrics=null;}
+   if(DEBUG || $GLOBALS['session']->user->superuser){$execution_metrics=" [ Queries: ".api_tag("b",$GLOBALS['database']->query_counter)." | Cached queries: ".api_tag("b",$GLOBALS['database']->cache_query_counter)." | Execution time: ~".api_tag("b",number_format((microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"]),2)." secs")." ]";}else{$execution_metrics=null;}
    // build footer grid
    $footer_grid=new strGrid();
    $footer_grid->addRow();
