@@ -37,7 +37,7 @@
    $this->timestamp=$event->timestamp;
    $this->alert=$event->alert;
    $this->event=$event->event;
-   $this->properties=json_decode($event->properties_json);
+   $this->properties=json_decode($event->properties_json,true);
    $this->class=$class;
   }
 
