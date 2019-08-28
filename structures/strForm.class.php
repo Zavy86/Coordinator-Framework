@@ -279,7 +279,7 @@
     // make field tags
     $field_tags=" name=\"".$field->name."\" class=\"form-control ".$field->class."\" id=\"".$this->id."_input_".$field->name."\"";
     if($field->placeholder){$field_tags.=" placeholder=\"".$field->placeholder."\"";}
-    if($field->value){$field_tags.=" value=\"".$field->value."\"";}
+    if($field->value && $field->typology!="textarea"){$field_tags.=" value=\"".$field->value."\"";}
     if($field->style){$field_tags.=" style=\"".$field->style."\"";}
     if($field->tags){$field_tags.=" ".$field->tags;}
     if(!$field->enabled){$field_tags.=" disabled=\"disabled\"";}
