@@ -72,7 +72,7 @@
  require_once(DIR."functions/authentication.inc.php");
  require_once(DIR."functions/calendar.inc.php");
  require_once(DIR."functions/date.inc.php");
- require_once(DIR."functions/event.inc.php");
+ require_once(DIR."functions/log.inc.php");
  require_once(DIR."functions/mail.inc.php");
  require_once(DIR."functions/map.inc.php");
  require_once(DIR."functions/number.inc.php");

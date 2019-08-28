@@ -39,17 +39,22 @@
     $logs_table->addRowField((new cUser($log_fobj->fkUser))->fullname,"nowrap text-right");
     // check for superuser
     if($GLOBALS['session']->user->superuser){
+     // build operation button
+     $ob=new strOperationsButton();
      // check for properties
      if($log_fobj->properties){
       // build log modal
       $log_modal=new strModal(api_text("logs-modal-title"));
       $log_modal->setBody("<pre style='background:#ffffff'>".print_r(json_encode($log_fobj->properties,JSON_PRETTY_PRINT),true)."</pre>");
-      $logs_table->addRowField($log_modal->link(api_icon("fa-code"),"","btn btn-default btn-xs"));
+      // add modal link operation button
+      $ob->addElement("#".$log_modal->id,"fa-code",null,true,null,null,null,"data-toggle='modal'");
       // add modal to application
       $GLOBALS['app']->addModal($log_modal);
-     }else{
-      $logs_table->addRowField("&nbsp;");
      }
+     // add operation buttons to table
+     $ob->addElement(api_url(["mod"=>"framework","scr"=>"logs_edit","log_mod"=>$_REQUEST['mod'],"log_class"=>$log_fobj->class,"log_id"=>$log_fobj->id,"return"=>["mod"=>$_REQUEST['mod'],"scr"=>$_REQUEST['src'],"tab"=>"logs"]]),"fa-pencil",api_text("table-td-edit"));
+     $ob->addElement(api_url(["mod"=>"framework","scr"=>"submit","act"=>"log_delete","log_mod"=>$_REQUEST['mod'],"log_class"=>$log_fobj->class,"log_id"=>$log_fobj->id,"return"=>["mod"=>$_REQUEST['mod'],"scr"=>$_REQUEST['src'],"tab"=>"logs"]]),"fa-trash",api_text("table-td-remove"),true,api_text("table-td-remove-confirm"));
+     $logs_table->addRowField($ob->render(),"text-right");
     }
    }
   }
