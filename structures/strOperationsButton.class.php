@@ -99,7 +99,7 @@
    foreach($this->elements_array as $element){
     $operations.="  &nbsp;";
     if($element->enabled){
-     $operations.="<a href=\"".$element->url."\"".($element->confirm?" onClick=\"return confirm('".addslashes($element->confirm)."')\"":null)." target=\"".$element->target."\">";
+     $operations.="<a href=\"".$element->url."\"".($element->confirm?" onClick=\"return confirm('".addslashes($element->confirm)."')\"":null)." target=\"".$element->target."\" ".$element->tags.">";
      $operations.="<i class='fa ".$element->icon." fa-fw faa-tada animated-hover hidden-link' aria-hidden='true' title=\"".str_ireplace('"',"''",$element->title)."\"></i>";
      $operations.="</a>\n";
     }else{$operations.="<i class='fa ".$element->icon." disabled' aria-hidden='true'></i>\n";}

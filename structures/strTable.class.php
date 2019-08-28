@@ -131,7 +131,7 @@
    */
   function addRowField($content,$class=null,$style=null,$tags=null,$id=null){
    if(!$this->current_row){echo "ERROR - Table->addRowField - No row defined";return false;}
-   if(!$content){$content="&nbsp;";}
+   if(!strlen($content)){$content="&nbsp;";}
    // build field object
    $td=new stdClass();
    $td->id="td_".($id?$id:api_random());

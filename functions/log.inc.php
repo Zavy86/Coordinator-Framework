@@ -16,7 +16,8 @@
  function api_logs_table($logs_array){
   // build logs table
   $logs_table=new strTable(api_text("logs-tr-unvalued"));
-  $logs_table->addHeader("&nbsp;",null,16);
+  if($_REQUEST['all_logs']){$logs_table->addHeader("&nbsp;",null,16);}
+  else{$logs_table->addHeader(api_link(api_url(array_merge($_GET,["all_logs"=>1])),api_icon("fa-archive",api_text("logs-th-all"),"hidden-link")),"text-center",16);}
   $logs_table->addHeader(api_text("logs-th-timestamp"),"nowrap");
   $logs_table->addHeader(api_text("logs-th-event"),"nowrap");
   $logs_table->addHeader("&nbsp;",null,"100%");
@@ -39,17 +40,31 @@
     $logs_table->addRowField((new cUser($log_fobj->fkUser))->fullname,"nowrap text-right");
     // check for superuser
     if($GLOBALS['session']->user->superuser){
+     /*
+     // build operation button
+     $ob=new strOperationsButton();
+     */
      // check for properties
      if($log_fobj->properties){
       // build log modal
-      $log_modal=new strModal(api_text("logs-modal-title"));
+      $log_modal=new strModal(api_text("logs-modal-title",$log_fobj->id));
       $log_modal->setBody("<pre style='background:#ffffff'>".print_r(json_encode($log_fobj->properties,JSON_PRETTY_PRINT),true)."</pre>");
-      $logs_table->addRowField($log_modal->link(api_icon("fa-code"),"","btn btn-default btn-xs"));
+      //
+      $logs_table->addRowField($log_modal->link(api_tag("samp","#".$log_fobj->id),null,"btn btn-xs btn-default"));
+      /*
+      // add modal link operation button
+      $ob->addElement("#".$log_modal->id,"fa-code","#".$log_fobj->id,true,null,null,null,"data-toggle='modal'");
+      */
       // add modal to application
       $GLOBALS['app']->addModal($log_modal);
-     }else{
-      $logs_table->addRowField("&nbsp;");
      }
+     //
+     else{$logs_table->addRowField(api_tag("samp","#".$log_fobj->id),"text-center");}
+     /*
+     // add operation buttons to table
+     $ob->addElement(api_url(["mod"=>"framework","scr"=>"logs_edit","log_mod"=>$_REQUEST['mod'],"log_class"=>$log_fobj->class,"log_id"=>$log_fobj->id]),"fa-pencil",api_text("table-td-edit"),true,null,null,null,null,"_blank");
+     $logs_table->addRowField($ob->render(),"text-right");
+     */
     }
    }
   }

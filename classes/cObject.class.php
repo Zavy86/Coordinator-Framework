@@ -166,22 +166,22 @@
    * Get Logs
    *
    * @param integer limit Limit number of events
-   * @return object[]|false Array of event objects or false
+   * @return object[]|false Array of log objects or false
    */
   public function getLogs($limit=null){
    // check parameters
    if(!static::$logs){trigger_error("Object events log is not enabled in class: \"".static::class."\"",E_USER_WARNING);return false;}
    // definitions
-   $events_array=array();
+   $logs_array=array();
    // make query
-   $query="SELECT * FROM `".static::$table."__logs` WHERE `fkObject`='".$this->id."' ORDER BY `timestamp` DESC";
+   $query="SELECT * FROM `".static::$table."__logs` WHERE `fkObject`='".$this->id."' ORDER BY `timestamp` DESC, `id` DESC";
    if(is_integer($limit) && $limit>0){$query.=" LIMIT 0,".$limit;}
    //api_dump($query,static::class."->getLogs query");
-   // get customer events
-   $events_results=$GLOBALS['database']->queryObjects($query);
-   foreach($events_results as $event){$events_array[$event->id]=new cLog($event,static::class);}
+   // get logs
+   $logs_results=$GLOBALS['database']->queryObjects($query);
+   foreach($logs_results as $log_fobj){$logs_array[$log_fobj->id]=new cLog($log_fobj,static::class);}
    // return
-   return $events_array;
+   return $logs_array;
   }
 
   /**
