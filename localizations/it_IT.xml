@@ -155,6 +155,7 @@
 
  <!-- logs table -->
  <text key="logs-tr-unvalued">Non sono presenti eventi da mostrare..</text>
+ <text key="logs-th-all">Mostra tutti gli eventi</text>
  <text key="logs-th-timestamp">Data</text>
  <text key="logs-th-event">Evento</text>
  <text key="logs-th-user">Utente</text>

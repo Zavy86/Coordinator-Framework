@@ -155,6 +155,7 @@
 
  <!-- logs table -->
  <text key="logs-tr-unvalued">There are no logs to show..</text>
+ <text key="logs-th-all">Show all logs</text>
  <text key="logs-th-timestamp">Timestamp</text>
  <text key="logs-th-event">Event</text>
  <text key="logs-th-user">User</text>
