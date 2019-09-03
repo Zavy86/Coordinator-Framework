@@ -532,7 +532,7 @@
   * @param string $null returned string if null
   * @return string cleaned string
   */
- function api_cleanString($string,$pattern="/[^A-Za-zÀ-ÿ0-9-_.,:;' ]/",$null=NULL){
+ function api_cleanString($string,$pattern="/[^A-Za-zÀ-ÿ0-9-_.,:;' ]/",$null=null){
   // remove multiple spaces and apply patter
   $return=preg_replace($pattern,"",preg_replace("!\s+!"," ",$string));
   // check for null
@@ -694,7 +694,7 @@
   global $sort_property;
   $sort_property=$property;
   // sort objects array
-  usort($objects_array,"api_sortObjectsArray_compare");
+  uasort($objects_array,"api_sortObjectsArray_compare");
   // return
   return $objects_array;
  }
