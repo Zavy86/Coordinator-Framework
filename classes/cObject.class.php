@@ -424,7 +424,7 @@
    * @param boolean $log Log event
    * @return object[]|false Array of joined objects or false
    */
-  protected function joined_select($table,$this_key,$object_class,$object_key,$event="joined_loaded",$log=true){
+  protected function joined_select($table,$this_key,$object_class,$object_key,$event="joined_select",$log=true){
    // check parameters
    if(!$table || !$this_key || !$object_class || !$object_key){trigger_error("All parameters is mandatory in class: \"".static::class."\" ",E_USER_ERROR);}
    // definitions
@@ -510,7 +510,7 @@
    * @param boolean $log Log event
    * @return boolean
    */
-  protected function joined_reset($table,$this_key,$event="joined_removed",$log=true){
+  protected function joined_reset($table,$this_key,$event="joined_resetted",$log=true){
    // check parameters
    if(!$table || !$this_key){trigger_error("All parameters is mandatory in class: \"".static::class."\" ",E_USER_ERROR);}
    // make query
