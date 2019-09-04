@@ -241,7 +241,7 @@
    // get object from database
    $object=$GLOBALS['database']->queryUniqueObject($query);
    // call parent load
-   return parent::load($object);
+   return $this->load($object);
   }
 
   /**
