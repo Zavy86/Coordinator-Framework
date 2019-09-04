@@ -207,14 +207,8 @@
    * @return boolean
    */
   public function load($object){
-   // check parameters
-   if(!is_object($object) && strlen($object)){
-    // make query
-    $query="SELECT * FROM `".static::$table."` WHERE `id`='".$object."'";
-    //api_dump($query,static::class."->load query");
-    // get object from database
-    $object=$GLOBALS['database']->queryUniqueObject($query);
-   }
+   // check for object or try to load from id key
+   if(!is_object($object) && strlen($object)){$object=$this->loadFromKey("id",$object);}
    // check object
    if(!$object->id){return false;}
    // cycle object properties
@@ -228,6 +222,26 @@
    $this->event("trace","loaded");
    // return
    return true;
+  }
+
+  /**
+   * Load from Key
+   *
+   * @param string $key Unique index key name
+   * @param string $value Key value
+   * @return boolean
+   */
+  public function loadFromKey($key,$value){
+   // checks
+   if(!$key || !$value){return false;}
+   if($this->id){return false;}
+   // make query
+   $query="SELECT * FROM `".static::$table."` WHERE `".$key."`='".$value."'";
+   //api_dump($query,static::class."->loadFromKey query");
+   // get object from database
+   $object=$GLOBALS['database']->queryUniqueObject($query);
+   // call parent load
+   return $this->load($object);
   }
 
   /**

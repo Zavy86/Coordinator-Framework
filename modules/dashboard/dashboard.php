@@ -22,7 +22,7 @@
   // check for typology
   if($menu_obj->typology=="group"){
    // add dashboard container
-   $dashboard_menu->addContainer($menu_obj->label,$menu_obj->title);
+   $dashboard_menu->addContainer(($menu_obj->icon?api_icon($menu_obj->icon)." ":null).$menu_obj->label,$menu_obj->title);
   }else{
    // add menu tile to dashboard
    $dashboard_menu->addTile($menu_obj->url,$menu_obj->label,$menu_obj->title,true,null,$menu_obj->icon,null,null,null,$menu_obj->target);

@@ -280,8 +280,8 @@
        // check for authorization
        if(!$subMenu_fobj->checkAuthorizations()){continue;}
        // make icon
-       if($subMenu_fobj->icon){$icon_source=api_icon($subMenu_fobj->icon)." ";}else{$icon_source=null;}
-       $submenu_source.="           <li><a href=\"".$subMenu_fobj->url."\" target=\"".$subMenu_fobj->target."\">".$icon_source.$subMenu_fobj->label."</a></li>\n";
+       if($subMenu_fobj->icon){$subicon_source=api_icon($subMenu_fobj->icon)." ";}else{$subicon_source=null;}
+       $submenu_source.="           <li><a href=\"".$subMenu_fobj->url."\" target=\"".$subMenu_fobj->target."\">".$subicon_source.$subMenu_fobj->label."</a></li>\n";
       }
       // check for submenu source
       if(strlen($submenu_source)){
