@@ -50,7 +50,7 @@
   // check for debug
   if(DEBUG){
    // renderize redirect link
-   echo "<div class='redirect'>".api_tag("strong","REDIRECT")."<br>".api_link($location,$location)."</div>";
+   echo "<div class='redirect'>".api_tag("strong","REDIRECT")."<br>".api_link($location,$location)."</div>\n";
    echo "<link href=\"".PATH."helpers/bootstrap/css/bootstrap-3.3.7-custom.css\" rel=\"stylesheet\">\n";
    // renderize debug
    api_debug();
@@ -283,8 +283,8 @@
   $alert->class=$class;
   // add alert to session alerts array
   $_SESSION['coordinator_alerts'][]=$alert;
-  // dump alert for submit
-  if(SCRIPT=="submit"){api_dump($alert->message,"ALERT","alert-".$alert->class);}
+  // dump alert for submit and controller
+  if(in_array(SCRIPT,array("submit","controller"))){api_dump($alert->message,"ALERT","alert-".$alert->class);}
   // return
   return true;
  }
@@ -351,7 +351,7 @@
   }
   // check superuser
   if($superuser && $GLOBALS['session']->user->superuser){
-   if(DEBUG){api_alerts_add("Check permission [".$module."][".$authorization."] = SUPERUSER","warning");}
+   //if(DEBUG){api_alerts_add("Check permission [".$module."][".$authorization."] = SUPERUSER","warning");} /** @todo fare un array specifico e farlo vedere prima del debug */
    return true;
   }
   // unauthorized redirection to script

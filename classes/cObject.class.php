@@ -557,7 +557,7 @@
    $event_obj=new stdClass();
    $event_obj->typology=$typology;
    $event_obj->action=$action;
-   $event_obj->properties=$properties;
+   $event_obj->properties=(array)$properties;
    // triggers an event
    $this->event_triggered($event_obj);
    // check logs parameter, typology and action
@@ -572,7 +572,7 @@
    *
    * @return boolean
    */
-  private function event_log($typology,$action,array $properties=null){
+  public function event_log($typology,$action,array $properties=null){
    // check parameters
    if(!static::$logs){trigger_error("Object events logs in not enabled in class: \"".static::class."\"",E_USER_WARNING);return false;}
    if(!in_array($typology,array("information","warning"))){trigger_error("Event typology \"".$typology."\" will not be logged",E_USER_ERROR);return false;}

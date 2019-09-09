@@ -77,6 +77,7 @@
  require_once(DIR."functions/map.inc.php");
  require_once(DIR."functions/number.inc.php");
  require_once(DIR."functions/timestamp.inc.php");
+ require_once(DIR."functions/uploads.inc.php");
 
  // include structures
  require_once(DIR."structures/strApplication.class.php");
