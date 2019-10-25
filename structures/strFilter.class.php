@@ -67,7 +67,7 @@
     // build item class
     $item=new stdClass();
     $item->table=$table;
-    $item->field=$field;
+    $item->field=str_replace(".","`.`",$field);
     // add item to search_fields_array
     $this->search_fields_array[]=$item;
    }
