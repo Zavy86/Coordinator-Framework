@@ -15,10 +15,12 @@
   * @param string $currency Currency sign
   * @param string $small_decimals Decimal in small format
   * @param string $hide_unsignificat Hide unsignificant decimals
+  * @param string $zero_null_replace Replace zero or null with (ex. "-")
   * @return string Formatted number or false
   */
- function api_number_format($number,$decimals=2,$currency=null,$small_decimals=false,$hide_unsignificat=false){
+ function api_number_format($number,$decimals=2,$currency=null,$small_decimals=false,$hide_unsignificat=false,$zero_null_replace=null){
   // check parameters
+  if($zero_null_replace!==null && (!strlen($number) || $number==0)){return $zero_null_replace;}
   if(!is_numeric($number)){return false;}
   if(!is_numeric($decimals)){return false;}
   // format number
