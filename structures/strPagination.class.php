@@ -31,10 +31,12 @@
    * @param string $id Pagination ID, if null randomly generated
    * @return boolean
    */
-  public function __construct($records,$show=20,$id=null){
+  public function __construct($records,$show=5,$id=null){
    // check parameters
    if($records===null){return false;}
    if(!$show){$show=20;}
+   // make pagination id
+   $this->id="pagination_".($id?$id:api_random());
    // parse current url
    parse_str(parse_url($_SERVER['REQUEST_URI'])['query'],$this->uri_array);
    // get pagination properties
@@ -42,9 +44,9 @@
    if($this->uri_array['psr']){$this->show=$this->uri_array['psr'];}else{$this->show=$show;}
    // unset action if exist
    unset($this->uri_array['act']);
-
-   $this->id="pagination_".($id?$id:api_random());
-
+   // add filters to uri array
+   foreach($_POST as $post_key=>$post_value){if(substr($post_key,0,7)=="filter_"){$this->uri_array[$post_key]=$post_value;}}
+   
    // check for tab pagination
    /*if(strlen($tab) && $this->uri_array['tab']!=$tab){
     $this->page=1;
