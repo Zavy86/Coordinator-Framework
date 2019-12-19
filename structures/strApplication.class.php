@@ -435,7 +435,8 @@
    $return.=$footer_grid->render();
    // jQuery scripts
    $this->addScript("/* Popover Script */\n$(function(){\$(\"[data-toggle='popover']\").popover({'trigger':'hover'});});");
-   $this->addScript("/* Current Row Timeout Script */\n$(function(){setTimeout(function(){\$('.currentrow').removeClass('info');},5000);});");
+   $this->addScript("/* Alert Timeout Script */\n$(function(){setTimeout(function(){\$('.alert-dismissible').fadeOut();},8000);});");
+   $this->addScript("/* Current Row Timeout Script */\n$(function(){setTimeout(function(){\$('.currentrow').removeClass('currentrow');},9000);});");
    // renderize closures
    $return.="  </footer>\n\n";
    // renderize modals

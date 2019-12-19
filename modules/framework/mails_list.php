@@ -53,7 +53,7 @@
   // make tr class
   $tr_class=null;
   if($mail_fobj->status=="failed"){$tr_class="danger";}
-  if($mail_fobj->id==$_REQUEST['idMail']){$tr_class="info";}
+  if($mail_fobj->id==$_REQUEST['idMail']){$tr_class="currentrow";}
   // make mail row
   $table->addRow($tr_class);
   $table->addRowField($mail_fobj->getStatus(true,false),"nowrap");

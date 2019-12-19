@@ -130,6 +130,10 @@ footer{
  text-decoration:line-through;
 }
 
+.table tr.currentrow td{
+  background-color: #d9edf7;
+}
+
 .text-deleted{
  text-decoration:line-through;
 }

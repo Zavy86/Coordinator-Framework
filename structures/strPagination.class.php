@@ -31,7 +31,7 @@
    * @param string $id Pagination ID, if null randomly generated
    * @return boolean
    */
-  public function __construct($records,$show=5,$id=null){
+  public function __construct($records,$show=20,$id=null){
    // check parameters
    if($records===null){return false;}
    if(!$show){$show=20;}
@@ -46,7 +46,7 @@
    unset($this->uri_array['act']);
    // add filters to uri array
    foreach($_POST as $post_key=>$post_value){if(substr($post_key,0,7)=="filter_"){$this->uri_array[$post_key]=$post_value;}}
-   
+
    // check for tab pagination
    /*if(strlen($tab) && $this->uri_array['tab']!=$tab){
     $this->page=1;
