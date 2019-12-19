@@ -33,7 +33,7 @@
   // check deleted
   if($user_obj->deleted){$tr_class="deleted";}else{$tr_class=null;}
   // build table row
-  $table->addRow(($selected_tile_obj->id==$tile_obj->id?"info":null));
+  $table->addRow(($selected_tile_obj->id==$tile_obj->id?"currentrow":null));
   // build table fields
   $table->addRowFieldAction("?mod=dashboard&scr=dashboard_customize&idTile=".$tile_obj->id,"fa-search",api_text("dashboard_customize-td-preview"));
   $table->addRowField($tile_obj->label,"nowrap");

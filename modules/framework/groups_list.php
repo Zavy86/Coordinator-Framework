@@ -30,7 +30,7 @@
   $ob->addElement("?mod=".MODULE."&scr=submit&act=group_remove&idGroup=".$group_fobj->id,"fa-trash-o",api_text("groups_list-td-remove"),true,api_text("groups_list-td-remove-confirm"));
   // make table row class
   $tr_class_array=array();
-  if($group_fobj->id==$_REQUEST['idGroup']){$tr_class_array[]="info";}
+  if($group_fobj->id==$_REQUEST['idGroup']){$tr_class_array[]="currentrow";}
   if($group_fobj->deleted){$tr_class_array[]="deleted";}
   // make table row
   $table->addRow(implode(" ",$tr_class_array));

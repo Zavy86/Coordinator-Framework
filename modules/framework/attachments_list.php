@@ -38,7 +38,7 @@
   $ob->addElement($attachment_fobj->url,"fa-cloud-download",api_text("attachments_list-td-download"),true,null,null,null,null,"_blank");
   // make table row class
   $tr_class_array=array();
-  if($attachment_fobj->id==$_REQUEST['idAttachment']){$tr_class_array[]="info";}
+  if($attachment_fobj->id==$_REQUEST['idAttachment']){$tr_class_array[]="currentrow";}
   if($attachment_fobj->deleted){$tr_class_array[]="deleted";}
   // make table row
   $table->addRow(implode(" ",$tr_class_array));

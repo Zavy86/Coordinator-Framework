@@ -29,7 +29,7 @@
    foreach($logs_array as $log_fobj){
     // make table row class
     $tr_class_array=array();
-    if($log_fobj->id==$_REQUEST['idLog']){$tr_class_array[]="info";}
+    if($log_fobj->id==$_REQUEST['idLog']){$tr_class_array[]="currentrow";}
     if($log_fobj->alert){$tr_class_array[]="warning";}
     // make area row
     $logs_table->addRow(implode(" ",$tr_class_array));
@@ -102,7 +102,7 @@
      default:$tr_class=null;
     }
     // check selected
-    if($event_fobj->id==$_REQUEST['idEvent']){$tr_class="info";}
+    if($event_fobj->id==$_REQUEST['idEvent']){$tr_class="currentrow";}
     // make note
     $note_td=$event_fobj->note;
     if(strpos($note_td,"{")!==false){
