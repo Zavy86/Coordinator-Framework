@@ -525,6 +525,16 @@
  }
 
  /**
+  * Script Prefix
+  *
+  * @param string[] $divider Script prefix divider
+  * @return string Script prefix
+  */
+ function api_script_prefix($divider="_"){
+  return explode($divider,SCRIPT)[0];
+ }
+
+ /**
   * Clean a string
   *
   * @param string $string string to clean
@@ -684,10 +694,11 @@
   * Sort Objects Array
   *
   * @param array $objects_array Array of objects to sort
-  * @param type $property Property name for sorting
+  * @param string $property Property name for sorting
+  * @param boolean $reverse Reverse order
   * @return objects[]|false Array of sorted objects or false
   */
- function api_sortObjectsArray(array $objects_array,$property){
+ function api_sortObjectsArray(array $objects_array,$property,$reverse=false){
   // check properties
   if(!$property){return false;}
   // define and set global variable
@@ -695,6 +706,8 @@
   $sort_property=$property;
   // sort objects array
   uasort($objects_array,"api_sortObjectsArray_compare");
+  // reverse
+  if($reverse){$objects_array=array_reverse($objects_array,true);}
   // return
   return $objects_array;
  }

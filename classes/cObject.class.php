@@ -66,7 +66,7 @@
    * @param $deleted Select also deleted objects
    * @return object[] Array of available objects
    */
-  public static function availables($deleted=false,array $conditions=null){
+  public static function availables($deleted=false,array $conditions=null,$limit=null){
    // definitions
    $query_where="1";
    // check for deleted
@@ -84,7 +84,7 @@
    // debug
    //api_dump($query_where,"where");
    // return
-   return static::select($query_where);
+   return static::select($query_where,null,$limit);
   }
 
   /**
@@ -160,7 +160,10 @@
    * @param string $property Property name
    * @return string Property value
    */
-  public function __get($property){return $this->$property;}
+  public function __get($property){
+   if(!property_exists($this,$property)){return "{property_not_found|".$property."}";}  /** @todo verificare */
+   return $this->$property;
+  }
 
   /**
    * Get Logs
