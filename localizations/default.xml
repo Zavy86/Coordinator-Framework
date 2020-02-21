@@ -47,7 +47,8 @@
  <text key="alert_passwordExpired">Your password is expired please choose a new password</text>
  <text key="alert_authenticationFailed">Incorrect username or password</text>
  <text key="alert_requiredModuleNotFound">The module <![CDATA[{0}]]> could not be included</text>
- <text key="alert_submitFunctionNotFound">The function "<![CDATA[{2}]]>" was not found in script "<![CDATA[{1}]]>" of module "<![CDATA[{0}]]>"</text>
+ <text key="alert_submitFunctionNotFound">The function "<![CDATA[{2}]]>" was not found in script "<![CDATA[{1}]]>" of module "<![CDATA[{0}]]>"</text><!-- sara da levare una volta tolti tutti i submit -->
+ <text key="alert_controllerObjectNotFound">The controller function "<![CDATA[{1}]]>" was not found in module "<![CDATA[{0}]]>"</text>
 
  <!-- event levels -->
  <text key="event-level-debug">Debug</text>

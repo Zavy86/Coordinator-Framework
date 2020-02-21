@@ -48,6 +48,7 @@
  <text key="alert_authenticationFailed">Nome utente o password non corretti</text>
  <text key="alert_requiredModuleNotFound">Non è stato possibile includere il modulo <![CDATA[{0}]]></text>
  <text key="alert_submitFunctionNotFound">La funzione "<![CDATA[{2}]]>" non è stata trovata nello script "<![CDATA[{1}]]>" del modulo "<![CDATA[{0}]]>"</text>
+ <text key="alert_controllerObjectNotFound">La funzione "<![CDATA[{1}]]>" non è stata trovata nel controller del modulo "<![CDATA[{0}]]>"</text>
 
  <!-- event levels -->
  <text key="event-level-debug">Debug</text>
