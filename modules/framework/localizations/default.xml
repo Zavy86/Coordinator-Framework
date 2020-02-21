@@ -63,7 +63,7 @@
  <text key="framework_alert_moduleUpdateDatabaseUpdated">L'aggiornamento del database è avvenuto correttamente</text>
  <text key="framework_alert_moduleAuthorizationGroupAdded">Il gruppo è stato aggiunto alle autorizzazioni del modulo</text>
  <text key="framework_alert_moduleAuthorizationGroupRemoved">Il gruppo è stato rimosso dalle autorizzazioni del modulo</text>
- <text key="framework_alert_moduleAuthorizationResetted">Le autorizzazioni del gruppo sono state ripristinate</text>
+ <text key="framework_alert_moduleAuthorizationResetted">Le autorizzazioni del modulo sono state resettate</text>
 
  <text key="framework_alert_userError">Si è verificato un errore durante il salvaraggio dell'utente</text>
  <text key="framework_alert_userNotFound">L'utente non è stato trovato</text>
