@@ -95,7 +95,8 @@
  <text key="table-td-delete">Delete</text>
  <text key="table-td-undelete">Undelete</text>
  <text key="table-td-remove">Remove</text>
- <text key="table-td-status">Stato update</text>
+ <text key="table-td-status">Update status</text>
+ <text key="table-td-download">Download</text>
 
  <!-- forms -->
  <text key="form-fc-submit">Submit</text>

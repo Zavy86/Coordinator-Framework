@@ -92,7 +92,7 @@
    if($field->size<1 || $field->size>10){$field->size=10;}
    if($field->typology=="file"){
     $field->class="filestyle ".$field->class;
-    $field->tags="data-buttonText=\"\" data-iconName=\"fa fa-fw fa-folder-open-o faa-tada animated-hover\" data-placeholder=\"".api_text("form-input-file-placeholder")."\" ".$field->tags;
+    $field->tags="data-buttonText=\"\" data-iconName=\"fa fa-fw fa-folder-open-o faa-tada animated-hover\" data-placeholder=\"".api_text("form-input-file-placeholder")."\"".$field->tags;
     if(!$field->enabled){$field->tags="data-disabled=\"true\" ".$field->tags;}
    }
    // text localized

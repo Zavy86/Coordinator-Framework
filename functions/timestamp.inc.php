@@ -136,7 +136,7 @@
  /**
   * Timestamp Difference Days
   *
-  * @param integer $difference Number of seconds
+  * @param integer $difference Number of days
   * @return string Formatted timestamp difference
   */
  function api_timestampDifferenceDays($difference){

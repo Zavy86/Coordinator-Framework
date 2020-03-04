@@ -96,6 +96,7 @@
  <text key="table-td-undelete">Ripristina</text>
  <text key="table-td-remove">Rimuovi</text>
  <text key="table-td-status">Aggiorna stato</text>
+ <text key="table-td-download">Scarica</text>
 
  <!-- forms -->
  <text key="form-fc-submit">Salva</text>

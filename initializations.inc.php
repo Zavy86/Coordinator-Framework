@@ -97,6 +97,7 @@
  require_once(DIR."structures/strPanel.class.php");
  require_once(DIR."structures/strParametersForm.class.php");
  require_once(DIR."structures/strProgressBar.class.php");
+ require_once(DIR."structures/strSearchBar.class.php");
  require_once(DIR."structures/strTab.class.php");
  require_once(DIR."structures/strTable.class.php");
 

@@ -191,6 +191,7 @@
    * Check if current object exist in database
    */
   public function exists(){
+   if(!$this->id){return false;}
    // make query
    $query="SELECT COUNT(*) FROM `".static::$table."` WHERE `id`='".$this->id."'";
    //api_dump($query,static::class."->exists query");
