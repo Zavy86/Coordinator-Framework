@@ -72,4 +72,83 @@
   return true;
  }
 
+ /**
+  * List of uploaded files
+  *
+  * @param string $path Directory starting after /uploads/
+  * @param string $file File to remove
+  * @return boolean
+  */
+ function api_uploads_list($path,$file){
+  // check parameters
+  if(!trim($path,"/")){return false;}
+  // make uploads directory
+  $directory=DIR."uploads/".trim($path,"/")."/";
+  // scan directory
+  $files_array=scandir($directory);
+  if(!is_array($files_array)){$files_array=array();}
+  // remove directories
+  foreach($files_array as $key=>$file){
+   if(in_array($file,array(".",".."))){unset($files_array[$key]);}
+   if(is_dir($file)){unset($files_array[$key]);}
+  }
+  // return
+  return $files_array;
+ }
+
+ /**
+  * Size of uploaded file
+  *
+  * @param string $path Directory starting after /uploads/
+  * @param string $file File name
+  * @param string $format Format size with unit or return bytes
+  * @return double|string|false
+  */
+ function api_uploads_size($path,$file,$format=false){
+  // check parameters
+  if(!trim($path,"/")){return false;}
+  // make uploads directory
+  $directory=DIR."uploads/".trim($path,"/")."/";
+  // check if file exists
+  if(!file_exists($directory.$file)){return false;}
+  // get file size
+  $size=filesize($directory.$file);
+  // format size
+  if($format){
+   if($size>=1073741824){
+    $return=round($size/1073741824,2)." GB";
+   }elseif($size>=1048576){
+    $return=round($size/1048576,2)." MB";
+   }elseif($size>=1024){
+    $return=round($size/1024)." KB";
+   }else{
+    $return=$size." Byte";
+   }
+  }else{
+   $return=$size;
+  }
+  // return
+  return $return;
+ }
+
+ /**
+  * Read uploaded file
+  *
+  * @param string $path Directory starting after /uploads/
+  * @param string $file File name
+  * @return boolean
+  */
+ function api_uploads_read($path,$file){
+  // check parameters
+  if(!trim($path,"/")){return false;}
+  // make uploads directory
+  $directory=DIR."uploads/".trim($path,"/")."/";
+  // check if file exists
+  if(!file_exists($directory.$file)){return false;}
+  // get file content
+  $content=readfile($directory.$file);
+  // return
+  return $content;
+ }
+
 ?>
