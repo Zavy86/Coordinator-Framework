@@ -193,8 +193,7 @@
   public function exists(){
    if(!$this->id){return false;}
    // make query
-   $query="SELECT COUNT(*) FROM `".static::$table."` WHERE `id`='".$this->id."'";
-   //api_dump($query,static::class."->exists query");
+   //api_dump("SELECT COUNT(*) FROM `".static::$table."` WHERE `id`='".$this->id."'",static::class."->exists query");
    // count row with current key
    $count=$GLOBALS['database']->queryCount(static::$table,"id='".$this->id."'");
    // make exists
