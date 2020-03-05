@@ -484,7 +484,7 @@
    // check query result
    if(!$result){return false;}
    // throw event
-   $this->event("information",$event,["class"=>$object_class,"id"=>$object->id],$log);
+   $this->event("information",$event,["_obj"=>$object_class,"_id"=>$object->id],$log);
    // return
    return true;
   }
@@ -514,7 +514,7 @@
    // check query result
    if(!$result){return false;}
    // throw event
-   $this->event("warning",$event,["class"=>$object_class,"id"=>$object->id],$log);
+   $this->event("warning",$event,["_obj"=>$object_class,"_id"=>$object->id],$log);
    // return
    return true;
   }
