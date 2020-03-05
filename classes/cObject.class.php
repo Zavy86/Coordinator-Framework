@@ -193,8 +193,7 @@
   public function exists(){
    if(!$this->id){return false;}
    // make query
-   $query="SELECT COUNT(*) FROM `".static::$table."` WHERE `id`='".$this->id."'";
-   //api_dump($query,static::class."->exists query");
+   //api_dump("SELECT COUNT(*) FROM `".static::$table."` WHERE `id`='".$this->id."'",static::class."->exists query");
    // count row with current key
    $count=$GLOBALS['database']->queryCount(static::$table,"id='".$this->id."'");
    // make exists
@@ -484,7 +483,7 @@
    // check query result
    if(!$result){return false;}
    // throw event
-   $this->event("information",$event,["class"=>$object_class,"id"=>$object->id],$log);
+   $this->event("information",$event,["_obj"=>$object_class,"_id"=>$object->id],$log);
    // return
    return true;
   }
@@ -514,7 +513,7 @@
    // check query result
    if(!$result){return false;}
    // throw event
-   $this->event("warning",$event,["class"=>$object_class,"id"=>$object->id],$log);
+   $this->event("warning",$event,["_obj"=>$object_class,"_id"=>$object->id],$log);
    // return
    return true;
   }

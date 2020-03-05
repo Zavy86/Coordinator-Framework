@@ -25,6 +25,7 @@
    $this->localized_strings_array=array();
    // load standard localizations
    $this->load(null);
+   $this->load("framework"); /** @todo verificare come fare il caricamento in modo che non sovrascriva quelli del modulo corrente che devono sempre essere gli "ultimi" */
   }
 
   /**

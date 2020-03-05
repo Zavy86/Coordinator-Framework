@@ -31,6 +31,12 @@
  <text key="framework-attachments_manage">Allegati</text>
  <text key="framework-attachments_manage-description">Gestione degli allegati</text>
 
+ <!-- cUser -->
+ <text key="cUser">Utente</text>
+
+
+ 
+
  <!-- alerts -->
  <text key="framework_alert_ownProfileUpdated">Il tuo profilo è stato aggiornato</text>
  <text key="framework_alert_ownAvatarRemoved">Il tuo avatar è stato eliminato</text>

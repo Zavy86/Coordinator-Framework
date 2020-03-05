@@ -163,4 +163,14 @@
  <text key="logs-th-user">User</text>
  <text key="logs-modal-title">Event properties</text>
 
+ <!-- cObject -->
+ <text key="cObject">Object</text>
+ <text key="cObject-event-created">Created</text>
+ <text key="cObject-event-updated">Updated</text>
+ <text key="cObject-event-deleted">Deleted</text>
+ <text key="cObject-event-undeleted">Undeleted</text>
+ <text key="cObject-event-removed">Removed</text>
+ <text key="cObject-event-joined_added">Joined</text>
+ <text key="cObject-event-joined_removed">Unjoined</text>
+
 </locale>
