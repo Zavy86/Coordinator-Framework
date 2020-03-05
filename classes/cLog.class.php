@@ -61,7 +61,16 @@
    *
    * @return string Event name
    */
-  public function getEvent(){return api_text($this->class."-event-".$this->event);}
+  public function getEvent(){
+   // try to get class event
+   $return=$GLOBALS['localization']->getString($this->class."-event-".$this->event);
+   // try to get object event
+   if(!$return){$return=$GLOBALS['localization']->getString("cObject-event-".$this->event);}
+   // return unparsed event
+   if(!$return){$return="{".$this->class."-event-".$this->event."}";}
+   // return
+   return $return;
+  }
 
   /**
    * Get Level
