@@ -14,7 +14,8 @@
  $app->setTitle(api_text("modules_list"));
  // build grid object
  $table=new strTable(api_text("modules_list-tr-unvalued"));
- $table->addHeader("&nbsp;",null,16);
+ $table->addHeaderAction(api_url(["scr"=>"modules_list","act"=>"check"]),"fa-refresh",api_text("modules_list-th-check"));
+ //$table->addHeader("&nbsp;",null,16);
  $table->addHeader(api_text("modules_list-th-name"),"nowrap");
  $table->addHeader(api_text("modules_list-th-installed"),"nowrap text-right");
  $table->addHeader(api_text("modules_list-th-repository"),"nowrap text-right");
@@ -30,7 +31,7 @@
  foreach($modules_array as $module){
   // get last released version from GitHub
   $repository_version=null;
-  if($module->repository_version_url){$repository_version=file_get_contents($module->repository_version_url."?".rand(1,99999));}
+  if($module->repository_version_url && ACTION=="check"){$repository_version=file_get_contents($module->repository_version_url."?".rand(1,99999));}
   if(!is_numeric(substr($repository_version,0,1))){$repository_version=null;}
   // check if module is installed
   if($module->version!="0"){$module_installed=true;}else{$module_installed=false;}

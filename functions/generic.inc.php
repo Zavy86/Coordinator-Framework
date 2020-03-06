@@ -33,7 +33,7 @@
    // cycle all logs and dump warning and errors
    foreach($_SESSION["coordinator_logs"] as $log){if($log[0]!="log"){api_dump($log[1],strtoupper($log[0]),$log[0]);}}
    // dump constants, session and globals variables
-   api_dump(get_defined_constants(true)["user"],"contants");
+   api_dump(get_defined_constants(true)["user"],"constants");
    api_dump($GLOBALS['session'],"session");
    api_dump($GLOBALS['settings'],"settings");
    //api_dump($GLOBALS['localization'],"localization");
