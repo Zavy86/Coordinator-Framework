@@ -33,7 +33,7 @@
    // cycle all logs and dump warning and errors
    foreach($_SESSION["coordinator_logs"] as $log){if($log[0]!="log"){api_dump($log[1],strtoupper($log[0]),$log[0]);}}
    // dump constants, session and globals variables
-   api_dump(get_defined_constants(true)["user"],"contants");
+   api_dump(get_defined_constants(true)["user"],"constants");
    api_dump($GLOBALS['session'],"session");
    api_dump($GLOBALS['settings'],"settings");
    //api_dump($GLOBALS['localization'],"localization");
@@ -104,12 +104,13 @@
   * @param string $tags Custom HTML tags
   * @return string|boolean HTML tag source code or false
   */
- function api_tag($tag,$text,$class=null,$style=null,$tags=null){
+ function api_tag($tag,$text,$class=null,$style=null,$tags=null,$id=null){
   // check parameters
   if(!strlen($text)){return false;}
   if(!$tag){return $text;}
   // make html source code
   $html="<".$tag;
+  if($id){$html.=" id=\"".$id."\"";}
   if($class){$html.=" class=\"".$class."\"";}
   if($style){$html.=" style=\"".$style."\"";}
   if($tags){$html.=" ".$tags;}

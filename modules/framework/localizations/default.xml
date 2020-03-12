@@ -35,7 +35,7 @@
  <text key="cUser">Utente</text>
 
 
- 
+
 
  <!-- alerts -->
  <text key="framework_alert_ownProfileUpdated">Il tuo profilo è stato aggiornato</text>
@@ -332,6 +332,7 @@
  <text key="modules_list">Moduli</text>
  <text key="modules_list-description">Gestione dei moduli del framework</text>
  <text key="modules_list-tr-unvalued">Non sono presenti moduli da mostrare..</text>
+ <text key="modules_list-th-check">Verifica aggiornamenti</text>
  <text key="modules_list-th-name">Modulo</text>
  <text key="modules_list-th-installed">Versione</text>
  <text key="modules_list-th-repository">Release</text>

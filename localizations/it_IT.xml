@@ -63,7 +63,7 @@
  <!-- nav -->
  <text key="nav-dashboard">Bacheca</text>
  <text key="nav-menu">Menu principale</text>
- <text key="nav-modules">Moduli abilitati</text>
+ <text key="nav-modules">Moduli</text>
  <text key="nav-own-profile">Profilo personale</text>
  <text key="nav-interpret_terminate">Termina interpretazione</text>
  <text key="nav-logout">Disconnetti</text>
