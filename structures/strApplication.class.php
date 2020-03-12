@@ -42,6 +42,39 @@
    $this->styleSheets_array=array();
    $this->scripts_array=array();
    $this->modals_array=array();
+
+   // set meta tags
+   $this->setMetaTag("author","Manuel Zavatta [www.zavynet.org]");
+   $this->setMetaTag("copyright","2009-".date("Y")." © Coordinator [www.coordinator.it]");
+   $this->setMetaTag("description","Coordinator is an Open Source Modular Framework");
+   $this->setMetaTag("owner",$GLOBALS['settings']->owner);
+   // add style sheets
+   if($pace){$this->addStylesheet(PATH."helpers/pace/css/pace-1.0.0-theme-flash.css");}
+   $this->addStylesheet(PATH."helpers/font-awesome/css/font-awesome.min.css");
+   $this->addStylesheet(PATH."helpers/font-awesome-animation/css/font-awesome-animation.min.css");
+   /** @todo verificare quali caricare sempre e quali solo alla bisogna */
+   $this->addStylesheet(PATH."helpers/justgage/css/justgage-1.2.2.css");
+   $this->addStylesheet(PATH."helpers/select2/css/select2-4.0.5.min.css");
+   /** @todo add some css helpers here */
+   $this->addStylesheet(PATH."helpers/bootstrap/css/bootstrap-3.3.7.min.css");
+   $this->addStylesheet(PATH."helpers/bootstrap-faiconpicker/css/bootstrap-faiconpicker-1.3.0.min.css");
+   /** @todo definire temi */
+   /*if($GLOBALS['session']->user->theme){$this->addStylesheet(PATH."helpers/bootstrap/css/bootstrap-3.3.7-theme-".$GLOBALS['session']->user->theme.".min.css");}*/
+   $this->addStylesheet(PATH."helpers/bootstrap/css/bootstrap-3.3.7-custom.css");
+
+   // add scripts
+   $this->addScript(PATH."helpers/jquery/js/jquery-1.12.4.min.js",true);
+   $this->addScript(PATH."helpers/pace/js/pace-1.0.0.min.js",true);
+   /** @todo verificare quali caricare sempre e quali solo alla bisogna */
+   $this->addScript(PATH."helpers/peity/js/peity-3.2.1.min.js",true);
+   $this->addScript(PATH."helpers/justgage/js/justgage-1.2.2.js",true);
+   $this->addScript(PATH."helpers/chartjs/js/chart-2.7.0.min.js",true);
+   $this->addScript(PATH."helpers/select2/js/select2-4.0.5.min.js",true);
+   /** @todo add some javascript helpers here */
+   $this->addScript(PATH."helpers/bootstrap/js/bootstrap-3.3.7.min.js",true);
+   $this->addScript(PATH."helpers/bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",true);
+   $this->addScript(PATH."helpers/bootstrap-faiconpicker/js/bootstrap-faiconpicker-1.3.0.min.js",true);
+
    return true;
   }
 
@@ -55,50 +88,6 @@
   public function setMetaTag($name,$value=null){
    if(!$name){return false;}
    $this->metaTags_array[$name]=$value;
-   return true;
-  }
-
-  /**
-   * Add Style Sheet
-   *
-   * @param string $url URL of style sheet
-   * @return boolean
-   */
-  public function addStyleSheet($url){
-   if(!$url){return false;}
-   $this->styleSheets_array[]=$url;
-   return true;
-  }
-
-  /**
-   * Add Script
-   *
-   * @param string $source Source code or URL
-   * @param booelan $url true if source is an URL
-   * @return boolean
-   */
-  public function addScript($source=null,$url=false){
-   if(!$source && !$url){return false;}
-   // build script class
-   $script=new stdClass();
-   $script->url=(bool)$url;
-   $script->source=$source;
-   // add script to scripts array
-   $this->scripts_array[]=$script;
-   return true;
-  }
-
-  /**
-   * Add Modal
-   *
-   * @param string $modal Modal window object
-   * @param booelan $url true if source is an URL
-   * @return boolean
-   */
-  public function addModal($modal){
-   if(!is_a($modal,strModal)){return false;}
-   // add modal to modals array
-   $this->modals_array[$modal->id]=$modal;
    return true;
   }
 
@@ -138,6 +127,63 @@
   }
 
   /**
+   * Add Style Sheet
+   *
+   * @param string $url URL of style sheet
+   * @return boolean
+   */
+  public function addStyleSheet($url){
+   if(!$url){return false;}
+   $this->styleSheets_array[]=$url;
+   return true;
+  }
+
+  /**
+   * Add Script
+   *
+   * @param string $source Source code or URL
+   * @param booelan $url true if source is an URL
+   * @return boolean
+   */
+  public function addScript($source=null,$url=false){
+   if(!$source && !$url){return false;}
+   // build script class
+   $script=new stdClass();
+   $script->url=(bool)$url;
+   $script->source=$source;
+   // add script to scripts array
+   $this->scripts_array[]=$script;
+   return true;
+  }
+
+  /**
+   * Remove Script
+   *
+   * @param integer $index Script index
+   * @return boolean
+   */
+  public function removeScript($index){
+   if(!$index){return false;}
+   // remove script from scripts array
+   unset($this->scripts_array[$index]);
+   return true;
+  }
+
+  /**
+   * Add Modal
+   *
+   * @param string $modal Modal window object
+   * @param booelan $url true if source is an URL
+   * @return boolean
+   */
+  public function addModal($modal){
+   if(!is_a($modal,strModal)){return false;}
+   // add modal to modals array
+   $this->modals_array[$modal->id]=$modal;
+   return true;
+  }
+
+  /**
    * Add Content
    *
    * @param string $content Body content
@@ -155,38 +201,7 @@
    * @param boolean $echo Echo HTML source code or return
    * @return boolean|string HTML source code
    */
-  public function render($echo=true){    /** @todoissimo migliorare */
-   // set meta tags
-   $this->setMetaTag("author","Manuel Zavatta [www.zavynet.org]");
-   $this->setMetaTag("copyright","2009-".date("Y")." © Coordinator [www.coordinator.it]");
-   $this->setMetaTag("description","Coordinator is an Open Source Modular Framework");
-   $this->setMetaTag("owner",$GLOBALS['settings']->owner);
-   // add style sheets
-   $this->addStylesheet(PATH."helpers/pace/css/pace-1.0.0-theme-flash.css");
-   $this->addStylesheet(PATH."helpers/font-awesome/css/font-awesome.min.css");
-   $this->addStylesheet(PATH."helpers/font-awesome-animation/css/font-awesome-animation.min.css");
-   /** @todo verificare quali caricare sempre e quali solo alla bisogna */
-   $this->addStylesheet(PATH."helpers/justgage/css/justgage-1.2.2.css");
-   $this->addStylesheet(PATH."helpers/select2/css/select2-4.0.5.min.css");
-   /** @todo add some css helpers here */
-   $this->addStylesheet(PATH."helpers/bootstrap/css/bootstrap-3.3.7.min.css");
-   $this->addStylesheet(PATH."helpers/bootstrap-faiconpicker/css/bootstrap-faiconpicker-1.3.0.min.css");
-   /** @todo definire temi */
-   /*if($GLOBALS['session']->user->theme){$this->addStylesheet(PATH."helpers/bootstrap/css/bootstrap-3.3.7-theme-".$GLOBALS['session']->user->theme.".min.css");}*/
-   $this->addStylesheet(PATH."helpers/bootstrap/css/bootstrap-3.3.7-custom.css");
-   // add scripts
-   $this->addScript(PATH."helpers/jquery/js/jquery-1.12.4.min.js",true);
-   $this->addScript(PATH."helpers/pace/js/pace-1.0.0.min.js",true);
-   /** @todo verificare quali caricare sempre e quali solo alla bisogna */
-   $this->addScript(PATH."helpers/peity/js/peity-3.2.1.min.js",true);
-   $this->addScript(PATH."helpers/justgage/js/justgage-1.2.2.js",true);
-   $this->addScript(PATH."helpers/chartjs/js/chart-2.7.0.min.js",true);
-   $this->addScript(PATH."helpers/select2/js/select2-4.0.5.min.js",true);
-   /** @todo add some javascript helpers here */
-   $this->addScript(PATH."helpers/bootstrap/js/bootstrap-3.3.7.min.js",true);
-   $this->addScript(PATH."helpers/bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",true);
-   $this->addScript(PATH."helpers/bootstrap-faiconpicker/js/bootstrap-faiconpicker-1.3.0.min.js",true);
-
+  public function render($echo=true,$pace=true){    /** @todoissimo migliorare */
    // renderize application
    $return="<!DOCTYPE html>\n";
    $return.="<html lang=\"".$this->language."\">\n";
