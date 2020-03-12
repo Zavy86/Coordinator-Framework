@@ -104,12 +104,13 @@
   * @param string $tags Custom HTML tags
   * @return string|boolean HTML tag source code or false
   */
- function api_tag($tag,$text,$class=null,$style=null,$tags=null){
+ function api_tag($tag,$text,$class=null,$style=null,$tags=null,$id=null){
   // check parameters
   if(!strlen($text)){return false;}
   if(!$tag){return $text;}
   // make html source code
   $html="<".$tag;
+  if($id){$html.=" id=\"".$id."\"";}
   if($class){$html.=" class=\"".$class."\"";}
   if($style){$html.=" style=\"".$style."\"";}
   if($tags){$html.=" ".$tags;}
