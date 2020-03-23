@@ -1144,11 +1144,16 @@
   if(!$GLOBALS['session']->login($r_username,$r_password)){api_alerts_add(api_text("alert_authenticationFailed"),"warning");api_redirect("login.php");}
   // set cookie
   setcookie("login-username",$r_username,(time()+(60*60*24*365)));
-
   // check for redirect before session expired
-
+  if(isset($_SESSION["coordinator_session_redirect"])){
+   // set redirect url and unset
+   $url=api_url($_SESSION["coordinator_session_redirect"]);
+   unset($_SESSION["coordinator_session_redirect"]);
+  }
+  // check for redirect url
+  if(!strlen($url)){$url="index.php";}
   // redirect
-  api_redirect("index.php");
+  api_redirect($url);
  }
 
  /**

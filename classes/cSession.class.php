@@ -53,9 +53,12 @@
    $session_obj=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__sessions` WHERE `id`='".$_SESSION['coordinator_session_id']."'");
    // check if session not exist or is expired
    if(!$_SESSION['coordinator_session_id']||!$session_obj->id||(time()-$session_obj->lastTimestamp)>$GLOBALS['settings']->sessions_idle_timeout){
-    // unset session id and return
+    // unset session id
     unset($_SESSION['coordinator_session_id']);
-    api_redirect(PATH."login.php?alert=sessionExpired");   /** @todo salvare $_REQUEST in modo da poter fare redirect dopo il login */
+    // store current url
+    $_SESSION['coordinator_session_redirect']=$_GET;
+    // redirect and return
+    api_redirect(PATH."login.php?alert=sessionExpired");
     return false;
    }
    // set session
