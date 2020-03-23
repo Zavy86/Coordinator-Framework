@@ -295,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `framework__attachments` (
 CREATE TABLE IF NOT EXISTS `framework__modules` (
   `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `version` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
-  `enabled` tinyint(1) unsigned NOT NULL,
+  `enabled` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `addTimestamp` int(11) unsigned NOT NULL,
   `addFkUser` int(11) unsigned NOT NULL,
   `updTimestamp` int(11) unsigned DEFAULT NULL,
