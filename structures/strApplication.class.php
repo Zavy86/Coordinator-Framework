@@ -44,7 +44,7 @@
    $this->modals_array=array();
 
    // set meta tags
-   $this->setMetaTag("author","Manuel Zavatta [www.zavynet.org]");
+   $this->setMetaTag("author","Manuel Zavatta [www.zavy.im]");
    $this->setMetaTag("copyright","2009-".date("Y")." © Coordinator [www.coordinator.it]");
    $this->setMetaTag("description","Coordinator is an Open Source Modular Framework");
    $this->setMetaTag("owner",$GLOBALS['settings']->owner);
