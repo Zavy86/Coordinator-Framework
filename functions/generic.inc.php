@@ -713,7 +713,7 @@
   return $objects_array;
  }
  // Comparing function
- function api_sortObjectsArray_compare($a,$b){return strcmp($a->$GLOBALS['sort_property'],$b->$GLOBALS['sort_property']);}
+ function api_sortObjectsArray_compare($a,$b){return strcasecmp($a->$GLOBALS['sort_property'],$b->$GLOBALS['sort_property']);}
 
  /**
   * Join array elements with a string
@@ -723,16 +723,32 @@
   * @param string $unvalued String returned if array is empty
   * @return string Returns a string containing a string representation of all the array elements in the same order, with the glue string between each element
   */
-  function api_implode($glue,array $pieces,$unvalued=null){
-   // check parameters
-   if(!count($pieces)){return $unvalued;}
-   // return imploded pieces
-   return implode($glue,$pieces);
-  }
+ function api_implode($glue,array $pieces,$unvalued=null){
+  // check parameters
+  if(!count($pieces)){return $unvalued;}
+  // return imploded pieces
+  return implode($glue,$pieces);
+ }
 
 
-  function api_label($label,$class,$style,$tags){
-   return api_tag("span",$label,"label ".$class,$style,$tags);
+ function api_label($label,$class,$style,$tags){
+  return api_tag("span",$label,"label ".$class,$style,$tags);
+ }
+
+ /**
+  * Load Required modules recursively
+  *
+  * @param type $modules_array
+  */
+ function api_load_required_modules_recursively($modules_array){
+  foreach($modules_array as $module_f){
+   // check and load functions
+   if(file_exists(DIR."modules/".$module_f."/functions.inc.php")){require_once(DIR."modules/".$module_f."/functions.inc.php");}
+   else{echo "WARNING LOADING REQUIRED MODULE: File modules/".$module_f."/functions.inc.php was not found";}
+   // check for recursive required modules
+   require_once(DIR."modules/".$module_f."/module.inc.php");
+   if($module_required_modules){api_load_required_modules_recursively($module_required_modules);}
   }
+ }
 
 ?>
