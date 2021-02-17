@@ -56,7 +56,7 @@
    *                                    text | password | date | datetime | time |
    *                                    month | week | number | email | url | search |
    *                                    tel | color | checkbox | radio | select |
-   *                                    textarea | file | text_localized )
+   *                                    textarea | file | range | text_localized )
    * @param string $name Name
    * @param string $label Label
    * @param string $value Default value
@@ -69,7 +69,7 @@
    * @return boolean
    */
   public function addField($typology,$name=null,$label=null,$value=null,$placeholder=null,$size=10,$class=null,$style=null,$tags=null,$enabled=true){
-   if(!in_array($typology,array("static","separator","splitter","hidden","text","password","date","datetime","time","month","week","number","email","url","search","tel","color","checkbox","radio","select","textarea","file","text_localized"))){return false;}
+   if(!in_array($typology,array("static","separator","splitter","hidden","text","password","date","datetime","time","month","week","number","email","url","search","tel","color","checkbox","radio","select","textarea","file","range","text_localized"))){return false;}
    if(!in_array($typology,array("static","separator","splitter")) && !$name){return false;}
    if($typology=="splitter"){if($this->splitted){return false;}else{$this->splitted=true;}}
    // build field object
@@ -95,6 +95,7 @@
     $field->tags="data-buttonText=\"\" data-iconName=\"fa fa-fw fa-folder-open-o faa-tada animated-hover\" data-placeholder=\"".api_text("form-input-file-placeholder")."\"".$field->tags;
     if(!$field->enabled){$field->tags="data-disabled=\"true\" ".$field->tags;}
    }
+   if($field->typology=="range" && !is_array($field->placeholder)){$field->placeholder=array(api_text("filters-ff-range-min-placeholder"),api_text("filters-ff-range-max-placeholder"));}
    // text localized
    if($field->typology=="text_localized"){
     $field->name.="_localized";
@@ -277,9 +278,10 @@
      continue;
     }
     // make field tags
-    $field_tags=" name=\"".$field->name."\" class=\"form-control ".$field->class."\" id=\"".$this->id."_input_".$field->name."\"";
-    if($field->placeholder){$field_tags.=" placeholder=\"".$field->placeholder."\"";}
-    if($field->value && $field->typology!="textarea"){$field_tags.=" value=\"".$field->value."\"";}
+    $field_tags=" class=\"form-control ".$field->class."\" name=\"".$field->name."\"";
+    if($field->typology!="range"){$field_tags.=" id=\"".$this->id."_input_".$field->name."\"";}
+    if($field->placeholder && $field->typology!="range"){$field_tags.=" placeholder=\"".$field->placeholder."\"";}
+    if($field->value && !in_array($field->typology,array("textarea","range"))){$field_tags.=" value=\"".$field->value."\"";}
     if($field->style){$field_tags.=" style=\"".$field->style."\"";}
     if($field->tags){$field_tags.=" ".$field->tags;}
     if(!$field->enabled){$field_tags.=" disabled=\"disabled\"";}
@@ -347,6 +349,17 @@
      // textarea
      case "textarea":
       $return.=$split_identation."   <textarea".$field_tags.">".$field->value."</textarea>\n";
+      break;
+     // range
+     case "range":
+      $return.=$split_identation."   <div class=\"row\">\n";
+      $return.=$split_identation."    <div class=\"col-sm-6\">\n";
+      $return.=$split_identation."     <input type=\"number\" name=\"".$field->name."[]\" id=\"".$this->id."_input_".$field->name."_min\" value=\"".$field->value[0]."\" placeholder=\"".$field->placeholder[0]."\" ".$field_tags.">\n";
+      $return.=$split_identation."    </div>\n";
+      $return.=$split_identation."    <div class=\"col-sm-6\">\n";
+      $return.=$split_identation."     <input type=\"number\" name=\"".$field->name."[]\" id=\"".$this->id."_input_".$field->name."_max\" value=\"".$field->value[1]."\" placeholder=\"".$field->placeholder[1]."\" ".$field_tags.">\n";
+      $return.=$split_identation."    </div>\n";
+      $return.=$split_identation."   </div>\n";
       break;
      // text localized
      case "text_localized":
