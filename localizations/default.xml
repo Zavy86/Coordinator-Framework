@@ -127,6 +127,8 @@
  <text key="filters-modal-link">Open filter panel</text>
  <text key="filters-ff-search">Search</text>
  <text key="filters-ff-search-placeholder">Search</text>
+ <text key="filters-ff-range-min-placeholder">Minimum</text>
+ <text key="filters-ff-range-max-placeholder">Maximum</text>
  <text key="filters-fc-submit">Apply filters</text>
  <text key="filters-fc-reset">Reset</text>
  <text key="filters-search">Search</text>
