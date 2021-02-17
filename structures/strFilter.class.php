@@ -96,9 +96,45 @@
    $item->table=$table;
    $item->field=$field;
    $item->label=$label;
+   $item->range=false;
    $item->values_array=$values_array;
    // convert object to text string
    foreach($item->values_array as $key=>$value){if(is_object($value) && $value->text){$item->values_array[$key]=$value->text;}}
+   // add item to items array
+   $this->items_array[$item->id]=$item;
+   // delete modal
+   $this->modal=null;
+   // increment current item
+   $this->current_item++;
+  }
+
+  /**
+   * Add Item Range
+   *
+   * @param type $label
+   * @param type $values_array
+   * @param type $field
+   * @param type $table
+   * @param type $id
+   * @return boolean
+   */
+  public function addItemRange($label,$values_min_array,$values_max_array,$field=null,$table=null,$id=null){
+   // check parameters
+   if(!$label){return false;}
+   if(!is_array($values_min_array)){return false;}
+   if(!is_array($values_max_array)){return false;}
+   // build item class
+   $item=new stdClass();
+   if($id){$item->id="filter_".$id;}else{$item->id="filter_".$this->current_item;}
+   $item->table=$table;
+   $item->field=$field;
+   $item->label=$label;
+   $item->range=true;
+   $item->values_min_array=$values_min_array;
+   $item->values_max_array=$values_max_array;
+   // convert object to text string
+   foreach($item->values_min_array as $key=>$value){if(is_object($value) && $value->text){$item->values_min_array[$key]=$value->text;}}
+   foreach($item->values_max_array as $key=>$value){if(is_object($value) && $value->text){$item->values_max_array[$key]=$value->text;}}
    // add item to items array
    $this->items_array[$item->id]=$item;
    // delete modal
@@ -149,27 +185,43 @@
    //
    foreach($this->items_array as $item){
 
+    //api_dump($item);
+
     //
     if(is_array($_REQUEST[$item->id])){
-     //
-     $values_array=array();
      // skip items without table field
      if(!$item->field){continue;}
      //
-     $filter=null;
+     $filter="`".$item->field."`";
      //
-     if($item->table){$filter.="`".$item->table."`.";}
-     //
-     //$filter.="`".$item->field."`='".$value."'";
-     $filter.="`".$item->field."`";
-     foreach($_REQUEST[$item->id] as $value){
-      //
-      $values_array[]=$filter."='".$value."'";
-     }
+     if($item->table){$filter="`".$item->table."`.".$filter;}
 
+     // check for range
+     if($item->range==true){
+      //
+      $values_array=array();
+      //
+      if(!$_REQUEST[$item->id][0] || !$_REQUEST[$item->id][1]){continue;}
+      if($_REQUEST[$item->id][0]){$values_array[]=$filter.">='".$_REQUEST[$item->id][0]."'";}
+      if($_REQUEST[$item->id][1]){$values_array[]=$filter."<='".$_REQUEST[$item->id][1]."'";}
+      //
+      $where_array[]="( ".implode(" AND ",$values_array)." )";
+     }else{
+
+      //
+      $values_array=array();
+      foreach($_REQUEST[$item->id] as $value){
+       //
+       $values_array[]=$filter."='".$value."'";
+      }
+
+      //api_dump($values_array);
+
+      //
+      //$where_array[]=$filter;
+      $where_array[]="( ".implode(" OR ",$values_array)." )";   /** migliorabile con IN al posto di OR */
+     }
      //
-     //$where_array[]=$filter;
-     $where_array[]="( ".implode(" OR ",$values_array)." )";   /** migliorabile con IN al posto di OR */
     }
     //
    }
@@ -204,10 +256,16 @@
    if(count($this->search_fields_array)){$form->addField("text","filter_search",api_text("filters-ff-search"),$_REQUEST['filter_search'],api_text("filters-ff-search-placeholder"));}
    // cycle all items
    foreach($this->items_array as $item){
-    $form->addField("select",$item->id."[]",$item->label,$_REQUEST[$item->id],null,null,null,null,"multiple");
-    foreach($item->values_array as $value=>$label){$form->addFieldOption($value,$label);}
-    // add jQuery script
-    $GLOBALS['app']->addScript("/* Select2 ".$item->id." */\n$(document).ready(function(){\$('select[name=\"".$item->id."[]\"]').select2({width:'100%',allowClear:true,dropdownParent:\$('#modal_".$this->id."')});});");
+    // check for range
+    if($item->range){
+     $form->addField("range",$item->id,$item->label,$_REQUEST[$item->id]);
+     //foreach($item->values_array as $value=>$label){$form->addFieldOption($value,$label);}
+    }else{
+     $form->addField("select",$item->id."[]",$item->label,$_REQUEST[$item->id],null,null,null,null,"multiple");
+     foreach($item->values_array as $value=>$label){$form->addFieldOption($value,$label);}
+     // add jQuery script
+     $GLOBALS['app']->addScript("/* Select2 ".$item->id." */\n$(document).ready(function(){\$('select[name=\"".$item->id."[]\"]').select2({width:'100%',allowClear:true,dropdownParent:\$('#modal_".$this->id."')});});");
+    }
    }
    // form controls
    $form->addControl("submit",api_text("filters-fc-submit"));
@@ -252,10 +310,18 @@
    if(!$_REQUEST['filter_search'] && !count($active_filters)){return false;}// cycle all acvtive filters
    foreach($active_filters as $item=>$values){
     $item_active_values_array=array();
-    // cycle all values
-    foreach($values as $value){$item_active_values_array[]=$this->items_array[$item]->values_array[$value];}
+    // check for range
+    if($this->items_array[$item]->range){
+     if($values[0] && $values[1]){$filter=$this->items_array[$item]->label.": ".$values[0]." &plusmn; ".$values[1];}
+     elseif($values[0]){$filter=$this->items_array[$item]->label.": &ge; ".$values[0];}
+     elseif($values[1]){$filter=$this->items_array[$item]->label.": &le; ".$values[1];}
+    }else{
+     // cycle all values
+     foreach($values as $value){$item_active_values_array[]=$this->items_array[$item]->values_array[$value];}
+     $filter=$this->items_array[$item]->label.": ".implode(", ",$item_active_values_array);
+    }
     // add filter to active filters array
-    $active_filters_array[]=$this->items_array[$item]->label.": ".implode(", ",$item_active_values_array);
+    $active_filters_array[]=$filter;
    }
    // debug
    //api_dump($active_filters_array);
