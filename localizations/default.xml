@@ -95,6 +95,10 @@
  <text key="table-td-delete">Delete</text>
  <text key="table-td-undelete">Undelete</text>
  <text key="table-td-remove">Remove</text>
+ <text key="table-td-move-up">Move up</text>
+ <text key="table-td-move-down">Move down</text>
+ <text key="table-td-move-left">Move left</text>
+ <text key="table-td-move-right">Move right</text>
  <text key="table-td-status">Update status</text>
  <text key="table-td-download">Download</text>
 

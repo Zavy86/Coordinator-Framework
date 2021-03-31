@@ -95,6 +95,10 @@
  <text key="table-td-delete">Elimina</text>
  <text key="table-td-undelete">Ripristina</text>
  <text key="table-td-remove">Rimuovi</text>
+ <text key="table-td-move-up">Sposta in alto</text>
+ <text key="table-td-move-down">Sposta in basso</text>
+ <text key="table-td-move-left">Sposta a sinistra</text>
+ <text key="table-td-move-right">Sposta a destra</text>
  <text key="table-td-status">Aggiorna stato</text>
  <text key="table-td-download">Scarica</text>
 
