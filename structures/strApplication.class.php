@@ -66,7 +66,7 @@
    $this->addScript(PATH."helpers/jquery/js/jquery-1.12.4.min.js",true);
    $this->addScript(PATH."helpers/pace/js/pace-1.0.0.min.js",true);
    /** @todo verificare quali caricare sempre e quali solo alla bisogna */
-   $this->addScript(PATH."helpers/peity/js/peity-3.2.1.min.js",true);
+   $this->addScript(PATH."helpers/peity/js/peity-3.3.0.min.js",true);
    $this->addScript(PATH."helpers/justgage/js/justgage-1.2.2.js",true);
    $this->addScript(PATH."helpers/chartjs/js/chart-2.7.0.min.js",true);
    $this->addScript(PATH."helpers/select2/js/select2-4.0.5.min.js",true);
