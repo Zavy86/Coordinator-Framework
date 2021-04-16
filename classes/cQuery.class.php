@@ -93,10 +93,10 @@
   /**
    * Query Order Field
    *
-   * @param type $name Field name
-   * @param type $order Order method [asc|desc]
-   * @param type $table Field table
-   * @param type $null_first Show null values first
+   * @param string $name Field name
+   * @param string $order Order method [asc|desc]
+   * @param string $table Field table
+   * @param boolean $null_first Show null values first
    * @return boolean
    */
   public function addQueryOrderField($name,$order=null,$table=null,$null_first=false){
