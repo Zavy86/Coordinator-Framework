@@ -227,7 +227,8 @@
    // renderize style sheets
    $return.="  <!-- style sheets -->\n";
    foreach($this->styleSheets_array as $styleSheet_url){$return.="  <link href=\"".$styleSheet_url."\" rel=\"stylesheet\">\n";}
-   $return.="  <style>body{padding-top:70px;}</style>\n";
+   $return.="  <style>body{padding-top:70px;}</style>\n"; /** @todo valutare se spostare in css custom */
+   if($GLOBALS['settings']->analytics_script){$return.="  ".str_replace("\n","\n  ",$GLOBALS['settings']->analytics_script);}
    $return.=" </head>\n";
    // renderize body
    $return.=" <!-- body -->\n";

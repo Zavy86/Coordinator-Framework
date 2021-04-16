@@ -277,6 +277,10 @@
  <text key="settings_edit-token_gtag">Google Analytics Token</text>
  <text key="settings_edit-token_gtag-placeholder">Inserisci il codice del tuo GTAG ad esempio UA-123456789-1</text>
 
+ <text key="settings_edit-analytics">Analytics</text>
+ <text key="settings_edit-analytics_script">Analytics script</text>
+ <text key="settings_edit-analytics_script-placeholder">Inserisci il codice dello script di tracciamento che verrà inserito dentro al tag <![CDATA[<head>]]></text>
+
  <text key="settings_edit-submit">Salva</text>
  <text key="settings_edit-reset">Reset</text>
  <text key="settings_edit-cancel">Annulla</text>
