@@ -418,3 +418,7 @@ td .btn{
  height:34px;
  padding:3px;
 }
+
+.select2{
+ width:100%!important;
+}
