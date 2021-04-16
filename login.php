@@ -16,7 +16,10 @@
  $c_username=$_COOKIE['login-username'];
  // build login form manually
  $form_source="<!-- form -->\n";
+ $form_source.="<center>\n";
+ $form_source.="<a id=\"brand_logo\" href=\"index.php\"><img alt=\"Brand logo\" src=\"".$GLOBALS['settings']->logo."\" style=\"max-width:256px!important;max-height:64px!important;margin-bottom:8px\"></a>\n";
  $form_source.="<h2>".$GLOBALS['settings']->title."</h2>\n";
+ $form_source.="</center>\n";
  $form_source.="<form class=\"\" action=\"index.php?mod=framework&scr=submit&act=session_login\" method=\"POST\" id=\"form_login\">\n";
  $form_source.=" <div class=\"form-group\">\n";
  $form_source.="  <input type=\"text\" name=\"username\" class=\"form-control\" id=\"form_login_input_username\" value=\"".$c_username."\" placeholder=\"".api_text("login-ff-account")."\" required ".(!strlen($c_username)?" autofocus" :null).">\n";
