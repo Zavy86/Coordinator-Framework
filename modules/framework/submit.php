@@ -229,7 +229,7 @@
   // cycle all settings
   foreach($settings_array as $setting=>$value){
    // buil setting query
-   $query="INSERT INTO `framework__settings` (`setting`,`value`) VALUES ('".$setting."','".$value."') ON DUPLICATE KEY UPDATE `setting`='".$setting."',`value`='".$value."'";
+   $query="INSERT INTO `framework__settings` (`setting`,`value`) VALUES ('".$setting."','".addslashes($value)."') ON DUPLICATE KEY UPDATE `setting`='".$setting."',`value`='".addslashes($value)."'";
    // execute setting query
    $GLOBALS['database']->queryExecute($query);
    api_dump($query);
