@@ -75,6 +75,9 @@
  <text key="nav-management">Amministrazione</text>
  <text key="nav-parameters">Parametri personali</text>
 
+ <!-- generic scrips -->
+ <text key="management">Amministrazione</text>
+
  <!-- pagination -->
  <text key="pagination-shows">Mostra</text>
  <text key="pagination-all">Tutti</text>

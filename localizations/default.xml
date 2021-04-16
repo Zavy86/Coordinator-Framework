@@ -75,6 +75,9 @@
  <text key="nav-management">Management</text>
  <text key="nav-parameters">Personal parameters</text>
 
+ <!-- generic scrips -->
+ <text key="management">Management</text>
+
  <!-- pagination -->
  <text key="pagination-shows">Shows</text>
  <text key="pagination-all">All</text>
