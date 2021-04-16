@@ -250,7 +250,7 @@
    $return.="       <span class=\"icon-bar\"></span>\n";
    $return.="       <span class=\"icon-bar\"></span>\n";
    $return.="      </button>\n";
-   // renderize logo and title
+   // renderize logo and title if not exist setting
    if(!in_array($GLOBALS['settings']->show,array("logo","title","logo_title"))){
     $return.="      <a class=\"navbar-brand\" id=\"nav_brand_logo\" href=\"#\"><img alt=\"Brand logo\" src=\"".PATH."uploads/framework/logo.default.png"."\" height=\"20\"></a>\n";
     $return.="      <a class=\"navbar-brand\" id=\"nav_brand_title\" href=\"index.php\">Coordinator Framework</a>\n";
