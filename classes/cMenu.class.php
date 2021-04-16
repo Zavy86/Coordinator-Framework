@@ -63,7 +63,7 @@
    $this->addFkUser=(int)$menu->addFkUser;
    $this->updTimestamp=(int)$menu->updTimestamp;
    $this->updFkUser=(int)$menu->updFkUser;
-   // make label and title localized
+   // make label and title localized @todo usare api_text_localized
    $this->label=$this->label_localizations[$GLOBALS['session']->user->localization];
    if(!$this->label){$this->label=$this->label_localizations["en_EN"];}
    $this->title=$this->title_localizations[$GLOBALS['session']->user->localization];

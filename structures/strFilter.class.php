@@ -55,7 +55,7 @@
   /**
    * Add Search
    *
-   * @param string $fields_array Array of fields
+   * @param string[] $fields_array Array of fields
    * @param string $table Fields table
    * @return boolean
    */

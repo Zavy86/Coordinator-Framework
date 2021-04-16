@@ -227,7 +227,8 @@
    // renderize style sheets
    $return.="  <!-- style sheets -->\n";
    foreach($this->styleSheets_array as $styleSheet_url){$return.="  <link href=\"".$styleSheet_url."\" rel=\"stylesheet\">\n";}
-   $return.="  <style>body{padding-top:70px;}</style>\n";
+   $return.="  <style>body{padding-top:70px;}</style>\n"; /** @todo valutare se spostare in css custom */
+   if($GLOBALS['settings']->analytics_script){$return.="  ".str_replace("\n","\n  ",$GLOBALS['settings']->analytics_script);}
    $return.=" </head>\n";
    // renderize body
    $return.=" <!-- body -->\n";
@@ -452,6 +453,7 @@
    $this->addScript("/* Popover Script */\n$(function(){\$(\"[data-toggle='popover']\").popover({'trigger':'hover'});});");
    $this->addScript("/* Alert Timeout Script */\n$(function(){setTimeout(function(){\$('.alert-dismissible').fadeOut();},8000);});");
    $this->addScript("/* Current Row Timeout Script */\n$(function(){setTimeout(function(){\$('.currentrow').removeClass('currentrow');},9000);});");
+   $this->addScript("$(document).on('show.bs.modal','.modal',function(){var zIndex=1040+(10*$('.modal:visible').length);$(this).css('z-index',zIndex);setTimeout(function(){\$('.modal-backdrop').not('.modal-stack').css('z-index',zIndex-1).addClass('modal-stack');},0);});");
    // renderize closures
    $return.="  </footer>\n\n";
    // renderize modals

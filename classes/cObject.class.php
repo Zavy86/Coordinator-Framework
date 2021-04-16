@@ -63,7 +63,7 @@
   /**
    * Availables
    *
-   * @param $deleted Select also deleted objects
+   * @param boolean $deleted Select also deleted objects
    * @return object[] Array of available objects
    */
   public static function availables($deleted=false,array $conditions=null,$limit=null){

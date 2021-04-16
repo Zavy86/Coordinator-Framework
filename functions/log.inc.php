@@ -16,8 +16,8 @@
  function api_logs_table($logs_array){
   // build logs table
   $logs_table=new strTable(api_text("logs-tr-unvalued"));
-  if($_REQUEST['all_logs']){$logs_table->addHeader("&nbsp;",null,16);}
-  else{$logs_table->addHeader(api_link(api_url(array_merge($_GET,["act"=>null,"tab"=>"logs","all_logs"=>1])),api_icon("fa-archive",api_text("logs-th-all"),"hidden-link")),"text-center",16);}
+  if($_REQUEST['all_logs']){$logs_table->addHeader("&nbsp;",null,16);}  /** @todo verificare, tolto da sotto "act"=>null,"tab"=>"logs", prima di all_logs */
+  else{$logs_table->addHeader(api_link(api_url(array_merge($_GET,["all_logs"=>1])),api_icon("fa-archive",api_text("logs-th-all"),"hidden-link")),"text-center",16);}
   $logs_table->addHeader(api_text("logs-th-timestamp"),"nowrap");
   $logs_table->addHeader(api_text("logs-th-event"),"nowrap");
   $logs_table->addHeader("&nbsp;",null,"100%");

@@ -215,8 +215,10 @@
    "mail_smtp_encryption",
    /* users */
    "users_password_expiration","users_level_max",
-   /* tokens */
-   "token_cron","token_gtag"
+	 /* tokens */
+	 "token_cron","token_gtag",
+	 /* analytics */
+   "analytics_script"
   );
   // cycle all form fields and set availables
   foreach($_REQUEST as $setting=>$value){if(in_array($setting,$availables_settings_array)){$settings_array[$setting]=$value;}}

@@ -23,6 +23,7 @@
  $tabs_nav->addItem(api_text("settings_edit-mails"),"?mod=".MODULE."&scr=settings_edit&tab=mails");
  $tabs_nav->addItem(api_text("settings_edit-users"),"?mod=".MODULE."&scr=settings_edit&tab=users");
  $tabs_nav->addItem(api_text("settings_edit-tokens"),"?mod=".MODULE."&scr=settings_edit&tab=tokens");
+ $tabs_nav->addItem(api_text("settings_edit-analytics"),"?mod=".MODULE."&scr=settings_edit&tab=analytics");
  // build settings form
  $form=new strForm("?mod=".MODULE."&scr=submit&act=settings_save&tab=".TAB,"POST",null,null,"settings_edit");
  // generals
@@ -108,6 +109,10 @@
   $form->addField("text","token_cron",api_text("settings_edit-token_cron"),$settings->token_cron,api_text("settings_edit-token_cron-placeholder"));
   $form->addFieldAddonButton("?mod=".MODULE."&scr=settings_edit&tab=tokens&act=token_cron_randomize",api_text("settings_edit-token_cron-randomize"));
   $form->addField("text","token_gtag",api_text("settings_edit-token_gtag"),$settings->token_gtag,api_text("settings_edit-token_gtag-placeholder"));
+ }
+ // analytics
+ if(TAB=="analytics"){
+	$form->addField("textarea","analytics_script",api_text("settings_edit-analytics_script"),$settings->analytics_script,api_text("settings_edit-analytics_script-placeholder"),null,null,null,"rows='9'");
  }
  // controls
  $form->addControl("submit",api_text("form-fc-submit"));
