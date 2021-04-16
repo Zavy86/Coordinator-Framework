@@ -13,15 +13,16 @@
  * @param mixed $variable Variable to dump
  * @param string $label Dump label
  * @param string $class Dump class
+ * @return boolean
  */
 function api_dump($variable,$label=null,$class=null){
 	if(!DEBUG){return false;}
 	echo "\n\n<!-- dump -->\n";
 	echo "<pre class='debug ".$class."'>\n";
 	if($label<>null){echo "<strong>".$label."</strong><br>";}
-	if(is_string($variable)){$variable=str_replace(array("<",">"),array("&lt;","&gt;"),$variable);}
-	print_r($variable);
+	echo str_replace(array("<",">"),array("&lt;","&gt;"),print_r($variable,true));
 	echo "</pre>\n<!-- /dump -->\n\n";
+	return true;
 }
 
 /**
