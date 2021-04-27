@@ -28,7 +28,7 @@
  /**
   * Store uploaded file
   *
-  * @param string[] $upload Element of $_FILES array
+  * @param mixed[] $upload Element of $_FILES array
   * @param string $path Directory starting after /uploads/
   * @param string $name File name or maintain uploaded name
   * @param boolean $replace If file exist replace or false

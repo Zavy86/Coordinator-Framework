@@ -10,11 +10,11 @@
  /**
   * Number Format
   *
-  * @param string $number Number
-  * @param string $decimals Number of decimals
-  * @param string $currency Currency sign
-  * @param string $small_decimals Decimal in small format
-  * @param string $hide_unsignificat Hide unsignificant decimals
+  * @param double $number Number
+  * @param integer $decimals Number of decimals
+  * @param boolean $currency Currency sign
+  * @param boolean $small_decimals Decimal in small format
+  * @param boolean $hide_unsignificat Hide unsignificant decimals
   * @param string $zero_null_replace Replace zero or null with (ex. "-")
   * @return string Formatted number or false
   */
@@ -39,7 +39,7 @@
   if($decimals && $small_decimals){
    $real=explode(",",$return)[0];
    $decimals=explode(",",$return)[1];
-   $return=api_tag("span",$real.api_tag("small",",".$decimals));
+   if($decimals){$return=api_tag("span",$real.api_tag("small",",".$decimals));}
   }
   // return
   return $return;

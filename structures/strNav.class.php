@@ -81,9 +81,12 @@
    *
    * @param string $label Label
    * @param string $url URL
-   * @param string $class CSS class
-   * @param string $confirm Show confirm alert box
-   * @param boolean $enabled Enabled
+	 * @param boolean $enabled Enabled
+	 * @param string $confirm Show confirm alert box
+	 * @param string $class CSS class
+	 * @param string $style Custom CSS
+	 * @param string $tags Custom HTML tags
+	 * @param string $target Target window
    * @return boolean
    */
   public function addSubItem($label,$url,$enabled=true,$confirm=null,$class=null,$style=null,$tags=null,$target="_self"){
