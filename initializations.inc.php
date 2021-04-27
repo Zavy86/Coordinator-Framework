@@ -38,8 +38,8 @@
  }
 
  // errors configuration
- ini_set("display_errors",($debug||$develop?true:false));
- if($develop){error_reporting(E_ALL & ~E_NOTICE);}
+ ini_set("display_errors",$debug);
+ if($debug && $develop){error_reporting(E_ALL & ~E_NOTICE);}
  else{error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);}
 
  // module variables
