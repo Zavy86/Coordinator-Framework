@@ -10,7 +10,7 @@
 /**
  * Collection class
  */
-class cCollection implements Iterator{
+class cCollection implements Iterator,Countable{
 
 	/** Properties */
 	private $index;
@@ -25,6 +25,11 @@ class cCollection implements Iterator{
 	public function rewind(){$this->index=0;}
 	public function valid(){return isset($this->items_array[$this->key()]);}
 	public function count(){return count($this->items_array);}
+
+	public function reverse(){
+		$this->items_array=array_reverse($this->items_array);
+		$this->rewind();
+	}
 
 	/**
 	 * Collection class
@@ -114,17 +119,6 @@ class cCollection implements Iterator{
 		}
 		// return
 		return false;
-	}
-
-	/**
-	 * Get
-	 *
-	 * @param string $property Property name
-	 * @return mixed|false Property value
-	 */
-	public function __get($property){
-		if(in_array($property,array("items_array"))){return false;}
-		return $this->$property;
 	}
 
 }
