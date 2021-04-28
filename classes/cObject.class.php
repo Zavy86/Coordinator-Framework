@@ -50,7 +50,7 @@ abstract class cObject{
 	/**
 	 * Select
 	 *
-	 * @return object[] Array of available objects
+	 * @return object[] Array of selected objects
 	 */
 	public static function select($where=null,$order=null,$limit=null){     /** @todo protected? */
 		// check parameters
@@ -685,6 +685,7 @@ abstract class cObject{
 		$event_obj=new stdClass();
 		$event_obj->typology=$typology;
 		$event_obj->action=$action;
+		$event_obj->logged=$log;
 		$event_obj->properties=(array)$properties;
 		// check logs parameter, typology and action
 		if(static::$logs && $log && $typology!="trace" && $action!="removed"){
