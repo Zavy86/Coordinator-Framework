@@ -103,6 +103,7 @@ require_once(DIR."structures/strTable.class.php");
 
 // include classes
 require_once(DIR."classes/cObject.class.php");
+require_once(DIR."classes/cTranscoding.class.php");
 require_once(DIR."classes/cCollection.class.php");
 require_once(DIR."classes/cLog.class.php");
 require_once(DIR."classes/cEvent.class.php");   // @todo verificare ed eliminare sostituita da logs */
