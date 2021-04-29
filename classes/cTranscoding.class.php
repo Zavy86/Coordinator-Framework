@@ -61,7 +61,6 @@ abstract class cTranscoding{
 	 *
 	 * @param mixed $transcoding Transcoding object or code
 	 * @return boolean
-	 * @throws Exception
 	 */
 	public function __construct($transcoding=null){
 		// check for object or try to load from code
@@ -84,7 +83,7 @@ abstract class cTranscoding{
 	 * @return string Property value
 	 */
 	public function __get($property){
-		if(!property_exists($this,$property)){return "{property_not_found|".$property."}";}  /** @todo verificare */
+		if(!property_exists($this,$property)){return "{property_not_found|".$property."}";}
 		return $this->$property;
 	}
 
@@ -121,7 +120,7 @@ abstract class cTranscoding{
 	 * @param string $icon Optional icon
 	 * @return boolean
 	 */
-	protected function build($code,$text,$icon=null){
+	private function build($code,$text,$icon=null){
 		// check parameters
 		if(!$code){return false;}
 		if(!$text){return false;}
