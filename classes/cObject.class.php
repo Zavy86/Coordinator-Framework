@@ -452,6 +452,17 @@ abstract class cObject{
 		api_dump("DELETE FROM `".static::$table."` WHERE `id`='".$this->id."'",static::class."->remove query");
 		// remove from database
 		$GLOBALS['database']->queryDelete(static::$table,$this->id);
+		// check for sortable
+		if(static::$sortable){
+			// rebase other objects
+			$rebase_query="UPDATE `".static::$table."` SET `order`=`order`-'1' WHERE `order`>'".$this->order."'";
+			// cycle all order grouping properties
+			foreach(static::$sortingGroups as $property_f){$rebase_query.=" AND `".$property_f."`='".$this->$property_f."'";}
+			// debug
+			//api_dump($rebase_query,"rebase_query");
+			// execute query
+			$GLOBALS['database']->queryExecute($rebase_query);
+		}
 		// throw event
 		$this->event("warning","removed");
 		// return
