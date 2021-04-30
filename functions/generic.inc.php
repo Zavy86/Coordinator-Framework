@@ -19,7 +19,7 @@ function api_dump($variable,$label=null,$class=null){
 	if(!DEBUG){return false;}
 	echo "\n\n<!-- dump -->\n";
 	echo "<pre class='debug ".$class."'>\n";
-	if($label<>null){echo "<strong>".$label."</strong><br>";}
+	if(strlen((string)$label)){echo "<strong>".$label."</strong><br>";}
 	echo str_replace(array("<",">"),array("&lt;","&gt;"),print_r($variable,true));
 	echo "</pre>\n<!-- /dump -->\n\n";
 	return true;
@@ -737,6 +737,35 @@ function api_sortObjectsArray(array $objects_array,$property,$reverse=false){
 }
 // Comparing function
 function api_sortObjectsArray_compare($a,$b){return strcasecmp($a->$GLOBALS['sort_property'],$b->$GLOBALS['sort_property']);}
+
+/**
+ * Objects Array to Transcoding Array
+ * $array["code"]="label";
+ *
+ * @param array $objects Array of objects
+ * @param string $code_property Object code properyy
+ * @param string $label_property Object label property
+ * @return array|false
+ */
+function api_transcodingsFromObjects(array $objects,$code_property="id",$label_property="name"){
+	// check properties
+	if(!is_array($objects)){return false;}
+	if(!strlen($code_property)){return false;}
+	if(!strlen($label_property)){return false;}
+	// definitions
+	$return_array=array();
+	// cycle all objects
+	foreach($objects as $fobj){
+		// check for object and if property exists
+		if(!is_object($fobj)){continue;}
+		$code=(property_exists($fobj,$code_property)?$fobj->$code_property:"{property_not_found|".$code_property."}");
+		$label=(property_exists($fobj,$label_property)?$fobj->$label_property:"{property_not_found|".$label_property."}");
+		// add item to array
+		$return_array[$code]=$label;
+	}
+	// return
+	return $return_array;
+}
 
 /**
  * Join array elements with a string

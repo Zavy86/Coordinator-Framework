@@ -283,7 +283,7 @@
    * @param string $title Title
    * @param string $class CSS class
    * @param string $confirm Show confirm alert box
-   * @param string $style Style tags
+   * @param string $style Custom CSS
    * @param string $tags Custom HTML tags
    * @return string Link HTML source code
    */

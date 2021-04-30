@@ -49,7 +49,6 @@
    $this->setMetaTag("description","Coordinator is an Open Source Modular Framework");
    $this->setMetaTag("owner",$GLOBALS['settings']->owner);
    // add style sheets
-   if($pace){$this->addStylesheet(PATH."helpers/pace/css/pace-1.0.0-theme-flash.css");}
    $this->addStylesheet(PATH."helpers/font-awesome/css/font-awesome.min.css");
    $this->addStylesheet(PATH."helpers/font-awesome-animation/css/font-awesome-animation.min.css");
    /** @todo verificare quali caricare sempre e quali solo alla bisogna */
@@ -64,7 +63,6 @@
 
    // add scripts
    $this->addScript(PATH."helpers/jquery/js/jquery-1.12.4.min.js",true);
-   $this->addScript(PATH."helpers/pace/js/pace-1.0.0.min.js",true);
    /** @todo verificare quali caricare sempre e quali solo alla bisogna */
    $this->addScript(PATH."helpers/peity/js/peity-3.3.0.min.js",true);
    $this->addScript(PATH."helpers/justgage/js/justgage-1.2.2.js",true);
@@ -201,7 +199,7 @@
    * @param boolean $echo Echo HTML source code or return
    * @return boolean|string HTML source code
    */
-  public function render($echo=true,$pace=true){    /** @todoissimo migliorare */
+  public function render($echo=true){
    // renderize application
    $return="<!DOCTYPE html>\n";
    $return.="<html lang=\"".$this->language."\">\n";
