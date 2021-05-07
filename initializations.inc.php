@@ -66,6 +66,9 @@ if($r_script){define("SCRIPT",$r_script);}
 if($r_action){define("ACTION",$r_action);}
 if($r_tab){define("TAB",$r_tab);}
 
+/** PhpStorm workaround to resolve constants */
+/** @define "DIR" "./" */
+
 // include functions
 require_once(DIR."functions/generic.inc.php");
 require_once(DIR."functions/attachment.inc.php");
