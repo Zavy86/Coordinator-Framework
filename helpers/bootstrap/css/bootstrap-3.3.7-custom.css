@@ -138,6 +138,14 @@ footer{
  text-decoration:line-through;
 }
 
+.text-strong{
+ font-weight: bold;
+}
+
+.text-italic{
+ font-style:italic;
+}
+
 .nav-responsive{
  /*overflow-x:auto; @todo @bug verificare per dropdown mobile */
  min-height:0.01%;
