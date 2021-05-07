@@ -783,7 +783,7 @@ function api_implode($glue,array $pieces,$unvalued=null){
 }
 
 
-function api_label($label,$class,$style,$tags){
+function api_label($label,$class=null,$style=null,$tags=null){
 	return api_tag("span",$label,"label ".$class,$style,$tags);
 }
 
