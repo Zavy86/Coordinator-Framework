@@ -444,7 +444,7 @@
    // build footer grid
    $footer_grid=new strGrid();
    $footer_grid->addRow();
-   $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; <b>Coordinator</b> ".VERSION." - All Rights Reserved - <b>".$GLOBALS['settings']->owner."</b>".$execution_metrics,"col-xs-12 text-right");
+   $footer_grid->addCol("Copyright 2009-".date("Y")." &copy; <b>Coordinator</b>".(DEBUG || $GLOBALS['session']->user->superuser?" ".VERSION:null)." - All Rights Reserved - <b>".$GLOBALS['settings']->owner."</b>".$execution_metrics,"col-xs-12 text-right");
    // set footer
    $return.=$footer_grid->render();
    // jQuery scripts
