@@ -56,7 +56,8 @@
    *                                    text | password | date | datetime | time |
    *                                    month | week | number | email | url | search |
    *                                    tel | color | checkbox | radio | select |
-   *                                    textarea | file | range | text_localized )
+   *                                    textarea | file | range_number | ranger_date |
+	 * 																		text_localized )    @todo rinominare range in range_number
    * @param string $name Name
    * @param string $label Label
    * @param string $value Default value
@@ -68,10 +69,11 @@
    * @param boolean $enabled Enabled
    * @return boolean
    */
-  public function addField($typology,$name=null,$label=null,$value=null,$placeholder=null,$size=10,$class=null,$style=null,$tags=null,$enabled=true){
-   if(!in_array($typology,array("static","separator","splitter","hidden","text","password","date","datetime","time","month","week","number","email","url","search","tel","color","checkbox","radio","select","textarea","file","range","text_localized"))){return false;}
+  public function addField($typology,$name=null,$label=null,$value=null,$placeholder=null,$size=10,$class=null,$style=null,$tags=null,$enabled=true){			/** @todo levare range */
+   if(!in_array($typology,array("static","separator","splitter","hidden","text","password","date","datetime","time","month","week","number","email","url","search","tel","color","checkbox","radio","select","textarea","file","range","range_number","range_date","text_localized"))){return false;}
    if(!in_array($typology,array("static","separator","splitter")) && !$name){return false;}
    if($typology=="splitter"){if($this->splitted){return false;}else{$this->splitted=true;}}
+   if($typology=="range"){$typology="range_number";} /** @todo levare */
    // build field object
    $field=new stdClass();
    $field->typology=$typology;
@@ -95,7 +97,7 @@
     $field->tags="data-buttonText=\"\" data-iconName=\"fa fa-fw fa-folder-open-o faa-tada animated-hover\" data-placeholder=\"".api_text("form-input-file-placeholder")."\"".$field->tags;
     if(!$field->enabled){$field->tags="data-disabled=\"true\" ".$field->tags;}
    }
-   if($field->typology=="range" && !is_array($field->placeholder)){$field->placeholder=array(api_text("filters-ff-range-min-placeholder"),api_text("filters-ff-range-max-placeholder"));}
+   if($field->typology=="range_number" && !is_array($field->placeholder)){$field->placeholder=array(api_text("filters-ff-range_number-min-placeholder"),api_text("filters-ff-range_number-max-placeholder"));}
    // text localized
    if($field->typology=="text_localized"){
     $field->name.="_localized";
@@ -251,7 +253,7 @@
    */
   public function render($scaleFactor=null){
    // renderize form
-   $return.="<!-- form -->\n";
+   $return="<!-- form -->\n";
    $return.="<form class=\"form-horizontal ".$this->class."\"";
    $return.=" action=\"".$this->action."\"";
    $return.=" method=\"".$this->method."\"";
@@ -279,9 +281,9 @@
     }
     // make field tags
     $field_tags=" class=\"form-control ".$field->class."\" name=\"".$field->name."\"";
-    if($field->typology!="range"){$field_tags.=" id=\"".$this->id."_input_".$field->name."\"";}
-    if($field->placeholder && $field->typology!="range"){$field_tags.=" placeholder=\"".$field->placeholder."\"";}
-    if($field->value && !in_array($field->typology,array("textarea","range"))){$field_tags.=" value=\"".$field->value."\"";}
+    if(!in_array($field->typology,array("range_number","range_date"))){$field_tags.=" id=\"".$this->id."_input_".$field->name."\"";}
+    if($field->placeholder && !in_array($field->typology,array("range_number","range_date"))){$field_tags.=" placeholder=\"".$field->placeholder."\"";}
+    if($field->value && !in_array($field->typology,array("textarea","range_number","range_date"))){$field_tags.=" value=\"".$field->value."\"";}
     if($field->style){$field_tags.=" style=\"".$field->style."\"";}
     if($field->tags){$field_tags.=" ".$field->tags;}
     if(!$field->enabled){$field_tags.=" disabled=\"disabled\"";}
@@ -350,8 +352,8 @@
      case "textarea":
       $return.=$split_identation."   <textarea".$field_tags.">".$field->value."</textarea>\n";
       break;
-     // range
-     case "range":
+     // range_number
+     case "range_number":
       $return.=$split_identation."   <div class=\"row\">\n";
       $return.=$split_identation."    <div class=\"col-sm-6\">\n";
       $return.=$split_identation."     <input type=\"number\" name=\"".$field->name."[]\" id=\"".$this->id."_input_".$field->name."_min\" value=\"".$field->value[0]."\" placeholder=\"".$field->placeholder[0]."\" ".$field_tags.">\n";
@@ -361,6 +363,17 @@
       $return.=$split_identation."    </div>\n";
       $return.=$split_identation."   </div>\n";
       break;
+		 // range_date
+		 case "range_date":
+			$return.=$split_identation."   <div class=\"row\">\n";
+			$return.=$split_identation."    <div class=\"col-sm-6\">\n";
+			$return.=$split_identation."     <input type=\"date\" name=\"".$field->name."[]\" id=\"".$this->id."_input_".$field->name."_min\" value=\"".$field->value[0]."\" ".$field_tags.">\n";
+			$return.=$split_identation."    </div>\n";
+			$return.=$split_identation."    <div class=\"col-sm-6\">\n";
+			$return.=$split_identation."     <input type=\"date\" name=\"".$field->name."[]\" id=\"".$this->id."_input_".$field->name."_max\" value=\"".$field->value[1]."\" ".$field_tags.">\n";
+			$return.=$split_identation."    </div>\n";
+			$return.=$split_identation."   </div>\n";
+			break;
      // text localized
      case "text_localized":
       // show standard form field
@@ -376,7 +389,7 @@
        else{$label=$language;$text_key="language";}
        $translation_form->addField("text",substr($field->name,0,-10)."_lang_".$code,$label,$field->value_localizations[$code],api_text("form-input-text_localized-".$text_key."-placeholder",$language));
       }
-      $translation_form->addControl("submit",api_text("form-fc-submit"),"#","btn-primary",null,null,"onClick=\"".$this->id."_input_".$field->name."_encoder();return false;\"");
+      $translation_form->addControl("submit",api_text("form-fc-save"),"#","btn-primary",null,null,"onClick=\"".$this->id."_input_".$field->name."_encoder();return false;\"");
       $translation_form->addControl("button",api_text("form-fc-cancel"),"#",null,null,null,"data-dismiss='modal'");
       // build translation modal window
       $translation_modal=new strModal($field->label,null,$this->id."_input_".$field->name);

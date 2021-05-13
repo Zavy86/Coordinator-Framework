@@ -86,7 +86,7 @@
    * @return string HTML source code
    */
   public function render(){
-   $return.="<!-- pagination -->\n";
+   $return="<!-- pagination -->\n";
    $return.="<div class=\"row\">\n";
    // page viewer
    $return.=" <div class=\"col-xs-12 col-md-6\">\n";

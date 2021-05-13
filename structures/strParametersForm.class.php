@@ -119,7 +119,7 @@
     }
    }
    // controls
-   $form->addControl("submit",api_text("form-fc-submit"));
+   $form->addControl("submit",api_text("form-fc-save"));
    $form->addControl("button",api_text("form-fc-close"),"?mod=".MODULE."&scr=dashboard");
    //
    $return.=$form->render($scaleFactor);

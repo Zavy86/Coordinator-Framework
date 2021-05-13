@@ -421,7 +421,10 @@
     $return.="   <div class=\"alerts\">\n";
     // cycle all alerts
     foreach($_SESSION['coordinator_alerts'] as $alert){
-     $return.="   <div class=\"alert alert-dismissible alert-".$alert->class."\" role=\"alert\">\n";
+     $dismissable=true;
+		 if(strpos("danger",$alert->class)!==false){$dismissable=false;}
+		 if(strpos("info",$alert->class)!==false){$dismissable=false;}
+     $return.="   <div class=\"alert".($dismissable?" alert-dismissible":null)." alert-".$alert->class."\" role=\"alert\">\n";
      $return.="    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n";
      $return.="    <span>".$alert->message."</span>\n";
      $return.="   </div>\n";
