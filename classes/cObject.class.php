@@ -175,6 +175,13 @@ abstract class cObject{
 	}
 
 	/**
+	 * Check if object is deleted
+	 *
+	 * @return boolean
+	 */
+	public function isDeleted(){return (boolean)$this->deleted;}
+
+	/**
 	 * Get Logs
 	 *
 	 * @param integer limit Limit number of events
@@ -388,6 +395,65 @@ abstract class cObject{
 		$event_properties_array=array_merge(["previous"=>$previous_status,"current"=>$this->status],$additional_parameters);
 		// throw event
 		$this->event("information","status",$event_properties_array,$log);
+		// return
+		return true;
+	}
+
+	/** @todo
+	private function getProperties($basic=true,$values=true){
+		$return_array=array();
+		foreach(get_object_vars($this) as $property=>$value){
+			if(!$basic && in_array($property,array("id","deleted","order"))){continue;}
+			$return_array[$property]=$value;
+		}
+		if($values){return $return_array;}
+		else{return array_keys($return_array);}
+	}*/
+
+	/**
+	 * Duplicate
+	 *
+	 * @param boolean $log Log event
+	 * @return boolean
+	 */
+	public function duplicate($log=true){
+		// check existence
+		if(!$this->exists()){return false;}
+		// build query object
+		$query_obj=new stdClass();
+		// cycle all properties
+		foreach(get_object_vars($this) as $property=>$value){
+			if(in_array($property,array("id","deleted","order"))){continue;}
+			// set property value
+			$query_obj->$property=$value;
+		}
+		// check for name, text or description
+		if(strlen($query_obj->name)){$query_obj->name.=" (copy)";}
+		elseif(strlen($query_obj->text)){$query_obj->text.=" (copy)";}
+		elseif(strlen($query_obj->description)){$query_obj->description.=" (copy)";}
+		// check for sortable
+		if(static::$sortable){    /** @todo inglobare, duplicato con store */
+			// check if order property exists
+			if(!property_exists(static::class,"order")){throw new Exception("Sortable class need a \"order\" property..");}
+			// make sorting where conditions
+			$max_order_query="SELECT COALESCE(MAX(`order`),'0')+'1' AS `order` FROM `".static::$table."` WHERE 1";
+			// cycle all order grouping properties
+			foreach(static::$sortingGroups as $property_f){$max_order_query.=" AND `".$property_f."`='".$this->$property_f."'";}
+			// debug
+			//api_dump($max_order_query);
+			// get maximum order
+			$query_obj->order=(int)$GLOBALS['database']->queryUniqueValue($max_order_query,false);
+			// check for value
+			if(!$query_obj->order){throw new Exception("An error occured whyle trying to get the maximum order value..");}
+		}
+		// debug
+		api_dump($query_obj,static::class."->duplicate query object");
+		// execute query
+		$this->id=$GLOBALS['database']->queryInsert(static::$table,$query_obj);
+		// check
+		if(!$this->id){return false;}
+		// throw event
+		$this->event("information","duplicated",null,$log);
 		// return
 		return true;
 	}
