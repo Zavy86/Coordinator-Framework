@@ -30,7 +30,7 @@
  $form->addField("text","subject",api_text("mails_add-subject"),null,api_text("mails_add-subject-placeholder"),null,null,null,"required");
  $form->addField("textarea","message",api_text("mails_add-message"),null,api_text("mails_add-message-placeholder"),null,null,null,"required rows='9'");
  // controls
- $form->addControl("submit",api_text("form-fc-submit"));
+ $form->addControl("submit",api_text("form-fc-save"));
  $form->addControl("button",api_text("form-fc-cancel"),"?mod=".MODULE."&scr=mails_view&idMail=".$mail->id);
  // build grid object
  $grid=new strGrid();

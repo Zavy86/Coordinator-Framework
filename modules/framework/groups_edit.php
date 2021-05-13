@@ -29,7 +29,7 @@
  $form->addField("text","name",api_text("groups_edit-name"),$group_obj->name,api_text("groups_edit-name-placeholder"),null,null,null,"required");
  $form->addField("textarea","description",api_text("groups_edit-description"),$group_obj->description,api_text("groups_edit-description-placeholder"));
  // controls
- $form->addControl("submit",api_text("form-fc-submit"));
+ $form->addControl("submit",api_text("form-fc-save"));
  $form->addControl("button",api_text("form-fc-cancel"),"?mod=".MODULE."&scr=groups_list");
  $form->addControl("button",api_text("form-fc-remove"),"?mod=".MODULE."&scr=submit&act=group_remove&idGroup=".$group_obj->id,"btn-danger",api_text("groups_edit-remove-confirm"));
  // build grid object

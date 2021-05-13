@@ -43,7 +43,7 @@
  $form->addFieldOption("woman",api_text("users_edit-gender-woman"));
  $form->addField("date","birthday",api_text("users_edit-birthday"),$user_obj->birthday);
  // controls
- $form->addControl("submit",api_text("form-fc-submit"));
+ $form->addControl("submit",api_text("form-fc-save"));
  $form->addControl("button",api_text("form-fc-cancel"),"?mod=".MODULE."&scr=users_view&idUser=".$user_obj->id);
  if(!$user_obj->deleted){$form->addControl("button",api_text("form-fc-delete"),"?mod=".MODULE."&scr=submit&act=user_delete&idUser=".$user_obj->id,"btn-danger",api_text("users_edit-delete-confirm"));}
  else{$form->addControl("button",api_text("form-fc-undelete"),"?mod=".MODULE."&scr=submit&act=user_undelete&idUser=".$user_obj->id,"btn-warning");}

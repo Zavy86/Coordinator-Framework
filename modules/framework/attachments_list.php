@@ -81,7 +81,7 @@
   $attachments_form->addField("radio","public",api_text("attachments_list-modal-ff-public"),$selected_attachment_obj->public,null,null,"radio-inline");
   $attachments_form->addFieldOption(0,api_text("no"));
   $attachments_form->addFieldOption(1,api_text("yes"));
-  $attachments_form->addControl("submit",api_text("form-fc-submit"));
+  $attachments_form->addControl("submit",api_text("form-fc-save"));
   if(!$selected_attachment_obj->deleted){$attachments_form->addControl("button",api_text("form-fc-delete"),"?mod=".MODULE."&scr=submit&act=attachment_delete&idAttachment=".$selected_attachment_obj->id,"btn-danger",api_text("attachments_list-modal-fc-delete-confirm"));}
   else{
    $attachments_form->addControl("button",api_text("form-fc-undelete"),"?mod=".MODULE."&scr=submit&act=attachment_undelete&idAttachment=".$selected_attachment_obj->id,"btn-warning");

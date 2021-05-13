@@ -293,7 +293,7 @@ function api_parse_url($url=null){
  * Alerts Add
  *
  * @param string $message alert message
- * @param string $class alert class [info|warning|error]
+ * @param string $class alert class [info|success|warning|danger]
  * @return boolean alert saved status
  */
 function api_alerts_add($message,$class="info"){
