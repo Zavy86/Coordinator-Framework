@@ -33,7 +33,7 @@
  $form->addField("file","avatar",api_text("own_profile-avatar"),null,null,null,null,null,"accept='.jpg'");
  $form->addField("static",null,"&nbsp;",api_image($user_obj->avatar,"img-thumbnail",128).$avatar_delete_link);
  // controls
- $form->addControl("submit",api_text("form-fc-submit"));
+ $form->addControl("submit",api_text("form-fc-save"));
  $form->addControl("button",api_text("form-fc-cancel"),"?mod=dashboard");
  // build grid object
  $grid=new strGrid();

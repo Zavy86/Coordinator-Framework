@@ -63,7 +63,7 @@
    $background_field.=api_link("?mod=dashboard&scr=submit&act=tile_background_remove&idTile=".$selected_tile_obj->id,api_icon("fa-remove",api_text("dashboard_customize-tile-ff-background-delete"),"hidden-link text-vtop"),null,null,false,api_text("dashboard_customize-tile-ff-background-confirm"));
    $tile_form->addField("static",null,"&nbsp;",$background_field);
   }
-  $tile_form->addControl("submit",api_text("form-fc-submit"));
+  $tile_form->addControl("submit",api_text("form-fc-save"));
   $tile_form->addControl("button",api_text("form-fc-cancel"),"#",null,null,null,"data-dismiss='modal'");
   if($selected_tile_obj->id){$tile_form->addControl("button",api_text("form-fc-delete"),"?mod=dashboard&scr=submit&act=tile_remove&idTile=".$selected_tile_obj->id,"btn-danger",api_text("form-fc-delete-confirm"));}
   // build group add modal window

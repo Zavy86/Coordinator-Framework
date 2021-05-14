@@ -195,7 +195,7 @@
     if($item->tags){$item_tags.=" ".$item->tags;}
     // check for sub items
     if(!count($item->subItems_array)){
-     $return.=$ident." <li class=\"".$item_class."\"".$item_tags."><a href=\"".$item->url."\" target=\"".$item->target."\">".$item->label."</a></li>\n";
+     $return.=$ident." <li class=\"".$item_class."\"><a href=\"".$item->url."\" target=\"".$item->target."\"".$item_tags.">".$item->label."</a></li>\n";
     }else{
      $return.=$ident." <li class=\"dropdown ".$item_class."\">\n";
      $return.=$ident."  <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".$item->label." <span class=\"caret\"></span></a>\n";
@@ -220,9 +220,9 @@
       if($subItem->tags){$subItem_tags.=" ".$subItem->tags;}
       // switch sub item typology
       switch($subItem->typology){
-       case "item":$return.=$ident."   <li class=\"".$subItem_class."\"><a href=\"".$subItem->url."\" target=\"".$subItem->target."\"".($subItem->confirm?" onClick=\"return confirm('".addslashes($subItem->confirm)."')\"":null).">".$subItem->label."</a></li>\n";break;
-       case "separator":$return.=$ident."   <li class=\"divider ".$subItem_class."\" role=\"separator\">&nbsp;</li>\n";break;
-       case "header":$return.=$ident."   <li class=\"dropdown-header".$subItem_class."\">".$subItem->label."</li>\n";break;
+       case "item":$return.=$ident."   <li class=\"".$subItem_class."\"><a href=\"".$subItem->url."\" target=\"".$subItem->target."\"".($subItem->confirm?" onClick=\"return confirm('".addslashes($subItem->confirm)."')\"":null).$subItem_tags.">".$subItem->label."</a></li>\n";break;
+       case "separator":$return.=$ident."   <li class=\"divider ".$subItem_class."\" role=\"separator\"".$subItem_tags.">&nbsp;</li>\n";break;
+       case "header":$return.=$ident."   <li class=\"dropdown-header".$subItem_class."\"".$subItem_tags.">".$subItem->label."</li>\n";break;
       }
      }
      $return.=$ident."  </ul><!-- dropdown -->\n";

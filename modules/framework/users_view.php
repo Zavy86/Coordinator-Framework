@@ -58,7 +58,7 @@
   $group_add_form->addField("select","fkGroup",api_text("users_view-groups-modal-ff-group"),null,api_text("users_view-groups-modal-ff-group-placeholder"),null,null,null,"required");
   api_tree_to_array($groups_array,"api_availableGroups","id");
   foreach($groups_array as $group_option){$group_add_form->addFieldOption($group_option->id,str_repeat("&nbsp;&nbsp;&nbsp;",$group_option->nesting).$group_option->fullname);}
-  $group_add_form->addControl("submit",api_text("form-fc-submit"));
+  $group_add_form->addControl("submit",api_text("form-fc-save"));
   $group_add_form->addControl("button",api_text("form-fc-cancel"),"#",null,null,null,"data-dismiss='modal'");
   // build group add modal window
   $groups_modal=new strModal(api_text("users_view-groups-modal-title"),null,"users_view-groups");

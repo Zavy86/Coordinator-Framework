@@ -20,7 +20,7 @@
  $form->addFieldOption(0,api_text("no"));
  $form->addFieldOption(1,api_text("yes"));
  // controls
- $form->addControl("submit",api_text("form-fc-submit"));
+ $form->addControl("submit",api_text("form-fc-save"));
  $form->addControl("button",api_text("form-fc-cancel"),"?mod=".MODULE."&scr=attachments_list");
  // build grid object
  $grid=new strGrid();

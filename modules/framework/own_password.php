@@ -17,7 +17,7 @@
  $form->addField("password","password",api_text("own_password-password"),null,api_text("own_password-password-placeholder"),null,null,null,"required");
  $form->addField("password","password_new",api_text("own_password-password_new"),null,api_text("own_password-password_new-placeholder"),null,null,null,"required");
  $form->addField("password","password_confirm",api_text("own_password-password_confirm"),null,api_text("own_password-password_confirm-placeholder"),null,null,null,"required");
- $form->addControl("submit",api_text("form-fc-submit"));
+ $form->addControl("submit",api_text("form-fc-save"));
  $form->addControl("button",api_text("form-fc-cancel"),"?mod=".MODULE."&scr=own_profile");
  // build grid object
  $grid=new strGrid();

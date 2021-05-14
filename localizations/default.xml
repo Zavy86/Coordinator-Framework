@@ -107,6 +107,8 @@
 
  <!-- forms -->
  <text key="form-fc-submit">Submit</text>
+ <text key="form-fc-execute">Execute</text>
+ <text key="form-fc-save">Save</text>
  <text key="form-fc-cancel">Cancel</text>
  <text key="form-fc-close">Close</text>
  <text key="form-fc-search">Search</text>
@@ -176,10 +178,15 @@
  <text key="cObject">Object</text>
  <text key="cObject-event-created">Created</text>
  <text key="cObject-event-updated">Updated</text>
+ <text key="cObject-event-duplicated">Duplicated</text>
  <text key="cObject-event-deleted">Deleted</text>
  <text key="cObject-event-undeleted">Undeleted</text>
  <text key="cObject-event-removed">Removed</text>
  <text key="cObject-event-joined_added">Joined</text>
  <text key="cObject-event-joined_removed">Unjoined</text>
+
+ <!-- cConfiguration -->
+ <text key="cConfiguration">Configuration</text>
+ <text key="cConfiguration-label-store">Stored</text>
 
 </locale>

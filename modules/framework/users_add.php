@@ -24,7 +24,7 @@
  foreach(timezone_identifiers_list() as $timezone){$form->addFieldOption($timezone,$timezone." (".api_timestamp_format(time(),"H:i",$timezone).")");}
  $form->addField("select","level",api_text("users_add-level"),$user->level,api_text("users_add-level-placeholder"),null,null,null,"required");
  for($level=1;$level<=$GLOBALS['settings']->users_level_max;$level++){$form->addFieldOption($level,api_text("users_add-level-level",$level));}
- $form->addControl("submit",api_text("form-fc-submit"));
+ $form->addControl("submit",api_text("form-fc-save"));
  $form->addControl("button",api_text("form-fc-cancel"),"?mod=".MODULE."&scr=users_list");
  // build grid object
  $grid=new strGrid();

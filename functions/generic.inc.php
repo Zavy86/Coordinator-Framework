@@ -293,7 +293,7 @@ function api_parse_url($url=null){
  * Alerts Add
  *
  * @param string $message alert message
- * @param string $class alert class [info|warning|error]
+ * @param string $class alert class [info|success|warning|danger]
  * @return boolean alert saved status
  */
 function api_alerts_add($message,$class="info"){
@@ -783,7 +783,7 @@ function api_implode($glue,array $pieces,$unvalued=null){
 }
 
 
-function api_label($label,$class,$style,$tags){
+function api_label($label,$class=null,$style=null,$tags=null){
 	return api_tag("span",$label,"label ".$class,$style,$tags);
 }
 

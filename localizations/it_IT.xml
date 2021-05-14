@@ -106,7 +106,9 @@
  <text key="table-td-download">Scarica</text>
 
  <!-- forms -->
- <text key="form-fc-submit">Salva</text>
+ <text key="form-fc-submit">Invia</text>
+ <text key="form-fc-execute">Esegui</text>
+ <text key="form-fc-save">Salva</text>
  <text key="form-fc-cancel">Annulla</text>
  <text key="form-fc-close">Chiudi</text>
  <text key="form-fc-search">Cerca</text>
@@ -176,10 +178,15 @@
  <text key="cObject">Oggetto</text>
  <text key="cObject-event-created">Creazione</text>
  <text key="cObject-event-updated">Aggiornamento</text>
+ <text key="cObject-event-duplicated">Duplicato</text>
  <text key="cObject-event-deleted">Eliminazione</text>
  <text key="cObject-event-undeleted">Ripristino</text>
  <text key="cObject-event-removed">Rimozione</text>
  <text key="cObject-event-joined_added">Collegamento</text>
  <text key="cObject-event-joined_removed">Scollegamento</text>
+
+ <!-- cConfiguration -->
+ <text key="cConfiguration">Configurazione</text>
+ <text key="cConfiguration-label-store">Salvataggio</text>
 
 </locale>

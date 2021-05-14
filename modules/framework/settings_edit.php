@@ -115,7 +115,7 @@
 	$form->addField("textarea","analytics_script",api_text("settings_edit-analytics_script"),$settings->analytics_script,api_text("settings_edit-analytics_script-placeholder"),null,null,null,"rows='9'");
  }
  // controls
- $form->addControl("submit",api_text("form-fc-submit"));
+ $form->addControl("submit",api_text("form-fc-save"));
  $form->addControl("reset",api_text("settings_edit-reset"));
  $form->addControl("button",api_text("settings_edit-cancel"),"?mod=".MODULE."&scr=dashboard");
  // build grid object
