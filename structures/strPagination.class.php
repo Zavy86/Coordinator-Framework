@@ -19,8 +19,9 @@
   protected $page;
   protected $show;
   protected $pages;
-  protected $records;
-  protected $uri_array;
+	protected $records;
+	protected $uri_array;
+	protected $limits_array;
   protected $query_limits;
 
   /**
@@ -60,16 +61,28 @@
    if($this->show=="all"){
     $this->page=1;
     $this->pages=1;
-    $this->query_limits=null;
+		$this->limits_array=array();
+		$this->query_limits=null;
    }else{
     $this->pages=ceil($this->records/$this->show);
     if(!$this->pages){$this->pages=1;}
     if($this->page>$this->pages){$this->page=$this->pages;}
-    $this->query_limits="LIMIT ".(($this->page-1)*$this->show).",".$this->show;
+    $limit_from=(($this->page-1)*$this->show);
+		$this->limits_array=array($limit_from,$this->show);
+    $this->query_limits="LIMIT ".$limit_from.",".$this->show;
    }
    // return
    return true;
   }
+
+  /**
+	 * Get Limits Array
+	 *
+	 * @return array Limit array [from,show]
+	 */
+	 public function getLimitsArray(){
+		 return $this->limits_array;
+	 }
 
   /**
    * Get Query Limits
