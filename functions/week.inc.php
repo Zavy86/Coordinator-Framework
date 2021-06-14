@@ -1,6 +1,6 @@
 <?php
 /**
- * Date Functions
+ * Week Functions
  *
  * @package Coordinator\Functions
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -8,79 +8,52 @@
  */
 
 /**
- * Date (from timestamp)
+ * Numeric Week
  *
- * @param integer $timestamp Unix timestamp (Default now)
- * @param string $timezone Time Zone
- * @return string|boolean Date in format YYYY-MM-DD or false
+ * @param string $week Week number in ISO format 2021-W01 (or 202101)
+ * @return string|false Week number in numeric format 202101
  */
-function api_date($timestamp=null,$timezone=null){
-	if(!$timestamp){$timestamp=time();}
-	if(!$timezone){$timezone=$GLOBALS['session']->user->timezone;}
-	// build date time object
-	$dt=new DateTime();
-	// set date time timezone
-	if($timezone){$dt->setTimeZone(new DateTimeZone($timezone));}
-	$dt->setTimestamp($timestamp);
-	// return date formatted
-	return $dt->format("Y-m-d");
+function api_week_numeric($week){
+	if(strlen($week)!=6&&strlen($week)!=8){return false;}
+	return substr($week,0,4).substr($week,-2);
+}
+
+// * @param
+/**
+ * Format Week
+ *
+ * @param string $week Week number in ISO format 2021-W01 (or 202101)
+ * @param string $format [Y,y,W,w]
+ * @return string|false Week number formatted
+ */
+function api_week_format($week,$format){
+	if(strlen($week)!=6&&strlen($week)!=8){return false;}
+	if(!strlen($format)){return false;}
+	$year_full=substr($week,0,4);
+	$year_mini=substr($week,2,2);
+	$week_full=substr($week,-2);
+	$week_mini=(int)substr($week,-2);
+	// replace and return
+	return str_replace(array("Y","y","W","w"),array($year_full,$year_mini,$week_full,$week_mini),$format);
 }
 
 /**
- * Date Format
+ * Check if week exists in year
  *
- * @param string $datetime Date Time in format YYYY-MM-DD [HH:II:SS]
- * @param string $format Date Time format (see php.net/manual/en/function.date.php)
- * @param string $timezone Time Zone
- * @return string|boolean Formatted date or false
+ * @param string $week Week number in ISO format 2021-W01 (or 202101)
+ * @return boolean
  */
-function api_date_format($datetime,$format="Y-m-d",$timezone=null){
-	if(!$datetime){return false;}
-	if(!$timezone){$timezone=$GLOBALS['session']->user->timezone;}
-	// build date time object
-	$dt=new DateTime($datetime);
-	// set date time timezone
-	if($timezone){$dt->setTimeZone(new DateTimeZone($timezone));}
-	// return date time formatted
-	return $dt->format($format);
-}
-
-/**
- * Date Difference
- *
- * @param string $datetime_a Date Time in format YYYY-MM-DD [HH:II:SS]
- * @param string $datetime_b Date Time in format YYYY-MM-DD [HH:II:SS]
- * @param string $format Return format (d days | s seconds)
- * @return double|false Date difference in selected format or false
- */
-function api_date_difference($datetime_a=null,$datetime_b=null,$format="d"){
-	// check parameters
-	if(!$datetime_a || !$datetime_b){return false;}
-	if(!in_array($format,array("d","s"))){return false;}
-	// days format
-	if($format=="d"){
-		$datediff_a=strtotime(substr($datetime_a,0,10));
-		$datediff_b=strtotime(substr($datetime_b,0,10));
-		$difference=round(($datediff_b-$datediff_a)/60/60/24);
+function api_week_check($week){
+	if(strlen($week)!=6&&strlen($week)!=8){return false;}
+	// make year and week
+	$year=substr($week,0,4);
+	$week=(int)substr($week,-2);
+	// get last week of year
+	$last_week=date('W',strtotime($year.'-12-28'));
+	// check
+	if($week>0&&$week<=$last_week){
+		return true;
+	}else{
+		return false;
 	}
-	// seconds format
-	if($format=="s"){
-		$datediff_a=strtotime($datetime_a);
-		$datediff_b=strtotime($datetime_b);
-		$difference=$datediff_b-$datediff_a;
-	}
-	// return
-	return $difference;
-}
-
-/**
- * Date Modify
- *
- * @param string $datetime Date Time in format YYYY-MM-DD [HH:II:SS]
- * @param string $delta Delta to add or subtract [+1 day,-12 months,+3 hours]
- */
-function api_date_modify($datetime,$delta){
-	if(!$datetime){return false;}
-	if(!strlen($delta)){return false;}
-	return date('Y-m-d', strtotime($datetime.$delta));
 }

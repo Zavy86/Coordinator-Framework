@@ -72,3 +72,15 @@ function api_date_difference($datetime_a=null,$datetime_b=null,$format="d"){
 	// return
 	return $difference;
 }
+
+/**
+ * Date Modify
+ *
+ * @param string $datetime Date Time in format YYYY-MM-DD [HH:II:SS]
+ * @param string $delta Delta to add or subtract [+1 day,-12 months,+3 hours]
+ */
+function api_date_modify($datetime,$delta){
+	if(!$datetime){return false;}
+	if(!strlen($delta)){return false;}
+	return date('Y-m-d', strtotime($datetime.$delta));
+}
