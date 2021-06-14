@@ -82,6 +82,7 @@ require_once(DIR."functions/number.inc.php");
 require_once(DIR."functions/period.inc.php");
 require_once(DIR."functions/timestamp.inc.php");
 require_once(DIR."functions/uploads.inc.php");
+require_once(DIR."functions/week.inc.php");
 
 // include structures
 require_once(DIR."structures/strApplication.class.php");

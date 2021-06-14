@@ -156,6 +156,7 @@
    * @param string $class CSS class
    * @param string $style Custom CSS
    * @param string $tags Custom HTML tags
+   * @param string $target Link target
    * @return boolean
    */
   function addRowFieldAction($url,$icon,$label,$confirm=null,$class=null,$style=null,$tags=null,$target=null){

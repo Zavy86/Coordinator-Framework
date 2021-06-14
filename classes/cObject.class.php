@@ -35,6 +35,7 @@ abstract class cObject{
 	 * Executed automatically before saving
 	 *
 	 * @return booelan
+	 * @throws Exception
 	 */
 	abstract protected function check();
 
@@ -49,6 +50,10 @@ abstract class cObject{
 
 	/**
 	 * Select
+	 *
+	 * @param string $where Conditions
+	 * @param string $order Sorting
+	 * @param string $limit Limit
 	 *
 	 * @return object[] Array of selected objects
 	 */
@@ -73,6 +78,8 @@ abstract class cObject{
 	 * Availables
 	 *
 	 * @param boolean $deleted Select also deleted objects
+	 * @param array $conditions Array of conditions
+	 * @param array $limit Array of limits [from,show]
 	 * @return object[] Array of available objects
 	 */
 	public static function availables($deleted=false,array $conditions=null,$limit=null){
@@ -93,7 +100,7 @@ abstract class cObject{
 		// debug
 		//api_dump($query_where,"where");
 		// return
-		return static::select($query_where,null,$limit);
+		return static::select($query_where,null,implode(",",$limit));
 	}
 
 	/**
@@ -365,11 +372,11 @@ abstract class cObject{
 	 * Status
 	 *
 	 * @param string $status New status code
-	 * @param mixed[] $additional_parameters Array of additional parameters
+	 * @param mixed[] $additional_properties Array of additional properties
 	 * @param boolean $log Log event
 	 * @return boolean
 	 */
-	public function status($status,array $additional_parameters=null,$log=true){
+	public function status($status,array $additional_properties=null,$log=true){
 		// check for status property
 		if(!array_key_exists("status",get_object_vars($this))){trigger_error("Status property does not exist in class: \"".static::class."\"",E_USER_ERROR);}
 		// check parameters
@@ -380,19 +387,36 @@ abstract class cObject{
 		$previous_status=$this->status;
 		// change current status
 		$this->status=$status;
+		// make event properties
+		$event_properties_array=array("status"=>array("previous"=>$previous_status,"current"=>$this->status));
+		// cycle all additional properties
+		foreach($additional_properties as $property=>$value){
+			// skip undefined properties
+			if(!array_key_exists($property,get_object_vars($this))){
+				unset($additional_properties[$property]);
+				continue;
+			}
+			// check for change
+			if($this->$property!==trim($value)){
+				// save previous and current value for event
+				$event_properties_array[$property]=array("previous"=>$this->$property,"current"=>trim($value));
+				// overwrite property value
+				$this->$property=trim($value);
+			}
+		}
 		// check properties
 		if(!$this->check()){return false;}
 		// build query object
 		$query_obj=new stdClass();
 		$query_obj->id=$this->id;
 		$query_obj->status=$this->status;
+		// cycle all additional properties
+		foreach(array_keys($additional_properties) as $property){$query_obj->$property=$this->$property;}
 		// debug
 		api_dump($query_obj,static::class."->status query object");
 		// execute query
 		$GLOBALS['database']->queryUpdate(static::$table,$query_obj);
 		/* @todo check? */
-		// make event properties
-		$event_properties_array=array_merge(["previous"=>$previous_status,"current"=>$this->status],$additional_parameters);
 		// throw event
 		$this->event("information","status",$event_properties_array,$log);
 		// return
@@ -510,6 +534,7 @@ abstract class cObject{
 	 * Remove
 	 *
 	 * @return boolean
+	 * @throws Exception
 	 */
 	public function remove(){
 		// check existence

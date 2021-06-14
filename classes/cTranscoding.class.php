@@ -16,21 +16,22 @@ abstract class cTranscoding{
 	protected $code;
 	protected $text;
 	protected $icon;
+	protected $color;
 
 	/**
 	 * Transcoding datas
 	 *
 	 * Example:
 	 * return array(
-	 *     ["code","text","icon"],
-	 *     ["fa","Font Awesome","fa-font-awesome"]
+	 *     ["code","text","icon","color"],
+	 *     ["fa","Font Awesome","fa-font-awesome","#286090"]
 	 * );
 	 *
 	 * @return array
 	 */
 	protected static function datas(){
 		return array(
-		 ["code","text","icon"]
+		 ["code","text","icon","color"]
 		);
 	}
 
@@ -46,7 +47,7 @@ abstract class cTranscoding{
 		foreach(static::datas() as $data){
 			// build new self
 			$transcoding_obj=new static();
-			$transcoding_obj->build($data[0],$data[1],$data[2]);
+			$transcoding_obj->build($data[0],$data[1],$data[2],$data[3]);
 			// check object properties
 			if(!$transcoding_obj->code || !$transcoding_obj->text){continue;}
 			// add object to array
@@ -72,6 +73,7 @@ abstract class cTranscoding{
 		$this->code=$transcoding->code;
 		$this->text=$transcoding->text;
 		$this->icon=$transcoding->icon;
+		$this->color=$transcoding->color;
 		// return
 		return true;
 	}
@@ -120,7 +122,7 @@ abstract class cTranscoding{
 	 * @param string $icon Optional icon
 	 * @return boolean
 	 */
-	private function build($code,$text,$icon=null){
+	private function build($code,$text,$icon=null,$color=null){
 		// check parameters
 		if(!$code){return false;}
 		if(!$text){return false;}
@@ -128,6 +130,7 @@ abstract class cTranscoding{
 		$this->code=$code;
 		$this->text=$text;
 		$this->icon=$icon;
+		$this->color=($color?:"#333333");
 		// return
 		return true;
 	}
