@@ -18,7 +18,8 @@
   protected $id;
   protected $emptyrow;
   protected $class;
-  protected $caption;
+	protected $caption;
+	protected $fixColumns;
   protected $rows_array;
   protected $current_row;
 
@@ -38,6 +39,7 @@
    $this->emptyrow=$emptyrow;
    $this->class=$class;
    $this->caption=$caption;
+   $this->fixColumns=0;
    $this->current_row=0;
    $this->rows_array=array();
    // initialize headers row array
@@ -144,7 +146,7 @@
    // add field to row
    $this->rows_array[$this->current_row]->fields_array[]=$td;
    return true;
-  }
+ }
 
   /**
    * Add Table Row Field Action
@@ -176,14 +178,31 @@
   }
 
   /**
+ 	 * Fix columns
+	 *
+	 * @param integer $number Number of columns
+	 * @return boolean
+	 */
+  function fixColumns($number=1){
+   if(!$number){echo "ERROR - Table->fixColumns - Number is required";return false;}
+   // set property
+   $this->fixColumns=$number;
+   return true;
+  }
+
+  /**
    * Renderize table object
    *
    * @return string HTML source code
    */
   public function render(){
+   // make table class
+   $table_class="table-responsive";
+   if($this->fixColumns){$table_class="sticky-table sticky-ltr-cells table-responsive";}
+
    // open table
    $return="<!-- table -->\n";
-   $return.="<div class=\"table-responsive\">\n";
+   $return.="<div class=\"".$table_class."\">\n";
    $return.=" <table id=\"".$this->id."\" class=\"table table-striped table-hover table-condensed ".$this->class."\">\n";
    // table caption
    if($this->caption){$return.="  <caption>".$this->caption."</caption>\n";}
@@ -191,8 +210,15 @@
    if(array_key_exists("headers",$this->rows_array)){
     $return.="  <thead>\n";
     $return.="   <tr>\n";
+    // columns count
+    $column_count=0;
     // cycle all headers
     foreach($this->rows_array["headers"] as $th){
+     // increment counter
+     $column_count++;
+     // check for fixed columns
+		 if($this->fixColumns && $column_count<=$this->fixColumns){$th->class.=" sticky-cell";}
+     // renderize table headers
      $return.="    <th";
      if($th->class){$return.=" class=\"".$th->class."\"";}
      if($th->width){$return.=" width=\"".$th->width."\"";}
@@ -213,8 +239,14 @@
     if($tr->style){$return.=" style=\"".$tr->style."\"";}
     if($tr->tags){$return.=" ".$tr->tags."";}
     $return.=">\n";
+		// columns count
+		$column_count=0;
     // cycle all row fields
     foreach($tr->fields_array as $td){
+		 // increment counter
+		 $column_count++;
+		 // check for fixed columns
+		 if($this->fixColumns && $column_count<=$this->fixColumns){$td->class.=" sticky-cell";}
      // show field
      $return.="    <td id=\"".$td->id."\"";
      if($td->class){$return.=" class=\"".$td->class."\"";}

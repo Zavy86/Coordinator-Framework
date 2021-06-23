@@ -54,6 +54,7 @@
    /** @todo verificare quali caricare sempre e quali solo alla bisogna */
    $this->addStylesheet(PATH."helpers/justgage/css/justgage-1.2.2.css");
    $this->addStylesheet(PATH."helpers/select2/css/select2-4.0.5.min.css");
+   $this->addStylesheet(PATH."helpers/stickytable/css/stickytable-1.0.0.css");
    /** @todo add some css helpers here */
    $this->addStylesheet(PATH."helpers/bootstrap/css/bootstrap-3.3.7.min.css");
    $this->addStylesheet(PATH."helpers/bootstrap-faiconpicker/css/bootstrap-faiconpicker-1.3.0.min.css");
@@ -68,6 +69,7 @@
    $this->addScript(PATH."helpers/justgage/js/justgage-1.2.2.js",true);
    $this->addScript(PATH."helpers/chartjs/js/chart-2.7.0.min.js",true);
    $this->addScript(PATH."helpers/select2/js/select2-4.0.5.min.js",true);
+   $this->addScript(PATH."helpers/stickytable/js/stickytable-1.0.0.js",true);
    /** @todo add some javascript helpers here */
    $this->addScript(PATH."helpers/bootstrap/js/bootstrap-3.3.7.min.js",true);
    $this->addScript(PATH."helpers/bootstrap-filestyle/js/bootstrap-filestyle-1.2.1.min.js",true);
