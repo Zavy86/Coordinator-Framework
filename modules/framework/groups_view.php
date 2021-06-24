@@ -30,6 +30,7 @@ function groups_view_getArrayOfAssignedUsers($group_obj){
 	$users_array=array();
 	foreach($group_obj->getAssignedUsers() as $assignedUser_f){
 		$user_obj=new cUser($assignedUser_f->id);
+		if(!$user_obj->enabled || $user_obj->deleted){continue;}
 		$users_array[$user_obj->fullname.$user_obj->id]=api_link(api_url(["scr"=>"users_view","idUser"=>$user_obj->id]),$user_obj->fullname,null,"hidden-link",false,null,null,null,"_blank");
 	}
 	ksort($users_array);
