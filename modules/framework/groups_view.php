@@ -39,7 +39,7 @@ function groups_view_getArrayOfAssignedUsers($group_obj){
 // check for father
 if($fathergroup_obj->id){
 	// build tree starting from father
-	$tree=new strTree(groups_view_makeContent($fathergroup_obj));
+	$tree=new strTree(groups_view_makeContent($fathergroup_obj),null,160);
 }else{
 	// build tree starting from "home"
 	$tree=new strTree(api_link(api_url(["scr"=>"groups_view"]),api_icon("fa-home",api_text("groups_view-home")),null,"hidden-link"),(!$group_obj->id?"active":null));
@@ -47,7 +47,7 @@ if($fathergroup_obj->id){
 // check for group
 if($group_obj->id){
 	// build group tree starting from father
-	$group_tree=$tree->addNode(groups_view_makeContent($group_obj),"active");
+	$group_tree=$tree->addNode(groups_view_makeContent($group_obj),"active",160);
 }else{
 	// group tree is "home"
 	$group_tree=$tree;
@@ -55,11 +55,11 @@ if($group_obj->id){
 // cycle all subgroups
 foreach(api_availableGroups($group_obj->id) as $subgroup_fobj){
 	// add content to node
-	$sub_tree=$group_tree->addNode(groups_view_makeContent($subgroup_fobj));
+	$sub_tree=$group_tree->addNode(groups_view_makeContent($subgroup_fobj),null,160);
 	// cycle all subgroups
 	foreach(api_availableGroups($subgroup_fobj->id) as $subsubgroup_fobj){
 		// add content to node
-		$sub_sub_tree=$sub_tree->addNode(groups_view_makeContent($subsubgroup_fobj));
+		$sub_sub_tree=$sub_tree->addNode(groups_view_makeContent($subsubgroup_fobj),null,160);
 		// check for other subgroups
 		if(count(api_availableGroups($subsubgroup_fobj->id))){
 			$sub_sub_tree->addNode(api_link(api_url(["scr"=>"groups_view","idGroup"=>$subsubgroup_fobj->id]),api_icon("fa-list",api_text("groups_view-subwalk"),"hidden-link")));

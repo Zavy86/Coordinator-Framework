@@ -18,8 +18,7 @@ class strTree{
 	protected $id;
 	protected $content;
 	protected $class;
-	protected $style;
-	protected $tags;
+	protected $width;
 	protected $nodes_array;
 
 	/**
@@ -27,18 +26,16 @@ class strTree{
 	 *
 	 * @param string $content Content data
 	 * @param string $class CSS class
-	 * @param string $style Custom CSS
-	 * @param string $tags Custom HTML tags
+	 * @param integer $width Node width
 	 * @param string $id Tree ID, if null randomly generated
 	 * @return boolean
 	 */
-	public function __construct($content,$class=null,$style=null,$tags=null,$id=null){
+	public function __construct($content,$class=null,$width=null,$id=null){
 		if(!strlen($content)){$content="&nbsp;";}
 		$this->id="tree_".($id?$id:api_random());
 		$this->content=$content;
 		$this->class=$class;
-		$this->style=$style;
-		$this->tags=$tags;
+		$this->width=$width;
 		$this->nodes_array=array();
 	}
 
@@ -47,14 +44,13 @@ class strTree{
 	 *
 	 * @param string $content Content data
 	 * @param string $class CSS class
-	 * @param string $style Custom CSS
-	 * @param string $tags Custom HTML tags
+	 * @param integer $width Node width
 	 * @param string $id Field ID, if null randomly generated
 	 * @return boolean
 	 */
-	function addNode($content,$class=null,$style=null,$tags=null,$id=null){
+	function addNode($content,$class=null,$width=null,$id=null){
 		// build new tree
-		$node_tree_obj=new strTree($content,$class,$style,$tags,$id);
+		$node_tree_obj=new strTree($content,$class,$width,$id);
 		// add tree to nodes array
 		$this->nodes_array[]=$node_tree_obj;
 		// return new tree
@@ -73,9 +69,10 @@ class strTree{
 		// check for main rendering
 		if($main){
 			//$return.=" <tr><td><div class=\"node ".$this->class."\">".$this->content."</div></td></tr>\n";
-			$return.=" <tr><td colspan='".count($this->nodes_array)."'><div class=\"node ".$this->class."\">".$this->content."</div>";
-			$return.="  <table><tr><td class='width-50 right'>&nbsp;</td><td class='width-50'>&nbsp;</td></tr></table>\n";
-			$return.=" </td></tr>\n";
+			$return.=" <tr>\n  <td colspan='".count($this->nodes_array)."'>\n";
+			$return.="   <div class=\"node ".$this->class."\"".($this->width?" style=\"width:".$this->width."px;\"":null).">".$this->content."</div>\n";
+			$return.="   <table><tr><td class='width-50 right'>&nbsp;</td><td class='width-50'>&nbsp;</td></tr></table>\n";
+			$return.="  </td>\n </tr>\n";
 		}
 		// open nodes
 		$return.=" <tr>\n";
@@ -90,11 +87,9 @@ class strTree{
 			// show up branch
 			if($count>1){$top_left=" top";}else{$top_left=NULL;}
 			if($count<count($this->nodes_array)){$top_right=" top";}else{$top_right=NULL;}
-			$return.="<table><tr><td class='width-50 right".$top_left."'>&nbsp;</td><td class='width-50".$top_right."'>&nbsp;</td></tr></table>";
+			$return.="   <table><tr><td class='width-50 right".$top_left."'>&nbsp;</td><td class='width-50".$top_right."'>&nbsp;</td></tr></table>\n";
 			// show node
-			$return.="   <div class='node ".$node_fobj->class."'>";
-			$return.=$node_fobj->content;
-			$return.="   </div>\n";
+			$return.="   <div class=\"node ".$node_fobj->class."\"".($this->width?" style=\"width:".$this->width."px;\"":null).">".$node_fobj->content."</div>\n";
 			// check for node nodes
 			if(count($node_fobj->nodes_array)){
 				$return.="   <table><tr><td class='width-50 right'>&nbsp;</td><td class='width-50'>&nbsp;</td></tr></table>\n";
