@@ -14,7 +14,7 @@ api_checkAuthorization("framework-groups_manage","dashboard");
 $group_obj=new cGroup($_REQUEST['idGroup']);
 $fathergroup_obj=new cGroup($group_obj->fkGroup);
 // check objects
-if(!$group_obj->id){api_alerts_add(api_text("framework_alert_groupNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=groups_list");}
+//if(!$group_obj->id){api_alerts_add(api_text("framework_alert_groupNotFound"),"danger");api_redirect("?mod=".MODULE."&scr=groups_list");}
 // include module template
 require_once(MODULE_PATH."template.inc.php");
 // set application title
@@ -41,29 +41,35 @@ if($fathergroup_obj->id){
 	// build tree starting from father
 	$tree=new strTree(groups_view_makeContent($fathergroup_obj));
 }else{
-	// build tree starting from father
-	$tree=new strTree(api_icon("fa-home",api_text("groups_view-home")));
+	// build tree starting from "home"
+	$tree=new strTree(api_link(api_url(["scr"=>"groups_view"]),api_icon("fa-home",api_text("groups_view-home")),null,"hidden-link"),(!$group_obj->id?"active":null));
 }
-// build group tree starting from father
-$group_tree=$tree->addLeaf(groups_view_makeContent($group_obj));
+// check for group
+if($group_obj->id){
+	// build group tree starting from father
+	$group_tree=$tree->addNode(groups_view_makeContent($group_obj),"active");
+}else{
+	// group tree is "home"
+	$group_tree=$tree;
+}
 // cycle all subgroups
 foreach(api_availableGroups($group_obj->id) as $subgroup_fobj){
-	// add content to leaf
-	$sub_tree=$group_tree->addLeaf(groups_view_makeContent($subgroup_fobj));
+	// add content to node
+	$sub_tree=$group_tree->addNode(groups_view_makeContent($subgroup_fobj));
 	// cycle all subgroups
 	foreach(api_availableGroups($subgroup_fobj->id) as $subsubgroup_fobj){
-		// add content to leaf
-		$sub_sub_tree=$sub_tree->addLeaf(groups_view_makeContent($subsubgroup_fobj));
+		// add content to node
+		$sub_sub_tree=$sub_tree->addNode(groups_view_makeContent($subsubgroup_fobj));
 		// check for other subgroups
 		if(count(api_availableGroups($subsubgroup_fobj->id))){
-			$sub_sub_tree->addLeaf(api_link(api_url(["scr"=>"groups_view","idGroup"=>$subsubgroup_fobj->id]),api_icon("fa-list",api_text("groups_view-subwalk"),"hidden-link")));
+			$sub_sub_tree->addNode(api_link(api_url(["scr"=>"groups_view","idGroup"=>$subsubgroup_fobj->id]),api_icon("fa-list",api_text("groups_view-subwalk"),"hidden-link")));
 		}
 	}
 }
 // build grid object
 $grid=new strGrid();
 $grid->addRow();
-$grid->addCol((is_object($tree)?$tree->render():$group_tree->render()),"col-xs-12");
+$grid->addCol($tree->render(),"col-xs-12");
 // add content to application
 $app->addContent($grid->render());
 // renderize application
