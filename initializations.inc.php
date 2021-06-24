@@ -104,6 +104,7 @@ require_once(DIR."structures/strProgressBar.class.php");
 require_once(DIR."structures/strSearchBar.class.php");
 require_once(DIR."structures/strTab.class.php");
 require_once(DIR."structures/strTable.class.php");
+require_once(DIR."structures/strTree.class.php");
 
 // include classes
 require_once(DIR."classes/cObject.class.php");
