@@ -62,20 +62,24 @@ class strTree{
 	 *
 	 * @return string HTML source code
 	 */
-	public function render($main=true){
+	public function render($main=true,$ident=0){
+		// make ident spaces
+		$is=str_repeat(" ",$ident);
 		// open tree
-		$return="<!-- tree_".$this->id." -->\n";
-		$return.="<table class=\"tree ".$this->class."\">\n";
+		$return=$is."<!-- tree_".$this->id." -->\n";
+		$return.=$is."<table class=\"tree ".$this->class."\">\n";
 		// check for main rendering
 		if($main){
 			//$return.=" <tr><td><div class=\"node ".$this->class."\">".$this->content."</div></td></tr>\n";
-			$return.=" <tr>\n  <td colspan='".count($this->nodes_array)."'>\n";
-			$return.="   <div class=\"node ".$this->class."\"".($this->width?" style=\"width:".$this->width."px;\"":null).">".$this->content."</div>\n";
-			$return.="   <table><tr><td class='width-50 right'>&nbsp;</td><td class='width-50'>&nbsp;</td></tr></table>\n";
-			$return.="  </td>\n </tr>\n";
+			$return.=$is." <tr>\n";
+			$return.=$is."  <td colspan='".count($this->nodes_array)."'>\n";
+			$return.=$is."   <div class=\"node ".$this->class."\"".($this->width?" style=\"width:".$this->width."px;\"":null).">".$this->content."</div>\n";
+			$return.=$is."   <table><tr><td class='width-50 right'>&nbsp;</td><td class='width-50'>&nbsp;</td></tr></table>\n";
+			$return.=$is."  </td>\n";
+			$return.=$is." </tr>\n";
 		}
 		// open nodes
-		$return.=" <tr>\n";
+		$return.=$is." <tr>\n";
 		// reset counter
 		$count=0;
 		// cycle all nodes
@@ -83,26 +87,28 @@ class strTree{
 			// increment counter
 			$count++;
 			// open node
-			$return.="  <td>\n";
+			$return.=$is."  <td>\n";
 			// show up branch
 			if($count>1){$top_left=" top";}else{$top_left=NULL;}
 			if($count<count($this->nodes_array)){$top_right=" top";}else{$top_right=NULL;}
-			$return.="   <table><tr><td class='width-50 right".$top_left."'>&nbsp;</td><td class='width-50".$top_right."'>&nbsp;</td></tr></table>\n";
+			$return.=$is."   <table><tr><td class='width-50 right".$top_left."'>&nbsp;</td><td class='width-50".$top_right."'>&nbsp;</td></tr></table>\n";
 			// show node
-			$return.="   <div class=\"node ".$node_fobj->class."\"".($this->width?" style=\"width:".$this->width."px;\"":null).">".$node_fobj->content."</div>\n";
+			$return.=$is."   <div class=\"node ".$node_fobj->class."\"".($this->width?" style=\"width:".$this->width."px;\"":null).">".$node_fobj->content."</div>\n";
 			// check for node nodes
 			if(count($node_fobj->nodes_array)){
-				$return.="   <table><tr><td class='width-50 right'>&nbsp;</td><td class='width-50'>&nbsp;</td></tr></table>\n";
+				$return.=$is."   <table><tr><td class='width-50 right'>&nbsp;</td><td class='width-50'>&nbsp;</td></tr></table>\n";
 			}
 			// renderize node
-			$return.=$node_fobj->render(false);
+			$return.=$node_fobj->render(false,$ident+3);
 			// close node
-			$return.="  </td>\n";
+			$return.=$is."  </td>\n";
 		}
 		// close nodes
-		$return.=" <tr>\n";
+		$return.=$is." <tr>\n";
 		// close tree
-		$return.="</table><!-- tree_".$this->id." -->\n<br>\n";
+		$return.=$is."</table><!-- tree_".$this->id." -->\n";
+		// check for main
+		if($main){$return.=$is."<br>";}
 		// return HTML code
 		return $return;
 	}

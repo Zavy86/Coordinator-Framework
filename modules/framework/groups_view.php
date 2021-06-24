@@ -69,7 +69,7 @@ foreach(api_availableGroups($group_obj->id) as $subgroup_fobj){
 // build grid object
 $grid=new strGrid();
 $grid->addRow();
-$grid->addCol($tree->render(),"col-xs-12");
+$grid->addCol($tree->render(true,3),"col-xs-12");
 // add content to application
 $app->addContent($grid->render());
 // renderize application
