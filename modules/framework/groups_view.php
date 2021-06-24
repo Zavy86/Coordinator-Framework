@@ -30,9 +30,9 @@ function groups_view_getArrayOfAssignedUsers($group_obj){
 	$users_array=array();
 	foreach($group_obj->getAssignedUsers() as $assignedUser_f){
 		$user_obj=new cUser($assignedUser_f->id);
-		$users_array[]=api_link(api_url(["scr"=>"users_view","idUser"=>$user_obj->id]),$user_obj->fullname,null,"hidden-link",false,null,null,null,"_blank");
+		$users_array[$user_obj->fullname.$user_obj->id]=api_link(api_url(["scr"=>"users_view","idUser"=>$user_obj->id]),$user_obj->fullname,null,"hidden-link",false,null,null,null,"_blank");
 	}
-	sort($users_array);
+	ksort($users_array);
 	return $users_array;
 }
 // check for father
