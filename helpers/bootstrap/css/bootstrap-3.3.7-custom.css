@@ -440,6 +440,6 @@ table.tree td{margin:0;padding:0;vertical-align:top;text-align:center;}
 table.tree td.width-50{width:50%}
 table.tree td.right{border-right:1px solid #666666;}
 table.tree td.top{border-top:1px solid #666666;}
-div.node{display:inline-block;margin:0 9px 0 9px;padding:2px 4px 2px 4px;background-color:#FAFAFA;border:1px solid #666666;}
-div.active{background-color:#F0F0F0;border:2px solid #666666;}
-div.node hr{height:1px;margin:2px;padding:0;background-color:#BBBBBB;}
+table.tree div.node{display:inline-block;margin:0 9px 0 9px;padding:2px 4px 2px 4px;background-color:#FAFAFA;border:1px solid #666666;}
+table.tree div.active{background-color:#F0F0F0;border:2px solid #666666;}
+table.tree div.node hr{height:1px;margin:2px;padding:0;background-color:#BBBBBB;}
