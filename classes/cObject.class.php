@@ -94,7 +94,7 @@ abstract class cObject{
 			if(is_array($value)){
 				$query_where.=" IN ('".implode("','",$value)."')";
 			}else{
-				$query_where.="='$value'";
+				$query_where.=" LIKE '$value'";
 			}
 		}
 		// debug

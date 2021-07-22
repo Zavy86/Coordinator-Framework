@@ -157,6 +157,35 @@
    return $active_filters_array;
   }
 
+	 /**
+		* Get Activer Filters Conditions
+		* in cObject::availables conditions format
+		*
+		* @return array Conditions filters array
+		*/
+	 public function getActiveFiltersConditions(){
+		 $filters=array();
+		 foreach($this->getActiveFilters() as $item=>$values){
+			 $item_active_values_array=array();
+			 // check for range
+			 if($this->items_array[$item]->range){
+				 /* @todo
+				  * if($values[0] && $values[1]){
+					 $filter=$this->items_array[$item]->label.": ".$values[0]." &plusmn; ".$values[1];
+				 }elseif($values[0]){
+					 $filter=$this->items_array[$item]->label.": &ge; ".$values[0];
+				 }elseif($values[1]){
+					 $filter=$this->items_array[$item]->label.": &le; ".$values[1];
+				 }*/
+			 }else{
+				 //
+				 $filters[$this->items_array[$item]->field]=$values;
+			 }
+		 }
+		 return $filters;
+	 }
+
+
   /**
    * Get Filter
    *
@@ -173,8 +202,9 @@
   }
 
   /**
-   *
-   * @return type
+   * Get Query Where
+	 *
+   * @return string
    */
   public function getQueryWhere(){
 
