@@ -736,7 +736,11 @@ function api_sortObjectsArray(array $objects_array,$property,$reverse=false){
 	return $objects_array;
 }
 // Comparing function
-function api_sortObjectsArray_compare($a,$b){return strcasecmp($a->{$GLOBALS['sort_property']},$b->{$GLOBALS['sort_property']});}
+function api_sortObjectsArray_compare($a,$b){
+	// check for number
+	if(is_numeric($a->{$GLOBALS['sort_property']})){return ($a<$b)?-1:(($a>$b)?1:0);}
+	return strcasecmp($a->{$GLOBALS['sort_property']},$b->{$GLOBALS['sort_property']});
+}
 
 /**
  * Objects Array to Transcoding Array
