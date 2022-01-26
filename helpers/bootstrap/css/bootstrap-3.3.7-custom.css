@@ -16,6 +16,8 @@
 @media(min-width:1400px){.container{width:1370px;}}
 @media(min-width:1900px){.container{width:1870px;}}
 
+@media print{a[href]:after{content: none !important;}}
+
 pre.debug{margin:9px;padding:9px;font-size:9pt;}
 pre.info,pre.alert-info{background-color:#F7F7F9;border-color:#DDDDDD;}
 pre.ok,pre.alert-success{background-color:#DFF0D8;border-color:#D6E9C6;}
