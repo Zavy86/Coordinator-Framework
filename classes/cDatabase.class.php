@@ -300,7 +300,7 @@
    try{
     $query=$this->connection->query($sql);
     $_SESSION['coordinator_logs'][]=array("warn","PDO queryDelete: ".$query->rowCount()." rows deleted");
-    return true;
+    $return=true;
    }catch(PDOException $e){
     $_SESSION['coordinator_logs'][]=array("error","PDO queryDelete: ".$e->getMessage());
     $return=false;
