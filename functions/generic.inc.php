@@ -736,7 +736,7 @@ function api_sortObjectsArray(array $objects_array,$property,$reverse=false){
 	return $objects_array;
 }
 // Comparing function
-function api_sortObjectsArray_compare($a,$b){return strcasecmp($a->$GLOBALS['sort_property'],$b->$GLOBALS['sort_property']);}
+function api_sortObjectsArray_compare($a,$b){return strcasecmp($a->{$GLOBALS['sort_property']},$b->{$GLOBALS['sort_property']});}
 
 /**
  * Objects Array to Transcoding Array
