@@ -40,6 +40,20 @@
  <text key="friday">Friday</text>
  <text key="saturday">Saturday</text>
 
+ <!-- months -->
+ <text key="january">January</text>
+ <text key="february">February</text>
+ <text key="march">March</text>
+ <text key="april">April</text>
+ <text key="may">May</text>
+ <text key="june">June</text>
+ <text key="july">July</text>
+ <text key="august">August</text>
+ <text key="september">September</text>
+ <text key="october">October</text>
+ <text key="november">November</text>
+ <text key="december">December</text>
+
  <!-- alerts -->
  <text key="alert_maintenance">System in maintenance. Please try again later..</text>
  <text key="alert_maintenance_enabled">Maintenance mode active!</text>
