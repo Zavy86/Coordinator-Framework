@@ -725,21 +725,12 @@ function api_availableAuthorizations($module=null){
 function api_sortObjectsArray(array $objects_array,$property,$reverse=false){
 	// check properties
 	if(!$property){return false;}
-	// define and set global variable
-	global $sort_property;
-	$sort_property=$property;
 	// sort objects array
-	uasort($objects_array,"api_sortObjectsArray_compare");
+	uasort($objects_array,fn($a,$b)=>$a->$property<=>$b->$property);
 	// reverse
 	if($reverse){$objects_array=array_reverse($objects_array,true);}
 	// return
 	return $objects_array;
-}
-// Comparing function
-function api_sortObjectsArray_compare($a,$b){
-	// check for number
-	if(is_numeric($a->{$GLOBALS['sort_property']})){return ($a<$b)?-1:(($a>$b)?1:0);}
-	return strcasecmp($a->{$GLOBALS['sort_property']},$b->{$GLOBALS['sort_property']});
 }
 
 /**

@@ -40,6 +40,20 @@
  <text key="friday">Venerdì</text>
  <text key="saturday">Sabato</text>
 
+ <!-- months -->
+ <text key="january">Gennaio</text>
+ <text key="february">Febbraio</text>
+ <text key="march">Marzo</text>
+ <text key="april">Aprile</text>
+ <text key="may">Maggio</text>
+ <text key="june">Giugno</text>
+ <text key="july">Luglio</text>
+ <text key="august">Agosto</text>
+ <text key="september">Settembre</text>
+ <text key="october">Ottobre</text>
+ <text key="november">Novembre</text>
+ <text key="december">Dicembre</text>
+
  <!-- alerts -->
  <text key="alert_maintenance">Sistema in manutenzione. Ti preghiamo di riprovare più tardi..</text>
  <text key="alert_maintenance_enabled">Modalità in manutenzione attivata!</text>
