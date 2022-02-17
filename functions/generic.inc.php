@@ -19,8 +19,8 @@ function api_dump($variable,$label=null,$class=null){
 	if(!DEBUG){return false;}
 	echo "\n\n<!-- dump -->\n";
 	echo "<pre class='debug ".$class."'>\n";
-	if(strlen((string)$label)){echo "<strong>".$label."</strong><br>";}
-	echo str_replace(array("<",">"),array("&lt;","&gt;"),print_r($variable,true));
+	if(strlen((string)$label)){echo '<strong>'.$label.'</strong><br>';}
+	echo str_replace(array('<','>'),array('&lt;','&gt;'),print_r($variable,true));
 	echo "</pre>\n<!-- /dump -->\n\n";
 	return true;
 }
@@ -32,13 +32,13 @@ function api_debug(){
 	// check for debug
 	if(DEBUG){
 		// cycle all logs and dump warning and errors
-		foreach($_SESSION["coordinator_logs"] as $log){if($log[0]!="log"){api_dump($log[1],strtoupper($log[0]),$log[0]);}}
+		foreach($_SESSION['coordinator_logs'] as $log){if($log[0]!='log'){api_dump($log[1],strtoupper($log[0]),$log[0]);}}
 		// dump constants, session and globals variables
-		api_dump(get_defined_constants(true)["user"],"constants");
-		api_dump($GLOBALS['session'],"session");
-		api_dump($GLOBALS['settings'],"settings");
-		//api_dump($GLOBALS['localization'],"localization");
-		api_dump($_SESSION["coordinator_logs"],"logs");
+		api_dump(get_defined_constants(true)['user'],'constants');
+		api_dump($GLOBALS['session'],'session');
+		api_dump($GLOBALS['settings'],'settings');
+		//api_dump($GLOBALS['localization'],'localization');
+		api_dump($_SESSION['coordinator_logs'],'logs');
 	}
 }
 
@@ -51,7 +51,7 @@ function api_redirect($location){
 	// check for debug
 	if(DEBUG){
 		// renderize redirect link
-		echo "<div class='redirect'>".api_tag("strong","REDIRECT")."<br>".api_link($location,$location)."</div>\n";
+		echo "<div class='redirect'>".api_tag('strong','REDIRECT')."<br>".api_link($location,$location)."</div>\n";
 		echo "<link href=\"".PATH."helpers/bootstrap/css/bootstrap-3.3.7-custom.css\" rel=\"stylesheet\">\n";
 		// renderize debug
 		api_debug();
@@ -59,7 +59,7 @@ function api_redirect($location){
 		die();
 	}
 	// direct redirect
-	exit(header("location: ".$location));
+	exit(header('location: '.$location));
 }
 
 /**
@@ -69,8 +69,8 @@ function api_redirect($location){
  * @param string $location Location URL
  */
 function api_redirect_exception($exception,$location,$alert=null){
-	api_dump($exception,"EXCEPTION: ".$exception->getMessage(),"error");
-	if($alert){api_alerts_add(api_text($alert),"danger");}
+	api_dump($exception,'EXCEPTION: '.$exception->getMessage(),'error');
+	if($alert){api_alerts_add(api_text($alert),'danger');}
 	api_redirect($location);
 }
 
@@ -88,9 +88,9 @@ function api_text($key,$parameters=null,$localization_code=null){
 	// get text by key from locale array
 	$text=$GLOBALS['localization']->getString($key,$localization_code);
 	// if key not found
-	if(!$text){$text=str_replace("|}","}","{".$key."|".implode("|",$parameters)."}");}
+	if(!$text){$text=str_replace('|}','}','{'.$key.'|'.implode('|',$parameters).'}');}
 	// replace parameters
-	foreach($parameters as $key=>$parameter){$text=str_replace("{".$key."}",$parameter,$text);}
+	foreach($parameters as $key=>$parameter){$text=str_replace('{'.$key.'}',$parameter,$text);}
 	// return
 	return $text;
 }
@@ -110,7 +110,7 @@ function api_text_localized($json_localized_text,$localization_code=null){
 	// try to get localized text
 	$text=$localized_text_array[$localization_code];
 	// check for localized text or try to load default
-	if(!strlen($text)){$text=$localized_text_array["en_EN"];}
+	if(!strlen($text)){$text=$localized_text_array['en_EN'];}
 	// check for default localized text
 	if(!strlen($text)){return false;}
 	// return
@@ -157,12 +157,12 @@ function api_tag($tag,$text,$class=null,$style=null,$tags=null,$id=null){
  * @param string $id Link ID or random created
  * @return string|boolean HTML link source code or false
  */
-function api_link($url,$label,$title=null,$class=null,$popup=false,$confirm=null,$style=null,$tags=null,$target="_self",$id=null){
+function api_link($url,$label,$title=null,$class=null,$popup=false,$confirm=null,$style=null,$tags=null,$target='_self',$id=null){
 	// check parameters
 	if(!$url){return false;}
 	if(!$label){return false;}
 	if(!$id){$id=api_random();}
-	if(substr($url,0,1)=="?"){$url="index.php".$url;}
+	if(substr($url,0,1)=='?'){$url='index.php'.$url;}
 	// make html source code
 	$return="<a id=\"link_".$id."\" href=\"".$url."\"";
 	if($class){$return.=" class=\"".$class."\"";}
@@ -191,7 +191,7 @@ function api_link($url,$label,$title=null,$class=null,$popup=false,$confirm=null
  * @param string $id Link ID or random created
  * @return string|boolean HTML mail link source code or false
  */
-function api_mail_link($address,$label=null,$title=null,$class=null,$style=null,$tags=null,$target="_self",$id=null){
+function api_mail_link($address,$label=null,$title=null,$class=null,$style=null,$tags=null,$target='_self',$id=null){
 	// check parameters
 	if(!$address){return false;}
 	if(!$label){$label=$address;}
@@ -231,7 +231,7 @@ function api_mail_link($address,$label=null,$title=null,$class=null,$style=null,
 function api_image($path,$class=null,$width=null,$height=null,$refresh=false,$tags=null){
 	// check parameters
 	if(!$path){return false;}
-	if($refresh){$refresh="?".api_random();}
+	if($refresh){$refresh='?'.api_random();}
 	// make html source code
 	$return="<img src=\"".$path.$refresh."\"";
 	if($class){$return.=" class=\"".$class."\"";}
@@ -256,8 +256,8 @@ function api_image($path,$class=null,$width=null,$height=null,$refresh=false,$ta
 function api_icon($icon,$title=null,$class=null,$style=null,$tags=null){
 	// check parameters
 	if($icon==null){return false;}
-	if(substr($icon,0,2)=="fa"){$icon="fa fa-fw ".$icon;}
-	else{$icon="glyphicon glyphicon-".$icon;}
+	if(substr($icon,0,2)=='fa'){$icon='fa fa-fw '.$icon;}
+	else{$icon='glyphicon glyphicon-'.$icon;}
 	if(is_int(strpos($class,"hidden-link"))){$icon.=" faa-tada animated-hover";}
 	// make html source code
 	$return="<i class=\"".$icon." ".$class."\"";
@@ -277,7 +277,7 @@ function api_icon($icon,$title=null,$class=null,$style=null,$tags=null){
  */
 function api_parse_url($url=null){
 	// check url
-	if(!$url){$url=(isset($_SERVER['HTTPS'])?"https":"http")."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];}
+	if(!$url){$url=(isset($_SERVER['HTTPS'])?'https':'http').'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];}
 	// build object
 	$return=new stdClass();
 	// parse url string into object
@@ -296,7 +296,7 @@ function api_parse_url($url=null){
  * @param string $class alert class [info|success|warning|danger]
  * @return boolean alert saved status
  */
-function api_alerts_add($message,$class="info"){
+function api_alerts_add($message,$class='info'){
 	// check parameters
 	if(!$message){return false;}
 	if(!is_array($_SESSION['coordinator_alerts'])){$_SESSION['coordinator_alerts']=array();}
@@ -308,7 +308,7 @@ function api_alerts_add($message,$class="info"){
 	// add alert to session alerts array
 	$_SESSION['coordinator_alerts'][]=$alert;
 	// dump alert for submit and controller
-	if(in_array(SCRIPT,array("submit","controller"))){api_dump($alert->message,"ALERT","alert-".$alert->class);}
+	if(in_array(SCRIPT,array('submit','controller'))){api_dump($alert->message,'ALERT','alert-'.$alert->class);}
 	// return
 	return true;
 }
@@ -327,8 +327,8 @@ function api_alerts_add($message,$class="info"){
  */
 function api_check_version($current,$new){
 	if(!strlen($current) || !strlen($new)){return false;}
-	$current_t=explode(".",$current);
-	$new_t=explode(".",$new);
+	$current_t=explode('.',$current);
+	$new_t=explode('.',$new);
 	// check major version
 	if($new_t[0]>$current_t[0]){return 1;}
 	if($new_t[0]<$current_t[0]){return -1;}
@@ -345,7 +345,7 @@ function api_check_version($current,$new){
 /**
  * Check Authorization
  *
- * @param string $authorization Authorization to check
+ * @param string|array $authorization Authorizations to check (if many, one is enough)
  * @param string $redirect If unauthorized redirect to this script
  * @param string $module Module (default current module)
  * @param booelan $inherited If true check also in hinerited permissions
@@ -354,34 +354,42 @@ function api_check_version($current,$new){
  */
 function api_checkAuthorization($authorization,$redirect=null,$module=null,$inherited=true,$superuser=true){
 	// check parameters
-	if(!$authorization){return false;}
+	if(!is_array($authorization) && !strlen($authorization)){return false;}
+	if(!is_array($authorization)){$authorization=array($authorization);}
+	$authorization_array=array_filter($authorization);
+	if(!count($authorization_array)){return false;}
 	if(!$module){$module=MODULE;}
-	// check for all actions
-	if($authorization=="*"){
-		// get all module action authorizations
-		$results_array=$GLOBALS['session']->user->authorizations_array[$module];
-		// check all actions
-		foreach($results_array as $result){
-			// check for action
-			if($result=="authorized"){return true;}
-			if($inherited && $result=="inherited"){return true;}
-		}
-	}else{
-		// get module action authorization
-		$result=$GLOBALS['session']->user->authorizations_array[$module][$authorization];
-		// check for action
-		if($result=="authorized"){return true;}
-		if($inherited && $result=="inherited"){return true;}
-	}
 	// check superuser
 	if($superuser && $GLOBALS['session']->user->superuser){
-		//if(DEBUG){api_alerts_add("Check permission [".$module."][".$authorization."] = SUPERUSER","warning");} /** @todo fare un array specifico e farlo vedere prima del debug */
+		//if(DEBUG){api_alerts_add('Check permission ['.$module.']['.$authorization.'] = SUPERUSER','warning');} /** @todo fare un array specifico e farlo vedere prima del debug */
 		return true;
 	}
-	// unauthorized redirection to script
-	if($redirect){
-		api_alerts_add(api_text("alert_unauthorized",array($module,$authorization)),"danger");
-		api_redirect("?mod=".$module."&scr=".$redirect);
+	// if one authorization is * (all action) leave just that
+	foreach($authorization_array as $authorization_f){if($authorization_f=='*'){$authorization_array=array('*');break;}}
+	// cycle all authorizations
+	foreach($authorization_array as $authorization_f){
+		// check for all actions
+		if($authorization_f=='*'){
+			// get all module action authorizations
+			$results_array=$GLOBALS['session']->user->authorizations_array[$module];
+			// check all actions
+			foreach($results_array as $result){
+				// check for action
+				if($result=='authorized'){return true;}
+				if($inherited && $result=='inherited'){return true;}
+			}
+		}else{
+			// get module action authorization
+			$result=$GLOBALS['session']->user->authorizations_array[$module][$authorization_f];
+			// check for action
+			if($result=='authorized'){return true;}
+			if($inherited && $result=='inherited'){return true;}
+		}
+		// unauthorized redirection to script
+		if($redirect){
+			api_alerts_add(api_text('alert_unauthorized',array($module,implode(',',$authorization_array))),'danger');
+			api_redirect('?mod='.$module.'&scr='.$redirect);
+		}
 	}
 	// unauthorized return
 	return false;
@@ -397,10 +405,10 @@ function api_random($lenght=9){
 	if(!is_int($lenght)){$lenght=9;}
 	// definitions
 	$return=null;
-	$chars=array("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h",
-	 "i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-	 "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R",
-	 "S","T","U","V","W","X","Y","Z");
+	$chars=array('0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h',
+	 'i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+	 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R',
+	 'S','T','U','V','W','X','Y','Z');
 	// pick random character
 	for($i=0;$i<$lenght;$i++){$return.=$chars[array_rand($chars)];}
 	// return
@@ -420,7 +428,7 @@ function api_random_id(){
  */
 function api_random_color(){
 	// generate random code
-	return "#".substr(md5(rand()),0,6);
+	return '#'.substr(md5(rand()),0,6);
 }
 
 
@@ -463,7 +471,7 @@ function api_sqlDump_import($sql_dump){
 	// cycle all queries
 	foreach($sql_dump as $line){
 		// skip comments
-		if(substr($line,0,2)=="--" || $line==""){continue;}
+		if(substr($line,0,2)=='--' || $line==''){continue;}
 		$sql_query=$sql_query.$line;
 		// search for query end signal
 		if(substr(trim($line),-1,1)==';'){
@@ -472,7 +480,7 @@ function api_sqlDump_import($sql_dump){
 			// execute query
 			$GLOBALS['database']->queryExecute($sql_query);
 			// reset query
-			$sql_query="";
+			$sql_query='';
 		}
 	}
 }
@@ -496,22 +504,22 @@ function api_return_script($default){
 /**
  * URL (from array)
  *
- * @param string[] $array Array of url example: array("mod"=>MODULE,"scr"=>SCRIPT,"idObject"=>1)
+ * @param string[] $array Array of url example: array('mod'=>MODULE,'scr'=>SCRIPT,'idObject'=>1)
  * @return string|boolean Return url or false
  */
 function api_url(array $array){
 	// check parameters
 	if(!$array['scr']){return false;}
 	// definitions
-	$static=array("mod"=>MODULE,"scr"=>null);
+	$static=array('mod'=>MODULE,'scr'=>null);
 	// merge arrays
 	$url_array=array_merge($static,$array);
 	// make url
-	$url="?".http_build_query($url_array);
+	$url='?'.http_build_query($url_array);
 	// debug
-	/*api_dump($array,"array");
-	api_dump($url_array,"url_array");
-	api_dump($url,"url");*/
+	/*api_dump($array,'array');
+	api_dump($url_array,'url_array');
+	api_dump($url,'url');*/
 	// return
 	return $url;
 }
@@ -519,7 +527,7 @@ function api_url(array $array){
 /**
  * Return array
  *
- * @param string[] $default Array of default return url example: array("mod"=>MODULE,"scr"=>SCRIPT,"idObject"=>1)
+ * @param string[] $default Array of default return url example: array('mod'=>MODULE,'scr'=>SCRIPT,'idObject'=>1)
  * @return string|boolean Return url or false
  */
 function api_return(array $default){
@@ -531,9 +539,9 @@ function api_return(array $default){
 	if(is_array($request) && strlen($request['scr'])){$return_array=array_merge($default,$request);}
 	else{$return_array=array_merge($default);}
 	// debug
-	/*api_dump($default,"default");
-	api_dump($return,"return");
-	api_dump($url_array,"url_array");*/
+	/*api_dump($default,'default');
+	api_dump($return,'return');
+	api_dump($url_array,'url_array');*/
 	// return
 	return $return_array;
 }
@@ -541,7 +549,7 @@ function api_return(array $default){
 /**
  * Return URL
  *
- * @param string[] $default Array of default return url example: array("mod"=>MODULE,"scr"=>SCRIPT,"idObject"=>1)
+ * @param string[] $default Array of default return url example: array('mod'=>MODULE,'scr'=>SCRIPT,'idObject'=>1)
  * @return string|boolean Return url or false
  */
 function api_return_url(array $default){
@@ -554,7 +562,7 @@ function api_return_url(array $default){
  * @param string[] $divider Script prefix divider
  * @return string Script prefix
  */
-function api_script_prefix($divider="_"){
+function api_script_prefix($divider='_'){
 	return explode($divider,SCRIPT)[0];
 }
 
@@ -568,7 +576,7 @@ function api_script_prefix($divider="_"){
  */
 function api_cleanString($string,$pattern="/[^A-Za-zÀ-ÿ0-9-_.,:;' ]/",$null=null){
 	// remove multiple spaces and apply patter
-	$return=preg_replace($pattern,"",preg_replace("!\s+!"," ",$string));
+	$return=preg_replace($pattern,'',preg_replace("!\s+!",' ',$string));
 	// check for null
 	if(!strlen($return)){$return=$null;}
 	// return
@@ -589,12 +597,12 @@ function api_parameter_default($parameter,$module=null,$user=null){
 	if(!$module){$module=MODULE;}
 	if(!$user){$user=$GLOBALS['session']->user->id;}
 	// make parameter id
-	$parameter_code=$module."-".$parameter;
+	$parameter_code=$module.'-'.$parameter;
 	// get parameter
 	$parameter_result=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `framework__users__parameters` WHERE `fkUser`='".$user."' AND `parameter`='".$parameter_code."'");
-	//api_dump($parameter_result,"parameter result");
+	//api_dump($parameter_result,'parameter result');
 	$parameter_obj=new cParameter($parameter_result);
-	//api_dump($parameter_obj,"parameter object");
+	//api_dump($parameter_obj,'parameter object');
 	// return
 	return $parameter_obj->value;
 }
@@ -607,7 +615,7 @@ function api_parameter_default($parameter,$module=null,$user=null){
  * @param string $idKey Key field name
  * @return boolean
  */
-function api_object_update($table,$id,$idKey="id"){
+function api_object_update($table,$id,$idKey='id'){
 	// check parameters
 	if(!$table || !$id || !$idKey){return false;}
 	// build division query object
@@ -616,7 +624,7 @@ function api_object_update($table,$id,$idKey="id"){
 	$update_qobj->updTimestamp=time();
 	$update_qobj->updFkUser=$GLOBALS['session']->user->id;
 	// debug
-	api_dump($update_qobj,"update query object");
+	api_dump($update_qobj,'update query object');
 	// update object
 	$GLOBALS['database']->queryUpdate($table,$update_qobj);
 	// return
@@ -632,7 +640,7 @@ function api_availableModules(){
 	// definitions
 	$return=array();
 	// execute query
-	$return["framework"]=new cModule("framework");
+	$return['framework']=new cModule('framework');
 	$modules_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules` WHERE `id`!='framework' ORDER BY `id`");
 	foreach($modules_results as $module_fobj){$return[$module_fobj->id]=new cModule($module_fobj);}
 	// return modules
@@ -668,7 +676,7 @@ function api_availableUsers($disabled=false,$deleted=false){
 	// definitions
 	$return=array();
 	// query where
-	$query_where="1";
+	$query_where='1';
 	if(!$disabled){$query_where.=" AND `enabled`='1'";}
 	if(!$deleted){$query_where.=" AND `deleted`='0'";}
 	// execute query
@@ -706,7 +714,7 @@ function api_availableAuthorizations($module=null){
 	// definitions
 	$return=array();
 	// query where
-	if($module){$query_where="`fkModule`='".$module."'";}else{$query_where="1";}
+	if($module){$query_where="`fkModule`='".$module."'";}else{$query_where='1';}
 	// execute query
 	$authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules__authorizations` WHERE ".$query_where." ORDER BY `order`");
 	foreach($authorizations_results as $authorization){$return[$authorization->id]=new cAuthorization($authorization);}
@@ -735,14 +743,14 @@ function api_sortObjectsArray(array $objects_array,$property,$reverse=false){
 
 /**
  * Objects Array to Transcoding Array
- * $array["code"]="label";
+ * $array['code']='label';
  *
  * @param array $objects Array of objects
  * @param string $code_property Object code properyy
  * @param string $label_property Object label property
  * @return array|false
  */
-function api_transcodingsFromObjects(array $objects,$code_property="id",$label_property="name"){
+function api_transcodingsFromObjects(array $objects,$code_property='id',$label_property='name'){
 	// check properties
 	if(!is_array($objects)){return false;}
 	if(!strlen($code_property)){return false;}
@@ -753,8 +761,8 @@ function api_transcodingsFromObjects(array $objects,$code_property="id",$label_p
 	foreach($objects as $fobj){
 		// check for object and if property exists
 		if(!is_object($fobj)){continue;}
-		$code=(property_exists($fobj,$code_property)?$fobj->$code_property:"{property_not_found|".$code_property."}");
-		$label=(property_exists($fobj,$label_property)?$fobj->$label_property:"{property_not_found|".$label_property."}");
+		$code=(property_exists($fobj,$code_property)?$fobj->$code_property:'{property_not_found|'.$code_property.'}');
+		$label=(property_exists($fobj,$label_property)?$fobj->$label_property:'{property_not_found|'.$label_property.'}');
 		// add item to array
 		$return_array[$code]=$label;
 	}
@@ -779,7 +787,7 @@ function api_implode($glue,array $pieces,$unvalued=null){
 
 
 function api_label($label,$class=null,$style=null,$tags=null){
-	return api_tag("span",$label,"label ".$class,$style,$tags);
+	return api_tag('span',$label,'label '.$class,$style,$tags);
 }
 
 /**
@@ -790,10 +798,10 @@ function api_label($label,$class=null,$style=null,$tags=null){
 function api_load_required_modules_recursively($modules_array){
 	foreach($modules_array as $module_f){
 		// check and load functions
-		if(file_exists(DIR."modules/".$module_f."/functions.inc.php")){require_once(DIR."modules/".$module_f."/functions.inc.php");}
-		else{echo "WARNING LOADING REQUIRED MODULE: File modules/".$module_f."/functions.inc.php was not found";}
+		if(file_exists(DIR.'modules/'.$module_f.'/functions.inc.php')){require_once(DIR.'modules/'.$module_f.'/functions.inc.php');}
+		else{echo 'WARNING LOADING REQUIRED MODULE: File modules/'.$module_f.'/functions.inc.php was not found';}
 		// check for recursive required modules
-		require_once(DIR."modules/".$module_f."/module.inc.php");
+		require_once(DIR.'modules/'.$module_f.'/module.inc.php');
 		if($module_required_modules){api_load_required_modules_recursively($module_required_modules);}
 	}
 }
