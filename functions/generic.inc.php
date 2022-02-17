@@ -385,11 +385,11 @@ function api_checkAuthorization($authorization,$redirect=null,$module=null,$inhe
 			if($result=='authorized'){return true;}
 			if($inherited && $result=='inherited'){return true;}
 		}
-		// unauthorized redirection to script
-		if($redirect){
-			api_alerts_add(api_text('alert_unauthorized',array($module,implode(',',$authorization_array))),'danger');
-			api_redirect('?mod='.$module.'&scr='.$redirect);
-		}
+	}
+	// unauthorized redirection to script
+	if($redirect){
+		api_alerts_add(api_text('alert_unauthorized',array($module,implode(',',$authorization_array))),'danger');
+		api_redirect('?mod='.$module.'&scr='.$redirect);
 	}
 	// unauthorized return
 	return false;
