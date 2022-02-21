@@ -34,6 +34,13 @@ class strFilter{
 		$this->id="filter_".($id?$id:api_random());
 		// parse current url
 		parse_str(parse_url($_SERVER['REQUEST_URI'])['query'],$this->uri_array);
+		// store and retrieve filter cookies
+		$cookie_values=array();
+		$cookie_name=MODULE.'-'.SCRIPT.'-'.TAB.'-filters';
+		if($_REQUEST['filter_reset']){unset($_COOKIE[$cookie_name]);}
+		foreach($_REQUEST as $filter=>$values){if(substr($filter,0,7)!='filter_'){continue;}$cookie_values[$filter]=$values;}
+		if(count($cookie_values)){setcookie($cookie_name,json_encode($cookie_values),time()+(60*60));}
+		if(is_array(json_decode($_COOKIE[$cookie_name],true))){foreach(json_decode($_COOKIE[$cookie_name],true) as $filter=>$values){$_REQUEST[$filter]=$values;}}
 		// initializations
 		$this->url="?".http_build_query($this->uri_array);
 		$this->items_array=array();
@@ -299,7 +306,7 @@ class strFilter{
 		}
 		// form controls
 		$form->addControl("submit",api_text("filters-fc-submit"));
-		$form->addControl("button",api_text("filters-fc-reset"),$this->url);
+		$form->addControl("button",api_text("filters-fc-reset"),$this->url."&filter_reset=1");
 		// build filters modal window
 		$this->modal=new strModal(api_text("filters-modal-title"),null,$this->id);
 		$this->modal->setBody($form->render(2));
@@ -356,10 +363,10 @@ class strFilter{
 		// debug
 		//api_dump($active_filters_array);
 		// make source code
-		$return.="<!-- ".$this->id." -->\n";
+		$return="<!-- ".$this->id." -->\n";
 		$return.="<div class=\"filter\" style=\"margin:-8px 0 8px 0\">\n";
 		// add reset link
-		$return.=api_link($this->url,api_tag("span",api_icon("fa-times")." ".api_text("filters").":","label label-default"),api_text("filters-reset"))."\n";
+		$return.=api_link($this->url."&filter_reset=1",api_tag("span",api_icon("fa-times")." ".api_text("filters").":","label label-default"),api_text("filters-reset"))."\n";
 		// check for search
 		if($_REQUEST['filter_search']){$return.=$this->link(api_tag("span",api_text("filters-search").": ".$_REQUEST['filter_search'],"label label-info"),api_text("filters-edit"))."\n";}
 		// add all active filters
