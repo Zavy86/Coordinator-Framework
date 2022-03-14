@@ -31,7 +31,7 @@ $configuration=new stdClass();
 require_once("config.inc.php");
 
 // check for debug from session and parameters
-if($_SESSION['coordinator_debug']){$debug=true;}
+if(isset($_SESSION['coordinator_debug']) && $_SESSION['coordinator_debug']){$debug=true;}
 if(isset($_GET['debug'])){
 	if($_GET['debug']==1){$debug=true;$_SESSION['coordinator_debug']=true;}
 	else{$debug=false;$_SESSION['coordinator_debug']=false;}
