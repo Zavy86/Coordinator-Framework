@@ -1153,7 +1153,7 @@
    unset($_SESSION["coordinator_session_redirect"]);
   }
   // check for redirect url
-  if(!strlen($url)){$url="index.php";}
+  if(!isset($url) || !strlen($url)){$url="index.php";}
   // redirect
   api_redirect($url);
  }

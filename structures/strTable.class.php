@@ -133,7 +133,7 @@ class strTable{
 	 */
 	function addRowField($content,$class=null,$style=null,$tags=null,$id=null){
 		if(!$this->current_row){echo "ERROR - Table->addRowField - No row defined";return false;}
-		if(!strlen($content)){$content="&nbsp;";}
+		if(!strlen((string)$content)){$content="&nbsp;";}
 		// build field object
 		$td=new stdClass();
 		$td->id="td_".($id?$id:api_random());
@@ -142,7 +142,7 @@ class strTable{
 		$td->style=$style;
 		$td->tags=$tags;
 		// checks
-		if(is_int(strpos($td->class,"truncate-ellipsis"))){$td->content="<span>".$td->content."</span>";}
+		if(is_int(strpos((string)$td->class,"truncate-ellipsis"))){$td->content="<span>".$td->content."</span>";}
 		// add field to row
 		$this->rows_array[$this->current_row]->fields_array[]=$td;
 		return true;

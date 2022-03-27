@@ -78,7 +78,7 @@
    $return_array=array();
    // make query
    $query="SELECT * FROM `framework__users` WHERE ".$where." ORDER BY ".$order;
-   if(strlen($limit)){$query.=" LIMIT ".$limit;}
+   if(strlen((string)$limit)){$query.=" LIMIT ".$limit;}
    //api_dump($query,static::class."->availables query");
    // fetch query results
    $results=$GLOBALS['database']->queryObjects($query);
@@ -99,15 +99,15 @@
    if(!$user->id){return false;}
    // set properties
    $this->id=(int)$user->id;
-   $this->mail=stripslashes($user->mail);
-   $this->username=stripslashes($user->username);
-   $this->firstname=stripslashes($user->firstname);
-   $this->lastname=stripslashes($user->lastname);
-   $this->localization=stripslashes($user->localization);
-   $this->timezone=stripslashes($user->timezone);
-   $this->authentication=stripslashes($user->authentication);
-   $this->gender=stripslashes($user->gender);
-   $this->birthday=stripslashes($user->birthday);
+   $this->mail=stripslashes((string)$user->mail);
+   $this->username=stripslashes((string)$user->username);
+   $this->firstname=stripslashes((string)$user->firstname);
+   $this->lastname=stripslashes((string)$user->lastname);
+   $this->localization=stripslashes((string)$user->localization);
+   $this->timezone=stripslashes((string)$user->timezone);
+   $this->authentication=stripslashes((string)$user->authentication);
+   $this->gender=stripslashes((string)$user->gender);
+   $this->birthday=stripslashes((string)$user->birthday);
    $this->enabled=(bool)$user->enabled;
    $this->superuser=(bool)$user->superuser;
    $this->level=(int)$user->level;

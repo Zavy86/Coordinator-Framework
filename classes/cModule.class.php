@@ -61,7 +61,7 @@
    $this->repository_url=$module_repository_url;
    $this->repository_version_url=$module_repository_version_url;
    $this->required_modules_array=$module_required_modules;
-   if(!is_array($this->required_modules_array)){$this->required_modules_array=array_filter(array($this->required_modules_array),'strlen');}
+   if(!is_array($this->required_modules_array)){$this->required_modules_array=array_filter(array_filter(array($this->required_modules_array)),'strlen');}
    // get authorizations
    $this->authorizations_array=array();
    $authorizations_results=$GLOBALS['database']->queryObjects("SELECT * FROM `framework__modules__authorizations` WHERE `fkModule`='".$this->id."' ORDER BY `order`");

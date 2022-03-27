@@ -102,7 +102,7 @@
    if($field->typology=="text_localized"){
     $field->name.="_localized";
     $field->value_localizations=$field->value;
-    if(!is_array($this->value_localizations)){$this->value_localizations=array();}
+    if(!is_array($field->value_localizations)){$field->value_localizations=array();}
     $field->value=$field->value_localizations[$GLOBALS['session']->user->localization];
     if(!$field->value){$field->value=$field->value_localizations["en_EN"];}
     $field->addon_prepend=api_icon("fa-flag-o");
@@ -319,7 +319,7 @@
       // cycle all field options
       foreach($field->options_array as $option_id=>$option){
        $return.=$split_identation."   ";
-       if(!is_int(strpos($field->class,"-inline"))){$return.="<div class=\"".$field->typology." ".$field->class."\">";}
+       if(!is_int(strpos((string)$field->class,"-inline"))){$return.="<div class=\"".$field->typology." ".$field->class."\">";}
        $return.="<label class=\"".$field->class."\"><input type=\"".$field->typology."\" name=\"".$field->name."\" value=\"".$option->value."\"";
        if(is_array($field->value)){if(in_array($option->value,$field->value)){$return.=" checked=\"checked\"";}}
        else{if($option->value===$field->value){$return.=" checked=\"checked\"";}}
@@ -329,7 +329,7 @@
        if($option->tags){$return.=" ".$option->tags;}
        if(!$option->enabled){$return.=" disabled=\"disabled\"";}
        $return.=" id=\"".$this->id."_input_".$field->name."_option_".$option_id."\">".$option->label."</label>";
-       if(!is_int(strpos($field->class,"-inline"))){$return.="</div>\n";}else{$return.="\n";}
+       if(!is_int(strpos((string)$field->class,"-inline"))){$return.="</div>\n";}else{$return.="\n";}
       }
       break;
      // select box

@@ -89,17 +89,17 @@ function api_timestamp_dayRange($timestamp,$timezone=null){
 function api_timestamp_intervalTextual($difference,$showSeconds=true){ /** @tip fare anche interalFormat */
 	if($difference===null){return false;}
 	$return=null;
-	$days=intval(intval($difference)/(3600*24));
+	$days=round(round($difference)/(3600*24));
 	if($days==1){$return.=$days." ".api_text("day").", ";}
 	elseif($days>1){$return.=$days." ".api_text("days").", ";}
-	$hours=(intval($difference)/3600)%24;
+	$hours=round(round($difference)/3600)%24;
 	if($hours==1){$return.=$hours." ".api_text("hour").", ";}
 	elseif($hours>1){$return.=$hours." ".api_text("hours").", ";}
-	$minutes=(intval($difference)/60)%60;
+	$minutes=round(round($difference)/60)%60;
 	if($minutes==1){$return.=$minutes." ".api_text("minute").", ";}
 	elseif($minutes>1){$return.=$minutes." ".api_text("minutes").", ";}
-	if($showSeconds || intval($difference)<60){
-		$seconds=intval($difference)%60;
+	if($showSeconds || round($difference)<60){
+		$seconds=round($difference)%60;
 		if($seconds==1){$return.=$seconds." ".api_text("second").", ";}
 		elseif($seconds>1){$return.=$seconds." ".api_text("seconds").", ";}
 		else{$return.="0 ".api_text("seconds").", ";}

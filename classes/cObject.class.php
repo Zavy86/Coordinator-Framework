@@ -83,6 +83,7 @@ abstract class cObject{
 	 * @return object[] Array of available objects
 	 */
 	public static function availables($deleted=false,array $conditions=null,$limit=null){
+		if(!is_array($limit)){$limit=array();}
 		// definitions
 		$query_where="1";
 		// check for deleted
@@ -242,7 +243,7 @@ abstract class cObject{
 			// skip undefined properties
 			if(!array_key_exists($property,get_object_vars($this))){continue;}
 			// set property value
-			$this->$property=trim($value);
+			$this->$property=trim((string)$value);
 		}
 		// throw event
 		$this->event("trace","loaded");
@@ -816,7 +817,7 @@ abstract class cObject{
 		$query_obj->timestamp=time();
 		$query_obj->alert=($typology=="warning"?1:0);
 		$query_obj->event=$action;
-		$query_obj->properties_json=(count($properties)?json_encode($properties):null);
+		$query_obj->properties_json=(is_array($properties)&&count($properties)?json_encode($properties):null);
 		// event object
 		api_dump($query_obj,static::class." event query object");
 		// execute query

@@ -22,7 +22,7 @@ function api_period($period){
 	// set locale
 	setlocale(LC_TIME,$GLOBALS['session']->user->localization);
 	// convert month to text
-	$return=ucfirst(strftime("%B",strtotime($year."-".$month."-01")))." ".$year;
+	$return=ucfirst(date("F",strtotime($year."-".$month."-01")))." ".$year;
 	// return
 	return $return;
 }

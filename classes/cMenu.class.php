@@ -48,24 +48,26 @@
    $this->id=(int)$menu->id;
    $this->fkMenu=$menu->fkMenu; /** @todo verificare come fare (int) ma non sui null */
    $this->order=(int)$menu->order;
-   $this->typology=stripslashes($menu->typology);
-   $this->icon=stripslashes($menu->icon);
-   $this->label_localizations=json_decode($menu->label_localizations,true);
-   $this->title_localizations=json_decode($menu->title_localizations,true);
-   $this->url=stripslashes($menu->url);
-   $this->module=stripslashes($menu->module);
-   $this->script=stripslashes($menu->script);
-   $this->tab=stripslashes($menu->tab);
-   $this->action=stripslashes($menu->action);
-   $this->target=stripslashes($menu->target);
-   $this->authorization=stripslashes($menu->authorization);
+   $this->typology=stripslashes((string)$menu->typology);
+   $this->icon=stripslashes((string)$menu->icon);
+   $this->label_localizations=json_decode((string)$menu->label_localizations,true);
+   $this->title_localizations=json_decode((string)$menu->title_localizations,true);
+   $this->url=stripslashes((string)$menu->url);
+   $this->module=stripslashes((string)$menu->module);
+   $this->script=stripslashes((string)$menu->script);
+   $this->tab=stripslashes((string)$menu->tab);
+   $this->action=stripslashes((string)$menu->action);
+   $this->target=stripslashes((string)$menu->target);
+   $this->authorization=stripslashes((string)$menu->authorization);
    $this->addTimestamp=(int)$menu->addTimestamp;
    $this->addFkUser=(int)$menu->addFkUser;
    $this->updTimestamp=(int)$menu->updTimestamp;
    $this->updFkUser=(int)$menu->updFkUser;
    // make label and title localized @todo usare api_text_localized
+	 if(!is_array($this->label_localizations)){$this->label_localizations=array();}
    $this->label=$this->label_localizations[$GLOBALS['session']->user->localization];
    if(!$this->label){$this->label=$this->label_localizations["en_EN"];}
+	 if(!is_array($this->title_localizations)){$this->title_localizations=array();}
    $this->title=$this->title_localizations[$GLOBALS['session']->user->localization];
    if(!$this->title){$this->title=$this->title_localizations["en_EN"];}
    // make module url

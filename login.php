@@ -13,7 +13,7 @@
  // set application title
  $app->setTitle("Login");
  // get cookie
- $c_username=$_COOKIE['login-username'];
+ $c_username=$_COOKIE['login-username']??'';
  // build login form manually
  $form_source="<!-- form -->\n";
  $form_source.="<center>\n";

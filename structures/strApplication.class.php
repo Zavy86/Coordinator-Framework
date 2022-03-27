@@ -177,7 +177,7 @@
    * @return boolean
    */
   public function addModal($modal){
-   if(!is_a($modal,strModal)){return false;}
+   if(!is_a($modal,'strModal')){return false;}
    // add modal to modals array
    $this->modals_array[$modal->id]=$modal;
    return true;
@@ -412,7 +412,7 @@
    // add warning and errors log to alerts
    foreach($_SESSION["coordinator_logs"] as $log){if($log[0]!="log"){api_alerts_add($log[1],($log[0]=="error"?"danger":"warning"));}}
    // show alerts
-   if(count($_SESSION['coordinator_alerts'])){
+   if(isset($_SESSION['coordinator_alerts']) && count($_SESSION['coordinator_alerts'])){
     $return.="<!-- grid container -->\n";
     $return.="<div class=\"container\">\n";
     $return.=" <!-- grid-row -->\n";

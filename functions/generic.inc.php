@@ -129,7 +129,7 @@ function api_text_localized($json_localized_text,$localization_code=null){
  */
 function api_tag($tag,$text,$class=null,$style=null,$tags=null,$id=null){
 	// check parameters
-	if(!strlen($text)){return false;}
+	if(!strlen((string)$text)){return false;}
 	if(!$tag){return $text;}
 	// make html source code
 	$html="<".$tag;
@@ -258,7 +258,7 @@ function api_icon($icon,$title=null,$class=null,$style=null,$tags=null){
 	if($icon==null){return false;}
 	if(substr($icon,0,2)=='fa'){$icon='fa fa-fw '.$icon;}
 	else{$icon='glyphicon glyphicon-'.$icon;}
-	if(is_int(strpos($class,"hidden-link"))){$icon.=" faa-tada animated-hover";}
+	if(is_int(strpos($class??'',"hidden-link"))){$icon.=" faa-tada animated-hover";}
 	// make html source code
 	$return="<i class=\"".$icon." ".$class."\"";
 	if($title){$return.=" title=\"".$title."\"";}
@@ -284,7 +284,7 @@ function api_parse_url($url=null){
 	foreach(parse_url($url) as $key=>$value){$return->$key=$value;}
 	// parse query to array
 	$return->query_array=array();
-	parse_str($return->query,$return->query_array);
+	parse_str((string)$return->query,$return->query_array);
 	// return
 	return $return;
 }
@@ -326,7 +326,7 @@ function api_alerts_add($message,$class='info'){
  *                  false on error
  */
 function api_check_version($current,$new){
-	if(!strlen($current) || !strlen($new)){return false;}
+	if(!strlen((string)$current) || !strlen((string)$new)){return false;}
 	$current_t=explode('.',$current);
 	$new_t=explode('.',$new);
 	// check major version
