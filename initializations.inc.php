@@ -48,6 +48,10 @@ $r_script=$_REQUEST['scr']??"dashboard";
 $r_action=$_REQUEST['act']??"";
 $r_tab=$_REQUEST['tab']??"";
 
+// empty checks
+if(!strlen($r_module)){$r_module="dashboard";}
+if(!strlen($r_script)){$r_script="dashboard";}
+
 // constants definitions
 define('DEBUG',$debug);
 define('VERSION',file_get_contents("VERSION.txt"));
