@@ -151,7 +151,7 @@
    */
   public function render($echo=true){
    // calculate responsive min-width
-   $min_width=strlen($this->title)*16;
+   $min_width=strlen((string)$this->title)*16;
    foreach($this->items_array as $item){
     if(substr($item->label,0,2)=="<i"){$min_width+=45;}
     else{$min_width+=(strlen($item->label)*7)+32;}

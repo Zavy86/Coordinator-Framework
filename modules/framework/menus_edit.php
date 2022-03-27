@@ -27,7 +27,7 @@
  // cycle all first level menus
  foreach(api_availableMenus(null) as $menu_option_obj){
   if($menu_option_obj->typology!="group" || $menu_option_obj->id==$menu_obj->id){continue;}
-  $form->addFieldOption($menu_option_obj->id,str_repeat("&nbsp;&nbsp;&nbsp;",$menu_option_obj->nesting).$menu_option_obj->label);
+  $form->addFieldOption($menu_option_obj->id,str_repeat("&nbsp;&nbsp;&nbsp;",(int)$menu_option_obj->nesting).$menu_option_obj->label);
  }
  // label, title and icon
  $form->addField("text_localized","label_localizations",api_text("menus_edit-label"),$menu_obj->label_localizations,api_text("menus_edit-label-placeholder"));
@@ -43,7 +43,7 @@
  // link typology
  $form->addField("text","url",api_text("menus_edit-url"),$menu_obj->url,api_text("menus_edit-url-placeholder"));
  // authorization
- $form->addField("select","authorization",api_text("menus_edit-authorization"),(strpos($menu_obj->authorization,"|*")?"module|*":$menu_obj->authorization));
+ $form->addField("select","authorization",api_text("menus_edit-authorization"),(strpos((string)$menu_obj->authorization,"|*")?"module|*":$menu_obj->authorization));
  $form->addFieldOption("",api_text("menus_edit-authorization-none"));
  $form->addFieldOption("module|*",api_text("menus_edit-authorization-module"));
  foreach(api_availableAuthorizations() as $authorization_fobj){$form->addFieldOption($authorization_fobj->fkModule."|".$authorization_fobj->id,$authorization_fobj->id);}

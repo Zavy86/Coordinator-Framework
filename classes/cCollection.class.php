@@ -19,12 +19,12 @@ class cCollection implements Iterator,Countable{
 	/**
 	 * Iterator methods @inheritDoc
 	 */
-	public function current(){return $this->items_array[$this->index];}
-	public function key(){return $this->index;}
-	public function next(){$this->index++;}
-	public function rewind(){$this->index=0;}
-	public function valid(){return isset($this->items_array[$this->key()]);}
-	public function count(){return count($this->items_array);}
+	public function current():mixed{return $this->items_array[$this->index];}
+	public function key():mixed{return $this->index;}
+	public function next():void{$this->index++;}
+	public function rewind():void{$this->index=0;}
+	public function valid():bool{return isset($this->items_array[$this->key()]);}
+	public function count():int{return count($this->items_array);}
 
 	public function reverse(){
 		$this->items_array=array_reverse($this->items_array);

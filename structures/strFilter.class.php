@@ -40,7 +40,7 @@ class strFilter{
 		if($_REQUEST['filter_reset']){unset($_COOKIE[$cookie_name]);}
 		foreach($_REQUEST as $filter=>$values){if(substr($filter,0,7)!='filter_'){continue;}$cookie_values[$filter]=$values;}
 		if(count($cookie_values)){setcookie($cookie_name,json_encode($cookie_values),time()+(60*60));}
-		if(is_array(json_decode($_COOKIE[$cookie_name],true))){foreach(json_decode($_COOKIE[$cookie_name],true) as $filter=>$values){$_REQUEST[$filter]=$values;}}
+		if(is_array(json_decode((string)$_COOKIE[$cookie_name],true))){foreach(json_decode((string)$_COOKIE[$cookie_name],true) as $filter=>$values){$_REQUEST[$filter]=$values;}}
 		// initializations
 		$this->url="?".http_build_query($this->uri_array);
 		$this->items_array=array();
@@ -326,7 +326,7 @@ class strFilter{
 	 */
 	public function link($label,$title=null,$class=null,$confirm=null,$style=null,$tags=null){
 		// check for modal or build
-		if(!is_a($this->modal,strModal)){if(!$this->buildModal()){return false;}}
+		if(!is_a($this->modal,'strModal')){if(!$this->buildModal()){return false;}}
 		// return modal link calling original modal link function
 		return $this->modal->link($label,$title,$class,$confirm,$style,$tags);
 	}
@@ -338,7 +338,7 @@ class strFilter{
 	 */
 	public function render(){
 		// check for modal or build
-		if(!is_a($this->modal,strModal)){if(!$this->buildModal()){return false;}}
+		if(!is_a($this->modal,'strModal')){if(!$this->buildModal()){return false;}}
 		// definitions
 		$active_filters_array=array();
 		// get active filters

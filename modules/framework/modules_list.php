@@ -32,7 +32,7 @@
   // get last released version from GitHub
   $repository_version=null;
   if($module->repository_version_url && ACTION=="check"){$repository_version=file_get_contents($module->repository_version_url."?".rand(1,99999));}
-  if(!is_numeric(substr($repository_version,0,1))){$repository_version=null;}
+  if(!is_numeric(substr((string)$repository_version,0,1))){$repository_version=null;}
   // check if module is installed
   if($module->version!="0"){$module_installed=true;}else{$module_installed=false;}
   // check if repository version is updated among source version

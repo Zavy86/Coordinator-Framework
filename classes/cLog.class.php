@@ -37,7 +37,7 @@
    $this->timestamp=$event->timestamp;
    $this->alert=$event->alert;
    $this->event=$event->event;
-   $this->properties=json_decode($event->properties_json,true);
+   $this->properties=json_decode((string)$event->properties_json,true);
    $this->class=$class;
   }
 
@@ -102,7 +102,7 @@
    // definitions
    $return=null;
    // check for properties
-   if(count($this->properties)){
+   if(is_array($this->properties) && count($this->properties)){
     // check for decode function
     if(method_exists($this->class,"log_decode")){
      $return=call_user_func_array(array($this->class,"log_decode"),array($this->event,$this->properties));

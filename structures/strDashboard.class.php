@@ -97,7 +97,7 @@
    */
   public function addTile($url,$label,$description=null,$enabled=true,$size="1x1",$icon=null,$counter=null,$counter_class=null,$background=null,$target="_self",$class=null,$style=null,$tags=null,$id=null){
    if(!$url||!$label){return false;}
-   if(!in_array(strtolower($size),array("1x1","2x1","3x1","4x1","5x1","6x1"))){$size="1x1";}
+   if(!in_array(strtolower((string)$size),array("1x1","2x1","3x1","4x1","5x1","6x1"))){$size="1x1";}
    if(!$target){$target="_self";}
    $element=new stdClass();
    $element->id="tile_".($id?$id:api_random());
