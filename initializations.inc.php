@@ -63,8 +63,8 @@ define('DIR',ROOT.PATH);
 define('MODULE',$r_module);
 define('MODULE_PATH',DIR."modules/".MODULE."/");
 define("SCRIPT",$r_script);
-define("ACTION",$r_action);
-define("TAB",$r_tab);
+if($r_action){define("ACTION",$r_action);}
+if($r_tab){define("TAB",$r_tab);}
 
 /** PhpStorm workaround to resolve constants */
 /** @define "DIR" "./" */
