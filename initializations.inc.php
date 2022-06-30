@@ -45,12 +45,13 @@ else{error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);}
 // module variables
 $r_module=$_REQUEST['mod']??"dashboard";
 $r_script=$_REQUEST['scr']??"dashboard";
+$r_tab=$_REQUEST['tab']??"informations";
 $r_action=$_REQUEST['act']??"";
-$r_tab=$_REQUEST['tab']??"";
 
 // empty checks
 if(!strlen($r_module)){$r_module="dashboard";}
 if(!strlen($r_script)){$r_script="dashboard";}
+if(!strlen($r_tab)){$r_script="informations";}
 
 // constants definitions
 define('DEBUG',$debug);
@@ -63,8 +64,8 @@ define('DIR',ROOT.PATH);
 define('MODULE',$r_module);
 define('MODULE_PATH',DIR."modules/".MODULE."/");
 define("SCRIPT",$r_script);
-if($r_action){define("ACTION",$r_action);}
-if($r_tab){define("TAB",$r_tab);}
+define("ACTION",$r_action);
+define("TAB",$r_tab);
 
 /** PhpStorm workaround to resolve constants */
 /** @define "DIR" "./" */
