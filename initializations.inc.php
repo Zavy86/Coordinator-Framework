@@ -51,7 +51,7 @@ $r_action=$_REQUEST['act']??"";
 // empty checks
 if(!strlen($r_module)){$r_module="dashboard";}
 if(!strlen($r_script)){$r_script="dashboard";}
-if(!strlen($r_tab)){$r_script="informations";}
+if(!strlen($r_tab)){$r_tab="informations";}
 
 // constants definitions
 define('DEBUG',$debug);
