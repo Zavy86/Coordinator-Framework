@@ -519,7 +519,7 @@ abstract class cObject{
 		// build query object
 		$query_obj=new stdClass();
 		$query_obj->id=$this->id;
-		$query_obj->deleted=0;
+		$query_obj->deleted="0";
 		// debug
 		api_dump($query_obj,static::class."->undelete query object");
 		// execute query

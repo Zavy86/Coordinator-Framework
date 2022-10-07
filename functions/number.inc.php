@@ -12,7 +12,7 @@
  *
  * @param double $number Number
  * @param integer $decimals Number of decimals
- * @param boolean $currency Currency sign
+ * @param string $currency Currency sign
  * @param boolean $small_decimals Decimal in small format
  * @param boolean $hide_unsignificat Hide unsignificant decimals
  * @param string $zero_null_replace Replace zero or null with (ex. "-")
