@@ -4,6 +4,8 @@
 /.well-know/
 .htaccess
 
+/.dbdata/
+
 config.inc.php
 
 /modules/*

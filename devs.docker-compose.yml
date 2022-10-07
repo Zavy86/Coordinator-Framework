@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  database:
+    image: mysql:5.7
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: database
+      MYSQL_USER: developer
+      MYSQL_PASSWORD: developer
+    volumes:
+      - ./.dbdata:/var/lib/mysql
+    ports:
+      - "3306:3306"
+  webserver:
+    image: php:8.1-apache
+    container_name: webserver
+    depends_on:
+      - database
+    volumes:
+      - ./:/var/www/html/
+    ports:
+      - "80:80"
+    stdin_open: true
+    tty: true
