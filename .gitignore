@@ -1,34 +1,34 @@
-/nbproject/
-/.idea/
+nbproject/
+.idea/
 
-/.well-know/
+.well-know/
 .htaccess
 
-/.dbdata/
+docker/mysql/.data/
 
 config.inc.php
 
-/modules/*
-!/modules/dashboard/
-!/modules/framework/
+modules/*
+!modules/dashboard/
+!modules/framework/
 
-/uploads/*
-!/uploads/framework/
-/uploads/framework/*
-!/uploads/framework/logo.default.png
-!/uploads/framework/favicon.default.ico
-!/uploads/framework/users/
-/uploads/framework/users/*
-!/uploads/framework/users/avatar.jpg
-!/uploads/framework/users/avatar_man.jpg
-!/uploads/framework/users/avatar_woman.jpg
-!/uploads/framework/mails/
-/uploads/framework/mails/*
-!/uploads/framework/mails/template.default.html
-!/uploads/framework/mails/header.default.png
-!/uploads/dashboard/
-/uploads/dashboard/*
+uploads/*
+!uploads/framework/
+uploads/framework/*
+!uploads/framework/logo.default.png
+!uploads/framework/favicon.default.ico
+!uploads/framework/users/
+uploads/framework/users/*
+!uploads/framework/users/avatar.jpg
+!uploads/framework/users/avatar_man.jpg
+!uploads/framework/users/avatar_woman.jpg
+!uploads/framework/mails/
+uploads/framework/mails/*
+!uploads/framework/mails/template.default.html
+!uploads/framework/mails/header.default.png
+!uploads/dashboard/
+uploads/dashboard/*
 
-/tmp/*
+tmp/*
 
 !index.php
