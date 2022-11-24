@@ -1,30 +1,29 @@
 # Coordinator Framework
-coordinator-framework
 
-Work in progress..
-
-Checkout develop branch!
+Development URL: [http://localhost:8080](http://localhost:8080) 
 
 ## Development
 
-Setup up the development environment.
+Setup the development environment.
 
 ### Build Docker images
 
-Build and run docker services (database and webserver):
+Build and run docker services (database, webserver and interpreter):
 
-`docker-compose -f devs.docker-compose.yml build`
+`cd docker`
 
-`docker-compose -f devs.docker-compose.yml up -d`
+`docker compose -p coordinator-framework up -d`
 
-Setup the configuration file:
+Configuration file:
+
+`config.inc.php`
 
 ```
 <?php
 $configuration->path="/";
 $configuration->db_type="mysql";
 $configuration->db_host="localhost";
-$configuration->db_port="3306";
+$configuration->db_port="33060";
 $configuration->db_name="database";
 $configuration->db_user="developer";
 $configuration->db_pass="developer";
