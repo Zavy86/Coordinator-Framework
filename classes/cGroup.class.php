@@ -37,8 +37,8 @@
    // set properties
    $this->id=(int)$group->id;
    $this->fkGroup=(int)$group->fkGroup;
-   $this->name=stripslashes($group->name);
-   $this->description=stripslashes($group->description);
+   $this->name=stripslashes((string)$group->name);
+   $this->description=stripslashes((string)$group->description);
    $this->addTimestamp=(int)$group->addTimestamp;
    $this->addFkUser=(int)$group->addFkUser;
    $this->updTimestamp=(int)$group->updTimestamp;

@@ -309,7 +309,7 @@ abstract class cObject{
 			// skip undefined properties
 			if(!array_key_exists($property,get_object_vars($this))){continue;}
 			// check for change
-			if($this->$property!==trim($value)){
+			if($this->$property!==trim((string)$value)){
 				// save previous and current value for event
 				$event_properties_array[$property]=array("previous"=>$this->$property,"current"=>trim($value));
 				// overwrite property value
@@ -382,6 +382,7 @@ abstract class cObject{
 		if(!array_key_exists("status",get_object_vars($this))){trigger_error("Status property does not exist in class: \"".static::class."\"",E_USER_ERROR);}
 		// check parameters
 		if(!$status){trigger_error("Status parameter cannot be null in class: \"".static::class."\"",E_USER_ERROR);}
+		if(!is_array($additional_properties)){$additional_properties=array($additional_properties);}
 		// check existence
 		if(!$this->exists()){return false;}
 		// get current status
