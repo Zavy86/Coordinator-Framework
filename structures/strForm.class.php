@@ -113,6 +113,23 @@
    return true;
   }
 
+   /**
+    * Add Custom Field
+    *
+    * @param string $source Custom field source
+    * @return boolean
+    */
+   public function addCustomField($source){
+     // build field object
+     $field=new stdClass();
+     $field->typology="custom";
+     $field->source=$source;
+     // add field to form
+     $this->current_field++;
+     $this->fields_array[$this->current_field]=$field;
+     return true;
+   }
+
   /**
    * Add Form Field Addon
    *
@@ -278,6 +295,11 @@
      $return.="  <!-- form-splitted row left col -->\n";
      $return.="  <div class=\"col-sm-6\">\n";
      continue;
+    }
+     // custom
+    if($field->typology=="custom"){
+      $return.=$field->source;
+      continue;
     }
     // make field tags
     $field_tags=" class=\"form-control ".$field->class."\" name=\"".$field->name."\"";
