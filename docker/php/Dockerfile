@@ -10,6 +10,7 @@ RUN apk update && \
     && docker-php-ext-enable pdo_mysql \
     && docker-php-ext-install ldap \
     && docker-php-ext-enable ldap \
+    && docker-php-ext-enable gd \
     && apk del $PHPIZE_DEPS \
     && rm -rf /var/cache/apk/*
 EXPOSE 80
