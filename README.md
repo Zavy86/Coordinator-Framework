@@ -10,9 +10,7 @@ Setup the development environment.
 
 Build and run docker services (database, webserver and interpreter):
 
-`cd docker`
-
-`docker compose -p coordinator-framework up -d`
+`make dev`
 
 Configuration file:
 
