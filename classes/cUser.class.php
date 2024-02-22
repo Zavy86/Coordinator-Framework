@@ -291,6 +291,7 @@
     $authorizations_recursive_results=$GLOBALS['database']->queryObjects($authorizations_query);
     // merge authorizations
     foreach($authorizations_recursive_results as $authorization){
+		 if(!is_array($authorization)){continue;}
      if(!array_key_exists($authorization->id,$return[$authorization->fkModule])){
       $return[$authorization->fkModule][$authorization->id]="inherited";
      }

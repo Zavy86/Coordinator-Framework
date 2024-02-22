@@ -65,7 +65,7 @@ abstract class cTranscoding{
 	 */
 	public function __construct($transcoding=null){
 		// check for object or try to load from code
-		if(!is_object($transcoding) && strlen($transcoding)){$transcoding=$this->load($transcoding);}
+		if(!is_object($transcoding) && strlen($transcoding??'')){$transcoding=$this->load($transcoding);}
 		// check object and properties
 		if(!$transcoding->code){return false;}
 		if(!$transcoding->text){return false;}
