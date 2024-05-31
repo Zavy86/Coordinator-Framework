@@ -9,10 +9,10 @@
  * @link    http://www.coordinator.it
  */
 
- /**
-  * Modal structure class
-  */
- class strModal{
+/**
+ * Modal structure class
+ */
+class strModal{
 
   /** Properties */
   protected $id;
@@ -32,11 +32,11 @@
    * @return boolean
    */
   public function __construct($title=null,$class=null,$id=null){
-   $this->id="modal_".($id?$id:api_random());
-   $this->title=$title;
-   $this->class=$class;
-   $this->size="normal";
-   return true;
+    $this->id="modal_".($id?$id:api_random());
+    $this->title=$title;
+    $this->class=$class;
+    $this->size="normal";
+    return true;
   }
 
   /**
@@ -54,9 +54,9 @@
    * @return boolean
    */
   public function setTitle($title){
-   if(!$title){return false;}
-   $this->title=$title;
-   return true;
+    if(!$title){return false;}
+    $this->title=$title;
+    return true;
   }
 
   /**
@@ -66,9 +66,9 @@
    * @return boolean
    */
   public function setHeader($content){
-   if(!$content){return false;}
-   $this->header=$content;
-   return true;
+    if(!$content){return false;}
+    $this->header=$content;
+    return true;
   }
 
   /**
@@ -78,9 +78,9 @@
    * @return boolean
    */
   public function setBody($content){
-   if(!$content){return false;}
-   $this->body=$content;
-   return true;
+    if(!$content){return false;}
+    $this->body=$content;
+    return true;
   }
 
   /**
@@ -90,9 +90,9 @@
    * @return boolean
    */
   public function setFooter($content){
-   if(!$content){return false;}
-   $this->footer=$content;
-   return true;
+    if(!$content){return false;}
+    $this->footer=$content;
+    return true;
   }
 
   /**
@@ -102,9 +102,9 @@
    * @return boolean
    */
   public function setSize($size){
-   if(!in_array($size,array("normal","small","large"))){return false;}
-   $this->size=strtolower($size);
-   return true;
+    if(!in_array($size,array("normal","small","large"))){return false;}
+    $this->size=strtolower($size);
+    return true;
   }
 
   /**
@@ -118,7 +118,7 @@
    * @return string Link HTML source code
    */
   public function link($label,$title=null,$class=null,$confirm=null,$style=null,$tags=null){
-   return api_link("#".$this->id,$label,$title,$class,false,$confirm,$style,"data-toggle='modal' ".$tags,"_self",$this->id);
+    return api_link("#".$this->id,$label,$title,$class,false,$confirm,$style,"data-toggle='modal' ".$tags,"_self",$this->id);
   }
 
   /**
@@ -127,36 +127,34 @@
    * @return string HTML source code
    */
   public function render(){
-   // make size
-   switch($this->size){
-    case "small":$size_class=" modal-sm";break;
-    case "large":$size_class=" modal-lg";break;
-    default:$size_class=null;
-   }
-   // build html source coide
-   $return="<!-- ".$this->id." -->\n";
-   $return.="<div class=\"modal fade ".$this->class."\" id=\"".$this->id."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"".$this->id."-label\">\n";
-   $return.=" <div class=\"modal-dialog".$size_class."\" role=\"document\">\n";
-   $return.="  <div class=\"modal-content\">\n";
-   // renderize modal window header
-   if($this->header || $this->title){
-    $return.="   <div class=\"modal-header\">\n";
-    $return.="    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n";
-    // show title
-    if($this->title){$return.="     <h4 class=\"modal-title\" id=\"".$this->id."-label\">".$this->title."</h4>\n";}
-    $return.=$this->header."   </div>\n";
-   }
-   // renderize modal window body
-   $return.="   <div class=\"modal-body\">\n".$this->body."   </div>\n";
-   // renderize modal window footer
-   if($this->footer){$return.="   <div class=\"modal-footer\">\n".$this->footer."   </div>\n";}
-   $return.="  </div>\n";
-   $return.=" </div>\n";
-   $return.="</div><!-- /".$this->id." -->\n";
-   // return html source code
-   return $return;
+    // make size
+    switch($this->size){
+      case "small":$size_class=" modal-sm";break;
+      case "large":$size_class=" modal-lg";break;
+      default:$size_class=null;
+    }
+    // build html source coide
+    $return="<!-- ".$this->id." -->\n";
+    $return.="<div class=\"modal fade ".$this->class."\" id=\"".$this->id."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"".$this->id."-label\">\n";
+    $return.=" <div class=\"modal-dialog".$size_class."\" role=\"document\">\n";
+    $return.="  <div class=\"modal-content\">\n";
+    // renderize modal window header
+    if($this->header || $this->title){
+      $return.="   <div class=\"modal-header\">\n";
+      $return.="    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n";
+      // show title
+      if($this->title){$return.="     <h4 class=\"modal-title\" id=\"".$this->id."-label\">".$this->title."</h4>\n";}
+      $return.=$this->header."   </div>\n";
+    }
+    // renderize modal window body
+    $return.="   <div class=\"modal-body\">\n".$this->body."   </div>\n";
+    // renderize modal window footer
+    if($this->footer){$return.="   <div class=\"modal-footer\">\n".$this->footer."   </div>\n";}
+    $return.="  </div>\n";
+    $return.=" </div>\n";
+    $return.="</div><!-- /".$this->id." -->\n";
+    // return html source code
+    return $return;
   }
 
- }
-
-?>
+}
